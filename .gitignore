@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+static
+__pycache__
+
+# Ignore configuration file
+.env
+
+# Using this for pyenv in development environment.
+.python-version
+
+# Ignore the node modules
+node_modules
