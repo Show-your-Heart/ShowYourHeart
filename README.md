@@ -5,6 +5,7 @@ Show your Heart application
 * [General info](#general-information)
 * [Technologies](#technologies)
 * [External services and resources](#external-services-and-resources)
+* [Local environment setup for development](#local-environment-setup-for-development)
 
 ## General information
 
@@ -33,7 +34,7 @@ the list in `project.toml`.
 - npm, for Tailwind compilation
 - Poetry, a python package manager
 
-### Why this stack?
+### Why did we choose this stack?
 
 This project (which is a rewrite of a previous version made in Java) was originally
 developed by a group of cooperatives and other entities, raising the need of
@@ -102,3 +103,29 @@ The application needs are:
 - A **remote logging** platform.
 - A VPS or serverless service to run the **Docker container**.
 
+## Local environment setup for development
+
+If you don't intend to make any changes to the Tailwind classes or any css, you
+could setup only the backend part.
+
+### Backend
+
+1. Clone the repository into a local folder.
+1. Install Python 3.12, we recommend [pyenv.py](https://github.com/pyenv/pyenv)
+for it, by doing `pyenv install 3.12` and then in the repository folder
+`pyenv local 3.12`. Finally, check the version by going to the local folder and running `python -V`.
+1. Install [Poetry](https://python-poetry.org/) or update it (`poetry self update`) to the latest version.
+1. At the project's root, run `poetry install`.
+1. Copy the `docker/.env.example` file to `docker/.env` and modify as needed, but
+the initial setup should let the project initialize already.
+1. Install or update [Docker](https://www.docker.com/) and from the `docker/` folder run `docker compose up --build`.
+1. In another terminal, access the docker's container bash (`docker exec -it showyourheart-app bash`) and run `python manage.py migrate`.
+1. Open `http://localhost:1601`.
+
+In the future, when you pull a new version of the app, repeat the last 3 steps
+to make sure that you create an updated version of the Docker image and database
+migrations are applied.
+
+### Frontend
+
+TO-DO.
