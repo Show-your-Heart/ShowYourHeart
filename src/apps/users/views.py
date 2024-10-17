@@ -1,7 +1,7 @@
 from itertools import islice
 
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth.views import (
     LoginView as BaseLoginView,
 )
@@ -43,6 +43,7 @@ class LoginView(AnonymousRequiredMixin, BaseLoginView):
     form_class = AuthenticationForm
 
 
+@login_not_required
 @anonymous_required
 def signup_view(request):
     if request.method == "POST":
@@ -59,7 +60,6 @@ def signup_view(request):
     return render(request, "registration/signup.html", {"form": form})
 
 
-@login_required
 def details_view(request):
     form = ProfileDetailsForm(request.POST or None, instance=request.user)
     new_email = request.user.email
@@ -216,5 +216,6 @@ class PasswordChangeDoneView(StandardSuccess):
     link_text = _("Go back")
 
 
+@login_not_required
 def privacy_policy_view(request):
     return render(request, "registration/privacy_policy.html")

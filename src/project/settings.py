@@ -139,7 +139,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "login_required.middleware.LoginRequiredMiddleware",
+    "django.contrib.auth.middleware.LoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
@@ -182,23 +182,9 @@ LOGIN_REDIRECT_URL = reverse_lazy("home")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#logout-redirect-url
 LOGOUT_REDIRECT_URL = "/"
 
-# Setting for the LoginRequiredMiddleware middleware
-# Using paths instead of view names so we can whitelist entire sections.
-# https://github.com/CleitonDeLima/django-login-required-middleware#quick-start
-LOGIN_REQUIRED_IGNORE_PATHS = [
-    # We had to add this one because the base URL without any language was still
-    # captures by the middleware and redirecting you to login, even with "home"
-    # included in LOGIN_REQUIRED_IGNORE_VIEW_NAMES.
-    "",
-    r"^/admin/",  # If your project is not using the PUBLIC admin views for login
-    # and password recovery, you probably don't need this.
-    "/favicon.ico",
-    STATIC_URL,
-]
-# Whitelisting by URL name:
-LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
-    # Beware that "home" only ignores requests when a language is included in the
-    # URL. See LOGIN_REQUIRED_IGNORE_PATHS comments above.
+# In theory, everywhere that the user will have access while not logged in
+# should be also accessible if it's logged in but without the email validated.
+VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
     "home",
     "registration:signup",
     "registration:privacy_policy",
@@ -207,15 +193,10 @@ LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
     "registration:password_reset_confirm",
     "registration:password_reset_done",
     "registration:password_reset_complete",
-]
-
-# In theory, everywhere that the user will have access while not logged in
-# should be also accessible if it's logged in but without the email validated.
-VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = LOGIN_REQUIRED_IGNORE_VIEW_NAMES + [
-    "registration:profile_details",
-    "registration:logout",
     "registration:password_change",
     "registration:password_change_done",
+    "registration:profile_details",
+    "registration:logout",
     "registration:profile_details_success",
     "registration:user_validation",
     "registration:send_verification_code",
