@@ -18,6 +18,7 @@ from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView
 
@@ -37,6 +38,7 @@ from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
 
 
+@method_decorator(login_not_required, name="dispatch")
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
     template_name = "registration/login.html"
     success_url = reverse_lazy("registration:profile_details")
@@ -115,6 +117,7 @@ class EmailVerificationCompleteView(StandardSuccess):
     link_text = _("Go back")
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
     form_class = PasswordResetForm
     template_name = "registration/password_reset_confirm.html"
@@ -138,6 +141,7 @@ class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
         return super().form_valid(form)
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmView):
     form_class = PasswordResetConfirmForm
     template_name = "registration/password_reset_form.html"
@@ -169,6 +173,7 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmV
                 return redirect("registration:invalid_link")
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetInvalidLinkView(AnonymousRequiredMixin, StandardSuccess):
     template_name = "standard_success.html"
     title = _("Invalid link")
@@ -179,6 +184,7 @@ class PasswordResetInvalidLinkView(AnonymousRequiredMixin, StandardSuccess):
     link_text = _("Go back")
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetDoneView(AnonymousRequiredMixin, StandardSuccess):
     template_name = "standard_success.html"
     title = _("Password reset sent")
@@ -192,6 +198,7 @@ class PasswordResetDoneView(AnonymousRequiredMixin, StandardSuccess):
     link_text = _("Go back")
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     template_name = "standard_success.html"
     title = _("Password reset complete")
@@ -201,12 +208,14 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     link_text = _("Login")
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordChangeView(BasePasswordChangeView):
     form_class = PasswordChangeForm
     template_name = "registration/password_change_form.html"
     success_url = reverse_lazy("registration:password_change_done")
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordChangeDoneView(StandardSuccess):
     template_name = "standard_success.html"
     title = _("Done!")
