@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-09 18:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: src/templates/base.html:17
+msgid "Home"
+msgstr ""
+
+#: src/templates/base.html:18
+msgid "Log in"
+msgstr ""
+
+#: src/templates/base.html:19 src/templates/registration/signup.html:4
+msgid "Sign up"
+msgstr "Registrar-se"
+
+#: src/templates/base.html:20
+#: src/templates/registration/password_reset_form.html:4
+msgid "Password recovery"
+msgstr ""
+
+#: src/templates/base.html:23 src/templates/profile/details.html:4
+msgid "Profile details"
+msgstr "Detalls del perfil"
+
+#: src/templates/base.html:24
+msgid "Log out"
+msgstr ""
+
+#: src/templates/base_success.html:6
+msgid "Done!!"
+msgstr "Fet!"
+
+#: src/templates/base_success.html:10
+msgid "Registry successfully updated."
+msgstr ""
+
+#: src/templates/base_success.html:12
+msgid "Back"
+msgstr "Enrere"
+
+#: src/templates/home.html:5
+msgid "Initial home page"
+msgstr ""
+
+#: src/templates/profile/details.html:8
+msgid "Save"
+msgstr ""
+
+#: src/templates/registration/login.html:5
+msgid "Log-in"
+msgstr ""
+
+#: src/templates/registration/login.html:9
+msgid "Enter your account details to authenticate."
+msgstr ""
+
+#: src/templates/registration/login.html:19
+msgid "Forgotten your password?"
+msgstr ""
+
+#: src/templates/registration/login.html:21
+msgid "If you are not registered yet:"
+msgstr ""
+
+#: src/templates/registration/login.html:24
+msgid "Sign-up"
+msgstr ""
+
+#: src/templates/registration/password_reset_confirm.html:4
+msgid "New password"
+msgstr ""
+
+#: src/templates/registration/password_reset_confirm.html:8
+msgid "Set"
+msgstr ""
+
+#: src/templates/registration/password_reset_form.html:8
+msgid "Send"
+msgstr ""

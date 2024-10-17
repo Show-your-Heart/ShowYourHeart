@@ -1,0 +1,21 @@
+{% extends "/base_success.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{{ page_title }}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} message {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_success.html #}
+{% block success_extra %}{% endblock %}
+{% block success_btn_url %}javascript:history.back(){% endblock %}
+{% block success_btn_text %}{% translate "Go back" %}{% endblock %}
+
+{% block success_title %}
+  {% translate "Error 503: Maintenance mode enabled" %}
+{% endblock %}
+
+{% block success_text %}
+  {% translate "The application is currently under maintenance, please try again in few minutes." %}
+{% endblock %}

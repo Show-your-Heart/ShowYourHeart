@@ -1,0 +1,73 @@
+// Dynamic variables
+body {
+  --font-size: 14px;
+  --line-height: 22px;
+}
+.text-sm {
+  --font-size: 10px;
+  --line-height: 18px;
+}
+.title-1, h1 {
+  --font-size: 40px;
+  --line-height: 48px;
+}
+.title-2, h2 {
+  --font-size: 24px;
+  --line-height: 32px;
+}
+.title-3, h3 {
+  --font-size: 17px;
+  --line-height: 22px;
+}
+
+@media (min-width: 1024px) {
+  body {
+    --font-size: 16px;
+    --line-height: 22px;
+  }
+  .text-sm {
+    --font-size: 12px;
+    --line-height: 20px;
+  }
+  .title-1, h1 {
+    --font-size: 48px;
+    --line-height: 60px;
+  }
+  .title-2, h2 {
+    --font-size: 28px;
+    --line-height: 36px;
+  }
+  .title-3, h3 {
+    --font-size: 18px;
+    --line-height: 24px;
+  }
+}
+
+// Layout
+body {
+  font-family: 'Calibri', sans-serif;
+  color: var(--blackish);
+}
+.text-sm {
+  font-weight: 400;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+.title-1, h1 {
+  font-weight: 700;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+.title-2, h2 {
+  font-weight: 400;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+.title-3, h3 {
+  font-weight: 700;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+.is-bold {
+  font-weight: 700;
+}

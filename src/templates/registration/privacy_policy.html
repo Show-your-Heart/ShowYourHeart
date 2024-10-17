@@ -1,0 +1,29 @@
+{% extends "../base.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+
+{% block page_title %}{% translate "Privacy policy" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} privacy {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{% block main %}
+  <div
+    class="p-4 bg-gray-100 rounded-lg shadow w-full
+    md:p-6
+    xl:p-8
+    dark:bg-gray-800">
+    <h1 class="pt-4 pb-8 text-5xl font-semibold text-gray-900 dark:text-white">
+      {% translate "Privacy policy" %}
+    </h1>
+    <p class="mb-6 text-lg text-gray-700 md:text-xl dark:text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto rem eveniet omnis. Id, praesentium natus, unde nihil earum obcaecati ipsa corporis labore, eligendi necessitatibus tempora suscipit quisquam. Harum, eveniet voluptatum?</p>
+    
+    <p class="mb-6 text-gray-900 dark:text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo accusantium culpa sequi ipsa ullam voluptate labore, dolorum eligendi alias. Explicabo voluptas ut ullam at enim esse quas quidem ab itaque.</p>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <p class="mb-3 text-gray-900 dark:text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi vero rem debitis hic atque ducimus ipsam ipsum, minima ab error quis soluta facere corrupti praesentium animi necessitatibus veniam provident obcaecati. Error quia possimus officia quibusdam odio exercitationem esse dolorum eum asperiores! Doloribus ea impedit quas rem animi natus, doloremque quidem similique, aliquam at sint veniam tenetur voluptas ad earum distinctio?</p>
+        <p class="mb-3 text-gray-900 dark:text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi vero rem debitis hic atque ducimus ipsam ipsum, minima ab error quis soluta facere corrupti praesentium animi necessitatibus veniam provident obcaecati. Error quia possimus officia quibusdam odio exercitationem esse dolorum eum asperiores! Doloribus ea impedit quas rem animi natus, doloremque quidem similique, aliquam at sint veniam tenetur voluptas ad earum distinctio?</p>
+    </div>
+
+  </div>
+{% endblock %}

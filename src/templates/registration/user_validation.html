@@ -1,0 +1,23 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Mail validation" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %}{% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block form_intro %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block submit_text %}{% translate "Go" %}{% endblock %}
+{% block form_outro %}{% endblock %}
+
+{% block form_fields %}
+  {{ form }}
+  {% block submit_value %}{% endblock %}
+{% endblock %}
+
+{% block after_form_content %}
+{% endblock after_form_content %}

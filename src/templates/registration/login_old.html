@@ -1,0 +1,85 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Log in" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} login grid-1 {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block form_classes %} grid-item-4-9 {% endblock %}
+
+{% block before_form_content %}
+<div class="form__title grid-item-4-9">
+  <h2>{% translate "Log-in" %}</h2>
+</div>
+{% endblock %}
+
+{% block form_introduction %}
+<div class="form__intro text-md">
+  <p>{% translate "Enter your account details to authenticate." %}</p>
+</div>
+{% endblock %}
+
+{% block form_fields %}
+  <div class="field {% if form.username.errors %}error{% endif %}">
+    <label for="{{ form.username.id_for_label }}">
+      {{ form.username.label }}
+    </label>
+    {% if form.username.errors %}
+      <span class="field__error text-sm">{{ form.username.errors.0 }}</span>
+    {% endif %}
+    {{ form.username }}
+    {% if form.username.help_text %}
+      <span class="field__helptext text-sm">{{ form.username.help_text }}</span>
+    {% endif %}
+  </div>
+
+  <div class="field {% if form.password.errors %}error{% endif %}">
+    <label for="{{ form.password.id_for_label }}">
+      {{ form.password.label }}
+    </label>
+    {% if form.password.errors %}
+      <span class="field__error text-sm">{{ form.password.errors.0 }}</span>
+    {% endif %}
+    {{ form.password }}
+    {% if form.password.help_text %}
+    <span class="field__helptext text-sm">{{ form.password.help_text }}</span>
+  {% endif %}
+  </div>
+
+  <div class="field-checkbox {% if form.remember_me.errors %}error{% endif %}">
+    <label for="{{ form.remember_me.id_for_label }}">
+      {{ form.remember_me.label }}
+    </label>
+    {{ form.remember_me }}
+    <span class="field-checkbox__custom"></span>
+    {% if form.remember_me.errors %}
+      <span class="field__error text-sm">{{ form.remember_me.errors.0 }}</span>
+    {% endif %}
+    {% if form.remember_me.help_text %}
+      <span class="field__helptext text-sm">{{ form.remember_me.help_text }}</span>
+    {% endif %}
+  </div>
+
+<!-- {% block submit_text %}{% translate 'Go in' %}{% endblock %} -->
+{% endblock %}
+
+{% block after_form_content %}
+<div class="login__afterform grid-item-4-9">
+  <div class="form__outro text-md">
+    <a href="{% url 'registration:password_reset' %}">
+      {% translate "Forgotten your password?" %}
+    </a>
+  </div>
+  <div class="form__outro">
+    <p>{% translate "If you are not registered yet:" %}</p>
+    <a href="{% url 'registration:signup' %}">
+      <div class="btn btn--sec-empty">
+        <p>{% translate "Sign-up" %}</p>
+      </div>
+    </a>
+  </div>
+</div>
+{% endblock %}

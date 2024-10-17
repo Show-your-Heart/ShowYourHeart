@@ -1,0 +1,21 @@
+{% extends "./base_success.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{{ page_title }}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} message {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_success.html #}
+{% block success_extra %}{% endblock %}
+{% block success_btn_url %}javascript:history.back(){% endblock %}
+{% block success_btn_text %}{% translate "Go back" %}{% endblock %}
+
+{% block success_title %}
+  {% translate "Error 500: Internal server error" %}
+{% endblock %}
+
+{% block success_text %}
+  {% translate "The server encountered an unexpected condition that prevented it from fulfilling the request." %}
+{% endblock %}

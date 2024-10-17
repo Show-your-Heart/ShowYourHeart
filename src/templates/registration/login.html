@@ -1,0 +1,47 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Log in" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} login {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+
+{% block form_intro %}
+  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    {% translate "Sign in to your account" %}
+  </h1>
+{% endblock %}
+
+{% block form_fields %}
+  {{ form }}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="block mb-4 text-sm text-red-700 dark:text-red-500">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+
+{% block submit_text %}{% translate 'Sign in' %}{% endblock %}
+
+{% block form_outro %}
+<a href="{% url 'registration:password_reset' %}"
+  class="inline-flex text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+  {% translate "Forgot your password?" %}
+</a>
+<p class="text-sm font-light text-gray-500 dark:text-gray-400">
+  {% translate "Don’t have an account yet?" %}
+  <a href="{% url 'registration:signup' %}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+    {% translate "Sign-up" %}
+  </a>
+</p>
+{% endblock %}
+

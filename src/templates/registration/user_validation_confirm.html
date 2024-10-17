@@ -1,0 +1,28 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "New password" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} password {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block form_classes %}{% endblock %}
+
+{% block form_fields %}
+  <div class="field {% if form.email.errors %}error{% endif %}">
+    <label for="{{ form.email.id_for_label }}">
+      {{ form.email.label }}
+    </label>
+    {% if form.email.errors %}
+      <span class="field__error text-sm">{{ form.email.errors.0 }}</span>
+    {% endif %}
+    {{ form.email }}
+    {% if form.email.help_text %}
+      <span class="field__helptext text-sm">{{ form.email.help_text }}</span>
+    {% endif %}
+  </div>
+
+<!-- {% block submit_text %}{% translate 'Set' %}{% endblock %} -->
+{% endblock %}

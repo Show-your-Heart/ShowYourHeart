@@ -1,0 +1,64 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Demo" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} demo {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{% block main %}
+<nav class="flex mb-4" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+    <li class="inline-flex items-center">
+      <a href="{% url 'home' %}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">
+        <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+          <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+        </svg>
+        {% translate 'Home' %}
+      </a>
+    </li>
+  </ol>
+</nav>
+<div class="flex flex-col mx-auto md:max-w-screen-sm">
+  <h1 class="mb-8 text-2xl font-bold leading-tight tracking-tight text-gray-900
+      md:text-3xl dark:text-white">
+    {% translate "Demo List" %}
+  </h1>
+  <div class="mb-4 text-gray-900 dark:text-white">
+    <p>{% translate 'Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt mollitia?' %}</p>
+  </div>
+  <a class="self-end mb-4" href="{% url 'create' %}" id="id_create_data">
+    <div class="flex gap-3 justify-end items-center w-fit mt-4 px-5 py-2.5 rounded-lg bg-primary-600
+      text-white font-bold text-sm text-center cursor-pointer
+      hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
+      dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:text-primary-900">
+      <p>{% translate "Create new data" %}</p>
+      <svg class="w-6 h-6 text-white dark:text-primary-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+      </svg>
+    </div>
+  </a>
+</div>
+  <div class="py-8 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+      <div class="grid space-y-6 mx-auto
+        md:max-w-screen-sm
+        lg:grid-cols-2 lg:gap-12 lg:space-y-0">
+        {% if data %}
+          {% for datum in data %}
+            <a href="{% url 'details' id=datum.id %}" class="flex justify-between items-center p-4 bg-white rounded-lg border-l-8 border-primary-600 shadow dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-primary-500 hover:bg-gray-50" id="id_details_{{ datum.id }}">
+              <div>
+                  <span class="block mb-1 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">13/07/2024</span>
+                  <span class="text-xl font-semibold text-primary-600 dark:text-primary-500">{{ datum.field_text_1 }}</span>
+              </div>
+              <svg class="w-6 h-6 text-primary-600 dark:text-primary-500" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </a>
+          {% endfor %}
+        {% else %}
+        <div class="mb-4 mx-auto text-gray-900 dark:text-white md:max-w-screen-sm">
+          <p>{% translate 'There is nothing ot show because nothing has been created. Go ahead and start!' %}</p>
+        </div>
+      {% endif %}
+      </div>
+  </div>
+{% endblock %}

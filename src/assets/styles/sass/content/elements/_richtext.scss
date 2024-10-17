@@ -1,0 +1,21 @@
+// Estils per enllaços
+.richtext a {
+  font-weight: bold;
+  color: var(--brown);
+}
+// Estils per negretes
+.richtext b {
+  font-weight: bold;
+}
+// Estils per cursives
+.richtext i {
+  font-style: italic;
+}
+// Estils per quotes
+.richtext blockquote {
+  
+}
+// Separació de paràgrafs de text
+.richtext p + p {
+  padding-top: 1em;
+}

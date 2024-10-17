@@ -1,0 +1,42 @@
+version: "3.5"
+
+networks:
+  showyourheart-network:
+    name: showyourheart-network
+
+services:
+  showyourheart-app:
+    restart: on-failure
+    container_name: showyourheart-app
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: development
+    env_file: ./.env
+    command: gunicorn project.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
+    ports:
+      - "1601:8000"
+    volumes:
+      - ../src:/srv
+    depends_on:
+      - showyourheart-db
+    networks:
+      - showyourheart-network
+
+  showyourheart-db:
+    container_name: showyourheart-db
+    image: postgres:14
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ../dumps:/dumps
+    networks:
+      - showyourheart-network
+
+  showyourheart-selenium:
+    container_name: showyourheart-selenium
+    image: selenium/standalone-chrome:4.16.0
+    ports:
+      - "4444:4444"
+    networks:
+      - showyourheart-network

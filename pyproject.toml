@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "Show your heart"
+version = "0.1.0"
+description = "Show your Heart application"
+authors = [""]
+license = "agpl-3.0"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+Django = "^5.0.3"
+psycopg2-binary = "^2.9.6"
+
+django-extensions = "^3.2.3"
+django-environ = "^0.11.2"
+django-maintenance-mode = "^0.19.0"
+django-constance = {extras = ["database"], version = "^3.1.0"}
+django-storages = "^1.13.2"
+django-post-office = "^3.9"
+django-login-required-middleware = "^0.9.0"
+django-sendgrid-v5 = "^1.2.2"
+django-logentry-admin = "^1.1.0"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.2.0"}
+
+gunicorn = "^21.2.0"
+whitenoise = "^6.5.0"
+boto3 = "^1.28.9"
+redis = "^5.0.1"
+
+structlog = "^23.1.0"
+django-structlog = "^6.0.0"
+rich = "^13.4.2"
+icecream = "^2.1.3"
+codi-cooperatiu-internal-tools = "^0.1"
+
+[tool.poetry.group.dev.dependencies]
+selenium = "^4.19.0"
+ruff = "^0.1.4"
+pytest = "^7.4.0"
+pytest-django = "^4.5.2"
+pytest-sugar = "^0.9.7"
+factory-boy = "^3.3.0"
+
+[tool.ruff]
+# See https://docs.astral.sh/ruff/settings/ for Ruff's settings
+# See https://docs.astral.sh/ruff/rules/ for a list of all Ruff's rules
+extend-select = ["I", "F", "E", "W", "N", "B", "DJ"]
+extend-exclude = ["migrations"]
+src = ["src"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

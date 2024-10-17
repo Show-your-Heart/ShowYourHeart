@@ -1,0 +1,45 @@
+name: "lint"
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout project"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: "Install Poetry"
+        run: |
+          # This POETRY_VERSION must be kept in sync with the Dockerfile's
+          POETRY_VERSION=1.7.0 curl -sSL "https://install.python-poetry.org" | python -
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: "Install dependencies"
+        run: |
+          poetry install --no-interaction -vvv
+
+      - name: "CI"
+        run: |
+          # Checks pyproject.toml doesn't contain any errors
+          poetry run poetry check
+          # Checks pyproject.toml and poetry.lock are in sync
+          poetry run poetry lock
+          # Lints whole project
+          poetry run ruff check --output-format=github .
+          # Checks for any errors in translation files
+          poetry run dennis-cmd lint --errorsonly src/locale/
+
+      - name: "Format"
+        run: |
+          poetry run ruff format .

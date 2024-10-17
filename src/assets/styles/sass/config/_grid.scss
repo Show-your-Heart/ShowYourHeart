@@ -1,0 +1,100 @@
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+// En aquest cas en concret no es fan servir les 
+// variables custom CSS com a media queries
+// sino media queries tradicionals
+
+// Versió mòbil i tablet
+// Grid amb més padding
+.grid-1 {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--padding-md);
+}
+// Grid amb menys padding
+.grid-2 {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--padding-sm);
+  gap: var(--padding-sm);
+}
+
+// Element col·locat
+// Lone items
+.grid-item-full {
+  grid-column: 1 / -1;
+}
+.grid-item-4-9 {
+  grid-column: 4 / span 5;
+}
+.grid-item-2-6 {
+  grid-column: 2 / span 4;
+}
+.grid-item-8-11 {
+  grid-column: 8 / span 4;
+}
+// Items que es reparteixen en 4 columnes
+.grid-item-3 {
+  grid-column: span 3;
+}
+.grid-item-1-4 {
+  grid-column: 1 / span 3;
+}
+.grid-item-4-6 {
+  grid-column: 4 / span 3;
+}
+.grid-item-6-9 {
+  grid-column: 6 / span 3;
+}
+.grid-item-9-12 {
+  grid-column: 9 / span 3;
+}
+// Items que es reparteixen en 3 columnes
+.grid-item-4 {
+  grid-column: span 4;
+}
+.grid-item-1-4 {
+  grid-column: 1 / span 4;
+}
+.grid-item-5-8 {
+  grid-column: 5 / span 4;
+}
+.grid-item-9-12 {
+  grid-column: 9 / span 4;
+}
+// Items que es reparteixen en 2 columnes
+.grid-item-6 {
+  grid-column: span 6;
+}
+.grid-item-1-6 {
+  grid-column: 1 / span 6;
+}
+.grid-item-7-12 {
+  grid-column: 7 / span 6;
+}
+
+// Versió laptop i desktop
+@media (min-width: 1024px) {
+  .grid-1, .grid-2 {
+    display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(90px,1fr));
+    grid-template-columns: repeat(12, minmax(auto, 1fr));
+    justify-content: center;
+    align-items: start;
+    grid-auto-rows: auto;
+  }
+}
+
+// Versió monitor
+@media (min-width: 1900px) {
+  .grid-1, .grid-2 {
+    grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+  }
+}
