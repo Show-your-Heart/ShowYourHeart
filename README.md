@@ -105,10 +105,31 @@ The application needs are:
 
 ## Local environment setup for development
 
-If you don't intend to make any changes to the Tailwind classes or any css, you
-could setup only the backend part.
+### Overview
+
+In your local environment the app will run in a Docker container, along with
+a Postgres and a Selenium container.
+
+The app's container mounts the `/src` folder, therefore every change done in
+the files inside `/src` will also be applied in the container's code, then
+Gunicorn will detect the change and automatically reload the app.
+
+Given this setup, you could already work by cloning the repository, starting the
+containers, and just editing the code inside `/src`.
+
+The problem with that is that it will be more difficult to browse around the code,
+for example, your IDE will not be able to find the source of the
+imported modules.
+
+We recommend you to set it up in a way that you have a local virtual environment
+which will allow your IDE to correctly check references, jump to code definitions,
+etc, and that's the reason the next steps require you to install a couple of
+tools in your system.
 
 ### Backend
+
+If you don't intend to make any changes to the Tailwind classes or any css, you
+could setup only the backend part.
 
 1. Clone the repository into a local folder.
 1. Install Python 3.12, we recommend [pyenv.py](https://github.com/pyenv/pyenv)
