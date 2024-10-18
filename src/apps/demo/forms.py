@@ -21,7 +21,7 @@ class DataForm(forms.ModelForm):
         widgets = {
             "field_password": forms.PasswordInput,
             "field_password_confirm": forms.PasswordInput,
-            "field_radio": forms.RadioSelect
+            "field_radio": forms.RadioSelect,
         }
 
     def clean(self):
