@@ -29,6 +29,12 @@ django-constance = {extras = ["database"], version = "^4.1.2"}
 pyyaml = "^6.0.2"
 
 [tool.poetry.group.dev.dependencies]
+ruff = "^0.7.0"
+dennis = "^1.1.0"
+pytest = "^8.3.3"
+pytest-django = "^4.9.0"
+pytest-sugar = "^1.0.0"
+factory-boy = "^3.3.1"
 
 [tool.ruff]
 # See https://docs.astral.sh/ruff/settings/ for Ruff's settings
