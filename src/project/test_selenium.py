@@ -95,7 +95,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     to serve the files without any need to `collectstatic` first.
     """
 
-    host = "boilerplate-app"
+    host = settings.APP_HOST_NAME
     # Uncomment this code if you want Selenium to connect to the actual web
     # service instead of the test one. Is assuming that Gunicorn is starting
     # it at the port 8000, because you have to use the internal port and
@@ -119,7 +119,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")  # Disable sandboxing for Docker
         cls.selenium = webdriver.Remote(
-            command_executor="http://boilerplate-selenium:4444/wd/hub", options=options
+            command_executor=f"http://{settings.SELENIUM_HOST_NAME}:4444/wd/hub",
+            options=options,
         )
         cls.selenium.implicitly_wait(10)  # Set implicit wait time
         cls.sample_data = {
