@@ -149,4 +149,20 @@ migrations are applied.
 
 ### Frontend
 
-TO-DO.
+Tailwind needs to "compile" the css files by scanning the templates and
+creating a compact css that includes only the Tailwind classes used in the
+project.
+
+If you intend to change any Tailwind classes from the html files, you need to
+access container's bash and run these commands:
+
+1. `docker exec -it showyourheart-app bash`
+1. `cd /front`
+1. `npx tailwindcss -i /srv/assets/styles/input.css -o /srv/assets/styles/output.css --watch`
+
+This will start a process that will recompile the css each time you make changes
+to any tailwind classes in the templates.
+
+**Important**: if you modify the `package.json`, `package-lock.json` or
+`tailwind.config.js` files, you must rebuild the docker image. One way to do it is
+by running `docker compose up --build` in the `/docker` directory.
