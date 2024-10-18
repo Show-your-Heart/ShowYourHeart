@@ -40,7 +40,7 @@ selenium = "^4.25.0"
 [tool.ruff]
 # See https://docs.astral.sh/ruff/settings/ for Ruff's settings
 # See https://docs.astral.sh/ruff/rules/ for a list of all Ruff's rules
-extend-select = ["I", "F", "E", "W", "N", "B", "DJ"]
+lint.extend-select = ["I", "F", "E", "W", "N", "B", "DJ"]
 extend-exclude = ["migrations"]
 src = ["src"]
 

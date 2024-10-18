@@ -14,15 +14,15 @@ jobs:
       - name: "Checkout project"
         uses: actions/checkout@v4
 
-      - name: "Set up Python 3.11"
+      - name: "Set up Python 3.12"
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: "Install Poetry"
         run: |
           # This POETRY_VERSION must be kept in sync with the Dockerfile's
-          POETRY_VERSION=1.7.0 curl -sSL "https://install.python-poetry.org" | python -
+          POETRY_VERSION=1.8.3 curl -sSL "https://install.python-poetry.org" | python -
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: "Install dependencies"
