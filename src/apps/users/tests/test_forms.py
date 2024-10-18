@@ -57,7 +57,7 @@ class UserChangeFormTest(TestCase):
 
     def test_form(self):
         self.assertEqual(self.form.data, {"new_password": "new password"})
-        self.assertNotEquals(
+        self.assertNotEqual(
             self.old_user_password,
             self.user.password,
         )

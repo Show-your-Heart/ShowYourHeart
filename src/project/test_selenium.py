@@ -424,7 +424,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Click on the button Go Back.
         logging.info("Verified email.")
 
-        go_back = self.select_element_by_text("Go back")
+        go_back = self.selenium.find_element(By.ID, "id_back")
         go_back.click()
 
     def _password_change(self):
@@ -478,7 +478,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         demo_field_text_1 = self.selenium.find_element(By.NAME, "field_text_1")
         demo_field_text_2 = self.selenium.find_element(By.NAME, "field_text_2")
         demo_field_email = self.selenium.find_element(By.NAME, "field_email")
-        demo_field_radio = self.selenium.find_element(By.ID, "id_field_radio_0")
+        demo_field_radio = self.selenium.find_element(By.ID, "id_field_radio_1")
         demo_field_boolean_checkbox = self.selenium.find_element(
             By.NAME, "field_boolean_checkbox"
         )
