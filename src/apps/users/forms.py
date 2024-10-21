@@ -46,34 +46,6 @@ class AuthenticationForm(BaseAuthenticationForm):
     )
 
 
-class UserChangeForm(forms.ModelForm):
-    """
-    A form for updating users with a different approach to password changing.
-    """
-
-    new_password = forms.CharField(
-        label=_("Change password"),
-        help_text=_(
-            "The current password is not displayed for security reasons. "
-            "Use this field and save the changes to set a new password. "
-            "While writing the new password will be visible to make it easier "
-            "for you to copy and send it to the user."
-        ),
-        max_length=150,
-        required=False,
-    )
-
-    class Meta:
-        model = User
-        fields = ("email", "password", "is_active", "is_superuser")
-
-    def save(self, commit=True):
-        instance = super().save(commit)
-        if self.cleaned_data.get("new_password", ""):
-            instance.set_password(self.cleaned_data["new_password"])
-        return instance
-
-
 class UserSignUpForm(UserCreationForm):
     name = forms.CharField(
         label=_("Name"),
