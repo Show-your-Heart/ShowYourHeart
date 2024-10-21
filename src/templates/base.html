@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'styles/output.css' %}">
-  <title>Projecte App | {% block page_title %}{% endblock %}</title>
+  <title>{{ config.PROJECT_NAME }} | {% block page_title %}{% endblock %}</title>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900
@@ -36,7 +36,7 @@
           </button>
           <!-- Títol i logo topbar -->
           <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
-            <img src="{% static 'images/logo.svg' %}" class="h-8 me-10" alt="{% translate 'Logo of the business' %}" />
+            <img src="{% static 'images/logo.svg' %}" class="h-8 me-10" alt="{{ config.PROJECT_NAME }} logo" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{ config.PROJECT_NAME }}</span>
           </a>
         </div>
