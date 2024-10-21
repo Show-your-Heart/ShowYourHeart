@@ -166,3 +166,36 @@ to any tailwind classes in the templates.
 **Important**: if you modify the `package.json`, `package-lock.json` or
 `tailwind.config.js` files, you must rebuild the docker image. One way to do it is
 by running `docker compose up --build` in the `/docker` directory.
+
+## Internationalization and localization
+
+### Coding good practices
+
+- Make use of [comments for translators](https://docs.djangoproject.com/en/5.1/topics/i18n/translation/#comments-for-translators)
+to help clarify the intent of the string.
+- Make sure to use placeholders when needed. I.e.: `_("Hi %s, what's up?") % name`.
+- All string literals in python files or html templates must be written in english.
+
+### Translations
+
+We use the core Django translations system, so the process of generating the
+translations files and the reference for the functions and template tags must
+be checked there.
+
+For convenience, we configured the Docker image so it can create the translations
+files, given that it some systems you might need to install some additional
+library.
+
+Run this command in the docker container:
+
+    python manage.py makemessages --all
+
+Tips:
+
+- When editing a .po file, start by checking that all new strings are in english.
+It could happen that by mistake a developer leaves a string in some other language.
+In that case, first translate this strings to english directly in the source
+code and then generate the .po files again.
+- Beware of the strings that look like URL paths: they are URL paths and their
+translations must follow the same format (lowercase, without spaces and no special
+characters other than dashes).

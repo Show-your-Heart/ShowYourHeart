@@ -6,25 +6,139 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-09 18:49+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2024-10-21 15:39+0200\n"
+"PO-Revision-Date: 2024-10-21 15:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: src/conf/settings.py:152
+"X-Generator: Poedit 3.5\n"
+
+#: project/models.py:24
+msgid "created at"
+msgstr "creat el"
+
+#: project/models.py:35
+msgid "created by"
+msgstr "creat per"
+
+#: project/models.py:38
+msgid "updated at"
+msgstr "actualitzat el"
+
+#: project/settings.py:65
 msgid "English"
 msgstr "Anglès"
 
-#: src/conf/settings.py:153
+#: project/settings.py:66
 msgid "Catalan"
 msgstr "Català"
 
-#: src/conf/urls.py:31
+#: project/settings.py:347
+msgid "Project name"
+msgstr "Nom del projecte"
+
+#: project/test_selenium.py:56
+msgid "Administration panel"
+msgstr "Panell d'administració"
+
+#: project/test_selenium.py:57
+msgid "Site administration | Django site administration"
+msgstr "Administració del lloc | Lloc administratiu de Django"
+
+#: project/test_selenium.py:58
+msgid "Log out"
+msgstr "Desconnectar"
+
+#: project/test_selenium.py:59
+#, python-format
+msgid "%s | Sign up"
+msgstr "%s | Donar-se d'alta"
+
+#: project/test_selenium.py:60
+#, python-format
+msgid "%s | Profile details"
+msgstr "%s | Fitxa del perfil"
+
+#: project/test_selenium.py:61
+#, python-format
+msgid "%s | Registry updated"
+msgstr "%s | Registre actualitzat"
+
+#: project/test_selenium.py:62
+#, python-format
+msgid "%s | Password change"
+msgstr "%s | Canvi de contrasenya"
+
+#: project/test_selenium.py:63
+#, python-format
+msgid "%s | Mail validation"
+msgstr "%s | Verificació del correu electrònic"
+
+#: project/test_selenium.py:64
+#, python-format
+msgid "%s | Demo"
+msgstr "%s | Demo"
+
+#: project/test_selenium.py:65
+#, python-format
+msgid "%s | Demo Create"
+msgstr "%s | Demo: crear"
+
+#: project/test_selenium.py:66
+#, python-format
+msgid "%s | Demo Details"
+msgstr "%s | Demo: fitxa"
+
+#: project/test_selenium.py:67
+#, python-format
+msgid "%s | Demo Update"
+msgstr "%s | Demo: actualitzar"
+
+#: project/urls.py:31
+msgid "demo/list/"
+msgstr "demo/llista/"
+
+#: project/urls.py:32
+msgid "demo/details/<int:id>"
+msgstr "demo/fitxa/<int:id>"
+
+#: project/urls.py:33
+msgid "demo/update/<int:id>"
+msgstr "demo/actualitzar/<int:id>"
+
+#: project/urls.py:34
+msgid "demo/"
+msgstr "demo/"
+
+#: project/urls.py:35
 msgid "registration/"
-msgstr ""
+msgstr "compte/"
+
+#: project/views.py:37
+msgid "Back"
+msgstr "Enrere"
+
+#: project/views.py:38
+msgid "Registry updated"
+msgstr "Registre actualitzat"
+
+#: project/views.py:39
+msgid "Registry successfully updated"
+msgstr "Registre correctament actualitzat"
+
+#: project/views.py:40
+msgid "Done!"
+msgstr "Fet!"
+
+#: project/views.py:41
+msgid "The registry was updated correctly."
+msgstr "El registre s'ha actualitzat correctament."
+
+#~ msgid "%s | Detalls del perfil"
+#~ msgstr " "

@@ -58,7 +58,7 @@ WSGI_APPLICATION = "ptoject.wsgi.application"
 TIME_ZONE = "Europe/Andorra"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#language-code
-LANGUAGE_CODE = "ca"
+LANGUAGE_CODE = "en-GB"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#languages
 LANGUAGES = [
@@ -74,13 +74,6 @@ USE_TZ = True
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-LOCALE_PATHS
 LOCALE_PATHS = [str(BASE_DIR / "locale")]
-
-# https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#settings
-# Setting these to 'national' is discouraged, but in our case it's unlikely this
-# will arise in any problems.
-PHONENUMBER_DEFAULT_REGION = "ES"
-PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
-
 
 ################################################################################
 #                               Databases                                      #

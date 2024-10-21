@@ -54,17 +54,17 @@ class Strings(Enum):
     """
 
     MENU_ADMIN = _("Administration panel")
-    ADMIN_TITLE = _("Administració del lloc | Lloc administratiu de Django")
+    ADMIN_TITLE = _("Site administration | Django site administration")
     LOGOUT = _("Log out")
-    SIGNUP_TITLE = _("Projecte App | Registrar-se")
-    PROFILE_TITLE = _("Projecte App | Detalls del perfil")
-    REGISTRY_UPDATE_TITLE = _("Projecte App | Registry updated")
-    PASSWORD_CHANGE_TITLE = _("Projecte App | Canvi de contrasenya")
-    EMAIL_VALIDATION_TITLE = _("Projecte App | Mail validation")
-    DEMO_TITLE = _("Projecte App | Demo")
-    DEMO_CREATE = _("Projecte App | Demo Create")
-    DEMO_DETAILS = _("Projecte App | Demo Details")
-    DEMO_UPDATE = _("Projecte App | Demo Update")
+    SIGNUP_TITLE = _("%s | Sign up") % settings.DEFAULT_PROJECT_NAME
+    PROFILE_TITLE = _("%s | Profile details") % settings.DEFAULT_PROJECT_NAME
+    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.DEFAULT_PROJECT_NAME
+    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.DEFAULT_PROJECT_NAME
+    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.DEFAULT_PROJECT_NAME
+    DEMO_TITLE = _("%s | Demo") % settings.DEFAULT_PROJECT_NAME
+    DEMO_CREATE = _("%s | Demo Create") % settings.DEFAULT_PROJECT_NAME
+    DEMO_DETAILS = _("%s | Demo Details") % settings.DEFAULT_PROJECT_NAME
+    DEMO_UPDATE = _("%s | Demo Update") % settings.DEFAULT_PROJECT_NAME
 
 
 @override_settings(
