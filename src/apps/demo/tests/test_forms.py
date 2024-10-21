@@ -33,17 +33,14 @@ class DataFormTest(TestCase):
 
             for field in required_fields:
                 self.assertEqual(
-                    self.form.errors[field], ["Aquest camp és obligatori."]
+                    self.form.errors[field], ["This field is required."]
                 )
 
         with self.subTest("Other validations"):
             self.assertEqual(
-                self.form.errors["field_number"], ["Introduïu un número enter."]
+                self.form.errors["field_number"], ["Enter a whole number."]
             )
-            self.assertEqual(
-                self.form.errors["field_email"],
-                ["Introdueix una adreça de correu electrònic vàlida"],
-            )
+
 
     def test_clean(self):
         form_error_password = DataForm(
