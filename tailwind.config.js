@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     '/srv/templates/**/*.html',
-    '/srv/node_modules/flowbite/**/*.js'
+    '/front/node_modules/flowbite/**/*.js'
   ],
   darkMode: 'class',
   theme: {
