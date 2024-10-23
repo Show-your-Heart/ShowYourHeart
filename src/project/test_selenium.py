@@ -56,7 +56,7 @@ class Strings(Enum):
     MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
-    SIGNUP_TITLE = _("%s | Sign up") % settings.DEFAULT_PROJECT_NAME
+    SIGNUP_TITLE = _("%s | Create an account") % settings.DEFAULT_PROJECT_NAME
     PROFILE_TITLE = _("%s | Profile details") % settings.DEFAULT_PROJECT_NAME
     REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.DEFAULT_PROJECT_NAME
     PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.DEFAULT_PROJECT_NAME

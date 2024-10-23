@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static active_link_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,19 +75,19 @@
                 </p>
               </div>
               <ul class="py-1" role="none">
-                <li>
+                <li class="{% active_link 'home' %}">
                   <a href="{% url 'home' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">{% translate "Home" %}</a>
                 </li>
-                <li>
+                <li class="{% active_link 'registration:profile_details' %}">
                   <a href="{% url 'registration:profile_details' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">{% translate "Profile" %}</a>
                 </li>
                 {% if request.user.has_admin_role %}
                 <li>
-                  <a href="{% url 'registration:profile_details' %}"
+                  <a href="{% url 'admin:index' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">{% translate "Administration panel" %}</a>
                 </li>
@@ -119,7 +119,7 @@
       <nav>
         <ul class="space-y-2 font-medium">
           <!-- Home -->
-          <li>
+          <li class="{% active_link 'home' %}">
             <a href="{% url 'home' %}"
               id="menu_home"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -131,7 +131,7 @@
           </li>
           {% if not request.user.is_authenticated %}
           <!-- Login -->
-          <li>
+          <li class="{% active_link 'registration:login' %}">
             <a href="{% url 'registration:login' %}"
               id="menu_login"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -142,7 +142,7 @@
             </a>
           </li>
           <!-- Signup -->
-          <li>
+          <li class="{% active_link 'registration:signup' %}">
             <a href="{% url 'registration:signup' %}"
               id="menu_signup"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -150,13 +150,13 @@
                 <path fill-rule="evenodd" d="M11.403 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6.403a3.01 3.01 0 0 1-1.743-1.612l-3.025 3.025A3 3 0 1 1 9.99 9.768l3.025-3.025A3.01 3.01 0 0 1 11.403 5Z" clip-rule="evenodd"/>
                 <path fill-rule="evenodd" d="M13.232 4a1 1 0 0 1 1-1H20a1 1 0 0 1 1 1v5.768a1 1 0 1 1-2 0V6.414l-6.182 6.182a1 1 0 0 1-1.414-1.414L17.586 5h-3.354a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
               </svg>
-              <span class="ms-3">{% translate "Sign up" %}</span>
+              <span class="ms-3">{% translate "Create an account" %}</span>
             </a>
           </li>
           {% endif %}
           {% if request.user.is_authenticated %}
           <!-- Demo -->
-          <li>
+          <li class="{% active_link 'list' %}">
             <a href="{% url 'list' %}"
               id="menu_demo"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -168,7 +168,7 @@
             </a>
           </li>
           <!-- Perfil -->
-          <li>
+          <li class="{% active_link 'registration:profile_details' %}">
             <a href="{% url 'registration:profile_details' %}"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
               <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
