@@ -113,6 +113,7 @@ INSTALLED_APPS = [
     "flowbite_classes",
     "post_office",
     "django_extensions",
+    "active_link",
     "apps.users",
     "project",
     "apps.demo",

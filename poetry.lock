@@ -273,6 +273,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-active-link"
+version = "0.2.2"
+description = "The best and simplest way to highlight active links in your Django app."
+optional = false
+python-versions = "<4.0,>=3.8"
+files = [
+    {file = "django_active_link-0.2.2-py3-none-any.whl", hash = "sha256:8bd88b0102904886887e4fbf329eb454b62c35fe000d700801b7153f6894f0df"},
+    {file = "django_active_link-0.2.2.tar.gz", hash = "sha256:d5ff2c08cbda0632e2ac0fdda187743734d74e2ad5bffc68795768ad8721fee7"},
+]
+
+[[package]]
 name = "django-constance"
 version = "4.1.2"
 description = "Django live settings with pluggable backends, including Redis."
@@ -1274,4 +1285,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12"
-content-hash = "99021a100b4bbbe96dc68bd3fb4353f2fbf19ee17ff2f142a6a62940c22e3ff3"
+content-hash = "94c3db44c11bdb8c7a4a3d2e1d0854506997397f841932339e8fd862dd5b7709"
