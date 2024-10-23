@@ -11,7 +11,7 @@ if (document.getElementById("cookies-banner")) {
   console.log(cookiesMessage);
 
   function acceptCookies() {
-    // Cokkie message dissappears
+    // Cookie message disappears
     cookiesMessage.classList.add("hidden");
     // and the acceptance cookie is created
     document.cookie = "cookies=accepted; path=/; samesite=strict; max-age=31536000";
@@ -51,15 +51,12 @@ if (document.getElementById("cookies-banner")) {
   // Close the message when scrolling the page and create an acceptance cookie
   window.addEventListener('scroll', function() {
     var scrollNumber = window.scrollY;
-    
+
     // If the user scrolls enough, 800px in this case
     if (scrollNumber >= 400) {
       acceptCookies();
     }
   });
-
-
-
 
   // // Close the message when the user navigates to another page and create an acceptance cookie
   // var myReferer = document.referrer;
