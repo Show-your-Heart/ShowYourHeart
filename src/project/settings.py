@@ -408,3 +408,13 @@ structlog.configure(
 
 APP_HOST_NAME = env.str("APP_HOST_NAME", default="")
 SELENIUM_HOST_NAME = env.str("SELENIUM_HOST_NAME", default="")
+
+################################################################################
+#                                  django-active-link                          #
+################################################################################
+
+# Needs to be included in tailwind.config.js, in the safelist block.
+# Changing the tailwind config requires a Docker image rebuild, and potentially
+# to run again the npx compiler as stated in the README.
+ACTIVE_LINK_CSS_CLASS = "bg-primary-400"
+ACTIVE_LINK_STRICT = True
