@@ -38,7 +38,7 @@ jobs:
           # Lints whole project
           poetry run ruff check --output-format=github .
           # Checks for any errors in translation files
-          poetry run dennis-cmd lint --errorsonly src/locale/
+          poetry run dennis-cmd lint --errorsonly src
 
       - name: "Format"
         run: |
