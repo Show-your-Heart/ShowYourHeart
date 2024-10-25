@@ -37,6 +37,8 @@ jobs:
           poetry run poetry lock
           # Lints whole project
           poetry run ruff check --output-format=github .
+          # Checks format
+          poetry run ruff format --check .
           # Checks for any errors in translation files
           poetry run dennis-cmd lint --errorsonly src
 
