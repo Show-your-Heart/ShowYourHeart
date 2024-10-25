@@ -6,6 +6,7 @@ Show your Heart application
 * [Technologies](#technologies)
 * [External services and resources](#external-services-and-resources)
 * [Local environment setup for development](#local-environment-setup-for-development)
+* [Internationalization and localization](#internationalization-and-localization)
 
 ## General information
 
@@ -96,7 +97,9 @@ to be the best resource to understand it in a real life case.
 
 The application needs are:
 
-- To send **transactional emails**. It comes with a package to use the [Sendgrid](https://sendgrid.com/en-us) API, and it can use any other provider by using Django's SMTP backend, or adding other libraries to use other provider's APIs.
+- To send **transactional emails**. It comes with a package to use the [Sendgrid](https://sendgrid.com/en-us)
+API, and it can use any other provider by using Django's SMTP backend, or adding
+other libraries to use other provider's APIs.
 - To store media files. It comes with the necessary libraries to use **any S3 provider**.
 - Access a **PostgreSQL** database.
 - Storing the **Docker images**.
