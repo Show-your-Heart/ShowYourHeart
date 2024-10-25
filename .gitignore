@@ -8,6 +8,3 @@ __pycache__
 
 # Using this for pyenv in development environment.
 .python-version
-
-# Ignore the node modules
-node_modules
