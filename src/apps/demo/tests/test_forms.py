@@ -32,15 +32,12 @@ class DataFormTest(TestCase):
             ]
 
             for field in required_fields:
-                self.assertEqual(
-                    self.form.errors[field], ["This field is required."]
-                )
+                self.assertEqual(self.form.errors[field], ["This field is required."])
 
         with self.subTest("Other validations"):
             self.assertEqual(
                 self.form.errors["field_number"], ["Enter a whole number."]
             )
-
 
     def test_clean(self):
         form_error_password = DataForm(
