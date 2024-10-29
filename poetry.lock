@@ -284,20 +284,6 @@ files = [
 ]
 
 [[package]]
-name = "django-constance"
-version = "4.1.2"
-description = "Django live settings with pluggable backends, including Redis."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "django_constance-4.1.2-py3-none-any.whl", hash = "sha256:bd8e847a5a6225cfc69da9d87de909dbb765e4150507eb3f555327ba32ac6fd6"},
-    {file = "django_constance-4.1.2.tar.gz", hash = "sha256:52163529d4b1be4404d4f8568c6742f76f4d4fc90dc31355849ea2c1e0c525d7"},
-]
-
-[package.extras]
-redis = ["redis"]
-
-[[package]]
 name = "django-environ"
 version = "0.11.2"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
@@ -1313,4 +1299,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12"
-content-hash = "4a0962b7736ad2067aceae1e6cd190fe0862f0e1bdfd0ac9399bf0cf9a148a1e"
+content-hash = "277647b1481072f3a5966270fbee54c7a6ba96ae6bb0709db27b48cdd374c9b2"

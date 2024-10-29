@@ -100,8 +100,6 @@ DATABASES = {
 INSTALLED_APPS = [
     "maintenance_mode",
     "django.contrib.postgres",
-    "constance.backends.database",
-    "constance",
     "logentry_admin",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -236,7 +234,6 @@ TEMPLATES = [
         ],
         "OPTIONS": {
             "context_processors": [
-                "constance.context_processors.config",
                 "maintenance_mode.context_processors.maintenance_mode",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
@@ -370,12 +367,6 @@ EXTRA_SETTINGS_DEFAULTS = [
 EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "django-extra-settings-images"
 EXTRA_SETTINGS_FILE_UPLOAD_TO = "django-extra-settings-files"
 EXTRA_SETTINGS_VERBOSE_NAME = _("Dynamic settings")
-
-# Constance
-# https://django-constance.readthedocs.io/en/latest/#configuration
-CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-CONSTANCE_CONFIG = {"PROJECT_NAME": (PROJECT_NAME, _("Project name"))}
-
 
 ################################################################################
 #                                  Logging                                     #

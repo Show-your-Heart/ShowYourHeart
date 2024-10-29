@@ -1,7 +1,7 @@
-from constance import config
 from django.conf import settings
 from django.urls import reverse
 from django.utils import formats, timezone
+from extra_settings.models import Setting
 
 from apps.users.utils import email_verification_code_regeneration
 from project.helpers import absolute_url
@@ -16,7 +16,7 @@ def send_confirmation_mail(user_instance):
         )
     )
     context = {
-        "project_name": config.PROJECT_NAME,
+        "project_name": Setting.get("PROJECT_NAME"),
         "user_name": user_instance.name,
         "date": str(
             formats.date_format(
