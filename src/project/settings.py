@@ -353,15 +353,19 @@ EXTRA_SETTINGS_DEFAULTS = [
         "name": "PROJECT_NAME",
         "type": "Setting.TYPE_STRING",
         "value": PROJECT_NAME,
-        "description": _("This name will be used for the HTML title of the "
-                        "public app, logo alt text and other places.")
+        "description": _(
+            "This name will be used for the HTML title of the "
+            "public app, logo alt text and other places."
+        ),
     },
     {
         "name": "LOGO",
         "type": "Setting.TYPE_FILE",
         "value": "",
-        "description": _("Logo image that will be used to customize the "
-                         "public app, e-mail templates and other.")
+        "description": _(
+            "Logo image that will be used to customize the "
+            "public app, e-mail templates and other."
+        ),
     },
 ]
 EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "django-extra-settings-images"
