@@ -100,7 +100,6 @@ DATABASES = {
 INSTALLED_APPS = [
     "maintenance_mode",
     "django.contrib.postgres",
-    "logentry_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
