@@ -69,7 +69,14 @@ class Strings(Enum):
 
 @override_settings(
     ALLOWED_HOSTS=["*"],
-    STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage",
+    STORAGES={
+        "default": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    },
     POST_OFFICE={
         "BACKENDS": {
             "default": "django.core.mail.backends.locmem.EmailBackend",
