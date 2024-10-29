@@ -114,6 +114,7 @@ INSTALLED_APPS = [
     "post_office",
     "django_extensions",
     "active_link",
+    "extra_settings",
     "apps.users",
     "project",
     "apps.demo",
@@ -336,7 +337,7 @@ EMAIL_BACKEND = env.str(
 
 
 ################################################################################
-#                                  Admin                                       #
+#                           Initial superuser                                  #
 ################################################################################
 
 # Credentials for the initial superuser. Leave empty to skip its creation.
@@ -345,11 +346,35 @@ DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default=None)
 DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default=None)
 
 
+################################################################################
+#                         django-extra-settings                                #
+################################################################################
+
+PROJECT_NAME = env.str("PROJECT_NAME", default="")
+EXTRA_SETTINGS_DEFAULTS = [
+    {
+        "name": "PROJECT_NAME",
+        "type": "Setting.TYPE_STRING",
+        "value": PROJECT_NAME,
+        "description": _("This name will be used for the HTML title of the "
+                        "public app, logo alt text and other places.")
+    },
+    {
+        "name": "LOGO",
+        "type": "Setting.TYPE_FILE",
+        "value": "",
+        "description": _("Logo image that will be used to customize the "
+                         "public app, e-mail templates and other.")
+    },
+]
+EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "django-extra-settings-images"
+EXTRA_SETTINGS_FILE_UPLOAD_TO = "django-extra-settings-files"
+EXTRA_SETTINGS_VERBOSE_NAME = _("Dynamic settings")
+
 # Constance
 # https://django-constance.readthedocs.io/en/latest/#configuration
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-DEFAULT_PROJECT_NAME = env.str("DEFAULT_PROJECT_NAME", default="")
-CONSTANCE_CONFIG = {"PROJECT_NAME": (DEFAULT_PROJECT_NAME, _("Project name"))}
+CONSTANCE_CONFIG = {"PROJECT_NAME": (PROJECT_NAME, _("Project name"))}
 
 
 ################################################################################

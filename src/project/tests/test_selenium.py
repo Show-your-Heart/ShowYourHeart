@@ -56,15 +56,15 @@ class Strings(Enum):
     MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
-    SIGNUP_TITLE = _("%s | Create an account") % settings.DEFAULT_PROJECT_NAME
-    PROFILE_TITLE = _("%s | Profile details") % settings.DEFAULT_PROJECT_NAME
-    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.DEFAULT_PROJECT_NAME
-    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.DEFAULT_PROJECT_NAME
-    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.DEFAULT_PROJECT_NAME
-    DEMO_TITLE = _("%s | Demo") % settings.DEFAULT_PROJECT_NAME
-    DEMO_CREATE = _("%s | Demo Create") % settings.DEFAULT_PROJECT_NAME
-    DEMO_DETAILS = _("%s | Demo Details") % settings.DEFAULT_PROJECT_NAME
-    DEMO_UPDATE = _("%s | Demo Update") % settings.DEFAULT_PROJECT_NAME
+    SIGNUP_TITLE = _("%s | Create an account") % settings.PROJECT_NAME
+    PROFILE_TITLE = _("%s | Profile details") % settings.PROJECT_NAME
+    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.PROJECT_NAME
+    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.PROJECT_NAME
+    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.PROJECT_NAME
+    DEMO_TITLE = _("%s | Demo") % settings.PROJECT_NAME
+    DEMO_CREATE = _("%s | Demo Create") % settings.PROJECT_NAME
+    DEMO_DETAILS = _("%s | Demo Details") % settings.PROJECT_NAME
+    DEMO_UPDATE = _("%s | Demo Update") % settings.PROJECT_NAME
 
 
 @override_settings(

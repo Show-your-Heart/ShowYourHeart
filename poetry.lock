@@ -328,6 +328,20 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-extra-settings"
+version = "0.12.0"
+description = "config and manage typed extra settings using just the django admin."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-extra-settings-0.12.0.tar.gz", hash = "sha256:8b49c63c033197d26f1f9d1d85d89cbe0f6eaff07bcbdedfa10df0e2598289d1"},
+    {file = "django_extra_settings-0.12.0-py3-none-any.whl", hash = "sha256:a397beb203cec76c74dfa7735254c321a20b158681436f8b93858ab121f071e2"},
+]
+
+[package.dependencies]
+jsonfield = ">=3.0.0"
+
+[[package]]
 name = "django-ipware"
 version = "7.0.1"
 description = "A Django application to retrieve user's IP address"
@@ -579,6 +593,20 @@ files = [
     {file = "jmespath-1.0.1-py3-none-any.whl", hash = "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980"},
     {file = "jmespath-1.0.1.tar.gz", hash = "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"},
 ]
+
+[[package]]
+name = "jsonfield"
+version = "3.1.0"
+description = "A reusable Django field that allows you to store validated JSON in your model."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "jsonfield-3.1.0-py3-none-any.whl", hash = "sha256:df857811587f252b97bafba42e02805e70a398a7a47870bc6358a0308dd689ed"},
+    {file = "jsonfield-3.1.0.tar.gz", hash = "sha256:7e4e84597de21eeaeeaaa7cc5da08c61c48a9b64d0c446b2d71255d01812887a"},
+]
+
+[package.dependencies]
+Django = ">=2.2"
 
 [[package]]
 name = "markdown-it-py"
@@ -1285,4 +1313,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12"
-content-hash = "94c3db44c11bdb8c7a4a3d2e1d0854506997397f841932339e8fd862dd5b7709"
+content-hash = "4a0962b7736ad2067aceae1e6cd190fe0862f0e1bdfd0ac9399bf0cf9a148a1e"
