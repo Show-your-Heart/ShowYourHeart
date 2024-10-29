@@ -40,7 +40,7 @@
           <!-- Títol i logo topbar -->
           <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
             {% get_setting "LOGO" as logo %}
-            <img src="{{ logo.url }}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+            <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{% get_setting 'PROJECT_NAME' %}</span>
           </a>
         </div>
