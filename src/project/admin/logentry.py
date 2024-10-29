@@ -1,3 +1,4 @@
+# source: https://github.com/yprez/django-logentry-admin
 from django.contrib import admin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
