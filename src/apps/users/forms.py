@@ -225,7 +225,7 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = forms.IntegerField(
+    email_verification_code = forms.CharField(
         widget=forms.TextInput(
             attrs=({"autofocus": True, "placeholder": _("Verification code")})
         ),
