@@ -53,6 +53,7 @@ def update_user_groups(sender, **kwargs):
     This block is to clarify which things are meant to be reserved for superusers.
     That means that no other user group declaration should include these.
     - django auth.groups
+    - django-extra-settings
     """
 
 
