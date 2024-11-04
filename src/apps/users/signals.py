@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.conf import settings
 from django.db.backends.utils import logger
+from django.utils.translation import gettext as _
 
 
 def update_user_groups(sender, **kwargs):
@@ -66,9 +67,11 @@ def create_group(name, permissions):
     group.permissions.set(get_permissions(permission_model, permissions))
     group.save()
     if created:
-        logger.info(f"Grup {name} creat.")
+        logger.info(_("Group {name} created.").format(name=name))
     else:
-        logger.info(f"Grup {name} ja existent, permisos actualitzats.")
+        logger.info(
+            _("Group {name} already exist, permissions updated.").format(name=name)
+        )
 
 
 def get_permissions(permission_model, permissions_dict: dict):
@@ -102,25 +105,6 @@ def get_permission_codenames(base_codename, permissions):
     if "d" in permissions:
         strings.append(f"delete_{base_codename}")
     return strings
-
-
-def check_constance_permissions():
-    contenttype_model = apps.get_model("contenttypes", "ContentType")
-    permission_model = apps.get_model("auth", "Permission")
-    content_type = contenttype_model.objects.get(
-        app_label="constance",
-        model="config",
-    )
-    logger.info(content_type)
-    change_perm = permission_model.objects.filter(
-        content_type=content_type,
-        codename="change_config",
-    )
-    view_perm = permission_model.objects.filter(
-        content_type=content_type,
-        codename="view_config",
-    )
-    logger.info(f"{change_perm=}, {view_perm=}")
 
 
 def print_existing_permissions():
