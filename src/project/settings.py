@@ -331,17 +331,6 @@ EMAIL_BACKEND = env.str(
     default="django.core.mail.backends.console.EmailBackend",
 )
 
-
-################################################################################
-#                           Initial superuser                                  #
-################################################################################
-
-# Credentials for the initial superuser. Leave empty to skip its creation.
-# Variables for non-interactive superuser creation
-DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default=None)
-DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default=None)
-
-
 ################################################################################
 #                         django-extra-settings                                #
 ################################################################################
@@ -476,3 +465,14 @@ GROUPS = {
         ),
     },
 }
+
+################################################################################
+#                    Initial superuser and dev data                            #
+################################################################################
+
+# Credentials for the initial superuser. Leave empty to skip its creation.
+# Variables for non-interactive superuser creation
+DJANGO_SUPERUSER_EMAIL = env.str("DJANGO_SUPERUSER_EMAIL", default="")
+DJANGO_SUPERUSER_PASSWORD = env.str("DJANGO_SUPERUSER_PASSWORD", default="")
+USER_ADMIN_EMAIL = env.str("USER_ADMIN_EMAIL", default="")
+USER_ADMIN_PASSWORD = env.str("USER_ADMIN_PASSWORD", default="")
