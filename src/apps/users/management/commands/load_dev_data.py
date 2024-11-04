@@ -11,17 +11,19 @@ environ.Env.read_env()
 
 
 class Command(BaseCommand):
-    help = _("Fills the database with all the necessary data to make it faster "
-             "for developers to work with the project when they need to "
-             "re-create the database. Debug mode needs to be "
-             "enabled to run this command. Make sure to set the 'Initial "
-             "superuser and dev data' settings before running this command.")
+    help = _(
+        "Fills the database with all the necessary data to make it faster "
+        "for developers to work with the project when they need to "
+        "re-create the database. Debug mode needs to be "
+        "enabled to run this command. Make sure to set the 'Initial "
+        "superuser and dev data' settings before running this command."
+    )
 
     def handle(self, *args, **options):
         if not settings.DEBUG:
-            self.stdout.write(self.style.ERROR(_(
-                "This command can only be run in debug mode."
-            )))
+            self.stdout.write(
+                self.style.ERROR(_("This command can only be run in debug mode."))
+            )
             return 0
         self.create_sample_users()
 

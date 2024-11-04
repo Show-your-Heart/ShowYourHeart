@@ -9,8 +9,10 @@ environ.Env.read_env()
 
 
 class Command(BaseCommand):
-    help = _("Creates the initial superuser with the environment "
-             "settings credentials if it doesn't exist already.")
+    help = _(
+        "Creates the initial superuser with the environment "
+        "settings credentials if it doesn't exist already."
+    )
 
     def handle(self, *args, **options):
         email = env("DJANGO_SUPERUSER_EMAIL")
