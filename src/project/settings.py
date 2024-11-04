@@ -458,8 +458,8 @@ GROUPS = {
         "description": _(
             "Access to: configuration and customization "
             "settings, the log of emails sent by the system, email "
-            "templates. Has permission to edit the 'Is staff' and 'Is "
-            "active' user fields."
+            "templates. Gives permission to edit the fields 'Is staff', "
+            "'Is active' and 'Groups'."
         ),
     },
     "manage_users": {
