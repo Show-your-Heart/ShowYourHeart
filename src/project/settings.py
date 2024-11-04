@@ -441,3 +441,38 @@ SELENIUM_HOST_NAME = env.str("SELENIUM_HOST_NAME", default="")
 # to run again the npx compiler as stated in the README.
 ACTIVE_LINK_CSS_CLASS = "bg-primary-400"
 ACTIVE_LINK_STRICT = True
+
+################################################################################
+#                            User groups and permissions                       #
+################################################################################
+
+# User group names that are used programmatically in some place, so we don't
+# want them hardcoded.
+# Beware that these CANNOT BE CHANGED once the instance is already deployed, or
+# you are going to end up with a new group with the new name while all the users
+# are still assigned to the previous group.
+# For the same reason, names cannot be multilingual.
+GROUPS = {
+    "admins": {
+        "name": "Administrators",
+        "description": _(
+            "Access to: configuration and customization "
+            "settings, the log of emails sent by the system, email "
+            "templates. Has permission to edit the 'Is staff' and 'Is "
+            "active' user fields."
+        ),
+    },
+    "manage_users": {
+        "name": "User management",
+        "description": _(
+            "Grants access to adding, viewing, changing and deleting users."
+        ),
+    },
+    "access_logentry": {
+        "name": "Access full log entry",
+        "description": _(
+            "Grants access to the registry of all "
+            "actions made by any user within the admin panel."
+        ),
+    },
+}

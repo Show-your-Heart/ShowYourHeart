@@ -34,24 +34,23 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("emailtemplate", "v"),
         # post_office also has the 'attachment' model. Not giving access for now.
     }
-    create_group(settings.GROUP_ADMINS, permissions)
+    create_group(settings.GROUPS["admins"]["name"], permissions)
 
     # Manage Users
     permissions = {
         "users": get_permission_codenames("user", "vacd")
         + get_permission_codenames("profile", "vacd"),
     }
-    create_group(settings.GROUP_MANAGE_USERS, permissions)
+    create_group(settings.GROUPS["manage_users"]["name"], permissions)
 
     # Access LogEntry (Entrades del registre)
     permissions = {"admin": get_permission_codenames("logentry", "c")}
-    create_group(settings.GROUP_ACCESS_LOGENTRY, permissions)
+    create_group(settings.GROUPS["access_logentry"]["name"], permissions)
 
     # Superusers
     """
     This block is to clarify which things are meant to be reserved for superusers.
     That means that no other user group declaration should include these.
-    - acotags.activity
     - django auth.groups
     """
 
