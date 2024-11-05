@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO)
 def generate_superuser(apps, schema_editor):
     user_model = apps.get_model("users.User")
 
-    email = settings.DJANGO_SUPERUSER_EMAIL
-    password = settings.DJANGO_SUPERUSER_PASSWORD
+    email = settings.SUPERUSER_EMAIL
+    password = settings.SUPERUSER_PASSWORD
 
     if not email or not password:
         logging.info(_(
@@ -40,7 +40,7 @@ def generate_superuser(apps, schema_editor):
 def remove_superuser(apps, schema_editor):
     try:
         user_model = apps.get_model("users.User")
-        superuser = user_model.objects.filter(email=settings.DJANGO_SUPERUSER_EMAIL)
+        superuser = user_model.objects.filter(email=settings.SUPERUSER_EMAIL)
 
         if superuser.exists():
             superuser.delete()

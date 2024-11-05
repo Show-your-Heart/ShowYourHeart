@@ -15,8 +15,8 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        email = env("DJANGO_SUPERUSER_EMAIL")
-        password = env("DJANGO_SUPERUSER_PASSWORD")
+        email = env("SUPERUSER_EMAIL")
+        password = env("SUPERUSER_PASSWORD")
 
         if not User.objects.filter(email=email).exists():
             User.objects.create_superuser(email=email, password=password)

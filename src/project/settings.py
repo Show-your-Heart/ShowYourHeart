@@ -473,8 +473,8 @@ GROUPS = {
 
 # Credentials for the initial superuser. Leave empty to skip its creation.
 # Variables for non-interactive superuser creation
-DJANGO_SUPERUSER_EMAIL = env.str("DJANGO_SUPERUSER_EMAIL", default="")
-DJANGO_SUPERUSER_PASSWORD = env.str("DJANGO_SUPERUSER_PASSWORD", default="")
+SUPERUSER_EMAIL = env.str("SUPERUSER_EMAIL", default="")
+SUPERUSER_PASSWORD = env.str("SUPERUSER_PASSWORD", default="")
 USER_ADMIN_EMAIL = env.str("USER_ADMIN_EMAIL", default="")
 USER_ADMIN_PASSWORD = env.str("USER_ADMIN_PASSWORD", default="")
 
