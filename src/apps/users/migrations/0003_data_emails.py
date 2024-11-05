@@ -1,3 +1,5 @@
+import logging
+
 from django.db import migrations
 
 from project.post_office import textify
@@ -94,7 +96,6 @@ ben llarga i t'agrairem que ens informis de la situació.
         ),
     ]
 
-    print("")
     for template in templates:
         obj, created = mail_model.objects.update_or_create(
             name=template.get("id"),
@@ -112,6 +113,7 @@ ben llarga i t'agrairem que ens informis de la situació.
                 # https://github.com/ui/django-post_office/issues/214
                 name=template.get("id"),
             )
+            logging.info(f"E-mail template '{template.get("id")}' created.")
 
 
 class Migration(migrations.Migration):
