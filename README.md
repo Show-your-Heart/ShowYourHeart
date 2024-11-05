@@ -325,3 +325,18 @@ set the `SUPERUSER_EMAIL` or `SUPERUSER_PASSWORD` settings and the superuser was
 not created. In that situation, if you want to create the superuser using
 those settings instead of running the Django's `createsuperuser` command, you
 can use `auto_superuser`.
+
+# Warning about python packages and tests
+
+If you need to split an admin.py or models.py file into multiple files using the
+python packages technique (which is, you create a folder called `admin` with a
+`__init__.py` file, and in this file you import the admin classes), beware of
+two problems:
+
+a. When running tests it will probably raise an `AlreadyRegistered` exception
+because of the reasons explained [here](https://medium.com/@michal.bock/fix-weird-exceptions-when-running-django-tests-f58def71b59a).
+b. Ruff will not accept the imports in the `__init__` file unless you make them
+explicit re-imports, like this:
+
+    from .base_admin import ModelAdmin as ModelAdmin
+
