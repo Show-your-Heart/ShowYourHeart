@@ -4,6 +4,7 @@ Settings for the Django project.
 For more information on Django's settings, visit:
     https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 import logging
 from pathlib import Path
 
