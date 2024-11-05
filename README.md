@@ -9,6 +9,7 @@ Show your Heart application
 * [Internationalization and localization](#internationalization-and-localization)
 * [Testing](#testing)
 * [Linter and formatter](#linter-and-formatter)
+* [Commands](#commands)
 
 ## General information
 
@@ -289,3 +290,38 @@ can follow the example of the `LOGO` setting in `base.html`:
 ```
 
 Remember to load the tag in the template as described in the library's documentation.
+
+## Commands
+
+### Initial data generation or loading for development
+
+The `users`' app includes the `load_dev_data` command. Its purpose is to
+populate the database with initial data, either generated or loaded from
+fixtures, so when the developers needs to reset the database they don't have to
+repeat all the set up steps and manually create models entries to work with.
+
+Initially it only includes the creation of an Admin user that will not be
+superuser, but will have access to the admin panel and have all the permission
+groups assigned.
+
+This user is created because normally superuser access is not given to our
+customer, instead, we keep a superuser account for the developers and create
+different user roles using permission groups, and within those users, the one
+with a higher access level is this Admin.
+
+For that reason, when developing features within the admin panel, it's necessary
+to try them using the different user roles and NOT the superuser account.
+
+Extend this command whenever new models are created or updated to maintain
+a good set of initial fixtures to work with.
+
+### Initial superuser creation
+
+The `users`' app comes with the `auto_superuser` command. It does the same than
+the `0002_data_superuser.py` migation, so usually you won't need to run it.
+
+It might happen that when running the migrations for the first time you didn't
+set the `SUPERUSER_EMAIL` or `SUPERUSER_PASSWORD` settings and the superuser was
+not created. In that situation, if you want to create the superuser using
+those settings instead of running the Django's `createsuperuser` command, you
+can use `auto_superuser`.
