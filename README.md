@@ -298,14 +298,14 @@ Remember to load the tag in the template as described in the library's documenta
 
 ### Initial data generation or loading for development
 
-The `users`' app includes the `loaddevdata` command. Its purpose is to
+The `project` app includes the `loaddevdata` command. Its purpose is to
 populate the database with initial data, either generated or loaded from
 fixtures, so when the developers needs to reset the database they don't have to
 repeat all the set up steps and manually create models entries to work with.
 
-Initially it only includes the creation of an Admin user that will not be
-superuser, but will have access to the admin panel and have all the permission
-groups assigned.
+Initially it only includes the creation of a Superuser and an Admin user which
+will not be superuser, but will have access to the admin panel and have all the
+permission groups assigned.
 
 This user is created because normally superuser access is not given to our
 customer, instead, we keep a superuser account for the developers and create
@@ -320,14 +320,19 @@ a good set of initial fixtures to work with.
 
 ### Initial superuser creation
 
-The `users`' app comes with the `auto_superuser` command. It does the same than
-the `0002_data_superuser.py` migation, so usually you won't need to run it.
+The `users` app will create an initial superuser during the migration process
+(at `0002_data_superuser.py`) if the `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
+environment variables are set.
 
-It might happen that when running the migrations for the first time you didn't
-set the `SUPERUSER_EMAIL` or `SUPERUSER_PASSWORD` settings and the superuser was
-not created. In that situation, if you want to create the superuser using
-those settings instead of running the Django's `createsuperuser` command, you
-can use `auto_superuser`.
+If the superuser was not created or was deleted and you want to recreate it with
+the environment settings credentials, you can run the following command:
+
+    python manage.py loaddevdata
+
+Which will create it as well as populate the database with initial data for
+development.
+
+Alternatively, you can also use the Django built-in `createsuperuser` command.
 
 # Warning about python packages and tests
 
