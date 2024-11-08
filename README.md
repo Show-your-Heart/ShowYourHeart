@@ -6,6 +6,10 @@ Show your Heart application
 * [Technologies](#technologies)
 * [External services and resources](#external-services-and-resources)
 * [Local environment setup for development](#local-environment-setup-for-development)
+* [Internationalization and localization](#internationalization-and-localization)
+* [Testing](#testing)
+* [Linter and formatter](#linter-and-formatter)
+* [Commands](#commands)
 
 ## General information
 
@@ -96,7 +100,9 @@ to be the best resource to understand it in a real life case.
 
 The application needs are:
 
-- To send **transactional emails**. It comes with a package to use the [Sendgrid](https://sendgrid.com/en-us) API, and it can use any other provider by using Django's SMTP backend, or adding other libraries to use other provider's APIs.
+- To send **transactional emails**. It comes with a package to use the [Sendgrid](https://sendgrid.com/en-us)
+API, and it can use any other provider by using Django's SMTP backend, or adding
+other libraries to use other provider's APIs.
 - To store media files. It comes with the necessary libraries to use **any S3 provider**.
 - Access a **PostgreSQL** database.
 - Storing the **Docker images**.
@@ -199,3 +205,141 @@ code and then generate the .po files again.
 - Beware of the strings that look like URL paths: they are URL paths and their
 translations must follow the same format (lowercase, without spaces and no special
 characters other than dashes).
+
+## Testing
+
+Tests are stored in a subfolder `tests`, both in the Django's main project folder
+`/src/project` and for each app in `src/apps`.
+
+We'll decide how to test every section of the application depending on what we
+consider more useful for each case.
+The main testing tool will be the [Selenium](https://www.selenium.dev/) test,
+that will reproduce as many
+user workflows as possible, specially the more critical ones.
+We'll use unit testing for areas where reproducing the steps with Selenium is
+too repetitive or tedious.
+
+To run the tests connect to the Docker's container bash terminal and run:
+
+    python manage.py test
+
+Tests will only work if you are running the project using the docker-compose.yml
+and therefore the `showyourheart-selenium` container is up.
+
+## Linter and formatter
+
+### Python code linter and formatter
+
+We use [Ruff](https://docs.astral.sh/ruff/) for checking and applying linting
+and formatting.
+
+To run these commands connect to the Docker's container bash terminal.
+
+Check format:
+
+    ruff format --check .
+
+Perform code formatting:
+
+    ruff format .
+
+Check linting:
+
+    ruff check .
+
+Perform linting to the code:
+
+    ruff check --fix .
+
+In some cases, you might need:
+
+    ruff check --fix --unsafe-fixes .
+
+And (as always) check the diff of all changes before commiting.
+
+> Note that migrations are not excluded from the linter/formatter on purpose
+> because some of them are data migrations that we manually code, and we don't
+> see any problem with the automatically generated ones being formatted as well.
+
+### .po files linter
+
+To run the linter connect to the Docker's container bash terminal and run:
+
+    dennis-cmd lint --errorsonly src
+
+## Examples to make contributing easier
+
+### Changing and using Dynamic settings
+
+We use the `django-extra-settings` [library](https://github.com/fabiocaccamo/django-extra-settings)
+to be able to customize the project on run-time.
+
+When the project's migrations run for the first time, all the dynamic settings
+declared in the `EXTRA_SETTINGS_DEFAULTS` setting will be created.
+
+You can add or edit settings there as long as you are aware that these changes
+will only be applied when the project is deployed to an empty database. For that
+reason, this should only happen before we hit production or 1.0.0.
+
+Once the project is in production, any new dynamic setting or change in existing
+ones must be introduced by creating data migrations manually.
+
+To use an image or file setting to refer to the uploaded file in a template you
+can follow the example of the `LOGO` setting in `base.html`:
+
+```commandline
+{% get_setting "LOGO" as logo %}
+<img src="{% if logo %}{{ logo.url }}{% endif %}" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+```
+
+Remember to load the tag in the template as described in the library's documentation.
+
+## Commands
+
+### Initial data generation or loading for development
+
+The `users`' app includes the `loaddevdata` command. Its purpose is to
+populate the database with initial data, either generated or loaded from
+fixtures, so when the developers needs to reset the database they don't have to
+repeat all the set up steps and manually create models entries to work with.
+
+Initially it only includes the creation of an Admin user that will not be
+superuser, but will have access to the admin panel and have all the permission
+groups assigned.
+
+This user is created because normally superuser access is not given to our
+customer, instead, we keep a superuser account for the developers and create
+different user roles using permission groups, and within those users, the one
+with a higher access level is this Admin.
+
+For that reason, when developing features within the admin panel, it's necessary
+to try them using the different user roles and NOT the superuser account.
+
+Extend this command whenever new models are created or updated to maintain
+a good set of initial fixtures to work with.
+
+### Initial superuser creation
+
+The `users`' app comes with the `auto_superuser` command. It does the same than
+the `0002_data_superuser.py` migation, so usually you won't need to run it.
+
+It might happen that when running the migrations for the first time you didn't
+set the `SUPERUSER_EMAIL` or `SUPERUSER_PASSWORD` settings and the superuser was
+not created. In that situation, if you want to create the superuser using
+those settings instead of running the Django's `createsuperuser` command, you
+can use `auto_superuser`.
+
+# Warning about python packages and tests
+
+If you need to split an admin.py or models.py file into multiple files using the
+python packages technique (which is, you create a folder called `admin` with a
+`__init__.py` file, and in this file you import the admin classes), beware of
+two problems:
+
+a. When running tests it will probably raise an `AlreadyRegistered` exception
+because of the reasons explained [here](https://medium.com/@michal.bock/fix-weird-exceptions-when-running-django-tests-f58def71b59a).
+b. Ruff will not accept the imports in the `__init__` file unless you make them
+explicit re-imports, like this:
+
+    from .base_admin import ModelAdmin as ModelAdmin
+

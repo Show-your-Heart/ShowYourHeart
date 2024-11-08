@@ -81,7 +81,7 @@ class EmailVerificationView(FormView, StandardSuccess):
 
     def form_valid(self, form):
         if (
-            str(form.cleaned_data["email_verification_code"])
+            form.cleaned_data.get("email_verification_code")
             == self.request.user.email_verification_code
         ):
             self.request.user.email_verified = True

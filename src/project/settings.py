@@ -5,6 +5,7 @@ For more information on Django's settings, visit:
     https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import logging
 from pathlib import Path
 
 import environ
@@ -100,9 +101,6 @@ DATABASES = {
 INSTALLED_APPS = [
     "maintenance_mode",
     "django.contrib.postgres",
-    "constance.backends.database",
-    "constance",
-    "logentry_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -114,6 +112,7 @@ INSTALLED_APPS = [
     "post_office",
     "django_extensions",
     "active_link",
+    "extra_settings",
     "apps.users",
     "project",
 ]
@@ -154,10 +153,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     str(BASE_DIR / "assets"),
 ]
-
-# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 
 ################################################################################
 #                             Authentication                                   #
@@ -238,7 +233,6 @@ TEMPLATES = [
         ],
         "OPTIONS": {
             "context_processors": [
-                "constance.context_processors.config",
                 "maintenance_mode.context_processors.maintenance_mode",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
@@ -285,6 +279,14 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = "static"
 
+STORAGES = {
+    "default": {
+        "BACKEND": "project.storage_backends.PublicMediaStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 ################################################################################
 #                                  Email                                       #
@@ -329,23 +331,34 @@ EMAIL_BACKEND = env.str(
     default="django.core.mail.backends.console.EmailBackend",
 )
 
-
 ################################################################################
-#                                  Admin                                       #
+#                         django-extra-settings                                #
 ################################################################################
 
-# Credentials for the initial superuser. Leave empty to skip its creation.
-# Variables for non-interactive superuser creation
-DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default=None)
-DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default=None)
-
-
-# Constance
-# https://django-constance.readthedocs.io/en/latest/#configuration
-CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-DEFAULT_PROJECT_NAME = env.str("DEFAULT_PROJECT_NAME", default="")
-CONSTANCE_CONFIG = {"PROJECT_NAME": (DEFAULT_PROJECT_NAME, _("Project name"))}
-
+PROJECT_NAME = env.str("PROJECT_NAME", default="")
+EXTRA_SETTINGS_DEFAULTS = [
+    {
+        "name": "PROJECT_NAME",
+        "type": "Setting.TYPE_STRING",
+        "value": PROJECT_NAME,
+        "description": _(
+            "This name will be used for the HTML title of the "
+            "public app, logo alt text and other places."
+        ),
+    },
+    {
+        "name": "LOGO",
+        "type": "Setting.TYPE_FILE",
+        "value": "",
+        "description": _(
+            "Logo image that will be used to customize the "
+            "public app, e-mail templates and other."
+        ),
+    },
+]
+EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "django-extra-settings-images"
+EXTRA_SETTINGS_FILE_UPLOAD_TO = "django-extra-settings-files"
+EXTRA_SETTINGS_VERBOSE_NAME = _("Dynamic settings")
 
 ################################################################################
 #                                  Logging                                     #
@@ -417,3 +430,56 @@ SELENIUM_HOST_NAME = env.str("SELENIUM_HOST_NAME", default="")
 # to run again the npx compiler as stated in the README.
 ACTIVE_LINK_CSS_CLASS = "bg-primary-400"
 ACTIVE_LINK_STRICT = True
+
+################################################################################
+#                            User groups and permissions                       #
+################################################################################
+
+# User group names that are used programmatically in some place, so we don't
+# want them hardcoded.
+# Beware that these CANNOT BE CHANGED once the instance is already deployed, or
+# you are going to end up with a new group with the new name while all the users
+# are still assigned to the previous group.
+# For the same reason, names cannot be multilingual.
+GROUPS = {
+    "admins": {
+        "name": "Administrators",
+        "description": _(
+            "Access to: configuration and customization "
+            "settings, the log of emails sent by the system, email "
+            "templates. Gives permission to edit the fields 'Is staff', "
+            "'Is active' and 'Groups'."
+        ),
+    },
+    "manage_users": {
+        "name": "User management",
+        "description": _(
+            "Grants access to adding, viewing, changing and deleting users."
+        ),
+    },
+    "access_logentry": {
+        "name": "Access full log entry",
+        "description": _(
+            "Grants access to the registry of all "
+            "actions made by any user within the admin panel."
+        ),
+    },
+}
+
+################################################################################
+#                    Initial superuser and dev data                            #
+################################################################################
+
+# Credentials for the initial superuser. Leave empty to skip its creation.
+# Variables for non-interactive superuser creation
+SUPERUSER_EMAIL = env.str("SUPERUSER_EMAIL", default="")
+SUPERUSER_PASSWORD = env.str("SUPERUSER_PASSWORD", default="")
+USER_ADMIN_EMAIL = env.str("USER_ADMIN_EMAIL", default="")
+USER_ADMIN_PASSWORD = env.str("USER_ADMIN_PASSWORD", default="")
+
+################################################################################
+#                           Logger / logging                                   #
+################################################################################
+
+# Calling this once here sets it for the entire project
+logging.basicConfig(level=logging.INFO)

@@ -1,4 +1,3 @@
-from constance import config
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import (
@@ -20,6 +19,7 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from extra_settings.models import Setting
 
 from apps.users.models import User
 from project.helpers import absolute_url
@@ -164,7 +164,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         context = {
-            "project_name": config.PROJECT_NAME,
+            "project_name": Setting.get("PROJECT_NAME"),
             "user_name": context["user"].full_name,
             "date": str(
                 formats.date_format(
@@ -225,7 +225,7 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = forms.IntegerField(
+    email_verification_code = forms.CharField(
         widget=forms.TextInput(
             attrs=({"autofocus": True, "placeholder": _("Verification code")})
         ),

@@ -1,8 +1,10 @@
 from django import forms
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils import timezone
 from django.utils.html import format_html
+from django.utils.translation import gettext as _
 
 from apps.users.models import User
 from project.admin import ModelAdminMixin
@@ -12,9 +14,10 @@ class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
 
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
     password2 = forms.CharField(
-        label="Password confirmation", widget=forms.PasswordInput
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput,
     )
 
     class Meta:
@@ -26,7 +29,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError(_("Passwords don't match"))
         return password2
 
     def save(self, commit=True):
@@ -56,7 +59,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (
-            "Autenticació",
+            _("Authentication"),
             {"classes": ("wide",), "fields": ("email", "password1", "password2")},
         ),
     )
@@ -64,7 +67,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
     # get_fieldsets to avoid having to repeat info in fieldsets and add_fieldsets.
     common_fieldsets = (
         (
-            "Dades",
+            _("Personal details"),
             {
                 "fields": (
                     "name",
@@ -73,7 +76,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
             },
         ),
         (
-            "Permisos i autoritzacions",
+            _("Permissions and authorizations"),
             {
                 "fields": (
                     "is_staff",
@@ -86,7 +89,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
             },
         ),
         (
-            "Registre",
+            _("Log"),
             {
                 "fields": (
                     "created_by",
@@ -96,22 +99,19 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
             },
         ),
     )
-    superuser_fields = ("is_superuser",)
+    superuser_fields = (
+        "is_superuser",
+        "email_verified",
+    )
     readonly_fields = ("roles_explanation_field",)
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
 
-    @admin.display(description="Informació rols d'usuari")
+    @admin.display(description=_("User roles information"))
     def roles_explanation_field(self, obj):
-        return format_html(
-            """
-            <ul>
-              <li>Admins: accés a la configuració i personalització del
-                backoffice, al llistat d'emails enviats pel sistema i a les
-                plantilles de les notificacions. També pot editar els camps
-                "Is staff" i "Is active" de la fitxa d'usuaris.
-              </li>
-            </ul>
-            """
+        groups_string = "".join(
+            f"<li>{group.get("name")}: {group.get("description")}</li>"
+            for group in settings.GROUPS.values()
         )
+        return format_html(f"<ul> <li>{groups_string}</li> </ul>")

@@ -1,3 +1,5 @@
+import logging
+
 from django.db import migrations
 
 from project.post_office import textify
@@ -58,7 +60,8 @@ ben llarga i t'agrairem que ens informis de la situació.
             id="email_verification",
             translated_templates={
                 "en": {
-                    "subject": "Email verification code for your account at " "{{project_name}}",
+                    "subject": "Email verification code for your account at "
+                    "{{project_name}}",
                     "body": """
     <p>Hello {{user_name}}!</p>
     <p>We're sending you this e-mail because today {{date}} at {{time}}
@@ -94,7 +97,6 @@ ben llarga i t'agrairem que ens informis de la situació.
         ),
     ]
 
-    print("")
     for template in templates:
         obj, created = mail_model.objects.update_or_create(
             name=template.get("id"),
@@ -112,10 +114,10 @@ ben llarga i t'agrairem que ens informis de la situació.
                 # https://github.com/ui/django-post_office/issues/214
                 name=template.get("id"),
             )
+            logging.info(f"E-mail template '{template.get("id")}' created.")
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("users", "0002_data_superuser"),
         ("post_office", "__latest__"),
