@@ -269,6 +269,9 @@ To run the linter connect to the Docker's container bash terminal and run:
 
 ## Examples to make contributing easier
 
+There's an extended developer's guide [here](https://github.com/Show-your-Heart/ShowYourHeart-docs/wiki/Development-tools-and-processes-documentation)
+that is important for everyone to read before contributing to the project.
+
 ### Changing and using Dynamic settings
 
 We use the `django-extra-settings` [library](https://github.com/fabiocaccamo/django-extra-settings)
