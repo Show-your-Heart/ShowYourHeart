@@ -257,6 +257,9 @@ In some cases, you might need:
 
 And (as always) check the diff of all changes before commiting.
 
+> Note that migrations are not excluded from the linter/formatter on purpose
+> because some of them are data migrations that we manually code, and we don't
+> see any problem with the automatically generated ones being formatted as well.
 
 ### .po files linter
 
