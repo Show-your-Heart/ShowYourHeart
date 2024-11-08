@@ -1,13 +1,9 @@
-import environ
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from django.utils.translation import gettext as _
 
 from apps.users.models import User
-
-env = environ.Env()
-environ.Env.read_env()
 
 
 class Command(BaseCommand):
@@ -28,8 +24,11 @@ class Command(BaseCommand):
         self.create_sample_users()
 
     def create_sample_users(self):
-        email = env("USER_ADMIN_EMAIL")
-        password = env("USER_ADMIN_PASSWORD")
+        self.stdout.write(
+            _("Creating sample users...")
+        )
+        email = settings.USER_ADMIN_EMAIL
+        password = settings.USER_ADMIN_PASSWORD
 
         if not User.objects.filter(email=email).exists():
             user = User.objects.create_user(
@@ -42,5 +41,14 @@ class Command(BaseCommand):
             )
             groups = Group.objects.all()
             user.groups.set(groups)
+            self.stdout.write(
+                _("Administrator user created with email '{email}'.").format(
+                    email=email,
+                )
+            )
+        else:
+            self.stdout.write(
+                _("Administrator user already exists.")
+            )
 
         return 0
