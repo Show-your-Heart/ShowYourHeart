@@ -19,11 +19,13 @@ def generate_superuser(apps, schema_editor):
     password = settings.SUPERUSER_PASSWORD
 
     if not email or not password:
-        logging.info(_(
-            "Skipping initial superuser creation. Set "
-            "SUPERUSER_EMAIL and SUPERUSER_PASSWORD "
-            "environment variables to enable it."
-        ))
+        logging.info(
+            _(
+                "Skipping initial superuser creation. Set "
+                "SUPERUSER_EMAIL and SUPERUSER_PASSWORD "
+                "environment variables to enable it."
+            )
+        )
         return
 
     user = user_model()
@@ -51,7 +53,6 @@ def remove_superuser(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("users", "0001_initial"),
     ]
