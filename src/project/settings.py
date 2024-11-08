@@ -116,7 +116,6 @@ INSTALLED_APPS = [
     "active_link",
     "apps.users",
     "project",
-    "apps.demo",
 ]
 
 

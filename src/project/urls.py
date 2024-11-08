@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-from apps.demo.views import create_view, detail_view, list_view, update_view
 from project.views import RootRedirectView, home_view
 
 urlpatterns = [
@@ -28,9 +27,5 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", home_view, name="home"),
-    path(_("demo/list/"), list_view, name="list"),
-    path(_("demo/details/<int:id>"), detail_view, name="details"),
-    path(_("demo/update/<int:id>"), update_view, name="update"),
-    path(_("demo/"), create_view, name="create"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
 )
