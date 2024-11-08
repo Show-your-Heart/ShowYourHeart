@@ -61,6 +61,7 @@ class Strings(Enum):
     PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.PROJECT_NAME
     EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.PROJECT_NAME
 
+
 @override_settings(
     ALLOWED_HOSTS=["*"],
     STORAGES={
