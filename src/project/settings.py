@@ -115,7 +115,6 @@ INSTALLED_APPS = [
     "extra_settings",
     "apps.users",
     "project",
-    "apps.demo",
 ]
 
 

@@ -156,18 +156,6 @@
           </li>
           {% endif %}
           {% if request.user.is_authenticated %}
-          <!-- Demo -->
-          <li class="{% active_link 'list' %}">
-            <a href="{% url 'list' %}"
-              id="menu_demo"
-              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-6 h-6 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
-                <path fill-rule="evenodd" d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z" clip-rule="evenodd"/>
-              </svg>
-
-              <span class="ms-3">{% translate 'Demo' %}</span>
-            </a>
-          </li>
           <!-- Perfil -->
           <li class="{% active_link 'registration:profile_details' %}">
             <a href="{% url 'registration:profile_details' %}"

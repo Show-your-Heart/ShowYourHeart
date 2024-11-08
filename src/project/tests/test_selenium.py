@@ -12,7 +12,6 @@ from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-from apps.demo.models import Data
 from apps.users.models import User
 
 logging.basicConfig(level=logging.INFO)
@@ -61,11 +60,6 @@ class Strings(Enum):
     REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.PROJECT_NAME
     PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.PROJECT_NAME
     EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.PROJECT_NAME
-    DEMO_TITLE = _("%s | Demo") % settings.PROJECT_NAME
-    DEMO_CREATE = _("%s | Demo Create") % settings.PROJECT_NAME
-    DEMO_DETAILS = _("%s | Demo Details") % settings.PROJECT_NAME
-    DEMO_UPDATE = _("%s | Demo Update") % settings.PROJECT_NAME
-
 
 @override_settings(
     ALLOWED_HOSTS=["*"],
@@ -250,18 +244,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         self._home()
         logging.info("Test Home finished.")
-
-        self._demo_list()
-        logging.info("Test Demo List finished.")
-
-        self._demo_create()
-        logging.info("Test Demo Create finished.")
-
-        self._demo_details()
-        logging.info("Test Demo Details finished.")
-
-        self._demo_update()
-        logging.info("Test Demo Update finished.")
 
         logging.info("#####################################")
         logging.info("#### All Selenium tests finished ####")
@@ -466,94 +448,3 @@ class MySeleniumTests(StaticLiveServerTestCase):
         home_menu_option.click()
 
         self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)
-
-    def _demo_list(self):
-        # Open the main menu to select the Home option.
-        self.burger_menu_action()
-        home_menu_option = self.selenium.find_element(By.ID, "menu_demo")
-        home_menu_option.click()
-
-        self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)
-
-    def _demo_create(self):
-        # Click on Create New Data to create a new record.
-        create_data = self.selenium.find_element(By.ID, "id_create_data")
-        create_data.click()
-        self.logging_url_title_and_assert_title(Strings.DEMO_CREATE.value)
-
-        # All the fields are filled in
-        demo_field_text_1 = self.selenium.find_element(By.NAME, "field_text_1")
-        demo_field_text_2 = self.selenium.find_element(By.NAME, "field_text_2")
-        demo_field_email = self.selenium.find_element(By.NAME, "field_email")
-        demo_field_radio = self.selenium.find_element(By.ID, "id_field_radio_1")
-        demo_field_boolean_checkbox = self.selenium.find_element(
-            By.NAME, "field_boolean_checkbox"
-        )
-        demo_field_select_dropdown = self.selenium.find_element(
-            By.NAME, "field_select_dropdown"
-        )
-        demo_field_password = self.selenium.find_element(By.NAME, "field_password")
-        demo_field_password_confirm = self.selenium.find_element(
-            By.NAME, "field_password_confirm"
-        )
-        demo_field_number = self.selenium.find_element(By.NAME, "field_number")
-
-        demo_field_text_1.send_keys("text_1")
-        demo_field_text_2.send_keys("text_2")
-        demo_field_email.send_keys("email@test.com")
-        demo_field_radio.click()
-        demo_field_boolean_checkbox.click()
-        demo_field_select_dropdown.send_keys("OP2")
-        demo_field_password.send_keys("password")
-        demo_field_password_confirm.send_keys("password")
-        demo_field_number.send_keys("1234")
-        demo_field_password.send_keys(Keys.RETURN)
-
-        self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)
-
-    def _demo_details(self):
-        # Click on data entry
-        data_id = Data.objects.values_list("id", flat=True).first()
-        data_button = self.selenium.find_element(By.ID, f"id_details_{data_id}")
-        data_button.click()
-
-        self.logging_url_title_and_assert_title(Strings.DEMO_DETAILS.value)
-
-    def _demo_update(self):
-        # Click on Edit Data to update record.
-        update_data = self.selenium.find_element(By.ID, "id_edit")
-        update_data.click()
-        self.logging_url_title_and_assert_title(Strings.DEMO_UPDATE.value)
-
-        # Data Updated
-        update_field_text_1 = self.selenium.find_element(By.ID, "id_field_text_1")
-        update_field_text_2 = self.selenium.find_element(By.ID, "id_field_text_2")
-        update_field_email = self.selenium.find_element(By.ID, "id_field_email")
-        update_field_radio = self.selenium.find_element(By.ID, "id_field_radio_1")
-        update_field_select_dropdown = self.selenium.find_element(
-            By.NAME, "field_select_dropdown"
-        )
-        update_field_password = self.selenium.find_element(By.NAME, "field_password")
-        update_field_password_confirm = self.selenium.find_element(
-            By.NAME, "field_password_confirm"
-        )
-        update_field_number = self.selenium.find_element(By.NAME, "field_number")
-
-        update_field_text_1.clear()
-        update_field_text_2.clear()
-        update_field_email.clear()
-        update_field_password.clear()
-        update_field_password_confirm.clear()
-        update_field_number.clear()
-        update_field_text_1.send_keys("update_text_1")
-        update_field_text_2.send_keys("update_text_2")
-        update_field_email.send_keys("update_email@test.com")
-        update_field_radio.click()
-        update_field_select_dropdown.send_keys("OP3")
-        update_field_password.send_keys("update_password")
-        update_field_password_confirm.send_keys("update_password")
-        update_field_number.send_keys("5678")
-        update_submit = self.selenium.find_element(By.ID, "id_submit")
-        update_submit.click()
-
-        self.logging_url_title_and_assert_title(Strings.DEMO_DETAILS.value)
