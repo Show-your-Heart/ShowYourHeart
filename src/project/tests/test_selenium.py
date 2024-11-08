@@ -55,11 +55,12 @@ class Strings(Enum):
     MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
-    SIGNUP_TITLE = _("%s | Create an account") % settings.PROJECT_NAME
-    PROFILE_TITLE = _("%s | Profile details") % settings.PROJECT_NAME
-    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.PROJECT_NAME
-    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.PROJECT_NAME
-    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.PROJECT_NAME
+    HOME_TITLE = f"{settings.PROJECT_NAME} | {_("Home")}"
+    SIGNUP_TITLE = f"{settings.PROJECT_NAME} | {_("Create an account")}"
+    PROFILE_TITLE = f"{settings.PROJECT_NAME} | {_("Profile details")}"
+    REGISTRY_UPDATE_TITLE = f"{settings.PROJECT_NAME} | {_("Registry updated")}"
+    PASSWORD_CHANGE_TITLE = f"{settings.PROJECT_NAME} | {_("Password change")}"
+    EMAIL_VALIDATION_TITLE = f"{settings.PROJECT_NAME} | {_("Mail validation")}"
 
 
 @override_settings(
@@ -156,7 +157,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def logging_url_title_and_assert_title(self, title=None):
         logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
+        logging.info(f'Page title: "{self.selenium.title}", asserting with {title}')
         assert title == self.selenium.title
 
     def _check_mail_sent(self, recipient, string_in_body=""):
@@ -448,4 +449,4 @@ class MySeleniumTests(StaticLiveServerTestCase):
         home_menu_option = self.selenium.find_element(By.ID, "menu_home")
         home_menu_option.click()
 
-        self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)
+        self.logging_url_title_and_assert_title(Strings.HOME_TITLE.value)
