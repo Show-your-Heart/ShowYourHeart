@@ -24,9 +24,7 @@ class Command(BaseCommand):
         self.create_sample_users()
 
     def create_sample_users(self):
-        self.stdout.write(
-            _("Creating sample users...")
-        )
+        self.stdout.write(_("Creating sample users..."))
 
         # Superuser
         email = settings.SUPERUSER_EMAIL
@@ -39,9 +37,7 @@ class Command(BaseCommand):
                 )
             )
         else:
-            self.stdout.write(
-                _("Superuser already exists.")
-            )
+            self.stdout.write(_("Superuser already exists."))
 
         # Administrator
         email = settings.USER_ADMIN_EMAIL
@@ -63,8 +59,6 @@ class Command(BaseCommand):
                 )
             )
         else:
-            self.stdout.write(
-                _("Administrator user already exists.")
-            )
+            self.stdout.write(_("Administrator user already exists."))
 
         return 0
