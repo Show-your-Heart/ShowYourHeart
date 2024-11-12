@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin as BaseModelAdmin
+from unfold.admin import ModelAdmin as BaseModelAdmin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -97,7 +97,7 @@ class UserListFilter(admin.SimpleListFilter):
 
 
 @admin.register(LogEntry)
-class LogEntryAdmin(admin.ModelAdmin):
+class LogEntryAdmin(BaseModelAdmin):
     date_hierarchy = "action_time"
 
     readonly_fields = [f.name for f in LogEntry._meta.fields] + [
