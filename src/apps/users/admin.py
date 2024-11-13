@@ -1,10 +1,13 @@
 from django import forms
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
+from unfold.admin import ModelAdmin
 
 from apps.users.models import User
 from project.admin import ModelAdminMixin
@@ -43,7 +46,7 @@ class UserCreationForm(forms.ModelForm):
 
 
 @admin.register(User)
-class UserAdmin(ModelAdminMixin, BaseUserAdmin):
+class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     list_display = (
         "email",
         "full_name",
@@ -115,3 +118,11 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
             for group in settings.GROUPS.values()
         )
         return format_html(f"<ul> <li>{groups_string}</li> </ul>")
+
+
+admin.site.unregister(Group)
+
+
+@admin.register(Group)
+class GroupAdmin(BaseGroupAdmin, ModelAdmin):
+    pass
