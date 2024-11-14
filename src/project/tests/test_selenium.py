@@ -53,7 +53,7 @@ class Strings(Enum):
     """
 
     MENU_ADMIN = _("Administration panel")
-    ADMIN_TITLE = _("Site administration | Django site admin")
+    ADMIN_TITLE = f"{_("Site administration")} | {settings.UNFOLD['SITE_TITLE']}"
     LOGOUT = _("Log out")
     HOME_TITLE = f"{settings.PROJECT_NAME} | {_("Home")}"
     SIGNUP_TITLE = f"{settings.PROJECT_NAME} | {_("Create an account")}"
