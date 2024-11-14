@@ -296,7 +296,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def _signup(self):
         # Log out to return to the home page
         admin_menu = self.select_element_by_text(Strings.LOGOUT.value)
-        admin_menu.click()
+        self.click_non_interactable_element(admin_menu)
 
         # Open the main menu to select the Sign Up option.
         self.burger_menu_action()
