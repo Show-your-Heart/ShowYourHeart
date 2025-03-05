@@ -32,13 +32,11 @@ def update_user_groups(sender, **kwargs):
     permissions = {
         "post_office": get_permission_codenames("email", "v")
         + get_permission_codenames("log", "v")
-        + get_permission_codenames("emailtemplate", "v,c"),
+        + get_permission_codenames("emailtemplate", "v"),
+        # post_office also has the 'attachment' model. Not giving access for now.
         "users": get_permission_codenames("user", "vacd")
         + get_permission_codenames("profile", "vacd"),
         "admin": get_permission_codenames("logentry", "c"),
-        "settings": get_permission_codenames("network", "vacd")
-        + get_permission_codenames("legalstructure", "vacd"),
-        "methods": get_permission_codenames("topic", "vacd"),
     }
     create_group(settings.GROUPS["admins"]["name"], permissions)
 

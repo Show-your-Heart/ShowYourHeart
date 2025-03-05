@@ -67,7 +67,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
     ordering = ("email",)
-    fieldsets = (("Autentication", {"fields": ("email",)}),)
+    fieldsets = (("Autentication", {"fields": ("email", "password")}),)
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
@@ -75,7 +75,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
             _("Authentication"),
             {
                 "classes": ("wide",),
-                "fields": ("email",),
+                "fields": ("email", "password1", "password2"),
             },
         ),
     )
@@ -124,8 +124,6 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "roles_explanation_field",
         "actions_field",
     )
-    add_form = UserCreationForm
-    inlines = (UserProfileInline,)
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
@@ -134,14 +132,15 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     def roles_explanation_field(self, obj):
         groups_string = "".join(
             f"<li>{group.get('name')}: {group.get('description')}</li>"
+            f"<li>{group.get('name')}: {group.get('description')}</li>"
             for group in settings.GROUPS.values()
         )
         return format_html(f"<ul> <li>{groups_string}</li> </ul>")
 
     @admin.display(description=_("Actions"))
     def actions_field(self, obj):
-        if not obj or not obj.is_active:
-            return "Activate the user to enable the actions"
+        if not obj or obj.email_verified:
+            return "-"
         confirmed_verification_msg = _(
             "Are you sure you want to send an email to the user to set the password?"
         )
