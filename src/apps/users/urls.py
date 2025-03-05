@@ -17,6 +17,7 @@ from apps.users.views import (
     details_view,
     privacy_policy_view,
     signup_view,
+    welcome_email_view,
 )
 from project.views import StandardSuccess
 
@@ -94,6 +95,11 @@ urlpatterns = [
         _("email-verification-complete/"),
         EmailVerificationCompleteView.as_view(),
         name="email_verification_complete",
+    ),
+    path(
+        _("welcome-email-send/<id>"),
+        welcome_email_view,
+        name="welcome_email",
     ),
     path(
         _("privacy-policy/"),

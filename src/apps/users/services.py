@@ -38,3 +38,37 @@ def send_confirmation_mail(user_instance):
         template="email_verification",
         context=context,
     )
+
+
+def send_activated_account_mail(user_instance):
+    password_reset_url = absolute_url(
+        reverse(
+            "registration:password_reset_confirm",
+            kwargs={
+                "uidb64": context["uid"],
+                "token": context["token"],
+            },
+        )
+    )
+    context = {
+        "project_name": Setting.get("PROJECT_NAME"),
+        "user_name": user_instance.name,
+        "date": str(
+            formats.date_format(
+                timezone.now().date(),
+                format="SHORT_DATE_FORMAT",
+                use_l10n=True,
+            )
+        ),
+        "time": str(formats.time_format(timezone.localtime(timezone.now()).time())),
+        "user_email": user_instance.email,
+        "absolute_url": settings.ABSOLUTE_URL,
+        "password_reset_url": password_reset_url,
+    }
+    send(
+        recipients=[
+            user_instance.email,
+        ],
+        template="activated_account",
+        context=context,
+    )

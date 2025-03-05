@@ -39,26 +39,26 @@ class Command(BaseCommand):
         else:
             self.stdout.write(_("Superuser already exists."))
 
-        # Administrator
-        email = settings.USER_ADMIN_EMAIL
-        password = settings.USER_ADMIN_PASSWORD
+        # Governance admin
+        email = settings.USER_GOV_ADMIN_EMAIL
+        password = settings.USER_GOV_ADMIN_PASSWORD
         if not User.objects.filter(email=email).exists():
             user = User.objects.create_user(
                 email=email,
                 password=password,
-                name="Administrator",
+                name="Governace admin",
                 surnames="",
                 is_staff=True,
                 is_active=True,
             )
-            groups = Group.objects.all()
+            groups = Group.objects.filter(name="Governance admins")
             user.groups.set(groups)
             self.stdout.write(
-                _("Administrator user created with email '{email}'.").format(
+                _("Governace admin user created with email '{email}'.").format(
                     email=email,
                 )
             )
         else:
-            self.stdout.write(_("Administrator user already exists."))
+            self.stdout.write(_("Governace admin user already exists."))
 
         return 0
