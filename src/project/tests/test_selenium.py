@@ -53,7 +53,7 @@ class Strings(Enum):
     """
 
     MENU_ADMIN = _("Administration panel")
-    ADMIN_TITLE = _("Site administration | Django site admin")
+    ADMIN_TITLE = f"{_("Site administration")} | {settings.UNFOLD['SITE_TITLE']}"
     LOGOUT = _("Log out")
     HOME_TITLE = f"{settings.PROJECT_NAME} | {_("Home")}"
     SIGNUP_TITLE = f"{settings.PROJECT_NAME} | {_("Create an account")}"
@@ -296,7 +296,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def _signup(self):
         # Log out to return to the home page
         admin_menu = self.select_element_by_text(Strings.LOGOUT.value)
-        admin_menu.click()
+        self.click_non_interactable_element(admin_menu)
 
         # Open the main menu to select the Sign Up option.
         self.burger_menu_action()

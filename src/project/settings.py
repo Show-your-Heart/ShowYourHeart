@@ -99,6 +99,7 @@ DATABASES = {
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
+    "unfold",
     "maintenance_mode",
     "django.contrib.postgres",
     "django.contrib.admin",
@@ -483,3 +484,11 @@ USER_ADMIN_PASSWORD = env.str("USER_ADMIN_PASSWORD", default="")
 
 # Calling this once here sets it for the entire project
 logging.basicConfig(level=logging.INFO)
+
+################################################################################
+#                              Django Unfold                                   #
+################################################################################
+UNFOLD = {
+    "SITE_TITLE": "SYH Admin",
+    "SITE_HEADER": "Show your heart admin",
+}

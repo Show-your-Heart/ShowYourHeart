@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin as BaseModelAdmin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -9,6 +8,7 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
+from unfold.admin import ModelAdmin as BaseModelAdmin
 
 
 class ModelAdminMixin(object):
@@ -97,7 +97,7 @@ class UserListFilter(admin.SimpleListFilter):
 
 
 @admin.register(LogEntry)
-class LogEntryAdmin(admin.ModelAdmin):
+class LogEntryAdmin(BaseModelAdmin):
     date_hierarchy = "action_time"
 
     readonly_fields = [f.name for f in LogEntry._meta.fields] + [
