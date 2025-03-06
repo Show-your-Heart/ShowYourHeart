@@ -17,7 +17,14 @@ from project.admin import ModelAdminMixin
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
-    fields except the password."""
+    fields, plus a repeated password."""
+
+    password1 = forms.CharField(
+        label=_("Password"), widget=forms.PasswordInput, required=False
+    )
+    password2 = forms.CharField(
+        label=_("Password confirmation"), widget=forms.PasswordInput, required=False
+    )
 
     class Meta:
         model = User
@@ -124,6 +131,10 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "roles_explanation_field",
         "actions_field",
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["groups"].required = True
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
