@@ -16,7 +16,7 @@ from project.admin import ModelAdminMixin
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
-    fields except the password. """
+    fields except the password."""
 
     class Meta:
         model = User
@@ -43,7 +43,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
     ordering = ("email",)
-    fieldsets = (("Autentication", {"fields": ("email", )}),)
+    fieldsets = (("Autentication", {"fields": ("email",)}),)
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
@@ -51,7 +51,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
             _("Authentication"),
             {
                 "classes": ("wide",),
-                "fields": ("email", ),
+                "fields": ("email",),
             },
         ),
     )

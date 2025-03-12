@@ -99,8 +99,7 @@ ben llarga i t'agrairem que ens informis de la situació.
             id="welcome",
             translated_templates={
                 "en": {
-                    "subject": "Activated account on "
-                    "{{project_name}}",
+                    "subject": "Activated account on " "{{project_name}}",
                     "body": """
     <p>Hello {{user_name}}!</p>
     <p>We're sending you this e-mail because today {{date}} at {{time}}
@@ -116,7 +115,7 @@ ben llarga i t'agrairem que ens informis de la situació.
     </p>
                         """,
                 },
-            }
+            },
         ),
     ]
 
