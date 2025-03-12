@@ -96,7 +96,7 @@ ben llarga i t'agrairem que ens informis de la situació.
             },
         ),
         dict(
-            id="activated_account",
+            id="welcome",
             translated_templates={
                 "en": {
                     "subject": "Activated account on "

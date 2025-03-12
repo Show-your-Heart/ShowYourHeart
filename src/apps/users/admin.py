@@ -16,31 +16,15 @@ from project.admin import ModelAdminMixin
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
-    fields, plus a repeated password."""
-
-    password1 = forms.CharField(
-        label=_("Password"), widget=forms.PasswordInput, required=False
-    )
-    password2 = forms.CharField(
-        label=_("Password confirmation"), widget=forms.PasswordInput, required=False
-    )
+    fields except the password. """
 
     class Meta:
         model = User
         fields = ("email",)
 
-    def clean_password2(self):
-        # Check that the two password entries match
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError(_("Passwords don't match"))
-        return password2
-
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
         user.validated = timezone.now()
         if commit:
             user.save()
@@ -59,7 +43,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
     ordering = ("email",)
-    fieldsets = (("Autentication", {"fields": ("email", "password")}),)
+    fieldsets = (("Autentication", {"fields": ("email", )}),)
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
@@ -67,7 +51,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
             _("Authentication"),
             {
                 "classes": ("wide",),
-                "fields": ("email", "password1", "password2"),
+                "fields": ("email", ),
             },
         ),
     )
@@ -116,10 +100,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "roles_explanation_field",
         "actions_field",
     )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["groups"].required = True
+    add_form = UserCreationForm
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
@@ -134,8 +115,8 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
 
     @admin.display(description=_("Actions"))
     def actions_field(self, obj):
-        if not obj or obj.email_verified:
-            return "-"
+        if not obj or not obj.is_active:
+            return "Activate the user to enable the actions"
         confirmed_verification_msg = _(
             "Are you sure you want to send an email to the user to set the password?"
         )
