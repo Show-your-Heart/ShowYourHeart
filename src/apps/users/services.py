@@ -43,13 +43,13 @@ def send_confirmation_mail(user_instance):
     )
 
 
-def send_activated_account_mail(user_instance):
+def send_welcome_mail(user_instance):
     password_reset_url = absolute_url(
         reverse(
             "registration:password_reset_confirm",
             kwargs={
-                "uidb64": context["uid"],
-                "token": context["token"],
+                "uidb64": urlsafe_base64_encode(force_bytes(user_instance.pk)),
+                "token": default_token_generator.make_token(user_instance),
             },
         )
     )
@@ -72,6 +72,6 @@ def send_activated_account_mail(user_instance):
         recipients=[
             user_instance.email,
         ],
-        template="activated_account",
+        template="welcome",
         context=context,
     )

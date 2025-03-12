@@ -35,7 +35,7 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
-from apps.users.services import send_activated_account_mail, send_confirmation_mail
+from apps.users.services import send_welcome_mail, send_confirmation_mail
 from project.decorators import anonymous_required
 from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
@@ -235,12 +235,12 @@ def privacy_policy_view(request):
 
 def welcome_email_view(request, id):
     user = User.objects.get(pk=id)
-    send_activated_account_mail(user)
+    send_welcome_mail(user)
     messages.success(
         request,
         _(
             "An email has been sent to the user to inform that the account is active "
-            "and set the password."
+            "and he can set the password."
         ),
     )
     return HttpResponseRedirect(reverse("admin:users_user_change", args=(user.id,)))
