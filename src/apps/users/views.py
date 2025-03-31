@@ -35,7 +35,7 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
-from apps.users.services import send_welcome_mail, send_confirmation_mail
+from apps.users.services import send_confirmation_mail, send_welcome_mail
 from project.decorators import anonymous_required
 from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
