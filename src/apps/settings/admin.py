@@ -11,4 +11,3 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
 
 
 admin.site.register(LegalStructure, LegalStructureAdmin)
-
