@@ -153,6 +153,11 @@ In the future, when you pull a new version of the app, repeat the last 3 steps
 to make sure that you create an updated version of the Docker image and database
 migrations are applied.
 
+### Adding new packages
+As we use Poetry as package manager, to install new packages you need to execute the following command on the project root:
+`poetry add <package-name>`
+That will update the poetry.lock and pyproject.toml files so the library will be available on docker's containers.
+
 ### Frontend
 
 Tailwind needs to "compile" the css files by scanning the templates and
