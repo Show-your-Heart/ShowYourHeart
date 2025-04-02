@@ -28,25 +28,17 @@ def update_user_groups(sender, **kwargs):
     but it also helps to have a full list of available permissions.
     """
 
-    # Administradors
+    # Administrators
     permissions = {
         "post_office": get_permission_codenames("email", "v")
         + get_permission_codenames("log", "v")
         + get_permission_codenames("emailtemplate", "v"),
         # post_office also has the 'attachment' model. Not giving access for now.
-    }
-    create_group(settings.GROUPS["admins"]["name"], permissions)
-
-    # Manage Users
-    permissions = {
         "users": get_permission_codenames("user", "vacd")
         + get_permission_codenames("profile", "vacd"),
+        "admin": get_permission_codenames("logentry", "c"),
     }
-    create_group(settings.GROUPS["manage_users"]["name"], permissions)
-
-    # Access LogEntry (Entrades del registre)
-    permissions = {"admin": get_permission_codenames("logentry", "c")}
-    create_group(settings.GROUPS["access_logentry"]["name"], permissions)
+    create_group(settings.GROUPS["admins"]["name"], permissions)
 
     # Superusers
     """

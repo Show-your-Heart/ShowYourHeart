@@ -444,25 +444,12 @@ ACTIVE_LINK_STRICT = True
 # For the same reason, names cannot be multilingual.
 GROUPS = {
     "admins": {
-        "name": "Administrators",
+        "name": "Governance admins",
         "description": _(
             "Access to: configuration and customization "
             "settings, the log of emails sent by the system, email "
-            "templates. Gives permission to edit the fields 'Is staff', "
-            "'Is active' and 'Groups'."
-        ),
-    },
-    "manage_users": {
-        "name": "User management",
-        "description": _(
-            "Grants access to adding, viewing, changing and deleting users."
-        ),
-    },
-    "access_logentry": {
-        "name": "Access full log entry",
-        "description": _(
-            "Grants access to the registry of all "
-            "actions made by any user within the admin panel."
+            "templates, users management. Gives permission to edit the fields "
+            "'Is staff', 'Is active' and 'Groups'."
         ),
     },
 }
@@ -477,6 +464,8 @@ SUPERUSER_EMAIL = env.str("SUPERUSER_EMAIL", default="")
 SUPERUSER_PASSWORD = env.str("SUPERUSER_PASSWORD", default="")
 USER_ADMIN_EMAIL = env.str("USER_ADMIN_EMAIL", default="")
 USER_ADMIN_PASSWORD = env.str("USER_ADMIN_PASSWORD", default="")
+USER_GOV_ADMIN_EMAIL = env.str("USER_GOV_ADMIN_EMAIL", default="")
+USER_GOV_ADMIN_PASSWORD = env.str("USER_GOV_ADMIN_PASSWORD", default="")
 
 ################################################################################
 #                           Logger / logging                                   #
