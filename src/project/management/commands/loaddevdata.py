@@ -50,6 +50,7 @@ class Command(BaseCommand):
                 surnames="",
                 is_staff=True,
                 is_active=True,
+                email_verified=True,
             )
             groups = Group.objects.filter(name="Governance admins")
             user.groups.set(groups)
