@@ -1,5 +1,6 @@
 from itertools import islice
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth.views import (
@@ -17,7 +18,7 @@ from django.contrib.auth.views import (
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView
@@ -32,7 +33,8 @@ from apps.users.forms import (
     SendVerificationCodeForm,
     UserSignUpForm,
 )
-from apps.users.services import send_confirmation_mail
+from apps.users.models import User
+from apps.users.services import send_confirmation_mail, send_welcome_mail
 from project.decorators import anonymous_required
 from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
@@ -228,3 +230,16 @@ class PasswordChangeDoneView(StandardSuccess):
 @login_not_required
 def privacy_policy_view(request):
     return render(request, "registration/privacy_policy.html")
+
+
+def welcome_email_view(request, id):
+    user = User.objects.get(pk=id)
+    send_welcome_mail(user)
+    messages.success(
+        request,
+        _(
+            "An email has been sent to the user to inform that the account is active "
+            "and he can set the password."
+        ),
+    )
+    return HttpResponseRedirect(reverse("admin:users_user_change", args=(user.id,)))
