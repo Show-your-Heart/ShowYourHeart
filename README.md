@@ -277,7 +277,7 @@ The list of language available on the application is on settings.py LANGUAGES. T
 
 To allow the multilanguage on the Administration panel, follow the [guide](https://unfoldadmin.com/docs/multi-language/)
 
-When sending an email throgh the Administration panel (for example the welcome email to the users), it will be sent on the current language. If the template does not exist on this language it will show an error.
+When sending an email throgh the Administration panel (for exemple the welcome email to the users), it will be sent on the current language.
 
 ## Examples to make contributing easier
 
