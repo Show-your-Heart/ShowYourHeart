@@ -21,11 +21,12 @@ from django.utils.translation import gettext_lazy as _
 from project.views import RootRedirectView, home_view
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", RootRedirectView.as_view()),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 urlpatterns += i18n_patterns(
     path("", home_view, name="home"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
+    path("admin/", admin.site.urls),
 )

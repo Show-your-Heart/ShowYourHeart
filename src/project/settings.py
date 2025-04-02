@@ -480,4 +480,5 @@ logging.basicConfig(level=logging.INFO)
 UNFOLD = {
     "SITE_TITLE": "SYH Admin",
     "SITE_HEADER": "Show your heart admin",
+    "SHOW_LANGUAGES": True,
 }
