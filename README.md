@@ -267,6 +267,14 @@ To run the linter connect to the Docker's container bash terminal and run:
 
     dennis-cmd lint --errorsonly src
 
+## Multilanguage
+
+The list of language available on the application is on settings.py LANGUAGES. To add a new one just add its code and name to the list.
+
+To allow the multilanguage on the Administration panel, follow the [guide](https://unfoldadmin.com/docs/multi-language/)
+
+When sending an email throgh the Administration panel (for exemple the welcome email to the users), it will be sent on the current language.
+
 ## Examples to make contributing easier
 
 There's an extended developer's guide [here](https://github.com/Show-your-Heart/ShowYourHeart-docs/wiki/Development-tools-and-processes-documentation)
