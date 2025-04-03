@@ -119,6 +119,7 @@ INSTALLED_APPS = [
     "apps.methods",
     "apps.users",
     "project",
+    "apps.settings",
 ]
 
 
