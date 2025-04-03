@@ -102,6 +102,7 @@ INSTALLED_APPS = [
     "unfold",
     "maintenance_mode",
     "django.contrib.postgres",
+    "modeltranslation",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -116,6 +117,7 @@ INSTALLED_APPS = [
     "extra_settings",
     "apps.users",
     "project",
+    "apps.settings",
 ]
 
 

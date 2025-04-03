@@ -356,6 +356,20 @@ files = [
 python-fsutil = ">=0.13.1,<1.0.0"
 
 [[package]]
+name = "django-modeltranslation"
+version = "0.19.13"
+description = "Translates Django models using a registration approach."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django_modeltranslation-0.19.13-py3-none-any.whl", hash = "sha256:69b7dc9a8bae152ab84caf969a5ad478f588f4d9f8345545d4f20f66eeb51ef6"},
+    {file = "django_modeltranslation-0.19.13.tar.gz", hash = "sha256:df2516fdfb6a865fd1dfdda74e549d437d8ca148c1d435663db36edb6863f34e"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+
+[[package]]
 name = "django-post-office"
 version = "3.9.0"
 description = "A Django app to monitor and send mail asynchronously, complete with template support."
@@ -1299,4 +1313,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12"
-content-hash = "9bd9b2f97088604c0ac1baaa423d5cf9516729fd6006c32fa3be8e95b8e88526"
+content-hash = "8c3c56110294a7f55ae85fddad01f8712ab6ff4cb1dda4aa0b4b69129fe31db5"
