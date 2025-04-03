@@ -75,6 +75,7 @@ class Command(BaseCommand):
         if not parent.exists():
             parent = ParentNetwork.objects.create(name=parent_network_name)
         else:
+            parent = parent.first()
             self.stdout.write(_("ParentNetwork test already exists."))
 
         if not Network.objects.filter(name=network_name).exists():
@@ -82,7 +83,7 @@ class Command(BaseCommand):
             Network.objects.create(
                 name=network_name,
                 network_admin=network_admin,
-                parent_network=parent.first(),
+                parent_network=parent,
             )
         else:
             self.stdout.write(_("Network test already exists."))
