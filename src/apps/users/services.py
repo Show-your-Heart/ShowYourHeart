@@ -75,3 +75,26 @@ def send_welcome_mail(user_instance):
         template="welcome",
         context=context,
     )
+
+
+def send_network_assigned_mail(network_instance):
+    context = {
+        "project_name": Setting.get("PROJECT_NAME"),
+        "user_name": network_instance.network_admin.name,
+        "date": str(
+            formats.date_format(
+                timezone.now().date(),
+                format="SHORT_DATE_FORMAT",
+                use_l10n=True,
+            )
+        ),
+        "time": str(formats.time_format(timezone.localtime(timezone.now()).time())),
+        "network_name": network_instance.name,
+    }
+    send(
+        recipients=[
+            network_instance.network_admin.email,
+        ],
+        template="network_assigned",
+        context=context,
+    )

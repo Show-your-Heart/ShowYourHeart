@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from django.utils.translation import gettext as _
 
-from apps.settings.models import Network
+from apps.settings.models import Network, ParentNetwork
 from apps.users.models import User
 
 
@@ -68,13 +68,21 @@ class Command(BaseCommand):
 
     def create_sample_network(self):
         self.stdout.write(_("Creating sample network..."))
+        parent_network_name = "Parent network test"
         network_name = "Network test"
+        parent = ParentNetwork.objects.filter(name=parent_network_name)
+
+        if not parent.exists():
+            parent = ParentNetwork.objects.create(name=parent_network_name)
+        else:
+            self.stdout.write(_("ParentNetwork test already exists."))
 
         if not Network.objects.filter(name=network_name).exists():
             network_admin = User.objects.get(email=settings.SUPERUSER_EMAIL)
             Network.objects.create(
                 name=network_name,
                 network_admin=network_admin,
+                parent_network=parent.first(),
             )
         else:
             self.stdout.write(_("Network test already exists."))
