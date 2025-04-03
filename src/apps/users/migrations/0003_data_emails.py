@@ -95,6 +95,44 @@ ben llarga i t'agrairem que ens informis de la situació.
                 },
             },
         ),
+        dict(
+            id="network_assigned",
+            translated_templates={
+                "en": {
+                    "subject": "Network assigned on " "{{project_name}}",
+                    "body": """
+    <p>Hello {{user_name}}!</p>
+    <p>We're sending you this e-mail because today {{date}} at {{time}}
+    to inform you that you are now administrator of the network {{network_name}} on the SYH project.</p>
+
+    <p> If it weren't you who requested it,
+    ignore this message.</p>
+                        """,
+                },
+            },
+        ),
+        dict(
+            id="welcome",
+            translated_templates={
+                "en": {
+                    "subject": "Activated account on " "{{project_name}}",
+                    "body": """
+    <p>Hello {{user_name}}!</p>
+    <p>We're sending you this e-mail because today {{date}} at {{time}}
+    your account have been activated on the SYH project with your email {{user_email}}
+    for {{absolute_url}} and you need to set your password.</p>
+
+    <p> If it weren't you who requested it,
+    ignore this message.</p>
+
+    <h3>Password setting instructions</h3>
+    <p>To set a new password open this link:
+    <a href="{{password_reset_url}}">{{password_reset_url}}</a>
+    </p>
+                        """,
+                },
+            },
+        ),
     ]
 
     for template in templates:

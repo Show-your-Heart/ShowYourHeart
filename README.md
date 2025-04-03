@@ -153,6 +153,11 @@ In the future, when you pull a new version of the app, repeat the last 3 steps
 to make sure that you create an updated version of the Docker image and database
 migrations are applied.
 
+### Adding new packages
+As we use Poetry as package manager, to install new packages you need to execute the following command on the project root:
+`poetry add <package-name>`
+That will update the poetry.lock and pyproject.toml files so the library will be available on docker's containers.
+
 ### Frontend
 
 Tailwind needs to "compile" the css files by scanning the templates and
@@ -266,6 +271,14 @@ And (as always) check the diff of all changes before commiting.
 To run the linter connect to the Docker's container bash terminal and run:
 
     dennis-cmd lint --errorsonly src
+
+## Multilanguage
+
+The list of language available on the application is on settings.py LANGUAGES. To add a new one just add its code and name to the list.
+
+To allow the multilanguage on the Administration panel, follow the [guide](https://unfoldadmin.com/docs/multi-language/)
+
+When sending an email throgh the Administration panel (for example the welcome email to the users), it will be sent on the current language. If the template does not exist on this language it will show an error.
 
 ## Examples to make contributing easier
 

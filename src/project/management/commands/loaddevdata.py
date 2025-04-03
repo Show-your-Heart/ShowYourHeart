@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from django.utils.translation import gettext as _
 
+from apps.settings.models import Network, ParentNetwork
 from apps.users.models import User
 
 
@@ -22,6 +23,7 @@ class Command(BaseCommand):
             )
             return 0
         self.create_sample_users()
+        self.create_sample_network()
 
     def create_sample_users(self):
         self.stdout.write(_("Creating sample users..."))
@@ -39,26 +41,48 @@ class Command(BaseCommand):
         else:
             self.stdout.write(_("Superuser already exists."))
 
-        # Administrator
-        email = settings.USER_ADMIN_EMAIL
-        password = settings.USER_ADMIN_PASSWORD
+        # Governance admin
+        email = settings.USER_GOV_ADMIN_EMAIL
+        password = settings.USER_GOV_ADMIN_PASSWORD
         if not User.objects.filter(email=email).exists():
             user = User.objects.create_user(
                 email=email,
                 password=password,
-                name="Administrator",
+                name="Governace admin",
                 surnames="",
                 is_staff=True,
                 is_active=True,
+                email_verified=True,
             )
-            groups = Group.objects.all()
+            groups = Group.objects.filter(name="Governance admins")
             user.groups.set(groups)
             self.stdout.write(
-                _("Administrator user created with email '{email}'.").format(
+                _("Governace admin user created with email '{email}'.").format(
                     email=email,
                 )
             )
         else:
-            self.stdout.write(_("Administrator user already exists."))
+            self.stdout.write(_("Governace admin user already exists."))
 
         return 0
+
+    def create_sample_network(self):
+        self.stdout.write(_("Creating sample network..."))
+        parent_network_name = "Parent network test"
+        network_name = "Network test"
+        parent = ParentNetwork.objects.filter(name=parent_network_name)
+
+        if not parent.exists():
+            parent = ParentNetwork.objects.create(name=parent_network_name)
+        else:
+            self.stdout.write(_("ParentNetwork test already exists."))
+
+        if not Network.objects.filter(name=network_name).exists():
+            network_admin = User.objects.get(email=settings.SUPERUSER_EMAIL)
+            Network.objects.create(
+                name=network_name,
+                network_admin=network_admin,
+                parent_network=parent.first(),
+            )
+        else:
+            self.stdout.write(_("Network test already exists."))
