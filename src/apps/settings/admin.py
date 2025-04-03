@@ -31,6 +31,16 @@ class NetworkAdmin(ModelAdmin):
             _("Actions"),
             {"fields": ("actions_field",)},
         ),
+        (
+            _("Log"),
+            {
+                "fields": (
+                    "created_by",
+                    "created_at",
+                    "updated_at",
+                )
+            },
+        ),
     )
 
     readonly_fields = ("actions_field",)
