@@ -64,6 +64,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
                 "fields": (
                     "name",
                     "surnames",
+                    "address",
                 )
             },
         ),

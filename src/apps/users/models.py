@@ -40,6 +40,13 @@ class UserManager(BaseUserManager):
         return user
 
 
+class PersonalProfile(BaseModel):
+    user = models.ForeignKey(
+        "users.User", null=False, blank=False, on_delete=models.CASCADE
+    )
+    address = models.CharField()
+
+
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     name = models.CharField(_("name"), max_length=50)
     surnames = models.CharField(
@@ -76,6 +83,10 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     def has_admin_role(self):
         return self.is_staff or self.is_superuser
+
+    @property
+    def address(self):
+        return PersonalProfile.objects.filter(user=self).address
 
     class Meta:
         verbose_name = _("user")
