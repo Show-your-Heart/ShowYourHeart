@@ -118,7 +118,6 @@ INSTALLED_APPS = [
     "apps.settings",
     "apps.users",
     "project",
-    "apps.settings",
 ]
 
 

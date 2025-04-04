@@ -20,7 +20,7 @@ TO DO: include general description of the project's scope.
 ### Backend
 
 - [Python](https://www.python.org/) 3.12
-- [Django](https://www.djangoproject.com/) 5.1
+- [Django](https://www.djangoproject.com/) 5.1.8
 
 Many other technologies are used in the form of Python packages. Check out
 the list in `project.toml`.
