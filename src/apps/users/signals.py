@@ -36,6 +36,9 @@ def update_user_groups(sender, **kwargs):
         "users": get_permission_codenames("user", "vacd")
         + get_permission_codenames("profile", "vacd"),
         "admin": get_permission_codenames("logentry", "c"),
+        "settings": get_permission_codenames("parentnetwork", "vacd")
+        + get_permission_codenames("network", "vacd")
+        + get_permission_codenames("legalstructure", "vacd"),
     }
     create_group(settings.GROUPS["admins"]["name"], permissions)
 

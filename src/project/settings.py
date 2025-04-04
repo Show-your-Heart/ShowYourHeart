@@ -115,6 +115,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "active_link",
     "extra_settings",
+    "apps.settings",
     "apps.users",
     "project",
     "apps.settings",
