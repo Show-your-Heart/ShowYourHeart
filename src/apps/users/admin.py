@@ -10,7 +10,7 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from unfold.admin import ModelAdmin
 
-from apps.users.models import User
+from apps.users.models import User, UserProfile
 from project.admin import ModelAdminMixin
 
 
@@ -31,6 +31,16 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    verbose_name_plural = "User Profile"
+    fk_name = "user"
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileInline, self).__init__(*args, **kwargs)
+        self.can_delete = False
+
+
 @admin.register(User)
 class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     list_display = (
@@ -39,6 +49,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "is_staff",
         "is_superuser",
         "email_verified",
+        "address",
     )
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
@@ -64,7 +75,6 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
                 "fields": (
                     "name",
                     "surnames",
-                    "address",
                 )
             },
         ),
@@ -102,6 +112,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "actions_field",
     )
     add_form = UserCreationForm
+    inlines = (UserProfileInline,)
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
