@@ -98,7 +98,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     @property
     def address(self):
-        return UserProfile.objects.filter(user=self).address
+        return UserProfile.objects.get(user=self).address
 
     class Meta:
         verbose_name = _("user")

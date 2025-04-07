@@ -35,10 +35,20 @@ class UserProfileInline(admin.StackedInline):
     model = UserProfile
     verbose_name_plural = "User Profile"
     fk_name = "user"
+    extra = 0
+    fields = ("address",)
+    can_delete = False
 
-    def __init__(self, *args, **kwargs):
-        super(UserProfileInline, self).__init__(*args, **kwargs)
-        self.can_delete = False
+    def get_readonly_fields(self, request, obj=None):
+        # Don't allow editing until the User exists
+        readonly_fields = list(self.readonly_fields)
+        if not obj:
+            readonly_fields.extend(
+                [
+                    "address",
+                ]
+            )
+        return readonly_fields
 
 
 @admin.register(User)
@@ -49,7 +59,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "is_staff",
         "is_superuser",
         "email_verified",
-        "address",
+        "address",  # Comment before merging PR
     )
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
@@ -112,7 +122,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "actions_field",
     )
     add_form = UserCreationForm
-    inlines = (UserProfileInline,)
+    inlines = (UserProfileInline,)  # Comment before merging PR
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
