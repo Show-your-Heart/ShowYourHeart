@@ -13,9 +13,9 @@ services:
       dockerfile: ./docker/Dockerfile
       target: development
     env_file: ./.env
-    command: gunicorn project.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn project.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10"
     ports:
-      - "1601:8000"
+      - "127.0.0.1:1601:8000"
     volumes:
       - ../src:/srv
     depends_on:
