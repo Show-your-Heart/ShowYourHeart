@@ -11,18 +11,11 @@ class LegalStructure(BaseModel):
         return self.name
 
 
-class ParentNetwork(BaseModel):
-    name = models.CharField(_("name"), max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class Network(BaseModel):
     name = models.CharField(_("name"), max_length=50)
     network_admin = models.ForeignKey("users.User", on_delete=models.CASCADE)
     parent_network = models.ForeignKey(
-        ParentNetwork, null=True, blank=True, on_delete=models.RESTRICT
+        "self", null=True, blank=True, on_delete=models.RESTRICT
     )
 
     def __str__(self):
