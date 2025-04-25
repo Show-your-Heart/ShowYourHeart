@@ -116,6 +116,7 @@ INSTALLED_APPS = [
     "active_link",
     "extra_settings",
     "apps.settings",
+    "apps.methods",
     "apps.users",
     "project",
 ]
