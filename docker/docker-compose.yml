@@ -30,6 +30,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ../dumps:/dumps
+      - ./init-user-db.sh:/docker-entrypoint-initdb.d
     networks:
       - showyourheart-network
 
