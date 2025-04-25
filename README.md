@@ -146,7 +146,6 @@ for it, by doing `pyenv install 3.12` and then in the repository folder
 1. Copy the `docker/.env.example` file to `docker/.env` and modify as needed, but
 the initial setup should let the project initialize already.
 1. Install or update [Docker](https://www.docker.com/) and from the `docker/` folder run `docker compose up --build`.
-1. In another terminal, access the docker's container bash (`docker exec -it showyourheart-app bash`) and run `python manage.py migrate`.
 1. Open `http://localhost:1601`.
 
 In the future, when you pull a new version of the app, repeat the last 3 steps
