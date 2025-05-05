@@ -10,6 +10,7 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from unfold.admin import ModelAdmin
 
+from apps.users.forms import UserModelInlineForm
 from apps.users.models import User, UserProfile
 from project.admin import ModelAdminMixin
 
@@ -36,8 +37,11 @@ class UserProfileInline(admin.StackedInline):
     verbose_name_plural = "User Profile"
     fk_name = "user"
     extra = 0
-    fields = ("address",)
+    fields = ("telephone",)
     can_delete = False
+    tab = True  # Display the profile information on a new tab
+    hide_title = True
+    form = UserModelInlineForm
 
     def get_readonly_fields(self, request, obj=None):
         # Don't allow editing until the User exists
@@ -45,7 +49,7 @@ class UserProfileInline(admin.StackedInline):
         if not obj:
             readonly_fields.extend(
                 [
-                    "address",
+                    "telephone",
                 ]
             )
         return readonly_fields
@@ -59,7 +63,6 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "is_staff",
         "is_superuser",
         "email_verified",
-        "address",  # Comment before merging PR
     )
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
@@ -122,7 +125,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "actions_field",
     )
     add_form = UserCreationForm
-    inlines = (UserProfileInline,)  # Comment before merging PR
+    inlines = (UserProfileInline,)
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets

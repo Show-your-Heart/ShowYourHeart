@@ -49,7 +49,12 @@ class UserProfile(BaseModel):
         blank=False,
         on_delete=models.CASCADE,
     )
-    address = models.CharField(blank=True)
+    telephone = models.CharField(
+        _("telephone"),
+        max_length=20,
+        default="",
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "User Profile"
@@ -97,8 +102,8 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         return self.is_staff or self.is_superuser
 
     @property
-    def address(self):
-        return UserProfile.objects.get(user=self).address
+    def telephone(self):
+        return UserProfile.objects.get(user=self).telephone
 
     class Meta:
         verbose_name = _("user")
