@@ -5,6 +5,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 from project.models import BaseModel
@@ -38,6 +40,28 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
+
+class UserProfile(BaseModel):
+    user = models.OneToOneField(
+        "users.User",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+    )
+    telephone = models.CharField(
+        _("telephone"),
+        max_length=20,
+        default="",
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "User Profile"
+        verbose_name_plural = "User Profiles"
+
+    def __str__(self):
+        return self.user.full_name
 
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
@@ -77,6 +101,15 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     def has_admin_role(self):
         return self.is_staff or self.is_superuser
 
+    @property
+    def telephone(self):
+        return UserProfile.objects.get(user=self).telephone
+
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
+
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    UserProfile.objects.get_or_create(user=instance)
