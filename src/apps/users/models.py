@@ -5,19 +5,19 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 from project.models import BaseModel
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None, user_profile_data=None, **extra_fields):
         """
         Creates and saves a User with the given email, password
-        and extra fields.
+        profile data and extra fields.
         """
+        if user_profile_data is None:
+            user_profile_data = {}
         if not email:
             raise ValueError(_("Users must have an email address"))
 
@@ -25,6 +25,10 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
+
+        # Create the associated UserProfile with the provided data
+        UserProfile.objects.create(user=user, **user_profile_data)
+
         return user
 
     def create_superuser(self, email, password, **extra_fields):
@@ -48,6 +52,7 @@ class UserProfile(BaseModel):
         null=False,
         blank=False,
         on_delete=models.CASCADE,
+        related_name="profile",
     )
     telephone = models.CharField(
         _("telephone"),
@@ -101,15 +106,6 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     def has_admin_role(self):
         return self.is_staff or self.is_superuser
 
-    @property
-    def telephone(self):
-        return UserProfile.objects.get(user=self).telephone
-
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
-
-
-@receiver(post_save, sender=User)
-def create_or_update_user_profile(sender, instance, created, **kwargs):
-    UserProfile.objects.get_or_create(user=instance)

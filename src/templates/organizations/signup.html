@@ -1,0 +1,25 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Log in" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} login {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+
+
+{% block form_fields %}
+{{ form }}
+{% if messages %}
+{% for message in messages %}
+<div class="block mb-4 text-sm text-red-700 dark:text-red-500">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

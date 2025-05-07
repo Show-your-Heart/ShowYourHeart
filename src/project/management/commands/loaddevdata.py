@@ -32,7 +32,9 @@ class Command(BaseCommand):
         email = settings.SUPERUSER_EMAIL
         password = settings.SUPERUSER_PASSWORD
         if not User.objects.filter(email=email).exists():
-            User.objects.create_superuser(email=email, password=password)
+            User.objects.create_superuser(
+                email=email, password=password, name="Superuser"
+            )
             self.stdout.write(
                 _("Superuser created with email '{email}'.").format(
                     email=email,
