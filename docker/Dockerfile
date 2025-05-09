@@ -104,8 +104,10 @@ RUN export NVM_DIR="$HOME/.nvm" \
   && npm install
 
 # will become mountpoint of our code
+COPY src /srv
 WORKDIR /srv
-CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
+RUN ["chmod", "+x", "/srv/entrypoint.sh"]
+CMD ["bash", "/srv/entrypoint.sh"]
 
 ###############################################################################
 # `production` image used for runtime
