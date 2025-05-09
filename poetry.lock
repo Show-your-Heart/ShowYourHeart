@@ -300,6 +300,21 @@ files = [
 ]
 
 [[package]]
+name = "django-cotton"
+version = "2.1.1"
+description = "Bringing component based design to Django templates."
+optional = false
+python-versions = "<4,>=3.8"
+groups = ["main"]
+files = [
+    {file = "django_cotton-2.1.1-py3-none-any.whl", hash = "sha256:4666fdffeaadd7b8fa1b40d0afa905d0ec4cd216161d486c0a832628962053a6"},
+    {file = "django_cotton-2.1.1.tar.gz", hash = "sha256:5c83138ef4d33770d83d088056c40288090cd08c5e136d4d5a441a9c4b809489"},
+]
+
+[package.dependencies]
+django = ">=4.2,<5.3"
+
+[[package]]
 name = "django-environ"
 version = "0.11.2"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
@@ -382,6 +397,7 @@ version = "0.19.13"
 description = "Translates Django models using a registration approach."
 optional = false
 python-versions = "*"
+groups = ["main"]
 files = [
     {file = "django_modeltranslation-0.19.13-py3-none-any.whl", hash = "sha256:69b7dc9a8bae152ab84caf969a5ad478f588f4d9f8345545d4f20f66eeb51ef6"},
     {file = "django_modeltranslation-0.19.13.tar.gz", hash = "sha256:df2516fdfb6a865fd1dfdda74e549d437d8ca148c1d435663db36edb6863f34e"},
@@ -480,6 +496,7 @@ version = "0.40.0"
 description = "Modern Django admin theme for seamless interface development"
 optional = false
 python-versions = ">=3.8"
+groups = ["main"]
 files = [
     {file = "django_unfold-0.40.0-py3-none-any.whl", hash = "sha256:5038463cedb8e8110774f738bab0b50fbe51b269d7e9a2d4c0b6478a9f9d9d91"},
     {file = "django_unfold-0.40.0.tar.gz", hash = "sha256:84d2255d63d7cf4917f6cbe8a8caca2eed5d9175576a994d3d3f9b47381e19a0"},
@@ -1392,4 +1409,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.12"
-content-hash = "8c3c56110294a7f55ae85fddad01f8712ab6ff4cb1dda4aa0b4b69129fe31db5"
+content-hash = "24ae90e69826e7dbb74b9afec82a191a6f306a59b7dc76c57d804cab199889f6"
