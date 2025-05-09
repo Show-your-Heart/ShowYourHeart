@@ -300,6 +300,21 @@ files = [
 ]
 
 [[package]]
+name = "django-cotton"
+version = "2.1.1"
+description = "Bringing component based design to Django templates."
+optional = false
+python-versions = "<4,>=3.8"
+groups = ["main"]
+files = [
+    {file = "django_cotton-2.1.1-py3-none-any.whl", hash = "sha256:4666fdffeaadd7b8fa1b40d0afa905d0ec4cd216161d486c0a832628962053a6"},
+    {file = "django_cotton-2.1.1.tar.gz", hash = "sha256:5c83138ef4d33770d83d088056c40288090cd08c5e136d4d5a441a9c4b809489"},
+]
+
+[package.dependencies]
+django = ">=4.2,<5.3"
+
+[[package]]
 name = "django-environ"
 version = "0.11.2"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
