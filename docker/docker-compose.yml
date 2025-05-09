@@ -34,8 +34,8 @@ services:
     networks:
       - showyourheart-network
 
-  showyourheart-selenium:
-    container_name: showyourheart-selenium
-    image: selenium/standalone-chrome:4.16.0
-    networks:
-      - showyourheart-network
+  # showyourheart-selenium:
+  #   container_name: showyourheart-selenium
+  #   image: selenium/standalone-chrome:4.16.0
+  #   networks:
+  #     - showyourheart-network
