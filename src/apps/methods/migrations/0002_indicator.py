@@ -8,43 +8,169 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('methods', '0001_initial'),
+        ("methods", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Indicator',
+            name="Indicator",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='created at')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='updated at')),
-                ('project_id', models.CharField(max_length=50, verbose_name='ID')),
-                ('version', models.CharField(max_length=4, verbose_name='version')),
-                ('name', models.CharField(max_length=50, verbose_name='name')),
-                ('name_en', models.CharField(max_length=50, null=True, verbose_name='name')),
-                ('name_ca', models.CharField(max_length=50, null=True, verbose_name='name')),
-                ('description', models.CharField(blank=True, max_length=400, verbose_name='description')),
-                ('description_en', models.CharField(blank=True, max_length=400, null=True, verbose_name='description')),
-                ('description_ca', models.CharField(blank=True, max_length=400, null=True, verbose_name='description')),
-                ('is_direct_indicator', models.BooleanField(verbose_name='Is it a direct indicator?')),
-                ('category', models.CharField(choices=[('PERF', 'Performance'), ('SC', 'Scoring'), ('CERT', 'Certification')], default='PERF', verbose_name='category')),
-                ('data_type', models.CharField(choices=[('S', 'String'), ('T', 'Text'), ('I', 'Integer'), ('DC', 'Decimal'), ('B', 'Boolean'), ('D', 'Date'), ('A', 'Attachment'), ('CH', 'Checkbox'), ('R', 'Radiobutton'), ('DR', 'Dropdown')], default='S', verbose_name='data type')),
-                ('pre_unit', models.CharField(choices=[('C', 'C'), ('D', '$')], default='D', verbose_name='pre unit')),
-                ('post_unit', models.CharField(choices=[('K', 'kg'), ('M', 'm2'), ('T', '°C'), ('D', 'days'), ('P', 'points'), ('E', 'KWh')], default='K', verbose_name='post unit')),
-                ('list_options', models.CharField(max_length=50, verbose_name='list options')),
-                ('condition', models.CharField(max_length=400, verbose_name='condition')),
-                ('formula', models.CharField(max_length=400, verbose_name='formula')),
-                ('validation', models.CharField(max_length=50, verbose_name='validation')),
-                ('message', models.CharField(max_length=400, verbose_name='message')),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_related', to=settings.AUTH_USER_MODEL, verbose_name='created by')),
-                ('primary_topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='primary_topic', to='methods.topic')),
-                ('secondary_topics', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='secondary_topics', to='methods.topic')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="created at"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="updated at"),
+                ),
+                ("project_id", models.CharField(max_length=50, verbose_name="ID")),
+                ("version", models.CharField(max_length=4, verbose_name="version")),
+                ("name", models.CharField(max_length=50, verbose_name="name")),
+                (
+                    "name_en",
+                    models.CharField(max_length=50, null=True, verbose_name="name"),
+                ),
+                (
+                    "name_ca",
+                    models.CharField(max_length=50, null=True, verbose_name="name"),
+                ),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True, max_length=400, verbose_name="description"
+                    ),
+                ),
+                (
+                    "description_en",
+                    models.CharField(
+                        blank=True,
+                        max_length=400,
+                        null=True,
+                        verbose_name="description",
+                    ),
+                ),
+                (
+                    "description_ca",
+                    models.CharField(
+                        blank=True,
+                        max_length=400,
+                        null=True,
+                        verbose_name="description",
+                    ),
+                ),
+                (
+                    "is_direct_indicator",
+                    models.BooleanField(verbose_name="Is it a direct indicator?"),
+                ),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("PERF", "Performance"),
+                            ("SC", "Scoring"),
+                            ("CERT", "Certification"),
+                        ],
+                        default="PERF",
+                        verbose_name="category",
+                    ),
+                ),
+                (
+                    "data_type",
+                    models.CharField(
+                        choices=[
+                            ("S", "String"),
+                            ("T", "Text"),
+                            ("I", "Integer"),
+                            ("DC", "Decimal"),
+                            ("B", "Boolean"),
+                            ("D", "Date"),
+                            ("A", "Attachment"),
+                            ("CH", "Checkbox"),
+                            ("R", "Radiobutton"),
+                            ("DR", "Dropdown"),
+                        ],
+                        default="S",
+                        verbose_name="data type",
+                    ),
+                ),
+                (
+                    "pre_unit",
+                    models.CharField(
+                        choices=[("C", "C"), ("D", "$")],
+                        default="D",
+                        verbose_name="pre unit",
+                    ),
+                ),
+                (
+                    "post_unit",
+                    models.CharField(
+                        choices=[
+                            ("K", "kg"),
+                            ("M", "m2"),
+                            ("T", "°C"),
+                            ("D", "days"),
+                            ("P", "points"),
+                            ("E", "KWh"),
+                        ],
+                        default="K",
+                        verbose_name="post unit",
+                    ),
+                ),
+                (
+                    "list_options",
+                    models.CharField(max_length=50, verbose_name="list options"),
+                ),
+                (
+                    "condition",
+                    models.CharField(max_length=400, verbose_name="condition"),
+                ),
+                ("formula", models.CharField(max_length=400, verbose_name="formula")),
+                (
+                    "validation",
+                    models.CharField(max_length=50, verbose_name="validation"),
+                ),
+                ("message", models.CharField(max_length=400, verbose_name="message")),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="%(app_label)s_%(class)s_related",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="created by",
+                    ),
+                ),
+                (
+                    "primary_topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="primary_topic",
+                        to="methods.topic",
+                    ),
+                ),
+                (
+                    "secondary_topics",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="secondary_topics",
+                        to="methods.topic",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
             bases=(project.models.SetBooleanDatetimeMixin, models.Model),
         ),

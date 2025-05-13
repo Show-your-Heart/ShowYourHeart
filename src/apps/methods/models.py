@@ -12,6 +12,7 @@ class Topic(BaseModel):
     def __str__(self):
         return self.name
 
+
 class Indicator(BaseModel):
     class Category(models.TextChoices):
         PERFORMANCE = "PERF", _("Performance")
@@ -46,13 +47,25 @@ class Indicator(BaseModel):
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=50)
     description = models.CharField(_("description"), max_length=400, blank=True)
-    primary_topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="primary_topic")
-    secondary_topics = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="secondary_topics")
+    primary_topic = models.ForeignKey(
+        Topic, on_delete=models.CASCADE, related_name="primary_topic"
+    )
+    secondary_topics = models.ForeignKey(
+        Topic, on_delete=models.CASCADE, related_name="secondary_topics"
+    )
     is_direct_indicator = models.BooleanField(_("Is it a direct indicator?"))
-    category = models.CharField(_("category"), choices=Category.choices, default=Category.PERFORMANCE)
-    data_type = models.CharField(_("data type"), choices=DataType.choices, default=DataType.STRING)
-    pre_unit = models.CharField(_("pre unit"), choices=PreUnit.choices, default=PreUnit.DOLLAR)
-    post_unit = models.CharField(_("post unit"), choices=PostUnit.choices, default=PostUnit.KILO)
+    category = models.CharField(
+        _("category"), choices=Category.choices, default=Category.PERFORMANCE
+    )
+    data_type = models.CharField(
+        _("data type"), choices=DataType.choices, default=DataType.STRING
+    )
+    pre_unit = models.CharField(
+        _("pre unit"), choices=PreUnit.choices, default=PreUnit.DOLLAR
+    )
+    post_unit = models.CharField(
+        _("post unit"), choices=PostUnit.choices, default=PostUnit.KILO
+    )
     list_options = models.CharField(_("list options"), max_length=50)
     condition = models.CharField(_("condition"), max_length=400)
     formula = models.CharField(_("formula"), max_length=400)
