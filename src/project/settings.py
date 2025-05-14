@@ -45,7 +45,7 @@ MAINTENANCE_MODE_STATE_BACKEND = "maintenance_mode.backends.DefaultStorageBacken
 ROOT_URLCONF = "project.urls"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = "ptoject.wsgi.application"
+WSGI_APPLICATION = "project.wsgi.application"
 
 
 ################################################################################
@@ -111,6 +111,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.forms",
     "flowbite_classes",
+    "django_cotton",
     "post_office",
     "django_extensions",
     "active_link",
@@ -486,3 +487,9 @@ UNFOLD = {
     "SITE_HEADER": "Show your heart admin",
     "SHOW_LANGUAGES": True,
 }
+
+################################################################################
+#                              Django Cotton                                   #
+################################################################################
+
+COTTON_DIR = str(BASE_DIR / "templates/components")

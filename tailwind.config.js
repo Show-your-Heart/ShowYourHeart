@@ -5,27 +5,12 @@
 module.exports = {
   content: [
     '/srv/templates/**/*.html',
-    '/front/node_modules/flowbite/**/*.js'
+    '/front/node_modules/flowbite/**/*.js',
+    './src/project/templates/**/*.html',
+    './src/project/templates/components/*.html'
   ],
   darkMode: 'class',
   theme: {
-    extend: {
-      colors: {
-        primary: {
-          "50":"#E1F8F8",
-          "100":"#B2EFEF",
-          "200":"#7BF3F3",
-          "300":"#7BEAEA",
-          "400":"#6EDADA",
-          "500":"#66CCCC",
-          "600":"#56B6B6",
-          "700":"#439C9C",
-          "800":"#4D9393",
-          "900":"#397575",
-          "950":"#295252"
-        }
-      }
-    },
     fontFamily: {
       'body': ['Montserrat', 'sans-serif'],
       'sans': ['Montserrat', 'sans-serif']

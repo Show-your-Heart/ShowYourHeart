@@ -1,14 +1,6 @@
-{% extends "./base.html" %}
 {% load i18n %}
 
-{# Blocks de base.html #}
-{% block page_title %}{% translate "Home" %}{% endblock %}
-{% block bodyclasses %}{% endblock %}
-{% block mainclasses %} demo {% endblock %}
-{% block extra_js %}{% endblock %}
-
-
-{% block main %}
+<c-default-layout pageTitle={% translate 'Home' %}>
   <nav class="flex mb-4" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
       <li class="inline-flex items-center">
@@ -24,4 +16,4 @@
   <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
     {% translate "Home page" %}
   </h1>
-{% endblock %}
+</c-default-layout>

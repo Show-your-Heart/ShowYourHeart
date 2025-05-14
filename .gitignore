@@ -2,6 +2,7 @@
 .vscode/
 static
 __pycache__
+node_modules
 
 # Ignore configuration file
 .env
