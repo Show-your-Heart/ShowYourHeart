@@ -117,6 +117,7 @@ INSTALLED_APPS = [
     "extra_settings",
     "apps.settings",
     "apps.methods",
+    "apps.organizations",
     "apps.users",
     "project",
 ]
