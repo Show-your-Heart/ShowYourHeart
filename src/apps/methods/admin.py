@@ -21,7 +21,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     conditional_fields = {
         "category": "is_direct_indicator == true",
         "condition": "is_direct_indicator == true",
-        "formula": "is_direct_indicator == false"
+        "formula": "is_direct_indicator == false",
     }
 
 
