@@ -1,4 +1,5 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from modeltranslation.admin import TranslationAdmin
 from unfold.admin import ModelAdmin
 
@@ -15,7 +16,13 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         "version",
         "name",
         "description",
+        "is_direct_indicator",
     )
+    conditional_fields = {
+        "category": "is_direct_indicator == true",
+        "condition": "is_direct_indicator == true",
+        "formula": "is_direct_indicator == false"
+    }
 
 
 admin.site.register(Topic, TopicAdmin)
