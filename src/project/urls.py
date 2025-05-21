@@ -30,4 +30,8 @@ urlpatterns += i18n_patterns(
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
     path("admin/", admin.site.urls),
     path(_("settings/"), include("apps.settings.urls", namespace="settings")),
+    path(
+        _("organizations/"),
+        include("apps.organizations.urls", namespace="organizations"),
+    ),
 )
