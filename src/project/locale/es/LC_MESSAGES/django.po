@@ -6,19 +6,18 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 14:58+0000\n"
-"PO-Revision-Date: 2024-10-21 15:41+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ca\n"
+"POT-Creation-Date: 2025-05-20 15:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
-
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 #: project/admin.py:66
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
@@ -107,23 +106,23 @@ msgstr ""
 
 #: project/models.py:24
 msgid "created at"
-msgstr "creat el"
+msgstr ""
 
 #: project/models.py:35
 msgid "created by"
-msgstr "creat per"
+msgstr ""
 
 #: project/models.py:38
 msgid "updated at"
-msgstr "actualitzat el"
+msgstr ""
 
 #: project/settings.py:66
 msgid "English"
-msgstr "Anglès"
+msgstr ""
 
 #: project/settings.py:67
 msgid "Catalan"
-msgstr "Català"
+msgstr ""
 
 #: project/settings.py:68
 msgid "Galician"
@@ -166,99 +165,40 @@ msgstr ""
 
 #: project/tests/test_selenium.py:55
 msgid "Administration panel"
-msgstr "Panell d'administració"
+msgstr ""
 
 #: project/tests/test_selenium.py:57
 msgid "Log out"
-msgstr "Desconnectar"
+msgstr ""
 
 #: project/urls.py:30
 msgid "registration/"
-msgstr "compte/"
+msgstr ""
 
 #: project/urls.py:32
 msgid "settings/"
 msgstr ""
 
 #: project/urls.py:34
-#, fuzzy
-#| msgid "registration/"
 msgid "organizations/"
-msgstr "compte/"
+msgstr ""
 
 #: project/views.py:37
 msgid "Back"
-msgstr "Enrere"
+msgstr ""
 
 #: project/views.py:38
 msgid "Registry updated"
-msgstr "Registre actualitzat"
+msgstr ""
 
 #: project/views.py:39
 msgid "Registry successfully updated"
-msgstr "Registre correctament actualitzat"
+msgstr ""
 
 #: project/views.py:40
 msgid "Done!"
-msgstr "Fet!"
+msgstr ""
 
 #: project/views.py:41
 msgid "The registry was updated correctly."
-msgstr "El registre s'ha actualitzat correctament."
-
-#~ msgid "Project name"
-#~ msgstr "Nom del projecte"
-
-#~ msgid "Site administration | Django site administration"
-#~ msgstr "Administració del lloc | Lloc administratiu de Django"
-
-#, python-format
-#~ msgid "%s | Sign up"
-#~ msgstr "%s | Donar-se d'alta"
-
-#, python-format
-#~ msgid "%s | Profile details"
-#~ msgstr "%s | Fitxa del perfil"
-
-#, python-format
-#~ msgid "%s | Registry updated"
-#~ msgstr "%s | Registre actualitzat"
-
-#, python-format
-#~ msgid "%s | Password change"
-#~ msgstr "%s | Canvi de contrasenya"
-
-#, python-format
-#~ msgid "%s | Mail validation"
-#~ msgstr "%s | Verificació del correu electrònic"
-
-#, python-format
-#~ msgid "%s | Demo"
-#~ msgstr "%s | Demo"
-
-#, python-format
-#~ msgid "%s | Demo Create"
-#~ msgstr "%s | Demo: crear"
-
-#, python-format
-#~ msgid "%s | Demo Details"
-#~ msgstr "%s | Demo: fitxa"
-
-#, python-format
-#~ msgid "%s | Demo Update"
-#~ msgstr "%s | Demo: actualitzar"
-
-#~ msgid "demo/list/"
-#~ msgstr "demo/llista/"
-
-#~ msgid "demo/details/<int:id>"
-#~ msgstr "demo/fitxa/<int:id>"
-
-#~ msgid "demo/update/<int:id>"
-#~ msgstr "demo/actualitzar/<int:id>"
-
-#~ msgid "demo/"
-#~ msgstr "demo/"
-
-#~ msgid "%s | Detalls del perfil"
-#~ msgstr " "
+msgstr ""
