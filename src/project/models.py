@@ -33,6 +33,7 @@ class BaseModel(SetBooleanDatetimeMixin, models.Model):
         related_name="%(app_label)s_%(class)s_related",
         on_delete=models.CASCADE,
         verbose_name=_("created by"),
+        editable=False,
     )
     updated_at = models.DateTimeField(
         _("updated at"),

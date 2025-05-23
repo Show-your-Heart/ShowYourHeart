@@ -11,6 +11,22 @@ from .models import LegalStructure, Network
 
 class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
+    fieldsets = [
+        (
+            (""),
+            {"fields": ("name",)},
+        ),
+        (
+            ("Log"),
+            {
+                "fields": (
+                    "created_by",
+                    "created_at",
+                    "updated_at",
+                )
+            },
+        ),
+    ]
 
 
 admin.site.register(LegalStructure, LegalStructureAdmin)
