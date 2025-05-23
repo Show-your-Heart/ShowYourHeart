@@ -1,5 +1,6 @@
 import re
 
+from django.apps import apps
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
 from post_office import mail as base_mail
@@ -28,6 +29,16 @@ def send(
 ):
     if not language:
         language = get_language()
+
+    template_mail_model = apps.get_model("post_office", "EmailTemplate")
+    template_exists = template_mail_model.objects.filter(
+        name=template, language=language
+    ).exists()
+
+    if not template_exists:
+        # Set English as the template language
+        language = "en"
+
     return base_mail.send(
         recipients=recipients,
         sender=sender,
