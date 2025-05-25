@@ -11,6 +11,7 @@ from pathlib import Path
 import environ
 import structlog
 from django.core.management.utils import get_random_secret_key
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -495,6 +496,104 @@ UNFOLD = {
     "SITE_TITLE": "SYH Admin",
     "SITE_HEADER": "Show your heart admin",
     "SHOW_LANGUAGES": True,
+    "SIDEBAR": {
+        "show_search": False,  # Search in applications and models names
+        "show_all_applications": True,  # Dropdown with all applications and models
+        "navigation": [
+            {
+                "title": _("Organizations"),
+                "icon": "people",
+                "separator": False,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Item"),
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+            {
+                "title": _("Methods"),
+                "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+                "separator": False,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Methods"),
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Topics"),
+                        "link": reverse_lazy("admin:custom_topic"),
+                    },
+                    {
+                        "title": _("Indicators"),
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+            {
+                "title": _("Features"),
+                "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+                "separator": False,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Item"),
+                        "link": reverse_lazy("admin:index"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            {
+                "title": _("Settings"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Email templates"),
+                        "link": reverse_lazy("admin:index"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Users"),
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Location data"),
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Networks"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Legal structures"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+            {
+                "title": _("Auxiliary data"),
+                "separator": False,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Item"),
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+        ],
+    },
+    "STYLES": [
+        lambda request: static("styles/output.css"),
+    ],
+    "SCRIPTS": [
+        lambda request: static("js/flowbite_v2.3.0.min.js"),
+    ],
 }
 
 ################################################################################
