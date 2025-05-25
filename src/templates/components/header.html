@@ -6,11 +6,16 @@ Header component
 
 Input params:
 - display_avatar: Boolean
+- transparent: Boolean
 
 {% endcomment %}
 
 <header class="sticky top-0 z-50 w-full mx-auto p-2">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3 bg-pink-600 rounded-md w-[100%]">
+    {% if transparent %}
+    <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%]">
+    {% else %}
+    <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] bg-pink-600">
+    {% endif %}
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-start rtl:justify-end">
           <!-- burguer -->
@@ -102,4 +107,4 @@ Input params:
         </div>
       </div>
     </div>
-  </header>
+</header>
