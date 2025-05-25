@@ -1,0 +1,5 @@
+<c-vars icon="home" class="w-6 h-6 text-gray-300" />
+
+{% with template_name='components/icons/'|add:icon|add:".html" %}
+    {% include template_name with class=class %}
+{% endwith %}
