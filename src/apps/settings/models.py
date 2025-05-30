@@ -6,6 +6,7 @@ from project.models import BaseModel
 
 class LegalStructure(BaseModel):
     name = models.CharField(_("name"), max_length=50)
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.RESTRICT)
 
     def __str__(self):
         return self.name
