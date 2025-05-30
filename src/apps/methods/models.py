@@ -43,12 +43,12 @@ class Indicator(BaseModel):
 
     project_id = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=50, blank=True)
     description = models.CharField(_("description"), max_length=400, blank=True)
     topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(_("Is it a direct indicator?"))
     category = models.CharField(
-        _("category"), choices=Category.choices, default=Category.PERFORMANCE
+        _("category"), choices=Category.choices, default=Category.PERFORMANCE, blank=True
     )
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
@@ -56,11 +56,11 @@ class Indicator(BaseModel):
     unit = models.CharField(
         _("unit"), choices=Unit.choices, default=Unit.KILO
     )
-    list_options = models.CharField(_("list options"), max_length=50)
-    condition = models.CharField(_("condition"), max_length=400)
-    formula = models.CharField(_("formula"), max_length=400)
-    validation = models.CharField(_("validation"), max_length=50)
-    message = models.CharField(_("message"), max_length=400)
+    list_options = models.CharField(_("list options"), max_length=50, blank=True)
+    condition = models.CharField(_("condition"), max_length=400, blank=True)
+    formula = models.CharField(_("formula"), max_length=400, blank=True)
+    validation = models.CharField(_("validation"), max_length=50, blank=True)
+    message = models.CharField(_("message"), max_length=400, blank=True)
 
     def __str__(self):
         return self.name
