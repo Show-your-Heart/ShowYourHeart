@@ -31,11 +31,9 @@ class Indicator(BaseModel):
         RADIOBUTTON = "R", _("Radiobutton")
         DROPDOWN = "DR", _("Dropdown")
 
-    class PreUnit(models.TextChoices):
+    class Unit(models.TextChoices):
         C = "C", "C"
         DOLLAR = "D", "$"
-
-    class PostUnit(models.TextChoices):
         KILO = "K", _("kg")
         M2 = "M", _("m2")
         TEMP = "T", _("°C")
@@ -55,11 +53,8 @@ class Indicator(BaseModel):
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
-    pre_unit = models.CharField(
-        _("pre unit"), choices=PreUnit.choices, default=PreUnit.DOLLAR
-    )
-    post_unit = models.CharField(
-        _("post unit"), choices=PostUnit.choices, default=PostUnit.KILO
+    unit = models.CharField(
+        _("unit"), choices=Unit.choices, default=Unit.KILO
     )
     list_options = models.CharField(_("list options"), max_length=50)
     condition = models.CharField(_("condition"), max_length=400)
