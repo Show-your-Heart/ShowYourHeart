@@ -65,6 +65,10 @@ LANGUAGE_CODE = "en-GB"
 LANGUAGES = [
     ("en", _("English")),
     ("ca", _("Catalan")),
+    ("gl", _("Galician")),
+    ("eu", _("Basque")),
+    ("es", _("Spanish")),
+    ("nl", _("Dutch")),
 ]
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#use-i18n

@@ -200,6 +200,9 @@ Run this command in the docker container:
 
     python manage.py makemessages --all
 
+After updating the po files execute the following command to compile the mo
+    django-admin compilemessages
+
 Tips:
 
 - When editing a .po file, start by checking that all new strings are in english.
@@ -209,6 +212,8 @@ code and then generate the .po files again.
 - Beware of the strings that look like URL paths: they are URL paths and their
 translations must follow the same format (lowercase, without spaces and no special
 characters other than dashes).
+- Beware that after compiling the messages, the changes won't appear on the front until 
+the Docker image is restarted
 
 ## Testing
 
