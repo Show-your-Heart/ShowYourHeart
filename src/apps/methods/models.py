@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -33,7 +34,7 @@ class Indicator(BaseModel):
 
     class Unit(models.TextChoices):
         C = "C", "C"
-        DOLLAR = "D", "$"
+        DOLLAR = "DL", "$"
         KILO = "K", _("kg")
         M2 = "M", _("m2")
         TEMP = "T", _("°C")
@@ -46,16 +47,19 @@ class Indicator(BaseModel):
     name = models.CharField(_("name"), max_length=50, blank=True)
     description = models.CharField(_("description"), max_length=400, blank=True)
     topics = models.ManyToManyField(Topic, related_name="topics")
-    is_direct_indicator = models.BooleanField(_("Is it a direct indicator?"))
+    is_direct_indicator = models.BooleanField(
+        _("Is it a direct indicator?"), blank=True
+    )
     category = models.CharField(
-        _("category"), choices=Category.choices, default=Category.PERFORMANCE, blank=True
+        _("category"),
+        choices=Category.choices,
+        default=Category.PERFORMANCE,
+        blank=True,
     )
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
-    unit = models.CharField(
-        _("unit"), choices=Unit.choices, default=Unit.KILO
-    )
+    unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
     list_options = models.CharField(_("list options"), max_length=50, blank=True)
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
@@ -67,11 +71,15 @@ class Indicator(BaseModel):
 
     def clean(self):
         super().clean()
-        if self.data_type == DataType.DROPDOWN and not self.list_options:
-            raise ValidationError({
-                'list_options': _("This field is required when data type is Dropdown.")
-            })
-        if self.is_direct_indicator == False and not self.formula:
-            raise ValidationError({
-                'formula': _("This field is required if the indicator is indirect.")
-            })
+        if self.data_type == Indicator.DataType.DROPDOWN and not self.list_options:
+            raise ValidationError(
+                {
+                    "list_options": _(
+                        "This field is required when data type is Dropdown."
+                    )
+                }
+            )
+        if not self.is_direct_indicator and not self.formula:
+            raise ValidationError(
+                {"formula": _("This field is required if the indicator is indirect.")}
+            )
