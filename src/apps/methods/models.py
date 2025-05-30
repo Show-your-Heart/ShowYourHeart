@@ -47,12 +47,7 @@ class Indicator(BaseModel):
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=50)
     description = models.CharField(_("description"), max_length=400, blank=True)
-    primary_topic = models.ForeignKey(
-        Topic, on_delete=models.CASCADE, related_name="primary_topic"
-    )
-    secondary_topics = models.ForeignKey(
-        Topic, on_delete=models.CASCADE, related_name="secondary_topics"
-    )
+    topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(_("Is it a direct indicator?"))
     category = models.CharField(
         _("category"), choices=Category.choices, default=Category.PERFORMANCE

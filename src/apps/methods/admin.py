@@ -8,6 +8,8 @@ from .models import Indicator, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
+    search_fields = ["name"]
+    
     list_display = (
         "name",
         "description",
@@ -114,6 +116,23 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
             )
         ]
         return filtered_default_fields + self.common_fieldsets
+
+
+class IndicatorAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["topics"]
+
+    list_display = (
+        "project_id",
+        "version",
+        "name",
+        "description",
+        "is_direct_indicator",
+    )
+    conditional_fields = {
+        "category": "is_direct_indicator == true",
+        "condition": "is_direct_indicator == true",
+        "formula": "is_direct_indicator == false",
+    }
 
 
 admin.site.register(Topic, TopicAdmin)
