@@ -64,3 +64,14 @@ class Indicator(BaseModel):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        super().clean()
+        if self.data_type == DataType.DROPDOWN and not self.list_options:
+            raise ValidationError({
+                'list_options': _("This field is required when data type is Dropdown.")
+            })
+        if self.is_direct_indicator == False and not self.formula:
+            raise ValidationError({
+                'formula': _("This field is required if the indicator is indirect.")
+            })
