@@ -6,19 +6,17 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 14:58+0000\n"
-"PO-Revision-Date: 2024-10-21 15:17+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ca\n"
+"POT-Creation-Date: 2025-05-20 15:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
-
 #: apps/methods/models.py:8 apps/methods/models.py:48
 #: apps/organizations/models.py:19 apps/settings/models.py:8
 #: apps/settings/models.py:15
@@ -38,10 +36,8 @@ msgid "Scoring"
 msgstr ""
 
 #: apps/methods/models.py:20
-#, fuzzy
-#| msgid "Email verification"
 msgid "Certification"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
 #: apps/methods/models.py:23
 msgid "String"
@@ -148,10 +144,8 @@ msgid "formula"
 msgstr ""
 
 #: apps/methods/models.py:72
-#, fuzzy
-#| msgid "Mail validation"
 msgid "validation"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
 #: apps/methods/models.py:73
 msgid "message"
@@ -231,20 +225,16 @@ msgid "city"
 msgstr ""
 
 #: apps/organizations/urls.py:9
-#, fuzzy
-#| msgid "Sign-up"
 msgid "sign-up/"
-msgstr "Donar-se d'alta"
+msgstr ""
 
 #: apps/settings/admin.py:26 apps/settings/admin.py:46
 msgid "Actions"
 msgstr ""
 
 #: apps/settings/admin.py:30
-#, fuzzy
-#| msgid "Log in"
 msgid "Log"
-msgstr "Accedir"
+msgstr ""
 
 #: apps/settings/admin.py:51
 msgid ""
@@ -268,50 +258,44 @@ msgstr ""
 
 #: templates/404.html:13 templates/500.html:13 templates/503.html:13
 msgid "Go back"
-msgstr "Tornar"
+msgstr ""
 
 #: templates/404.html:16
 msgid "Error 404: Page not found"
-msgstr "Error 404: no s'ha trobat la pàgina"
+msgstr ""
 
 #: templates/404.html:20
 msgid ""
 "The page you were trying to access does not exist. Please check the spelling "
 "or go back to the beginning."
 msgstr ""
-"La pàgina a la que estàs intentant accedir no existeix. Si us plau comprova "
-"l'ortografia o torna a l'inici."
 
 #: templates/500.html:16
 msgid "Error 500: Internal server error"
-msgstr "Error 500: error intern del servidor"
+msgstr ""
 
 #: templates/500.html:20
 msgid ""
 "The server encountered an unexpected condition that prevented it from "
 "fulfilling the request."
 msgstr ""
-"El servidor ha topat amb un error inesperat que ha impedit completar la "
-"petició."
 
 #: templates/503.html:16
 msgid "Error 503: Maintenance mode enabled"
-msgstr "Error 503: el mode de manteniment està activat"
+msgstr ""
 
 #: templates/503.html:20
 msgid ""
 "The application is currently under maintenance, please try again in few "
 "minutes."
 msgstr ""
-"S'estan fent tasques de manteniment a aquesta aplicació, si us plau torna-ho "
-"a intentar d'aquí uns minuts."
 
 #: templates/base.html:82 templates/base.html:130 templates/home.html:5
 #: templates/home.html:19 templates/profile/details.html:22
 #: templates/registration/password_change_form.html:23
 #: templates/registration/send_verification_code.html:23
 msgid "Home"
-msgstr "Inici"
+msgstr ""
 
 #: templates/base.html:87 templates/base.html:166
 #: templates/registration/password_change_form.html:32
@@ -321,24 +305,22 @@ msgstr "Perfil"
 
 #: templates/base.html:93 templates/base.html:179
 msgid "Administration panel"
-msgstr "Panell d'administració"
+msgstr ""
 
 #: templates/base.html:100
 msgid "Log out"
-msgstr "Desconnectar"
+msgstr ""
 
 #: templates/base.html:142 templates/organizations/signup.html:5
 #: templates/registration/login.html:5
 msgid "Log in"
-msgstr "Accedir"
+msgstr ""
 
 #: templates/base.html:154 templates/base_success.html:6
 #: templates/registration/login.html:43 templates/registration/signup.html:5
 #: templates/registration/signup.html:18
-#, fuzzy
-#| msgid "Create Account"
 msgid "Create an account"
-msgstr "Nou compte"
+msgstr "Crear unha conta"
 
 #: templates/base.html:300
 msgid ""
@@ -346,313 +328,211 @@ msgid ""
 "We don't sell data to third parties. If you continue navigating, we'll "
 "understand that you are ok with that."
 msgstr ""
-"Fem servir cookies per optimitzar la teva experiència i per analitzar el "
-"trànsit de visitants. No venem dades a terceres parts. Si segueixes "
-"navegant, entendrem que hi estàs d'acord."
 
 #: templates/base.html:312
 msgid "Accept"
-msgstr "Acceptar"
+msgstr ""
 
 #: templates/base.html:322
 msgid "Deny"
-msgstr "Denegar"
+msgstr ""
 
 #: templates/base_form.html:52 templates/profile/details.html:64
 msgid "Save"
-msgstr "Desar"
+msgstr ""
 
 #: templates/base_success.html:29
 msgid "Done!"
-msgstr "Fet!"
+msgstr ""
 
 #: templates/base_success.html:32
 msgid "Registry successfully updated."
-msgstr "Registre actualitzat correctament."
+msgstr ""
 
 #: templates/base_success.html:40
 msgid "Back to home"
-msgstr "Tornar a l'inici"
+msgstr ""
 
 #: templates/components/form_errors.html:10
 msgid "There has been an error!"
-msgstr "Hi ha hagut un error!"
+msgstr ""
 
 #: templates/components/form_errors.html:34
 msgid "There's an error in the form."
-msgstr "Hi ha hagut un error al formulari."
+msgstr ""
 
 #: templates/components/form_errors.html:37
 msgid "Please, check the fields marked in red."
-msgstr "Si us plau, revisa els camps marcats en vermell."
+msgstr ""
 
 #: templates/demo_flowbite.html:51
 msgid "Show information"
-msgstr "Mostrar informació"
+msgstr ""
 
 #: templates/demo_flowbite.html:346
 msgid "Error alert"
-msgstr "Alerta d'error"
+msgstr ""
 
 #: templates/demo_flowbite.html:348
 msgid "There is an error in the form!"
-msgstr "Hi ha un error en aquest formulari!"
+msgstr ""
 
 #: templates/demo_flowbite.html:350
 msgid "Please check the fields marked in red"
-msgstr "Si us plau revisa els camps marcats en vermell"
+msgstr ""
 
 #: templates/demo_flowbite.html:362
 msgid "Close error alert"
-msgstr "Tancar l'alerta d'error"
+msgstr ""
 
 #: templates/demo_flowbite.html:374
 msgid "Form error"
-msgstr "Error de formulari"
+msgstr ""
 
 #: templates/demo_flowbite.html:376
 msgid "There was an error!"
-msgstr "Hi ha hagut un error!"
+msgstr ""
 
 #: templates/demo_flowbite.html:416
 msgid "Upload a file"
-msgstr "Pujar un fitxer"
+msgstr ""
 
 #: templates/demo_flowbite.html:498
 msgid "New file"
-msgstr "Nou fitxer"
+msgstr ""
 
 #: templates/demo_flowbite.html:519
 msgid "Current file"
-msgstr "Fitxer actual"
+msgstr ""
 
 #: templates/demo_flowbite.html:539
 msgid "Delete file"
-msgstr "Eliminar el fitxer"
+msgstr ""
 
 #: templates/demo_flowbite.html:559
 msgid "This is the current uploaded file:"
-msgstr "Aquest és el fitxer pujat actualment:"
+msgstr ""
 
 #: templates/demo_flowbite.html:584
 msgid ""
 "Select a new file. Beware that if there was a file already uploaded, it will "
 "be erased."
 msgstr ""
-"Selecciona un nou fitxer. Tingues en compte que si actualment ja hi ha un "
-"fitxer pujat, el sobreescriuràs."
 
 #: templates/demo_flowbite.html:633
 msgid "Delete the current file."
-msgstr "Eliminar el fitxer actual."
+msgstr ""
 
 #: templates/home.html:25
 msgid "Home page"
-msgstr "Pàgina d'inici"
+msgstr "Páxina de inicio"
 
 #: templates/profile/details.html:5
 msgid "Profile details"
-msgstr "Detalls del perfil"
+msgstr "Detalles do perfil"
 
 #: templates/profile/details.html:31
 msgid "Your profile"
-msgstr "El teu perfil"
+msgstr ""
 
 #: templates/profile/details.html:33
 msgid "Here you can see and edit all your data."
-msgstr "Aquí hi pots veure i editar tota la teva informació."
+msgstr ""
 
 #: templates/profile/details.html:47 templates/profile/details.html:90
 msgid "Warning!"
-msgstr "Atenció!"
+msgstr ""
 
 #: templates/profile/details.html:48 templates/profile/details.html:91
 msgid "Your email is not verified. Before anything else, you must verify it."
 msgstr ""
-"El teu correu electrònic no està verificat. Abans que res, cal que el "
-"verifiquis."
 
 #: templates/profile/details.html:50 templates/profile/details.html:93
 msgid "Verify email here."
-msgstr "Aquí, el teu correu."
+msgstr ""
 
 #: templates/profile/details.html:79
 #: templates/registration/password_change_form.html:5
 #: templates/registration/password_change_form.html:42
 msgid "Password change"
-msgstr "Canvi de contrasenya"
+msgstr ""
 
 #: templates/profile/details.html:81
 msgid "Here you can change your password."
-msgstr "Aquí pots canviar la teva contrasenya. "
+msgstr ""
 
 #: templates/profile/details.html:104
 msgid "Change password"
-msgstr "Canvia la contrasenya"
+msgstr ""
 
 #: templates/registration/login.html:17
 msgid "Sign in to your account"
-msgstr "Autentica't al teu compte"
+msgstr ""
 
 #: templates/registration/login.html:33
 msgid "Sign in"
-msgstr "Autenticació"
+msgstr ""
 
 #: templates/registration/login.html:38
 msgid "Forgot your password?"
-msgstr "Has oblidat la teva contrasenya?"
+msgstr ""
 
 #: templates/registration/login.html:41
 msgid "Don’t have an account yet?"
-msgstr "Encara no tens un compte?"
+msgstr ""
 
 #: templates/registration/password_change_form.html:50
 #: templates/registration/password_reset_confirm.html:29
 #: templates/registration/password_reset_form.html:26
 #: templates/registration/send_verification_code.html:51
 msgid "Send"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/registration/password_reset_confirm.html:5
 #: templates/registration/user_validation_confirm.html:5
 msgid "New password"
-msgstr "Nova contrasenya"
+msgstr ""
 
 #: templates/registration/password_reset_confirm.html:18
 #: templates/registration/password_reset_form.html:5
 #: templates/registration/password_reset_form.html:18
 msgid "Password recovery"
-msgstr "Recuperació de contrasenya"
+msgstr ""
 
 #: templates/registration/password_reset_confirm.html:21
 msgid ""
 "Introduce your email. A link will be sent to this address so you can reset "
 "your password."
 msgstr ""
-"Escriu el teu correu electrònic. S'enviarà un enllaç a aquesta adreça amb el "
-"que podràs reiniciar la teva contrasenya."
 
 #: templates/registration/privacy_policy.html:6
 #: templates/registration/privacy_policy.html:18
 msgid "Privacy policy"
-msgstr "Política de privacitat"
+msgstr ""
 
 #: templates/registration/send_verification_code.html:5
 #: templates/registration/user_validation.html:5
 msgid "Mail validation"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
 #: templates/registration/send_verification_code.html:42
 msgid "Email verification"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
 #: templates/registration/send_verification_code.html:47
 msgid ""
 "By clicking the button a verification code will be send to your email "
 "address. Check your email to find it."
 msgstr ""
-"Al clicar aquest botó s'enviarà un codi de verificació a la teva adreça de "
-"correu electrònic. Comprova la teva safata d'entrada."
 
 #: templates/registration/signup.html:26
 msgid "Create Account"
-msgstr "Nou compte"
+msgstr ""
 
 #: templates/registration/user_validation.html:14
 msgid "Go"
-msgstr "Anar"
+msgstr ""
 
 #: templates/registration/user_validation_confirm.html:27
 msgid "Set"
-msgstr "Establir"
-
-#~ msgid "Option 1"
-#~ msgstr "Opció 1"
-
-#~ msgid "Option 2"
-#~ msgstr "Opció 2"
-
-#~ msgid "Option 3"
-#~ msgstr "Opció 3"
-
-#~ msgid "Sign up"
-#~ msgstr "Registrar-se"
-
-#~ msgid "Demo"
-#~ msgstr "Demo"
-
-#~ msgid "Demo Create"
-#~ msgstr "Demo: creació"
-
-#~ msgid "Demo list"
-#~ msgstr "Demo: llista"
-
-#~ msgid "Add new demo data"
-#~ msgstr "Afegir nova dada de demo"
-
-#~ msgid "Demo Details"
-#~ msgstr "Demo: fitxa"
-
-#~ msgid ""
-#~ "Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-#~ "Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi "
-#~ "Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia "
-#~ "sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat "
-#~ "doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt "
-#~ "mollitia?"
-#~ msgstr ""
-#~ "Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-#~ "Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi "
-#~ "Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia "
-#~ "sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat "
-#~ "doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt "
-#~ "mollitia?"
-
-#~ msgid "Edit data"
-#~ msgstr "Editar la informació"
-
-#~ msgid "Nothing to see here."
-#~ msgstr "No hi ha res per aquí."
-
-#~ msgid "Internal home page"
-#~ msgstr "Pàgina d'inici interna"
-
-#~ msgid "Demo List"
-#~ msgstr "Demo: llista"
-
-#~ msgid "Create new data"
-#~ msgstr "Crear noves dades"
-
-#~ msgid ""
-#~ "There is nothing ot show because nothing has been created. Go ahead and "
-#~ "start!"
-#~ msgstr ""
-#~ "No hi ha res a mostrar ja que encara no s'ha creat res. Sigues el primer "
-#~ "a fer-ho, endavant!"
-
-#~ msgid "Log-in"
-#~ msgstr "Autenticar-se"
-
-#~ msgid "Enter your account details to authenticate."
-#~ msgstr "Escriu les teves credencials per autenticar-te."
-
-#~ msgid "Go in"
-#~ msgstr "Entrar"
-
-#~ msgid "Forgotten your password?"
-#~ msgstr "Has oblidat la teva contrasenya?"
-
-#~ msgid "If you are not registered yet:"
-#~ msgstr "Si encara no t'has donat d'alta:"
-
-#~ msgid "Demo Update"
-#~ msgstr "Demo: actualitzar"
-
-#~ msgid "Demo data view"
-#~ msgstr "Demo: fitxa de registre"
-
-#~ msgid "Update data"
-#~ msgstr "Actualitzar informació"
-
-#~ msgid "Back"
-#~ msgstr "Enrere"
+msgstr ""
