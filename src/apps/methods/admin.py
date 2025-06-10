@@ -8,6 +8,8 @@ from .models import Indicator, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
+    search_fields = ["name"]
+
     list_display = (
         "name",
         "description",
@@ -69,6 +71,8 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 
 
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["topics"]
+
     list_display = (
         "project_id",
         "version",
