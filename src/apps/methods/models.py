@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -31,11 +32,9 @@ class Indicator(BaseModel):
         RADIOBUTTON = "R", _("Radiobutton")
         DROPDOWN = "DR", _("Dropdown")
 
-    class PreUnit(models.TextChoices):
+    class Unit(models.TextChoices):
         C = "C", "C"
-        DOLLAR = "D", "$"
-
-    class PostUnit(models.TextChoices):
+        DOLLAR = "DL", "$"
         KILO = "K", _("kg")
         M2 = "M", _("m2")
         TEMP = "T", _("°C")
@@ -45,27 +44,42 @@ class Indicator(BaseModel):
 
     project_id = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=50, blank=True)
     description = models.CharField(_("description"), max_length=400, blank=True)
     topics = models.ManyToManyField(Topic, related_name="topics")
-    is_direct_indicator = models.BooleanField(_("Is it a direct indicator?"))
+    is_direct_indicator = models.BooleanField(
+        _("Is it a direct indicator?"), blank=True
+    )
     category = models.CharField(
-        _("category"), choices=Category.choices, default=Category.PERFORMANCE
+        _("category"),
+        choices=Category.choices,
+        default=Category.PERFORMANCE,
+        blank=True,
     )
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
-    pre_unit = models.CharField(
-        _("pre unit"), choices=PreUnit.choices, default=PreUnit.DOLLAR
-    )
-    post_unit = models.CharField(
-        _("post unit"), choices=PostUnit.choices, default=PostUnit.KILO
-    )
-    list_options = models.CharField(_("list options"), max_length=50)
-    condition = models.CharField(_("condition"), max_length=400)
-    formula = models.CharField(_("formula"), max_length=400)
-    validation = models.CharField(_("validation"), max_length=50)
-    message = models.CharField(_("message"), max_length=400)
+    unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
+    list_options = models.CharField(_("list options"), max_length=50, blank=True)
+    condition = models.CharField(_("condition"), max_length=400, blank=True)
+    formula = models.CharField(_("formula"), max_length=400, blank=True)
+    validation = models.CharField(_("validation"), max_length=50, blank=True)
+    message = models.CharField(_("message"), max_length=400, blank=True)
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        super().clean()
+        if self.data_type == Indicator.DataType.DROPDOWN and not self.list_options:
+            raise ValidationError(
+                {
+                    "list_options": _(
+                        "This field is required when data type is Dropdown."
+                    )
+                }
+            )
+        if not self.is_direct_indicator and not self.formula:
+            raise ValidationError(
+                {"formula": _("This field is required if the indicator is indirect.")}
+            )
