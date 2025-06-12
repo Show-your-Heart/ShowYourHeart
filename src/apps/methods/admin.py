@@ -4,7 +4,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import Indicator, Topic
+from .models import Indicator, Topic, Campaign
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -120,5 +120,14 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         return filtered_default_fields + self.common_fieldsets
 
 
+class CampaignAdmin(ModelAdmin):
+    list_display = (
+        "year",
+        "name",
+        "status",
+    )
+
+
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
+admin.site.register(Campaign, CampaignAdmin)
