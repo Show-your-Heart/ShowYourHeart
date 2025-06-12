@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
@@ -16,58 +15,11 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
         "parent",
     )
 
-    fieldsets = [
-        (
-            (""),
-            {
-                "fields": (
-                    "name",
-                    "description",
-                    "parent",
-                )
-            },
-        ),
-        (
-            ("Log"),
-            {
-                "fields": (
-                    "created_by",
-                    "created_at",
-                    "updated_at",
-                )
-            },
-        ),
-    ]
-
     def get_fieldsets(self, request, obj=None):
-        # Get all configured language codes except 'en'
-        other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
-        translatable_fields = [
-            "name",
-            "description",
-        ]
-
-        main_fields = ["name_en", "description_en", "parent"]
-        other_fields = [
-            f"{field}_{lang}" for field in translatable_fields for lang in other_langs
-        ]
-
-        return [
-            (
-                "Add/Edit Topic",
-                {
-                    "fields": main_fields,
-                    "classes": ("tab",),
-                },
-            ),
-            (
-                "Translations",
-                {
-                    "fields": other_fields,
-                    "classes": ("tab",),
-                },
-            ),
-        ]
+        return self.build_fieldsets(
+            main_fields=["name_en", "description_en", "parent"],
+            translatable_fields=["name", "description"],
+        )
 
 
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
@@ -85,39 +37,27 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         "condition": "is_direct_indicator == true",
         "formula": "is_direct_indicator == false",
     }
-    common_fieldsets = [
-        (
-            ("Log"),
-            {
-                "fields": (
-                    "created_by",
-                    "created_at",
-                    "updated_at",
-                )
-            },
-        ),
-    ]
 
     def get_fieldsets(self, request, obj=None):
-        # Do not display "log fields" twice, display them only on a "Log" section
-        log_fields = [
-            "created_by",
-            "created_at",
-            "updated_at",
-        ]
-        default_fields = super().get_fieldsets(request, obj)
-
-        filtered_default_fields = [
-            (
-                None,
-                {
-                    "fields": [
-                        f for f in default_fields[0][1]["fields"] if f not in log_fields
-                    ]
-                },
-            )
-        ]
-        return filtered_default_fields + self.common_fieldsets
+        return self.build_fieldsets(
+            main_fields=[
+                "project_id",
+                "version",
+                "name_en",
+                "description_en",
+                "is_direct_indicator",
+                "topics",
+                "category",
+                "data_type",
+                "unit",
+                "list_options",
+                "condition",
+                "formula",
+                "validation",
+                "message",
+            ],
+            translatable_fields=["name", "description"],
+        )
 
 
 admin.site.register(Topic, TopicAdmin)
