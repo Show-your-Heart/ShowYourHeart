@@ -4,7 +4,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import Indicator, Topic, Campaign
+from .models import Campaign, Indicator, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
