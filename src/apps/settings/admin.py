@@ -14,7 +14,7 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
     fieldsets = [
         (
             (""),
-            {"fields": ("name",)},
+            {"fields": ("name", "parent")},
         ),
         (
             ("Log"),
