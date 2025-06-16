@@ -18,6 +18,7 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
             translatable_fields=["name"],
         )
 
+
 admin.site.register(LegalStructure, LegalStructureAdmin)
 
 

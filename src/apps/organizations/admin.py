@@ -22,6 +22,7 @@ class OrganizationAdmin(ModelAdmin):
         default_fields = super().get_fieldsets(request, obj)
 
         return self.build_fieldsets(
-            main_fields=
-                [f for f in default_fields[0][1]["fields"] if f not in log_fields],
+            main_fields=[
+                f for f in default_fields[0][1]["fields"] if f not in log_fields
+            ],
         )

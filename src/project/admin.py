@@ -66,24 +66,34 @@ class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
             (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
         ]
 
-        if(translatable_fields):
+        if translatable_fields:
             other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
             translation_fields = [
-                f"{field}_{lang}" for field in translatable_fields
-                    for lang in other_langs
+                f"{field}_{lang}"
+                for field in translatable_fields
+                for lang in other_langs
             ]
-            fields.append((_("Translations"),
-                    {"fields": translation_fields, "classes": ("tab",)}),)
-
-        if(display_log):
-            fields.append ((("Log"), {
-                "fields": (
-                    "created_by",
-                    "created_at",
-                    "updated_at",
+            fields.append(
+                (
+                    _("Translations"),
+                    {"fields": translation_fields, "classes": ("tab",)},
                 ),
-                "classes":("tab",)},
-            ))
+            )
+
+        if display_log:
+            fields.append(
+                (
+                    ("Log"),
+                    {
+                        "fields": (
+                            "created_by",
+                            "created_at",
+                            "updated_at",
+                        ),
+                        "classes": ("tab",),
+                    },
+                )
+            )
 
         return fields
 
