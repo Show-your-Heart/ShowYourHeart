@@ -3,7 +3,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import Indicator, Topic
+from .models import Indicator, List, ListItem, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -62,5 +62,35 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+class ListAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["items"]
+    search_fields = ["title"]
+
+    list_display = ("title",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "enable_others", "items"],
+            translatable_fields=["title"],
+        )
+
+
+class ListItemAdmin(ModelAdmin):
+    search_fields = ["title"]
+
+    list_display = (
+        "title",
+        "active",
+    )
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "formula", "value", "active"],
+            translatable_fields=["title"],
+        )
+
+
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
+admin.site.register(List, ListAdmin)
+admin.site.register(ListItem, ListItemAdmin)

@@ -83,3 +83,22 @@ class Indicator(BaseModel):
             raise ValidationError(
                 {"formula": _("This field is required if the indicator is indirect.")}
             )
+
+class ListItem(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    formula = models.CharField(_("formula"), max_length=50)
+    value = models.PositiveSmallIntegerField(_("value"))
+    active = models.BooleanField(_("active"), max_length=50)
+
+    def __str__(self):
+        return self.title
+
+class List(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    enable_others = models.BooleanField(
+        _("Enable others response"), blank=False, default=False
+    )
+    items = models.ManyToManyField(ListItem, related_name="items")
+
+    def __str__(self):
+        return self.title
