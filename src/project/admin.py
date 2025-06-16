@@ -59,19 +59,41 @@ class ModelAdminMixin(object):
         super().save_formset(request, form, formset, change)
 
 
-class ModelAdmin(BaseModelAdmin):
+class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
     @staticmethod
-    def build_fieldsets(main_fields, translatable_fields):
-        other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
-
-        translation_fields = [
-            f"{field}_{lang}" for field in translatable_fields for lang in other_langs
-        ]
-
+    def build_fieldsets(main_fields, translatable_fields=None, display_log=True):
         fields = [
             (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
-            (_("Translations"), {"fields": translation_fields, "classes": ("tab",)}),
         ]
+
+        if translatable_fields:
+            other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
+            translation_fields = [
+                f"{field}_{lang}"
+                for field in translatable_fields
+                for lang in other_langs
+            ]
+            fields.append(
+                (
+                    _("Translations"),
+                    {"fields": translation_fields, "classes": ("tab",)},
+                ),
+            )
+
+        if display_log:
+            fields.append(
+                (
+                    ("Log"),
+                    {
+                        "fields": (
+                            "created_by",
+                            "created_at",
+                            "updated_at",
+                        ),
+                        "classes": ("tab",),
+                    },
+                )
+            )
 
         return fields
 
