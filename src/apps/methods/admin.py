@@ -19,6 +19,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
         return self.build_fieldsets(
             main_fields=["name_en", "description_en", "parent"],
             translatable_fields=["name", "description"],
+            display_log=False
         )
 
 
@@ -57,6 +58,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
                 "message",
             ],
             translatable_fields=["name", "description"],
+            display_log=False
         )
 
 
