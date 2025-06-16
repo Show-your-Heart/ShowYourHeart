@@ -7,6 +7,7 @@ from .models import LegalStructure, Sector
 class LegalStructureTranslationOptions(TranslationOptions):
     fields = ("name",)
 
+
 @register(Sector)
 class SectorTranslationOptions(TranslationOptions):
     fields = ("name",)
