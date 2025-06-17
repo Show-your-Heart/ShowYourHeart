@@ -14,6 +14,27 @@ class Topic(BaseModel):
         return self.name
 
 
+class ListItem(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    formula = models.CharField(_("formula"), max_length=50)
+    value = models.PositiveSmallIntegerField(_("value"))
+    active = models.BooleanField(_("active"), max_length=50)
+
+    def __str__(self):
+        return self.title
+
+
+class List(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    enable_others = models.BooleanField(
+        _("Enable others response"), blank=False, default=False
+    )
+    items = models.ManyToManyField(ListItem, related_name="items")
+
+    def __str__(self):
+        return self.title
+
+
 class Indicator(BaseModel):
     class Category(models.TextChoices):
         PERFORMANCE = "PERF", _("Performance")
@@ -60,7 +81,13 @@ class Indicator(BaseModel):
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
     unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
-    list_options = models.CharField(_("list options"), max_length=50, blank=True)
+    list_options = models.ForeignKey(
+        List,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="list_options",
+    )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
     validation = models.CharField(_("validation"), max_length=50, blank=True)
@@ -83,22 +110,3 @@ class Indicator(BaseModel):
             raise ValidationError(
                 {"formula": _("This field is required if the indicator is indirect.")}
             )
-
-class ListItem(BaseModel):
-    title = models.CharField(_("title"), max_length=50)
-    formula = models.CharField(_("formula"), max_length=50)
-    value = models.PositiveSmallIntegerField(_("value"))
-    active = models.BooleanField(_("active"), max_length=50)
-
-    def __str__(self):
-        return self.title
-
-class List(BaseModel):
-    title = models.CharField(_("title"), max_length=50)
-    enable_others = models.BooleanField(
-        _("Enable others response"), blank=False, default=False
-    )
-    items = models.ManyToManyField(ListItem, related_name="items")
-
-    def __str__(self):
-        return self.title

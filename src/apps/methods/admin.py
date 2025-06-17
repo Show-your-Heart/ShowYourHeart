@@ -24,7 +24,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 
 
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
-    autocomplete_fields = ["topics"]
+    autocomplete_fields = ["topics", "list_options"]
 
     list_display = (
         "project_id",
@@ -75,7 +75,7 @@ class ListAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-class ListItemAdmin(ModelAdmin):
+class ListItemAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["title"]
 
     list_display = (
