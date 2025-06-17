@@ -3,7 +3,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import Indicator, Topic
+from .models import Indicator, Method, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -62,5 +62,30 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+class MethodAdmin(ModelAdmin, TranslationAdmin):
+    search_fields = ["name"]
+
+    list_display = (
+        "name",
+        "description",
+        "active",
+    )
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=[
+                "name_en",
+                "description_en",
+                "active",
+                "network_owner",
+                "unit_of_analysis",
+                "indicators",
+                "related_legal_structures",
+            ],
+            translatable_fields=["name", "description"],
+        )
+
+
+admin.site.register(Method, MethodAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)

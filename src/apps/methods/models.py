@@ -83,3 +83,28 @@ class Indicator(BaseModel):
             raise ValidationError(
                 {"formula": _("This field is required if the indicator is indirect.")}
             )
+
+
+class Method(BaseModel):
+    class UnitAnalysis(models.TextChoices):
+        ORGANIZATION = "ORG", _("Organization")
+        PROJECT = "PRO", _("Project")
+        EXTERNAL_SURVEY = "EXT", _("External Survey")
+
+    active = models.BooleanField(_("active"))
+    name = models.CharField(_("name"), max_length=50)
+    description = models.CharField(_("description"), max_length=400)
+    network_owner = models.ForeignKey("settings.network", on_delete=models.PROTECT)
+    unit_of_analysis = models.CharField(
+        _("unit of analysis"),
+        choices=UnitAnalysis.choices,
+        default=UnitAnalysis.ORGANIZATION,
+        max_length=3,
+        blank=False,
+    )
+    indicators = models.ManyToManyField(Indicator, related_name="indicators")
+    related_legal_structures = models.ManyToManyField(
+        "settings.LegalStructure",
+        verbose_name=_("Which entity does this method applies to?"),
+        related_name="structures",
+    )
