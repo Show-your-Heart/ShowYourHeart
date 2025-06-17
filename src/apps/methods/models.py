@@ -108,3 +108,11 @@ class Method(BaseModel):
         verbose_name=_("Which entity does this method applies to?"),
         related_name="structures",
     )
+    external_surveys = models.ManyToManyField(
+        "self",
+        verbose_name=_("External surveys"),
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.name
