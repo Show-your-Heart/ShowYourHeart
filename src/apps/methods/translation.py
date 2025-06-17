@@ -12,9 +12,11 @@ class TopicTranslationOptions(TranslationOptions):
 class IndicatorTranslationOptions(TranslationOptions):
     fields = ("name", "description")
 
+
 @register(ListItem)
 class ListItemTranslationOptions(TranslationOptions):
     fields = ("title",)
+
 
 @register(List)
 class ListTranslationOptions(TranslationOptions):
