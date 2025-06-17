@@ -24,6 +24,7 @@ admin.site.register(LegalStructure, LegalStructureAdmin)
 
 @admin.register(Network)
 class NetworkAdmin(ModelAdmin):
+    search_fields = ["name"]
     list_display = ("name", "parent_network", "network_admin")
     fieldsets = (("", {"fields": ("name", "network_admin", "parent_network")}),)
 

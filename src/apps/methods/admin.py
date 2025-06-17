@@ -63,6 +63,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
 
 
 class MethodAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["network_owner"]
     search_fields = ["name"]
 
     list_display = (
