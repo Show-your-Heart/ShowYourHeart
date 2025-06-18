@@ -78,9 +78,10 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
     }
 
     def get_form(self, request, obj=None, **kwargs):
+        # Add network_owner property to use it on formfield_for_manytomany
         if obj:
             self.network_owner = obj.network_owner
-            return super().get_form(request, obj, **kwargs)
+        return super().get_form(request, obj, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         # External surveys field must only display
