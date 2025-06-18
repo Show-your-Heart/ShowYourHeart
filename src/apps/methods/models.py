@@ -113,6 +113,8 @@ class Method(BaseModel):
         verbose_name=_("External surveys"),
         blank=True,
     )
+    # TODO replace de url with the real one
+    documentation = models.FileField(upload_to="pdfs/", null=True, blank=True)
 
     def __str__(self):
         return self.name

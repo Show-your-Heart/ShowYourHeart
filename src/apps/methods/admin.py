@@ -3,6 +3,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
+from .forms import MethodForm
 from .models import Indicator, Method, Topic
 
 
@@ -65,6 +66,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
 class MethodAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["network_owner"]
     search_fields = ["name"]
+    form = MethodForm
 
     list_display = (
         "name",
@@ -103,6 +105,7 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
                 "unit_of_analysis",
                 "indicators",
                 "related_legal_structures",
+                "documentation",
                 "external_surveys",
             ],
             translatable_fields=["name", "description"],
