@@ -27,7 +27,7 @@ codi-cooperatiu-internal-tools = "^0.1"
 pyyaml = "^6.0.2"
 django-active-link = "^0.2.2"
 django-extra-settings = "^0.12.0"
-django-unfold = "^0.57.0"
+django-unfold = "^0.60.0"
 django-modeltranslation = "^0.19.13"
 django-cotton = "^2.1.1"
 
