@@ -125,6 +125,7 @@ INSTALLED_APPS = [
     "apps.organizations",
     "apps.users",
     "project",
+    "storages",
 ]
 
 
