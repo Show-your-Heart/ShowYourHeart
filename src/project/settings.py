@@ -289,7 +289,8 @@ AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
 AWS_LOCATION = "static"
-
+AWS_S3_REGION_NAME= env.str("AWS_S3_REGION_NAME", default="")
+DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", default="")
 STORAGES = {
     "default": {
         "BACKEND": "project.storage_backends.PublicMediaStorage",
