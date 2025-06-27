@@ -286,6 +286,7 @@ AWS_PRIVATE_MEDIA_LOCATION = env.str(
 AWS_S3_BASE_DOMAIN = env.str("AWS_S3_BASE_DOMAIN", default="")
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_BASE_DOMAIN}/{AWS_STORAGE_BUCKET_NAME}"
 AWS_S3_OBJECT_PARAMETERS = {
+    "ContentType": "application/octet-stream",
     "CacheControl": "max-age=86400",
 }
 AWS_LOCATION = "static"
@@ -293,7 +294,7 @@ AWS_S3_REGION_NAME= env.str("AWS_S3_REGION_NAME", default="")
 DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", default="")
 STORAGES = {
     "default": {
-        "BACKEND": "project.storage_backends.PublicMediaStorage",
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
