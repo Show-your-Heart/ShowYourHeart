@@ -83,3 +83,19 @@ class Indicator(BaseModel):
             raise ValidationError(
                 {"formula": _("This field is required if the indicator is indirect.")}
             )
+
+
+class Campaign(BaseModel):
+    name = models.CharField(_("Name"), max_length=400, blank=True)
+    year = models.CharField(_("Year"), max_length=4)
+    status = models.BooleanField(_("Active"), blank=True)
+    previous_campaign = models.ForeignKey(
+        "self", on_delete=models.PROTECT, blank=True, null=True
+    )
+    # methods should be a many2many field, to be replaced when model method created
+    methods = models.CharField(_("Methods"), max_length=400, blank=True)
+    start_date = models.DateField(_("Start date"))
+    end_date = models.DateField(_("End date"))
+
+    def __str__(self):
+        return self.year
