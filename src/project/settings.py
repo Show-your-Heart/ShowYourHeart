@@ -120,6 +120,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "active_link",
     "extra_settings",
+    "apps.geodata",
     "apps.settings",
     "apps.methods",
     "apps.organizations",
