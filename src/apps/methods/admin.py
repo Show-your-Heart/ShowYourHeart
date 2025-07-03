@@ -105,6 +105,7 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
                 "unit_of_analysis",
                 "indicators",
                 "related_legal_structures",
+                "sectors",
                 "documentation",
                 "external_surveys",
             ],

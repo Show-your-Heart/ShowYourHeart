@@ -135,13 +135,17 @@ class Method(BaseModel):
         verbose_name=_("Which entity does this method applies to?"),
         related_name="structures",
     )
+    sectors = models.ManyToManyField(
+        "settings.Sector",
+        verbose_name=_("Sectors"),
+        related_name="sectors",
+    )
     external_surveys = models.ManyToManyField(
         "self",
         verbose_name=_("External surveys"),
         blank=True,
     )
-    # TODO replace de url with the real one
-    documentation = models.FileField(upload_to="pdfs/", null=True, blank=True)
+    documentation = models.FileField(upload_to="documentation/", null=True, blank=True)
 
     def __str__(self):
         return self.name
