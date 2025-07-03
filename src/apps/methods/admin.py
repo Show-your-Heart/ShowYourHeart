@@ -3,7 +3,8 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import Indicator, List, ListItem, Topic
+
+from .models import Campaign, Indicator, Indicator, List, ListItem, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -90,7 +91,16 @@ class ListItemAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+
+class CampaignAdmin(ModelAdmin):
+    list_display = (
+        "year",
+        "name",
+        "status",
+    )
+
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
 admin.site.register(List, ListAdmin)
 admin.site.register(ListItem, ListItemAdmin)
+admin.site.register(Campaign, CampaignAdmin)

@@ -76,13 +76,17 @@ class OrganizationSignUpForm(forms.ModelForm):
     def save(self, commit=True):
         organization = super().save(commit=False)
 
-        contact = User.objects.create_user(
-            email=self.cleaned_data["contact_mail"],
-            name=self.cleaned_data["contact_name"],
-            user_profile_data={
-                "telephone": self.cleaned_data["contact_telephone"],
-            },
-        )
+        contact = User.objects.filter(email=self.cleaned_data["contact_mail"])
+        if contact.exists():
+            contact = contact[0]
+        else:
+            contact = User.objects.create_user(
+                email=self.cleaned_data["contact_mail"],
+                name=self.cleaned_data["contact_name"],
+                user_profile_data={
+                    "telephone": self.cleaned_data["contact_telephone"],
+                },
+            )
 
         organization.contact = contact
 

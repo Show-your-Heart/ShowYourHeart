@@ -21,3 +21,10 @@ class Network(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class Sector(BaseModel):
+    name = models.CharField(_("name"), max_length=50)
+
+    def __str__(self):
+        return self.name
