@@ -14,6 +14,27 @@ class Topic(BaseModel):
         return self.name
 
 
+class ListItem(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    formula = models.CharField(_("formula"), max_length=50)
+    value = models.PositiveSmallIntegerField(_("value"))
+    active = models.BooleanField(_("active"), max_length=50)
+
+    def __str__(self):
+        return self.title
+
+
+class List(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    enable_others = models.BooleanField(
+        _("Enable others response"), blank=False, default=False
+    )
+    items = models.ManyToManyField(ListItem, related_name="items")
+
+    def __str__(self):
+        return self.title
+
+
 class Indicator(BaseModel):
     class Category(models.TextChoices):
         PERFORMANCE = "PERF", _("Performance")
@@ -60,7 +81,13 @@ class Indicator(BaseModel):
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
     unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
-    list_options = models.CharField(_("list options"), max_length=50, blank=True)
+    list_options = models.ForeignKey(
+        List,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="list_options",
+    )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
     validation = models.CharField(_("validation"), max_length=50, blank=True)
@@ -118,3 +145,19 @@ class Method(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class Campaign(BaseModel):
+    name = models.CharField(_("Name"), max_length=400, blank=True)
+    year = models.CharField(_("Year"), max_length=4)
+    status = models.BooleanField(_("Active"), blank=True)
+    previous_campaign = models.ForeignKey(
+        "self", on_delete=models.PROTECT, blank=True, null=True
+    )
+    # methods should be a many2many field, to be replaced when model method created
+    methods = models.CharField(_("Methods"), max_length=400, blank=True)
+    start_date = models.DateField(_("Start date"))
+    end_date = models.DateField(_("End date"))
+
+    def __str__(self):
+        return self.year

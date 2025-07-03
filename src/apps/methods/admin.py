@@ -4,7 +4,7 @@ from modeltranslation.admin import TranslationAdmin
 from project.admin import ModelAdmin
 
 from .forms import MethodForm
-from .models import Indicator, Method, Topic
+from .models import Campaign, Indicator, List, ListItem, Method, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -25,7 +25,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 
 
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
-    autocomplete_fields = ["topics"]
+    autocomplete_fields = ["topics", "list_options"]
 
     list_display = (
         "project_id",
@@ -113,5 +113,46 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
 
 
 admin.site.register(Method, MethodAdmin)
+
+
+class ListAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["items"]
+    search_fields = ["title"]
+
+    list_display = ("title",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "enable_others", "items"],
+            translatable_fields=["title"],
+        )
+
+
+class ListItemAdmin(ModelAdmin, TranslationAdmin):
+    search_fields = ["title"]
+
+    list_display = (
+        "title",
+        "active",
+    )
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "formula", "value", "active"],
+            translatable_fields=["title"],
+        )
+
+
+class CampaignAdmin(ModelAdmin):
+    list_display = (
+        "year",
+        "name",
+        "status",
+    )
+
+
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
+admin.site.register(List, ListAdmin)
+admin.site.register(ListItem, ListItemAdmin)
+admin.site.register(Campaign, CampaignAdmin)
