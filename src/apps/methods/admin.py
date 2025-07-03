@@ -76,7 +76,7 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
     )
 
     conditional_fields = {
-        "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",
+        "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
     }
 
     def get_form(self, request, obj=None, **kwargs):
