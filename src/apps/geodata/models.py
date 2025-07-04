@@ -12,31 +12,8 @@ class AutonomousCommunity(models.Model):
     name = models.CharField(max_length=100)
     country = models.ForeignKey(
         Country,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
         related_name="community_country",
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Region(models.Model):
-    name = models.CharField(max_length=100)
-    country = models.ForeignKey(
-        Country,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="region_country",
-    )
-    community = models.ForeignKey(
-        AutonomousCommunity,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="region_community",
     )
 
     def __str__(self):
@@ -45,6 +22,13 @@ class Region(models.Model):
 
 class Province(models.Model):
     name = models.CharField(max_length=100)
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="province_country",
+    )
     community = models.ForeignKey(
         AutonomousCommunity,
         on_delete=models.SET_NULL,
@@ -52,12 +36,26 @@ class Province(models.Model):
         blank=True,
         related_name="province_community",
     )
-    region = models.ForeignKey(
-        Region,
+
+    def __str__(self):
+        return self.name
+
+
+class Region(models.Model):
+    name = models.CharField(max_length=100)
+    community = models.ForeignKey(
+        AutonomousCommunity,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="province_region",
+        related_name="region_community",
+    )
+    province = models.ForeignKey(
+        Province,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="region_province",
     )
 
     def __str__(self):
@@ -71,14 +69,14 @@ class City(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="province_city",
+        related_name="city_province",
     )
     region = models.ForeignKey(
         Region,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="region_city",
+        related_name="city_region",
     )
 
     def __str__(self):
