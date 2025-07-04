@@ -53,6 +53,10 @@ class Indicator(BaseModel):
         RADIOBUTTON = "R", _("Radiobutton")
         DROPDOWN = "DR", _("Dropdown")
 
+    class SubDataType(models.TextChoices):
+        INTEGERGENDER = "IG", _("Integer gendered value")
+        DECIMALGENDER = "DG", _("Real gendered number")
+
     class Unit(models.TextChoices):
         C = "C", "C"
         DOLLAR = "DL", "$"
@@ -79,6 +83,11 @@ class Indicator(BaseModel):
     )
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
+    )
+    sub_data_type = models.CharField(
+        _("sub data type"),
+        choices=SubDataType.choices,
+        default=SubDataType.INTEGERGENDER,
     )
     unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
     list_options = models.ForeignKey(
