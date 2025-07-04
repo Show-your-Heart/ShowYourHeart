@@ -26,15 +26,10 @@ class Organization(BaseModel):
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
-    primary_legal_structure = models.ForeignKey(
+    legal_structure = models.ForeignKey(
         "settings.LegalStructure",
         on_delete=models.CASCADE,
-        related_name="primary_legal_structure",
-    )
-    secondary_legal_structure = models.ForeignKey(
-        "settings.LegalStructure",
-        on_delete=models.CASCADE,
-        related_name="secondary_legal_structure",
+        related_name="legal_structure",
     )
 
     def __str__(self):

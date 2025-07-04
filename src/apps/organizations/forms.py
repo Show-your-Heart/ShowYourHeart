@@ -49,11 +49,8 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("City"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
     )
-    primary_legal_structure = forms.ModelChoiceField(
+    legal_structure = forms.ModelChoiceField(
         label=_("Primary legal entity type"), queryset=LegalStructure.objects.all()
-    )
-    secondary_legal_structure = forms.ModelChoiceField(
-        label=_("Secondary legal entity type"), queryset=LegalStructure.objects.all()
     )
 
     class Meta:
@@ -68,8 +65,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "country",
             "region",
             "city",
-            "primary_legal_structure",
-            "secondary_legal_structure",
+            "legal_structure",
         )
 
     @transaction.atomic
