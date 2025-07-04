@@ -130,15 +130,17 @@ class Method(BaseModel):
         blank=False,
     )
     indicators = models.ManyToManyField(Indicator, related_name="indicators")
-    related_legal_structures = models.ManyToManyField(
+    legal_structures = models.ManyToManyField(
         "settings.LegalStructure",
         verbose_name=_("Which entity does this method applies to?"),
         related_name="structures",
+        blank=True,
     )
     sectors = models.ManyToManyField(
         "settings.Sector",
         verbose_name=_("Sectors"),
         related_name="sectors",
+        blank=True,
     )
     external_surveys = models.ManyToManyField(
         "self",

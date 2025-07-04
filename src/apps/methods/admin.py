@@ -64,8 +64,9 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
 
 
 class MethodAdmin(ModelAdmin, TranslationAdmin):
-    autocomplete_fields = ["network_owner"]
+    autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
     search_fields = ["name"]
+    filter_horizontal = ("indicators",)
     form = MethodForm
 
     list_display = (
@@ -104,7 +105,7 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
                 "network_owner",
                 "unit_of_analysis",
                 "indicators",
-                "related_legal_structures",
+                "legal_structures",
                 "sectors",
                 "documentation",
                 "external_surveys",
