@@ -3,7 +3,8 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import Campaign, Indicator, List, ListItem, Topic
+from .forms import MethodForm
+from .models import Campaign, Indicator, List, ListItem, Method, Topic
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -60,6 +61,60 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
             translatable_fields=["name", "description"],
             display_log=False,
         )
+
+
+class MethodAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
+    search_fields = ["name"]
+    filter_horizontal = ("indicators",)
+    form = MethodForm
+
+    list_display = (
+        "name",
+        "description",
+        "active",
+        "network_owner",
+    )
+
+    conditional_fields = {
+        "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
+    }
+
+    def get_form(self, request, obj=None, **kwargs):
+        # Add network_owner property to use it on formfield_for_manytomany
+        if obj:
+            self.network_owner = obj.network_owner
+        return super().get_form(request, obj, **kwargs)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        # External surveys field must only display
+        # methods for the same network and set as external survey
+        if (db_field.name == "external_surveys") & hasattr(self, "network_owner"):
+            kwargs["queryset"] = Method.objects.filter(
+                network_owner=self.network_owner,
+                unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+            )
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=[
+                "name_en",
+                "description_en",
+                "active",
+                "network_owner",
+                "unit_of_analysis",
+                "indicators",
+                "legal_structures",
+                "sectors",
+                "documentation",
+                "external_surveys",
+            ],
+            translatable_fields=["name", "description"],
+        )
+
+
+admin.site.register(Method, MethodAdmin)
 
 
 class ListAdmin(ModelAdmin, TranslationAdmin):

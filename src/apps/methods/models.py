@@ -112,6 +112,47 @@ class Indicator(BaseModel):
             )
 
 
+class Method(BaseModel):
+    class UnitAnalysis(models.TextChoices):
+        ORGANIZATION = "ORG", _("Organization")
+        PROJECT = "PRO", _("Project")
+        EXTERNAL_SURVEY = "EXT", _("External Survey")
+
+    active = models.BooleanField(_("active"))
+    name = models.CharField(_("name"), max_length=50)
+    description = models.CharField(_("description"), max_length=400)
+    network_owner = models.ForeignKey("settings.network", on_delete=models.PROTECT)
+    unit_of_analysis = models.CharField(
+        _("unit of analysis"),
+        choices=UnitAnalysis.choices,
+        default=UnitAnalysis.ORGANIZATION,
+        max_length=3,
+        blank=False,
+    )
+    indicators = models.ManyToManyField(Indicator, related_name="indicators")
+    legal_structures = models.ManyToManyField(
+        "settings.LegalStructure",
+        verbose_name=_("Which entity does this method applies to?"),
+        related_name="structures",
+        blank=True,
+    )
+    sectors = models.ManyToManyField(
+        "settings.Sector",
+        verbose_name=_("Sectors"),
+        related_name="sectors",
+        blank=True,
+    )
+    external_surveys = models.ManyToManyField(
+        "self",
+        verbose_name=_("External surveys"),
+        blank=True,
+    )
+    documentation = models.FileField(upload_to="documentation/", null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Campaign(BaseModel):
     name = models.CharField(_("Name"), max_length=400, blank=True)
     year = models.CharField(_("Year"), max_length=4)
