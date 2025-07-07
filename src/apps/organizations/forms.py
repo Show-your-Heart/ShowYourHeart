@@ -81,6 +81,7 @@ class OrganizationSignUpForm(forms.ModelForm):
                 name=self.cleaned_data["contact_name"],
                 user_profile_data={
                     "telephone": self.cleaned_data["contact_telephone"],
+                    "organization": organization,
                 },
             )
 
