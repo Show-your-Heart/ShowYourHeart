@@ -60,6 +60,8 @@ class ModelAdminMixin(object):
 
 
 class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
+    list_filter_submit = True
+
     @staticmethod
     def build_fieldsets(main_fields, translatable_fields=None, display_log=True):
         fields = [
