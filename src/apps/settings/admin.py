@@ -11,6 +11,7 @@ from .models import LegalStructure, Network, Sector
 
 class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
+    search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -24,6 +25,7 @@ admin.site.register(LegalStructure, LegalStructureAdmin)
 
 @admin.register(Network)
 class NetworkAdmin(ModelAdmin):
+    search_fields = ["name"]
     list_display = ("name", "parent_network", "network_admin")
     fieldsets = (("", {"fields": ("name", "network_admin", "parent_network")}),)
 
@@ -84,6 +86,7 @@ class NetworkAdmin(ModelAdmin):
 
 class SectorAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
+    search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
