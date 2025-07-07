@@ -31,6 +31,12 @@ class Organization(BaseModel):
         on_delete=models.CASCADE,
         related_name="legal_structure",
     )
+    methods = models.ManyToManyField(
+        "methods.Method",
+        verbose_name=_("Methods"),
+        related_name="methods",
+        blank=True,
+    )
 
     def __str__(self):
         return self.name

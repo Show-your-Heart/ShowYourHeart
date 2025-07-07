@@ -11,6 +11,7 @@ class OrganizationAdmin(ModelAdmin):
         "name",
         "status",
     )
+    filter_horizontal = ("methods",)
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section

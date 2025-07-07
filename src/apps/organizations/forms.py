@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
+from apps.methods.models import Method
 from apps.settings.models import LegalStructure
 from apps.users.models import User
 
@@ -53,6 +54,11 @@ class OrganizationSignUpForm(forms.ModelForm):
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Primary legal entity type"), queryset=LegalStructure.objects.all()
+    )
+    # TODO availabe methods must depend on the selected legal strucutre
+    methods = forms.ModelMultipleChoiceField(
+        label=_("Method of impact mesurement"),
+        queryset=Method.objects.all(),
     )
 
     class Meta:
