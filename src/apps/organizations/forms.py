@@ -1,5 +1,7 @@
 from django import forms
 from django.db import transaction
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from apps.settings.models import LegalStructure
@@ -68,6 +70,17 @@ class OrganizationSignUpForm(forms.ModelForm):
             "legal_structure",
         )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        privacy_policy_url = self.get_privacy_policy_url()
+        privacy_policy_link = '<a href="{}" class="text-primary-500 font-bold hover:underline" target="_blank">terms and conditions</a>'.format(  # noqa: E501
+            privacy_policy_url
+        )
+        label_html = _("I have read and accept the {}").format(privacy_policy_link)
+        self.fields["accept_conditions"] = forms.BooleanField(
+            label=format_html(label_html), required=True
+        )
+
     @transaction.atomic
     def save(self, commit=True):
         organization = super().save(commit=False)
@@ -91,3 +104,6 @@ class OrganizationSignUpForm(forms.ModelForm):
             organization.save()
 
         return organization
+
+    def get_privacy_policy_url(self):
+        return reverse("registration:privacy_policy")
