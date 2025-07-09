@@ -13,7 +13,7 @@ from .models import Organization
 
 class OrganizationSignUpForm(forms.ModelForm):
     name = forms.CharField(
-        label=_("Name"),
+        label=_("Organization name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
     vat_number = forms.CharField(
@@ -53,7 +53,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
     )
     legal_structure = forms.ModelChoiceField(
-        label=_("Primary legal entity type"), queryset=LegalStructure.objects.all()
+        label=_("Legal entity type"), queryset=LegalStructure.objects.all()
     )
     # TODO availabe methods must depend on the selected legal strucutre
     methods = forms.ModelMultipleChoiceField(
