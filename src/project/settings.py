@@ -104,6 +104,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
     "unfold",
+    "unfold.contrib.filters",
     "maintenance_mode",
     "django.contrib.postgres",
     "modeltranslation",
