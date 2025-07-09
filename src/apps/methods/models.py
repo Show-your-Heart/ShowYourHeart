@@ -159,7 +159,7 @@ class Method(BaseModel):
     documentation = models.FileField(upload_to="documentation/", null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name + " " + self.network_owner.name
 
 
 class Campaign(BaseModel):

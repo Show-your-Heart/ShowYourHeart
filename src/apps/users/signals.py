@@ -114,3 +114,11 @@ def print_existing_permissions():
     permission_model = apps.get_model("auth", "Permission")
     for i in permission_model.objects.all():
         pprint(i.__dict__)
+
+
+# Django removes only first level dependency. When the user profile is removed,
+# the user itself should also be removed
+def delete_user_when_profile_deleted(sender, instance, **kwargs):
+    user = instance.user
+    if user:
+        user.delete()
