@@ -1,10 +1,9 @@
 from django.contrib import admin
+from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from project.admin import ModelAdmin
 
 from .models import Organization
-
-from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 
 @admin.register(Organization)
@@ -15,9 +14,7 @@ class OrganizationAdmin(ModelAdmin):
     )
     filter_horizontal = ("methods",)
 
-    list_filter = [
-        ("status", ChoicesDropdownFilter)
-    ]
+    list_filter = [("status", ChoicesDropdownFilter)]
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
