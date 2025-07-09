@@ -52,13 +52,20 @@ class UserProfile(BaseModel):
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name="profile",
+        related_name="user",
     )
     telephone = models.CharField(
         _("telephone"),
         max_length=20,
         default="",
         blank=True,
+    )
+    organization = models.OneToOneField(
+        "organizations.Organization",
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="organization",
     )
 
     class Meta:

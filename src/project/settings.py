@@ -104,6 +104,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
     "unfold",
+    "unfold.contrib.filters",
     "maintenance_mode",
     "django.contrib.postgres",
     "modeltranslation",
@@ -120,11 +121,13 @@ INSTALLED_APPS = [
     "django_extensions",
     "active_link",
     "extra_settings",
+    "apps.geodata",
     "apps.settings",
     "apps.methods",
     "apps.organizations",
     "apps.users",
     "project",
+    "storages",
 ]
 
 
@@ -285,13 +288,15 @@ AWS_PRIVATE_MEDIA_LOCATION = env.str(
 AWS_S3_BASE_DOMAIN = env.str("AWS_S3_BASE_DOMAIN", default="")
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_BASE_DOMAIN}/{AWS_STORAGE_BUCKET_NAME}"
 AWS_S3_OBJECT_PARAMETERS = {
+    "ContentType": "application/octet-stream",
     "CacheControl": "max-age=86400",
 }
 AWS_LOCATION = "static"
-
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="")
+DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", default="")
 STORAGES = {
     "default": {
-        "BACKEND": "project.storage_backends.PublicMediaStorage",
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",

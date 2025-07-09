@@ -37,7 +37,10 @@ class UserProfileInline(admin.StackedInline):
     verbose_name_plural = "User Profile"
     fk_name = "user"
     extra = 0
-    fields = ("telephone",)
+    fields = (
+        "telephone",
+        "organization",
+    )
     can_delete = False
     tab = True  # Display the profile information on a new tab
     hide_title = True

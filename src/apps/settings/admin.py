@@ -6,27 +6,18 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .models import LegalStructure, Network
+from .models import LegalStructure, Network, Sector
 
 
 class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
-    fieldsets = [
-        (
-            (""),
-            {"fields": ("name", "parent")},
-        ),
-        (
-            ("Log"),
-            {
-                "fields": (
-                    "created_by",
-                    "created_at",
-                    "updated_at",
-                )
-            },
-        ),
-    ]
+    search_fields = ["name"]
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["name_en", "parent"],
+            translatable_fields=["name"],
+        )
 
 
 admin.site.register(LegalStructure, LegalStructureAdmin)
@@ -34,6 +25,7 @@ admin.site.register(LegalStructure, LegalStructureAdmin)
 
 @admin.register(Network)
 class NetworkAdmin(ModelAdmin):
+    search_fields = ["name"]
     list_display = ("name", "parent_network", "network_admin")
     fieldsets = (("", {"fields": ("name", "network_admin", "parent_network")}),)
 
@@ -90,3 +82,17 @@ class NetworkAdmin(ModelAdmin):
             f"href=\"javascript:if(confirm('{escapejs(alert_msg)}')) "
             f"window.location.href = '{url}'\">{text}</a>"
         )
+
+
+class SectorAdmin(ModelAdmin, TranslationAdmin):
+    list_display = ("name",)
+    search_fields = ["name"]
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["name_en"],
+            translatable_fields=["name"],
+        )
+
+
+admin.site.register(Sector, SectorAdmin)

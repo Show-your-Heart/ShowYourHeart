@@ -37,10 +37,14 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("profile", "vacd"),
         "admin": get_permission_codenames("logentry", "c"),
         "settings": get_permission_codenames("network", "vacd")
-        + get_permission_codenames("legalstructure", "vacd"),
+        + get_permission_codenames("legalstructure", "vacd")
+        + get_permission_codenames("sector", "vacd"),
         "organizations": get_permission_codenames("organization", "vacd"),
         "methods": get_permission_codenames("topic", "vacd")
-        + get_permission_codenames("indicator", "vacd"),
+        + get_permission_codenames("indicator", "vacd")
+        + get_permission_codenames("method", "vacd")
+        + get_permission_codenames("list", "vacd")
+        + get_permission_codenames("listitem", "vacd"),
     }
     create_group(settings.GROUPS["admins"]["name"], permissions)
 
@@ -110,3 +114,11 @@ def print_existing_permissions():
     permission_model = apps.get_model("auth", "Permission")
     for i in permission_model.objects.all():
         pprint(i.__dict__)
+
+
+# Django removes only first level dependency. When the user profile is removed,
+# the user itself should also be removed
+def delete_user_when_profile_deleted(sender, instance, **kwargs):
+    user = instance.user
+    if user:
+        user.delete()

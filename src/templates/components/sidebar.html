@@ -1,80 +1,107 @@
 {% load i18n static active_link_tags extra_settings %}
 
-<aside id="logo-sidebar"
-    class="absolute top-0 left-0 z-40 w-64 h-full pt-20 transition-transform -translate-x-full bg-primary-100 border-r border-primary-50
+<aside id="logo-sidebar" class="absolute top-0 left-0 z-40 w-64 h-full pt-20 transition-transform -translate-x-full bg-primary-100 border-r border-primary-50
     lg:translate-x-0
-    dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidebar">
-    <div class="h-screen px-3 pb-4 overflow-y-auto bg-primary-100 dark:bg-primary-800">
-      <nav>
-        <ul class="space-y-2 font-medium">
-          <!-- Home -->
-          <li class="{% active_link 'home' %}">
-            <a href="{% url 'home' %}"
-              id="menu_home"
-              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
-                <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
-              </svg>
-              <span class="ms-3">{% translate 'Home' %}</span>
-            </a>
-          </li>
-          {% if not request.user.is_authenticated %}
-          <!-- Login -->
-          <li class="{% active_link 'registration:login' %}">
-            <a href="{% url 'registration:login' %}"
-              id="menu_login"
-              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
-                <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
-              </svg>
-              <span class="ms-3">{% translate "Log in" %}</span>
-            </a>
-          </li>
-          <!-- Signup -->
-          <li class="{% active_link 'registration:signup' %}">
-            <a href="{% url 'registration:signup' %}"
-              id="menu_signup"
-              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
-                <path fill-rule="evenodd" d="M11.403 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6.403a3.01 3.01 0 0 1-1.743-1.612l-3.025 3.025A3 3 0 1 1 9.99 9.768l3.025-3.025A3.01 3.01 0 0 1 11.403 5Z" clip-rule="evenodd"/>
-                <path fill-rule="evenodd" d="M13.232 4a1 1 0 0 1 1-1H20a1 1 0 0 1 1 1v5.768a1 1 0 1 1-2 0V6.414l-6.182 6.182a1 1 0 0 1-1.414-1.414L17.586 5h-3.354a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
-              </svg>
-              <span class="ms-3">{% translate "Create an account" %}</span>
-            </a>
-          </li>
-          {% endif %}
-          {% if request.user.is_authenticated %}
-          <!-- Perfil -->
-          <li class="{% active_link 'registration:profile_details' %}">
-            <a href="{% url 'registration:profile_details' %}"
-              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
-              </svg>
-              <span class="ms-3">{% translate "Profile" %}</span>
-            </a>
-          </li>
-            {% if request.user.has_admin_role %}
-            <!-- Admin -->
-            <li>
-              <a href="{% url 'admin:index' %}"
-                class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                id="menu_admin"
-              >
-                <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
-                </svg>
-                <span class="ms-3">{% translate "Administration panel" %}</span>
-              </a>
-            </li>
-            {% endif %}
-          {% endif %}
-        </ul>
-      </nav>
-      <div>
-      
-        {% include "./components/languages_dropdown.html" %}
+    dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+  <div class="h-screen px-3 pb-4 overflow-y-auto bg-primary-100 dark:bg-primary-800">
+    <nav>
+      <ul class="space-y-2 font-medium">
+        <!-- Home -->
+        <li class="{% active_link 'home' %}">
+          <a href="{% url 'home' %}" id="menu_home"
+            class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="ms-3">{% translate 'Home' %}</span>
+          </a>
+        </li>
+        {% if not request.user.is_authenticated %}
+        <!-- Login -->
+        <li class="{% active_link 'registration:login' %}">
+          <a href="{% url 'registration:login' %}" id="menu_login"
+            class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="ms-3">{% translate "Log in" %}</span>
+          </a>
+        </li>
+        <!-- Signup -->
+        <li class="{% active_link 'registration:signup' %}">
+          <a href="{% url 'registration:signup' %}" id="menu_signup"
+            class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M11.403 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6.403a3.01 3.01 0 0 1-1.743-1.612l-3.025 3.025A3 3 0 1 1 9.99 9.768l3.025-3.025A3.01 3.01 0 0 1 11.403 5Z"
+                clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M13.232 4a1 1 0 0 1 1-1H20a1 1 0 0 1 1 1v5.768a1 1 0 1 1-2 0V6.414l-6.182 6.182a1 1 0 0 1-1.414-1.414L17.586 5h-3.354a1 1 0 0 1-1-1Z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="ms-3">{% translate "Create an account" %}</span>
+          </a>
+        </li>
+        <!-- Create an organization -->
+        <li class="{% active_link 'organizations:signup' %}">
+          <a href="{% url 'organizations:signup' %}" id="menu_signup_organization"
+            class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M11.403 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6.403a3.01 3.01 0 0 1-1.743-1.612l-3.025 3.025A3 3 0 1 1 9.99 9.768l3.025-3.025A3.01 3.01 0 0 1 11.403 5Z"
+                clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M13.232 4a1 1 0 0 1 1-1H20a1 1 0 0 1 1 1v5.768a1 1 0 1 1-2 0V6.414l-6.182 6.182a1 1 0 0 1-1.414-1.414L17.586 5h-3.354a1 1 0 0 1-1-1Z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="ms-3">{% translate "Register an organization" %}</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <!-- Perfil -->
+        <li class="{% active_link 'registration:profile_details' %}">
+          <a href="{% url 'registration:profile_details' %}"
+            class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="ms-3">{% translate "Profile" %}</span>
+          </a>
+        </li>
+        {% if request.user.has_admin_role %}
+        <!-- Admin -->
+        <li>
+          <a href="{% url 'admin:index' %}"
+            class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            id="menu_admin">
+            <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="ms-3">{% translate "Administration panel" %}</span>
+          </a>
+        </li>
+        {% endif %}
+        {% endif %}
+      </ul>
+    </nav>
+    <div>
+
+      {% include "./components/languages_dropdown.html" %}
 
     </div>
-    </aside>
+</aside>

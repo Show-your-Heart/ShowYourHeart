@@ -1,7 +1,10 @@
 from django import forms
 from django.db import transaction
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
+from apps.methods.models import Method
 from apps.settings.models import LegalStructure
 from apps.users.models import User
 
@@ -10,7 +13,7 @@ from .models import Organization
 
 class OrganizationSignUpForm(forms.ModelForm):
     name = forms.CharField(
-        label=_("Name"),
+        label=_("Organization name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
     vat_number = forms.CharField(
@@ -49,11 +52,13 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("City"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
     )
-    primary_legal_structure = forms.ModelChoiceField(
-        label=_("Primary legal entity type"), queryset=LegalStructure.objects.all()
+    legal_structure = forms.ModelChoiceField(
+        label=_("Legal entity type"), queryset=LegalStructure.objects.all()
     )
-    secondary_legal_structure = forms.ModelChoiceField(
-        label=_("Secondary legal entity type"), queryset=LegalStructure.objects.all()
+    # TODO availabe methods must depend on the selected legal strucutre
+    methods = forms.ModelMultipleChoiceField(
+        label=_("Method of impact mesurement"),
+        queryset=Method.objects.all(),
     )
 
     class Meta:
@@ -68,21 +73,36 @@ class OrganizationSignUpForm(forms.ModelForm):
             "country",
             "region",
             "city",
-            "primary_legal_structure",
-            "secondary_legal_structure",
+            "legal_structure",
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        privacy_policy_url = self.get_privacy_policy_url()
+        privacy_policy_link = '<a href="{}" class="text-primary-500 font-bold hover:underline" target="_blank">terms and conditions</a>'.format(  # noqa: E501
+            privacy_policy_url
+        )
+        label_html = _("I have read and accept the {}").format(privacy_policy_link)
+        self.fields["accept_conditions"] = forms.BooleanField(
+            label=format_html(label_html), required=True
         )
 
     @transaction.atomic
     def save(self, commit=True):
         organization = super().save(commit=False)
 
-        contact = User.objects.create_user(
-            email=self.cleaned_data["contact_mail"],
-            name=self.cleaned_data["contact_name"],
-            user_profile_data={
-                "telephone": self.cleaned_data["contact_telephone"],
-            },
-        )
+        contact = User.objects.filter(email=self.cleaned_data["contact_mail"])
+        if contact.exists():
+            contact = contact[0]
+        else:
+            contact = User.objects.create_user(
+                email=self.cleaned_data["contact_mail"],
+                name=self.cleaned_data["contact_name"],
+                user_profile_data={
+                    "telephone": self.cleaned_data["contact_telephone"],
+                    "organization": organization,
+                },
+            )
 
         organization.contact = contact
 
@@ -90,3 +110,6 @@ class OrganizationSignUpForm(forms.ModelForm):
             organization.save()
 
         return organization
+
+    def get_privacy_policy_url(self):
+        return reverse("registration:privacy_policy")

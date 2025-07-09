@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
@@ -59,7 +60,44 @@ class ModelAdminMixin(object):
 
 
 class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
-    pass
+    list_filter_submit = True
+
+    @staticmethod
+    def build_fieldsets(main_fields, translatable_fields=None, display_log=True):
+        fields = [
+            (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
+        ]
+
+        if translatable_fields:
+            other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
+            translation_fields = [
+                f"{field}_{lang}"
+                for field in translatable_fields
+                for lang in other_langs
+            ]
+            fields.append(
+                (
+                    _("Translations"),
+                    {"fields": translation_fields, "classes": ("tab",)},
+                ),
+            )
+
+        if display_log:
+            fields.append(
+                (
+                    ("Log"),
+                    {
+                        "fields": (
+                            "created_by",
+                            "created_at",
+                            "updated_at",
+                        ),
+                        "classes": ("tab",),
+                    },
+                )
+            )
+
+        return fields
 
 
 action_names = {
