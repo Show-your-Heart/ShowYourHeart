@@ -1149,6 +1149,10 @@ input:checked + .toggle-bg {
   margin: 1rem;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .-mx-4 {
   margin-left: -1rem;
   margin-right: -1rem;
@@ -1285,6 +1289,14 @@ input:checked + .toggle-bg {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.me-4 {
+  margin-inline-end: 1rem;
 }
 
 .block {
@@ -1475,6 +1487,18 @@ input:checked + .toggle-bg {
   max-width: 24rem;
 }
 
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-\[250px\] {
+  max-width: 250px;
+}
+
+.max-w-\[40rem\] {
+  max-width: 40rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1597,6 +1621,10 @@ input:checked + .toggle-bg {
   align-items: center;
 }
 
+.items-stretch {
+  align-items: stretch;
+}
+
 .justify-start {
   justify-content: flex-start;
 }
@@ -1691,6 +1719,12 @@ input:checked + .toggle-bg {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
 .divide-x > :not([hidden]) ~ :not([hidden]) {
@@ -1813,6 +1847,10 @@ input:checked + .toggle-bg {
 
 .border-t {
   border-top-width: 1px;
+}
+
+.border-e {
+  border-inline-end-width: 1px;
 }
 
 .border-dashed {
@@ -1977,6 +2015,10 @@ input:checked + .toggle-bg {
   padding: 2rem;
 }
 
+.p-0 {
+  padding: 0px;
+}
+
 .px-0 {
   padding-left: 0px;
   padding-right: 0px;
@@ -2096,6 +2138,14 @@ input:checked + .toggle-bg {
   padding-top: 1.25rem;
 }
 
+.pt-0 {
+  padding-top: 0px;
+}
+
+.pe-4 {
+  padding-inline-end: 1rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -2137,6 +2187,11 @@ input:checked + .toggle-bg {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .font-bold {

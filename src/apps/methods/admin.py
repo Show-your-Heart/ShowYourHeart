@@ -22,6 +22,7 @@ from .models import (
     Topic,
 )
 
+
 class TopicAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["name"]
 
@@ -37,7 +38,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
             translatable_fields=["name", "description"],
             display_log=False,
         )
-        
+
 
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
@@ -321,7 +322,7 @@ def get_url_with_alert_msg(self, alert_msg, url, text):
     )
 
 
-# admin.site.register(Topic, TopicAdmin)
+admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
 admin.site.register(List, ListAdmin)
 admin.site.register(ListItem, ListItemAdmin)

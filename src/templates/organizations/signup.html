@@ -4,42 +4,43 @@
     <div class="p-2">
         <c-header></c-header>
     </div>
-    <div class="grid grid-cols-2 gap-[48px] p-16">
-        <div class="h-auto">
-            <div class="w-full bg-white rounded-lg shadow
-                sm:max-w-lg
-                md:mt-0
-                xl:p-0">
+    <main class="grid grid-cols-1 gap-[48px] p-16">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold mb-4">{{ _("Solicitud de registro") }}</h1>
+            <h2 class="text-md">{{ _("La Economía Social y Solidaria transparente") }}</h2>
+        </div>
+        <div class="w-full bg-white rounded-md shadow max-w-3xl mt-0 mx-auto p-0">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
-            {% block form_intro %}
-            {% endblock %}
-
-            <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}
-            class="space-y-4 md:space-y-6">
-                {% csrf_token %}
-
-                {% block form_fields %}
-                {{ form }}
+                {% block form_intro %}
                 {% endblock %}
 
-                {% block submit_whole %}
-                {% if not form.fields.field_text_1.disabled %}
-                    <input type="submit"
-                    class="w-full px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center cursor-pointer
-                        hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
-                        dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    value="{% block submit_text %}{% translate 'Save' %}{% endblock %}" id="id_submit">
-                {% endif %}
+                <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {%
+                    block form_action %}{% endblock %} class="space-y-4 md:space-y-6">
+                    {% csrf_token %}
+
+                    {% block form_fields %}
+                    {{ form }}
+                    {% endblock %}
+
+                    {% block submit_whole %}
+                    {% if not form.fields.field_text_1.disabled %}
+                    <div class="flex justify end">
+                        <input type="submit" class="w-full max-w-[250px] ml-auto px-5 py-2.5 rounded-lg bg-blue-600 text-white font-bold text-sm text-center cursor-pointer
+                        hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                            value="{% block submit_text %}{% translate 'Enviar solicitud de registro' %}{% endblock %}"
+                            id="id_submit">
+                    </div>
+
+                    {% endif %}
+                    {% endblock %}
+                </form>
+
+                {% include 'components/form_errors.html' %}
+
+                {% block form_outro %}
                 {% endblock %}
-            </form>
-
-            {% include 'components/form_errors.html' %}
-
-            {% block form_outro %}
-            {% endblock %}
 
             </div>
         </div>
-    </div>
 </c-base>
