@@ -15,6 +15,7 @@ Including another URLconf
 
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
@@ -28,6 +29,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", home_view, name="home"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
+    path("admin/login/", lambda request: redirect("/")),
     path("admin/", admin.site.urls),
     path(_("settings/"), include("apps.settings.urls", namespace="settings")),
     path(
