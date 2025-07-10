@@ -1,17 +1,16 @@
 {% load i18n static active_link_tags extra_settings %}
 
 <aside id="logo-sidebar"
-    class="w-64 h-full py-[40px] px-[2rem] bg-gray-800 rounded-md"
+    class="w-64 py-[40px] px-[2rem] bg-gray-800 rounded-md"
     aria-label="Sidebar"
 >
     <div class="h-full overflow-y-auto">
       <nav>
-        <ul class="space-y-2 font-medium">
+        <ul class="space-y-3 font-medium">
           <!-- Organizations -->
           <li>
             <!-- <li class="{% active_link 'organizations' %}"> -->
-            <!-- <a href=" url 'organizations'  " -->
-            <a href="https://amoved.es"
+            <a href="{% url 'admin:organizations_organization_changelist' %}"
               id="menu_organizations"
               class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
               <c-icon icon="group"></c-icons>
@@ -19,9 +18,7 @@
             </a>
           </li>
           <li>
-            <!-- <li class="{% active_link 'organizations' %}"> -->
-            <!-- <a href=" url 'organizations'  " -->
-            <a href="https://amoved.es"
+            <a href="{% url 'admin:methods_method_changelist' %}"
               id="menu_methods"
               class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
               <c-icon icon="adjustments-horizontal"></c-icons>
@@ -29,9 +26,7 @@
             </a>
           </li>
           <li>
-            <!-- <li class="{% active_link 'organizations' %}"> -->
-            <!-- <a href=" url 'organizations'  " -->
-            <a href="https://amoved.es"
+            <a href="{% url 'admin:index' %}"
               id="menu_features"
               class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
               <c-icon icon="clipboard-list"></c-icons>
@@ -40,9 +35,7 @@
           </li>
           <hr>
           <li>
-            <!-- <li class="{% active_link 'organizations' %}"> -->
-            <!-- <a href=" url 'organizations'  " -->
-            <a href="https://amoved.es"
+            <a href="{% url 'admin:index' %}"
               id="menu_settings"
               class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
               <c-icon icon="cog"></c-icons>
@@ -50,9 +43,7 @@
             </a>
           </li>
           <li>
-            <!-- <li class="{% active_link 'organizations' %}"> -->
-            <!-- <a href=" url 'organizations'  " -->
-            <a href="https://amoved.es"
+            <a href="{% url 'admin:index' %}"
               id="menu_auxiliary_data"
               class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
               <c-icon icon="book"></c-icons>

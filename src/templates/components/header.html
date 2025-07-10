@@ -5,17 +5,13 @@
 Header component
 
 Input params:
-- display_avatar: Boolean
+- displayAvatar: Boolean
 - transparent: Boolean
 
 {% endcomment %}
 
-<header class="sticky top-0 z-50 w-full mx-auto p-2">
-    {% if transparent %}
-    <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%]">
-    {% else %}
-    <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] bg-pink-600">
-    {% endif %}
+<header class="w-full mx-auto p-2">
+    <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] {% if transparent == false %} bg-pink-600 {% endif %}">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-start rtl:justify-end">
           <!-- burguer -->
@@ -45,9 +41,9 @@ Input params:
         <!-- Accions de esquerra topbar -->
         <div class="flex items-center">
           <div class="flex items-center ms-3">
-            {% if request.user.is_authenticated and display_avatar %}
+            {% if request.user.is_authenticated and displayAvatar %}
             <!-- Botó per mostrar i amagar menú desplegable -->
-            <div>
+            <div class="pe-4 me-4 border-e">
               <button type="button"
                 class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-primary-700 dark:focus:ring-gray-600"
                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
