@@ -43,8 +43,13 @@ from project.views import StandardSuccess
 @method_decorator(login_not_required, name="dispatch")
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
     template_name = "registration/login.html"
-    success_url = reverse_lazy("registration:profile_details")
     form_class = AuthenticationForm
+
+    def get_success_url(self):
+        if self.request.user.has_admin_role:
+            return reverse_lazy("admin:index")
+        else:
+            return reverse_lazy("registration:profile_details")
 
 
 @login_not_required
