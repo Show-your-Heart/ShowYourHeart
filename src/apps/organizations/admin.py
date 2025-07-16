@@ -12,7 +12,6 @@ class OrganizationAdmin(ModelAdmin):
         "name",
         "status",
     )
-    filter_horizontal = ("methods",)
 
     list_filter = [("status", ChoicesDropdownFilter)]
 

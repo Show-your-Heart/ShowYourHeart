@@ -128,6 +128,7 @@ INSTALLED_APPS = [
     "apps.users",
     "project",
     "storages",
+    "smart_selects",
 ]
 
 
@@ -502,3 +503,9 @@ UNFOLD = {
 ################################################################################
 
 COTTON_DIR = str(BASE_DIR / "templates/components")
+
+################################################################################
+#                              Django Smart Selects                            #
+################################################################################
+USE_DJANGO_JQUERY = True
+JQUERY_URL = False

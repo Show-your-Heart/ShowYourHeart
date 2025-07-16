@@ -23,6 +23,7 @@ from project.views import RootRedirectView, home_view
 urlpatterns = [
     path("", RootRedirectView.as_view()),
     path("i18n/", include("django.conf.urls.i18n")),
+    path("chaining/", include("smart_selects.urls")),
 ]
 
 urlpatterns += i18n_patterns(

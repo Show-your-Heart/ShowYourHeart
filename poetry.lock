@@ -440,6 +440,21 @@ python-http-client = ">=3.0.0"
 sendgrid = ">=5.0.0"
 
 [[package]]
+name = "django-smart-selects"
+version = "1.7.2"
+description = "Django application to handle chained model fields."
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "django_smart_selects-1.7.2-py3-none-any.whl", hash = "sha256:08c774d96285e6d169043cd548860d74d085be8d349c42437232c42bc43cd79a"},
+    {file = "django_smart_selects-1.7.2.tar.gz", hash = "sha256:c8116718ecf2d0d0fd4cd1e52c26d2dcc586e25319aa65af7af2d51a1012df3a"},
+]
+
+[package.dependencies]
+django = ">=3.2"
+
+[[package]]
 name = "django-storages"
 version = "1.14.6"
 description = "Support for many storage backends in Django"
@@ -1503,4 +1518,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.12"
-content-hash = "727d86f69eda5c926cd39643a6290a35a2289a2eca80b44d34c40192d3e54b88"
+content-hash = "5cf5796ea9da9c300cd2e3a6f78a179df2699b99b0e0bc32f84f8eef6c33c4e7"
