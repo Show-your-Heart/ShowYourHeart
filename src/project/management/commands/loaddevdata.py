@@ -7,6 +7,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils.translation import gettext as _
 
+from apps.methods.models import Topic
 from apps.organizations.models import Organization
 from apps.settings.models import LegalStructure, Network
 from apps.users.models import User, UserProfile
@@ -33,6 +34,7 @@ class Command(BaseCommand):
         legal_structure = self.create_legal_structure()
         self.create_sample_users(legal_structure)
         self.create_sample_network()
+        self.create_sample_topics()
 
     def create_sample_users(self, legal_structure):
         self.stdout.write(_("Creating sample users..."))
@@ -139,3 +141,15 @@ class Command(BaseCommand):
                 organizations.append(org)
 
         return organizations
+
+    def create_sample_topics(self):
+        self.stdout.write(_("Creating sample topics..."))
+
+        for x in range(1, 4):
+            topic_name = "topic" + str(x)
+            if not Topic.objects.filter(name=topic_name).exists():
+                Topic.objects.create(
+                    name=topic_name, description=f"description for {topic_name}"
+                )
+            else:
+                self.stdout.write(_(f"{topic_name} already exists."))

@@ -74,6 +74,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "region",
             "city",
             "legal_structure",
+            "methods",
         )
 
     def __init__(self, *args, **kwargs):
@@ -108,6 +109,10 @@ class OrganizationSignUpForm(forms.ModelForm):
 
         if commit:
             organization.save()
+            # save(commit=False) used before does not save the many to
+            # many relations as it needs the instance to be created before
+            # setting their values
+            self.save_m2m()
 
         return organization
 
