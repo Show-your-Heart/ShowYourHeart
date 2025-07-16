@@ -1,10 +1,15 @@
+import random
+import string
+
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
+from django.db import transaction
 from django.utils.translation import gettext as _
 
-from apps.settings.models import Network
-from apps.users.models import User
+from apps.organizations.models import Organization
+from apps.settings.models import LegalStructure, Network
+from apps.users.models import User, UserProfile
 
 
 class Command(BaseCommand):
@@ -15,6 +20,8 @@ class Command(BaseCommand):
         "enabled to run this command. Make sure to set the 'Initial "
         "superuser and dev data' settings before running this command."
     )
+    ORGANIZATION_NAMES = ["Organization TEST", "Organization TEST2"]
+    LEGAL_STRUCTURE_NAME = "LegalStructure test"
 
     def handle(self, *args, **options):
         if not settings.DEBUG:
@@ -22,10 +29,12 @@ class Command(BaseCommand):
                 self.style.ERROR(_("This command can only be run in debug mode."))
             )
             return 0
-        self.create_sample_users()
+
+        legal_structure = self.create_legal_structure()
+        self.create_sample_users(legal_structure)
         self.create_sample_network()
 
-    def create_sample_users(self):
+    def create_sample_users(self, legal_structure):
         self.stdout.write(_("Creating sample users..."))
 
         # Superuser
@@ -43,28 +52,7 @@ class Command(BaseCommand):
         else:
             self.stdout.write(_("Superuser already exists."))
 
-        # Governance admin
-        email = settings.USER_GOV_ADMIN_EMAIL
-        password = settings.USER_GOV_ADMIN_PASSWORD
-        if not User.objects.filter(email=email).exists():
-            user = User.objects.create_user(
-                email=email,
-                password=password,
-                name="Governace admin",
-                surnames="",
-                is_staff=True,
-                is_active=True,
-                email_verified=True,
-            )
-            groups = Group.objects.filter(name="Governance admins")
-            user.groups.set(groups)
-            self.stdout.write(
-                _("Governace admin user created with email '{email}'.").format(
-                    email=email,
-                )
-            )
-        else:
-            self.stdout.write(_("Governace admin user already exists."))
+        self.create_users_with_organization(legal_structure)
 
         return 0
 
@@ -80,3 +68,74 @@ class Command(BaseCommand):
             )
         else:
             self.stdout.write(_("Network test already exists."))
+
+    def create_legal_structure(self):
+        legal_structure = {}
+        self.stdout.write(_("Creating sample legal structure..."))
+        legal_structure_filter = LegalStructure.objects.filter(
+            name=self.LEGAL_STRUCTURE_NAME
+        )
+
+        if not legal_structure_filter.exists():
+            legal_structure = LegalStructure.objects.create(
+                name=self.LEGAL_STRUCTURE_NAME,
+            )
+        else:
+            self.stdout.write(_("LegalStructure test already exists."))
+            legal_structure = legal_structure_filter[0]
+
+        return legal_structure
+
+    @transaction.atomic
+    def create_users_with_organization(self, legal_structure):
+        # Governance admin
+        email = settings.USER_GOV_ADMIN_EMAIL
+        password = settings.USER_GOV_ADMIN_PASSWORD
+        if not User.objects.filter(email=email).exists():
+            user = User.objects.create(
+                email=email,
+                password=password,
+                name="Governace admin",
+                surnames="",
+                is_staff=True,
+                is_active=True,
+                email_verified=True,
+            )
+            groups = Group.objects.filter(name="Governance admins")
+            user.groups.set(groups)
+            self.stdout.write(
+                _("Governace admin user created with email '{email}'.").format(
+                    email=email,
+                )
+            )
+
+            organizations = self.create_sample_organizations(user, legal_structure)
+
+            user.user_profile = UserProfile.objects.create(
+                user=user, organization=organizations[0]
+            )
+            user.save()
+        else:
+            self.stdout.write(_("Governace admin user already exists."))
+
+    def create_sample_organizations(self, user, legal_structure):
+        organizations = []
+        self.stdout.write(_("Creating sample organizations..."))
+
+        for org_name in self.ORGANIZATION_NAMES:
+            if not Organization.objects.filter(name=org_name).exists():
+                org = Organization.objects.create(
+                    name=org_name,
+                    vat_number="".join(
+                        random.choices(string.ascii_uppercase + string.digits, k=10)
+                    ),
+                    contact=user,
+                    country="Spain",
+                    region="Galicia",
+                    city="Pontevedra",
+                    status=1,
+                    legal_structure=legal_structure,
+                )
+                organizations.append(org)
+
+        return organizations
