@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from apps.methods.models import Method
 from apps.settings.models import LegalStructure
 from apps.users.models import User
 
@@ -36,29 +35,8 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Email address of the contact person"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Email")}),
     )
-    website = forms.CharField(
-        label=_("Website"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Website")}),
-    )
-    country = forms.CharField(
-        label=_("Country"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Country")}),
-    )
-    region = forms.CharField(
-        label=_("Region"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Region")}),
-    )
-    city = forms.CharField(
-        label=_("City"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
-    )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"), queryset=LegalStructure.objects.all()
-    )
-    # TODO availabe methods must depend on the selected legal strucutre
-    methods = forms.ModelMultipleChoiceField(
-        label=_("Method of impact mesurement"),
-        queryset=Method.objects.all(),
     )
 
     class Meta:
