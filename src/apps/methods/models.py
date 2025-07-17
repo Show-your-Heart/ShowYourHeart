@@ -127,6 +127,7 @@ class Method(BaseModel):
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
+    id = models.AutoField(unique=True, editable=False, primary_key=True)
     active = models.BooleanField(_("active"))
     name = models.CharField(_("name"), max_length=50)
     description = models.CharField(_("description"), max_length=400)
