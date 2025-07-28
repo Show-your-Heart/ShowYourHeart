@@ -105,6 +105,7 @@ DATABASES = {
 INSTALLED_APPS = [
     "unfold",
     "unfold.contrib.filters",
+    "django_htmx",
     "maintenance_mode",
     "django.contrib.postgres",
     "modeltranslation",

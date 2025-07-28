@@ -358,6 +358,22 @@ files = [
 jsonfield = ">=3.0.0"
 
 [[package]]
+name = "django-htmx"
+version = "1.23.2"
+description = "Extensions for using Django with htmx."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "django_htmx-1.23.2-py3-none-any.whl", hash = "sha256:c288fe92bdcfa7c2ed9665d6d23cc55c6693a7cc8d22cf0a01e1e38318874030"},
+    {file = "django_htmx-1.23.2.tar.gz", hash = "sha256:65a8c8825fcae983b94aedce26af96a70717ab185d55cdb8a7a4bb68863ab079"},
+]
+
+[package.dependencies]
+asgiref = ">=3.6"
+django = ">=4.2"
+
+[[package]]
 name = "django-ipware"
 version = "7.0.1"
 description = "A Django application to retrieve user's IP address"
@@ -1503,4 +1519,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.12"
-content-hash = "727d86f69eda5c926cd39643a6290a35a2289a2eca80b44d34c40192d3e54b88"
+content-hash = "161796dc3b83460723bec8d899d6b94017f1d5750ed556080933c11987eed96a"

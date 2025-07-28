@@ -53,12 +53,16 @@ class OrganizationSignUpForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
     )
     legal_structure = forms.ModelChoiceField(
-        label=_("Legal entity type"), queryset=LegalStructure.objects.all()
+        label=_("Legal entity type"),
+        queryset=LegalStructure.objects.all(),
+        widget=forms.Select(
+            attrs={"hx-get": "load_methods/", "hx-target": "#id_methods"}
+        ),
     )
     # TODO availabe methods must depend on the selected legal strucutre
     methods = forms.ModelMultipleChoiceField(
         label=_("Method of impact mesurement"),
-        queryset=Method.objects.all(),
+        queryset=Method.objects.none(),
     )
 
     class Meta:
