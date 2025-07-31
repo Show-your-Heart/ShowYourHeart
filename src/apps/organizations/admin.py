@@ -3,11 +3,13 @@ from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from project.admin import ModelAdmin
 
+from .forms import OrganizationAdminForm
 from .models import Organization
 
 
 @admin.register(Organization)
 class OrganizationAdmin(ModelAdmin):
+    form = OrganizationAdminForm
     list_display = (
         "name",
         "status",
