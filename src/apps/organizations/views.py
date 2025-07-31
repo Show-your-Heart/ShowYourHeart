@@ -20,6 +20,11 @@ class CreateOrganizationView(CreateView):
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_methods(request):
-    legal_structure_id = request.GET.get("legal_structure")
-    methods = Method.objects.filter(legal_structures__id=legal_structure_id)
+    if legal_structure_id := request.GET.get("legal_structure"):
+        try:
+            methods = Method.objects.filter(legal_structures__id=legal_structure_id)
+        except Method.DoesNotExist:
+            pass
+    else:
+        methods = []
     return render(request, "organizations/methods_options.html", {"methods": methods})
