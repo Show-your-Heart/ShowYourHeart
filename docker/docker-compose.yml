@@ -25,6 +25,8 @@ services:
     image: postgres:14
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "0.0.0.0:5432:5432"
     volumes:
       - ../dumps:/dumps
       - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh

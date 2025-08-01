@@ -122,8 +122,7 @@ class OrganizationSignUpForm(forms.ModelForm):
 
     def get_privacy_policy_url(self):
         return reverse("registration:privacy_policy")
-
-
+      
 class OrganizationAdminForm(forms.ModelForm):
     class Meta:
         htmx_attrs = {
@@ -137,3 +136,4 @@ class OrganizationAdminForm(forms.ModelForm):
         widgets = {
             "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
+
