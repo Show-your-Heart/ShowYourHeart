@@ -1,8 +1,9 @@
 from django import forms
 from django.db import transaction
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from unfold.widgets import UnfoldAdminSelectWidget
 
 from apps.methods.models import Method
 from apps.settings.models import LegalStructure
@@ -53,12 +54,15 @@ class OrganizationSignUpForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
     )
     legal_structure = forms.ModelChoiceField(
-        label=_("Legal entity type"), queryset=LegalStructure.objects.all()
+        label=_("Legal entity type"),
+        queryset=LegalStructure.objects.all(),
+        widget=forms.Select(
+            attrs={"hx-get": "load_methods/", "hx-target": "#id_methods"}
+        ),
     )
-    # TODO availabe methods must depend on the selected legal strucutre
     methods = forms.ModelMultipleChoiceField(
         label=_("Method of impact mesurement"),
-        queryset=Method.objects.all(),
+        queryset=Method.objects.none(),
     )
 
     class Meta:
@@ -118,3 +122,18 @@ class OrganizationSignUpForm(forms.ModelForm):
 
     def get_privacy_policy_url(self):
         return reverse("registration:privacy_policy")
+
+
+class OrganizationAdminForm(forms.ModelForm):
+    class Meta:
+        htmx_attrs = {
+            "hx-get": reverse_lazy("organizations:load_methods"),
+            "hx-swap": "innerHTML",
+            "hx-trigger": "change",
+            "hx-target": "#id_methods_from",
+        }
+        model = Organization
+        fields = "__all__"  # noqa: DJ007
+        widgets = {
+            "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+        }
