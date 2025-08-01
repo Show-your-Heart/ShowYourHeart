@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.translation import activate, get_language
 from django.utils.translation import gettext_lazy as _
@@ -28,8 +27,22 @@ class RootRedirectView(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-def home_view(request):
-    return render(request, "home.html")
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        method_list = []
+        if hasattr(self.request.user, "profile"):
+            for method in self.request.user.profile.organization.methods.all():
+                method_list.append({"id": method.id, "name": method.name})
+
+        add_context = {
+            "user": self.request.user.email,
+            "available_methods": method_list,
+        }
+        context.update(add_context)
+        return context
 
 
 class StandardSuccess(TemplateView):

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Method
+from .models import Indicator, Method
 
 
 class MethodForm(forms.ModelForm):
@@ -13,3 +13,31 @@ class MethodForm(forms.ModelForm):
         if file and not file.name.endswith(".pdf"):
             raise forms.ValidationError("Only PDF files are allowed.")
         return file
+
+
+def get_field(field_type, field_name):
+    return {
+        Indicator.DataType.STRING: forms.CharField(label=field_name, required=True),
+        Indicator.DataType.BOOLEAN: forms.BooleanField(label=field_name, required=True),
+        Indicator.DataType.DATE: forms.DateField(
+            label=field_name,
+            required=True,
+            widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            input_formats=["%Y-%m-%d"],
+        ),
+        Indicator.DataType.INTEGER: forms.IntegerField(label=field_name, required=True),
+    }.get(field_type)
+
+
+def get_dynamic_form(method):
+    class DynamicSurveyForm(forms.Form):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for i in method.indicators.all():
+                field_name = f"question_{i.id}"
+                field = get_field(i.data_type, i.name)
+
+                if field is not None:  # Skip unknown types
+                    self.fields[field_name] = field
+
+    return DynamicSurveyForm

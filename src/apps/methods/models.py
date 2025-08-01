@@ -169,10 +169,26 @@ class Campaign(BaseModel):
     previous_campaign = models.ForeignKey(
         "self", on_delete=models.PROTECT, blank=True, null=True
     )
-    # methods should be a many2many field, to be replaced when model method created
-    methods = models.CharField(_("Methods"), max_length=400, blank=True)
+    methods = models.ManyToManyField(
+        "methods.method",
+        verbose_name=_("Methods"),
+        related_name="campaign_methods",
+        blank=True,
+    )
     start_date = models.DateField(_("Start date"))
     end_date = models.DateField(_("End date"))
 
     def __str__(self):
         return self.year
+
+
+class Survey(BaseModel):
+    method = models.ForeignKey("methods.method", on_delete=models.PROTECT)
+    user = models.ForeignKey("users.user", on_delete=models.PROTECT)
+    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
+
+
+class IndicatorResult(BaseModel):
+    survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
+    indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
+    value = models.CharField(blank=True)

@@ -151,6 +151,21 @@ class CampaignAdmin(ModelAdmin):
         "name",
         "status",
     )
+    filter_horizontal = ("methods",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=[
+                "year",
+                "name",
+                "status",
+                "previous_campaign",
+                "start_date",
+                "end_date",
+                "methods",
+            ],
+            translatable_fields=[],
+        )
 
 
 admin.site.register(Topic, TopicAdmin)

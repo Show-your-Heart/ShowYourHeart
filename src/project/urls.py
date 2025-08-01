@@ -19,7 +19,7 @@ from django.shortcuts import redirect
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-from project.views import RootRedirectView, home_view
+from project.views import HomeView, RootRedirectView
 
 urlpatterns = [
     path("", RootRedirectView.as_view()),
@@ -27,7 +27,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path("", home_view, name="home"),
+    path("", HomeView.as_view(), name="home"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
     path("admin/login/", lambda request: redirect("/")),
     path("admin/", admin.site.urls),
@@ -36,4 +36,5 @@ urlpatterns += i18n_patterns(
         _("organizations/"),
         include("apps.organizations.urls", namespace="organizations"),
     ),
+    path(_("methods/"), include("apps.methods.urls", namespace="methods")),
 )
