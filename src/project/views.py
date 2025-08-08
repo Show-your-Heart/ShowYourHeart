@@ -3,6 +3,8 @@ from django.utils.translation import activate, get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 
+from apps.organizations.models import Organization
+
 
 class RootRedirectView(RedirectView):
     """
@@ -33,13 +35,19 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         method_list = []
+        organization_accepted = False
         if hasattr(self.request.user, "profile"):
+            organization_accepted = (
+                self.request.user.profile.organization.status
+                == Organization.Status.ACCEPTED
+            )
             for method in self.request.user.profile.organization.methods.all():
                 method_list.append({"id": method.id, "name": method.name})
 
         add_context = {
             "user": self.request.user.email,
             "available_methods": method_list,
+            "organization_accepted": organization_accepted,
         }
         context.update(add_context)
         return context

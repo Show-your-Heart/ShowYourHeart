@@ -183,12 +183,30 @@ class Campaign(BaseModel):
 
 
 class Survey(BaseModel):
+    class Status(models.IntegerChoices):
+        OPEN = (
+            0,
+            "Open",
+        )
+        SUBMITTED = (
+            1,
+            "Submitted",
+        )
+
     method = models.ForeignKey("methods.method", on_delete=models.PROTECT)
     user = models.ForeignKey("users.user", on_delete=models.PROTECT)
     campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
+    status = models.PositiveSmallIntegerField(
+        choices=Status.choices, default=Status.OPEN
+    )
 
 
 class IndicatorResult(BaseModel):
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
     value = models.CharField(blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["survey", "indicator"], name="unique_pk")
+        ]

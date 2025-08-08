@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.users.services import send_welcome_mail
 from project.models import BaseModel
 
 
@@ -43,3 +44,11 @@ class Organization(BaseModel):
 
     def get_absolute_url(self):
         return "/organizations/sign-up"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if (
+            self.status == Organization.Status.ACCEPTED
+            and not self.contact.email_verified
+        ):
+            send_welcome_mail(self.contact)

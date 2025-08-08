@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils.translation import gettext as _
 
-from apps.methods.models import Topic
+from apps.methods.models import Indicator, Method, Topic
 from apps.organizations.models import Organization
 from apps.settings.models import LegalStructure, Network
 from apps.users.models import User, UserProfile
@@ -33,8 +33,10 @@ class Command(BaseCommand):
 
         legal_structure = self.create_legal_structure()
         self.create_sample_users(legal_structure)
-        self.create_sample_network()
-        self.create_sample_topics()
+        network = self.create_sample_network()
+        topics = self.create_sample_topics()
+        indicators = self.create_sample_indicators(topics)
+        self.create_sample_methods(legal_structure, indicators, network)
 
     def create_sample_users(self, legal_structure):
         self.stdout.write(_("Creating sample users..."))
@@ -61,15 +63,19 @@ class Command(BaseCommand):
     def create_sample_network(self):
         self.stdout.write(_("Creating sample network..."))
         network_name = "Network test"
+        network = Network.objects.filter(name=network_name)
 
-        if not Network.objects.filter(name=network_name).exists():
+        if not network.exists():
             network_admin = User.objects.get(email=settings.SUPERUSER_EMAIL)
-            Network.objects.create(
+            network = Network.objects.create(
                 name=network_name,
                 network_admin=network_admin,
             )
         else:
             self.stdout.write(_("Network test already exists."))
+            network = network[0]
+
+        return network
 
     def create_legal_structure(self):
         legal_structure = {}
@@ -144,12 +150,59 @@ class Command(BaseCommand):
 
     def create_sample_topics(self):
         self.stdout.write(_("Creating sample topics..."))
+        topic_list = []
 
         for x in range(1, 4):
             topic_name = "topic" + str(x)
-            if not Topic.objects.filter(name=topic_name).exists():
-                Topic.objects.create(
+            topic_filter = Topic.objects.filter(name=topic_name)
+            if not topic_filter.exists():
+                topic = Topic.objects.create(
                     name=topic_name, description=f"description for {topic_name}"
                 )
+                topic_list.append(topic)
             else:
                 self.stdout.write(_(f"{topic_name} already exists."))
+                for queryset in topic_filter:
+                    topic_list.append(queryset)
+
+        return topic_list
+
+    @transaction.atomic
+    def create_sample_indicators(self, topics):
+        self.stdout.write(_("Creating sample indicators..."))
+        indicators = []
+
+        for x in range(1, 4):
+            indicator_name = f"Indicator name {x}"
+            indicator = Indicator.objects.filter(name=indicator_name)
+            if not indicator.exists():
+                indicator = Indicator.objects.create(
+                    project_id=x,
+                    version="1",
+                    name=indicator_name,
+                    is_direct_indicator=True,
+                )
+                indicator.topics.set(topics)
+            else:
+                self.stdout.write(_(f"{indicator_name} already exists."))
+                indicator = indicator[0]
+            indicators.append(indicator)
+        return indicators
+
+    def create_sample_methods(self, legal_structures, indicators, network):
+        self.stdout.write(_("Creating sample methods..."))
+
+        for x in range(1, 4):
+            method_name = f"Method name {x}"
+            method = Method.objects.filter(name=method_name)
+            if not method.exists():
+                method = Method.objects.create(
+                    name=method_name,
+                    description=f"Method description {x}",
+                    active=True,
+                    network_owner=network,
+                )
+                method.indicators.set(indicators)
+                method.legal_structures.set([legal_structures])
+            else:
+                self.stdout.write(_(f"{method_name} already exists."))

@@ -4,7 +4,16 @@ from modeltranslation.admin import TranslationAdmin
 from project.admin import ModelAdmin
 
 from .forms import MethodForm
-from .models import Campaign, Indicator, List, ListItem, Method, Topic
+from .models import (
+    Campaign,
+    Indicator,
+    IndicatorResult,
+    List,
+    ListItem,
+    Method,
+    Survey,
+    Topic,
+)
 
 
 class TopicAdmin(ModelAdmin, TranslationAdmin):
@@ -168,8 +177,26 @@ class CampaignAdmin(ModelAdmin):
         )
 
 
+class SurveyAdmin(ModelAdmin):
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class IndicatorResultAdmin(ModelAdmin):
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
 admin.site.register(List, ListAdmin)
 admin.site.register(ListItem, ListItemAdmin)
 admin.site.register(Campaign, CampaignAdmin)
+admin.site.register(Survey, SurveyAdmin)
+admin.site.register(IndicatorResult, IndicatorResultAdmin)
