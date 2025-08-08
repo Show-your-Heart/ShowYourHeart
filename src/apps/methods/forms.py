@@ -29,7 +29,7 @@ def get_field(field_type, field_name):
     }.get(field_type)
 
 
-def get_dynamic_form(method):
+def get_dynamic_form(method, indicator_result_list, readonly):
     class DynamicSurveyForm(forms.Form):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -38,6 +38,12 @@ def get_dynamic_form(method):
                 field = get_field(i.data_type, i.name)
 
                 if field is not None:  # Skip unknown types
+                    field.initial = (
+                        indicator_result_list.get(indicator=i).value
+                        if len(indicator_result_list)
+                        else ""
+                    )
                     self.fields[field_name] = field
+                    self.fields[field_name].widget.attrs["readonly"] = readonly
 
     return DynamicSurveyForm

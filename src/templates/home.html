@@ -21,7 +21,12 @@
   </h1>
   <p>User: {{ user }}</p>
 
+  {% if organization_accepted %}
   {% for item in available_methods %}
   <a href="{% url 'methods:method_fill' item.id %}"> {{item.name }}</a>
   {% endfor %}
+  {% else %}
+  {% translate 'Your organization has not yet been accepted. You must wait until it is accepted before you can answer
+  the surveys.' %}
+  {% endif %}
 </c-default-layout>
