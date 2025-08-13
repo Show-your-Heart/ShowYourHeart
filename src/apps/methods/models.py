@@ -2,6 +2,7 @@ import uuid
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from project.models import BaseModel
@@ -176,6 +177,7 @@ class Campaign(BaseModel):
         verbose_name=_("Methods"),
         related_name="campaign_methods",
         blank=True,
+        limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY),
     )
     start_date = models.DateField(_("Start date"))
     end_date = models.DateField(_("End date"))
@@ -196,7 +198,9 @@ class Survey(BaseModel):
         )
 
     method = models.ForeignKey("methods.method", on_delete=models.PROTECT)
-    user = models.ForeignKey("users.user", on_delete=models.PROTECT, blank=True)
+    user = models.ForeignKey(
+        "users.user", on_delete=models.PROTECT, blank=True, null=True
+    )
     token = models.CharField(_("Token"), max_length=32, blank=True)
     campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
     status = models.PositiveSmallIntegerField(
@@ -214,13 +218,19 @@ class IndicatorResult(BaseModel):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["survey", "indicator"], name="unique_pk")
+            models.UniqueConstraint(
+                fields=["survey", "indicator"], name="pk_indicator_result"
+            )
         ]
 
 
 class ExternalSurveyInvitation(BaseModel):
     name = models.CharField(_("Name"), max_length=400)
-    external_survey = models.ForeignKey("methods.method", on_delete=models.PROTECT)
+    external_survey = models.ForeignKey(
+        "methods.Method",
+        on_delete=models.PROTECT,
+        limit_choices_to={"unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY},
+    )
     campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
 
     def __str__(self):
@@ -246,7 +256,6 @@ class Invitation(BaseModel):
     email = models.EmailField(
         verbose_name=_("email address"),
         max_length=255,
-        unique=True,
     )
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
@@ -263,3 +272,10 @@ class Invitation(BaseModel):
         if not self.token:
             self.token = uuid.uuid4().hex
         super().save(*args, **kwargs)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["email", "external_survey_invitation"], name="pk_invitation"
+            )
+        ]

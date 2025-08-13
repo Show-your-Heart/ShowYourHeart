@@ -1,3 +1,5 @@
+import uuid
+
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -16,11 +18,19 @@ class CommonContextMixin:
         readonly = False
         # Get the current survey already started
         try:
-            survey = Survey.objects.get(
-                campaign__id=campaign,
-                method=current_method,
-                user=self.request.user,
-            )
+            if not is_valid_uuid(self.request.user):
+                survey = Survey.objects.get(
+                    token=self.kwargs["id"],
+                    campaign__id=campaign,
+                    method=current_method,
+                )
+            else:
+                survey = Survey.objects.get(
+                    user=self.request.user,
+                    campaign__id=campaign,
+                    method=current_method,
+                )
+
             readonly = survey.status == Survey.Status.SUBMITTED
             context["form"] = get_dynamic_form(
                 current_method,
@@ -44,11 +54,19 @@ class CommonContextMixin:
             if not form.is_valid():
                 pass
 
-        survey, created = Survey.objects.get_or_create(
-            method_id=method_id,
-            user=request.user,
-            campaign_id=campaign_id,
-        )
+        if not is_valid_uuid(request.user):
+            survey, created = Survey.objects.get_or_create(
+                method_id=method_id,
+                token=self.kwargs["id"],
+                campaign_id=campaign_id,
+            )
+        else:
+            survey, created = Survey.objects.get_or_create(
+                method_id=method_id,
+                user=request.user,
+                campaign_id=campaign_id,
+            )
+
         if action == "submit":
             survey.status = Survey.Status.SUBMITTED
             survey.save()
@@ -62,3 +80,12 @@ class CommonContextMixin:
                 )
 
         return redirect("/")
+
+
+def is_valid_uuid(value):
+    try:
+        uuid.UUID(str(value))
+
+        return True
+    except ValueError:
+        return False

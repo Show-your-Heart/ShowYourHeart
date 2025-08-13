@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_not_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
@@ -50,3 +51,7 @@ class ExternalMethodFillView(CommonContextMixin, TemplateView):
             invitation.external_survey_invitation.external_survey.id,
             invitation.external_survey_invitation.campaign.id,
         )
+
+
+def invitations_sent_view(request, id):
+    return HttpResponseRedirect()

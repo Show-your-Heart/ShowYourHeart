@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import escapejs, format_html
+from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
@@ -232,6 +235,7 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
         "campaign",
     )
     inlines = (InvitationInline,)
+    readonly_fields = ("actions_field",)
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -241,6 +245,34 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
                 "campaign",
             ],
             translatable_fields=[],
+            display_actions=True,
+        )
+
+    @admin.display(description=_("Actions"))
+    def actions_field(self, obj):
+        if not obj:
+            return "-"
+        confirmed_verification_msg = _("Are you sure you want to send the invitations?")
+        confirmed_verification_url = reverse(
+            "methods:send_invitations",
+            args=[obj.id],
+        )
+        confirmed_verification_text = _("Send invitations")
+        buttons = [
+            self._get_url_with_alert_msg(
+                confirmed_verification_msg,
+                confirmed_verification_url,
+                confirmed_verification_text,
+            )
+        ]
+        return format_html("<br><br>".join(buttons))
+
+    def _get_url_with_alert_msg(self, alert_msg, url, text):
+        return format_html(
+            f'<a class="bg-primary-600 block border border-transparent font-medium px-3'
+            ' py-2 rounded-md text-white" style="width: 50%; text-align: center;"'
+            f"href=\"javascript:if(confirm('{escapejs(alert_msg)}')) "
+            f"window.location.href = '{url}'\">{text}</a>"
         )
 
 
