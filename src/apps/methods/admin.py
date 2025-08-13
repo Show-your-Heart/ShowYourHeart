@@ -3,11 +3,13 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .forms import MethodForm
+from .forms import InvitationInlineForm, MethodForm
 from .models import (
     Campaign,
+    ExternalSurveyInvitation,
     Indicator,
     IndicatorResult,
+    Invitation,
     List,
     ListItem,
     Method,
@@ -81,8 +83,9 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
     list_display = (
         "name",
         "description",
-        "active",
         "network_owner",
+        "unit_of_analysis",
+        "active",
     )
 
     conditional_fields = {
@@ -178,6 +181,8 @@ class CampaignAdmin(ModelAdmin):
 
 
 class SurveyAdmin(ModelAdmin):
+    list_display = ("method", "campaign", "user", "status")
+
     def has_add_permission(self, request, obj=None):
         return False
 
@@ -186,11 +191,57 @@ class SurveyAdmin(ModelAdmin):
 
 
 class IndicatorResultAdmin(ModelAdmin):
+    list_display = (
+        "survey",
+        "indicator",
+    )
+    ordering = ["survey"]
+
     def has_add_permission(self, request, obj=None):
         return False
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+class InvitationInline(admin.StackedInline):
+    model = Invitation
+    verbose_name_plural = "Invitations"
+    fk_name = "external_survey_invitation"
+    extra = 0
+    fields = (
+        "name",
+        "email",
+        "status",
+        "token",
+    )
+    tab = True  # Display the profile information on a new tab
+    hide_title = True
+    form = InvitationInlineForm
+    ordering_field = ("name",)
+    readonly_fields = (
+        "status",
+        "token",
+    )
+
+
+class ExternalSurveyInvitationAdmin(ModelAdmin):
+    list_display = (
+        "name",
+        "external_survey",
+        "campaign",
+    )
+    inlines = (InvitationInline,)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=[
+                "name",
+                "external_survey",
+                "campaign",
+            ],
+            translatable_fields=[],
+        )
 
 
 admin.site.register(Topic, TopicAdmin)
@@ -200,3 +251,4 @@ admin.site.register(ListItem, ListItemAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(IndicatorResult, IndicatorResultAdmin)
+admin.site.register(ExternalSurveyInvitation, ExternalSurveyInvitationAdmin)

@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -194,11 +196,15 @@ class Survey(BaseModel):
         )
 
     method = models.ForeignKey("methods.method", on_delete=models.PROTECT)
-    user = models.ForeignKey("users.user", on_delete=models.PROTECT)
+    user = models.ForeignKey("users.user", on_delete=models.PROTECT, blank=True)
+    token = models.CharField(_("Token"), max_length=32, blank=True)
     campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.OPEN
     )
+
+    def __str__(self):
+        return self.method.name + " | " + self.campaign.year
 
 
 class IndicatorResult(BaseModel):
@@ -210,3 +216,50 @@ class IndicatorResult(BaseModel):
         constraints = [
             models.UniqueConstraint(fields=["survey", "indicator"], name="unique_pk")
         ]
+
+
+class ExternalSurveyInvitation(BaseModel):
+    name = models.CharField(_("Name"), max_length=400)
+    external_survey = models.ForeignKey("methods.method", on_delete=models.PROTECT)
+    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.name
+
+
+class Invitation(BaseModel):
+    class Status(models.IntegerChoices):
+        PENDING = (
+            0,
+            "Pending",
+        )
+        SENT = (
+            1,
+            "Sent",
+        )
+        FILLED = (
+            2,
+            "Filled",
+        )
+
+    name = models.CharField(_("Name"), max_length=400)
+    email = models.EmailField(
+        verbose_name=_("email address"),
+        max_length=255,
+        unique=True,
+    )
+    status = models.PositiveSmallIntegerField(
+        choices=Status.choices, default=Status.PENDING
+    )
+    token = models.CharField(max_length=32, unique=True, blank=True)
+    external_survey_invitation = models.ForeignKey(
+        ExternalSurveyInvitation, on_delete=models.CASCADE, related_name="invitation"
+    )
+
+    def __str__(self):
+        return self.name + " " + self.email
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = uuid.uuid4().hex
+        super().save(*args, **kwargs)
