@@ -497,12 +497,6 @@ UNFOLD = {
     "SITE_TITLE": "SYH Admin",
     "SITE_HEADER": "Show your heart admin",
     "SHOW_LANGUAGES": True,
-    "STYLES": [
-        lambda request: static("styles/output.css"),
-    ],
-    "SCRIPTS": [
-        lambda request: static("js/flowbite_v2.3.0.min.js"),
-    ],
 }
 
 ################################################################################

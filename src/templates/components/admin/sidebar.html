@@ -6,51 +6,35 @@
 >
     <div class="h-full overflow-y-auto">
       <nav>
-        <ul class="space-y-3 font-medium">
-          <!-- Organizations -->
-          <li>
-            <!-- <li class="{% active_link 'organizations' %}"> -->
-            <a href="{% url 'admin:organizations_organization_changelist' %}"
-              id="menu_organizations"
-              class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
-              <c-icon icon="group"></c-icons>
-              <span class="ms-3">{% translate 'Organizations' %}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'admin:methods_method_changelist' %}"
-              id="menu_methods"
-              class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
-              <c-icon icon="adjustments-horizontal"></c-icons>
-              <span class="ms-3">{% translate 'Methods' %}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'admin:index' %}"
-              id="menu_features"
-              class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
-              <c-icon icon="clipboard-list"></c-icons>
-              <span class="ms-3">{% translate 'Features' %}</span>
-            </a>
-          </li>
-          <hr>
-          <li>
-            <a href="{% url 'admin:index' %}"
-              id="menu_settings"
-              class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
-              <c-icon icon="cog"></c-icons>
-              <span class="ms-3">{% translate 'Settings' %}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'admin:index' %}"
-              id="menu_auxiliary_data"
-              class="flex items-center p-1 text-gray-300 rounded-lg hover:bg-gray-600 group">
-              <c-icon icon="book"></c-icons>
-              <span class="ms-3">{% translate 'Auxiliary data' %}</span>
-            </a>
-          </li>
-         
+        {% if app_list %}
+          <ul class="space-y-1 font-medium">
+            {% for item in main_menu %}
+              {% if item.name == 'Settings' %}
+              <hr>
+              {% endif %}
+              <a href="{{ item.url }}">
+                <li class="app-{{ item.app.app_label }} module{% if item.is_active %} current-app{% endif %} flex flex-col rounded-lg {% if item.is_active %} bg-gray-600 {% endif %}" 
+                  x-data="{ open: {% if item.is_active %} true {% else %} false {% endif %} }"
+                >
+                  <div class="flex items-center p-3 text-gray-300 cursor-pointer rounded-lg hover:bg-gray-600 group w-full">
+                    <c-icon icon="{{ item.icon }}"></c-icons>
+                    <span class="ms-3">{% translate item.name %}</span>
+                  </div>
+                  <ul class="ml-9 space-y-0 font-medium" x-show="open">
+                    {% for subitem in item.items %}
+                    <a href="{{ subitem.url }}">
+                      <li class="flex items-center p-2 text-xs text-gray-300 rounded-lg {% if subitem.is_active %} font-bold {% endif %} hover:bg-gray-600 group">
+                      {% translate subitem.name %}
+                      </li>
+                    </a>
+                    {% endfor %}
+                  </ul>
+                </li>
+              </a>
+              {% endfor %}
+        {% else %}
+            <p>No app list</p>
+        {% endif %}
         </ul>
       </nav>
       <div>

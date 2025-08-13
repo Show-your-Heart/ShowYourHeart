@@ -1,15 +1,18 @@
 from django.contrib import admin
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
-from apps.methods.models import Method
-from project.admin import ModelAdmin
+from project.admin import ModelAdmin, gov_admin_register
+from project.helpers import register_with_default_templates
 
 from .forms import OrganizationAdminForm
 from .helpers import get_organization_method_filter
 from .models import Organization
 
 
-@admin.register(Organization)
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Organization)
+# Add admin views with custom templates
+@gov_admin_register(Organization)
 class OrganizationAdmin(ModelAdmin):
     form = OrganizationAdminForm
     list_display = (

@@ -19,6 +19,7 @@ from django.shortcuts import redirect
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
+from project.admin import gov_admin_site
 from project.views import HomeView, RootRedirectView
 
 urlpatterns = [
@@ -30,7 +31,8 @@ urlpatterns += i18n_patterns(
     path("", HomeView.as_view(), name="home"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
     path("admin/login/", lambda request: redirect("/")),
-    path("admin/", admin.site.urls),
+    path("superadmin/", admin.site.urls),
+    path("admin/", gov_admin_site.urls),
     path(_("settings/"), include("apps.settings.urls", namespace="settings")),
     path(
         _("organizations/"),
