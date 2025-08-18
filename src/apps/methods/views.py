@@ -1,17 +1,18 @@
+import csv
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-from django.shortcuts import redirect, render
 
 from apps.methods.mixins import CommonContextMixin
 
-from .forms import CsvImportForm
-from .models import Campaign, Invitation, Method
-import csv
 from .helpers import ParseExternalInvitations
+from .models import Campaign, Invitation, Method
 
 
 class MethodFillView(CommonContextMixin, TemplateView):
@@ -69,8 +70,14 @@ def import_csv(request, id):
         pei = ParseExternalInvitations()
         message = pei.parse_csv(reader, id)
 
-        print(message)
-        return redirect("/")
-    form = CsvImportForm()
-    payload = {"form": form, "id": id}
-    return render(request, "methods/csv_form.html", payload)
+        if len(message) > 0:
+            messages.warning(
+                request,
+                "\n".join(message),
+            )
+        return HttpResponseRedirect(request.path_info)
+    messages.success(
+        request,
+        _("The CSV has been imported correctly."),
+    )
+    return redirect(request.META.get("HTTP_REFERER", "/"))

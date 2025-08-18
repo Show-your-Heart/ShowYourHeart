@@ -1,5 +1,8 @@
 from django import forms
-from unfold.widgets import UnfoldAdminEmailInputWidget, UnfoldAdminTextInputWidget
+from unfold.widgets import (
+    UnfoldAdminEmailInputWidget,
+    UnfoldAdminTextInputWidget,
+)
 
 from .models import Indicator, Method
 
@@ -57,7 +60,3 @@ class InvitationInlineForm(forms.ModelForm):
         widget=UnfoldAdminEmailInputWidget,
         required=True,
     )
-
-
-class CsvImportForm(forms.Form):
-    csv_file = forms.FileField()
