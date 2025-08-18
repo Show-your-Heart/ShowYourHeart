@@ -133,6 +133,23 @@ ben llarga i t'agrairem que ens informis de la situació.
                 },
             },
         ),
+                dict(
+            id="external_survey_invitation",
+            translated_templates={
+                "en": {
+                    "subject": "Invitation to {{method_name}}",
+                    "body": """
+                    <p>Hello {{user_name}}!</p>
+                    <p>You have a invitation to participate on {{method_name}}.</p>
+
+                    
+                    <p>Yo can participate through the single-use link:
+                    <a href="{{method_url}}">{{method_url}}</a>
+                    </p>
+                        """,
+                },
+            },
+        ),
     ]
 
     for template in templates:

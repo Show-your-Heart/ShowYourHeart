@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
@@ -13,6 +13,7 @@ from apps.methods.mixins import CommonContextMixin
 
 from .helpers import ParseExternalInvitations
 from .models import Campaign, Invitation, Method
+from .services import send_invitation
 
 
 class MethodFillView(CommonContextMixin, TemplateView):
@@ -48,7 +49,11 @@ class ExternalMethodFillView(CommonContextMixin, TemplateView):
         return super().get_context_data(**kwargs)
 
     def post(self, request, id):
+        action = request.POST.get("action")
         invitation = Invitation.objects.get(token=id)
+        if action == "submit":
+            invitation.status = Invitation.Status.FILLED
+            invitation.save()
 
         return super().post(
             request,
@@ -59,7 +64,26 @@ class ExternalMethodFillView(CommonContextMixin, TemplateView):
 
 
 def invitations_sent_view(request, id):
-    return HttpResponseRedirect()
+    invitations = Invitation.objects.filter(
+        external_survey_invitation_id=id, status=Invitation.Status.PENDING
+    )
+    if invitations:
+        for invitation in invitations:
+            send_invitation(invitation)
+            invitation.status = Invitation.Status.SENT
+            invitation.save()
+
+        messages.success(
+            request,
+            _("The invitations have been sent."),
+        )
+    else:
+        messages.success(
+            request,
+            _("There are no invitations to send."),
+        )
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 def import_csv(request, id):
