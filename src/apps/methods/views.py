@@ -4,10 +4,14 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
+from django.shortcuts import redirect, render
 
 from apps.methods.mixins import CommonContextMixin
 
+from .forms import CsvImportForm
 from .models import Campaign, Invitation, Method
+import csv
+from .helpers import ParseExternalInvitations
 
 
 class MethodFillView(CommonContextMixin, TemplateView):
@@ -55,3 +59,18 @@ class ExternalMethodFillView(CommonContextMixin, TemplateView):
 
 def invitations_sent_view(request, id):
     return HttpResponseRedirect()
+
+
+def import_csv(request, id):
+    if request.method == "POST":
+        csv_file = request.FILES["csv_file"]
+        decoded_file = csv_file.read().decode("utf-8").splitlines()
+        reader = csv.reader(decoded_file)
+        pei = ParseExternalInvitations()
+        message = pei.parse_csv(reader, id)
+
+        print(message)
+        return redirect("/")
+    form = CsvImportForm()
+    payload = {"form": form, "id": id}
+    return render(request, "methods/csv_form.html", payload)

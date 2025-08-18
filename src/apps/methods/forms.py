@@ -57,3 +57,7 @@ class InvitationInlineForm(forms.ModelForm):
         widget=UnfoldAdminEmailInputWidget,
         required=True,
     )
+
+
+class CsvImportForm(forms.Form):
+    csv_file = forms.FileField()

@@ -1,7 +1,12 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from .views import ExternalMethodFillView, MethodFillView, invitations_sent_view
+from .views import (
+    ExternalMethodFillView,
+    MethodFillView,
+    import_csv,
+    invitations_sent_view,
+)
 
 app_name = "methods"
 urlpatterns = [
@@ -13,4 +18,5 @@ urlpatterns = [
         name="external_method_fill",
     ),
     path(_("send-invitations/<id>"), invitations_sent_view, name="send_invitations"),
+    path(_("import-csv/<id>"), import_csv, name="import_csv"),
 ]
