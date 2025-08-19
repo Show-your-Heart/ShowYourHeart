@@ -86,6 +86,20 @@ def invitations_sent_view(request, id):
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
+def invitation_sent_view(request, id):
+    invitation = Invitation.objects.get(pk=id)
+    send_invitation(invitation)
+    invitation.status = Invitation.Status.SENT
+    invitation.save()
+
+    messages.success(
+        request,
+        _("The invitation has been sent."),
+    )
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
 def import_csv(request, id):
     if request.method == "POST":
         csv_file = request.FILES["csv_file"]

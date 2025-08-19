@@ -217,6 +217,7 @@ class InvitationInline(admin.StackedInline):
         "email",
         "status",
         "token",
+        "actions_field",
     )
     tab = True  # Display the profile information on a new tab
     hide_title = True
@@ -225,7 +226,28 @@ class InvitationInline(admin.StackedInline):
     readonly_fields = (
         "status",
         "token",
+        "actions_field",
     )
+
+    @admin.display(description=_("Actions"))
+    def actions_field(self, obj):
+        if not obj:
+            return "-"
+        confirmed_verification_msg = _("Are you sure you want to send the invitation?")
+        confirmed_verification_url = reverse(
+            "methods:send_invitation",
+            args=[obj.id],
+        )
+        confirmed_verification_text = _("Send invitation")
+        buttons = [
+            get_url_with_alert_msg(
+                self,
+                confirmed_verification_msg,
+                confirmed_verification_url,
+                confirmed_verification_text,
+            )
+        ]
+        return format_html("<br><br>".join(buttons))
 
 
 class ExternalSurveyInvitationAdmin(ModelAdmin):
@@ -259,7 +281,8 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
         )
         confirmed_verification_text = _("Send invitations")
         buttons = [
-            self._get_url_with_alert_msg(
+            get_url_with_alert_msg(
+                self,
                 confirmed_verification_msg,
                 confirmed_verification_url,
                 confirmed_verification_text,
@@ -267,13 +290,14 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
         ]
         return format_html("<br><br>".join(buttons))
 
-    def _get_url_with_alert_msg(self, alert_msg, url, text):
-        return format_html(
-            f'<a class="bg-primary-600 block border border-transparent font-medium px-3'
-            ' py-2 rounded-md text-white" style="width: 50%; text-align: center;"'
-            f"href=\"javascript:if(confirm('{escapejs(alert_msg)}')) "
-            f"window.location.href = '{url}'\">{text}</a>"
-        )
+
+def get_url_with_alert_msg(self, alert_msg, url, text):
+    return format_html(
+        f'<a class="bg-primary-600 block border border-transparent font-medium px-3'
+        ' py-2 rounded-md text-white" style="width: 50%; text-align: center;"'
+        f"href=\"javascript:if(confirm('{escapejs(alert_msg)}')) "
+        f"window.location.href = '{url}'\">{text}</a>"
+    )
 
 
 admin.site.register(Topic, TopicAdmin)

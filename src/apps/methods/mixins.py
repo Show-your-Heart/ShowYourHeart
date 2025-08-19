@@ -3,7 +3,7 @@ import uuid
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form
 from .models import Indicator, IndicatorResult, Survey
@@ -79,7 +79,7 @@ class CommonContextMixin:
                     defaults={"value": value},
                 )
 
-        return redirect("/")
+        return HttpResponseRedirect(request.path_info)
 
 
 def is_valid_uuid(value):

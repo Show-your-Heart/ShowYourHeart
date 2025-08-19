@@ -5,7 +5,7 @@ from project.post_office import send
 
 def send_invitation(invitation):
     context = {
-        "method_name": "",
+        "method_name": invitation.external_survey_invitation.name,
         "user_name": invitation.name,
         "method_url": settings.ABSOLUTE_URL
         + "/methods/external-survey/"
