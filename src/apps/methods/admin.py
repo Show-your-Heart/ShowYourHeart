@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import escapejs, format_html
@@ -48,10 +50,14 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         "description",
         "is_direct_indicator",
     )
+
+    list_types_js = json.dumps(Indicator.list_types)
+
     conditional_fields = {
         "category": "is_direct_indicator == true",
         "condition": "is_direct_indicator == true",
         "formula": "is_direct_indicator == false",
+        "list_options": f"{list_types_js}.includes(data_type)",
     }
 
     def get_fieldsets(self, request, obj=None):
@@ -75,6 +81,13 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
             translatable_fields=["name", "description"],
             display_log=False,
         )
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if obj is None:
+            default_value = Indicator._meta.get_field("is_direct_indicator").default
+            form.base_fields["is_direct_indicator"].initial = default_value
+        return form
 
 
 class MethodAdmin(ModelAdmin, TranslationAdmin):
@@ -192,6 +205,9 @@ class SurveyAdmin(ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 class IndicatorResultAdmin(ModelAdmin):
     list_display = (
@@ -204,6 +220,9 @@ class IndicatorResultAdmin(ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
         return False
 
 

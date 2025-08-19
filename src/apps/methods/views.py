@@ -34,7 +34,7 @@ class MethodFillView(CommonContextMixin, TemplateView):
                 _("The method has no asociated campaign and can't be answered")
             ) from error
 
-        return super().post(request, id, method_id, campaign.id)
+        return super().post(request, method_id, campaign.id)
 
 
 @method_decorator(login_not_required, name="dispatch")
@@ -57,7 +57,6 @@ class ExternalMethodFillView(CommonContextMixin, TemplateView):
 
         return super().post(
             request,
-            id,
             invitation.external_survey_invitation.external_survey.id,
             invitation.external_survey_invitation.campaign.id,
         )

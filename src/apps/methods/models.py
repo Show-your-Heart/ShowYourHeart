@@ -70,6 +70,12 @@ class Indicator(BaseModel):
         POINTS = "P", _("points")
         ENERGY = "E", _("KWh")
 
+    list_types = [
+        DataType.DROPDOWN,
+        DataType.CHECKBOX,
+        DataType.RADIOBUTTON,
+    ]
+
     project_id = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=50, blank=True)
@@ -110,11 +116,13 @@ class Indicator(BaseModel):
 
     def clean(self):
         super().clean()
-        if self.data_type == Indicator.DataType.DROPDOWN and not self.list_options:
+
+        if self.data_type in self.list_types and not self.list_options:
             raise ValidationError(
                 {
                     "list_options": _(
-                        "This field is required when data type is Dropdown."
+                        "This field is required when data type "
+                        + f"is {self.get_data_type_display()}."
                     )
                 }
             )
@@ -214,7 +222,7 @@ class Survey(BaseModel):
 class IndicatorResult(BaseModel):
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
-    value = models.CharField(blank=True)
+    value = models.CharField(blank=True, max_length=200)
 
     class Meta:
         constraints = [

@@ -46,7 +46,7 @@ class CommonContextMixin:
         return context
 
     @transaction.atomic
-    def post(self, request, id, method_id, campaign_id):
+    def post(self, request, method_id, campaign_id):
         action = request.POST.get("action")
 
         if action == "submit":
