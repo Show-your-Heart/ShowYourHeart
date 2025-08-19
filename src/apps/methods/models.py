@@ -279,3 +279,20 @@ class Invitation(BaseModel):
                 fields=["email", "external_survey_invitation"], name="pk_invitation"
             )
         ]
+
+class Answer(BaseModel):
+    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
+    indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
+    organization = models.ForeignKey(
+        "organizations.organization",
+        on_delete=models.PROTECT
+    )
+    gender = models.ForeignKey("settings.gender", on_delete=models.PROTECT)
+    value = models.CharField(blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["campaign", "indicator", "organization", "gender"],
+                name="unique_pk")
+        ]
