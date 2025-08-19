@@ -45,6 +45,7 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("method", "vacd")
         + get_permission_codenames("list", "vacd")
         + get_permission_codenames("listitem", "vacd")
+        + get_permission_codenames("campaign", "vacd")
         + get_permission_codenames("externalsurveyinvitation", "vacd")
         + get_permission_codenames("invitation", "vacd"),
     }
