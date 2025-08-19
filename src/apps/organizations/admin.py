@@ -4,6 +4,7 @@ from unfold.contrib.filters.admin import ChoicesDropdownFilter
 from project.admin import ModelAdmin
 
 from .forms import OrganizationAdminForm
+from .helpers import get_organization_method_filter
 from .models import Organization
 
 
@@ -56,3 +57,15 @@ class OrganizationAdmin(ModelAdmin):
             return True
         else:
             return False
+
+    def get_form(self, request, obj=None, **kwargs):
+        # Add legal_structure property to use it on formfield_for_manytomany
+        if obj:
+            self.legal_structure_id = obj.legal_structure.id
+        return super().get_form(request, obj, **kwargs)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        # Do not display external surveys
+        if db_field.name == "methods":
+            kwargs["queryset"] = get_organization_method_filter(self.legal_structure_id)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)

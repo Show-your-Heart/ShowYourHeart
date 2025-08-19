@@ -1,0 +1,72 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+
+{% block object-tools-items %}
+{{ block.super }}
+
+
+<!-- Import CSV Link -->
+<li class="hover:text-primary-600 dark:hover:text-primary-500 dark:border-base-700 border-base-200 border md:last:rounded-r-default 
+    md:first:rounded-l-default max-md:last:rounded-b-default max-md:first:rounded-t-default md:-ml-px max-md:-mt-px">
+    <a id="import-csv-btn" href="#"
+        class="cursor-pointer flex grow items-center gap-2 px-3 py-2 text-left whitespace-nowrap">
+        {% translate 'Import CSV' %} </a>
+</li>
+
+<!-- Modal Structure hidden by default -->
+<div id="importCsvModal"
+    style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000;">
+    <div style="background:#fff; max-width:500px; margin:80px auto; padding:20px; position:relative;">
+        <button id="closeModal" style="position:absolute; top:10px; right:10px; cursor: pointer;">&times;</button>
+        <form id="importCsvForm" action="{% url 'methods:import_csv' original.pk %}" method="POST"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div
+                class="border border-base-200 flex grow items-center overflow-hidden rounded-default shadow-xs max-w-2xl focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 group-[.errors]:border-red-600 focus-within:group-[.errors]:outline-red-500 dark:border-base-700 dark:group-[.errors]:border-red-500 dark:focus-within:group-[.errors]:outline-red-500">
+                <input id="id_csv_file" type="file" name="csv_file" accept=".csv"
+                    class="bg-white grow font-medium min-w-0 px-3 py-2 text-ellipsis dark:bg-base-900" />
+            </div>
+
+            <!-- Text input placeholder expected by fileInputUpdatePath on Django unfold -->
+            <input type="text" readonly value="" style="display: none;" />
+            <button type="submit"
+                class="bg-primary-600 block border border-transparent cursor-pointer font-medium px-3 py-2 rounded-default text-white w-full lg:w-auto">Upload
+                CSV</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById('importCsvModal');
+        const openBtn = document.getElementById('import-csv-btn');
+        const closeBtn = document.getElementById('closeModal');
+        const fileInput = document.querySelector('#importCsvForm input[type="file"]');
+
+        openBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            // Open file input selector
+            if (fileInput) {
+                fileInput.click();
+            }
+        });
+
+        closeBtn.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+
+    });
+</script>
+
+
+{% endblock %}

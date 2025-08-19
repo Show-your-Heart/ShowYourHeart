@@ -63,7 +63,9 @@ class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
     list_filter_submit = True
 
     @staticmethod
-    def build_fieldsets(main_fields, translatable_fields=None, display_log=True):
+    def build_fieldsets(
+        main_fields, translatable_fields=None, display_log=True, display_actions=False
+    ):
         fields = [
             (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
         ]
@@ -79,6 +81,14 @@ class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
                 (
                     _("Translations"),
                     {"fields": translation_fields, "classes": ("tab",)},
+                ),
+            )
+
+        if display_actions:
+            fields.append(
+                (
+                    _("Actions"),
+                    {"fields": ("actions_field",)},
                 ),
             )
 

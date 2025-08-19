@@ -1,13 +1,18 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import escapejs, format_html
+from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .forms import MethodForm
+from .forms import InvitationInlineForm, MethodForm
 from .models import (
     Campaign,
+    ExternalSurveyInvitation,
     Indicator,
     IndicatorResult,
+    Invitation,
     List,
     ListItem,
     Method,
@@ -81,8 +86,9 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
     list_display = (
         "name",
         "description",
-        "active",
         "network_owner",
+        "unit_of_analysis",
+        "active",
     )
 
     conditional_fields = {
@@ -178,6 +184,8 @@ class CampaignAdmin(ModelAdmin):
 
 
 class SurveyAdmin(ModelAdmin):
+    list_display = ("method", "campaign", "user", "status")
+
     def has_add_permission(self, request, obj=None):
         return False
 
@@ -186,11 +194,110 @@ class SurveyAdmin(ModelAdmin):
 
 
 class IndicatorResultAdmin(ModelAdmin):
+    list_display = (
+        "survey",
+        "indicator",
+    )
+    ordering = ["survey"]
+
     def has_add_permission(self, request, obj=None):
         return False
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+class InvitationInline(admin.StackedInline):
+    model = Invitation
+    verbose_name_plural = "Invitations"
+    fk_name = "external_survey_invitation"
+    extra = 0
+    fields = (
+        "name",
+        "email",
+        "status",
+        "token",
+        "actions_field",
+    )
+    tab = True  # Display the profile information on a new tab
+    hide_title = True
+    form = InvitationInlineForm
+    ordering_field = ("name",)
+    readonly_fields = (
+        "status",
+        "token",
+        "actions_field",
+    )
+
+    @admin.display(description=_("Actions"))
+    def actions_field(self, obj):
+        if not obj:
+            return "-"
+        confirmed_verification_msg = _("Are you sure you want to send the invitation?")
+        confirmed_verification_url = reverse(
+            "methods:send_invitation",
+            args=[obj.id],
+        )
+        confirmed_verification_text = _("Send invitation")
+        buttons = [
+            get_url_with_alert_msg(
+                self,
+                confirmed_verification_msg,
+                confirmed_verification_url,
+                confirmed_verification_text,
+            )
+        ]
+        return format_html("<br><br>".join(buttons))
+
+
+class ExternalSurveyInvitationAdmin(ModelAdmin):
+    list_display = (
+        "name",
+        "external_survey",
+        "campaign",
+    )
+    inlines = (InvitationInline,)
+    readonly_fields = ("actions_field",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=[
+                "name",
+                "external_survey",
+                "campaign",
+            ],
+            translatable_fields=[],
+            display_actions=True,
+        )
+
+    @admin.display(description=_("Actions"))
+    def actions_field(self, obj):
+        if not obj:
+            return "-"
+        confirmed_verification_msg = _("Are you sure you want to send the invitations?")
+        confirmed_verification_url = reverse(
+            "methods:send_invitations",
+            args=[obj.id],
+        )
+        confirmed_verification_text = _("Send invitations")
+        buttons = [
+            get_url_with_alert_msg(
+                self,
+                confirmed_verification_msg,
+                confirmed_verification_url,
+                confirmed_verification_text,
+            )
+        ]
+        return format_html("<br><br>".join(buttons))
+
+
+def get_url_with_alert_msg(self, alert_msg, url, text):
+    return format_html(
+        f'<a class="bg-primary-600 block border border-transparent font-medium px-3'
+        ' py-2 rounded-md text-white" style="width: 50%; text-align: center;"'
+        f"href=\"javascript:if(confirm('{escapejs(alert_msg)}')) "
+        f"window.location.href = '{url}'\">{text}</a>"
+    )
 
 
 admin.site.register(Topic, TopicAdmin)
@@ -200,3 +307,4 @@ admin.site.register(ListItem, ListItemAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(IndicatorResult, IndicatorResultAdmin)
+admin.site.register(ExternalSurveyInvitation, ExternalSurveyInvitationAdmin)

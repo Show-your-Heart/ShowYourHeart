@@ -102,7 +102,7 @@ ben llarga i t'agrairem que ens informis de la situació.
                     "subject": "Network assigned on " "{{project_name}}",
                     "body": """
     <p>Hello {{user_name}}!</p>
-    <p>We're sending you this e-mail because today {{date}} at {{time}}
+    <p>We're sending you this e-mail 
     to inform you that you are now administrator of the network {{network_name}} on the SYH project.</p>
 
     <p> If it weren't you who requested it,
@@ -129,6 +129,23 @@ ben llarga i t'agrairem que ens informis de la situació.
     <p>To set a new password open this link:
     <a href="{{password_reset_url}}">{{password_reset_url}}</a>
     </p>
+                        """,
+                },
+            },
+        ),
+                dict(
+            id="external_survey_invitation",
+            translated_templates={
+                "en": {
+                    "subject": "Invitation to {{method_name}}",
+                    "body": """
+                    <p>Hello {{user_name}}!</p>
+                    <p>You have a invitation to participate on {{method_name}}.</p>
+
+                    
+                    <p>Yo can participate through the single-use link:
+                    <a href="{{method_url}}">{{method_url}}</a>
+                    </p>
                         """,
                 },
             },

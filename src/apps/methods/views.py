@@ -1,77 +1,121 @@
-from django import forms
+import csv
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_not_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.db import transaction
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from .forms import get_dynamic_form
-from .models import Campaign, Indicator, IndicatorResult, Method, Survey
+from apps.methods.mixins import CommonContextMixin
+
+from .helpers import ParseExternalInvitations
+from .models import Campaign, Invitation, Method
+from .services import send_invitation
 
 
-class MethodFillView(TemplateView):
+class MethodFillView(CommonContextMixin, TemplateView):
     template_name = "methods/method_fill.html"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        method = Method.objects.get(pk=self.kwargs["id"])
+        kwargs["campaign"] = Campaign.objects.get(methods__id__contains=method.id).id
+        kwargs["method"] = method
+        return super().get_context_data(**kwargs)
 
-        current_method = Method.objects.get(pk=self.kwargs["id"])
-        campaign = Campaign.objects.get(methods__id__contains=current_method.id)
-        readonly = False
-        # Get the current survey already started
-        try:
-            survey = Survey.objects.get(
-                campaign=campaign,
-                method=current_method,
-                user=self.request.user,
-            )
-            readonly = survey.status == Survey.Status.SUBMITTED
-            context["form"] = get_dynamic_form(
-                current_method,
-                IndicatorResult.objects.filter(survey=survey),
-                readonly,
-            )
-        except ObjectDoesNotExist:
-            # If there is none, get new survey
-            context["form"] = get_dynamic_form(current_method, [], False)
-        context["method_name"] = current_method.name
-        context["readonly"] = readonly
-
-        return context
-
-    @transaction.atomic
     def post(self, request, id):
-        action = request.POST.get("action")
-
-        if action == "submit":
-            form = forms.Form(request.POST)
-            if not form.is_valid():
-                pass
-
-        current_method = Method.objects.get(pk=self.kwargs["id"])
+        method_id = id
         try:
-            campaign = Campaign.objects.get(methods__id__contains=current_method.id)
+            campaign = Campaign.objects.get(methods__id__contains=method_id)
         except ObjectDoesNotExist as error:
             raise ObjectDoesNotExist(
                 _("The method has no asociated campaign and can't be answered")
             ) from error
 
-        if campaign is not None:
-            survey, created = Survey.objects.get_or_create(
-                method=current_method,
-                user=request.user,
-                campaign=campaign,
+        return super().post(request, id, method_id, campaign.id)
+
+
+@method_decorator(login_not_required, name="dispatch")
+class ExternalMethodFillView(CommonContextMixin, TemplateView):
+    template_name = "methods/method_fill.html"
+
+    def get_context_data(self, **kwargs):
+        invitation = Invitation.objects.get(token=self.kwargs["id"])
+
+        kwargs["campaign"] = invitation.external_survey_invitation.campaign.id
+        kwargs["method"] = invitation.external_survey_invitation.external_survey
+        return super().get_context_data(**kwargs)
+
+    def post(self, request, id):
+        action = request.POST.get("action")
+        invitation = Invitation.objects.get(token=id)
+        if action == "submit":
+            invitation.status = Invitation.Status.FILLED
+            invitation.save()
+
+        return super().post(
+            request,
+            id,
+            invitation.external_survey_invitation.external_survey.id,
+            invitation.external_survey_invitation.campaign.id,
+        )
+
+
+def invitations_sent_view(request, id):
+    invitations = Invitation.objects.filter(
+        external_survey_invitation_id=id, status=Invitation.Status.PENDING
+    )
+    if invitations:
+        for invitation in invitations:
+            send_invitation(invitation)
+            invitation.status = Invitation.Status.SENT
+            invitation.save()
+
+        messages.success(
+            request,
+            _("The invitations have been sent."),
+        )
+    else:
+        messages.success(
+            request,
+            _("There are no invitations to send."),
+        )
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+def invitation_sent_view(request, id):
+    invitation = Invitation.objects.get(pk=id)
+    send_invitation(invitation)
+    invitation.status = Invitation.Status.SENT
+    invitation.save()
+
+    messages.success(
+        request,
+        _("The invitation has been sent."),
+    )
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+def import_csv(request, id):
+    if request.method == "POST":
+        csv_file = request.FILES["csv_file"]
+        decoded_file = csv_file.read().decode("utf-8").splitlines()
+        reader = csv.reader(decoded_file)
+        pei = ParseExternalInvitations()
+        message = pei.parse_csv(reader, id)
+
+        if len(message) > 0:
+            messages.warning(
+                request,
+                "\n".join(message),
             )
-            if action == "submit":
-                survey.status = Survey.Status.SUBMITTED
-                survey.save()
-
-            for key, value in request.POST.items():
-                if key.startswith("question"):
-                    IndicatorResult.objects.update_or_create(
-                        survey=survey,
-                        indicator=Indicator.objects.get(pk=key[len("question_") :]),
-                        defaults={"value": value},
-                    )
-
-            return redirect("/")
+        return HttpResponseRedirect(request.path_info)
+    messages.success(
+        request,
+        _("The CSV has been imported correctly."),
+    )
+    return redirect(request.META.get("HTTP_REFERER", "/"))

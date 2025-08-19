@@ -1,4 +1,8 @@
 from django import forms
+from unfold.widgets import (
+    UnfoldAdminEmailInputWidget,
+    UnfoldAdminTextInputWidget,
+)
 
 from .models import Indicator, Method
 
@@ -47,3 +51,12 @@ def get_dynamic_form(method, indicator_result_list, readonly):
                     self.fields[field_name].widget.attrs["readonly"] = readonly
 
     return DynamicSurveyForm
+
+
+class InvitationInlineForm(forms.ModelForm):
+    # Without this form the styles of the inputs are not applied
+    name = forms.CharField(widget=UnfoldAdminTextInputWidget, required=False)
+    email = forms.EmailField(
+        widget=UnfoldAdminEmailInputWidget,
+        required=True,
+    )
