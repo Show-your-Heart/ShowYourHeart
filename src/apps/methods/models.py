@@ -280,12 +280,12 @@ class Invitation(BaseModel):
             )
         ]
 
+
 class Answer(BaseModel):
     campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
     organization = models.ForeignKey(
-        "organizations.organization",
-        on_delete=models.PROTECT
+        "organizations.organization", on_delete=models.PROTECT
     )
     gender = models.ForeignKey("settings.gender", on_delete=models.PROTECT)
     value = models.CharField(blank=True)
@@ -294,5 +294,6 @@ class Answer(BaseModel):
         constraints = [
             models.UniqueConstraint(
                 fields=["campaign", "indicator", "organization", "gender"],
-                name="unique_pk")
+                name="unique_pk",
+            )
         ]

@@ -29,6 +29,7 @@ class Sector(BaseModel):
     def __str__(self):
         return self.name
 
+
 class Gender(BaseModel):
     class GenderOptions(models.TextChoices):
         MALE = "M", _("Male")
