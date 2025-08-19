@@ -18,7 +18,7 @@ class CommonContextMixin:
         readonly = False
         # Get the current survey already started
         try:
-            if not is_valid_uuid(self.request.user):
+            if not is_valid_uuid(self.request.user.id):
                 survey = Survey.objects.get(
                     token=self.kwargs["id"],
                     campaign__id=campaign,
@@ -54,7 +54,7 @@ class CommonContextMixin:
             if not form.is_valid():
                 pass
 
-        if not is_valid_uuid(request.user):
+        if not is_valid_uuid(request.user.id):
             survey, created = Survey.objects.get_or_create(
                 method_id=method_id,
                 token=self.kwargs["id"],
