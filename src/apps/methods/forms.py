@@ -1,6 +1,8 @@
 from django import forms
+from django.urls import reverse_lazy
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
+    UnfoldAdminSelectWidget,
     UnfoldAdminTextInputWidget,
 )
 
@@ -11,6 +13,16 @@ class MethodForm(forms.ModelForm):
     class Meta:
         model = Method
         fields = "__all__"  # noqa: DJ007
+
+        htmx_attrs = {
+            "hx-get": reverse_lazy("methods:load_ext_surveys"),
+            "hx-swap": "innerHTML",
+            "hx-trigger": "change",
+            "hx-target": "#id_external_surveys",
+        }
+        widgets = {
+            "network_owner": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+        }
 
     def clean_pdf_file(self):
         file = self.cleaned_data.get("pdf_file", False)

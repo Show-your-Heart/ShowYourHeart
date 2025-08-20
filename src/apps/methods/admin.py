@@ -117,11 +117,14 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         # External surveys field must only display
         # methods for the same network and set as external survey
-        if (db_field.name == "external_surveys") & hasattr(self, "network_owner"):
-            kwargs["queryset"] = Method.objects.filter(
-                network_owner=self.network_owner,
-                unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
-            )
+        if db_field.name == "external_surveys":
+            if hasattr(self, "network_owner"):
+                kwargs["queryset"] = Method.objects.filter(
+                    network_owner=self.network_owner,
+                    unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+                )
+            else:
+                kwargs["queryset"] = Method.objects.none()
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def get_fieldsets(self, request, obj=None):

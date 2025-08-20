@@ -7,6 +7,7 @@ from .views import (
     import_csv,
     invitation_sent_view,
     invitations_sent_view,
+    load_ext_surveys,
 )
 
 app_name = "methods"
@@ -21,4 +22,5 @@ urlpatterns = [
     path(_("send-invitations/<id>"), invitations_sent_view, name="send_invitations"),
     path(_("send-invitation/<id>"), invitation_sent_view, name="send_invitation"),
     path(_("import-csv/<id>"), import_csv, name="import_csv"),
+    path(_("load_ext_surveys/"), load_ext_surveys, name="load_ext_surveys"),
 ]

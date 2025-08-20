@@ -222,7 +222,7 @@ class Survey(BaseModel):
 class IndicatorResult(BaseModel):
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
-    value = models.CharField(blank=True, max_length=200)
+    value = models.CharField(blank=True)
 
     class Meta:
         constraints = [

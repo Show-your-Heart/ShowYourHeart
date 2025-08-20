@@ -4,14 +4,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 
 from apps.methods.mixins import CommonContextMixin
 
-from .helpers import ParseExternalInvitations
+from .helpers import ParseExternalInvitations, get_external_survey_filter
 from .models import Campaign, Invitation, Method
 from .services import send_invitation
 
@@ -118,3 +119,15 @@ def import_csv(request, id):
         _("The CSV has been imported correctly."),
     )
     return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+@require_http_methods("GET")
+def load_ext_surveys(request):
+    if network_owner_id := request.GET.get("network_owner"):
+        try:
+            methods = get_external_survey_filter(network_owner_id)
+        except Method.DoesNotExist:
+            pass
+    else:
+        methods = []
+    return render(request, "organizations/methods_options.html", {"methods": methods})
