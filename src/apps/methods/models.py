@@ -214,6 +214,9 @@ class Survey(BaseModel):
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.OPEN
     )
+    organization = models.ForeignKey(
+        "organizations.organization", on_delete=models.PROTECT, default=""
+    )
 
     def __str__(self):
         return self.method.name + " | " + self.campaign.year
@@ -222,6 +225,7 @@ class Survey(BaseModel):
 class IndicatorResult(BaseModel):
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
+    gender = models.ForeignKey("settings.gender", on_delete=models.PROTECT, default="")
     value = models.CharField(blank=True)
 
     class Meta:
@@ -258,6 +262,10 @@ class Invitation(BaseModel):
         FILLED = (
             2,
             "Filled",
+        )
+        REGISTERED = (
+            3,
+            "Registered",
         )
 
     name = models.CharField(_("Name"), max_length=400)

@@ -77,10 +77,10 @@ class UserProfile(BaseModel):
 
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=100)
     surnames = models.CharField(
         _("surname"),
-        max_length=50,
+        max_length=100,
         default="",
         blank=True,
     )
