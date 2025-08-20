@@ -10,14 +10,14 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 
-from apps.methods.mixins import CommonContextMixin
+from apps.methods.mixins import MethodFillMixin
 
 from .helpers import ParseExternalInvitations, get_external_survey_filter
 from .models import Campaign, Invitation, Method
 from .services import send_invitation
 
 
-class MethodFillView(CommonContextMixin, TemplateView):
+class MethodFillView(MethodFillMixin, TemplateView):
     template_name = "methods/method_fill.html"
 
     def get_context_data(self, **kwargs):
@@ -39,7 +39,7 @@ class MethodFillView(CommonContextMixin, TemplateView):
 
 
 @method_decorator(login_not_required, name="dispatch")
-class ExternalMethodFillView(CommonContextMixin, TemplateView):
+class ExternalMethodFillView(MethodFillMixin, TemplateView):
     template_name = "methods/method_fill.html"
 
     def get_context_data(self, **kwargs):
