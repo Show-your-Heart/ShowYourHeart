@@ -43,35 +43,43 @@ def get_field(indicator):
     field_name = indicator.name
 
     return {
-        Indicator.DataType.STRING: forms.CharField(label=field_name, required=True),
+        Indicator.DataType.STRING: forms.CharField(label=field_name, required=False),
         Indicator.DataType.TEXT: forms.CharField(
-            label=field_name, required=True, widget=forms.Textarea
+            label=field_name, required=False, widget=forms.Textarea
         ),
-        Indicator.DataType.INTEGER: forms.IntegerField(label=field_name, required=True),
-        Indicator.DataType.DECIMAL: forms.DecimalField(label=field_name, required=True),
-        Indicator.DataType.BOOLEAN: forms.BooleanField(label=field_name, required=True),
+        Indicator.DataType.INTEGER: forms.IntegerField(
+            label=field_name, required=False
+        ),
+        Indicator.DataType.DECIMAL: forms.DecimalField(
+            label=field_name, required=False
+        ),
+        Indicator.DataType.BOOLEAN: forms.BooleanField(
+            label=field_name, required=False
+        ),
         Indicator.DataType.DATE: forms.DateField(
             label=field_name,
-            required=True,
+            required=False,
             widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             input_formats=["%Y-%m-%d"],
         ),
-        Indicator.DataType.ATTACHMENT: forms.FileField(label=field_name, required=True),
+        Indicator.DataType.ATTACHMENT: forms.FileField(
+            label=field_name, required=False
+        ),
         Indicator.DataType.CHECKBOX: forms.MultipleChoiceField(
             label=field_name,
-            required=True,
+            required=False,
             widget=forms.CheckboxSelectMultiple,
             choices=get_choices(indicator.list_options),
         ),
         Indicator.DataType.RADIOBUTTON: forms.ChoiceField(
             label=field_name,
-            required=True,
+            required=False,
             choices=get_choices(indicator.list_options),
             widget=forms.RadioSelect,
         ),
         Indicator.DataType.DROPDOWN: forms.ChoiceField(
             label=field_name,
-            required=True,
+            required=False,
             choices=get_choices(indicator.list_options),
         ),
     }.get(indicator.data_type)
@@ -86,11 +94,15 @@ def get_dynamic_form(method, indicator_result_list, readonly):
                 field = get_field(i)
 
                 if field is not None:  # Skip unknown types
-                    field.initial = (
-                        indicator_result_list.get(indicator=i).value
-                        if len(indicator_result_list)
-                        else ""
-                    )
+                    if len(indicator_result_list):
+                        indicator = indicator_result_list.filter(indicator=i).first()
+                        if indicator:
+                            field.initial = (
+                                indicator.value.split("|")
+                                if i.data_type == Indicator.DataType.CHECKBOX
+                                else indicator.value
+                            )
+
                     self.fields[field_name] = field
                     self.fields[field_name].widget.attrs["readonly"] = readonly
 

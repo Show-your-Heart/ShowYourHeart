@@ -6,10 +6,10 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form
-from .models import Indicator, IndicatorResult, Survey
+from .models import IndicatorResult, Method, Survey
 
 
-class CommonContextMixin:
+class MethodFillMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         campaign = kwargs.get("campaign")
@@ -71,13 +71,15 @@ class CommonContextMixin:
             survey.status = Survey.Status.SUBMITTED
             survey.save()
 
-        for key, value in request.POST.items():
-            if key.startswith("question"):
-                IndicatorResult.objects.update_or_create(
-                    survey=survey,
-                    indicator=Indicator.objects.get(pk=key[len("question_") :]),
-                    defaults={"value": value},
-                )
+        method = Method.objects.get(pk=method_id)
+        for indicator in method.indicators.all():
+            values = request.POST.getlist("question_" + str(indicator.id))
+
+            IndicatorResult.objects.update_or_create(
+                survey=survey,
+                indicator=indicator,
+                defaults={"value": "|".join(values)},
+            )
 
         return HttpResponseRedirect(request.path_info)
 
