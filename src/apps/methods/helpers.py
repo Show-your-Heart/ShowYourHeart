@@ -1,6 +1,6 @@
 import re
 
-from .models import Invitation
+from .models import Invitation, Method
 
 
 class ParseExternalInvitations:
@@ -30,3 +30,10 @@ class ParseExternalInvitations:
             return True
         else:
             return False
+
+
+def get_external_survey_filter(network_owner__id):
+    return Method.objects.filter(
+        network_owner__id=network_owner__id,
+        unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+    )

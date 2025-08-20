@@ -1,6 +1,7 @@
 from django.contrib import admin
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
+from apps.methods.models import Method
 from project.admin import ModelAdmin
 
 from .forms import OrganizationAdminForm
@@ -67,5 +68,10 @@ class OrganizationAdmin(ModelAdmin):
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         # Do not display external surveys
         if db_field.name == "methods":
-            kwargs["queryset"] = get_organization_method_filter(self.legal_structure_id)
+            if hasattr(self, "legal_structure_id"):
+                kwargs["queryset"] = get_organization_method_filter(
+                    self.legal_structure_id
+                )
+            else:
+                kwargs["queryset"] = Method.objects.none()
         return super().formfield_for_manytomany(db_field, request, **kwargs)
