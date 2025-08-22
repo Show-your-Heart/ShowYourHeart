@@ -15,15 +15,28 @@ class Organization(BaseModel):
             1,
             "Accepted",
         )
-        REJECTED = 2, "Rejected"
+        REJECTED = (
+            2,
+            "Rejected",
+        )
+        REGISTERED = (
+            3,
+            "Registered",
+        )
 
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=150)
     vat_number = models.CharField(_("vat number"), max_length=20)
     contact = models.ForeignKey("users.User", on_delete=models.CASCADE)
     website = models.CharField(_("website"), max_length=100, blank=True, default="")
-    country = models.CharField(_("country"), max_length=50)
-    region = models.CharField(_("region"), max_length=50)
-    city = models.CharField(_("city"), max_length=50)
+    country = models.ForeignKey(
+        "geodata.country", on_delete=models.CASCADE, blank=True, null=True
+    )
+    region = models.ForeignKey(
+        "geodata.region", on_delete=models.CASCADE, blank=True, null=True
+    )
+    city = models.ForeignKey(
+        "geodata.city", on_delete=models.CASCADE, blank=True, null=True
+    )
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
