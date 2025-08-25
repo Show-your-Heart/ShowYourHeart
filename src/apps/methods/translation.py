@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import Indicator, List, ListItem, Method, Topic
+from .models import Campaign, Indicator, List, ListItem, Method, Topic
 
 
 @register(Topic)
@@ -10,7 +10,7 @@ class TopicTranslationOptions(TranslationOptions):
 
 @register(Indicator)
 class IndicatorTranslationOptions(TranslationOptions):
-    fields = ("name", "description")
+    fields = ("name", "description", "message")
 
 
 @register(Method)
@@ -26,3 +26,8 @@ class ListItemTranslationOptions(TranslationOptions):
 @register(List)
 class ListTranslationOptions(TranslationOptions):
     fields = ("title",)
+
+
+@register(Campaign)
+class CampaignTranslationOptions(TranslationOptions):
+    fields = ("name",)

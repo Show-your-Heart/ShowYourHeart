@@ -76,9 +76,9 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
                 "condition",
                 "formula",
                 "validation",
-                "message",
+                "message_en",
             ],
-            translatable_fields=["name", "description"],
+            translatable_fields=["name", "description", "message"],
             display_log=False,
         )
 
@@ -176,7 +176,7 @@ class ListItemAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-class CampaignAdmin(ModelAdmin):
+class CampaignAdmin(ModelAdmin, TranslationAdmin):
     list_display = (
         "year",
         "name",
@@ -188,14 +188,14 @@ class CampaignAdmin(ModelAdmin):
         return self.build_fieldsets(
             main_fields=[
                 "year",
-                "name",
+                "name_en",
                 "status",
                 "previous_campaign",
                 "start_date",
                 "end_date",
                 "methods",
             ],
-            translatable_fields=[],
+            translatable_fields=["name"],
         )
 
 

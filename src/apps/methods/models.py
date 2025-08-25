@@ -18,8 +18,8 @@ class Topic(BaseModel):
 
 
 class ListItem(BaseModel):
-    title = models.CharField(_("title"), max_length=50)
-    formula = models.CharField(_("formula"), max_length=50)
+    title = models.CharField(_("title"), max_length=300)
+    formula = models.CharField(_("formula"), max_length=50, blank=True)
     value = models.PositiveSmallIntegerField(_("value"))
     active = models.BooleanField(_("active"), max_length=50)
 
@@ -78,8 +78,8 @@ class Indicator(BaseModel):
 
     project_id = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
-    name = models.CharField(_("name"), max_length=50, blank=True)
-    description = models.CharField(_("description"), max_length=400, blank=True)
+    name = models.CharField(_("name"), max_length=1000, blank=True)
+    description = models.CharField(_("description"), max_length=2500, blank=True)
     topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(
         _("Is it a direct indicator?"), blank=True
@@ -139,8 +139,8 @@ class Method(BaseModel):
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
     active = models.BooleanField(_("active"))
-    name = models.CharField(_("name"), max_length=50)
-    description = models.CharField(_("description"), max_length=400)
+    name = models.CharField(_("name"), max_length=150)
+    description = models.CharField(_("description"), max_length=1000)
     network_owner = models.ForeignKey("settings.network", on_delete=models.PROTECT)
     unit_of_analysis = models.CharField(
         _("unit of analysis"),
@@ -187,8 +187,8 @@ class Campaign(BaseModel):
         blank=True,
         limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY),
     )
-    start_date = models.DateField(_("Start date"))
-    end_date = models.DateField(_("End date"))
+    start_date = models.DateField(_("Start date"), blank=True, null=True)
+    end_date = models.DateField(_("End date"), blank=True, null=True)
 
     def __str__(self):
         return self.year
