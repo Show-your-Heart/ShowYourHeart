@@ -110,6 +110,22 @@ def get_dynamic_form(method, indicator_result_list, readonly):
     return DynamicSurveyForm
 
 
+def get_form_sections(method):
+    result = {}
+    sections = Section.objects.filter(method=method, parent__isnull=True).order_by(
+        "order"
+    )
+
+    for section in sections:
+        indicators = []
+        for i in section.indicators.all():
+            indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+
+        result[section] = indicators
+
+    return result
+
+
 class InvitationInlineForm(forms.ModelForm):
     # Without this form the styles of the inputs are not applied
     name = forms.CharField(widget=UnfoldAdminTextInputWidget, required=False)

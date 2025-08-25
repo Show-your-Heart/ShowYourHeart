@@ -105,6 +105,7 @@ class SectionInline(admin.StackedInline):
     hide_title = True
     form = SectionInlineForm
     ordering_field = ("order",)
+    collapsible = True
 
 
 class MethodAdmin(ModelAdmin, TranslationAdmin):

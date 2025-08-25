@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
 
-from .forms import get_dynamic_form
+from .forms import get_dynamic_form, get_form_sections
 from .models import IndicatorResult, Method, Survey
 
 
@@ -40,8 +40,10 @@ class MethodFillMixin:
         except ObjectDoesNotExist:
             # If there is none, get new survey
             context["form"] = get_dynamic_form(current_method, [], False)
+
         context["method_name"] = current_method.name
         context["readonly"] = readonly
+        context["sections"] = get_form_sections(current_method)
 
         return context
 
