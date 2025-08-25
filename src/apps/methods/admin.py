@@ -8,7 +8,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .forms import InvitationInlineForm, MethodForm
+from .forms import InvitationInlineForm, MethodForm, SectionInlineForm
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
@@ -18,6 +18,7 @@ from .models import (
     List,
     ListItem,
     Method,
+    Section,
     Survey,
     Topic,
 )
@@ -90,11 +91,28 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         return form
 
 
+class SectionInline(admin.StackedInline):
+    model = Section
+    extra = 0
+    fields = (
+        "title",
+        "parent",
+        "method",
+        "order",
+        "indicators",
+    )
+    tab = True  # Display the profile information on a new tab
+    hide_title = True
+    form = SectionInlineForm
+    ordering_field = ("order",)
+
+
 class MethodAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
     search_fields = ["name"]
     filter_horizontal = ("indicators",)
     form = MethodForm
+    inlines = (SectionInline,)
 
     list_display = (
         "name",
@@ -250,6 +268,7 @@ class InvitationInline(admin.StackedInline):
         "token",
         "actions_field",
     )
+    collapsible = True
 
     @admin.display(description=_("Actions"))
     def actions_field(self, obj):

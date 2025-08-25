@@ -456,6 +456,17 @@ python-http-client = ">=3.0.0"
 sendgrid = ">=5.0.0"
 
 [[package]]
+name = "django-sortedm2m"
+version = "4.0.0"
+description = "Drop-in replacement for Django's many to many field with sorted relations."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "django_sortedm2m-4.0.0-py2.py3-none-any.whl", hash = "sha256:7e76f3f3ea3184b4ca1d4043ec75316c606d00f5534fc71e69981d8b2198ff33"},
+]
+
+[[package]]
 name = "django-storages"
 version = "1.14.6"
 description = "Support for many storage backends in Django"
@@ -1519,4 +1530,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.12"
-content-hash = "161796dc3b83460723bec8d899d6b94017f1d5750ed556080933c11987eed96a"
+content-hash = "c4e1ce24d25de11b046798b81d347685fb39a19f5db948b2e40005e5458e1c7a"

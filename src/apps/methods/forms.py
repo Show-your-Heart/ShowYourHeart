@@ -2,11 +2,12 @@ from django import forms
 from django.urls import reverse_lazy
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
+    UnfoldAdminIntegerFieldWidget,
     UnfoldAdminSelectWidget,
     UnfoldAdminTextInputWidget,
 )
 
-from .models import Indicator, Method
+from .models import Indicator, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -116,3 +117,17 @@ class InvitationInlineForm(forms.ModelForm):
         widget=UnfoldAdminEmailInputWidget,
         required=True,
     )
+
+
+class SectionInlineForm(forms.ModelForm):
+    title = forms.CharField(widget=UnfoldAdminTextInputWidget, required=True)
+    parent = forms.ModelChoiceField(
+        queryset=Section.objects.all(), widget=UnfoldAdminSelectWidget, required=False
+    )
+    order = forms.IntegerField(widget=UnfoldAdminIntegerFieldWidget, required=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["parent"].queryset = Section.objects.all().exclude(
+            pk=self.instance.id
+        )
