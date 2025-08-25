@@ -66,8 +66,9 @@ class OrganizationAdmin(ModelAdmin):
         return super().get_form(request, obj, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        # Do not display external surveys
+        # Display only the corresponding methods
         if db_field.name == "methods":
+            print(getattr(self, "legal_structure_id", None))
             if hasattr(self, "legal_structure_id"):
                 kwargs["queryset"] = get_organization_method_filter(
                     self.legal_structure_id

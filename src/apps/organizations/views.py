@@ -25,7 +25,7 @@ def load_methods(request):
         try:
             methods = get_organization_method_filter(legal_structure_id)
         except Method.DoesNotExist:
-            pass
+            methods = []
     else:
         methods = []
     return render(request, "organizations/methods_options.html", {"methods": methods})

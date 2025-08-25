@@ -5,6 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.widgets import UnfoldAdminSelectWidget
 
+from apps.geodata.models import City, Country, Region
 from apps.methods.models import Method
 from apps.settings.models import LegalStructure
 from apps.users.models import User
@@ -41,28 +42,37 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Website"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Website")}),
     )
-    country = forms.CharField(
+    country = forms.ModelChoiceField(
         label=_("Country"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Country")}),
+        queryset=Country.objects.all(),
     )
-    region = forms.CharField(
+    region = forms.ModelChoiceField(
         label=_("Region"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Region")}),
+        queryset=Region.objects.all(),
     )
-    city = forms.CharField(
+    city = forms.ModelChoiceField(
         label=_("City"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("City")}),
+        queryset=City.objects.all(),
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
         queryset=LegalStructure.objects.all(),
         widget=forms.Select(
-            attrs={"hx-get": "load_methods/", "hx-target": "#id_methods"}
+            attrs={
+                "hx-get": "load_methods/",
+                "hx-target": "#id_methods",
+                "autocomplete": "off",
+            }
         ),
     )
     methods = forms.ModelMultipleChoiceField(
         label=_("Method of impact mesurement"),
-        queryset=Method.objects.none(),
+        queryset=Method.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={
+                "autocomplete": "off",
+            }
+        ),
     )
 
     class Meta:
@@ -91,6 +101,9 @@ class OrganizationSignUpForm(forms.ModelForm):
         self.fields["accept_conditions"] = forms.BooleanField(
             label=format_html(label_html), required=True
         )
+
+        if not self.data.get("legal_structure"):
+            self.fields["methods"].queryset = Method.objects.none()
 
     @transaction.atomic
     def save(self, commit=True):
