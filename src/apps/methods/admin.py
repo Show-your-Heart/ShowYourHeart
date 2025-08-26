@@ -1,6 +1,6 @@
 import json
 
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.urls import reverse
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
@@ -106,6 +106,17 @@ class SectionInline(admin.StackedInline):
     form = SectionInlineForm
     ordering_field = ("order",)
     collapsible = True
+    template = "admin/methods/section/stacked_inline.html"
+
+    def get_formset(self, request, obj=None, **kwargs):
+        if obj is None:
+            messages.info(
+                request,
+                _(
+                    "After you've created a section, you’ll be able to edit all the options. "
+                ),
+            )
+        return super().get_formset(request, obj, **kwargs)
 
 
 class MethodAdmin(ModelAdmin, TranslationAdmin):
