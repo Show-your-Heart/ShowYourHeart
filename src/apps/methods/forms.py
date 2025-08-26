@@ -144,6 +144,12 @@ class SectionInlineForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["parent"].queryset = Section.objects.all().exclude(
-            pk=self.instance.id
-        )
+
+        if self.instance and self.instance.method_id:
+            self.fields["indicators"].queryset = self.instance.method.indicators.all()
+            self.fields["parent"].queryset = Section.objects.filter(
+                method=self.instance.method
+            ).exclude(pk=self.instance.id)
+        else:
+            self.fields["indicators"].queryset = Indicator.objects.none()
+            self.fields["parent"].queryset = Section.objects.none()
