@@ -2,7 +2,6 @@ from django import forms
 from django.urls import reverse_lazy
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
-    UnfoldAdminIntegerFieldWidget,
     UnfoldAdminSelectWidget,
     UnfoldAdminTextareaWidget,
     UnfoldAdminTextInputWidget,
