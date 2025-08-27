@@ -296,6 +296,21 @@ files = [
 ]
 
 [[package]]
+name = "django-admin-sortable2"
+version = "2.2.8"
+description = "Generic drag-and-drop sorting for the List, the Stacked- and the Tabular-Inlines Views in the Django Admin"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "django_admin_sortable2-2.2.8-py3-none-any.whl", hash = "sha256:b4cf66d75450b0f89c883d94b10e6133a4e7832c5bfed1568e3e71e400dc2b48"},
+    {file = "django_admin_sortable2-2.2.8.tar.gz", hash = "sha256:59dfd7ced63e66adfb471b2a4d89ba3faae49c0148827047c8cf65759fc54c9e"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+
+[[package]]
 name = "django-cotton"
 version = "2.1.2"
 description = "Bringing component based design to Django templates."
@@ -1530,4 +1545,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.12"
-content-hash = "c4e1ce24d25de11b046798b81d347685fb39a19f5db948b2e40005e5458e1c7a"
+content-hash = "a35f7093e4d0b95806a93ef43f11dbe75549dc90d0a34bbb8fb2f56e996817fc"

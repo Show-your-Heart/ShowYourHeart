@@ -1,5 +1,6 @@
 import json
 
+from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin, messages
 from django.urls import reverse
 from django.utils.html import escapejs, format_html
@@ -92,20 +93,20 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         return form
 
 
-class SectionInline(admin.StackedInline):
+class SectionInline(SortableStackedInline, admin.StackedInline):
     model = Section
     extra = 0
     fields = (
         "title",
         "parent",
         "method",
-        "order",
         "indicators",
     )
     tab = True  # Display the profile information on a new tab
     hide_title = True
     form = SectionInlineForm
-    ordering_field = ("order",)
+    ordering_field = "order"
+    hide_ordering_field = True
     collapsible = True
     template = "admin/methods/section/stacked_inline.html"
 
@@ -121,7 +122,7 @@ class SectionInline(admin.StackedInline):
         return super().get_formset(request, obj, **kwargs)
 
 
-class MethodAdmin(ModelAdmin, TranslationAdmin):
+class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
     search_fields = ["name"]
     filter_horizontal = ("indicators",)
@@ -276,7 +277,7 @@ class InvitationInline(admin.StackedInline):
     tab = True  # Display the profile information on a new tab
     hide_title = True
     form = InvitationInlineForm
-    ordering_field = ("name",)
+    ordering_field = "name"
     readonly_fields = (
         "status",
         "token",

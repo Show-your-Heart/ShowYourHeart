@@ -32,6 +32,7 @@ django-modeltranslation = "^0.19.13"
 django-cotton = "^2.1.1"
 django-htmx = "^1.23.2"
 django-sortedm2m = "^4.0.0"
+django-admin-sortable2 = "^2.2.8"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7.0"

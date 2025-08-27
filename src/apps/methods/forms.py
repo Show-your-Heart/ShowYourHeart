@@ -141,7 +141,6 @@ class SectionInlineForm(forms.ModelForm):
     parent = forms.ModelChoiceField(
         queryset=Section.objects.all(), widget=UnfoldAdminSelectWidget, required=False
     )
-    order = forms.IntegerField(widget=UnfoldAdminIntegerFieldWidget, required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

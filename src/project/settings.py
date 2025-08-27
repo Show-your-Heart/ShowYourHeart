@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     "project",
     "storages",
     "sortedm2m",
+    "adminsortable2",
 ]
 
 
