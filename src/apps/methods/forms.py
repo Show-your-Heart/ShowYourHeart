@@ -4,6 +4,7 @@ from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
     UnfoldAdminIntegerFieldWidget,
     UnfoldAdminSelectWidget,
+    UnfoldAdminTextareaWidget,
     UnfoldAdminTextInputWidget,
 )
 
@@ -153,3 +154,13 @@ class SectionInlineForm(forms.ModelForm):
         else:
             self.fields["indicators"].queryset = Indicator.objects.none()
             self.fields["parent"].queryset = Section.objects.none()
+
+
+class IndicatorForm(forms.ModelForm):
+    class Meta:
+        model = Indicator
+        fields = "__all__"  # noqa: DJ007
+
+        widgets = {
+            "description": UnfoldAdminTextareaWidget,
+        }

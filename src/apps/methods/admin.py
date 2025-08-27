@@ -8,7 +8,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from project.admin import ModelAdmin
 
-from .forms import InvitationInlineForm, MethodForm, SectionInlineForm
+from .forms import IndicatorForm, InvitationInlineForm, MethodForm, SectionInlineForm
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
@@ -43,6 +43,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
+    form = IndicatorForm
 
     list_display = (
         "project_id",
@@ -113,7 +114,8 @@ class SectionInline(admin.StackedInline):
             messages.info(
                 request,
                 _(
-                    "After you've created a section, you’ll be able to edit all the options. "
+                    "After you've created a section, you’ll be able to "
+                    "edit all the options. "
                 ),
             )
         return super().get_formset(request, obj, **kwargs)
