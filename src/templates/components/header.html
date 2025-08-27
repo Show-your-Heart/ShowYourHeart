@@ -33,8 +33,9 @@ Input params:
           </button>
           <!-- Títol i logo topbar -->
           <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
-            {% get_setting "LOGO" as logo %}
-            <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+            {% comment %} {% get_setting "LOGO" as logo %}
+            <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" /> {% endcomment %}
+            <img src="{% static '/images/syh_logo.png' %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
           </a>
         </div>
        
