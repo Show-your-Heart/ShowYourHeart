@@ -33,7 +33,7 @@ services:
     ports:
       - "127.0.0.1:1601:8000"
     volumes:
-      - ../src:/srv
+      - ../src:/srv/src
     depends_on:
       showyourheart-db:
         condition: service_healthy
