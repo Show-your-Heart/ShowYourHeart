@@ -27,8 +27,8 @@ def available_apps_to_dict(available_apps):
 
 def register_with_default_templates(admin_site, model=None, **template_overrides):
     """
-    Decorator that registers a model with a given AdminSite using the decorated ModelAdmin class,
-    injecting setting templates. Can be stacked.
+    Decorator that registers a model with a given AdminSite using the decorated ModelAd-
+    min class, injecting setting templates. Can be stacked.
     """
 
     def decorator(admin_class):

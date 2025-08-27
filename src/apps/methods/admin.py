@@ -221,6 +221,10 @@ class CampaignAdmin(ModelAdmin):
         )
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Survey)
+# Add admin views with custom templates
+@gov_admin_register(Survey)
 class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
 
@@ -234,6 +238,10 @@ class SurveyAdmin(ModelAdmin):
         return False
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=IndicatorResult)
+# Add admin views with custom templates
+@gov_admin_register(IndicatorResult)
 class IndicatorResultAdmin(ModelAdmin):
     list_display = (
         "survey",
@@ -294,6 +302,10 @@ class InvitationInline(admin.StackedInline):
         return format_html("<br><br>".join(buttons))
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=ExternalSurveyInvitation)
+# Add admin views with custom templates
+@gov_admin_register(ExternalSurveyInvitation)
 class ExternalSurveyInvitationAdmin(ModelAdmin):
     list_display = (
         "name",
@@ -342,14 +354,3 @@ def get_url_with_alert_msg(self, alert_msg, url, text):
         f"href=\"javascript:if(confirm('{escapejs(alert_msg)}')) "
         f"window.location.href = '{url}'\">{text}</a>"
     )
-
-
-# admin.site.register(Topic, TopicAdmin)
-# admin.site.register(Indicator, IndicatorAdmin)
-# admin.site.register(List, ListAdmin)
-# admin.site.register(ListItem, ListItemAdmin)
-# admin.site.register(Method, MethodAdmin)
-# admin.site.register(Campaign, CampaignAdmin)
-admin.site.register(Survey, SurveyAdmin)
-admin.site.register(IndicatorResult, IndicatorResultAdmin)
-admin.site.register(ExternalSurveyInvitation, ExternalSurveyInvitationAdmin)

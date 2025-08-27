@@ -1,6 +1,7 @@
 from django.contrib import admin
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
+from apps.methods.models import Method
 from project.admin import ModelAdmin, gov_admin_register
 from project.helpers import register_with_default_templates
 

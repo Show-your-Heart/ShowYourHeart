@@ -1,5 +1,4 @@
 from functools import partial
-from pprint import pprint
 
 from django.conf import settings
 from django.contrib import admin
@@ -296,7 +295,6 @@ class GovAdminSite(UnfoldAdminSite):
         context = super().each_context(request)
 
         apps_dict = available_apps_to_dict(context["available_apps"])
-        # pprint(context["available_apps"])
 
         main_menu = [
             {
@@ -377,14 +375,19 @@ class GovAdminSite(UnfoldAdminSite):
                 "icon": "cog",
                 "url": apps_dict["Settings"]["app_url"],
                 "is_active": self.is_app_active(apps_dict["Settings"], request)
-                or self.is_app_active(apps_dict["Users"], request),
+                or self.is_app_active(apps_dict["Users"], request)
+                or self.is_app_active(apps_dict["Geodata"], request),
                 "app": apps_dict["Settings"],
                 "items": [
                     # {
-                    #     "name": apps_dict["PostOffice"]["models_dict"]["emailtemplate"][
+                    #     "name": apps_dict["PostOffice"]["models_dict"][
+                    #         "emailtemplate"
+                    #     ][
                     #         "name"
                     #     ],
-                    #     "url": apps_dict["PostOffice"]["models_dict"]["emailtemplate"][
+                    #     "url": apps_dict["PostOffice"]["models_dict"][
+                    #         "emailtemplate"
+                    #     ][
                     #         "admin_url"
                     #     ],
                     #     "is_active": self.is_model_active(
@@ -399,16 +402,11 @@ class GovAdminSite(UnfoldAdminSite):
                             apps_dict["Users"]["models_dict"]["User"], request
                         ),
                     },
-                    # {
-                    #     "name": _("Location data"),
-                    #     "url": apps_dict["Geodata"]["app_url"],
-                    #     "is_active": self.is_model_active(
-                    #         apps_dict["Geodata"]["models_dict"]["Country"], request
-                    #     )
-                    #     or self.is_model_active(
-                    #         apps_dict["Geodata"]["models_dict"]["Province"], request
-                    #     ),
-                    # },
+                    {
+                        "name": _("Location data"),
+                        "url": apps_dict["Geodata"]["app_url"],
+                        "is_active": self.is_app_active(apps_dict["Geodata"], request),
+                    },
                     {
                         "name": apps_dict["Settings"]["models_dict"]["Network"]["name"],
                         "url": apps_dict["Settings"]["models_dict"]["Network"][
