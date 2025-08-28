@@ -138,9 +138,9 @@ class Command(BaseCommand):
                         random.choices(string.ascii_uppercase + string.digits, k=10)
                     ),
                     contact=user,
-                    country="Spain",
-                    region="Galicia",
-                    city="Pontevedra",
+                    # country="Spain",
+                    # region="Galicia",
+                    # city="Pontevedra",
                     status=1,
                     legal_structure=legal_structure,
                 )

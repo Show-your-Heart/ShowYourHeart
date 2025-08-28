@@ -1,11 +1,14 @@
 {% extends 'base_form.html' %}
-{% load i18n %}
+{% load i18n static %}
+{% load form_extras %}
 
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Answer the method" %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
 {% block mainclasses %} signup {% endblock %}
-{% block extra_js %}{% endblock %}
+{% block extra_js %}
+
+{% endblock %}
 
 {# Blocks de base_form.html #}
 {% block before_form_content %}{% endblock %}
@@ -20,7 +23,33 @@
 {% endblock %}
 
 {% block form_fields %}
-{{ form }}
+
+<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+  <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
+    data-tabs-toggle="#default-tab-content" role="tablist">
+    {% for section, fields in sections.items %}
+    <li class="me-2" role="presentation">
+      <button class="inline-block p-4 border-b-2 rounded-t-lg" id="{{ section.title }}-tab"
+        data-tabs-target="#{{ section.title }}" type="button" role="tab" aria-controls="{{ section.title }}"
+        aria-selected="false">{{ section.title }}</button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+<div id="default-tab-content">
+  {% for section, fields in sections.items %}
+  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="{{ section.title }}" role="tabpanel"
+    aria-labelledby="{{ section.title }}-tab">
+    {% for item in fields %}
+    <h4 class="text-lg font-semibold">{{ item.indicator.name }}</h4>
+    <p class="text-gray-500 mb-2">{{ item.indicator.description }}</p>
+    {{ form|get_item:item.field_name }}
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+
+
 {% if not readonly %}
 <button type="submit" name="action" value="save" class="w-full mt-8 px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center cursor-pointer
   hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300

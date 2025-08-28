@@ -46,7 +46,7 @@ class UserProfileInline(admin.StackedInline):
     tab = True  # Display the profile information on a new tab
     hide_title = True
     form = UserModelInlineForm
-    ordering_field = ("telephone",)
+    ordering_field = "telephone"
 
     def get_readonly_fields(self, request, obj=None):
         # Don't allow editing until the User exists

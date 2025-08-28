@@ -1,6 +1,7 @@
 import json
 
-from django.contrib import admin
+from adminsortable2.admin import SortableAdminBase, SortableStackedInline
+from django.contrib import admin, messages
 from django.urls import reverse
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
@@ -9,7 +10,7 @@ from modeltranslation.admin import TranslationAdmin
 from project.admin import ModelAdmin, gov_admin_register
 from project.helpers import register_with_default_templates
 
-from .forms import InvitationInlineForm, MethodForm
+from .forms import IndicatorForm, InvitationInlineForm, MethodForm, SectionInlineForm
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
@@ -19,6 +20,7 @@ from .models import (
     List,
     ListItem,
     Method,
+    Section,
     Survey,
     Topic,
 )
@@ -51,6 +53,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 @gov_admin_register(Indicator)
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
+    form = IndicatorForm
 
     list_display = (
         "project_id",
@@ -99,15 +102,45 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         return form
 
 
+class SectionInline(SortableStackedInline, admin.StackedInline):
+    model = Section
+    extra = 0
+    fields = (
+        "title",
+        "parent",
+        "method",
+        "indicators",
+    )
+    tab = True  # Display the profile information on a new tab
+    hide_title = True
+    form = SectionInlineForm
+    ordering_field = "order"
+    hide_ordering_field = True
+    collapsible = True
+    template = "admin/methods/section/stacked_inline.html"
+
+    def get_formset(self, request, obj=None, **kwargs):
+        if obj is None:
+            messages.info(
+                request,
+                _(
+                    "After you've created a section, you’ll be able to "
+                    "edit all the options. "
+                ),
+            )
+        return super().get_formset(request, obj, **kwargs)
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Method)
 # Add admin views with custom templates
 @gov_admin_register(Method)
-class MethodAdmin(ModelAdmin, TranslationAdmin):
+class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
     search_fields = ["name"]
     filter_horizontal = ("indicators",)
     form = MethodForm
+    inlines = (SectionInline,)
 
     list_display = (
         "name",
@@ -274,12 +307,13 @@ class InvitationInline(admin.StackedInline):
     tab = True  # Display the profile information on a new tab
     hide_title = True
     form = InvitationInlineForm
-    ordering_field = ("name",)
+    ordering_field = "name"
     readonly_fields = (
         "status",
         "token",
         "actions_field",
     )
+    collapsible = True
 
     @admin.display(description=_("Actions"))
     def actions_field(self, obj):

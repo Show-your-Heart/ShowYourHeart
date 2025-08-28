@@ -3,10 +3,11 @@ from django.urls import reverse_lazy
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
     UnfoldAdminSelectWidget,
+    UnfoldAdminTextareaWidget,
     UnfoldAdminTextInputWidget,
 )
 
-from .models import Indicator, Method
+from .models import Indicator, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -109,6 +110,22 @@ def get_dynamic_form(method, indicator_result_list, readonly):
     return DynamicSurveyForm
 
 
+def get_form_sections(method):
+    result = {}
+    sections = Section.objects.filter(method=method, parent__isnull=True).order_by(
+        "order"
+    )
+
+    for section in sections:
+        indicators = []
+        for i in section.indicators.all():
+            indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+
+        result[section] = indicators
+
+    return result
+
+
 class InvitationInlineForm(forms.ModelForm):
     # Without this form the styles of the inputs are not applied
     name = forms.CharField(widget=UnfoldAdminTextInputWidget, required=False)
@@ -116,3 +133,32 @@ class InvitationInlineForm(forms.ModelForm):
         widget=UnfoldAdminEmailInputWidget,
         required=True,
     )
+
+
+class SectionInlineForm(forms.ModelForm):
+    title = forms.CharField(widget=UnfoldAdminTextInputWidget, required=True)
+    parent = forms.ModelChoiceField(
+        queryset=Section.objects.all(), widget=UnfoldAdminSelectWidget, required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and self.instance.method_id:
+            self.fields["indicators"].queryset = self.instance.method.indicators.all()
+            self.fields["parent"].queryset = Section.objects.filter(
+                method=self.instance.method
+            ).exclude(pk=self.instance.id)
+        else:
+            self.fields["indicators"].queryset = Indicator.objects.none()
+            self.fields["parent"].queryset = Section.objects.none()
+
+
+class IndicatorForm(forms.ModelForm):
+    class Meta:
+        model = Indicator
+        fields = "__all__"  # noqa: DJ007
+
+        widgets = {
+            "description": UnfoldAdminTextareaWidget,
+        }

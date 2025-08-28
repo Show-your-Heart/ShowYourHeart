@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from sortedm2m.fields import SortedManyToManyField
 
 from project.models import BaseModel
 
@@ -295,3 +296,17 @@ class Invitation(BaseModel):
                 fields=["email", "external_survey_invitation"], name="pk_invitation"
             )
         ]
+
+
+class Section(BaseModel):
+    title = models.CharField(_("Title"), max_length=60)
+    parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
+    method = models.ForeignKey(Method, on_delete=models.PROTECT)
+    order = models.PositiveIntegerField(_("order"), default=0, db_index=True)
+    indicators = SortedManyToManyField(Indicator, null=True, blank=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return self.title
