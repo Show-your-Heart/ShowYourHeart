@@ -1,5 +1,6 @@
 import uuid
 
+from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
@@ -49,6 +50,11 @@ class MethodFillMixin:
     @transaction.atomic
     def post(self, request, method_id, campaign_id):
         action = request.POST.get("action")
+
+        if action == "submit":
+            form = forms.Form(request.POST)
+            if not form.is_valid():
+                pass
 
         if not is_valid_uuid(request.user.id):
             survey, created = Survey.objects.get_or_create(
