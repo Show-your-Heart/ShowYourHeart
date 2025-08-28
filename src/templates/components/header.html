@@ -5,12 +5,13 @@
 Header component
 
 Input params:
-- display_avatar: Boolean
+- displayAvatar: Boolean
+- transparent: Boolean
 
 {% endcomment %}
 
-<header class="sticky top-0 z-50 w-full mx-auto p-2">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3 bg-pink-600 rounded-md w-[100%]">
+<header class="w-full mx-auto p-2">
+    <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] {% if transparent == false %} bg-pink-600 {% endif %}">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-start rtl:justify-end">
           <!-- burguer -->
@@ -32,17 +33,18 @@ Input params:
           </button>
           <!-- Títol i logo topbar -->
           <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
-            {% get_setting "LOGO" as logo %}
-            <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+            {% comment %} {% get_setting "LOGO" as logo %}
+            <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" /> {% endcomment %}
+            <img src="{% static '/images/syh_logo.png' %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
           </a>
         </div>
        
         <!-- Accions de esquerra topbar -->
         <div class="flex items-center">
           <div class="flex items-center ms-3">
-            {% if request.user.is_authenticated and display_avatar %}
+            {% if request.user.is_authenticated and displayAvatar %}
             <!-- Botó per mostrar i amagar menú desplegable -->
-            <div>
+            <div class="pe-4 me-4 border-e">
               <button type="button"
                 class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-primary-700 dark:focus:ring-gray-600"
                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -102,4 +104,4 @@ Input params:
         </div>
       </div>
     </div>
-  </header>
+</header>

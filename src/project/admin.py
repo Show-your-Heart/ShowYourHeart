@@ -1,3 +1,5 @@
+from functools import partial
+
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
@@ -10,6 +12,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from unfold.admin import ModelAdmin as BaseModelAdmin
+from unfold.sites import UnfoldAdminSite
+
+from .helpers import available_apps_to_dict
 
 
 class ModelAdminMixin(object):
@@ -60,6 +65,14 @@ class ModelAdminMixin(object):
 
 
 class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
+    add_form_template = None
+    change_form_template = "admin/syh_change_form.html"
+    change_list_template = "admin/syh_change_list.html"
+    delete_confirmation_template = None
+    delete_selected_confirmation_template = None
+    object_history_template = None
+    popup_response_template = None
+
     list_filter_submit = True
 
     @staticmethod
@@ -265,3 +278,172 @@ class LogEntryAdmin(BaseModelAdmin):
         return obj.change_message
 
     get_change_message.short_description = _("change message")
+
+
+# Create a custom admin site for non-superuser admins like gov admin
+class GovAdminSite(UnfoldAdminSite):
+    index_template = "admin/syh_index.html"
+    app_index_template = "admin/syh_app_index_template.html"
+
+    def is_app_active(self, app, request):
+        return True if app["app_url"] in request.path else False
+
+    def is_model_active(self, model, request):
+        return True if model["admin_url"] in request.path else False
+
+    def each_context(self, request):
+        context = super().each_context(request)
+
+        apps_dict = available_apps_to_dict(context["available_apps"])
+
+        main_menu = [
+            {
+                "app_name": "organizations",
+                "name": _("Entities"),
+                "icon": "group",
+                "url": apps_dict["Organizations"]["app_url"],
+                "is_active": self.is_app_active(apps_dict["Organizations"], request),
+                "app": apps_dict["Organizations"],
+                "items": [
+                    {
+                        "name": _(
+                            apps_dict["Organizations"]["models_dict"]["Organization"][
+                                "name"
+                            ]
+                        ),
+                        "url": apps_dict["Organizations"]["models_dict"][
+                            "Organization"
+                        ]["admin_url"],
+                        "is_active": self.is_model_active(
+                            apps_dict["Organizations"]["models_dict"]["Organization"],
+                            request,
+                        ),
+                    },
+                ],
+            },
+            {
+                "app_name": "methods",
+                "name": _("Methods"),
+                "icon": "adjustments-horizontal",
+                "url": apps_dict["Methods"]["app_url"],
+                "is_active": self.is_app_active(apps_dict["Methods"], request),
+                "app": apps_dict["Methods"],
+                "items": [
+                    {
+                        "name": apps_dict["Methods"]["models_dict"]["Indicator"][
+                            "name"
+                        ],
+                        "url": apps_dict["Methods"]["models_dict"]["Indicator"][
+                            "admin_url"
+                        ],
+                        "is_active": self.is_model_active(
+                            apps_dict["Methods"]["models_dict"]["Indicator"], request
+                        ),
+                    },
+                    {
+                        "name": apps_dict["Methods"]["models_dict"]["Method"]["name"],
+                        "url": apps_dict["Methods"]["models_dict"]["Method"][
+                            "admin_url"
+                        ],
+                        "is_active": self.is_model_active(
+                            apps_dict["Methods"]["models_dict"]["Method"], request
+                        ),
+                    },
+                    {
+                        "name": apps_dict["Methods"]["models_dict"]["Campaign"]["name"],
+                        "url": apps_dict["Methods"]["models_dict"]["Campaign"][
+                            "admin_url"
+                        ],
+                        "is_active": self.is_model_active(
+                            apps_dict["Methods"]["models_dict"]["Campaign"], request
+                        ),
+                    },
+                ],
+            },
+            {
+                "name": "Features",
+                "icon": "clipboard-list",
+                "items": [
+                    {"name": _("Registration Requests")},
+                    {"name": _("Review Etitities Balances")},
+                    {"name": _("Review Projects Balances")},
+                    {"name": _("Documents")},
+                ],
+            },
+            {
+                "name": "Settings",
+                "icon": "cog",
+                "url": apps_dict["Settings"]["app_url"],
+                "is_active": self.is_app_active(apps_dict["Settings"], request)
+                or self.is_app_active(apps_dict["Users"], request)
+                or self.is_app_active(apps_dict["Geodata"], request),
+                "app": apps_dict["Settings"],
+                "items": [
+                    # {
+                    #     "name": apps_dict["PostOffice"]["models_dict"][
+                    #         "emailtemplate"
+                    #     ][
+                    #         "name"
+                    #     ],
+                    #     "url": apps_dict["PostOffice"]["models_dict"][
+                    #         "emailtemplate"
+                    #     ][
+                    #         "admin_url"
+                    #     ],
+                    #     "is_active": self.is_model_active(
+                    #         apps_dict["PostOffice"]["models_dict"]["emailtemplate"],
+                    #         request,
+                    #     ),
+                    # },
+                    {
+                        "name": apps_dict["Users"]["models_dict"]["User"]["name"],
+                        "url": apps_dict["Users"]["models_dict"]["User"]["admin_url"],
+                        "is_active": self.is_model_active(
+                            apps_dict["Users"]["models_dict"]["User"], request
+                        ),
+                    },
+                    {
+                        "name": _("Location data"),
+                        "url": apps_dict["Geodata"]["app_url"],
+                        "is_active": self.is_app_active(apps_dict["Geodata"], request),
+                    },
+                    {
+                        "name": apps_dict["Settings"]["models_dict"]["Network"]["name"],
+                        "url": apps_dict["Settings"]["models_dict"]["Network"][
+                            "admin_url"
+                        ],
+                        "is_active": self.is_model_active(
+                            apps_dict["Settings"]["models_dict"]["Network"],
+                            request,
+                        ),
+                    },
+                    {
+                        "name": apps_dict["Settings"]["models_dict"]["LegalStructure"][
+                            "name"
+                        ],
+                        "url": apps_dict["Settings"]["models_dict"]["LegalStructure"][
+                            "admin_url"
+                        ],
+                        "is_active": self.is_model_active(
+                            apps_dict["Settings"]["models_dict"]["LegalStructure"],
+                            request,
+                        ),
+                    },
+                ],
+            },
+            {"name": "Auxiliary data", "icon": "book", "items": []},
+        ]
+
+        context.update(
+            {
+                "main_menu": main_menu,
+            }
+        )
+        return context
+
+
+gov_admin_site = GovAdminSite(name="gov_admin")
+
+
+# Define a decorator for registering models
+gov_admin_register = partial(admin.register, site=gov_admin_site)
