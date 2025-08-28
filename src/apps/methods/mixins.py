@@ -1,12 +1,11 @@
 import uuid
 
-from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form, get_form_sections
-from .models import IndicatorResult, Method, Survey
+from .models import Indicator, IndicatorResult, Method, Survey
 
 
 class MethodFillMixin:
@@ -51,11 +50,6 @@ class MethodFillMixin:
     def post(self, request, method_id, campaign_id):
         action = request.POST.get("action")
 
-        if action == "submit":
-            form = forms.Form(request.POST)
-            if not form.is_valid():
-                pass
-
         if not is_valid_uuid(request.user.id):
             survey, created = Survey.objects.get_or_create(
                 method_id=method_id,
@@ -67,6 +61,7 @@ class MethodFillMixin:
                 method_id=method_id,
                 user=request.user,
                 campaign_id=campaign_id,
+                organization_id=request.user.profile.organization.id,
             )
 
         if action == "submit":
@@ -74,14 +69,38 @@ class MethodFillMixin:
             survey.save()
 
         method = Method.objects.get(pk=method_id)
-        for indicator in method.indicators.all():
-            values = request.POST.getlist("question_" + str(indicator.id))
 
-            IndicatorResult.objects.update_or_create(
-                survey=survey,
-                indicator=indicator,
-                defaults={"value": "|".join(values)},
-            )
+        for indicator in method.indicators.all():
+            field_name = f"question_{indicator.id}"
+
+            # Handle gendered indicators
+            if indicator.data_type in [
+                Indicator.DataType.INTEGERGENDER,
+                Indicator.DataType.DECIMALGENDER,
+            ]:
+                for suffix, gender in {
+                    "male": IndicatorResult.Gender.MALE,
+                    "female": IndicatorResult.Gender.FEMALE,
+                    "non_binary": IndicatorResult.Gender.NON_BINARY,
+                }.items():
+                    values = request.POST.getlist(f"{field_name}_{suffix}")
+                    if values:
+                        IndicatorResult.objects.update_or_create(
+                            survey=survey,
+                            indicator=indicator,
+                            gender=gender,
+                            defaults={"value": "|".join(values)},
+                        )
+
+            # Handle normal indicators
+            else:
+                values = request.POST.getlist(field_name)
+                if values:
+                    IndicatorResult.objects.update_or_create(
+                        survey=survey,
+                        indicator=indicator,
+                        defaults={"value": "|".join(values)},
+                    )
 
         return HttpResponseRedirect(request.path_info)
 
