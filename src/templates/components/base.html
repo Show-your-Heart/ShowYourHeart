@@ -1,4 +1,4 @@
-{% load i18n static active_link_tags extra_settings %}
+{% load i18n static active_link_tags extra_settings django_htmx %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +11,7 @@
   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'styles/output.css' %}">
   <title> ShowYourHeart | {{ pageTitle }}</title>
+  {% htmx_script %}
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 mx-auto relative">
