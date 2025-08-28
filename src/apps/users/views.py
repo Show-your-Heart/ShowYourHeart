@@ -46,10 +46,10 @@ class LoginView(AnonymousRequiredMixin, BaseLoginView):
     form_class = AuthenticationForm
 
     def get_success_url(self):
-        if self.request.user.has_admin_role:
+        if self.request.user.has_admin_role():
             return reverse_lazy("admin:index")
         else:
-            return reverse_lazy("registration:profile_details")
+            return reverse_lazy("home")
 
 
 @login_not_required
