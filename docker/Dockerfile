@@ -97,17 +97,17 @@ RUN apt-get update && apt-get upgrade -y \
 
 
 RUN pwd
-COPY package.json package-lock.json tailwind.config.js /front/
-WORKDIR /front
+COPY package.json package-lock.json /srv/
+WORKDIR /srv
 RUN export NVM_DIR="$HOME/.nvm" \
   && . $NVM_DIR/nvm.sh \
   && npm install
 
 # will become mountpoint of our code
-COPY src /srv
-WORKDIR /srv
-RUN ["chmod", "+x", "/srv/entrypoint.sh"]
-CMD ["bash", "/srv/entrypoint.sh"]
+COPY src /srv/src
+WORKDIR /srv/src
+RUN ["chmod", "+x", "/srv/src/entrypoint.sh"]
+CMD ["bash", "/srv/src/entrypoint.sh"]
 
 ###############################################################################
 # `production` image used for runtime

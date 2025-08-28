@@ -1,3 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme static {
+    --color-primary: var(--color-pink-500);
+    --color-secondary: var(--color-green-500);
+}

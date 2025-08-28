@@ -14,13 +14,8 @@
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 mx-auto relative">
-  <c-header displayAvatar="true"/>
-
-  {% comment %} <c-sidebar /> {% endcomment %}
-
-  <main class="mx-auto w-full max-w-screen-xl p-4">
-      {{ slot }}
-  </main>
+  
+  {{ slot }}
 
   <div id="cookies-banner" tabindex="-1"
     class="fixed bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-t border-gray-200 bg-gray-50

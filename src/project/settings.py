@@ -11,6 +11,7 @@ from pathlib import Path
 import environ
 import structlog
 from django.core.management.utils import get_random_secret_key
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -498,6 +499,24 @@ UNFOLD = {
     "SITE_TITLE": "SYH Admin",
     "SITE_HEADER": "Show your heart admin",
     "SHOW_LANGUAGES": True,
+    "STYLES": [
+        lambda request: static("styles/output.css"),
+    ],
+    "COLORS": {
+        "primary": {
+            # "50": "250, 245, 255",
+            # "100": "243, 232, 255",
+            # "200": "233, 213, 255",
+            # "300": "216, 180, 254",
+            # "400": "192, 132, 252",
+            # "500": "168, 85, 247",
+            "600": "26, 86, 219",
+            # "700": "26, 86, 219",
+            # "800": "107, 33, 168",
+            # "900": "88, 28, 135",
+            # "950": "59, 7, 100",
+        },
+    },
 }
 
 ################################################################################

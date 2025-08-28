@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 15:05+0000\n"
+"POT-Creation-Date: 2025-08-13 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,93 +18,94 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
-#: apps/users/admin.py:75
+
+#: apps/users/admin.py:79
 msgid "Authentication"
 msgstr ""
 
-#: apps/users/admin.py:86
+#: apps/users/admin.py:90
 msgid "Personal details"
 msgstr ""
 
-#: apps/users/admin.py:95
+#: apps/users/admin.py:99
 msgid "Permissions and authorizations"
 msgstr ""
 
-#: apps/users/admin.py:109
+#: apps/users/admin.py:113
 msgid "Log"
 msgstr ""
 
-#: apps/users/admin.py:133
+#: apps/users/admin.py:137
 msgid "User roles information"
 msgstr ""
 
-#: apps/users/admin.py:141
+#: apps/users/admin.py:145
 msgid "Actions"
 msgstr ""
 
-#: apps/users/admin.py:146
+#: apps/users/admin.py:150
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 
-#: apps/users/admin.py:152
+#: apps/users/admin.py:156
 msgid "Send email to the user to set the password"
 msgstr ""
 
-#: apps/users/forms.py:32 apps/users/forms.py:68 apps/users/forms.py:117
-#: apps/users/forms.py:138
+#: apps/users/forms.py:33 apps/users/forms.py:69 apps/users/forms.py:118
+#: apps/users/forms.py:139
 msgid "Email"
 msgstr ""
 
-#: apps/users/forms.py:37
+#: apps/users/forms.py:38
 msgid "Email adress"
 msgstr ""
 
-#: apps/users/forms.py:42 apps/users/forms.py:43 apps/users/forms.py:60
-#: apps/users/forms.py:61
+#: apps/users/forms.py:43 apps/users/forms.py:44 apps/users/forms.py:61
+#: apps/users/forms.py:62
 msgid "Password"
 msgstr ""
 
-#: apps/users/forms.py:46
+#: apps/users/forms.py:47
 msgid "Remember me"
 msgstr ""
 
-#: apps/users/forms.py:52 apps/users/forms.py:53 apps/users/forms.py:109
-#: apps/users/forms.py:110
+#: apps/users/forms.py:53 apps/users/forms.py:54 apps/users/forms.py:110
+#: apps/users/forms.py:111
 msgid "Name"
 msgstr ""
 
-#: apps/users/forms.py:56 apps/users/forms.py:57 apps/users/forms.py:113
-#: apps/users/forms.py:114
+#: apps/users/forms.py:57 apps/users/forms.py:58 apps/users/forms.py:114
+#: apps/users/forms.py:115
 msgid "Surnames"
 msgstr ""
 
-#: apps/users/forms.py:64 apps/users/forms.py:65
+#: apps/users/forms.py:65 apps/users/forms.py:66
 msgid "Password confirmation"
 msgstr ""
 
-#: apps/users/forms.py:71 apps/users/forms.py:122 apps/users/forms.py:144
+#: apps/users/forms.py:72 apps/users/forms.py:123 apps/users/forms.py:145
 msgid "Email address"
 msgstr ""
 
-#: apps/users/forms.py:91
+#: apps/users/forms.py:92
 msgid "I have read and agree with the {}"
 msgstr ""
 
-#: apps/users/forms.py:194 apps/users/forms.py:196 apps/users/forms.py:217
-#: apps/users/forms.py:218
+#: apps/users/forms.py:195 apps/users/forms.py:197 apps/users/forms.py:218
+#: apps/users/forms.py:219
 msgid "New password"
 msgstr ""
 
-#: apps/users/forms.py:200 apps/users/forms.py:202 apps/users/forms.py:222
-#: apps/users/forms.py:224
+#: apps/users/forms.py:201 apps/users/forms.py:203 apps/users/forms.py:223
+#: apps/users/forms.py:225
 msgid "New password confirmation"
 msgstr ""
 
-#: apps/users/forms.py:211 apps/users/forms.py:214
+#: apps/users/forms.py:212 apps/users/forms.py:215
 msgid "Old password"
 msgstr ""
 
-#: apps/users/forms.py:231 apps/users/forms.py:233
+#: apps/users/forms.py:232 apps/users/forms.py:234
 msgid "Verification code"
 msgstr ""
 
@@ -126,32 +127,32 @@ msgstr ""
 msgid "telephone"
 msgstr ""
 
-#: apps/users/models.py:73 apps/users/models.py:101
+#: apps/users/models.py:80 apps/users/models.py:108
 msgid "name"
 msgstr ""
 
-#: apps/users/models.py:75
+#: apps/users/models.py:82
 msgid "surname"
 msgstr ""
 
-#: apps/users/models.py:81
+#: apps/users/models.py:88
 msgid "email address"
 msgstr ""
 
-#: apps/users/models.py:110
+#: apps/users/models.py:117
 msgid "user"
 msgstr ""
 
-#: apps/users/models.py:111
+#: apps/users/models.py:118
 msgid "users"
 msgstr ""
 
-#: apps/users/signals.py:67
+#: apps/users/signals.py:71
 #, python-brace-format
 msgid "Group {name} created."
 msgstr ""
 
-#: apps/users/signals.py:70
+#: apps/users/signals.py:74
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr ""

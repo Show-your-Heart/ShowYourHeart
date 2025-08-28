@@ -1,11 +1,16 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
-from project.admin import ModelAdmin
+from project.admin import ModelAdmin, gov_admin_register
+from project.helpers import register_with_default_templates
 
 from .models import AutonomousCommunity, City, Country, Province, Region, ZipCode
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=AutonomousCommunity)
+# Add admin views with custom templates
+@gov_admin_register(AutonomousCommunity)
 class AutonomousCommunityAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name", "country")
     search_fields = ["name"]
@@ -18,9 +23,10 @@ class AutonomousCommunityAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-admin.site.register(AutonomousCommunity, AutonomousCommunityAdmin)
-
-
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=City)
+# Add admin views with custom templates
+@gov_admin_register(City)
 class CityAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name", "province", "region")
     search_fields = ["name"]
@@ -33,9 +39,10 @@ class CityAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-admin.site.register(City, CityAdmin)
-
-
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Country)
+# Add admin views with custom templates
+@gov_admin_register(Country)
 class CountryAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
@@ -48,9 +55,10 @@ class CountryAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-admin.site.register(Country, CountryAdmin)
-
-
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Province)
+# Add admin views with custom templates
+@gov_admin_register(Province)
 class ProvinceAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name", "country", "community")
     search_fields = ["name"]
@@ -63,9 +71,10 @@ class ProvinceAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-admin.site.register(Province, ProvinceAdmin)
-
-
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Region)
+# Add admin views with custom templates
+@gov_admin_register(Region)
 class RegionAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name", "community", "province")
     search_fields = ["name"]
@@ -78,9 +87,10 @@ class RegionAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-admin.site.register(Region, RegionAdmin)
-
-
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=ZipCode)
+# Add admin views with custom templates
+@gov_admin_register(ZipCode)
 class ZipCodeAdmin(ModelAdmin):
     list_display = ("code", "city")
     search_fields = ["code"]
@@ -90,6 +100,3 @@ class ZipCodeAdmin(ModelAdmin):
             main_fields=["code", "city"],
             display_log=False,
         )
-
-
-admin.site.register(ZipCode, ZipCodeAdmin)

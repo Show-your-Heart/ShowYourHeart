@@ -1,47 +1,68 @@
-{% extends "../base_form.html" %}
 {% load i18n %}
 
-{# Blocks de base.html #}
-{% block page_title %}{% translate "Log in" %}{% endblock %}
-{% block bodyclasses %}{% endblock %}
-{% block mainclasses %} login {% endblock %}
-{% block extra_js %}{% endblock %}
+<c-base>
+    <div class="min-h-[calc(100vh-2rem)] m-4 rounded-lg border border-grey-500">
 
-{# Blocks de base_form.html #}
-{% block before_form_content %}{% endblock %}
-{% block enctype %}{% endblock %}
-{% block after_form_content %}{% endblock %}
+        <c-header transparent="true"></c-header>
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-[3rem] p-4 md:p-16 max-w-[1240px] mx-auto">
+            <div class="h-auto">
+                <h1 class="font-bold text-4xl md:text-6xl mb-4">{{ _("Impact measurement to show your heart with pride") }}
+                </h1>
+                <p class="mb-4 text-lg">{{ _("Impact measurement can help you manage your impact") }}</p>
+                <p class="font-bold mb-4 text-base">{{ _("Main benefits of Show your Heart") }}</p>
+                <ul class="list-disc list-inside text-xs w-[90%] px-4">
+                    <li class="mb-2">{{ _("Helps you measure your impact by calculating relevant indicators.") }}
+                    </li>
+                    <li class="mb-2">{{ _("Allows you to gather data from your relevant stakeholders (e.g.
+                        employees, suppliers, volunteers).") }}</li>
+                    <li class="mb-2">{{ _("Facilitates certification pr2ocesses with your network of social
+                        enterprises.") }}</li>
+                    <li class="mb-2">{{ _("Generates documents useful to report your impact (infographics,
+                        spreadsheets, labels).") }}</li>
+                </ul>
+            </div>
+            <div class="h-auto flex flex-column justify-center items-center">
+                <div class="w-full p-6 space-y-4 md:space-y-6 p-8 bg-white rounded-lg shadow">
 
-{% block form_intro %}
-  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-    {% translate "Sign in to your account" %}
-  </h1>
-{% endblock %}
+                    {% block form_intro %}
+                    {% endblock %}
 
-{% block form_fields %}
-  {{ form }}
-  {% if messages %}
-    {% for message in messages %}
-      <div class="block mb-4 text-sm text-red-700 dark:text-red-500">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endblock %}
+                    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {%
+                        block form_action %}{% endblock %} class="space-y-4 md:space-y-6">
+                        <h2 class="font-bold">{{ _("Log in") }}</h2>
+                        {% csrf_token %}
 
+                        {% block form_fields %}
+                        {{ form }}
+                        <a href="{% url 'registration:password_reset' %}"
+                            class="inline-flex text-sm font-medium text-blue-600 hover:underline !mt-0">
+                            {% translate "Forgot your password?" %}
+                        </a>
+                        {% endblock %}
 
-{% block submit_text %}{% translate 'Sign in' %}{% endblock %}
+                        {% block submit_whole %}
+                        {% if not form.fields.field_text_1.disabled %}
+                        <input type="submit" class="w-full px-5 py-2.5 rounded-lg bg-blue-600 text-white font-bold text-sm text-center cursor-pointer
+                            hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                            value="{% block submit_text %}{% translate 'Start' %}{% endblock %}" id="id_submit">
+                        {% endif %}
+                        {% endblock %}
+                    </form>
 
-{% block form_outro %}
-<a href="{% url 'registration:password_reset' %}"
-  class="inline-flex text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
-  {% translate "Forgot your password?" %}
-</a>
-<p class="text-sm font-light text-gray-500 dark:text-gray-400">
-  {% translate "Don’t have an account yet?" %}
-  <a href="{% url 'registration:signup' %}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">
-    {% translate "Create an account" %}
-  </a>
-</p>
-{% endblock %}
+                    {% include 'components/form_errors.html' %}
 
+                    <p class="text-md font-light text-gray-500 flex flex-col items-center">
+                        {% translate "Don’t have an account yet?" %}
+                        <a href="{% url 'organizations:signup' %}"
+                            class="font-medium text-blue-600 hover:underline text-center">
+                            {% translate "Create an account" %}
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+</c-base>
