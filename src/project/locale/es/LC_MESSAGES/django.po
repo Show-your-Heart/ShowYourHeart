@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-13 12:48+0200\n"
+"POT-Creation-Date: 2025-08-29 18:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,82 +19,90 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
-#: project/admin.py:73
+#: project/admin.py:83
 msgid "Add/Edit"
 msgstr ""
 
-#: project/admin.py:85
+#: project/admin.py:95
 msgid "Translations"
 msgstr ""
 
-#: project/admin.py:109
+#: project/admin.py:103
+msgid "Actions"
+msgstr ""
+
+#: project/admin.py:127
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr ""
 
-#: project/admin.py:110
+#: project/admin.py:128
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr ""
 
-#: project/admin.py:111
+#: project/admin.py:129
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr ""
 
-#: project/admin.py:116 project/admin.py:256
+#: project/admin.py:134 project/admin.py:274
 msgid "action"
 msgstr ""
 
-#: project/admin.py:129
+#: project/admin.py:147
 msgid "staff user"
 msgstr ""
 
-#: project/admin.py:155
+#: project/admin.py:173
 msgid "Metadata"
 msgstr ""
 
-#: project/admin.py:166
+#: project/admin.py:184
 msgid "Details"
 msgstr ""
 
-#: project/admin.py:225
+#: project/admin.py:243
 msgid "object"
 msgstr ""
 
-#: project/admin.py:242
+#: project/admin.py:260
 msgid "user"
 msgstr ""
 
-#: project/admin.py:262
+#: project/admin.py:280
 msgid "change message"
 msgstr ""
 
-#: project/admin.py:285
+#: project/admin.py:302
 msgid "Entities"
 msgstr "Entidades"
 
-#: project/admin.py:302
+#: project/admin.py:326
 msgid "Methods"
 msgstr "Métodos"
 
-#: project/admin.py:329
+#: project/admin.py:367
 msgid "Registration Requests"
 msgstr "Solitudes de alta"
 
-#: project/admin.py:330
+#: project/admin.py:368
 msgid "Review Etitities Balances"
 msgstr "Revisar balances de entidades"
 
-#: project/admin.py:331
+#: project/admin.py:369
 msgid "Review Projects Balances"
 msgstr "Revisar balance de proyectos"
 
-#: project/admin.py:332
+#: project/admin.py:370
 msgid "Documents"
 msgstr "Documentos"
 
-#: project/management/commands/loaddevdata.py:18
+#: project/admin.py:406
+msgid "Location data"
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:23
 msgid ""
 "Fills the database with all the necessary data to make it faster for "
 "developers to work with the project when they need to re-create the "
@@ -103,54 +111,94 @@ msgid ""
 "command."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:30
+#: project/management/commands/loaddevdata.py:38
 msgid "This command can only be run in debug mode."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:40
+#: project/management/commands/loaddevdata.py:54
 msgid "Creating sample users..."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:50
+#: project/management/commands/loaddevdata.py:64
 #, python-brace-format
 msgid "Superuser created with email '{email}'."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:55
+#: project/management/commands/loaddevdata.py:69
 msgid "Superuser already exists."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:62
+#: project/management/commands/loaddevdata.py:78
 msgid "Creating sample network..."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:72
+#: project/management/commands/loaddevdata.py:89
 msgid "Network test already exists."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:76
+#: project/management/commands/loaddevdata.py:96
 msgid "Creating sample legal structure..."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:86
+#: project/management/commands/loaddevdata.py:106
 msgid "LegalStructure test already exists."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:109
+#: project/management/commands/loaddevdata.py:131
 #, python-brace-format
 msgid "Governace admin user created with email '{email}'."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:121
+#: project/management/commands/loaddevdata.py:145
 msgid "Governace admin user already exists."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:125
+#: project/management/commands/loaddevdata.py:151
 msgid "Creating sample organizations..."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:146
+#: project/management/commands/loaddevdata.py:173
 msgid "Creating sample topics..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:193
+msgid "Creating sample indicators..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:214
+msgid "Creating sample methods..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:236
+msgid "Creating sample country..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:244
+msgid "Country already exists."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:250
+msgid "Creating sample city..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:258
+msgid "City already exists."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:264
+msgid "Creating sample Region..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:272
+msgid "Region already exists."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:277
+msgid "Creating sample Campaign..."
+msgstr ""
+
+#: project/management/commands/loaddevdata.py:290
+msgid "Campaign already exists."
 msgstr ""
 
 #: project/models.py:24
@@ -189,23 +237,23 @@ msgstr ""
 msgid "Dutch"
 msgstr ""
 
-#: project/settings.py:361
+#: project/settings.py:364
 msgid ""
 "This name will be used for the HTML title of the public app, logo alt text "
 "and other places."
 msgstr ""
 
-#: project/settings.py:370
+#: project/settings.py:373
 msgid ""
 "Logo image that will be used to customize the public app, e-mail templates "
 "and other."
 msgstr ""
 
-#: project/settings.py:377
+#: project/settings.py:380
 msgid "Dynamic settings"
 msgstr ""
 
-#: project/settings.py:464
+#: project/settings.py:467
 msgid ""
 "Access to: configuration and customization settings, the log of emails sent "
 "by the system, email templates, users management. Gives permission to edit "
@@ -236,7 +284,7 @@ msgstr ""
 msgid "Profile details"
 msgstr ""
 
-#: project/tests/test_selenium.py:61 project/views.py:38
+#: project/tests/test_selenium.py:61 project/views.py:60
 msgid "Registry updated"
 msgstr ""
 
@@ -248,30 +296,36 @@ msgstr ""
 msgid "Mail validation"
 msgstr ""
 
-#: project/urls.py:31
+#: project/urls.py:32
 msgid "registration/"
 msgstr ""
 
-#: project/urls.py:34
+#: project/urls.py:37
 msgid "settings/"
 msgstr ""
 
-#: project/urls.py:36
+#: project/urls.py:39
 msgid "organizations/"
 msgstr ""
 
-#: project/views.py:37
+#: project/urls.py:42
+#, fuzzy
+#| msgid "Methods"
+msgid "methods/"
+msgstr "Métodos"
+
+#: project/views.py:59
 msgid "Back"
 msgstr ""
 
-#: project/views.py:39
+#: project/views.py:61
 msgid "Registry successfully updated"
 msgstr ""
 
-#: project/views.py:40
+#: project/views.py:62
 msgid "Done!"
 msgstr ""
 
-#: project/views.py:41
+#: project/views.py:63
 msgid "The registry was updated correctly."
 msgstr ""

@@ -6,343 +6,400 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-13 12:48+0200\n"
-"PO-Revision-Date: 2024-10-21 15:17+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ca\n"
+"POT-Creation-Date: 2025-08-29 18:38+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
 
-#: apps/methods/models.py:9 apps/methods/models.py:72
-#: apps/methods/models.py:131 apps/organizations/models.py:19
+#: apps/methods/admin.py:307 apps/methods/admin.py:352
+#: apps/settings/admin.py:39 apps/settings/admin.py:59
+msgid "Actions"
+msgstr ""
+
+#: apps/methods/admin.py:311
+msgid "Are you sure you want to send the invitation?"
+msgstr ""
+
+#: apps/methods/admin.py:316
+msgid "Send invitation"
+msgstr ""
+
+#: apps/methods/admin.py:356
+msgid "Are you sure you want to send the invitations?"
+msgstr ""
+
+#: apps/methods/admin.py:361
+msgid "Send invitations"
+msgstr ""
+
+#: apps/methods/models.py:13 apps/methods/models.py:85
+#: apps/methods/models.py:141 apps/organizations/models.py:27
 #: apps/settings/models.py:8 apps/settings/models.py:16
 #: apps/settings/models.py:27
 msgid "name"
 msgstr ""
 
-#: apps/methods/models.py:10 apps/methods/models.py:73
-#: apps/methods/models.py:132
+#: apps/methods/models.py:14 apps/methods/models.py:86
+#: apps/methods/models.py:142
 msgid "description"
 msgstr ""
 
-#: apps/methods/models.py:18 apps/methods/models.py:28
+#: apps/methods/models.py:22 apps/methods/models.py:32
 msgid "title"
 msgstr ""
 
-#: apps/methods/models.py:19 apps/methods/models.py:101
+#: apps/methods/models.py:23 apps/methods/models.py:109
 msgid "formula"
 msgstr ""
 
-#: apps/methods/models.py:20
+#: apps/methods/models.py:24
 msgid "value"
 msgstr ""
 
-#: apps/methods/models.py:21 apps/methods/models.py:130
+#: apps/methods/models.py:25 apps/methods/models.py:140
 msgid "active"
 msgstr ""
 
-#: apps/methods/models.py:30
+#: apps/methods/models.py:34
 msgid "Enable others response"
 msgstr ""
 
-#: apps/methods/models.py:40
+#: apps/methods/models.py:44
 msgid "Performance"
 msgstr ""
 
-#: apps/methods/models.py:41
+#: apps/methods/models.py:45
 msgid "Scoring"
 msgstr ""
 
-#: apps/methods/models.py:42
-#, fuzzy
-#| msgid "Email verification"
-msgid "Certification"
-msgstr "Verificació del correu electrònic"
-
-#: apps/methods/models.py:45
-msgid "String"
-msgstr ""
-
 #: apps/methods/models.py:46
-msgid "Text"
-msgstr ""
-
-#: apps/methods/models.py:47
-msgid "Integer"
-msgstr ""
-
-#: apps/methods/models.py:48
-msgid "Decimal"
+msgid "Certification"
 msgstr ""
 
 #: apps/methods/models.py:49
-msgid "Boolean"
+msgid "String"
 msgstr ""
 
 #: apps/methods/models.py:50
-msgid "Date"
+msgid "Text"
 msgstr ""
 
 #: apps/methods/models.py:51
-msgid "Attachment"
+msgid "Integer"
 msgstr ""
 
 #: apps/methods/models.py:52
-msgid "Checkbox"
+msgid "Decimal"
 msgstr ""
 
 #: apps/methods/models.py:53
-msgid "Radiobutton"
+msgid "Boolean"
 msgstr ""
 
 #: apps/methods/models.py:54
-msgid "Dropdown"
+msgid "Date"
+msgstr ""
+
+#: apps/methods/models.py:55
+msgid "Attachment"
+msgstr ""
+
+#: apps/methods/models.py:56
+msgid "Checkbox"
 msgstr ""
 
 #: apps/methods/models.py:57
-msgid "Integer gendered value"
+msgid "Radiobutton"
 msgstr ""
 
 #: apps/methods/models.py:58
+msgid "Dropdown"
+msgstr ""
+
+#: apps/methods/models.py:59
+msgid "Integer gendered value"
+msgstr ""
+
+#: apps/methods/models.py:60
 msgid "Real gendered number"
 msgstr ""
 
-#: apps/methods/models.py:63
+#: apps/methods/models.py:65
 msgid "kg"
 msgstr ""
 
-#: apps/methods/models.py:64
+#: apps/methods/models.py:66
 msgid "m2"
 msgstr ""
 
-#: apps/methods/models.py:65
+#: apps/methods/models.py:67
 msgid "°C"
 msgstr ""
 
-#: apps/methods/models.py:66
+#: apps/methods/models.py:68
 msgid "days"
 msgstr ""
 
-#: apps/methods/models.py:67
+#: apps/methods/models.py:69
 msgid "points"
 msgstr ""
 
-#: apps/methods/models.py:68
+#: apps/methods/models.py:70
 msgid "KWh"
 msgstr ""
 
-#: apps/methods/models.py:70
+#: apps/methods/models.py:83
 msgid "ID"
 msgstr ""
 
-#: apps/methods/models.py:71
+#: apps/methods/models.py:84
 msgid "version"
 msgstr ""
 
-#: apps/methods/models.py:76
+#: apps/methods/models.py:89
 msgid "Is it a direct indicator?"
 msgstr ""
 
-#: apps/methods/models.py:79
+#: apps/methods/models.py:92
 msgid "category"
 msgstr ""
 
-#: apps/methods/models.py:85
+#: apps/methods/models.py:98
 msgid "data type"
 msgstr ""
 
-#: apps/methods/models.py:88
-msgid "sub data type"
-msgstr ""
-
-#: apps/methods/models.py:92
+#: apps/methods/models.py:100
 msgid "unit"
 msgstr ""
 
-#: apps/methods/models.py:100
+#: apps/methods/models.py:108
 msgid "condition"
 msgstr ""
 
-#: apps/methods/models.py:102
-#, fuzzy
-#| msgid "Mail validation"
+#: apps/methods/models.py:110
 msgid "validation"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
-#: apps/methods/models.py:103
+#: apps/methods/models.py:111
 msgid "message"
 msgstr ""
 
-#: apps/methods/models.py:114
-msgid "This field is required when data type is Dropdown."
+#: apps/methods/models.py:123
+msgid "This field is required when data type "
 msgstr ""
 
-#: apps/methods/models.py:120
+#: apps/methods/models.py:130
 msgid "This field is required if the indicator is indirect."
 msgstr ""
 
-#: apps/methods/models.py:126
-#, fuzzy
-#| msgid "Mail validation"
+#: apps/methods/models.py:136
 msgid "Organization"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
-#: apps/methods/models.py:127
+#: apps/methods/models.py:137
 msgid "Project"
 msgstr ""
 
-#: apps/methods/models.py:128
+#: apps/methods/models.py:138
 msgid "External Survey"
 msgstr ""
 
-#: apps/methods/models.py:135
+#: apps/methods/models.py:145
 msgid "unit of analysis"
 msgstr ""
 
-#: apps/methods/models.py:144
+#: apps/methods/models.py:154
 msgid "Which entity does this method applies to?"
 msgstr ""
 
-#: apps/methods/models.py:150
+#: apps/methods/models.py:160
 msgid "Sectors"
 msgstr ""
 
-#: apps/methods/models.py:156
+#: apps/methods/models.py:166
 msgid "External surveys"
 msgstr ""
 
-#: apps/methods/models.py:166 apps/organizations/forms.py:17
-#: apps/organizations/forms.py:27
+#: apps/methods/models.py:176 apps/methods/models.py:256
+#: apps/methods/models.py:287 apps/organizations/forms.py:19
+#: apps/organizations/forms.py:29
 msgid "Name"
 msgstr ""
 
-#: apps/methods/models.py:167
+#: apps/methods/models.py:177
 msgid "Year"
 msgstr ""
 
-#: apps/methods/models.py:168
+#: apps/methods/models.py:178
 msgid "Active"
 msgstr ""
 
-#: apps/methods/models.py:173 apps/organizations/models.py:36
+#: apps/methods/models.py:184 apps/organizations/models.py:50
 msgid "Methods"
 msgstr ""
 
-#: apps/methods/models.py:174
+#: apps/methods/models.py:189
 msgid "Start date"
 msgstr ""
 
-#: apps/methods/models.py:175
-#, fuzzy
-#| msgid "Edit data"
+#: apps/methods/models.py:190
 msgid "End date"
-msgstr "Editar la informació"
+msgstr ""
 
-#: apps/organizations/forms.py:16
+#: apps/methods/models.py:211
+msgid "Token"
+msgstr ""
+
+#: apps/methods/models.py:289
+msgid "email address"
+msgstr ""
+
+#: apps/methods/models.py:317
+msgid "Title"
+msgstr ""
+
+#: apps/methods/models.py:320
+msgid "order"
+msgstr ""
+
+#: apps/methods/urls.py:16
+msgid "fill/<id>"
+msgstr ""
+
+#: apps/methods/urls.py:18
+msgid "external-survey/<id>"
+msgstr ""
+
+#: apps/methods/urls.py:22
+msgid "send-invitations/<id>"
+msgstr ""
+
+#: apps/methods/urls.py:23
+msgid "send-invitation/<id>"
+msgstr ""
+
+#: apps/methods/urls.py:24
+msgid "import-csv/<id>"
+msgstr ""
+
+#: apps/methods/urls.py:25
+msgid "load_ext_surveys/"
+msgstr ""
+
+#: apps/methods/views.py:35
+msgid "The method has no asociated campaign and can't be answered"
+msgstr ""
+
+#: apps/methods/views.py:78
+msgid "The invitations have been sent."
+msgstr ""
+
+#: apps/methods/views.py:83
+msgid "There are no invitations to send."
+msgstr ""
+
+#: apps/methods/views.py:97
+msgid "The invitation has been sent."
+msgstr ""
+
+#: apps/methods/views.py:119
+msgid "The CSV has been imported correctly."
+msgstr ""
+
+#: apps/organizations/forms.py:18
 msgid "Organization name"
 msgstr ""
 
-#: apps/organizations/forms.py:20 apps/organizations/forms.py:22
+#: apps/organizations/forms.py:22 apps/organizations/forms.py:24
 msgid "VAT Number"
 msgstr ""
 
-#: apps/organizations/forms.py:26
+#: apps/organizations/forms.py:28 apps/organizations/forms.py:157
 msgid "Name of the contact person"
 msgstr ""
 
-#: apps/organizations/forms.py:30
+#: apps/organizations/forms.py:32 apps/organizations/forms.py:164
 msgid "Phone number of the contact person"
 msgstr ""
 
-#: apps/organizations/forms.py:32
+#: apps/organizations/forms.py:34
 msgid "Phone number"
 msgstr ""
 
-#: apps/organizations/forms.py:36
+#: apps/organizations/forms.py:38 apps/organizations/forms.py:160
 msgid "Email address of the contact person"
 msgstr ""
 
-#: apps/organizations/forms.py:37
+#: apps/organizations/forms.py:39 templates/home.html:17
 msgid "Email"
 msgstr ""
 
-#: apps/organizations/forms.py:40 apps/organizations/forms.py:41
+#: apps/organizations/forms.py:42 apps/organizations/forms.py:43
 msgid "Website"
 msgstr ""
 
-#: apps/organizations/forms.py:44 apps/organizations/forms.py:45
+#: apps/organizations/forms.py:46
 msgid "Country"
 msgstr ""
 
-#: apps/organizations/forms.py:48 apps/organizations/forms.py:49
+#: apps/organizations/forms.py:50
 msgid "Region"
 msgstr ""
 
-#: apps/organizations/forms.py:52 apps/organizations/forms.py:53
+#: apps/organizations/forms.py:54
 msgid "City"
 msgstr ""
 
-#: apps/organizations/forms.py:56
+#: apps/organizations/forms.py:58
 msgid "Legal entity type"
 msgstr ""
 
-#: apps/organizations/forms.py:60
+#: apps/organizations/forms.py:69
 msgid "Method of impact mesurement"
 msgstr ""
 
-#: apps/organizations/forms.py:86
+#: apps/organizations/forms.py:100
 msgid "I have read and accept the {}"
 msgstr ""
 
-#: apps/organizations/models.py:20
+#: apps/organizations/models.py:28
 msgid "vat number"
 msgstr ""
 
-#: apps/organizations/models.py:22
+#: apps/organizations/models.py:30
 msgid "website"
 msgstr ""
 
-#: apps/organizations/models.py:23
-msgid "country"
-msgstr ""
-
-#: apps/organizations/models.py:24
-msgid "region"
-msgstr ""
-
-#: apps/organizations/models.py:25
-msgid "city"
-msgstr ""
-
-#: apps/organizations/urls.py:9
-#, fuzzy
-#| msgid "Sign-up"
+#: apps/organizations/urls.py:13
 msgid "sign-up/"
-msgstr "Donar-se d'alta"
-
-#: apps/settings/admin.py:36 apps/settings/admin.py:56
-msgid "Actions"
 msgstr ""
 
-#: apps/settings/admin.py:40
-#, fuzzy
-#| msgid "Log in"
-msgid "Log"
-msgstr "Accedir"
+#: apps/organizations/urls.py:14
+msgid "update/<pk>"
+msgstr ""
 
-#: apps/settings/admin.py:61
+#: apps/organizations/urls.py:15
+msgid "sign-up/load_methods/"
+msgstr ""
+
+#: apps/settings/admin.py:43
+msgid "Log"
+msgstr ""
+
+#: apps/settings/admin.py:64
 msgid ""
 "Are you sure you want to send an email to the user to notify he has been "
 "added as network admin?"
 msgstr ""
 
-#: apps/settings/admin.py:69
+#: apps/settings/admin.py:72
 msgid "Send email to the user to notify he has been added as network admin"
 msgstr ""
 
@@ -358,272 +415,337 @@ msgstr ""
 
 #: templates/404.html:13 templates/500.html:13 templates/503.html:13
 msgid "Go back"
-msgstr "Tornar"
+msgstr ""
 
 #: templates/404.html:16
 msgid "Error 404: Page not found"
-msgstr "Error 404: no s'ha trobat la pàgina"
+msgstr ""
 
 #: templates/404.html:20
 msgid ""
 "The page you were trying to access does not exist. Please check the spelling "
 "or go back to the beginning."
 msgstr ""
-"La pàgina a la que estàs intentant accedir no existeix. Si us plau comprova "
-"l'ortografia o torna a l'inici."
 
 #: templates/500.html:16
 msgid "Error 500: Internal server error"
-msgstr "Error 500: error intern del servidor"
+msgstr ""
 
 #: templates/500.html:20
 msgid ""
 "The server encountered an unexpected condition that prevented it from "
 "fulfilling the request."
 msgstr ""
-"El servidor ha topat amb un error inesperat que ha impedit completar la "
-"petició."
 
 #: templates/503.html:16
 msgid "Error 503: Maintenance mode enabled"
-msgstr "Error 503: el mode de manteniment està activat"
+msgstr ""
 
 #: templates/503.html:20
 msgid ""
 "The application is currently under maintenance, please try again in few "
 "minutes."
 msgstr ""
-"S'estan fent tasques de manteniment a aquesta aplicació, si us plau torna-ho "
-"a intentar d'aquí uns minuts."
+
+#: templates/admin/methods/externalsurveyinvitation/change_form.html:14
+msgid "Import CSV"
+msgstr ""
+
+#: templates/admin/methods/method/change_form.html:13
+msgid "Preview"
+msgstr ""
+
+#: templates/admin/methods/section/stacked_inline.html:79
+msgid "Change"
+msgstr ""
+
+#: templates/admin/methods/section/stacked_inline.html:81
+msgid "View"
+msgstr ""
+
+#: templates/admin/methods/section/stacked_inline.html:94
+msgid "View on site"
+msgstr ""
 
 #: templates/admin/syh_change_form.html:19 templates/base.html:84
-#: templates/base.html:132 templates/components/admin/default_layout.html:41
-#: templates/components/header.html:76 templates/components/sidebar.html:19
-#: templates/home.html:3 templates/home.html:11
-#: templates/registration/password_change_form.html:23
+#: templates/base.html:132 templates/components/admin/default_layout.html:37
+#: templates/components/header.html:78 templates/components/sidebar.html:19
+#: templates/home.html:3 templates/methods/method_fill.html:5
 #: templates/registration/send_verification_code.html:23
 msgid "Home"
-msgstr "Inici"
+msgstr ""
 
 #: templates/admin/syh_change_form.html:33
 #, python-format
 msgid "Add %(name)s"
 msgstr ""
 
-#: templates/admin/syh_change_list.html:35
+#: templates/admin/syh_change_list.html:34
 msgid "Filters"
 msgstr ""
 
 #: templates/base.html:89 templates/base.html:193
-#: templates/components/header.html:81 templates/components/sidebar.html:80
+#: templates/components/header.html:83 templates/components/sidebar.html:80
 #: templates/profile/details.html:4
-#: templates/registration/password_change_form.html:32
 #: templates/registration/send_verification_code.html:32
 msgid "Profile"
-msgstr "Perfil"
+msgstr ""
 
 #: templates/base.html:95 templates/base.html:208
-#: templates/components/header.html:87 templates/components/sidebar.html:95
+#: templates/components/header.html:89 templates/components/sidebar.html:95
 msgid "Administration panel"
-msgstr "Panell d'administració"
+msgstr ""
 
-#: templates/base.html:102 templates/components/header.html:94
+#: templates/base.html:102 templates/components/header.html:96
 msgid "Log out"
-msgstr "Desconnectar"
+msgstr ""
 
 #: templates/base.html:146 templates/components/sidebar.html:33
 #: templates/registration/login.html:28
 msgid "Log in"
-msgstr "Accedir"
+msgstr ""
 
 #: templates/base.html:162 templates/base_success.html:6
 #: templates/components/sidebar.html:49 templates/registration/login.html:54
-#, fuzzy
-#| msgid "Create Account"
 msgid "Create an account"
-msgstr "Nou compte"
+msgstr ""
 
 #: templates/base.html:179 templates/components/sidebar.html:65
 msgid "Register an organization"
 msgstr ""
 
 #: templates/base.html:327
-#, fuzzy
-#| msgid ""
-#| "We use cookies to optimize your experience and to analyze the web "
-#| "traffic. We don't sell data to third parties. If you continue navigating, "
-#| "we'll understand that you are ok with that."
 msgid ""
 "We use cookies to optimize your experience and to analyze the web traffic. "
 "We don't sell data to\n"
 "      third parties. If you continue navigating, we'll understand that you "
 "are ok with that."
 msgstr ""
-"Fem servir cookies per optimitzar la teva experiència i per analitzar el "
-"trànsit de visitants. No venem dades a terceres parts. Si segueixes "
-"navegant, entendrem que hi estàs d'acord."
 
-#: templates/base.html:340 templates/components/base.html:36
+#: templates/base.html:340 templates/components/base.html:37
 #: templates/components/default_layout.html:42
 msgid "Accept"
-msgstr "Acceptar"
+msgstr ""
 
-#: templates/base.html:351 templates/components/base.html:46
+#: templates/base.html:351 templates/components/base.html:47
 #: templates/components/default_layout.html:52
 msgid "Deny"
-msgstr "Denegar"
+msgstr ""
 
-#: templates/base_form.html:52 templates/profile/details.html:45
-#: templates/registration/signup.html:32
+#: templates/base_form.html:52 templates/methods/method_fill.html:61
+#: templates/profile/details.html:43 templates/registration/signup.html:32
 msgid "Save"
-msgstr "Desar"
+msgstr ""
 
-#: templates/base_success.html:29
+#: templates/base_success.html:29 templates/standard_success.html:8
 msgid "Done!"
-msgstr "Fet!"
+msgstr ""
 
 #: templates/base_success.html:32
 msgid "Registry successfully updated."
-msgstr "Registre actualitzat correctament."
+msgstr ""
 
-#: templates/base_success.html:40
+#: templates/base_success.html:40 templates/standard_success.html:11
 msgid "Back to home"
-msgstr "Tornar a l'inici"
+msgstr ""
 
-#: templates/components/base.html:24
+#: templates/components/base.html:25
 #: templates/components/default_layout.html:30
 msgid ""
 "We use cookies to optimize your experience and to analyze the web traffic. "
 "We don't sell data to third parties. If you continue navigating, we'll "
 "understand that you are ok with that."
 msgstr ""
-"Fem servir cookies per optimitzar la teva experiència i per analitzar el "
-"trànsit de visitants. No venem dades a terceres parts. Si segueixes "
-"navegant, entendrem que hi estàs d'acord."
 
 #: templates/components/form_errors.html:10
 msgid "There has been an error!"
-msgstr "Hi ha hagut un error!"
+msgstr ""
 
 #: templates/components/form_errors.html:33
 msgid "There's an error in the form."
-msgstr "Hi ha hagut un error al formulari."
+msgstr ""
 
 #: templates/components/form_errors.html:36
 msgid "Please, check the fields marked in red."
-msgstr "Si us plau, revisa els camps marcats en vermell."
+msgstr ""
 
 #: templates/demo_flowbite.html:51
 msgid "Show information"
-msgstr "Mostrar informació"
+msgstr ""
 
 #: templates/demo_flowbite.html:346
 msgid "Error alert"
-msgstr "Alerta d'error"
+msgstr ""
 
 #: templates/demo_flowbite.html:348
 msgid "There is an error in the form!"
-msgstr "Hi ha un error en aquest formulari!"
+msgstr ""
 
 #: templates/demo_flowbite.html:350
 msgid "Please check the fields marked in red"
-msgstr "Si us plau revisa els camps marcats en vermell"
+msgstr ""
 
 #: templates/demo_flowbite.html:362
 msgid "Close error alert"
-msgstr "Tancar l'alerta d'error"
+msgstr ""
 
 #: templates/demo_flowbite.html:374
 msgid "Form error"
-msgstr "Error de formulari"
+msgstr ""
 
 #: templates/demo_flowbite.html:376
 msgid "There was an error!"
-msgstr "Hi ha hagut un error!"
+msgstr ""
 
 #: templates/demo_flowbite.html:416
 msgid "Upload a file"
-msgstr "Pujar un fitxer"
+msgstr ""
 
 #: templates/demo_flowbite.html:498
 msgid "New file"
-msgstr "Nou fitxer"
+msgstr ""
 
 #: templates/demo_flowbite.html:519
 msgid "Current file"
-msgstr "Fitxer actual"
+msgstr ""
 
 #: templates/demo_flowbite.html:539
 msgid "Delete file"
-msgstr "Eliminar el fitxer"
+msgstr ""
 
 #: templates/demo_flowbite.html:559
 msgid "This is the current uploaded file:"
-msgstr "Aquest és el fitxer pujat actualment:"
+msgstr ""
 
 #: templates/demo_flowbite.html:584
 msgid ""
 "Select a new file. Beware that if there was a file already uploaded, it will "
 "be erased."
 msgstr ""
-"Selecciona un nou fitxer. Tingues en compte que si actualment ja hi ha un "
-"fitxer pujat, el sobreescriuràs."
 
 #: templates/demo_flowbite.html:633
 msgid "Delete the current file."
-msgstr "Eliminar el fitxer actual."
+msgstr ""
 
-#: templates/home.html:17
-msgid "Home page"
-msgstr "Pàgina d'inici"
+#: templates/home.html:8
+msgid "Hola"
+msgstr ""
+
+#: templates/home.html:13
+msgid "User image"
+msgstr ""
+
+#: templates/home.html:16
+msgid "NIF"
+msgstr ""
+
+#: templates/home.html:24
+msgid "Modificar datos entidad"
+msgstr ""
+
+#: templates/home.html:32
+msgid "Balances pendientes"
+msgstr ""
+
+#: templates/home.html:44
+#, python-format
+msgid ""
+"Habéis completado el 50%% de la Auditoria Social.<br> Recuerda que\n"
+"        con los datos aportados, mejoramos todas."
+msgstr ""
+
+#: templates/home.html:46
+msgid "Resumen por sección"
+msgstr ""
+
+#: templates/home.html:53
+msgid "Completadas"
+msgstr ""
+
+#: templates/home.html:59
+msgid "En progreso"
+msgstr ""
+
+#: templates/home.html:66
+msgid "Por hacer"
+msgstr ""
+
+#: templates/home.html:74 templates/home.html:78 templates/home.html:82
+#: templates/home.html:86
+msgid "Nombre de la sección"
+msgstr ""
+
+#: templates/home.html:92
+msgid "Ir al balance"
+msgstr ""
+
+#: templates/home.html:99
+msgid ""
+"Your organization has not yet been accepted. You must wait until it is "
+"accepted before you can answer\n"
+"    the surveys."
+msgstr ""
+
+#: templates/methods/method_fill.html:64
+#: templates/registration/password_change_form.html:17
+#: templates/registration/password_reset_confirm.html:19
+#: templates/registration/password_reset_form.html:17
+msgid "Submit"
+msgstr ""
 
 #: templates/organizations/signup.html:9
-msgid "Solicitud de registro"
+msgid "Organization update"
+msgstr ""
+
+#: templates/organizations/signup.html:9
+msgid "Registration request"
 msgstr ""
 
 #: templates/organizations/signup.html:10
-msgid "La Economía Social y Solidaria transparente"
+msgid "Transparent, social and solidarity based economy"
 msgstr ""
 
 #: templates/organizations/signup.html:30
-msgid "Enviar solicitud de registro"
+msgid "Submit changes"
 msgstr ""
 
-#: templates/profile/details.html:12
+#: templates/organizations/signup.html:30
+msgid "Submit registration request"
+msgstr ""
+
+#: templates/profile/details.html:11
 msgid "Your profile"
-msgstr "El teu perfil"
+msgstr ""
 
-#: templates/profile/details.html:14
+#: templates/profile/details.html:13
 msgid "Here you can see and edit all your data."
-msgstr "Aquí hi pots veure i editar tota la teva informació."
+msgstr ""
 
-#: templates/profile/details.html:28 templates/profile/details.html:71
+#: templates/profile/details.html:27 templates/profile/details.html:69
 msgid "Warning!"
-msgstr "Atenció!"
+msgstr ""
 
-#: templates/profile/details.html:29 templates/profile/details.html:72
+#: templates/profile/details.html:28 templates/profile/details.html:70
 msgid "Your email is not verified. Before anything else, you must verify it."
 msgstr ""
-"El teu correu electrònic no està verificat. Abans que res, cal que el "
-"verifiquis."
 
-#: templates/profile/details.html:31 templates/profile/details.html:74
+#: templates/profile/details.html:30 templates/profile/details.html:72
 msgid "Verify email here."
-msgstr "Aquí, el teu correu."
+msgstr ""
+
+#: templates/profile/details.html:58
+#: templates/registration/password_change_form.html:3
+#: templates/registration/password_change_form.html:6
+msgid "Password change"
+msgstr ""
 
 #: templates/profile/details.html:60
-#: templates/registration/password_change_form.html:5
-#: templates/registration/password_change_form.html:42
-msgid "Password change"
-msgstr "Canvi de contrasenya"
-
-#: templates/profile/details.html:62
 msgid "Here you can change your password."
-msgstr "Aquí pots canviar la teva contrasenya. "
+msgstr ""
 
-#: templates/profile/details.html:85
+#: templates/profile/details.html:82
 msgid "Change password"
-msgstr "Canvia la contrasenya"
+msgstr ""
 
 #: templates/registration/login.html:9
 msgid "Impact measurement to show your heart with pride"
@@ -643,7 +765,7 @@ msgstr ""
 
 #: templates/registration/login.html:35
 msgid "Forgot your password?"
-msgstr "Has oblidat la teva contrasenya?"
+msgstr ""
 
 #: templates/registration/login.html:43
 msgid "Start"
@@ -651,160 +773,56 @@ msgstr ""
 
 #: templates/registration/login.html:51
 msgid "Don’t have an account yet?"
-msgstr "Encara no tens un compte?"
+msgstr ""
 
-#: templates/registration/password_change_form.html:50
-#: templates/registration/password_reset_confirm.html:29
-#: templates/registration/password_reset_form.html:26
-#: templates/registration/send_verification_code.html:51
-msgid "Send"
-msgstr "Enviar"
-
-#: templates/registration/password_reset_confirm.html:5
-#: templates/registration/user_validation_confirm.html:5
-msgid "New password"
-msgstr "Nova contrasenya"
-
-#: templates/registration/password_reset_confirm.html:18
-#: templates/registration/password_reset_form.html:5
-#: templates/registration/password_reset_form.html:18
+#: templates/registration/password_reset_confirm.html:3
+#: templates/registration/password_reset_confirm.html:6
 msgid "Password recovery"
-msgstr "Recuperació de contrasenya"
+msgstr ""
 
-#: templates/registration/password_reset_confirm.html:21
+#: templates/registration/password_reset_confirm.html:9
 msgid ""
 "Introduce your email. A link will be sent to this address so you can reset "
 "your password."
 msgstr ""
-"Escriu el teu correu electrònic. S'enviarà un enllaç a aquesta adreça amb el "
-"que podràs reiniciar la teva contrasenya."
+
+#: templates/registration/password_reset_form.html:3
+#: templates/registration/password_reset_form.html:6
+msgid "Password reset"
+msgstr ""
 
 #: templates/registration/privacy_policy.html:6
 #: templates/registration/privacy_policy.html:18
 msgid "Privacy policy"
-msgstr "Política de privacitat"
+msgstr ""
 
 #: templates/registration/send_verification_code.html:5
 #: templates/registration/user_validation.html:5
 msgid "Mail validation"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
 #: templates/registration/send_verification_code.html:42
 msgid "Email verification"
-msgstr "Verificació del correu electrònic"
+msgstr ""
 
 #: templates/registration/send_verification_code.html:47
 msgid ""
 "By clicking the button a verification code will be send to your email "
 "address. Check your email to find it."
 msgstr ""
-"Al clicar aquest botó s'enviarà un codi de verificació a la teva adreça de "
-"correu electrònic. Comprova la teva safata d'entrada."
+
+#: templates/registration/send_verification_code.html:51
+msgid "Send"
+msgstr ""
 
 #: templates/registration/user_validation.html:14
 msgid "Go"
-msgstr "Anar"
+msgstr ""
+
+#: templates/registration/user_validation_confirm.html:5
+msgid "New password"
+msgstr ""
 
 #: templates/registration/user_validation_confirm.html:27
 msgid "Set"
-msgstr "Establir"
-
-#~ msgid "Profile details"
-#~ msgstr "Detalls del perfil"
-
-#~ msgid "Sign in to your account"
-#~ msgstr "Autentica't al teu compte"
-
-#~ msgid "Sign in"
-#~ msgstr "Autenticació"
-
-#~ msgid "Create Account"
-#~ msgstr "Nou compte"
-
-#~ msgid "Option 1"
-#~ msgstr "Opció 1"
-
-#~ msgid "Option 2"
-#~ msgstr "Opció 2"
-
-#~ msgid "Option 3"
-#~ msgstr "Opció 3"
-
-#~ msgid "Sign up"
-#~ msgstr "Registrar-se"
-
-#~ msgid "Demo"
-#~ msgstr "Demo"
-
-#~ msgid "Demo Create"
-#~ msgstr "Demo: creació"
-
-#~ msgid "Demo list"
-#~ msgstr "Demo: llista"
-
-#~ msgid "Add new demo data"
-#~ msgstr "Afegir nova dada de demo"
-
-#~ msgid "Demo Details"
-#~ msgstr "Demo: fitxa"
-
-#~ msgid ""
-#~ "Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-#~ "Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi "
-#~ "Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia "
-#~ "sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat "
-#~ "doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt "
-#~ "mollitia?"
-#~ msgstr ""
-#~ "Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-#~ "Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi "
-#~ "Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia "
-#~ "sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat "
-#~ "doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt "
-#~ "mollitia?"
-
-#~ msgid "Nothing to see here."
-#~ msgstr "No hi ha res per aquí."
-
-#~ msgid "Internal home page"
-#~ msgstr "Pàgina d'inici interna"
-
-#~ msgid "Demo List"
-#~ msgstr "Demo: llista"
-
-#~ msgid "Create new data"
-#~ msgstr "Crear noves dades"
-
-#~ msgid ""
-#~ "There is nothing ot show because nothing has been created. Go ahead and "
-#~ "start!"
-#~ msgstr ""
-#~ "No hi ha res a mostrar ja que encara no s'ha creat res. Sigues el primer "
-#~ "a fer-ho, endavant!"
-
-#~ msgid "Log-in"
-#~ msgstr "Autenticar-se"
-
-#~ msgid "Enter your account details to authenticate."
-#~ msgstr "Escriu les teves credencials per autenticar-te."
-
-#~ msgid "Go in"
-#~ msgstr "Entrar"
-
-#~ msgid "Forgotten your password?"
-#~ msgstr "Has oblidat la teva contrasenya?"
-
-#~ msgid "If you are not registered yet:"
-#~ msgstr "Si encara no t'has donat d'alta:"
-
-#~ msgid "Demo Update"
-#~ msgstr "Demo: actualitzar"
-
-#~ msgid "Demo data view"
-#~ msgstr "Demo: fitxa de registre"
-
-#~ msgid "Update data"
-#~ msgstr "Actualitzar informació"
-
-#~ msgid "Back"
-#~ msgstr "Enrere"
+msgstr ""
