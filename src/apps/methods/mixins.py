@@ -6,7 +6,7 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form, get_form_sections
-from .models import IndicatorResult, Method, Survey
+from .models import Indicator, IndicatorResult, Method, Survey
 
 
 class MethodFillMixin:
@@ -67,6 +67,7 @@ class MethodFillMixin:
                 method_id=method_id,
                 user=request.user,
                 campaign_id=campaign_id,
+                organization_id=request.user.profile.organization.id,
             )
 
         if action == "submit":
@@ -74,14 +75,38 @@ class MethodFillMixin:
             survey.save()
 
         method = Method.objects.get(pk=method_id)
-        for indicator in method.indicators.all():
-            values = request.POST.getlist("question_" + str(indicator.id))
 
-            IndicatorResult.objects.update_or_create(
-                survey=survey,
-                indicator=indicator,
-                defaults={"value": "|".join(values)},
-            )
+        for indicator in method.indicators.all():
+            field_name = f"question_{indicator.id}"
+
+            # Handle gendered indicators
+            if indicator.data_type in [
+                Indicator.DataType.INTEGERGENDER,
+                Indicator.DataType.DECIMALGENDER,
+            ]:
+                for suffix, gender in {
+                    "male": IndicatorResult.Gender.MALE,
+                    "female": IndicatorResult.Gender.FEMALE,
+                    "non_binary": IndicatorResult.Gender.NON_BINARY,
+                }.items():
+                    value = request.POST.get(f"{field_name}_{suffix}")
+                    if value:
+                        IndicatorResult.objects.update_or_create(
+                            survey=survey,
+                            indicator=indicator,
+                            gender=gender,
+                            defaults={"value": value},
+                        )
+
+            # Handle normal indicators
+            else:
+                values = request.POST.getlist(field_name)
+                if values:
+                    IndicatorResult.objects.update_or_create(
+                        survey=survey,
+                        indicator=indicator,
+                        defaults={"value": "|".join(values)},
+                    )
 
         return HttpResponseRedirect(request.path_info)
 

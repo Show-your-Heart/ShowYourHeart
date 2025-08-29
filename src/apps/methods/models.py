@@ -56,8 +56,6 @@ class Indicator(BaseModel):
         CHECKBOX = "CH", _("Checkbox")
         RADIOBUTTON = "R", _("Radiobutton")
         DROPDOWN = "DR", _("Dropdown")
-
-    class SubDataType(models.TextChoices):
         INTEGERGENDER = "IG", _("Integer gendered value")
         DECIMALGENDER = "DG", _("Real gendered number")
 
@@ -77,6 +75,11 @@ class Indicator(BaseModel):
         DataType.RADIOBUTTON,
     ]
 
+    gender_types = [
+        DataType.INTEGERGENDER,
+        DataType.DECIMALGENDER,
+    ]
+
     project_id = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=1000, blank=True)
@@ -93,11 +96,6 @@ class Indicator(BaseModel):
     )
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
-    )
-    sub_data_type = models.CharField(
-        _("sub data type"),
-        choices=SubDataType.choices,
-        default=SubDataType.INTEGERGENDER,
     )
     unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
     list_options = models.ForeignKey(
@@ -216,7 +214,11 @@ class Survey(BaseModel):
         choices=Status.choices, default=Status.OPEN
     )
     organization = models.ForeignKey(
-        "organizations.organization", on_delete=models.PROTECT, default=""
+        "organizations.organization",
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        default="",
     )
 
     def __str__(self):
@@ -224,15 +226,28 @@ class Survey(BaseModel):
 
 
 class IndicatorResult(BaseModel):
+    class Gender(models.IntegerChoices):
+        MALE = (
+            0,
+            "Male",
+        )
+        FEMALE = (
+            1,
+            "Female",
+        )
+        NON_BINARY = (2, "Non binary")
+
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
-    gender = models.ForeignKey("settings.gender", on_delete=models.PROTECT, default="")
+    gender = models.PositiveSmallIntegerField(
+        choices=Gender.choices, default=Gender.FEMALE
+    )
     value = models.CharField(blank=True)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["survey", "indicator"], name="pk_indicator_result"
+                fields=["survey", "indicator", "gender"], name="pk_indicator_result"
             )
         ]
 
