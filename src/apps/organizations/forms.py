@@ -152,3 +152,52 @@ class OrganizationAdminForm(forms.ModelForm):
         widgets = {
             "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
+
+
+class OrganizationUpdateForm(forms.ModelForm):
+    contact_name = forms.CharField(
+        label=_("Name of the contact person"), max_length=100
+    )
+    contact_email = forms.EmailField(
+        label=_("Email address of the contact person"),
+        max_length=255,
+    )
+    contact_telephone = forms.CharField(
+        label=_("Phone number of the contact person"), max_length=20
+    )
+
+    class Meta:
+        model = Organization
+        fields = [
+            "name",
+            "vat_number",
+            "contact_name",
+            "contact_telephone",
+            "contact_email",
+            "website",
+            "country",
+            "region",
+            "city",
+            "legal_structure",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.contact:
+            self.fields["contact_name"].initial = self.instance.contact.name
+            self.fields["contact_email"].initial = self.instance.contact.email
+            self.fields[
+                "contact_telephone"
+            ].initial = self.instance.contact.profile.telephone
+
+    def save(self, commit=True):
+        org = super().save(commit=False)
+        contact = org.contact
+        contact.name = self.cleaned_data["contact_name"]
+        contact.email = self.cleaned_data["contact_email"]
+        contact.profile.telephone = self.cleaned_data["contact_telephone"]
+        contact.save()
+        if commit:
+            org.save()
+            contact.profile.save()
+        return org
