@@ -7,7 +7,7 @@ from unfold.widgets import (
     UnfoldAdminTextInputWidget,
 )
 
-from .models import Indicator, Method, Section
+from .models import Indicator, IndicatorResult, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -83,6 +83,16 @@ def get_field(indicator):
             required=False,
             choices=get_choices(indicator.list_options),
         ),
+        Indicator.DataType.INTEGERGENDER: {
+            "male": forms.CharField(label="Male", required=False),
+            "female": forms.CharField(label="Female", required=False),
+            "non_binary": forms.CharField(label="Non-binary", required=False),
+        },
+        Indicator.DataType.DECIMALGENDER: {
+            "male": forms.CharField(label="Male", required=False),
+            "female": forms.CharField(label="Female", required=False),
+            "non_binary": forms.CharField(label="Non-binary", required=False),
+        },
     }.get(indicator.data_type)
 
 
@@ -90,22 +100,55 @@ def get_dynamic_form(method, indicator_result_list, readonly):
     class DynamicSurveyForm(forms.Form):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
+
             for i in method.indicators.filter(is_direct_indicator=True):
                 field_name = f"question_{i.id}"
                 field = get_field(i)
 
-                if field is not None:  # Skip unknown types
-                    if len(indicator_result_list):
-                        indicator = indicator_result_list.filter(indicator=i).first()
-                        if indicator:
-                            field.initial = (
-                                indicator.value.split("|")
-                                if i.data_type == Indicator.DataType.CHECKBOX
-                                else indicator.value
-                            )
+                if field is None:
+                    continue
 
+                # Handle gendered indicators (3 fields)
+                if isinstance(field, dict):
+                    for suffix, f in field.items():
+                        full_name = f"{field_name}_{suffix}"
+                        self.fields[full_name] = f
+                        self.fields[full_name].widget.attrs["readonly"] = readonly
+
+                        gender_lookup = {
+                            "male": IndicatorResult.Gender.MALE,
+                            "female": IndicatorResult.Gender.FEMALE,
+                            "non_binary": IndicatorResult.Gender.NON_BINARY,
+                        }
+                        indicator_result = next(
+                            (
+                                res
+                                for res in indicator_result_list
+                                if res.indicator == i
+                                and res.gender == gender_lookup[suffix]
+                            ),
+                            None,
+                        )
+
+                        if indicator_result:
+                            self.fields[full_name].initial = indicator_result.value
+
+                # Handle normal indicators (single field)
+                else:
                     self.fields[field_name] = field
                     self.fields[field_name].widget.attrs["readonly"] = readonly
+
+                    if len(indicator_result_list):
+                        indicator_result = indicator_result_list.filter(
+                            indicator=i
+                        ).first()
+                        if indicator_result:
+                            if i.data_type == Indicator.DataType.CHECKBOX:
+                                self.fields[
+                                    field_name
+                                ].initial = indicator_result.value.split("|")
+                            else:
+                                self.fields[field_name].initial = indicator_result.value
 
     return DynamicSurveyForm
 

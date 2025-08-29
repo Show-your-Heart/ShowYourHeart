@@ -1,7 +1,9 @@
 from django.db import models
 
+from project.models import BaseModel
 
-class Country(models.Model):
+
+class Country(BaseModel):
     name = models.CharField(max_length=100)
 
     class Meta:
@@ -11,7 +13,7 @@ class Country(models.Model):
         return self.name
 
 
-class AutonomousCommunity(models.Model):
+class AutonomousCommunity(BaseModel):
     name = models.CharField(max_length=100)
     country = models.ForeignKey(
         Country,
@@ -26,7 +28,7 @@ class AutonomousCommunity(models.Model):
         return self.name
 
 
-class Province(models.Model):
+class Province(BaseModel):
     name = models.CharField(max_length=100)
     country = models.ForeignKey(
         Country,
@@ -35,26 +37,26 @@ class Province(models.Model):
         blank=True,
         related_name="province_country",
     )
-    community = models.ForeignKey(
+    autonomous_community = models.ForeignKey(
         AutonomousCommunity,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="province_community",
+        related_name="province_autonomous_community",
     )
 
     def __str__(self):
         return self.name
 
 
-class Region(models.Model):
+class Region(BaseModel):
     name = models.CharField(max_length=100)
-    community = models.ForeignKey(
+    autonomous_community = models.ForeignKey(
         AutonomousCommunity,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="region_community",
+        related_name="region_autonomous_community",
     )
     province = models.ForeignKey(
         Province,
@@ -68,7 +70,7 @@ class Region(models.Model):
         return self.name
 
 
-class City(models.Model):
+class City(BaseModel):
     name = models.CharField(max_length=100)
     province = models.ForeignKey(
         Province,
@@ -92,7 +94,7 @@ class City(models.Model):
         return self.name
 
 
-class ZipCode(models.Model):
+class ZipCode(BaseModel):
     code = models.CharField(max_length=10)
     city = models.ForeignKey(
         City,

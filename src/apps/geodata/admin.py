@@ -60,12 +60,12 @@ class CountryAdmin(ModelAdmin, TranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(Province)
 class ProvinceAdmin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "country", "community")
+    list_display = ("name", "country", "autonomous_community")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "country", "community"],
+            main_fields=["name_en", "country", "autonomous_community"],
             translatable_fields=["name"],
             display_log=False,
         )
@@ -76,12 +76,12 @@ class ProvinceAdmin(ModelAdmin, TranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(Region)
 class RegionAdmin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "community", "province")
+    list_display = ("name", "autonomous_community", "province")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "community", "province"],
+            main_fields=["name_en", "autonomous_community", "province"],
             translatable_fields=["name"],
             display_log=False,
         )
