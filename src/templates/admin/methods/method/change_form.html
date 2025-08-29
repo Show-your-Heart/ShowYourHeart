@@ -1,17 +1,16 @@
 {% extends "admin/change_form.html" %}
 {% load i18n %}
+{% load template_helpers %}
 
 
 {% block object-tools-items %}
 {{ block.super }}
 
-
 <li class="hover:text-primary-600 dark:hover:text-primary-500 dark:border-base-700 border-base-200 border md:last:rounded-r-default 
     md:first:rounded-l-default max-md:last:rounded-b-default max-md:first:rounded-t-default md:-ml-px max-md:-mt-px">
-    <a id="display-preview-btn" href="{% url 'methods:method_fill' request.path|slice:'25:61' %}"
+    <a id="display-preview-btn" href="{% url 'methods:method_fill' request.path|get_id %}"
         class="cursor-pointer flex grow items-center gap-2 px-3 py-2 text-left whitespace-nowrap">
         {% translate 'Preview' %} </a>
 </li>
-
 
 {% endblock %}

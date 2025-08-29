@@ -1,7 +1,7 @@
 import json
 
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
-from django.contrib import admin, messages
+from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
@@ -118,17 +118,6 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
     hide_ordering_field = True
     collapsible = True
     template = "admin/methods/section/stacked_inline.html"
-
-    def get_formset(self, request, obj=None, **kwargs):
-        if obj is None:
-            messages.info(
-                request,
-                _(
-                    "After you've created a section, you’ll be able to "
-                    "edit all the options. "
-                ),
-            )
-        return super().get_formset(request, obj, **kwargs)
 
 
 # Add superadmin views with default Unfold templates
