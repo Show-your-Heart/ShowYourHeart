@@ -89,13 +89,13 @@ class MethodFillMixin:
                     "female": IndicatorResult.Gender.FEMALE,
                     "non_binary": IndicatorResult.Gender.NON_BINARY,
                 }.items():
-                    values = request.POST.getlist(f"{field_name}_{suffix}")
-                    if values:
+                    value = request.POST.get(f"{field_name}_{suffix}")
+                    if value:
                         IndicatorResult.objects.update_or_create(
                             survey=survey,
                             indicator=indicator,
                             gender=gender,
-                            defaults={"value": "|".join(values)},
+                            defaults={"value": value},
                         )
 
             # Handle normal indicators
