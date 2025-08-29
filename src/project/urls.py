@@ -30,9 +30,10 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", HomeView.as_view(), name="home"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
-    path("admin/login/", lambda request: redirect("/")),
     path("superadmin/", admin.site.urls),
+    path("superadmin/login/", lambda request: redirect("/")),
     path("admin/", gov_admin_site.urls),
+    path("admin/login/", lambda request: redirect("/")),
     path(_("settings/"), include("apps.settings.urls", namespace="settings")),
     path(
         _("organizations/"),

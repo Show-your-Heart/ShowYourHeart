@@ -45,7 +45,8 @@ class HomeView(TemplateView):
                 method_list.append({"id": method.id, "name": method.name})
 
         add_context = {
-            "user": self.request.user.email,
+            "user": self.request.user,
+            "organization": self.request.user.profile.organization,
             "available_methods": method_list,
             "organization_accepted": organization_accepted,
         }
