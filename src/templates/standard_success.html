@@ -1,15 +1,15 @@
-{% extends "./base_success.html" %}
+{% load i18n %}
 
-{# Blocks de base.html #}
-{% block page_title %}{{ page_title }}{% endblock %}
-{% block bodyclasses %}{% endblock %}
-{% block mainclasses %} success {% endblock %}
-{% block extra_js %}{% endblock %}
-
-{# Blocks de base_success.html #}
-{% block success_extra %}{% endblock %}
-
-{% block success_title %}{{ success_title }}{% endblock %}
-{% block success_text %}{{ description|safe }}{% endblock %}
-{% block success_btn_url %}{{ url }}{% endblock %}
-{% block success_btn_text %}{{ link_text }}{% endblock %}
+<c-base>
+    <div class="p-2">
+        <c-header></c-header>
+    </div>
+    <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
+        <h1 class="text-3xl font-bold">{% translate "Done!" %}</h1>
+        <a href="{% url 'home' %}">
+            <c-button type="submit" name="action" value="submit">
+                {% translate "Back to home" %}
+            </c-button>
+        </a>
+    </div>
+</c-base>
