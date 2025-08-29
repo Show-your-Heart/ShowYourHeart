@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_not_required
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
 from apps.methods.models import Method
@@ -16,6 +18,12 @@ class CreateOrganizationView(CreateView):
     model = Organization
     template_name = "organizations/signup.html"
     form_class = OrganizationSignUpForm
+    success_url = reverse_lazy("organizations:signup_success")
+
+
+@method_decorator(login_not_required, name="dispatch")
+class CreateOrganizationSuccessView(TemplateView):
+    template_name = "organizations/signup_success.html"
 
 
 @method_decorator(login_not_required, name="dispatch")
