@@ -40,9 +40,9 @@
 
 
 
-      {% for field in form.fields %}
+      {% comment %} {% for field in form.fields %}
         <p>{{field.name}}</p>
-      {% endfor %}
+      {% endfor %} {% endcomment %}
 
       {% comment %} {% block submit_whole %}
         {% if not form.fields.field_text_1.disabled %}

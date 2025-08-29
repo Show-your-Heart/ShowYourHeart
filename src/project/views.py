@@ -3,6 +3,9 @@ from django.utils.translation import activate, get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 
+from apps.methods.forms import get_form_sections
+from apps.methods.helpers import get_survey_stats
+from apps.methods.models import Survey
 from apps.organizations.models import Organization
 
 
@@ -42,12 +45,29 @@ class HomeView(TemplateView):
                 == Organization.Status.ACCEPTED
             )
             for method in self.request.user.profile.organization.methods.all():
-                method_list.append({"id": method.id, "name": method.name})
+                method_list.append(
+                    {
+                        "id": method.id,
+                        "name": method.name,
+                        "sections": get_form_sections(method),
+                    }
+                )
+
+        surveys = Survey.objects.filter(
+            user=self.request.user,
+            campaign__status=True,
+        )
+
+        current_surveys_stats = []
+        for method in method_list:
+            # Get survey belonging to method (if exists)
+            survey = next((s for s in surveys if s.method.name == method["name"]), None)
+            current_surveys_stats.append(get_survey_stats(survey, method))
 
         add_context = {
             "user": self.request.user,
             "organization": self.request.user.profile.organization,
-            "available_methods": method_list,
+            "current_surveys_stats": current_surveys_stats,
             "organization_accepted": organization_accepted,
         }
         context.update(add_context)
