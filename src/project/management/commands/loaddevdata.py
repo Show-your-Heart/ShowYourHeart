@@ -47,7 +47,7 @@ class Command(BaseCommand):
         topics = self.create_sample_topics()
         indicators = self.create_sample_indicators(topics)
         methods = self.create_sample_methods(legal_structure, indicators, network)
-        self.create_sample_campaign()
+        self.create_sample_campaign(methods)
         self.create_sample_users(legal_structure, country, region, city, methods)
 
     def create_sample_users(self, legal_structure, country, region, city, methods):
@@ -216,8 +216,8 @@ class Command(BaseCommand):
 
         for x in range(1, 4):
             method_name = f"Method name {x}"
-            method = Method.objects.filter(name=method_name)
-            if not method.exists():
+            method_qs = Method.objects.filter(name=method_name)
+            if not method_qs.exists():
                 method = Method.objects.create(
                     name=method_name,
                     description=f"Method description {x}",
@@ -227,65 +227,69 @@ class Command(BaseCommand):
                 method.indicators.set(indicators)
                 method.legal_structures.set([legal_structures])
             else:
+                method = method_qs.first()
                 self.stdout.write(_(f"{method_name} already exists."))
             methods.append(method)
-        return method
+        return methods
 
     def create_sample_country(self):
         self.stdout.write(_("Creating sample country..."))
-        country_filter = Country.objects.filter(name=self.COUNTRY_NAME)
+        country_qs = Country.objects.filter(name=self.COUNTRY_NAME)
 
-        if not country_filter.exists():
+        if not country_qs.exists():
             country = Country.objects.create(
                 name=self.COUNTRY_NAME,
             )
         else:
             self.stdout.write(_("Country already exists."))
-            country = country_filter[0]
+            country = country_qs.first()
 
         return country
 
     def create_sample_city(self):
         self.stdout.write(_("Creating sample city..."))
-        city_filter = City.objects.filter(name=self.CITY_NAME)
+        city_qs = City.objects.filter(name=self.CITY_NAME)
 
-        if not city_filter.exists():
+        if not city_qs.exists():
             city = City.objects.create(
                 name=self.CITY_NAME,
             )
         else:
             self.stdout.write(_("City already exists."))
-            city = city_filter[0]
+            city = city_qs.first()
 
         return city
 
     def create_sample_region(self):
         self.stdout.write(_("Creating sample Region..."))
-        region_filter = Region.objects.filter(name=self.REGION_NAME)
+        region_qs = Region.objects.filter(name=self.REGION_NAME)
 
-        if not region_filter.exists():
+        if not region_qs.exists():
             region = Region.objects.create(
                 name=self.REGION_NAME,
             )
         else:
             self.stdout.write(_("Region already exists."))
-            region = region_filter[0]
-
+            region = region_qs.first()
         return region
 
-    def create_sample_campaign(self):
+    def create_sample_campaign(self, methods):
         self.stdout.write(_("Creating sample Campaign..."))
+        campaigns = []
         campaign_name = "2025"
-        campaign_filter = Campaign.objects.filter(name=campaign_name)
+        campaign_qs = Campaign.objects.filter(name=campaign_name)
 
-        if not campaign_filter.exists():
+        if not campaign_qs.exists():
             campaign = Campaign.objects.create(
                 name=campaign_name,
                 year=campaign_name,
                 status=1,
             )
+            campaign.methods.set(methods)
         else:
             self.stdout.write(_("Campaign already exists."))
-            campaign = campaign_filter[0]
+            campaign = campaign_qs.first()
+
+        campaigns.append(campaign)
 
         return campaign
