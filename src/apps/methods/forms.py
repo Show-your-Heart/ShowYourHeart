@@ -7,6 +7,8 @@ from unfold.widgets import (
     UnfoldAdminTextInputWidget,
 )
 
+from apps.methods.widgets import syh_forms
+
 from .models import Indicator, IndicatorResult, Method, Section
 
 
@@ -44,7 +46,9 @@ def get_field(indicator):
     field_name = indicator.name
 
     return {
-        Indicator.DataType.STRING: forms.CharField(label=field_name, required=False),
+        Indicator.DataType.STRING: forms.CharField(
+            label=field_name, required=False, widget=syh_forms.TextInput
+        ),
         Indicator.DataType.TEXT: forms.CharField(
             label=field_name, required=False, widget=forms.Textarea
         ),
@@ -113,7 +117,6 @@ def get_dynamic_form(method, indicator_result_list, readonly):
                     for suffix, f in field.items():
                         full_name = f"{field_name}_{suffix}"
                         self.fields[full_name] = f
-                        self.fields[full_name].widget.attrs["readonly"] = readonly
 
                         gender_lookup = {
                             "male": IndicatorResult.Gender.MALE,
@@ -136,7 +139,6 @@ def get_dynamic_form(method, indicator_result_list, readonly):
                 # Handle normal indicators (single field)
                 else:
                     self.fields[field_name] = field
-                    self.fields[field_name].widget.attrs["readonly"] = readonly
 
                     if len(indicator_result_list):
                         indicator_result = indicator_result_list.filter(
@@ -149,6 +151,10 @@ def get_dynamic_form(method, indicator_result_list, readonly):
                                 ].initial = indicator_result.value.split("|")
                             else:
                                 self.fields[field_name].initial = indicator_result.value
+
+                self.fields[field_name].widget.attrs["readonly"] = readonly
+                self.fields[field_name].widget.attrs["label"] = i.name
+                self.fields[field_name].widget.attrs["msg"] = "i.message"
 
     return DynamicSurveyForm
 

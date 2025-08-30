@@ -3,4 +3,5 @@
 @theme static {
     --color-primary: var(--color-pink-500);
     --color-secondary: var(--color-green-500);
+    --color-background: var(--color-gray-50);
 }
