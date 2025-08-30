@@ -1656,6 +1656,11 @@
       margin-top: -1px;
     }
   }
+  .max-md\:w-full {
+    @media (width < 48rem) {
+      width: 100%;
+    }
+  }
   .sm\:col-span-2 {
     @media (width >= 40rem) {
       grid-column: span 2 / span 2;
@@ -1775,6 +1780,11 @@
   .md\:grid-cols-2 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .md\:flex-row {
+    @media (width >= 48rem) {
+      flex-direction: row;
     }
   }
   .md\:items-center {

@@ -4,8 +4,8 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
 
-from project.admin import ModelAdmin, gov_admin_register
-from project.helpers import register_with_default_templates
+from project.admin import ModelAdmin, gov_admin_site
+from project.decorators import gov_admin_register, register_with_default_templates
 
 from .models import LegalStructure, Network, Sector
 
@@ -13,7 +13,7 @@ from .models import LegalStructure, Network, Sector
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=LegalStructure)
 # Add admin views with custom templates
-@gov_admin_register(LegalStructure)
+@gov_admin_register(gov_admin_site, model=LegalStructure)
 class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
@@ -28,7 +28,7 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Network)
 # Add admin views with custom templates
-@gov_admin_register(Network)
+@gov_admin_register(gov_admin_site, model=Network)
 class NetworkAdmin(ModelAdmin):
     search_fields = ["name"]
     list_display = ("name", "parent_network", "network_admin")
@@ -92,7 +92,7 @@ class NetworkAdmin(ModelAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Sector)
 # Add admin views with custom templates
-@gov_admin_register(Sector)
+@gov_admin_register(gov_admin_site, model=Sector)
 class SectorAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
