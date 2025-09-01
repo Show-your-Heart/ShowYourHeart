@@ -163,6 +163,10 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmV
         self.validlink = False
         self.user = self.get_user(kwargs["uidb64"])
         if self.user is not None:
+            if not self.user.email_verified:
+                self.user.email_verified = True
+                self.user.save()
+
             token = kwargs["token"]
             if token == self.reset_url_token:
                 session_token = self.request.session.get(INTERNAL_RESET_SESSION_TOKEN)
@@ -213,6 +217,9 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     description = _("Password reset complete")
     url = reverse_lazy("registration:login")
     link_text = _("Login")
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 @method_decorator(login_not_required, name="dispatch")
