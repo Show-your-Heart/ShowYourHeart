@@ -22,14 +22,18 @@ class MethodFillView(MethodFillMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         method = Method.objects.get(pk=self.kwargs["id"])
-        kwargs["campaign"] = Campaign.objects.get(methods__id__contains=method.id).id
+        kwargs["campaign"] = Campaign.objects.get(
+            methods__id__contains=method.id, status=True
+        ).id
         kwargs["method"] = method
         return super().get_context_data(**kwargs)
 
     def post(self, request, id):
         method_id = id
         try:
-            campaign = Campaign.objects.get(methods__id__contains=method_id)
+            campaign = Campaign.objects.get(
+                methods__id__contains=method_id, status=True
+            )
         except ObjectDoesNotExist as error:
             raise ObjectDoesNotExist(
                 _("The method has no asociated campaign and can't be answered")
