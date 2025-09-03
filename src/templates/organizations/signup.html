@@ -15,8 +15,8 @@
                 {% block form_intro %}
                 {% endblock %}
 
-                <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {%
-                    block form_action %}{% endblock %} class="space-y-4 md:space-y-6">
+                <form method="post" enctype="{% block enctype %}multipart/form-data{% endblock %}" {% block form_action
+                    %}{% endblock %} class="space-y-4 md:space-y-6">
                     {% csrf_token %}
 
                     {% block form_fields %}
