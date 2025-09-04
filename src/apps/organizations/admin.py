@@ -3,7 +3,8 @@ from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from apps.methods.models import Method
 from apps.users.models import UserProfile
-from project.admin import ModelAdmin, gov_admin_register
+from project.admin import ModelAdmin, gov_admin_site
+from project.decorators import gov_admin_register
 from project.helpers import register_with_default_templates
 
 from .forms import OrganizationAdminForm
@@ -14,7 +15,7 @@ from .models import Organization
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Organization)
 # Add admin views with custom templates
-@gov_admin_register(Organization)
+@gov_admin_register(gov_admin_site, model=Organization)
 class OrganizationAdmin(ModelAdmin):
     form = OrganizationAdminForm
     list_display = (

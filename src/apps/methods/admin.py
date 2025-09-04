@@ -7,8 +7,8 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
 
-from project.admin import ModelAdmin, gov_admin_register
-from project.helpers import register_with_default_templates
+from project.admin import ModelAdmin, gov_admin_site
+from project.decorators import gov_admin_register, register_with_default_templates
 
 from .forms import IndicatorForm, InvitationInlineForm, MethodForm, SectionInlineForm
 from .models import (
@@ -29,7 +29,7 @@ from .models import (
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Topic)
 # Add admin views with custom templates
-@gov_admin_register(Topic)
+@gov_admin_register(gov_admin_site, model=Topic)
 class TopicAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["name"]
 
@@ -50,7 +50,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Indicator)
 # Add admin views with custom templates
-@gov_admin_register(Indicator)
+@gov_admin_register(gov_admin_site, model=Indicator)
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
@@ -123,7 +123,7 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Method)
 # Add admin views with custom templates
-@gov_admin_register(Method)
+@gov_admin_register(gov_admin_site, model=Method)
 class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
     search_fields = ["name"]
@@ -183,7 +183,7 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=List)
 # Add admin views with custom templates
-@gov_admin_register(List)
+@gov_admin_register(gov_admin_site, model=List)
 class ListAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
@@ -200,7 +200,7 @@ class ListAdmin(ModelAdmin, TranslationAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=ListItem)
 # Add admin views with custom templates
-@gov_admin_register(ListItem)
+@gov_admin_register(gov_admin_site, model=ListItem)
 class ListItemAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["title"]
 
@@ -219,7 +219,7 @@ class ListItemAdmin(ModelAdmin, TranslationAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Campaign)
 # Add admin views with custom templates
-@gov_admin_register(Campaign)
+@gov_admin_register(gov_admin_site, model=Campaign)
 class CampaignAdmin(ModelAdmin):
     list_display = (
         "year",
@@ -246,7 +246,7 @@ class CampaignAdmin(ModelAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Survey)
 # Add admin views with custom templates
-@gov_admin_register(Survey)
+@gov_admin_register(gov_admin_site, model=Survey)
 class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
 
@@ -263,7 +263,7 @@ class SurveyAdmin(ModelAdmin):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=IndicatorResult)
 # Add admin views with custom templates
-@gov_admin_register(IndicatorResult)
+@gov_admin_register(gov_admin_site, model=IndicatorResult)
 class IndicatorResultAdmin(ModelAdmin):
     list_display = (
         "survey",
@@ -328,7 +328,7 @@ class InvitationInline(admin.StackedInline):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=ExternalSurveyInvitation)
 # Add admin views with custom templates
-@gov_admin_register(ExternalSurveyInvitation)
+@gov_admin_register(gov_admin_site, model=ExternalSurveyInvitation)
 class ExternalSurveyInvitationAdmin(ModelAdmin):
     list_display = (
         "name",

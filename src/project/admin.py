@@ -1,5 +1,3 @@
-from functools import partial
-
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
@@ -65,14 +63,6 @@ class ModelAdminMixin(object):
 
 
 class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
-    add_form_template = None
-    change_form_template = "admin/syh_change_form.html"
-    change_list_template = "admin/syh_change_list.html"
-    delete_confirmation_template = None
-    delete_selected_confirmation_template = None
-    object_history_template = None
-    popup_response_template = None
-
     list_filter_submit = True
 
     @staticmethod
@@ -443,7 +433,3 @@ class GovAdminSite(UnfoldAdminSite):
 
 
 gov_admin_site = GovAdminSite(name="gov_admin")
-
-
-# Define a decorator for registering models
-gov_admin_register = partial(admin.register, site=gov_admin_site)

@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<c-base>
+    <div class="p-2">
+        <c-header></c-header>
+    </div>
+    <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
+        <h1 class="text-3xl font-bold">{% translate "Solicitud enviada" %}</h1>
+        <p class="text-center">{% translate "¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, pronto nos pondremos en contacto contigo." %}</p>
+        <a href="{% url 'home' %}">
+            <c-button type="submit" name="action" value="submit">
+                {% translate "Back to home" %}
+            </c-button>
+        </a>
+    </div>
+</c-base>
