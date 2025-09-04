@@ -20,7 +20,7 @@ from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from extra_settings.models import Setting
-from unfold.widgets import UnfoldAdminSelectWidget, UnfoldAdminTextInputWidget
+from unfold.widgets import UnfoldAdminSelect2Widget, UnfoldAdminTextInputWidget
 
 from apps.organizations.models import Organization
 from apps.users.models import User, UserProfile
@@ -243,7 +243,7 @@ class UserModelInlineForm(forms.ModelForm):
     # Without this form the styles of the inputs are not applied
     telephone = forms.CharField(widget=UnfoldAdminTextInputWidget, required=False)
     organization = forms.ModelChoiceField(
-        widget=UnfoldAdminSelectWidget,
+        widget=UnfoldAdminSelect2Widget,
         required=True,
         queryset=Organization.objects.all(),
     )
