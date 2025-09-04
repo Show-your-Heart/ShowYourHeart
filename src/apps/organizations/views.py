@@ -4,10 +4,10 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from apps.methods.models import Method
-from apps.organizations.forms import OrganizationSignUpForm
+from apps.organizations.forms import OrganizationSignUpForm, OrganizationUpdateForm
 
 from .helpers import get_organization_method_filter
 from .models import Organization
