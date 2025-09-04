@@ -4,8 +4,7 @@ from unfold.contrib.filters.admin import ChoicesDropdownFilter
 from apps.methods.models import Method
 from apps.users.models import UserProfile
 from project.admin import ModelAdmin, gov_admin_site
-from project.decorators import gov_admin_register
-from project.helpers import register_with_default_templates
+from project.decorators import gov_admin_register, register_with_default_templates
 
 from .forms import OrganizationAdminForm
 from .helpers import get_organization_method_filter
