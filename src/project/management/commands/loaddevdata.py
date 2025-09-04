@@ -160,7 +160,6 @@ class Command(BaseCommand):
                     country=country,
                     region=region,
                     city=city,
-                    contact=user,
                     status=1,
                     legal_structure=legal_structure,
                 )

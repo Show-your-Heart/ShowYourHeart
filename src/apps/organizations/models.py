@@ -25,8 +25,8 @@ class Organization(BaseModel):
         )
 
     name = models.CharField(_("name"), max_length=150)
+    logo = models.FileField(upload_to="logos/", null=True, blank=True)
     vat_number = models.CharField(_("vat number"), max_length=30)
-    contact = models.ForeignKey("users.User", on_delete=models.CASCADE)
     website = models.CharField(_("website"), max_length=300, blank=True, default="")
     country = models.ForeignKey(
         "geodata.country", on_delete=models.CASCADE, blank=True, null=True

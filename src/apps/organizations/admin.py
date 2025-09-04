@@ -2,8 +2,11 @@ from django.contrib import admin
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from apps.methods.models import Method
+from apps.users.models import UserProfile
 from project.admin import ModelAdmin, gov_admin_site
-from project.decorators import gov_admin_register, register_with_default_templates
+from project.decorators import gov_admin_register
+from project.helpers import register_with_default_templates
+
 
 from .forms import OrganizationAdminForm
 from .helpers import get_organization_method_filter
@@ -21,7 +24,7 @@ class OrganizationAdmin(ModelAdmin):
         "status",
     )
     filter_horizontal = ("methods",)
-
+    readonly_fields = ("contact",)
     list_filter = [("status", ChoicesDropdownFilter)]
 
     def get_fieldsets(self, request, obj=None):
@@ -47,6 +50,8 @@ class OrganizationAdmin(ModelAdmin):
                 len(fieldsets[0][1]["fields"]) - 1, "legal_structure"
             )
 
+        fieldsets[0][1]["fields"].remove("contact")
+        fieldsets[0][1]["fields"].insert(2, "contact")
         return fieldsets
 
     def get_readonly_fields(self, request, obj=None):
@@ -79,3 +84,10 @@ class OrganizationAdmin(ModelAdmin):
             else:
                 kwargs["queryset"] = Method.objects.none()
         return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+    def contact(self, obj):
+        user_profile = UserProfile.objects.filter(organization=obj)
+        if user_profile:
+            return user_profile.first().user.name
+        else:
+            return "-"

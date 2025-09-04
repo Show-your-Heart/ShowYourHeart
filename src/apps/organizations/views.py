@@ -26,6 +26,13 @@ class CreateOrganizationSuccessView(TemplateView):
     template_name = "organizations/signup_success.html"
 
 
+class UpdateOrganizationView(UpdateView):
+    model = Organization
+    template_name = "organizations/signup.html"
+    success_url = "/"
+    form_class = OrganizationUpdateForm
+
+
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_methods(request):
