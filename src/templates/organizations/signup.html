@@ -6,8 +6,10 @@
     </div>
     <main class="grid grid-cols-1 gap-[48px] p-16">
         <div class="text-center">
-            <h1 class="text-3xl font-bold mb-4">{{ _("Solicitud de registro") }}</h1>
-            <h2 class="text-md">{{ _("La Economía Social y Solidaria transparente") }}</h2>
+            <h1 class="text-3xl font-bold mb-4">{% if 'update' in request.path %}{% translate 'Organization update' %}{%
+                else
+                %}{% translate 'Registration request' %}{%endif%}</h1>
+            <h2 class="text-md">{{ _("Transparent, social and solidarity based economy") }}</h2>
         </div>
         <div class="w-full bg-white rounded-md shadow max-w-3xl mt-0 mx-auto p-0">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -28,7 +30,7 @@
                     <div class="flex justify end">
                         <input type="submit" class="w-full max-w-[250px] ml-auto px-5 py-2.5 rounded-lg bg-blue-600 text-white font-bold text-sm text-center cursor-pointer
                         hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                            value="{% block submit_text %}{% translate 'Enviar solicitud de registro' %}{% endblock %}"
+                            value="{% block submit_text %}{% if 'update' in request.path %}{% translate 'Submit changes' %}{% else %}{% translate 'Submit registration request' %}{%endif%}{% endblock %}"
                             id="id_submit">
                     </div>
 
