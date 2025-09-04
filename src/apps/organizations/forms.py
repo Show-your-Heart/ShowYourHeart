@@ -3,12 +3,12 @@ from django.db import transaction
 from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from unfold.widgets import UnfoldAdminSelectWidget
+from unfold.widgets import UnfoldAdminSelect2Widget
 
 from apps.geodata.models import City, Country, Region
 from apps.methods.models import Method
 from apps.settings.models import LegalStructure
-from apps.users.models import User
+from apps.users.models import User, UserProfile
 
 from .models import Organization
 
@@ -124,15 +124,6 @@ class OrganizationSignUpForm(forms.ModelForm):
                 },
             )
 
-        organization.contact = contact
-
-        if commit:
-            organization.save()
-            # save(commit=False) used before does not save the many to
-            # many relations as it needs the instance to be created before
-            # setting their values
-            self.save_m2m()
-
         return organization
 
     def get_privacy_policy_url(self):
@@ -150,7 +141,7 @@ class OrganizationAdminForm(forms.ModelForm):
         model = Organization
         fields = "__all__"  # noqa: DJ007
         widgets = {
-            "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+            "legal_structure": UnfoldAdminSelect2Widget(attrs=htmx_attrs),
         }
 
 
@@ -183,21 +174,27 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if self.instance and self.instance.contact:
-            self.fields["contact_name"].initial = self.instance.contact.name
-            self.fields["contact_email"].initial = self.instance.contact.email
-            self.fields[
-                "contact_telephone"
-            ].initial = self.instance.contact.profile.telephone
+        if self.instance:
+            user_profile = UserProfile.objects.filter(organization__id=self.instance.id)
+            if user_profile:
+                user_profile = user_profile.first()
+
+                self.fields["contact_name"].initial = user_profile.user.name
+                self.fields["contact_email"].initial = user_profile.user.email
+                self.fields[
+                    "contact_telephone"
+                ].initial = user_profile.user.profile.telephone
 
     def save(self, commit=True):
         org = super().save(commit=False)
-        contact = org.contact
-        contact.name = self.cleaned_data["contact_name"]
-        contact.email = self.cleaned_data["contact_email"]
-        contact.profile.telephone = self.cleaned_data["contact_telephone"]
-        contact.save()
+        user_profile = UserProfile.objects.filter(organization__id=self.instance.id)
+        if user_profile:
+            user_profile = user_profile.first()
+            user_profile.user.name = self.cleaned_data["contact_name"]
+            user_profile.user.email = self.cleaned_data["contact_email"]
+            user_profile.telephone = self.cleaned_data["contact_telephone"]
+            user_profile.save()
+            user_profile.user.save()
         if commit:
             org.save()
-            contact.profile.save()
         return org
