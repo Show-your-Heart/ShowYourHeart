@@ -9,30 +9,30 @@
       {{ method_name }}
     </h1>
 
-    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}
-      class="w-full space-y-4 md:space-y-6">
-        {% csrf_token %}
-      
+    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block
+      form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
+      {% csrf_token %}
+
       <div class="mb-4 border-b border-gray-200">
         <ul class="flex flex-no-wrap overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" id="default-tab"
           data-tabs-toggle="#default-tab-content" role="tablist">
           {% for section, fields in sections.items %}
           <li class="me-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg white-space-no-wrap overflow-ellipsis" id="{{ section.title }}-tab"
-              data-tabs-target="#{{ section.title }}" type="button" role="tab" aria-controls="{{ section.title }}"
-              aria-selected="false">{{ section.title }}</button>
+            <button class="inline-block p-4 border-b-2 rounded-t-lg white-space-no-wrap overflow-ellipsis"
+              id="{{ section.id }}-tab" data-tabs-target="#{{ section.id}}" type="button" role="tab"
+              aria-controls="{{ section.id }}" aria-selected="false">{{ section.title }}</button>
           </li>
           {% endfor %}
         </ul>
       </div>
       <div id="default-tab-content">
         {% for section, fields in sections.items %}
-        <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8" id="{{ section.title }}" role="tabpanel"
-          aria-labelledby="{{ section.title }}-tab">
+        <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8" id="{{ section.id }}" role="tabpanel"
+          aria-labelledby="{{ section.id }}-tab">
           <h4 class="text-2xl font-bold">{{ section.title }}</h4>
-            {% for field in fields %}
-              {{ form|get_item:field.field_name }}
-            {% endfor %}
+          {% for field in fields %}
+          {{ form|get_item:field.field_name }}
+          {% endfor %}
           </fieldset>
         </div>
         {% endfor %}
@@ -40,22 +40,21 @@
 
 
 
-      
+
       {% if not readonly %}
-        <div class="flex gap-4 min-w-[60%]">
-          <c-button type="submit" name="action" value="save">
-            {% translate 'Save' %}
-          </c-button>
-          <c-button type="submit" name="action" value="submit">
-            {% translate 'Submit' %}
-          </c-button>
-        </div>
+      <div class="flex gap-4 min-w-[60%]">
+        <c-button type="submit" name="action" value="save">
+          {% translate 'Save' %}
+        </c-button>
+        <c-button type="submit" name="action" value="submit">
+          {% translate 'Submit' %}
+        </c-button>
+      </div>
       {% endif %}
     </form>
-  
 
-    
+
+
 
   </div>
 </c-default-layout>
-
