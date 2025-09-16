@@ -112,9 +112,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         organization = super().save(commit=False)
 
         contact = User.objects.filter(email=self.cleaned_data["contact_mail"])
-        if contact.exists():
-            contact = contact[0]
-        else:
+        if not contact.exists():
             contact = User.objects.create_user(
                 email=self.cleaned_data["contact_mail"],
                 name=self.cleaned_data["contact_name"],
@@ -123,6 +121,7 @@ class OrganizationSignUpForm(forms.ModelForm):
                     "organization": organization,
                 },
             )
+        organization.save()
 
         return organization
 

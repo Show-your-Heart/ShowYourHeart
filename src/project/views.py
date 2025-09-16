@@ -66,7 +66,9 @@ class HomeView(TemplateView):
 
         add_context = {
             "user": self.request.user,
-            "organization": self.request.user.profile.organization,
+            "organization": self.request.user.profile.organization
+            if self.request.user.profile
+            else None,
             "current_surveys_stats": current_surveys_stats,
             "organization_accepted": organization_accepted,
         }
