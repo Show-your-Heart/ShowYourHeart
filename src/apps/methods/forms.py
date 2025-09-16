@@ -161,16 +161,26 @@ def get_dynamic_form(method, indicator_result_list, readonly):
 
 def get_form_sections(method):
     result = {}
-    sections = Section.objects.filter(method=method, parent__isnull=True).order_by(
-        "order"
-    )
+    sections = Section.objects.filter(method=method).order_by("order")
 
-    for section in sections:
+    for section in sections.filter(parent__isnull=True):
         indicators = []
         for i in section.indicators.all():
             indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+        children = sections.filter(parent=section)
+        subsections = []
+        for child in children:
+            child_indicators = []
+            for i in child.indicators.all():
+                child_indicators.append(
+                    {"field_name": "question_" + str(i.id), "indicator": i}
+                )
+            subsections.append({child.title: child_indicators})
 
-        result[section] = indicators
+        result[section] = {
+            "indicators": indicators,
+            "subsections": subsections,
+        }
 
     return result
 
@@ -196,7 +206,7 @@ class SectionInlineForm(forms.ModelForm):
         if self.instance and self.instance.method_id:
             self.fields["indicators"].queryset = self.instance.method.indicators.all()
             self.fields["parent"].queryset = Section.objects.filter(
-                method=self.instance.method
+                method=self.instance.method, parent__isnull=True
             ).exclude(pk=self.instance.id)
         else:
             self.fields["indicators"].queryset = Indicator.objects.none()
