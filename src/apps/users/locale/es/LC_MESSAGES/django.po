@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-13 12:48+0200\n"
+"POT-Creation-Date: 2025-08-29 18:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,35 +19,35 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
-#: apps/users/admin.py:79
+#: apps/users/admin.py:83
 msgid "Authentication"
 msgstr ""
 
-#: apps/users/admin.py:90
+#: apps/users/admin.py:94
 msgid "Personal details"
 msgstr ""
 
-#: apps/users/admin.py:99
+#: apps/users/admin.py:103
 msgid "Permissions and authorizations"
 msgstr ""
 
-#: apps/users/admin.py:113
+#: apps/users/admin.py:117
 msgid "Log"
 msgstr ""
 
-#: apps/users/admin.py:137
+#: apps/users/admin.py:141
 msgid "User roles information"
 msgstr ""
 
-#: apps/users/admin.py:145
+#: apps/users/admin.py:149
 msgid "Actions"
 msgstr ""
 
-#: apps/users/admin.py:150
+#: apps/users/admin.py:154
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 
-#: apps/users/admin.py:156
+#: apps/users/admin.py:160
 msgid "Send email to the user to set the password"
 msgstr ""
 
@@ -147,12 +147,12 @@ msgstr ""
 msgid "users"
 msgstr ""
 
-#: apps/users/signals.py:71
+#: apps/users/signals.py:74
 #, python-brace-format
 msgid "Group {name} created."
 msgstr ""
 
-#: apps/users/signals.py:74
+#: apps/users/signals.py:77
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr ""
@@ -225,64 +225,64 @@ msgstr ""
 msgid "privacy-policy/"
 msgstr ""
 
-#: apps/users/views.py:115 apps/users/views.py:223
+#: apps/users/views.py:120 apps/users/views.py:228
 msgid "Done!"
 msgstr ""
 
-#: apps/users/views.py:116
+#: apps/users/views.py:121
 msgid "Account verified"
 msgstr ""
 
-#: apps/users/views.py:117
+#: apps/users/views.py:122
 msgid "Account has been successfully verified."
 msgstr ""
 
-#: apps/users/views.py:119 apps/users/views.py:186 apps/users/views.py:200
-#: apps/users/views.py:227
+#: apps/users/views.py:124 apps/users/views.py:191 apps/users/views.py:205
+#: apps/users/views.py:232
 msgid "Go back"
 msgstr ""
 
-#: apps/users/views.py:136
+#: apps/users/views.py:141
 msgid ""
 "This email address does not match any registered account, please check the "
 "spelling."
 msgstr ""
 
-#: apps/users/views.py:181 apps/users/views.py:182 apps/users/views.py:183
+#: apps/users/views.py:186 apps/users/views.py:187 apps/users/views.py:188
 msgid "Invalid link"
 msgstr ""
 
-#: apps/users/views.py:184
+#: apps/users/views.py:189
 msgid "The link is invalid. Please try again."
 msgstr ""
 
-#: apps/users/views.py:192 apps/users/views.py:193
+#: apps/users/views.py:197 apps/users/views.py:198
 msgid "Password reset sent"
 msgstr ""
 
-#: apps/users/views.py:195
+#: apps/users/views.py:200
 msgid ""
 "An email has been sent to your inbox. Please check it and follow the "
 "instructions to change your password."
 msgstr ""
 
-#: apps/users/views.py:206 apps/users/views.py:207 apps/users/views.py:208
+#: apps/users/views.py:211 apps/users/views.py:212 apps/users/views.py:213
 msgid "Password reset complete"
 msgstr ""
 
-#: apps/users/views.py:210
+#: apps/users/views.py:215
 msgid "Login"
 msgstr ""
 
-#: apps/users/views.py:224
+#: apps/users/views.py:229
 msgid "Password change"
 msgstr ""
 
-#: apps/users/views.py:225
+#: apps/users/views.py:230
 msgid "Password change successful."
 msgstr ""
 
-#: apps/users/views.py:241
+#: apps/users/views.py:246
 msgid ""
 "An email has been sent to the user to inform that the account is active and "
 "he can set the password."

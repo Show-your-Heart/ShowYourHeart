@@ -1,6 +1,6 @@
 import re
 
-from .models import Invitation, Method
+from .models import IndicatorResult, Invitation, Method
 
 
 class ParseExternalInvitations:
@@ -37,3 +37,65 @@ def get_external_survey_filter(network_owner__id):
         network_owner__id=network_owner__id,
         unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
     )
+
+
+def get_survey_stats(survey, method):
+    stats = {
+        "totalProgress": 0,
+        "totalCompleted": 0,
+        "totalInProgress": 0,
+        "totalToDo": 0,
+        "survey": survey,
+        "method": method,
+        "sectionsWithStatus": [],
+    }
+
+    if survey:
+        indicator_results = IndicatorResult.objects.filter(
+            survey=survey,
+        )
+        total_indicators = 0
+        total_answered__indicators = 0
+
+        for section in method["sections"]:
+            total_indicators += section.indicators.count()
+            total_section_indicators = section.indicators.count()
+
+            answered_indicators = 0
+
+            for i in section.indicators.all():
+                # Get indicator result
+                indicator_result = next(
+                    (ii for ii in indicator_results if i.id == ii.indicator.id), None
+                )
+                if indicator_result.value:
+                    answered_indicators += 1
+
+            total_answered__indicators += answered_indicators
+
+            if total_section_indicators == answered_indicators:
+                stats["totalCompleted"] += 1
+                stats["sectionsWithStatus"].append(
+                    {"status": "completed", "section": section}
+                )
+            elif answered_indicators > 0:
+                stats["totalInProgress"] += 1
+                stats["sectionsWithStatus"].append(
+                    {"status": "inProgress", "section": section}
+                )
+            else:
+                stats["totalToDo"] += 1
+                stats["sectionsWithStatus"].append(
+                    {"status": "toDo", "section": section}
+                )
+
+        stats["totalProgress"] = round(
+            total_answered__indicators * 100 / total_indicators
+        )
+
+    else:
+        stats["totalToDo"] = len(method["sections"])
+        for section in method["sections"]:
+            stats["sectionsWithStatus"].append({"status": "toDo", "section": section})
+
+    return stats

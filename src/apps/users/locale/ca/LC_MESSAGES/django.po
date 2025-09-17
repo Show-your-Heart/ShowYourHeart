@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-13 12:48+0200\n"
+"POT-Creation-Date: 2025-08-29 18:23+0200\n"
 "PO-Revision-Date: 2024-10-21 16:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,41 +19,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: apps/users/admin.py:79
+#: apps/users/admin.py:83
 msgid "Authentication"
 msgstr ""
 
-#: apps/users/admin.py:90
+#: apps/users/admin.py:94
 #, fuzzy
 #| msgid "profile/details/"
 msgid "Personal details"
 msgstr "perfil/fitxa/"
 
-#: apps/users/admin.py:99
+#: apps/users/admin.py:103
 msgid "Permissions and authorizations"
 msgstr ""
 
-#: apps/users/admin.py:113
+#: apps/users/admin.py:117
 #, fuzzy
 #| msgid "Login"
 msgid "Log"
 msgstr "Accés"
 
-#: apps/users/admin.py:137
+#: apps/users/admin.py:141
 #, fuzzy
 #| msgid "Password confirmation"
 msgid "User roles information"
 msgstr "Confirmació de contrasenya"
 
-#: apps/users/admin.py:145
+#: apps/users/admin.py:149
 msgid "Actions"
 msgstr ""
 
-#: apps/users/admin.py:150
+#: apps/users/admin.py:154
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 
-#: apps/users/admin.py:156
+#: apps/users/admin.py:160
 msgid "Send email to the user to set the password"
 msgstr ""
 
@@ -153,12 +153,12 @@ msgstr "usuari"
 msgid "users"
 msgstr "usuaris"
 
-#: apps/users/signals.py:71
+#: apps/users/signals.py:74
 #, python-brace-format
 msgid "Group {name} created."
 msgstr ""
 
-#: apps/users/signals.py:74
+#: apps/users/signals.py:77
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr ""
@@ -231,24 +231,24 @@ msgstr ""
 msgid "privacy-policy/"
 msgstr "politica-de-privacitat/"
 
-#: apps/users/views.py:115 apps/users/views.py:223
+#: apps/users/views.py:120 apps/users/views.py:228
 msgid "Done!"
 msgstr "Fet!"
 
-#: apps/users/views.py:116
+#: apps/users/views.py:121
 msgid "Account verified"
 msgstr "Compte verificat"
 
-#: apps/users/views.py:117
+#: apps/users/views.py:122
 msgid "Account has been successfully verified."
 msgstr "El compte s'ha verificat correctament."
 
-#: apps/users/views.py:119 apps/users/views.py:186 apps/users/views.py:200
-#: apps/users/views.py:227
+#: apps/users/views.py:124 apps/users/views.py:191 apps/users/views.py:205
+#: apps/users/views.py:232
 msgid "Go back"
 msgstr "Enrere"
 
-#: apps/users/views.py:136
+#: apps/users/views.py:141
 msgid ""
 "This email address does not match any registered account, please check the "
 "spelling."
@@ -256,19 +256,19 @@ msgstr ""
 "Aquesta adreça de correu electrònic no coincideix amb la de cap compte "
 "registrat, si us plau comprova si hi ha errors."
 
-#: apps/users/views.py:181 apps/users/views.py:182 apps/users/views.py:183
+#: apps/users/views.py:186 apps/users/views.py:187 apps/users/views.py:188
 msgid "Invalid link"
 msgstr "Enllaç invpalid"
 
-#: apps/users/views.py:184
+#: apps/users/views.py:189
 msgid "The link is invalid. Please try again."
 msgstr "L'enllaç és invàlid, si us plau torneu-ho a intentar."
 
-#: apps/users/views.py:192 apps/users/views.py:193
+#: apps/users/views.py:197 apps/users/views.py:198
 msgid "Password reset sent"
 msgstr "Reinici de contrasenya enviat"
 
-#: apps/users/views.py:195
+#: apps/users/views.py:200
 msgid ""
 "An email has been sent to your inbox. Please check it and follow the "
 "instructions to change your password."
@@ -276,23 +276,23 @@ msgstr ""
 "S'ha enviat un correu a la teva bústia d'entrada. Si us plau revisa-ho i "
 "segueix les instruccions per canviar la teva contrasenya."
 
-#: apps/users/views.py:206 apps/users/views.py:207 apps/users/views.py:208
+#: apps/users/views.py:211 apps/users/views.py:212 apps/users/views.py:213
 msgid "Password reset complete"
 msgstr "Reinici de contrasenya completat"
 
-#: apps/users/views.py:210
+#: apps/users/views.py:215
 msgid "Login"
 msgstr "Accés"
 
-#: apps/users/views.py:224
+#: apps/users/views.py:229
 msgid "Password change"
 msgstr "Modificar la contrasenya"
 
-#: apps/users/views.py:225
+#: apps/users/views.py:230
 msgid "Password change successful."
 msgstr "Contrasenya modificada correctament."
 
-#: apps/users/views.py:241
+#: apps/users/views.py:246
 #, fuzzy
 #| msgid ""
 #| "An email has been sent to your inbox. Please check it and follow the "

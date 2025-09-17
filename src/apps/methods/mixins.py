@@ -73,7 +73,6 @@ class MethodFillMixin:
             survey, created = Survey.objects.get_or_create(
                 method_id=method_id,
                 user=request.user,
-                organization=request.user.profile.organization,
                 campaign_id=campaign_id,
                 organization_id=request.user.profile.organization.id,
             )

@@ -12,8 +12,8 @@ from unfold.admin import ModelAdmin
 
 from apps.users.forms import UserModelInlineForm
 from apps.users.models import User, UserProfile
-from project.admin import ModelAdminMixin, gov_admin_register
-from project.helpers import register_with_default_templates
+from project.admin import ModelAdminMixin, gov_admin_site
+from project.decorators import gov_admin_register, register_with_default_templates
 
 
 class UserCreationForm(forms.ModelForm):
@@ -63,7 +63,7 @@ class UserProfileInline(admin.StackedInline):
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=User)
 # Add admin views with custom templates
-@gov_admin_register(User)
+@gov_admin_register(gov_admin_site, model=User)
 class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     list_display = (
         "email",

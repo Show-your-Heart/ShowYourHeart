@@ -1,11 +1,13 @@
 from django.contrib.auth.decorators import login_not_required
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
-from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from apps.methods.models import Method
-from apps.organizations.forms import OrganizationSignUpForm
+from apps.organizations.forms import OrganizationSignUpForm, OrganizationUpdateForm
 
 from .helpers import get_organization_method_filter
 from .models import Organization
@@ -16,6 +18,19 @@ class CreateOrganizationView(CreateView):
     model = Organization
     template_name = "organizations/signup.html"
     form_class = OrganizationSignUpForm
+    success_url = reverse_lazy("organizations:signup_success")
+
+
+@method_decorator(login_not_required, name="dispatch")
+class CreateOrganizationSuccessView(TemplateView):
+    template_name = "organizations/signup_success.html"
+
+
+class UpdateOrganizationView(UpdateView):
+    model = Organization
+    template_name = "organizations/signup.html"
+    success_url = "/"
+    form_class = OrganizationUpdateForm
 
 
 @method_decorator(login_not_required, name="dispatch")

@@ -43,8 +43,22 @@ Input params:
         <div class="flex items-center">
           <div class="flex items-center ms-3">
             {% if request.user.is_authenticated and displayAvatar %}
+            <div class="pe-4 border-e border-white">
+              <div
+                class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-primary-700"
+                >
+                  <c-icon icon="user-circle" class="w-8 h-8 bg-grey-700"></c-icon>
+              </div>
+            </div>
+            <form method="post" action="{% url 'registration:logout' %}">
+              {% csrf_token %}
+              <button type="submit"
+              class="block px-4 py-2 text-sm text-gray-700 font-bold text-white hover:cursor-pointer">
+                {% translate "Log out" %}
+              </button>
+            </form>
             <!-- Botó per mostrar i amagar menú desplegable -->
-            <div class="pe-4 me-4 border-e">
+            {% comment %} <div class="pe-4 me-4 border-e">
               <button type="button"
                 class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-primary-700 dark:focus:ring-gray-600"
                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -53,9 +67,9 @@ Input params:
                   <path fill-rule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z" clip-rule="evenodd"/>
                 </svg>
               </button>
-            </div>
+            </div> {% endcomment %}
             <!-- Menú desplegable -->
-            <div
+            {% comment %} <div
               class="z-50 hidden max-w-60 my-4 text-base list-none bg-white divide-y divide-primary-100 rounded shadow
               dark:bg-gray-700 dark:divide-gray-600"
               id="dropdown-user">
@@ -96,7 +110,7 @@ Input params:
                   </form>
                 </li>
               </ul>
-            </div>
+            </div> {% endcomment %}
             {% endif %}
 
             <c-languages-dropdown />

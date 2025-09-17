@@ -28,74 +28,15 @@
     
     
     {% if organization_accepted %}
-    <h5 class="text-xl font-bold">{% translate 'Balances pendientes' %}</h5>
-    {% for method in available_methods %}
-      <div class="max-w-[50%] flex flex-col block gap-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-        <h5 class="text-xl font-bold">{{ method.name }}</h5>
-        
-        <div class="flex flex-col gap-0">
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-pink-500 h-2 rounded-full" style="width: 45%"></div>
-          </div>
-          <p class="text-sm text-gray-500">45%</p>
-        </div>
-
-        <p class="text-sm text-gray-500">{% translate 'Habéis completado el 50% de la Auditoria Social.<br> Recuerda que con los datos aportados, mejoramos todas.' %}</p>
-
-        <h6 class="text-lg font-bold">{% translate 'Resumen por sección' %}</h6>
-
-        <div class="flex gap-4">
-          <div class="max-w-[50%] flex flex-col block w-full p-6 bg-blue-50 rounded-lg">
-            <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-blue-100 text-bold text-blue-600">
-              3
-            </p>
-            <p class="text-blue-600 text-xs text-center">{% translate 'Completadas' %}</p>
-          </div>
-          <div class="max-w-[50%] flex flex-col block w-full p-6 bg-teal-50 rounded-lg">
-            <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-teal-100 text-bold text-teal-600">
-              1
-            </p>
-            <p class="text-teal-600 text-xs text-center">{% translate 'En progreso' %}</p>
-          </div>
-          <div class="max-w-[50%] flex flex-col block w-full p-6 bg-orange-50 rounded-lg">
-            <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-orange-100 text-bold text-orange-600">
-              3
-            </p>
-            <p class="text-orange-600 text-xs text-center">{% translate 'Por hacer' %}</p>
-          </div>
-              
-        </div>
-          
-        <div class="flex flex-col gap-2">
-          <p class="flex gap-1 items-center">
-            <c-icon icon="arrow-right" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
-            <span>{% translate 'Nombre de la sección'%}</span>
-          </p>
-          <p class="flex gap-1 items-center">
-            <c-icon icon="arrow-right" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
-            <span>{% translate 'Nombre de la sección'%}</span>
-          </p>
-          <p class="flex gap-1 items-center">
-            <c-icon icon="arrow-right" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
-            <span>{% translate 'Nombre de la sección'%}</span>
-          </p>
-          <p class="flex gap-1 items-center">
-            <c-icon icon="arrow-right" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
-            <span>{% translate 'Nombre de la sección'%}</span>
-          </p>
-        </div>
-
-        <a class="h-fit-content" href="{% url 'methods:method_fill' method.id %}">
-          <c-button>
-            <span>{% translate 'Ir al balance'%}</span>
-            <c-icon icon="arrow-right" class="inline text-white"></c-icons>
-          </c-button>
-        </a>
+      <h5 class="text-xl font-bold">{% translate 'Balances pendientes' %}</h5>
+      <div class="w-full grid grid-cols-2 gap-4">
+        {% for survey_stats in current_surveys_stats %}
+          <c-card.survey-stats :surveyStats="survey_stats"></c-card.survey-stats>
+        {% endfor %}
       </div>
-    {% endfor %}
     {% else %}
-    {% translate 'Your organization has not yet been accepted. You must wait until it is accepted before you can answer
-    the surveys.' %}
+      {% translate 'Your organization has not yet been accepted. You must wait until it is accepted before you can answer
+      the surveys.' %}
     {% endif %}
   </div>
 </c-default-layout>

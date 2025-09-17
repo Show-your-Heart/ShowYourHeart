@@ -1,0 +1,10 @@
+{% load i18n %}
+<div>
+    <div class="flex gap-4">
+        <label for="{{widget.name}}" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">{{widget.attrs.label}}{% if widget.is_required %}*{%endif%}</label>
+        <c-help-drawer msg="{{widget.attrs.msg}}" id="{{widget.name}}"></c-help-drawer>
+    </div>
+    <input type="{{ widget.type}}" id="{{widget.name}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" 
+        name="{{ widget.name }}" {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %} placeholder="{{placeholder}}" required="{{required}}" {% include "django/forms/widgets/attrs.html" %}
+    />
+</div>
