@@ -2,36 +2,49 @@
 {% load template_helpers %}
 
 
-<c-default-layout pageTitle={% translate 'Home' %}>
+<c-default-layout pageTitle={% translate 'Form' %}>
 
-  <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
-    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-      {{ method_name }}
-    </h1>
+  <c-slot name="extra_head_js">
+    {{ indicators|json_script:"indicators" }}
+    <script src="{% static 'js/surveyStore.js' %}"></script>
+  </c-slot>
 
-    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block
-      form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
-      {% csrf_token %}
+  <c-slot name="sidebar">
+    <div class="mb-4 mt-8 pl-4">
+      <ul class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" id="default-tab"
+        data-tabs-toggle="#tab-content" role="tablist"
+        data-tabs-active-classes="border-blue-700"
+      >
+        {% for section, fields in sections.items %}
+        <li class="w-full border border-gray-300 rounded-lg" role="presentation" >
+          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" id="{{ section.title }}-tab"
+            data-tabs-target="#{{ section.title }}" type="button" role="tab" aria-controls="{{ section.title }}"
+            aria-selected="false">
+            {{ section.title }}
+            <c-icon icon="check" class="w-6 h-6 inline text-green-800"></c-icon>
+            {% comment %} {% if sectionWithStatus.status == 'completed' %}
+              <c-icon icon="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
+            {% elif sectionWithStatus.status == 'inProgress' %}
+              <c-icon icon="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
+            {% else %}
+              <c-icon icon="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
+            {% endif %} {% endcomment %}
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </c-slot>
+  
+  <div
+    class="flex flex-col gap-4 items-center max-w-[900px] mx-auto"
+  >
 
-      <div class="mb-4 border-b border-gray-200">
-        <ul class="flex flex-no-wrap overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" id="default-tab"
-          data-tabs-toggle="#default-tab-content" role="tablist">
-          {% for section, fields in sections.items %}
-          {% comment %}
-          {{ forloop.counter }} is added in case there are multiple tabs whith the same title
-          {% endcomment %}
-          <li class="me-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg white-space-no-wrap overflow-ellipsis"
-              id="{{ section.title|stripe_whitespaces }}{{ forloop.counter }}-tab"
-              data-tabs-target="#{{ section.title|stripe_whitespaces }}{{ forloop.counter }}" type="button" role="tab"
-              aria-controls="{{ section.title|stripe_whitespaces }}{{ forloop.counter }}" aria-selected="false">{{
-              section.title }} </button>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div id="default-tab-content">
+    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}
+      class="w-full space-y-4 md:space-y-6">
+        {% csrf_token %}
+      
+      <div id="tab-content">
         {% for section, fields in sections.items %}
         <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8"
           id="{{ section.title|stripe_whitespaces }}{{ forloop.counter }}" role="tabpanel"
@@ -55,10 +68,7 @@
         </div>
         {% endfor %}
       </div>
-
-
-
-
+    
       {% if not readonly %}
       <div class="flex gap-4 min-w-[60%]">
         <c-button type="submit" name="action" value="save">
@@ -70,9 +80,6 @@
       </div>
       {% endif %}
     </form>
-
-
-
 
   </div>
 </c-default-layout>

@@ -74,6 +74,8 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         "list_options": f"{list_types_js}.includes(data_type)",
     }
 
+    exclude = ("dependant_indicators",)
+
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
             main_fields=[
@@ -181,6 +183,13 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
             translatable_fields=["name", "description"],
         )
 
+    def save_related(self, request, form, formsets, change):
+        super(MethodAdmin, self).save_related(request, form, formsets, change)
+        print("Estas intentando guardar un métodoooo que te veo")
+        # print(form.instance)
+        # Calculate indicators order
+        # getIndicatorsCalculationOrder(indicators)
+
 
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=List)
@@ -255,14 +264,14 @@ class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
     search_fields = ["method__name", "method__network_owner__name"]
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request, obj=None):
+    #     return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
 
 
 # Add superadmin views with default Unfold templates

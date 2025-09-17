@@ -102,7 +102,7 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
-            for i in method.indicators.filter(is_direct_indicator=True):
+            for i in method.indicators.all():
                 field_name = f"question_{i.id}"
                 field = get_field(i)
 
@@ -110,16 +110,24 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                     continue
 
                 self.fields[field_name] = field
-                self.fields[field_name].widget.attrs["readonly"] = readonly
                 self.fields[field_name].initial = get_field_value(
                     indicator_result_list, i
                 )
-                self.fields[field_name].widget.attrs["label"] = i.name
-                self.fields[field_name].widget.attrs["description"] = i.description
-                self.fields[field_name].widget.attrs["msg"] = i.message
+                self.fields[field_name].widget.attrs["readonly"] = readonly
                 self.fields[field_name].widget.attrs["placeholder"] = (
                     placeholder_dict.get(field_name, "")
                 )
+                self.fields[field_name].widget.attrs["code"] = i.code
+                self.fields[field_name].widget.attrs["dependant_indicators"] = (
+                    i.dependant_indicators
+                )
+
+                if i.is_direct_indicator:
+                    self.fields[field_name].widget.attrs["condition"] = i.condition
+                else:
+                    self.fields[field_name].widget.attrs["formula"] = i.formula
+
+                self.fields[field_name].widget.attrs["validation"] = i.validation
 
                 # Handle gendered indicators (3 fields)
                 if isinstance(field, syh_forms.GenderInput):
