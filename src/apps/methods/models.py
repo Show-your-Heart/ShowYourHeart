@@ -339,4 +339,7 @@ class Section(BaseModel):
         ordering = ["order"]
 
     def __str__(self):
-        return self.title
+        if self.parent:
+            return self.parent.title + " - " + self.title
+        else:
+            return self.title
