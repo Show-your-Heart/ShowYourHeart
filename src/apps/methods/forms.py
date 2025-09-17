@@ -121,25 +121,10 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                         self.fields[full_name].initial = get_gender_field_value(
                             indicator_result_list, i, suffix
                         )
-                        self.fields[full_name].widget.attrs["placeholder"] = (
-                            placeholder_dict.get(field_name, "")
-                        )
                         self.fields[full_name].widget.attrs["label"] = i.name
-                        self.fields[full_name].widget.attrs["msg"] = "i.message"
-
-                        gender_lookup = {
-                            "male": IndicatorResult.Gender.MALE,
-                            "female": IndicatorResult.Gender.FEMALE,
-                            "non_binary": IndicatorResult.Gender.NON_BINARY,
-                        }
-                        indicator_result = next(
-                            (
-                                res
-                                for res in indicator_result_list
-                                if res.indicator == i
-                                and res.gender == gender_lookup[suffix]
-                            ),
-                            None,
+                        self.fields[full_name].widget.attrs["msg"] = i.message
+                        self.fields[full_name].widget.attrs["placeholder"] = (
+                            placeholder_dict.get(full_name, "")
                         )
 
                 # Handle normal indicators (single field)
@@ -153,19 +138,7 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                         placeholder_dict.get(field_name, "")
                     )
                     self.fields[field_name].widget.attrs["label"] = i.name
-                    self.fields[field_name].widget.attrs["msg"] = "i.message"
-
-                    if len(indicator_result_list):
-                        indicator_result = indicator_result_list.filter(
-                            indicator=i
-                        ).first()
-                        if indicator_result:
-                            if i.data_type == Indicator.DataType.CHECKBOX:
-                                self.fields[
-                                    field_name
-                                ].initial = indicator_result.value.split("|")
-                            else:
-                                self.fields[field_name].initial = indicator_result.value
+                    self.fields[field_name].widget.attrs["msg"] = i.message
 
     return DynamicSurveyForm
 
