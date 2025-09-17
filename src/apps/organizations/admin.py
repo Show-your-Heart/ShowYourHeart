@@ -86,6 +86,11 @@ class OrganizationAdmin(ModelAdmin):
     def contact(self, obj):
         user_profile = UserProfile.objects.filter(organization=obj)
         if user_profile:
-            return user_profile.first().user.name
+            return (
+                user_profile.first().user.email
+                + " ("
+                + user_profile.first().user.name
+                + ")"
+            )
         else:
             return "-"

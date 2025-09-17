@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.users.models import UserProfile
 from apps.users.services import send_welcome_mail
 from project.models import BaseModel
 
@@ -60,8 +61,7 @@ class Organization(BaseModel):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if (
-            self.status == Organization.Status.ACCEPTED
-            and not self.contact.email_verified
-        ):
-            send_welcome_mail(self.contact)
+        if self.status == Organization.Status.ACCEPTED:
+            profile = UserProfile.objects.filter(organization=self).first()
+            if profile and not profile.user.email_verified:
+                send_welcome_mail(profile.user)
