@@ -5,7 +5,7 @@ from django.views.generic import RedirectView, TemplateView
 
 from apps.methods.forms import get_form_sections
 from apps.methods.helpers import get_survey_stats
-from apps.methods.models import Survey
+from apps.methods.models import Campaign, Survey
 from apps.organizations.models import Organization
 
 
@@ -38,31 +38,37 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         method_list = []
+        current_surveys_stats = []
         organization_accepted = False
         if hasattr(self.request.user, "profile"):
             organization_accepted = (
                 self.request.user.profile.organization.status
                 == Organization.Status.ACCEPTED
             )
-            for method in self.request.user.profile.organization.methods.all():
-                method_list.append(
-                    {
-                        "id": method.id,
-                        "name": method.name,
-                        "sections": get_form_sections(method),
-                    }
+            open_campaign = Campaign.objects.filter(status=True)
+            if open_campaign:
+                for method in self.request.user.profile.organization.methods.filter(
+                    id__in=open_campaign.first().methods.all()
+                ):
+                    method_list.append(
+                        {
+                            "id": method.id,
+                            "name": method.name,
+                            "sections": get_form_sections(method),
+                        }
+                    )
+
+            surveys = Survey.objects.filter(
+                user=self.request.user,
+                campaign__status=True,
+            )
+
+            for method in method_list:
+                # Get survey belonging to method (if exists)
+                survey = next(
+                    (s for s in surveys if s.method.name == method["name"]), None
                 )
-
-        surveys = Survey.objects.filter(
-            user=self.request.user,
-            campaign__status=True,
-        )
-
-        current_surveys_stats = []
-        for method in method_list:
-            # Get survey belonging to method (if exists)
-            survey = next((s for s in surveys if s.method.name == method["name"]), None)
-            current_surveys_stats.append(get_survey_stats(survey, method))
+                current_surveys_stats.append(get_survey_stats(survey, method))
 
         add_context = {
             "user": self.request.user,
