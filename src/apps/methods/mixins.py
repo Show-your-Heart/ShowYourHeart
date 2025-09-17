@@ -6,14 +6,18 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form, get_form_sections
-from .models import Indicator, IndicatorResult, Method, Survey
+from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 
 
 class MethodFillMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        campaign = kwargs.get("campaign")
+        campaign_id = kwargs.get("campaign")
         current_method = kwargs.get("method")
+
+        placeholder_dict = get_previous_campaign_answers(
+            campaign_id, current_method.id, self.request.user
+        )
 
         readonly = False
         # Get the current survey already started
@@ -21,13 +25,13 @@ class MethodFillMixin:
             if not is_valid_uuid(self.request.user.id):
                 survey = Survey.objects.get(
                     token=self.kwargs["id"],
-                    campaign__id=campaign,
+                    campaign__id=campaign_id,
                     method=current_method,
                 )
             else:
                 survey = Survey.objects.get(
                     user=self.request.user,
-                    campaign__id=campaign,
+                    campaign__id=campaign_id,
                     method=current_method,
                 )
 
@@ -36,10 +40,13 @@ class MethodFillMixin:
                 current_method,
                 IndicatorResult.objects.filter(survey=survey),
                 readonly,
+                placeholder_dict,
             )
         except ObjectDoesNotExist:
             # If there is none, get new survey
-            context["form"] = get_dynamic_form(current_method, [], False)
+            context["form"] = get_dynamic_form(
+                current_method, [], False, placeholder_dict
+            )
 
         context["method_name"] = current_method.name
         context["readonly"] = readonly
@@ -118,3 +125,33 @@ def is_valid_uuid(value):
         return True
     except ValueError:
         return False
+
+
+def get_previous_campaign_answers(campaign_id, current_method_id, user):
+    placeholder_dict = {}
+    current_campaign = Campaign.objects.get(id=campaign_id)
+    if current_campaign.previous_campaign:
+        # Check if the method was included on the previous campaign
+        previous_campaign = Campaign.objects.filter(
+            id=current_campaign.previous_campaign.id,
+            methods__id__contains=current_method_id,
+        ).first()
+
+        if previous_campaign:
+            # Check if the user answered the same method on the previous campaign
+            previous_survey = Survey.objects.filter(
+                user=user,
+                campaign__id=previous_campaign.id,
+                method__id=current_method_id,
+            ).first()
+
+            if previous_survey:
+                indicator_results = IndicatorResult.objects.filter(
+                    survey=previous_survey,
+                )
+
+                for r in indicator_results:
+                    field_name = f"question_{r.indicator.id}"
+                    placeholder_dict[field_name] = r.value
+
+    return placeholder_dict

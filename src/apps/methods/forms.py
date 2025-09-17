@@ -100,7 +100,7 @@ def get_field(indicator):
     }.get(indicator.data_type)
 
 
-def get_dynamic_form(method, indicator_result_list, readonly):
+def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
     class DynamicSurveyForm(forms.Form):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -117,46 +117,65 @@ def get_dynamic_form(method, indicator_result_list, readonly):
                     for suffix, f in field.items():
                         full_name = f"{field_name}_{suffix}"
                         self.fields[full_name] = f
-
-                        gender_lookup = {
-                            "male": IndicatorResult.Gender.MALE,
-                            "female": IndicatorResult.Gender.FEMALE,
-                            "non_binary": IndicatorResult.Gender.NON_BINARY,
-                        }
-                        indicator_result = next(
-                            (
-                                res
-                                for res in indicator_result_list
-                                if res.indicator == i
-                                and res.gender == gender_lookup[suffix]
-                            ),
-                            None,
+                        self.fields[full_name].widget.attrs["readonly"] = readonly
+                        self.fields[full_name].initial = get_gender_field_value(
+                            indicator_result_list, i, suffix
                         )
-
-                        if indicator_result:
-                            self.fields[full_name].initial = indicator_result.value
+                        self.fields[full_name].widget.attrs["label"] = i.name
+                        self.fields[full_name].widget.attrs["msg"] = i.message
+                        self.fields[full_name].widget.attrs["placeholder"] = (
+                            placeholder_dict.get(full_name, "")
+                        )
 
                 # Handle normal indicators (single field)
                 else:
                     self.fields[field_name] = field
-
-                    if len(indicator_result_list):
-                        indicator_result = indicator_result_list.filter(
-                            indicator=i
-                        ).first()
-                        if indicator_result:
-                            if i.data_type == Indicator.DataType.CHECKBOX:
-                                self.fields[
-                                    field_name
-                                ].initial = indicator_result.value.split("|")
-                            else:
-                                self.fields[field_name].initial = indicator_result.value
-
-                self.fields[field_name].widget.attrs["readonly"] = readonly
-                self.fields[field_name].widget.attrs["label"] = i.name
-                self.fields[field_name].widget.attrs["msg"] = "i.message"
+                    self.fields[field_name].widget.attrs["readonly"] = readonly
+                    self.fields[field_name].initial = get_field_value(
+                        indicator_result_list, i
+                    )
+                    self.fields[field_name].widget.attrs["placeholder"] = (
+                        placeholder_dict.get(field_name, "")
+                    )
+                    self.fields[field_name].widget.attrs["label"] = i.name
+                    self.fields[field_name].widget.attrs["msg"] = i.message
 
     return DynamicSurveyForm
+
+
+def get_gender_field_value(indicator_result_list, indicator, suffix):
+    field_value = None
+
+    gender_lookup = {
+        "male": IndicatorResult.Gender.MALE,
+        "female": IndicatorResult.Gender.FEMALE,
+        "non_binary": IndicatorResult.Gender.NON_BINARY,
+    }
+    indicator_result = next(
+        (
+            res
+            for res in indicator_result_list
+            if res.indicator == indicator and res.gender == gender_lookup[suffix]
+        ),
+        None,
+    )
+
+    if indicator_result:
+        field_value = indicator_result.value
+
+    return field_value
+
+
+def get_field_value(indicator_result_list, indicator):
+    field_value = None
+    if len(indicator_result_list):
+        indicator_result = indicator_result_list.filter(indicator=indicator).first()
+        if indicator_result:
+            if indicator.data_type == Indicator.DataType.CHECKBOX:
+                field_value = indicator_result.value.split("|")
+            else:
+                field_value = indicator_result.value
+    return field_value
 
 
 def get_form_sections(method):
