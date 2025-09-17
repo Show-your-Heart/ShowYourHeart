@@ -17,26 +17,27 @@
         <p><strong>{% translate 'Email' %}</strong> {{ user.email }}</p>
       </div>
       <div class="flex">
-        <a class="h-fit-content" href="{% url 'registration:profile_details' %}">
-          <button class="text-gray-900 bg-white border border-gray-300 cursor-pointer focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5">
+        <a class="h-fit-content" href="{% url 'organizations:update' organization.id %}">
+          <button
+            class="text-gray-900 bg-white border border-gray-300 cursor-pointer focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5">
             <c-icon icon="adjustments-horizontal" class="inline"></c-icons>
-            <span>{% translate 'Modificar datos entidad'%}</span>
+              <span>{% translate 'Modificar datos entidad'%}</span>
           </button>
         </a>
       </div>
     </div>
-    
-    
+
+
     {% if organization_accepted %}
-      <h5 class="text-xl font-bold">{% translate 'Balances pendientes' %}</h5>
-      <div class="w-full grid grid-cols-2 gap-4">
-        {% for survey_stats in current_surveys_stats %}
-          <c-card.survey-stats :surveyStats="survey_stats"></c-card.survey-stats>
-        {% endfor %}
-      </div>
+    <h5 class="text-xl font-bold">{% translate 'Balances pendientes' %}</h5>
+    <div class="w-full grid grid-cols-2 gap-4">
+      {% for survey_stats in current_surveys_stats %}
+      <c-card.survey-stats :surveyStats="survey_stats"></c-card.survey-stats>
+      {% endfor %}
+    </div>
     {% else %}
-      {% translate 'Your organization has not yet been accepted. You must wait until it is accepted before you can answer
-      the surveys.' %}
+    {% translate 'Your organization has not yet been accepted. You must wait until it is accepted before you can answer
+    the surveys.' %}
     {% endif %}
   </div>
 </c-default-layout>

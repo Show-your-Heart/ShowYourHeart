@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from apps.organizations.views import (
     CreateOrganizationSuccessView,
     CreateOrganizationView,
+    UpdateOrganizationView,
     load_methods,
 )
 
@@ -17,4 +18,5 @@ urlpatterns = [
         name="signup_success",
     ),
     path(_("sign-up/load_methods/"), load_methods, name="load_methods"),
+    path(_("update/<pk>"), UpdateOrganizationView.as_view(), name="update"),
 ]
