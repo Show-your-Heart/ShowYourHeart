@@ -223,7 +223,16 @@ class SectionInlineForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if self.instance and self.instance.method_id:
-            self.fields["indicators"].queryset = self.instance.method.indicators.all()
+            method_indicators = self.instance.method.indicators.all()
+            assigned_indicators = (
+                Section.objects.filter(method=self.instance.method)
+                .exclude(pk=self.instance.pk)
+                .values_list("indicators__id", flat=True)
+            )
+            assigned_indicators = [pk for pk in assigned_indicators if pk is not None]
+            self.fields["indicators"].queryset = method_indicators.exclude(
+                pk__in=assigned_indicators
+            )
             self.fields["parent"].queryset = Section.objects.filter(
                 method=self.instance.method, parent__isnull=True
             ).exclude(pk=self.instance.id)
