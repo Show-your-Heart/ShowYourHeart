@@ -17,6 +17,7 @@ from .models import LegalStructure, Network, Sector
 class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
+    autocomplete_fields = ["parent"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -33,6 +34,7 @@ class NetworkAdmin(ModelAdmin):
     search_fields = ["name"]
     list_display = ("name", "parent_network", "network_admin")
     fieldsets = (("", {"fields": ("name", "network_admin", "parent_network")}),)
+    autocomplete_fields = ["parent_network", "network_admin"]
 
     common_fieldsets = (
         (

@@ -32,6 +32,7 @@ from .models import (
 @gov_admin_register(gov_admin_site, model=Topic)
 class TopicAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["name"]
+    autocomplete_fields = ["parent"]
 
     list_display = (
         "name",
@@ -227,6 +228,8 @@ class CampaignAdmin(ModelAdmin):
         "status",
     )
     filter_horizontal = ("methods",)
+    search_fields = ["name"]
+    autocomplete_fields = ["previous_campaign"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -337,6 +340,7 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
     )
     inlines = (InvitationInline,)
     readonly_fields = ("actions_field",)
+    autocomplete_fields = ["campaign", "external_survey"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
