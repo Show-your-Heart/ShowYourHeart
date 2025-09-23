@@ -55,6 +55,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
+    search_fields = ["name"]
 
     list_display = (
         "project_id",
@@ -252,6 +253,7 @@ class CampaignAdmin(ModelAdmin):
 @gov_admin_register(gov_admin_site, model=Survey)
 class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
+    search_fields = ["method__name", "method__network_owner__name"]
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -273,6 +275,7 @@ class IndicatorResultAdmin(ModelAdmin):
         "indicator",
     )
     ordering = ["survey"]
+    search_fields = ["survey__method__name"]
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -341,6 +344,7 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
     inlines = (InvitationInline,)
     readonly_fields = ("actions_field",)
     autocomplete_fields = ["campaign", "external_survey"]
+    search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(

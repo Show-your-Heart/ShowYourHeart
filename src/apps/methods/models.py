@@ -14,6 +14,9 @@ class Topic(BaseModel):
     description = models.CharField(_("description"), max_length=400)
     parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 

@@ -8,6 +8,9 @@ class LegalStructure(BaseModel):
     name = models.CharField(_("name"), max_length=50)
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.RESTRICT)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
@@ -18,6 +21,9 @@ class Network(BaseModel):
     parent_network = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.RESTRICT
     )
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
