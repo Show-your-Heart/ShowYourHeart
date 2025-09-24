@@ -68,7 +68,7 @@ def get_survey_stats(survey, method):
                 indicator_result = next(
                     (ii for ii in indicator_results if i.id == ii.indicator.id), None
                 )
-                if indicator_result.value:
+                if indicator_result and indicator_result.value:
                     answered_indicators += 1
 
             total_answered__indicators += answered_indicators
