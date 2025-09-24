@@ -255,7 +255,7 @@ class IndicatorResult(BaseModel):
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
     gender = models.PositiveSmallIntegerField(
-        choices=Gender.choices, default=Gender.FEMALE
+        choices=Gender.choices, default=None, blank=True, null=True
     )
     value = models.CharField(blank=True)
 

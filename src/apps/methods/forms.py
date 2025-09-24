@@ -88,14 +88,14 @@ def get_field(indicator):
             choices=get_choices(indicator.list_options),
         ),
         Indicator.DataType.INTEGERGENDER: {
-            "male": forms.CharField(label="Male", required=False),
-            "female": forms.CharField(label="Female", required=False),
-            "non_binary": forms.CharField(label="Non-binary", required=False),
+            "male": forms.IntegerField(label="Male", required=False),
+            "female": forms.IntegerField(label="Female", required=False),
+            "non_binary": forms.IntegerField(label="Non-binary", required=False),
         },
         Indicator.DataType.DECIMALGENDER: {
-            "male": forms.CharField(label="Male", required=False),
-            "female": forms.CharField(label="Female", required=False),
-            "non_binary": forms.CharField(label="Non-binary", required=False),
+            "male": forms.DecimalField(label="Male", required=False),
+            "female": forms.DecimalField(label="Female", required=False),
+            "non_binary": forms.DecimalField(label="Non-binary", required=False),
         },
     }.get(indicator.data_type)
 
@@ -183,17 +183,12 @@ def get_form_sections(method):
     sections = Section.objects.filter(method=method).order_by("order")
 
     for section in sections.filter(parent__isnull=True):
-        indicators = []
-        for i in section.indicators.all():
-            indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+        indicators = get_indicators_list(section.indicators.all())
+
         children = sections.filter(parent=section)
         subsections = []
         for child in children:
-            child_indicators = []
-            for i in child.indicators.all():
-                child_indicators.append(
-                    {"field_name": "question_" + str(i.id), "indicator": i}
-                )
+            child_indicators = get_indicators_list(child.indicators.all())
             subsections.append({child.title: child_indicators})
 
         result[section] = {
@@ -202,6 +197,30 @@ def get_form_sections(method):
         }
 
     return result
+
+
+def get_indicators_list(indicators_list):
+    indicators = []
+    for i in indicators_list:
+        if (
+            i.data_type == Indicator.DataType.INTEGERGENDER
+            or i.data_type == Indicator.DataType.DECIMALGENDER
+        ):
+            indicators.append(
+                {"field_name": "question_" + str(i.id) + "_male", "indicator": i}
+            )
+            indicators.append(
+                {"field_name": "question_" + str(i.id) + "_female", "indicator": i}
+            )
+            indicators.append(
+                {
+                    "field_name": "question_" + str(i.id) + "_non_binary",
+                    "indicator": i,
+                }
+            )
+        else:
+            indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+    return indicators
 
 
 class InvitationInlineForm(forms.ModelForm):
