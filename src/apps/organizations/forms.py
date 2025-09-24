@@ -51,16 +51,13 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Region"),
         queryset=Region.objects.all(),
     )
-    city = forms.ModelChoiceField(
-        label=_("City"),
-        queryset=City.objects.all(),
-    )
+    city = forms.ModelChoiceField(label=_("City"), queryset=City.objects.all())
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
         queryset=LegalStructure.objects.all(),
         widget=forms.Select(
             attrs={
-                "hx-get": "load_methods/",
+                "hx-get": reverse_lazy("organizations:load_methods"),
                 "hx-target": "#id_methods",
                 "autocomplete": "off",
             }

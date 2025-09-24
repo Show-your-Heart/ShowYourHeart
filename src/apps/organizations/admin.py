@@ -25,6 +25,7 @@ class OrganizationAdmin(ModelAdmin):
     readonly_fields = ("contact",)
     list_filter = [("status", ChoicesDropdownFilter)]
     autocomplete_fields = ["country", "region", "city"]
+    search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
