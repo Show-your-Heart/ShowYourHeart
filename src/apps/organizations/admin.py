@@ -24,6 +24,7 @@ class OrganizationAdmin(ModelAdmin):
     filter_horizontal = ("methods",)
     readonly_fields = ("contact",)
     list_filter = [("status", ChoicesDropdownFilter)]
+    autocomplete_fields = ["country", "region", "city"]
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
@@ -45,7 +46,7 @@ class OrganizationAdmin(ModelAdmin):
             # Replace it on his original place
             fieldsets[0][1]["fields"].remove("legal_structure")
             fieldsets[0][1]["fields"].insert(
-                len(fieldsets[0][1]["fields"]) - 1, "legal_structure"
+                len(fieldsets[0][1]["fields"]) - 2, "legal_structure"
             )
 
         fieldsets[0][1]["fields"].remove("contact")

@@ -8,6 +8,7 @@ class Country(BaseModel):
 
     class Meta:
         verbose_name_plural = "countries"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -23,6 +24,7 @@ class AutonomousCommunity(BaseModel):
 
     class Meta:
         verbose_name_plural = "autonomous communities"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -45,6 +47,9 @@ class Province(BaseModel):
         related_name="province_autonomous_community",
     )
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
@@ -65,6 +70,9 @@ class Region(BaseModel):
         blank=True,
         related_name="region_province",
     )
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -89,6 +97,7 @@ class City(BaseModel):
 
     class Meta:
         verbose_name_plural = "cities"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -103,6 +112,9 @@ class ZipCode(BaseModel):
         blank=True,
         related_name="zip_code_city",
     )
+
+    class Meta:
+        ordering = ["code"]
 
     def __str__(self):
         return self.code
