@@ -122,6 +122,9 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                             indicator_result_list, i, suffix
                         )
                         self.fields[full_name].widget.attrs["label"] = i.name
+                        self.fields[full_name].widget.attrs["description"] = (
+                            i.description
+                        )
                         self.fields[full_name].widget.attrs["msg"] = i.message
                         self.fields[full_name].widget.attrs["placeholder"] = (
                             placeholder_dict.get(full_name, "")
@@ -134,11 +137,12 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                     self.fields[field_name].initial = get_field_value(
                         indicator_result_list, i
                     )
+                    self.fields[field_name].widget.attrs["label"] = i.name
+                    self.fields[field_name].widget.attrs["description"] = i.description
+                    self.fields[field_name].widget.attrs["msg"] = i.message
                     self.fields[field_name].widget.attrs["placeholder"] = (
                         placeholder_dict.get(field_name, "")
                     )
-                    self.fields[field_name].widget.attrs["label"] = i.name
-                    self.fields[field_name].widget.attrs["msg"] = i.message
 
     return DynamicSurveyForm
 

@@ -39,7 +39,7 @@
 
           {% for field in fields.indicators %}
           <h4 class="text-lg font-semibold">{{ field.indicator.name }}</h4>
-          {% if {{ field.indicator.description }} %}<p class="text-gray-500 mb-2">{{ field.indicator.description }}</p>
+          {% if field.indicator.description %}<p class="text-gray-500 mb-2">{{ field.indicator.description }}</p>
           {%endif%}
           {{ form|get_item:field.field_name }}
           {% endfor %}
@@ -49,7 +49,7 @@
           <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
           {% for field in subsectionIndicators %}
           <h4 class="text-lg font-semibold">{{ field.indicator.name }}</h4>
-          {% if {{ field.indicator.description }} %}<p class="text-gray-500 mb-2">{{ field.indicator.description }}</p>
+          {% if field.indicator.description %}<p class="text-gray-500 mb-2">{{ field.indicator.description }}</p>
           {%endif%}
           {{ form|get_item:field.field_name }}
           {% endfor %}
