@@ -56,17 +56,27 @@ def get_survey_stats(survey, method):
         )
         total_indicators = 0
         total_answered__indicators = 0
-
-        for section in method["sections"]:
+        for section, section_data in method["sections"].items():
             total_indicators += section.indicators.count()
             total_section_indicators = section.indicators.count()
-
+            indicators_list = list(section.indicators.all())
             answered_indicators = 0
 
-            for i in section.indicators.all():
+            for subsection in section_data["subsections"]:
+                for _, subsection_indicators in subsection.items():
+                    total_indicators += len(subsection_indicators)
+                    total_section_indicators += len(subsection_indicators)
+                    indicators_list += subsection_indicators
+
+            for i in indicators_list:
                 # Get indicator result
                 indicator_result = next(
-                    (ii for ii in indicator_results if i.id == ii.indicator.id), None
+                    (
+                        ii
+                        for ii in indicator_results
+                        if i["indicator"].id == ii.indicator.id
+                    ),
+                    None,
                 )
                 if indicator_result and indicator_result.value:
                     answered_indicators += 1
@@ -89,9 +99,12 @@ def get_survey_stats(survey, method):
                     {"status": "toDo", "section": section}
                 )
 
-        stats["totalProgress"] = round(
-            total_answered__indicators * 100 / total_indicators
-        )
+        if total_indicators == 0:
+            stats["totalProgress"] = 100
+        else:
+            stats["totalProgress"] = round(
+                total_answered__indicators * 100 / total_indicators
+            )
 
     else:
         stats["totalToDo"] = len(method["sections"])
