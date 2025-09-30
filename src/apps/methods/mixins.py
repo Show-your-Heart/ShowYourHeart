@@ -114,6 +114,10 @@ class MethodFillMixin:
                         indicator=indicator,
                         defaults={"value": "|".join(values)},
                     )
+                else:
+                    IndicatorResult.objects.filter(
+                        survey=survey, indicator=indicator
+                    ).delete()
 
         return HttpResponseRedirect(request.path_info)
 

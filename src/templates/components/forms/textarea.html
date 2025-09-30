@@ -5,5 +5,5 @@
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
     name="{{ widget.name }}" placeholder="{{ widget.attrs.placeholder }}" {% if widget.required %} required {%endif%} {%
     include "django/forms/widgets/attrs.html"
-    %}>{%if widget.value|stringformat:'s'%}{{ widget.value|stringformat:'s' }}{%endif%}</textarea>
+    %}>{% if widget.value %}{{ widget.value|stringformat:'s' }}{%endif%}</textarea>
 {% endblock custom_field %}
