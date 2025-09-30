@@ -1,0 +1,15 @@
+{% extends "./base_field.html" %}
+
+{% block custom_field %}
+<select id="{{ widget.name }}" name="{{ widget.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+           focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" {% if widget.required %}required{%
+    endif %} {% include "django/forms/widgets/attrs.html" %}>
+    {% for group, options, index in widget.optgroups %}
+    {% for option in options %}
+    <option value="{{ option.value|stringformat:'s' }}" {% if option.selected %}selected{% endif %}>
+        {{ option.label }}
+    </option>
+    {% endfor %}
+    {% endfor %}
+</select>
+{% endblock custom_field %}
