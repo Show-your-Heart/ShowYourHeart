@@ -1,0 +1,14 @@
+{% load i18n %}
+
+
+<div>
+    <div class="flex gap-4">
+        <label for="{{widget.name}}"
+            class="block mb-2 text-md font-medium text-gray-900 dark:text-white">{{widget.attrs.label}}{% if
+            widget.required %}*{%endif%}</label>
+        {% if widget.attrs.msg %} <c-help-drawer msg="{{widget.attrs.msg}}" id="{{widget.name}}"></c-help-drawer> {%
+        endif %}
+    </div>
+    {% if widget.attrs.description %}<p class="text-gray-500 mb-2">{{ widget.attrs.description }}</p> {%endif%}
+    {% block custom_field %}{% endblock custom_field %}
+</div>

@@ -50,52 +50,65 @@ def get_field(indicator):
             label=field_name, required=False, widget=syh_forms.TextInput
         ),
         Indicator.DataType.TEXT: forms.CharField(
-            label=field_name, required=False, widget=forms.Textarea
+            label=field_name, required=False, widget=syh_forms.TextArea
         ),
         Indicator.DataType.INTEGER: forms.IntegerField(
-            label=field_name, required=False
+            label=field_name, required=False, widget=syh_forms.IntegerInput
         ),
         Indicator.DataType.DECIMAL: forms.DecimalField(
-            label=field_name, required=False
+            label=field_name, required=False, widget=syh_forms.DecimalInput
         ),
         Indicator.DataType.BOOLEAN: forms.BooleanField(
-            label=field_name, required=False
+            label=field_name, required=False, widget=syh_forms.BooleanInput
         ),
         Indicator.DataType.DATE: forms.DateField(
             label=field_name,
             required=False,
-            widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            widget=syh_forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             input_formats=["%Y-%m-%d"],
         ),
         Indicator.DataType.ATTACHMENT: forms.FileField(
-            label=field_name, required=False
+            label=field_name, required=False, widget=syh_forms.AttachmentInput
         ),
         Indicator.DataType.CHECKBOX: forms.MultipleChoiceField(
             label=field_name,
             required=False,
-            widget=forms.CheckboxSelectMultiple,
+            widget=syh_forms.CheckboxSelectMultiple,
             choices=get_choices(indicator.list_options),
         ),
         Indicator.DataType.RADIOBUTTON: forms.ChoiceField(
             label=field_name,
             required=False,
             choices=get_choices(indicator.list_options),
-            widget=forms.RadioSelect,
+            widget=syh_forms.RadioButtonInput,
         ),
         Indicator.DataType.DROPDOWN: forms.ChoiceField(
             label=field_name,
             required=False,
             choices=get_choices(indicator.list_options),
+            widget=syh_forms.DropdownInput,
         ),
         Indicator.DataType.INTEGERGENDER: {
-            "male": forms.IntegerField(label="Male", required=False),
-            "female": forms.IntegerField(label="Female", required=False),
-            "non_binary": forms.IntegerField(label="Non-binary", required=False),
+            "male": forms.IntegerField(
+                label="Male", required=False, widget=syh_forms.IntegerInput
+            ),
+            "female": forms.IntegerField(
+                label="Female", required=False, widget=syh_forms.IntegerInput
+            ),
+            "non_binary": forms.IntegerField(
+                label="Non-binary", required=False, widget=syh_forms.IntegerInput
+            ),
         },
         Indicator.DataType.DECIMALGENDER: {
-            "male": forms.DecimalField(label="Male", required=False),
-            "female": forms.DecimalField(label="Female", required=False),
-            "non_binary": forms.DecimalField(label="Non-binary", required=False),
+            "male": forms.DecimalField(
+                label="Male", required=False, widget=syh_forms.DecimalInput
+            ),
+            "female": forms.DecimalField(
+                label="Female", required=False, widget=syh_forms.DecimalInput
+            ),
+            "non_binary": forms.DecimalField(
+                label="Non-binary", required=False, widget=syh_forms.DecimalInput
+            ),
         },
     }.get(indicator.data_type)
 

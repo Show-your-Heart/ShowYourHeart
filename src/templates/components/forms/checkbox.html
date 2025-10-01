@@ -1,0 +1,19 @@
+{% extends "./base_field.html" %}
+
+{% block custom_field %}
+<div class="space-y-2">
+    {# Django renders each option as a tuple (value, label) inside optgroups #}
+    {% for group_name, options, index in widget.optgroups %}
+    {% for option in options %}
+    <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" name="{{ widget.name }}" value="{{ option.value|stringformat:'s' }}" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                           focus:ring-blue-500" {% if option.selected %}checked{% endif %} {%
+            include "django/forms/widgets/attrs.html" %}>
+        <span class="ml-2 text-sm text-gray-700">
+            {{ option.label }}
+        </span>
+    </label>
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock custom_field %}

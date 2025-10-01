@@ -1,0 +1,14 @@
+{% extends "./base_field.html" %}
+
+{% block custom_field %}
+{% for group, options, index in widget.optgroups %}
+{% for option in options %}
+<label class="inline-flex items-center mr-4">
+    <input type="radio" name="{{ widget.name }}" value="{{ option.value|stringformat:'s' }}"
+        class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" {% if option.selected %}checked{%
+        endif %} {% include "django/forms/widgets/attrs.html" %}>
+    <span class="ml-2 text-sm text-gray-700">{{ option.label }}</span>
+</label>
+{% endfor %}
+{% endfor %}
+{% endblock custom_field %}
