@@ -77,7 +77,6 @@ class MethodFillMixin:
                 user=request.user,
                 organization=request.user.profile.organization,
                 campaign_id=campaign_id,
-                organization_id=request.user.profile.organization.id,
             )
 
         if action == "submit":

@@ -4,25 +4,21 @@
     bodyclass="app-{{ opts.app_label }} model-{{ opts.model_name }} change-form"
 >
 
-    <c-slot name="object_tools">
-        {% block nav-global %}{% spaceless %}
-            {% if change and not is_popup %}
-                <ul class="flex flex-col font-medium mb-4 ml-auto mt-2 md:flex-row md:mb-0 md:mt-0 max-md:w-full">
-                    {% block object-tools-items %}
-                        {% change_form_object_tools %}
-                    {% endblock %}
-                </ul>
-            {% endif %}
-        {% endspaceless %}{% endblock %}
-    </c-slot>
-
-    {% block nav-global-side %}
-        {% if has_add_permission %}
-            {% include "unfold/helpers/add_link.html" %}
+    {% comment %} {% block nav-global %}{% spaceless %}
+        {% if change and not is_popup %}
+            {% block object-tools-items %}
+                {% change_form_object_tools %}
+            {% endblock %}
         {% endif %}
-    {% endblock %}
+    {% endspaceless %}{% endblock %}  {% endcomment %}
+
+    
 
     {% block content %}
+        {% if has_add_permission %}
+            <c-admin.button-add></c-admin.button-add>
+        {% endif %}
+
         <div id="content-main">
             {% include "unfold/helpers/popup_header.html" %}
 
