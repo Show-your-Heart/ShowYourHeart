@@ -1,7 +1,5 @@
 import re
 
-from django.db.models import F, Q
-
 from .models import IndicatorResult, Invitation, Method
 
 
@@ -121,11 +119,10 @@ def get_gender_suffix(gender: IndicatorResult.Gender):
 
 
 def parse_indicators_from_expression(expr: str):
-
     tokens = expr.split()
     indicators_project_id = []
     for token in tokens:
-        if re.match(r"^[a-zA-Z_]\w*$", token): 
+        if re.match(r"^[a-zA-Z_]\w*$", token):
             indicators_project_id.append(token)
-        
+
     return indicators_project_id

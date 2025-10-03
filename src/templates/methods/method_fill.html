@@ -18,7 +18,7 @@
         {% for section, fields in sections.items %}
         <li class="w-full border border-gray-300 rounded-lg" role="presentation" >
           <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" id="{{ section.title }}-tab"
-            data-tabs-target="#{{ section.title }}" type="button" role="tab" aria-controls="{{ section.title }}"
+            data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
             aria-selected="false">
             {{ section.title }}
             <c-icon icon="check" class="w-6 h-6 inline text-green-800"></c-icon>
@@ -47,20 +47,20 @@
       <div id="tab-content">
         {% for section, fields in sections.items %}
         <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8"
-          id="{{ section.title|stripe_whitespaces }}{{ forloop.counter }}" role="tabpanel"
-          aria-labelledby="{{ section.title|stripe_whitespaces }}{{ forloop.counter }}-tab">
+          id="section-{{ section.id }}" role="tabpanel"
+          aria-labelledby="{{ section.id }}{{ forloop.counter }}-tab">
 
           {% for field in fields.indicators %}
-          {{ form|get_item:field.field_name }}
+            {{ form|get_item:field.field_name }}
           {% endfor %}
 
           {% for subsection in fields.subsections %}
-          {% for subsectionName, subsectionIndicators in subsection.items %}
-          <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
-          {% for field in subsectionIndicators %}
-          {{ form|get_item:field.field_name }}
-          {% endfor %}
-          {% endfor %}
+            {% for subsectionName, subsectionIndicators in subsection.items %}
+              <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
+              {% for field in subsectionIndicators %}
+                {{ form|get_item:field.field_name }}
+              {% endfor %}
+            {% endfor %}
 
           {% endfor %}
 

@@ -1,9 +1,12 @@
-{% extends "./base_field.html" %}
+{% load i18n %}
 
-{% block custom_field %}
-<textarea id="{{widget.name}}"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-    name="{{ widget.name }}" placeholder="{{ widget.attrs.placeholder }}" {% if widget.required %} required {%endif%} {%
-    include "django/forms/widgets/attrs.html"
-    %}>{% if widget.value %}{{ widget.value|stringformat:'s' }}{%endif%}</textarea>
-{% endblock custom_field %}
+<c-forms.base-field>
+    <textarea :id="id"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+        :name="`question_${id}`" placeholder="{{ widget.attrs.placeholder }}" 
+        :required="required" {% include "django/forms/widgets/attrs.html"%}
+        @blur="update($event)"
+    >
+        {% if widget.value %}{{ widget.value|stringformat:'s' }}{%endif%}
+    </textarea>
+</c-forms.base-field>

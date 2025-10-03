@@ -53,11 +53,12 @@ class MethodFillMixin:
         context["method_name"] = current_method.name
         context["readonly"] = readonly
         context["sections"] = get_form_sections(current_method)
-        indicators = []
-        for i in (
-            Method.objects.filter(id=current_method.id).first().indicators.values()
-        ):
-            indicators.append(i)
+        try:
+            indicators = list(
+                Method.objects.get(id=current_method.id).indicators.all().values()
+            )
+        except Method.DoesNotExist:
+            indicators = list([])
 
         context["indicators"] = indicators
         return context

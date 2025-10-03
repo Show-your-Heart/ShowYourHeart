@@ -37,9 +37,13 @@ document.addEventListener('alpine:init', () => {
             }
         },
         isValid(field) {
+            if (!field.validation) {
+                return true
+            }
             try {
                 parsedExpression = this.parseExpression(field.validation, field.code, field.value)
-                return this.evaluateExpression(parsedExpression)
+                result = this.evaluateExpression(parsedExpression)
+                return result
             } catch (e) {
                 return false
             }
@@ -67,8 +71,10 @@ document.addEventListener('alpine:init', () => {
             const index = this.indicators.findIndex(i => i.code == code)
             this.indicators[index].value = value
             this.indicators = indicators
-            for (code of indicators[index].dependant_indicators) {
-                this.updateDependantIndicator(code)
+            if (indicators[index].dependant_indicators) {
+                for (code of indicators[index].dependant_indicators) {
+                    this.updateDependantIndicator(code)
+                }
             }
         },
         updateDependantIndicator(code) {
@@ -90,7 +96,6 @@ document.addEventListener('alpine:init', () => {
                 }
             }
         },
-
     })
 
     const indicators = JSON.parse(document.getElementById('indicators').textContent);

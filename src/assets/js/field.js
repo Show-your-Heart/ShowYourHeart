@@ -1,11 +1,13 @@
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('field', (code = "") => ({
+    Alpine.data('field', (code = "", value = "") => ({
         id: "",
         name: "",
+        description: "",
         code: "",
         value: "",
         isDirectIndicator: true,
+        required: true,
         condition: "",
         formula: "",
         validation: "",
@@ -19,8 +21,11 @@ document.addEventListener('alpine:init', () => {
             console.log("Got indicator", indicator)
             this.id = indicator.id
             this.name = indicator.name
+            this.description = indicator.description
             this.code = indicator.code
+            this.value = value
             this.isDirectIndicator = indicator.is_direct_indicator
+            this.required = indicator.required
             if (indicator.is_direct_indicator) {
                 this.condition = indicator.condition
                 this.validation = indicator.validation
@@ -41,8 +46,8 @@ document.addEventListener('alpine:init', () => {
                     validation: this.validation,
                 }
                 isValid = Alpine.store('survey').isValid(field)
-                if (isValid.error == undefined && isValid) {
-                    console.log('correcto')
+                if (isValid && isValid.error == undefined) {
+                    console.log('Valido', this.value)
                     this.hasErrors = false
                     Alpine.store('survey').updateIndicatorResult(this.code, this.value)
                 } else {
@@ -50,13 +55,11 @@ document.addEventListener('alpine:init', () => {
                     this.error = `Value its incorrect, has to meet condition: '${this.validation}'`
                 }
             } catch (e) {
-                console.log('incorrecto')
+                console.log('Invalido')
                 console.log(e)
                 this.hasErrors = true
                 this.error = e.message
             }
         }
     }))
-
-    // }
 })

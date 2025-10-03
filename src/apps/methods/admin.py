@@ -183,13 +183,6 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
             translatable_fields=["name", "description"],
         )
 
-    def save_related(self, request, form, formsets, change):
-        super(MethodAdmin, self).save_related(request, form, formsets, change)
-        print("Estas intentando guardar un métodoooo que te veo")
-        # print(form.instance)
-        # Calculate indicators order
-        # getIndicatorsCalculationOrder(indicators)
-
 
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=List)
@@ -286,14 +279,14 @@ class IndicatorResultAdmin(ModelAdmin):
     ordering = ["survey"]
     search_fields = ["survey__method__name"]
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request, obj=None):
+    #     return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
 
 
 class InvitationInline(admin.StackedInline):

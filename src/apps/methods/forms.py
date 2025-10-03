@@ -117,17 +117,8 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                 self.fields[field_name].widget.attrs["placeholder"] = (
                     placeholder_dict.get(field_name, "")
                 )
+                self.fields[field_name].widget.attrs["msg"] = i.message
                 self.fields[field_name].widget.attrs["code"] = i.code
-                self.fields[field_name].widget.attrs["dependant_indicators"] = (
-                    i.dependant_indicators
-                )
-
-                if i.is_direct_indicator:
-                    self.fields[field_name].widget.attrs["condition"] = i.condition
-                else:
-                    self.fields[field_name].widget.attrs["formula"] = i.formula
-
-                self.fields[field_name].widget.attrs["validation"] = i.validation
 
                 # Handle gendered indicators (3 fields)
                 if isinstance(field, syh_forms.GenderInput):
