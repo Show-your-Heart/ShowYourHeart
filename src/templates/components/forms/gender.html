@@ -1,0 +1,35 @@
+{% extends "./base_field.html" %}
+
+{% block custom_field %}
+
+<div style="display:flex;">
+    <div>
+        <div>Mujeres</div>
+        <input {% if widget.attrs.readonly %}readonly{%endif %} type="{{ widget.input_type}}"
+            id="{{widget.name}}_female"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+            name="{{ widget.name }}_female" placeholder="{{ widget.attrs.placeholder }}" {% if widget.required %}
+            required {%endif%} {% if widget.attrs.value.female %}
+            value="{{ widget.attrs.value.female|stringformat:'s' }}" {% endif %} />
+    </div>
+    <div>
+        <div>Hombres</div>
+        <input type="{{ widget.input_type}}" id="{{widget.name}}_male"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+            name="{{ widget.name }}_male" placeholder="{{ widget.attrs.placeholder }}" {% if widget.required %} required
+            {%endif%} {% if widget.attrs.value.male %} value="{{  widget.attrs.value.male|stringformat:'s' }}" {% endif
+            %} />
+    </div>
+
+    <div>
+        <div>No binarias</div>
+        <input type="{{ widget.input_type}}" id="{{widget.name}}_non_binary"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+            name="{{ widget.name }}_non_binary" placeholder="{{ widget.attrs.placeholder }}" {% if widget.required %}
+            required {%endif%} {% if widget.attrs.value.non_binary %} value="{{ widget.attrs.value.non_binary}}" {%
+            endif %} />
+    </div>
+
+</div>
+
+{% endblock custom_field %}

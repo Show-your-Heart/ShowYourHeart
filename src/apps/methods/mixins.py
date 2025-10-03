@@ -153,7 +153,7 @@ def get_previous_campaign_answers(campaign_id, current_method_id, user):
                 indicator_results = IndicatorResult.objects.filter(
                     survey=previous_survey,
                 )
-
+                # TODO si el indicator es gendered, aquí hay 3 resultados en vez de 1, coger todos con su sufijo
                 for r in indicator_results:
                     field_name = f"question_{r.indicator.id}"
                     placeholder_dict[field_name] = r.value
