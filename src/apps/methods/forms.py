@@ -140,11 +140,9 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                     self.fields[field_name].widget.attrs["label"] = i.name
                     self.fields[field_name].widget.attrs["description"] = i.description
                     self.fields[field_name].widget.attrs["msg"] = i.message
-                    # self.fields[field_name].widget.attr = placeholder_dict.get(
-                    #     full_name, ""
-                    # )
-                    # self.fields[field_name].widget.attrs["placeholder"] = [1, 2, 3]
-
+                    self.fields[field_name].widget.attrs["placeholder"] = (
+                        placeholder_dict.get(field_name, "")
+                    )
                     self.fields[field_name].widget.attrs["value"] = {
                         "non_binary": get_gender_field_value(
                             indicator_result_list, i, "non_binary"

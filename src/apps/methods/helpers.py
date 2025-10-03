@@ -108,3 +108,11 @@ def get_survey_stats(survey, method):
             stats["sectionsWithStatus"].append({"status": "toDo", "section": section})
 
     return stats
+
+
+def get_gender_suffix(gender: IndicatorResult.Gender):
+    return {
+        IndicatorResult.Gender.MALE: "male",
+        IndicatorResult.Gender.FEMALE: "female",
+        IndicatorResult.Gender.NON_BINARY: "non_binary",
+    }.get(gender)
