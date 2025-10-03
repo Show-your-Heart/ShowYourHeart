@@ -4,8 +4,8 @@
 <div style="display:flex;">
     <div>
         <div>Mujeres</div>
-        <input {% if widget.attrs.readonly %}readonly{%endif %} type="{{ widget.input_type}}"
-            id="{{widget.name}}_female"
+        <input {% if widget.attrs.readonly %}readonly{%endif %} type="number" id="{{widget.name}}_female" {% if
+            widget.attrs.input_type == 'decimal' %} step="0.1" {% endif %}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             name="{{ widget.name }}_female" placeholder="{{ widget.attrs.placeholder.female }}" {% if widget.required %}
             required {%endif%} {% if widget.attrs.value.female %}
@@ -13,7 +13,8 @@
     </div>
     <div>
         <div>Hombres</div>
-        <input type="{{ widget.input_type}}" id="{{widget.name}}_male"
+        <input {% if widget.attrs.readonly %}readonly{%endif %} type="number" id="{{widget.name}}_male" {% if
+            widget.attrs.input_type == 'decimal' %} step="0.1" {% endif %}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             name="{{ widget.name }}_male" placeholder="{{ widget.attrs.placeholder.male }}" {% if widget.required %}
             required {%endif%} {% if widget.attrs.value.male %} value="{{  widget.attrs.value.male|stringformat:'s' }}"
@@ -22,7 +23,8 @@
 
     <div>
         <div>No binarias</div>
-        <input type="{{ widget.input_type}}" id="{{widget.name}}_non_binary"
+        <input {% if widget.attrs.readonly %}readonly{%endif %} type="number" id="{{widget.name}}_non_binary" {% if
+            widget.attrs.input_type == 'decimal' %} step="0.1" {% endif %}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             name="{{ widget.name }}_non_binary" placeholder="{{ widget.attrs.placeholder.non_binary }}" {% if
             widget.required %} required {%endif%} {% if widget.attrs.value.non_binary %}
