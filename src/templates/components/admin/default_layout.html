@@ -12,6 +12,12 @@ Input params:
 
 {% endcomment %}
 
+{% block extrahead %}
+    <script src="/static/js/flowbite_v2.3.0.min.js"></script>
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+{% endblock %}
+
 {% block bodyclass %}{{ bodyclass }}{% endblock %}
 
 {% block base %}
