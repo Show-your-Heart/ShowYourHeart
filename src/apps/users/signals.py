@@ -48,6 +48,12 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("campaign", "vacd")
         + get_permission_codenames("externalsurveyinvitation", "vacd")
         + get_permission_codenames("invitation", "vacd"),
+        "geodata": get_permission_codenames("autonomous_community", "vacd")
+        + get_permission_codenames("city", "vacd")
+        + get_permission_codenames("country", "vacd")
+        + get_permission_codenames("province", "vacd")
+        + get_permission_codenames("region", "vacd")
+        + get_permission_codenames("zip_code", "vacd"),
     }
     create_group(settings.GROUPS["admins"]["name"], permissions)
 
