@@ -1,6 +1,6 @@
 from django import forms
 
-from .widgets import IntegerGenderInputWidget
+from .widgets import GenderInputWidget
 
 
 class TextInput(forms.TextInput):
@@ -45,30 +45,17 @@ class DropdownInput(forms.Select):
     template_name = "components/forms/dropdown.html"
 
 
-class IntegerGenderInput(forms.MultiValueField):
-    widget = IntegerGenderInputWidget
-    input_type = "integer"
+class GenderInput(forms.MultiValueField):
+    widget = GenderInputWidget
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, input_type, *args, **kwargs):
+        widget = IntegerInput
+        if input_type == "decimal":
+            widget = DecimalInput
+
         fields = (
-            forms.IntegerField(required=False, widget=IntegerInput),
-            forms.IntegerField(required=False, widget=IntegerInput),
-            forms.IntegerField(required=False, widget=IntegerInput),
+            forms.IntegerField(required=False, widget=widget),
+            forms.IntegerField(required=False, widget=widget),
+            forms.IntegerField(required=False, widget=widget),
         )
         super().__init__(*args, **kwargs, fields=fields, require_all_fields=False)
-
-
-#     def compress(self, data_list):
-#         # data_list is [non_binary, male, female]
-#         if data_list:
-#             return {
-#                 "non_binary": data_list[0],
-#                 "male": data_list[1],
-#                 "female": data_list[2],
-#             }
-#         return {"non_binary": None, "male": None, "female": None}
-
-
-class DecimalGenderInput(forms.NumberInput):
-    template_name = "components/forms/gender.html"
-    input_type = "decimal"

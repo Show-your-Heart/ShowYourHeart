@@ -106,6 +106,10 @@ class MethodFillMixin:
                             gender=gender,
                             defaults={"value": value},
                         )
+                    else:
+                        IndicatorResult.objects.filter(
+                            survey=survey, indicator=indicator, gender=gender
+                        ).delete()
 
             # Handle normal indicators
             else:

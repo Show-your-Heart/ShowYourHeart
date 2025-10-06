@@ -78,11 +78,6 @@ class Indicator(BaseModel):
         DataType.RADIOBUTTON,
     ]
 
-    gender_types = [
-        DataType.INTEGERGENDER,
-        DataType.DECIMALGENDER,
-    ]
-
     project_id = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=1000, blank=True)

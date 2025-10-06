@@ -88,20 +88,12 @@ def get_field(indicator):
             choices=get_choices(indicator.list_options),
             widget=syh_forms.DropdownInput,
         ),
-        Indicator.DataType.INTEGERGENDER: syh_forms.IntegerGenderInput(
-            required=False,
+        Indicator.DataType.INTEGERGENDER: syh_forms.GenderInput(
+            required=False, input_type="integer"
         ),
-        Indicator.DataType.DECIMALGENDER: {
-            "male": forms.DecimalField(
-                label="Male", required=False, widget=syh_forms.DecimalInput
-            ),
-            "female": forms.DecimalField(
-                label="Female", required=False, widget=syh_forms.DecimalInput
-            ),
-            "non_binary": forms.DecimalField(
-                label="Non-binary", required=False, widget=syh_forms.DecimalInput
-            ),
-        },
+        Indicator.DataType.DECIMALGENDER: syh_forms.GenderInput(
+            required=False, input_type="decimal"
+        ),
     }.get(indicator.data_type)
 
 
@@ -117,32 +109,23 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                 if field is None:
                     continue
 
+                self.fields[field_name] = field
+                self.fields[field_name].widget.attrs["readonly"] = readonly
+                self.fields[field_name].initial = get_field_value(
+                    indicator_result_list, i
+                )
+                self.fields[field_name].widget.attrs["label"] = i.name
+                self.fields[field_name].widget.attrs["description"] = i.description
+                self.fields[field_name].widget.attrs["msg"] = i.message
+                self.fields[field_name].widget.attrs["placeholder"] = (
+                    placeholder_dict.get(field_name, "")
+                )
+
                 # Handle gendered indicators (3 fields)
-                if isinstance(field, dict):
-                    for suffix, f in field.items():
-                        full_name = f"{field_name}_{suffix}"
-                        self.fields[full_name] = f
-                        self.fields[full_name].widget.attrs["readonly"] = readonly
-                        self.fields[full_name].initial = get_gender_field_value(
-                            indicator_result_list, i, suffix
-                        )
-                        self.fields[full_name].widget.attrs["label"] = i.name
-                        self.fields[full_name].widget.attrs["description"] = (
-                            i.description
-                        )
-                        self.fields[full_name].widget.attrs["msg"] = i.message
-                        self.fields[full_name].widget.attrs["placeholder"] = (
-                            placeholder_dict.get(full_name, "")
-                        )
-                elif isinstance(field, syh_forms.IntegerGenderInput):
-                    self.fields[field_name] = field
-                    self.fields[field_name].widget.attrs["readonly"] = readonly
-                    self.fields[field_name].widget.attrs["label"] = i.name
-                    self.fields[field_name].widget.attrs["description"] = i.description
-                    self.fields[field_name].widget.attrs["msg"] = i.message
-                    self.fields[field_name].widget.attrs["placeholder"] = (
-                        placeholder_dict.get(field_name, "")
-                    )
+                if isinstance(field, syh_forms.GenderInput):
+                    if i.data_type == Indicator.DataType.DECIMALGENDER:
+                        self.fields[field_name].widget.attrs["input_type"] = "decimal"
+
                     self.fields[field_name].widget.attrs["value"] = {
                         "non_binary": get_gender_field_value(
                             indicator_result_list, i, "non_binary"
@@ -154,20 +137,6 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                             indicator_result_list, i, "female"
                         ),
                     }
-
-                # Handle normal indicators (single field)
-                else:
-                    self.fields[field_name] = field
-                    self.fields[field_name].widget.attrs["readonly"] = readonly
-                    self.fields[field_name].initial = get_field_value(
-                        indicator_result_list, i
-                    )
-                    self.fields[field_name].widget.attrs["label"] = i.name
-                    self.fields[field_name].widget.attrs["description"] = i.description
-                    self.fields[field_name].widget.attrs["msg"] = i.message
-                    self.fields[field_name].widget.attrs["placeholder"] = (
-                        placeholder_dict.get(field_name, "")
-                    )
 
     return DynamicSurveyForm
 
@@ -231,21 +200,7 @@ def get_form_sections(method):
 def get_indicators_list(indicators_list):
     indicators = []
     for i in indicators_list:
-        if i.data_type == Indicator.DataType.DECIMALGENDER:
-            indicators.append(
-                {"field_name": "question_" + str(i.id) + "_male", "indicator": i}
-            )
-            indicators.append(
-                {"field_name": "question_" + str(i.id) + "_female", "indicator": i}
-            )
-            indicators.append(
-                {
-                    "field_name": "question_" + str(i.id) + "_non_binary",
-                    "indicator": i,
-                }
-            )
-        else:
-            indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+        indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
     return indicators
 
 
