@@ -9,6 +9,10 @@
             {{ cl.formset.non_form_errors }}
         {% endif %}
 
+        {% if has_add_permission %}
+            <c-admin.button-add></c-admin.button-add>
+        {% endif %}
+        
         <div class="flex -mx-4 module{% if cl.has_filters %} filtered{% endif %}" id="changelist" x-data="{ changeListWidth: 0 }">
             <div class="changelist-form-container flex flex-row grow gap-6 min-w-0 px-4">
                 <div class="grow min-w-0" x-resize="changeListWidth = $width">
