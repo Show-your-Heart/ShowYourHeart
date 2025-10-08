@@ -1,5 +1,7 @@
 from django import forms
 
+from .widgets import GenderInputWidget
+
 
 class TextInput(forms.TextInput):
     template_name = "components/forms/input.html"
@@ -43,9 +45,17 @@ class DropdownInput(forms.Select):
     template_name = "components/forms/dropdown.html"
 
 
-class IntegerGenderInput(forms.NumberInput):
-    template_name = "components/forms/gender.html"
+class GenderInput(forms.MultiValueField):
+    widget = GenderInputWidget
 
+    def __init__(self, input_type, *args, **kwargs):
+        widget = IntegerInput
+        if input_type == "decimal":
+            widget = DecimalInput
 
-class DecimalGenderInput(forms.NumberInput):
-    template_name = "components/forms/gender.html"
+        fields = (
+            forms.IntegerField(required=False, widget=widget),
+            forms.IntegerField(required=False, widget=widget),
+            forms.IntegerField(required=False, widget=widget),
+        )
+        super().__init__(*args, **kwargs, fields=fields, require_all_fields=False)

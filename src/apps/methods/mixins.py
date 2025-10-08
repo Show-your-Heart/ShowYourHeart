@@ -1,4 +1,5 @@
 import uuid
+from collections import defaultdict
 
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
@@ -6,6 +7,7 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form, get_form_sections
+from .helpers import get_gender_suffix
 from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 
 
@@ -104,6 +106,10 @@ class MethodFillMixin:
                             gender=gender,
                             defaults={"value": value},
                         )
+                    else:
+                        IndicatorResult.objects.filter(
+                            survey=survey, indicator=indicator, gender=gender
+                        ).delete()
 
             # Handle normal indicators
             else:
@@ -132,7 +138,7 @@ def is_valid_uuid(value):
 
 
 def get_previous_campaign_answers(campaign_id, current_method_id, user):
-    placeholder_dict = {}
+    placeholder_dict = defaultdict(dict)
     current_campaign = Campaign.objects.get(id=campaign_id)
     if current_campaign.previous_campaign:
         # Check if the method was included on the previous campaign
@@ -156,6 +162,11 @@ def get_previous_campaign_answers(campaign_id, current_method_id, user):
 
                 for r in indicator_results:
                     field_name = f"question_{r.indicator.id}"
-                    placeholder_dict[field_name] = r.value
+                    if r.gender is not None:
+                        placeholder_dict[field_name][get_gender_suffix(r.gender)] = (
+                            r.value
+                        )
+                    else:
+                        placeholder_dict[field_name] = r.value
 
     return placeholder_dict
