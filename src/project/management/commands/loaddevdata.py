@@ -197,7 +197,7 @@ class Command(BaseCommand):
             indicator = Indicator.objects.filter(name=indicator_name)
             if not indicator.exists():
                 indicator = Indicator.objects.create(
-                    project_id=x,
+                    code=x,
                     version="1",
                     name=indicator_name,
                     is_direct_indicator=True,

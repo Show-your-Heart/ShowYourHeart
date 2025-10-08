@@ -12,6 +12,12 @@ Input params:
 
 {% endcomment %}
 
+{% block extrahead %}
+    <script src="/static/js/flowbite_v2.3.0.min.js"></script>
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+{% endblock %}
+
 {% block bodyclass %}{{ bodyclass }}{% endblock %}
 
 {% block base %}
@@ -23,7 +29,7 @@ Input params:
             <c-admin.sidebar :app_list="available_apps"/>
 
             <div id="main" class="mx-auto p-4 flex flex-col grow min-w-0 {% element_classes 'main' %}">
-                
+
                 {% block messages %}
                     <div class="px-4">
                         <div class="{% if not cl.model_admin.list_fullwidth %}container{% endif %} mx-auto">

@@ -78,7 +78,7 @@ class Indicator(BaseModel):
         DataType.RADIOBUTTON,
     ]
 
-    project_id = models.CharField(_("ID"), max_length=50)
+    code = models.CharField(_("ID"), max_length=50)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=1000, blank=True)
     description = models.CharField(_("description"), max_length=2500, blank=True)

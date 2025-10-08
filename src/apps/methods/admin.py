@@ -58,7 +58,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["name"]
 
     list_display = (
-        "project_id",
+        "code",
         "version",
         "name",
         "description",
@@ -77,7 +77,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
             main_fields=[
-                "project_id",
+                "code",
                 "version",
                 "name_en",
                 "description_en",
