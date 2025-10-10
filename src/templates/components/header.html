@@ -10,8 +10,10 @@ Input params:
 
 {% endcomment %}
 
+<c-vars :transparent="False" displayAvatar/>
+
 <header class="w-full mx-auto p-2">
-  <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] {% if transparent == false %} bg-pink-600 {% endif %}">
+  <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] {% if not transparent %} bg-pink-600 {% endif %}">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start rtl:justify-end">
         <!-- burguer -->
@@ -34,7 +36,7 @@ Input params:
           <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
             {% comment %} {% get_setting "LOGO" as logo %}
             <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" /> {% endcomment %}
-            <img src="{% static '/images/syh_logo.png' %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+            <img src="{% if transparent %} {% static '/images/syh_logo_pink.png' %} {% else %} {% static '/images/syh_logo.png' %} {% endif %}" class="h-8 me-10" alt="{% get_setting 'PROJECT_NAME' %} logo" />
           </a>
         </div>
        
