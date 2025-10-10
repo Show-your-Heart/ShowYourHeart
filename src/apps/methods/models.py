@@ -8,6 +8,8 @@ from sortedm2m.fields import SortedManyToManyField
 
 from project.models import BaseModel
 
+from .utils import parse_expression_dependencies
+
 
 class Topic(BaseModel):
     name = models.CharField(_("name"), max_length=100)
@@ -106,7 +108,17 @@ class Indicator(BaseModel):
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
     validation = models.CharField(_("validation"), max_length=50, blank=True)
+    dependant_indicators = models.JSONField(
+        "dependant_indicators", blank=True, null=True
+    )
+
     message = models.CharField(_("message"), max_length=400, blank=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_condition = self.condition
+        self.__original_validation = self.validation
+        self.__original_formula = self.formula
 
     def __str__(self):
         return self.name
@@ -127,6 +139,62 @@ class Indicator(BaseModel):
             raise ValidationError(
                 {"formula": _("This field is required if the indicator is indirect.")}
             )
+
+    def update_dependencies(self):
+        # Get dependencies to add and dependencies to remove
+        if (
+            self.condition != self.__original_condition
+            or self.validation != self.__original_validation
+            or self.formula != self.__original_formula
+        ):
+            old_condition_deps = parse_expression_dependencies(
+                self.__original_condition
+            )
+            old_validation_deps = parse_expression_dependencies(
+                self.__original_validation
+            )
+            old_formula_deps = parse_expression_dependencies(self.__original_formula)
+            old_deps = set().union(
+                old_condition_deps, old_validation_deps, old_formula_deps
+            )
+            # remove self code
+            old_deps = old_deps.difference([self.code])
+
+            condition_deps = parse_expression_dependencies(self.condition)
+            validation_deps = parse_expression_dependencies(self.validation)
+            formula_deps = parse_expression_dependencies(self.formula)
+            deps = set().union(condition_deps, validation_deps, formula_deps)
+            # remove self code
+            deps = deps.difference([self.code])
+
+            deps_to_remove = list(old_deps.difference(deps))
+            deps_to_add = list(deps.difference(old_deps))
+
+            for code in deps_to_add:
+                # avoid circular dependencies
+                if self.dependant_indicators and code in self.dependant_indicators:
+                    # TODO: throw error, circular dep
+                    print("Circular dependencies")
+                    continue
+                indicator = Indicator.objects.get(code=code)
+                if indicator:
+                    if indicator.dependant_indicators:
+                        indicator.dependant_indicators.append(self.code)
+                        indicator.save()
+                    else:
+                        indicator.dependant_indicators = [self.code]
+                        indicator.save()
+
+            for code in deps_to_remove:
+                indicator = Indicator.objects.get(code=code)
+                if indicator:
+                    if self.code in indicator.dependant_indicators:
+                        indicator.dependant_indicators.remove(self.code)
+                        indicator.save()
+
+    def save(self, *args, **kwargs):
+        self.update_dependencies()
+        return super(Indicator, self).save(*args, **kwargs)
 
 
 class Method(BaseModel):

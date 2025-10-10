@@ -74,6 +74,8 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         "list_options": f"{list_types_js}.includes(data_type)",
     }
 
+    exclude = ("dependant_indicators",)
+
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
             main_fields=[
@@ -255,14 +257,14 @@ class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
     search_fields = ["method__name", "method__network_owner__name"]
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request, obj=None):
+    #     return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
 
 
 # Add superadmin views with default Unfold templates
@@ -277,14 +279,14 @@ class IndicatorResultAdmin(ModelAdmin):
     ordering = ["survey"]
     search_fields = ["survey__method__name"]
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request, obj=None):
+    #     return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
 
 
 class InvitationInline(admin.StackedInline):

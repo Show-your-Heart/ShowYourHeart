@@ -1,9 +1,22 @@
-{% extends "./base_field.html" %}
+{% load i18n %}
 
-{% block custom_field %}
-<input type="{{ widget.type}}" id="{{widget.name}}"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-    name="{{ widget.name }}" placeholder="{{ widget.attrs.placeholder }}" {% if widget.required %} required {%endif%} {%
-    include "django/forms/widgets/attrs.html" %} {% if widget.value %} value="{{ widget.value|stringformat:'s' }}" {%
-    endif %} />
-{% endblock custom_field %}
+<c-forms.base-field>
+    <input 
+        :id="id" 
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" 
+        :name="`question_${id}`" 
+        :value="value"
+        {% comment %} {% if widget.value != None %} 
+            value="{{ widget.value|stringformat:'s' }}"
+        {% endif %}  {% endcomment %}
+        type="{{ widget.type}}" 
+        placeholder="{{placeholder}}" 
+        required="{{required}}" 
+        {% include "django/forms/widgets/attrs.html" %}
+        @blur="update($event)" 
+        :disabled="!isDirectIndicator"
+    />
+    <div class="text-red-600" x-show="hasErrors">
+        <p x-text="error"></p>
+    </div>
+</c-forms.base-field>

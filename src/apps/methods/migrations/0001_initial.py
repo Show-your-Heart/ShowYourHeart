@@ -90,7 +90,7 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='created at')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='updated at')),
-                ('project_id', models.CharField(max_length=50, verbose_name='ID')),
+                ('code', models.CharField(max_length=50, verbose_name='ID')),
                 ('version', models.CharField(max_length=4, verbose_name='version')),
                 ('name', models.CharField(blank=True, max_length=1000, verbose_name='name')),
                 ('name_en', models.CharField(blank=True, max_length=1000, null=True, verbose_name='name')),

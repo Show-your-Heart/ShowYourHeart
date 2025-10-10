@@ -1,12 +1,12 @@
-{% extends "./base_field.html" %}
+{% load i18n %}
 
-{% block custom_field %}
-<label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id="{{ widget.name }}" name="{{ widget.name }}" value="true" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
-               focus:ring-blue-500" {% if widget.value %}checked{% endif %} {% if widget.required %}required{% endif %}
-        {% include "django/forms/widgets/attrs.html" %}>
-    <span class="ml-2 text-sm text-gray-700">
-        {{ widget.attrs.label|default:"" }}
-    </span>
-</label>
-{% endblock custom_field %}
+<c-forms.base-field>
+    <label class="flex items-center cursor-pointer">
+        <input type="checkbox" :id="id" :name="`question_${id}`" value="true" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                focus:ring-blue-500" :checked="value" :required="required"
+            {% include "django/forms/widgets/attrs.html" %}>
+        <span class="ml-2 text-sm text-gray-700">
+            {% trans "True" %}
+        </span>
+    </label>
+</c-forms.base-field>

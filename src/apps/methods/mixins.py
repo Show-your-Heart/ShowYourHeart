@@ -53,7 +53,14 @@ class MethodFillMixin:
         context["method_name"] = current_method.name
         context["readonly"] = readonly
         context["sections"] = get_form_sections(current_method)
+        try:
+            indicators = list(
+                Method.objects.get(id=current_method.id).indicators.all().values()
+            )
+        except Method.DoesNotExist:
+            indicators = list([])
 
+        context["indicators"] = indicators
         return context
 
     @transaction.atomic

@@ -1,4 +1,4 @@
-{% load i18n static active_link_tags extra_settings %}
+{% load i18n static active_link_tags extra_settings django_htmx %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,16 +11,23 @@
   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'styles/output.css' %}">
   <title> ShowYourHeart | {{ pageTitle }}</title>
+  {% htmx_script %}
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  {{ extra_head_js }}
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 mx-auto relative">
   <c-header displayAvatar="true"/>
 
-  {% comment %} <c-sidebar /> {% endcomment %}
+  <div class="flex gap-2 mt-0 pt-0 p-2 items-stretch">
+    <aside>
+      {{ sidebar }}
+    </aside>
 
-  <main class="mx-auto w-full max-w-screen-xl p-4">
-      {{ slot }}
-  </main>
+    <main class="mx-auto w-full max-w-screen-lg p-4">
+        {{ slot }}
+    </main>
+  </div>
 
   <div id="cookies-banner" tabindex="-1"
     class="fixed bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-t border-gray-200 bg-gray-50
@@ -55,6 +62,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <script src="{% static 'js/scripts.js' %}"></script>
+  {% comment %} <script src="{% static 'js/syh-interactions/index.js' %}" type="module"></script>
+  <script src="{% static 'js/syh.js' %}" type="module"></script> {% endcomment %}
   {{ extra_js }}
 </body>
 
