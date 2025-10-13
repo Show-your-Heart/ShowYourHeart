@@ -1,12 +1,16 @@
 {% load i18n %}
 
 <c-forms.base-field>
-    <label class="flex items-center cursor-pointer">
-        <input type="checkbox" :id="id" :name="`question_${id}`" value="true" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
-                focus:ring-blue-500" :checked="value" :required="required"
-            {% include "django/forms/widgets/attrs.html" %}>
-        <span class="ml-2 text-sm text-gray-700">
-            {% trans "True" %}
-        </span>
+    <label class="inline-flex items-center cursor-pointer mr-4" @click="update($event)">
+        <input type="radio" :name="`question_${id}`" value="True"
+            class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" {%
+            include "django/forms/widgets/attrs.html" %}>
+        <span class="ml-2 text-sm text-gray-700">{% translate 'Yes' %}</span>
+    </label>
+    <label class="inline-flex items-center cursor-pointer mr-4" @click="update($event)">
+        <input type="radio" :name="`question_${id}`" value="False"
+            class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" {%
+            include "django/forms/widgets/attrs.html" %}>
+        <span class="ml-2 text-sm text-gray-700">{% translate 'No' %}</span>
     </label>
 </c-forms.base-field>
