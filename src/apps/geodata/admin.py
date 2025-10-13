@@ -4,14 +4,14 @@ from modeltranslation.admin import TranslationAdmin
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 
-from .models import AutonomousCommunity, City, Country, Province, Region, ZipCode
+from .models import City, Country, Region1, Region2, Region3, ZipCode
 
 
 # Add superadmin views with default Unfold templates
-@register_with_default_templates(admin.site, model=AutonomousCommunity)
+@register_with_default_templates(admin.site, model=Region1)
 # Add admin views with custom templates
-@gov_admin_register(gov_admin_site, model=AutonomousCommunity)
-class AutonomousCommunityAdmin(ModelAdmin, TranslationAdmin):
+@gov_admin_register(gov_admin_site, model=Region1)
+class Region1Admin(ModelAdmin, TranslationAdmin):
     list_display = ("name", "country")
     search_fields = ["name"]
 
@@ -28,12 +28,12 @@ class AutonomousCommunityAdmin(ModelAdmin, TranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=City)
 class CityAdmin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "province", "region")
+    list_display = ("name", "region2", "region3", "country")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "province", "region"],
+            main_fields=["name_en", "region2", "region3", "country"],
             translatable_fields=["name"],
             display_log=False,
         )
@@ -56,32 +56,32 @@ class CountryAdmin(ModelAdmin, TranslationAdmin):
 
 
 # Add superadmin views with default Unfold templates
-@register_with_default_templates(admin.site, model=Province)
+@register_with_default_templates(admin.site, model=Region2)
 # Add admin views with custom templates
-@gov_admin_register(gov_admin_site, model=Province)
-class ProvinceAdmin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "country", "autonomous_community")
+@gov_admin_register(gov_admin_site, model=Region2)
+class Region2Admin(ModelAdmin, TranslationAdmin):
+    list_display = ("name", "country", "region1")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "country", "autonomous_community"],
+            main_fields=["name_en", "country", "region1"],
             translatable_fields=["name"],
             display_log=False,
         )
 
 
 # Add superadmin views with default Unfold templates
-@register_with_default_templates(admin.site, model=Region)
+@register_with_default_templates(admin.site, model=Region3)
 # Add admin views with custom templates
-@gov_admin_register(gov_admin_site, model=Region)
-class RegionAdmin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "autonomous_community", "province")
+@gov_admin_register(gov_admin_site, model=Region3)
+class Region3Admin(ModelAdmin, TranslationAdmin):
+    list_display = ("name", "region1", "region2")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "autonomous_community", "province"],
+            main_fields=["name_en", "region1", "region2"],
             translatable_fields=["name"],
             display_log=False,
         )

@@ -32,8 +32,8 @@ class Organization(BaseModel):
     country = models.ForeignKey(
         "geodata.country", on_delete=models.CASCADE, blank=True, null=True
     )
-    region = models.ForeignKey(
-        "geodata.region", on_delete=models.CASCADE, blank=True, null=True
+    region3 = models.ForeignKey(
+        "geodata.region3", on_delete=models.CASCADE, blank=True, null=True
     )
     city = models.ForeignKey(
         "geodata.city", on_delete=models.CASCADE, blank=True, null=True
