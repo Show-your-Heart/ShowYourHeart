@@ -1,10 +1,10 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import AutonomousCommunity, City, Country, Province, Region
+from .models import City, Country, Region1, Region2, Region3
 
 
-@register(AutonomousCommunity)
-class AutonomousCommunityTranslationOptions(TranslationOptions):
+@register(Region1)
+class Region1TranslationOptions(TranslationOptions):
     fields = ("name",)
 
 
@@ -18,11 +18,11 @@ class CountryTranslationOptions(TranslationOptions):
     fields = ("name",)
 
 
-@register(Province)
-class ProvinceTranslationOptions(TranslationOptions):
+@register(Region2)
+class Region2TranslationOptions(TranslationOptions):
     fields = ("name",)
 
 
-@register(Region)
-class RegionTranslationOptions(TranslationOptions):
+@register(Region3)
+class Region3TranslationOptions(TranslationOptions):
     fields = ("name",)
