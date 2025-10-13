@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.widgets import UnfoldAdminSelect2Widget
 
-from apps.geodata.models import City, Country, Region
+from apps.geodata.models import City, Country, Region3
 from apps.methods.models import Method
 from apps.settings.models import LegalStructure
 from apps.users.models import User, UserProfile
@@ -47,9 +47,9 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Country"),
         queryset=Country.objects.all(),
     )
-    region = forms.ModelChoiceField(
-        label=_("Region"),
-        queryset=Region.objects.all(),
+    region3 = forms.ModelChoiceField(
+        label=_("Region3"),
+        queryset=Region3.objects.all(),
     )
     city = forms.ModelChoiceField(label=_("City"), queryset=City.objects.all())
     legal_structure = forms.ModelChoiceField(
@@ -84,7 +84,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "contact_mail",
             "website",
             "country",
-            "region",
+            "region3",
             "city",
             "legal_structure",
             "methods",
@@ -168,7 +168,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "contact_email",
             "website",
             "country",
-            "region",
+            "region3",
             "city",
             "legal_structure",
         ]

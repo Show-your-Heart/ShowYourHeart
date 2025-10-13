@@ -24,7 +24,7 @@ class OrganizationAdmin(ModelAdmin):
     filter_horizontal = ("methods",)
     readonly_fields = ("contact",)
     list_filter = [("status", ChoicesDropdownFilter)]
-    autocomplete_fields = ["country", "region", "city"]
+    autocomplete_fields = ["country", "region3", "city"]
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
