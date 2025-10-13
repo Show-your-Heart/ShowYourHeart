@@ -16,6 +16,7 @@
         <p><strong>{% translate 'NIF' %}</strong> {{ organization.vat_number }}</p>
         <p><strong>{% translate 'Email' %}</strong> {{ user.email }}</p>
       </div>
+      {% if organization %}
       <div class="flex">
         <a class="h-fit-content" href="{% url 'organizations:update' organization.id %}">
           <button
@@ -25,9 +26,10 @@
           </button>
         </a>
       </div>
+      {% endif %}
     </div>
 
-
+    {% if organization %}
     {% if organization_accepted %}
     <h5 class="text-xl font-bold">{% translate 'Balances pendientes' %}</h5>
     <div class="w-full grid grid-cols-2 gap-4">
@@ -38,6 +40,9 @@
     {% else %}
     {% translate 'Your organization has not yet been accepted. You must wait until it is accepted before you can answer
     the surveys.' %}
+    {% endif %}
+    {% else %}
+    {% translate "You are not assigned to any organisation. Please contact an admin" %}
     {% endif %}
   </div>
 </c-default-layout>
