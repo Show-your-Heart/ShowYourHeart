@@ -5,3 +5,9 @@
     --color-secondary: var(--color-green-500);
     --color-background: var(--color-gray-50);
 }
+
+#registration-form label:has(+ input[required])::after,
+#registration-form label:has(+ select[required])::after {
+    content: '*';
+    color: red;
+}

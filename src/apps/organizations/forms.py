@@ -48,8 +48,10 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Country"), queryset=Country.objects.all(), required=False
     )
     region3 = forms.ModelChoiceField(
-        label=_("Region3"),
-        queryset=Region3.objects.all(),
+        label=_("Region3"), queryset=Region3.objects.all(), required=False
+    )
+    city = forms.ModelChoiceField(
+        label=_("City"), queryset=City.objects.all(), required=False
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
