@@ -73,6 +73,7 @@ class Indicator(BaseModel):
         DAYS = "D", _("days")
         POINTS = "P", _("points")
         ENERGY = "E", _("KWh")
+        EURO_HOUR = "EH", _("€/h")
 
     list_types = [
         DataType.DROPDOWN,
@@ -97,7 +98,7 @@ class Indicator(BaseModel):
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
-    unit = models.CharField(_("unit"), choices=Unit.choices, default=Unit.KILO)
+    unit = models.CharField(_("unit"), choices=Unit.choices, default=None, blank=True)
     list_options = models.ForeignKey(
         List,
         null=True,
