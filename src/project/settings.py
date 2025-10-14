@@ -153,6 +153,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
     "apps.users.middleware.VerificationRequiredMiddleware",
+    "project.middleware.SuperadminRedirectMiddleware",
 ]
 
 

@@ -286,143 +286,161 @@ class GovAdminSite(UnfoldAdminSite):
 
         apps_dict = available_apps_to_dict(context["available_apps"])
 
-        main_menu = [
-            {
-                "app_name": "organizations",
-                "name": _("Entities"),
-                "icon": "group",
-                "url": apps_dict["Organizations"]["app_url"],
-                "is_active": self.is_app_active(apps_dict["Organizations"], request),
-                "app": apps_dict["Organizations"],
-                "items": [
-                    {
-                        "name": _(
-                            apps_dict["Organizations"]["models_dict"]["Organization"][
+        main_menu = []
+        if apps_dict:
+            main_menu = [
+                {
+                    "app_name": "organizations",
+                    "name": _("Entities"),
+                    "icon": "group",
+                    "url": apps_dict["Organizations"]["app_url"],
+                    "is_active": self.is_app_active(
+                        apps_dict["Organizations"], request
+                    ),
+                    "app": apps_dict["Organizations"],
+                    "items": [
+                        {
+                            "name": _(
+                                apps_dict["Organizations"]["models_dict"][
+                                    "Organization"
+                                ]["name"]
+                            ),
+                            "url": apps_dict["Organizations"]["models_dict"][
+                                "Organization"
+                            ]["admin_url"],
+                            "is_active": self.is_model_active(
+                                apps_dict["Organizations"]["models_dict"][
+                                    "Organization"
+                                ],
+                                request,
+                            ),
+                        },
+                    ],
+                },
+                {
+                    "app_name": "methods",
+                    "name": _("Methods"),
+                    "icon": "adjustments-horizontal",
+                    "url": apps_dict["Methods"]["app_url"],
+                    "is_active": self.is_app_active(apps_dict["Methods"], request),
+                    "app": apps_dict["Methods"],
+                    "items": [
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Indicator"][
                                 "name"
-                            ]
-                        ),
-                        "url": apps_dict["Organizations"]["models_dict"][
-                            "Organization"
-                        ]["admin_url"],
-                        "is_active": self.is_model_active(
-                            apps_dict["Organizations"]["models_dict"]["Organization"],
-                            request,
-                        ),
-                    },
-                ],
-            },
-            {
-                "app_name": "methods",
-                "name": _("Methods"),
-                "icon": "adjustments-horizontal",
-                "url": apps_dict["Methods"]["app_url"],
-                "is_active": self.is_app_active(apps_dict["Methods"], request),
-                "app": apps_dict["Methods"],
-                "items": [
-                    {
-                        "name": apps_dict["Methods"]["models_dict"]["Indicator"][
-                            "name"
-                        ],
-                        "url": apps_dict["Methods"]["models_dict"]["Indicator"][
-                            "admin_url"
-                        ],
-                        "is_active": self.is_model_active(
-                            apps_dict["Methods"]["models_dict"]["Indicator"], request
-                        ),
-                    },
-                    {
-                        "name": apps_dict["Methods"]["models_dict"]["Method"]["name"],
-                        "url": apps_dict["Methods"]["models_dict"]["Method"][
-                            "admin_url"
-                        ],
-                        "is_active": self.is_model_active(
-                            apps_dict["Methods"]["models_dict"]["Method"], request
-                        ),
-                    },
-                    {
-                        "name": apps_dict["Methods"]["models_dict"]["Campaign"]["name"],
-                        "url": apps_dict["Methods"]["models_dict"]["Campaign"][
-                            "admin_url"
-                        ],
-                        "is_active": self.is_model_active(
-                            apps_dict["Methods"]["models_dict"]["Campaign"], request
-                        ),
-                    },
-                ],
-            },
-            {
-                "name": "Features",
-                "icon": "clipboard-list",
-                "items": [
-                    {"name": _("Registration Requests")},
-                    {"name": _("Review Etitities Balances")},
-                    {"name": _("Review Projects Balances")},
-                    {"name": _("Documents")},
-                ],
-            },
-            {
-                "name": "Settings",
-                "icon": "cog",
-                "url": apps_dict["Settings"]["app_url"],
-                "is_active": self.is_app_active(apps_dict["Settings"], request)
-                or self.is_app_active(apps_dict["Users"], request)
-                or self.is_app_active(apps_dict["Geodata"], request),
-                "app": apps_dict["Settings"],
-                "items": [
-                    # {
-                    #     "name": apps_dict["PostOffice"]["models_dict"][
-                    #         "emailtemplate"
-                    #     ][
-                    #         "name"
-                    #     ],
-                    #     "url": apps_dict["PostOffice"]["models_dict"][
-                    #         "emailtemplate"
-                    #     ][
-                    #         "admin_url"
-                    #     ],
-                    #     "is_active": self.is_model_active(
-                    #         apps_dict["PostOffice"]["models_dict"]["emailtemplate"],
-                    #         request,
-                    #     ),
-                    # },
-                    {
-                        "name": apps_dict["Users"]["models_dict"]["User"]["name"],
-                        "url": apps_dict["Users"]["models_dict"]["User"]["admin_url"],
-                        "is_active": self.is_model_active(
-                            apps_dict["Users"]["models_dict"]["User"], request
-                        ),
-                    },
-                    {
-                        "name": _("Location data"),
-                        "url": apps_dict["Geodata"]["app_url"],
-                        "is_active": self.is_app_active(apps_dict["Geodata"], request),
-                    },
-                    {
-                        "name": apps_dict["Settings"]["models_dict"]["Network"]["name"],
-                        "url": apps_dict["Settings"]["models_dict"]["Network"][
-                            "admin_url"
-                        ],
-                        "is_active": self.is_model_active(
-                            apps_dict["Settings"]["models_dict"]["Network"],
-                            request,
-                        ),
-                    },
-                    {
-                        "name": apps_dict["Settings"]["models_dict"]["LegalStructure"][
-                            "name"
-                        ],
-                        "url": apps_dict["Settings"]["models_dict"]["LegalStructure"][
-                            "admin_url"
-                        ],
-                        "is_active": self.is_model_active(
-                            apps_dict["Settings"]["models_dict"]["LegalStructure"],
-                            request,
-                        ),
-                    },
-                ],
-            },
-            {"name": "Auxiliary data", "icon": "book", "items": []},
-        ]
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["Indicator"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["Indicator"],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Method"][
+                                "name"
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["Method"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["Method"], request
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Campaign"][
+                                "name"
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["Campaign"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["Campaign"], request
+                            ),
+                        },
+                    ],
+                },
+                {
+                    "name": "Features",
+                    "icon": "clipboard-list",
+                    "items": [
+                        {"name": _("Registration Requests")},
+                        {"name": _("Review Etitities Balances")},
+                        {"name": _("Review Projects Balances")},
+                        {"name": _("Documents")},
+                    ],
+                },
+                {
+                    "name": "Settings",
+                    "icon": "cog",
+                    "url": apps_dict["Settings"]["app_url"],
+                    "is_active": self.is_app_active(apps_dict["Settings"], request)
+                    or self.is_app_active(apps_dict["Users"], request)
+                    or self.is_app_active(apps_dict["Geodata"], request),
+                    "app": apps_dict["Settings"],
+                    "items": [
+                        # {
+                        #     "name": apps_dict["PostOffice"]["models_dict"][
+                        #         "emailtemplate"
+                        #     ][
+                        #         "name"
+                        #     ],
+                        #     "url": apps_dict["PostOffice"]["models_dict"][
+                        #         "emailtemplate"
+                        #     ][
+                        #         "admin_url"
+                        #     ],
+                        #     "is_active": self.is_model_active(
+                        #         apps_dict["PostOffice"]["models_dict"]
+                        #               ["emailtemplate"],
+                        #         request,
+                        #     ),
+                        # },
+                        {
+                            "name": apps_dict["Users"]["models_dict"]["User"]["name"],
+                            "url": apps_dict["Users"]["models_dict"]["User"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Users"]["models_dict"]["User"], request
+                            ),
+                        },
+                        {
+                            "name": _("Location data"),
+                            "url": apps_dict["Geodata"]["app_url"],
+                            "is_active": self.is_app_active(
+                                apps_dict["Geodata"], request
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Settings"]["models_dict"]["Network"][
+                                "name"
+                            ],
+                            "url": apps_dict["Settings"]["models_dict"]["Network"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Settings"]["models_dict"]["Network"],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Settings"]["models_dict"][
+                                "LegalStructure"
+                            ]["name"],
+                            "url": apps_dict["Settings"]["models_dict"][
+                                "LegalStructure"
+                            ]["admin_url"],
+                            "is_active": self.is_model_active(
+                                apps_dict["Settings"]["models_dict"]["LegalStructure"],
+                                request,
+                            ),
+                        },
+                    ],
+                },
+                {"name": "Auxiliary data", "icon": "book", "items": []},
+            ]
 
         context.update(
             {
