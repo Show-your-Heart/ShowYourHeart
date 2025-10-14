@@ -206,6 +206,9 @@
     max-width: 100%;
     height: auto;
   }
+  figure img {
+    max-width: 7rem;
+  }
   button, input, select, optgroup, textarea, ::file-selector-button {
     font: inherit;
     font-feature-settings: inherit;
