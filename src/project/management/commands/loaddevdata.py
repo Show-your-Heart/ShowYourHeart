@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
         legal_structure = self.create_legal_structure()
         country = self.create_sample_country()
-        region3 = self.create_sample_region()
+        region3 = self.create_sample_region3()
         city = self.create_sample_city()
         network = self.create_sample_network()
         topics = self.create_sample_topics()
