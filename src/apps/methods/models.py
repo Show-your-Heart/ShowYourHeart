@@ -113,6 +113,7 @@ class Indicator(BaseModel):
     )
 
     message = models.CharField(_("message"), max_length=400, blank=True)
+    mandatory = models.BooleanField(_("Is it mandatory?"), blank=False, default=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -324,6 +325,9 @@ class IndicatorResult(BaseModel):
         choices=Gender.choices, default=None, blank=True, null=True
     )
     value = models.CharField(blank=True)
+    not_applicable = models.BooleanField(
+        _("not applicable"), blank=True, null=True, default=None
+    )
 
     class Meta:
         constraints = [

@@ -109,15 +109,23 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                 if field is None:
                     continue
 
+                field_result = None
+                if len(indicator_result_list):
+                    field_result = indicator_result_list.filter(indicator=i).first()
+                na = field_result.not_applicable if field_result else None
                 self.fields[field_name] = field
-                self.fields[field_name].initial = get_field_value(
-                    indicator_result_list, i
+                self.fields[field_name].widget.attrs["readonly"] = (
+                    readonly is True or na is True
                 )
-                self.fields[field_name].widget.attrs["readonly"] = readonly
+                self.fields[field_name].initial = get_field_value(field_result, i)
+                self.fields[field_name].widget.attrs["na"] = na
+                self.fields[field_name].widget.attrs["label"] = i.name
+                self.fields[field_name].widget.attrs["description"] = i.description
+                self.fields[field_name].widget.attrs["msg"] = i.message
                 self.fields[field_name].widget.attrs["placeholder"] = (
                     placeholder_dict.get(field_name, "")
                 )
-                self.fields[field_name].widget.attrs["msg"] = i.message
+                self.fields[field_name].widget.attrs["mandatory"] = i.mandatory
                 self.fields[field_name].widget.attrs["code"] = i.code
 
                 # Handle gendered indicators (3 fields)
@@ -163,15 +171,13 @@ def get_gender_field_value(indicator_result_list, indicator, suffix):
     return field_value
 
 
-def get_field_value(indicator_result_list, indicator):
+def get_field_value(indicator_result, indicator):
     field_value = None
-    if len(indicator_result_list):
-        indicator_result = indicator_result_list.filter(indicator=indicator).first()
-        if indicator_result:
-            if indicator.data_type == Indicator.DataType.CHECKBOX:
-                field_value = indicator_result.value.split("|")
-            else:
-                field_value = indicator_result.value
+    if indicator_result:
+        if indicator.data_type == Indicator.DataType.CHECKBOX:
+            field_value = indicator_result.value.split("|")
+        else:
+            field_value = indicator_result.value
     return field_value
 
 

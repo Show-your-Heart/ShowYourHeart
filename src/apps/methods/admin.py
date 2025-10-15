@@ -84,6 +84,7 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
                 "name_en",
                 "description_en",
                 "is_direct_indicator",
+                "mandatory",
                 "topics",
                 "category",
                 "data_type",
