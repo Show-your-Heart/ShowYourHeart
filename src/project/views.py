@@ -48,7 +48,7 @@ class HomeView(TemplateView):
             open_campaign = Campaign.objects.filter(status=True)
             if open_campaign:
                 for method in self.request.user.profile.organization.methods.filter(
-                    id__in=open_campaign.first().methods.all()
+                    id__in=open_campaign.first().methods.all(), active=True
                 ):
                     method_list.append(
                         {

@@ -27,7 +27,7 @@ class ListItem(BaseModel):
     title = models.CharField(_("title"), max_length=300)
     formula = models.CharField(_("formula"), max_length=50, blank=True)
     value = models.PositiveSmallIntegerField(_("value"))
-    active = models.BooleanField(_("active"), max_length=50)
+    active = models.BooleanField(_("active"), default=True)
 
     def __str__(self):
         return self.title
@@ -38,7 +38,11 @@ class List(BaseModel):
     enable_others = models.BooleanField(
         _("Enable others response"), blank=False, default=False
     )
-    items = models.ManyToManyField(ListItem, related_name="items")
+    items = models.ManyToManyField(
+        ListItem,
+        related_name="items",
+        limit_choices_to={"active": True},
+    )
 
     def __str__(self):
         return self.title
@@ -86,7 +90,8 @@ class Indicator(BaseModel):
     description = models.CharField(_("description"), max_length=2500, blank=True)
     topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(
-        _("Is it a direct indicator?"), blank=True
+        _("Is it a direct indicator?"),
+        blank=True,
     )
     category = models.CharField(
         _("category"),
@@ -203,7 +208,7 @@ class Method(BaseModel):
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
-    active = models.BooleanField(_("active"))
+    active = models.BooleanField(_("active"), default=True)
     name = models.CharField(_("name"), max_length=150)
     description = models.CharField(_("description"), max_length=1000)
     network_owner = models.ForeignKey("settings.network", on_delete=models.PROTECT)
