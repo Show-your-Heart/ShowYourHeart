@@ -257,14 +257,14 @@ class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
     search_fields = ["method__name", "method__network_owner__name"]
 
-    # def has_add_permission(self, request, obj=None):
-    #     return False
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_superuser
 
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
 
-    # def has_change_permission(self, request, obj=None):
-    #     return False
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
 
 
 # Add superadmin views with default Unfold templates
@@ -279,14 +279,14 @@ class IndicatorResultAdmin(ModelAdmin):
     ordering = ["survey"]
     search_fields = ["survey__method__name"]
 
-    # def has_add_permission(self, request, obj=None):
-    #     return False
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_superuser
 
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
 
-    # def has_change_permission(self, request, obj=None):
-    #     return False
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
 
 
 class InvitationInline(admin.StackedInline):
