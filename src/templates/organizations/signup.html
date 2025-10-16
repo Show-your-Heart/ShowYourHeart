@@ -22,7 +22,7 @@
                     {% csrf_token %}
 
                     {% block form_fields %}
-                    {{ form }}
+                    <div id="registration-form">{{ form }}</div>
                     {% endblock %}
 
                     {% block submit_whole %}

@@ -3,7 +3,7 @@ from django.db import transaction
 from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from unfold.widgets import UnfoldAdminSelect2Widget
+from unfold.widgets import UnfoldAdminSelectWidget
 
 from apps.geodata.models import City, Country, Region3
 from apps.methods.models import Method
@@ -42,16 +42,17 @@ class OrganizationSignUpForm(forms.ModelForm):
     website = forms.CharField(
         label=_("Website"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Website")}),
+        required=False,
     )
     country = forms.ModelChoiceField(
-        label=_("Country"),
-        queryset=Country.objects.all(),
+        label=_("Country"), queryset=Country.objects.all(), required=False
     )
     region3 = forms.ModelChoiceField(
-        label=_("Region3"),
-        queryset=Region3.objects.all(),
+        label=_("Region3"), queryset=Region3.objects.all(), required=False
     )
-    city = forms.ModelChoiceField(label=_("City"), queryset=City.objects.all())
+    city = forms.ModelChoiceField(
+        label=_("City"), queryset=City.objects.all(), required=False
+    )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
         queryset=LegalStructure.objects.all(),
@@ -66,6 +67,7 @@ class OrganizationSignUpForm(forms.ModelForm):
     methods = forms.ModelMultipleChoiceField(
         label=_("Method of impact mesurement"),
         queryset=Method.objects.all(),
+        required=False,
         widget=forms.SelectMultiple(
             attrs={
                 "autocomplete": "off",
@@ -142,7 +144,7 @@ class OrganizationAdminForm(forms.ModelForm):
         model = Organization
         fields = "__all__"  # noqa: DJ007
         widgets = {
-            "legal_structure": UnfoldAdminSelect2Widget(attrs=htmx_attrs),
+            "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
 
 
