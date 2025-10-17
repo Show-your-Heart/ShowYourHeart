@@ -8,6 +8,7 @@ from unfold.widgets import UnfoldAdminSelectWidget
 
 from apps.geodata.models import City, Country, Region3
 from apps.methods.models import Method
+from apps.organizations.widgets import syh_forms
 from apps.settings.models import LegalStructure
 from apps.users.models import User, UserProfile
 
@@ -23,7 +24,11 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Organization name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
-    logo = forms.FileField(label=_("Organization logo"), required=False)
+    logo = forms.FileField(
+        label=_("Organization logo"),
+        required=False,
+        widget=syh_forms.FileInput(),
+    )
     vat_number = forms.CharField(
         label=_("VAT Number"),
         widget=forms.TextInput(
