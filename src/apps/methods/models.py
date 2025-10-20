@@ -255,7 +255,8 @@ class Campaign(BaseModel):
         verbose_name=_("Methods"),
         related_name="campaign_methods",
         blank=True,
-        limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY),
+        limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY)
+        & Q(active=True),
     )
     start_date = models.DateField(_("Start date"), blank=True, null=True)
     end_date = models.DateField(_("End date"), blank=True, null=True)
@@ -343,7 +344,10 @@ class ExternalSurveyInvitation(BaseModel):
     external_survey = models.ForeignKey(
         "methods.Method",
         on_delete=models.PROTECT,
-        limit_choices_to={"unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY},
+        limit_choices_to={
+            "unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY,
+            "active": True,
+        },
     )
     campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
 
