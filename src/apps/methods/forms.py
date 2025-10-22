@@ -110,9 +110,6 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                     continue
 
                 self.fields[field_name] = field
-                self.fields[field_name].initial = get_field_value(
-                    indicator_result_list, i
-                )
                 self.fields[field_name].widget.attrs["readonly"] = readonly
                 self.fields[field_name].widget.attrs["placeholder"] = (
                     placeholder_dict.get(field_name, "")

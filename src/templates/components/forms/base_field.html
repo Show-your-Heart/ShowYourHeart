@@ -1,9 +1,6 @@
 {% load i18n static%}
 
-<script src="{% static 'js/field.js' %}"></script>
-
 <div x-data="field('{{widget.attrs.code}}')"  :id="`field-${id}`" class="flex flex-col" x-show="show" x-transition x-transition.delay.200ms>
-{% comment %} <div x-data="field('{{widget.attrs.code}}','{{widget.value}}')"  :id="`field-${id}`" class="flex flex-col" x-show="show" x-transition x-transition.delay.200ms> {% endcomment %}
     
     <div class="flex gap-4">
         <label :for="`question_${id}`" class="block mb-2 text-md font-medium text-gray-900">

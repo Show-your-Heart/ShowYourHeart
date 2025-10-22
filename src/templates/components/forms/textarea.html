@@ -3,10 +3,11 @@
 <c-forms.base-field>
     <textarea :id="id"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-        :name="`question_${id}`" placeholder="{{ widget.attrs.placeholder }}" 
-        :required="required" {% include "django/forms/widgets/attrs.html"%}
+        :name="`question_${id}`" 
+        placeholder="{{ widget.attrs.placeholder }}" 
+        {% include "django/forms/widgets/attrs.html"%}
         @blur="update($event)"
+        x-text="value"
     >
-        {% if widget.value %}{{ widget.value|stringformat:'s' }}{%endif%}
     </textarea>
 </c-forms.base-field>

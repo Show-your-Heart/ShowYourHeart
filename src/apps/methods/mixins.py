@@ -44,6 +44,15 @@ class MethodFillMixin:
                 readonly,
                 placeholder_dict,
             )
+
+            indicator_results = IndicatorResult.objects.filter(
+                survey=survey,
+            ).all()
+            initial_values = {}
+            for i in indicator_results:
+                initial_values[i.indicator.code] = i.value
+            context["initial_values"] = initial_values
+
         except ObjectDoesNotExist:
             # If there is none, get new survey
             context["form"] = get_dynamic_form(

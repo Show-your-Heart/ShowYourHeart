@@ -53,6 +53,7 @@ document.addEventListener('alpine:init', () => {
                 parsedExpression = this.parseExpression(indicator.condition, indicator.code, indicator.value)
                 return this.evaluateExpression(parsedExpression)
             } catch (e) {
+                console.log("Checking visibility of field failed", e)
                 return false
             }
         },
@@ -67,10 +68,13 @@ document.addEventListener('alpine:init', () => {
         loadIndicatorResult(code) {
             return this.indicators.find(i => i.code == code).value || null
         },
+        shallowIndicatorResultUpdate(code, value) {
+            const index = this.indicators.findIndex(i => i.code == code)
+            this.indicators[index].value = value
+        },
         updateIndicatorResult(code, value) {
             const index = this.indicators.findIndex(i => i.code == code)
             this.indicators[index].value = value
-            this.indicators = indicators
             if (indicators[index].dependant_indicators) {
                 for (code of indicators[index].dependant_indicators) {
                     this.updateDependantIndicator(code)
@@ -83,12 +87,10 @@ document.addEventListener('alpine:init', () => {
             let indicator = this.indicators[index]
             console.log(indicator)
             if (indicator.is_direct_indicator) {
-                console.log("Is direct")
                 const show = this.isVisible(indicator)
                 const fieldEl = document.querySelector(`#field-${indicator.id}`);
                 Alpine.$data(fieldEl).show = show
             } else {
-                console.log("Is indirect")
                 const value = this.computeFormula(indicator)
                 if (value != null) {
                     const fieldEl = document.querySelector(`#field-${indicator.id}`);
@@ -100,4 +102,6 @@ document.addEventListener('alpine:init', () => {
 
     const indicators = JSON.parse(document.getElementById('indicators').textContent);
     Alpine.store('survey')["indicators"] = indicators
+    const initialValues = JSON.parse(document.getElementById('initialValues').textContent);
+    Alpine.store('survey')["initialValues"] = initialValues
 })

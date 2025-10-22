@@ -6,6 +6,8 @@
 
   <c-slot name="extra_head_js">
     {{ indicators|json_script:"indicators" }}
+    {{ initial_values|json_script:"initialValues" }}
+    <script src="{% static 'js/field.js' %}"></script>
     <script src="{% static 'js/surveyStore.js' %}"></script>
   </c-slot>
 
