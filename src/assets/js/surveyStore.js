@@ -85,16 +85,15 @@ document.addEventListener('alpine:init', () => {
             console.log("Update dependant indicator:", code)
             const index = this.indicators.findIndex(i => i.code == code)
             let indicator = this.indicators[index]
-            console.log(indicator)
             if (indicator.is_direct_indicator) {
-                const show = this.isVisible(indicator)
+                const show = indicator.condition == "" || this.isVisible(indicator)
                 const fieldEl = document.querySelector(`#field-${indicator.id}`);
                 Alpine.$data(fieldEl).show = show
             } else {
                 const value = this.computeFormula(indicator)
                 if (value != null) {
-                    const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                    Alpine.$data(fieldEl).value = value
+                    const fieldEl = document.querySelector(`#question_${indicator.id}`);
+                    Alpine.$data(fieldEl).value = String(value)
                 }
             }
         },
