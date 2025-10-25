@@ -9,7 +9,8 @@ from unfold.widgets import (
 
 from apps.methods.widgets import syh_forms
 
-from .models import Indicator, IndicatorResult, Method, Section
+from .helpers import get_gender_field_value
+from .models import Indicator, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -114,7 +115,7 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                 self.fields[field_name].widget.attrs["placeholder"] = (
                     placeholder_dict.get(field_name, "")
                 )
-                self.fields[field_name].widget.attrs["msg"] = i.message
+                self.fields[field_name].widget.attrs["description"] = i.description
                 self.fields[field_name].widget.attrs["code"] = i.code
 
                 # Handle gendered indicators (3 fields)
@@ -122,42 +123,7 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                     if i.data_type == Indicator.DataType.DECIMALGENDER:
                         self.fields[field_name].widget.attrs["input_type"] = "decimal"
 
-                    self.fields[field_name].widget.attrs["value"] = {
-                        "non_binary": get_gender_field_value(
-                            indicator_result_list, i, "non_binary"
-                        ),
-                        "male": get_gender_field_value(
-                            indicator_result_list, i, "male"
-                        ),
-                        "female": get_gender_field_value(
-                            indicator_result_list, i, "female"
-                        ),
-                    }
-
     return DynamicSurveyForm
-
-
-def get_gender_field_value(indicator_result_list, indicator, suffix):
-    field_value = None
-
-    gender_lookup = {
-        "male": IndicatorResult.Gender.MALE,
-        "female": IndicatorResult.Gender.FEMALE,
-        "non_binary": IndicatorResult.Gender.NON_BINARY,
-    }
-    indicator_result = next(
-        (
-            res
-            for res in indicator_result_list
-            if res.indicator == indicator and res.gender == gender_lookup[suffix]
-        ),
-        None,
-    )
-
-    if indicator_result:
-        field_value = indicator_result.value
-
-    return field_value
 
 
 def get_field_value(indicator_result_list, indicator):

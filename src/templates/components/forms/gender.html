@@ -1,36 +1,53 @@
-{% extends "./base_field.html" %}
+{% load i18n %}
 
-{% block custom_field %}
-<div style="display:flex;">
-    <div>
-        <div>Mujeres</div>
-        <input {% if widget.attrs.readonly %}readonly{%endif %} type="number" id="{{widget.name}}_female" {% if
-            widget.attrs.input_type == 'decimal' %} step="0.1" {% endif %}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            name="{{ widget.name }}_female" placeholder="{{ widget.attrs.placeholder.female }}" {% if widget.required %}
-            required {%endif%} {% if widget.attrs.value.female %}
-            value="{{ widget.attrs.value.female|stringformat:'s' }}" {% endif %} />
+<c-forms.base-field>
+    <div class="flex space-x-4">
+        <div class="flex flex-col space-y-2">
+            <p>Mujeres</p>
+            <input 
+                :id="`question_${id}_female`" 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" 
+                :name="`question_${id}_female`" 
+                :value="value.female"
+                type="number" 
+                {% comment %} :placeholder="placeholder.female"  {% endcomment %}
+                required="{{required}}" 
+                {% include "django/forms/widgets/attrs.html" %}
+                @blur="update($event,'female')" 
+                :step="type == 'decimal' ? 0.1 : 1"
+            />
+        </div>
+        <div class="flex flex-col space-y-2">
+            <p>Hombres</p>
+            <input 
+                :id="`question_${id}_male`" 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" 
+                :name="`question_${id}_male`" 
+                :value="value.male"
+                type="number" 
+                {% comment %} :placeholder="placeholder.male"  {% endcomment %}
+                required="{{required}}" 
+                {% include "django/forms/widgets/attrs.html" %}
+                @blur="update($event,'male')" 
+                :step="type == 'decimal' ? 0.1 : 1"
+            />
+        </div>
+
+        <div class="flex flex-col space-y-2">
+            <p>No binarias</p>
+            <input 
+                :id="`question_${id}_nonBinary`" 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" 
+                :name="`question_${id}_non_binary`" 
+                :value="value.nonBinary"
+                type="number" 
+                {% comment %} :placeholder="placeholder.nonBinary"  {% endcomment %}
+                required="{{required}}" 
+                {% include "django/forms/widgets/attrs.html" %}
+                @blur="update($event,'nonBinary')" 
+                :step="type == 'decimal' ? 0.1 : 1"
+            />
+        </div>
+
     </div>
-    <div>
-        <div>Hombres</div>
-        <input {% if widget.attrs.readonly %}readonly{%endif %} type="number" id="{{widget.name}}_male" {% if
-            widget.attrs.input_type == 'decimal' %} step="0.1" {% endif %}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            name="{{ widget.name }}_male" placeholder="{{ widget.attrs.placeholder.male }}" {% if widget.required %}
-            required {%endif%} {% if widget.attrs.value.male %} value="{{  widget.attrs.value.male|stringformat:'s' }}"
-            {% endif %} />
-    </div>
-
-    <div>
-        <div>No binarias</div>
-        <input {% if widget.attrs.readonly %}readonly{%endif %} type="number" id="{{widget.name}}_non_binary" {% if
-            widget.attrs.input_type == 'decimal' %} step="0.1" {% endif %}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            name="{{ widget.name }}_non_binary" placeholder="{{ widget.attrs.placeholder.non_binary }}" {% if
-            widget.required %} required {%endif%} {% if widget.attrs.value.non_binary %}
-            value="{{ widget.attrs.value.non_binary}}" {% endif %} />
-    </div>
-
-</div>
-
-{% endblock custom_field %}
+</c-forms.base-field>

@@ -7,7 +7,7 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form, get_form_sections
-from .helpers import get_gender_suffix
+from .helpers import get_gender_field_value, get_gender_suffix, is_gendered
 from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 
 
@@ -50,7 +50,22 @@ class MethodFillMixin:
             ).all()
             initial_values = {}
             for i in indicator_results:
-                initial_values[i.indicator.code] = i.value
+                # Handle gendered indicators (3 fields)
+                if is_gendered(i.indicator.data_type):
+                    initial_values[i.indicator.code] = {
+                        "non_binary": get_gender_field_value(
+                            indicator_results, i.indicator, "non_binary"
+                        ),
+                        "male": get_gender_field_value(
+                            indicator_results, i.indicator, "male"
+                        ),
+                        "female": get_gender_field_value(
+                            indicator_results, i.indicator, "female"
+                        ),
+                    }
+                else:
+                    initial_values[i.indicator.code] = i.value
+
             context["initial_values"] = initial_values
 
         except ObjectDoesNotExist:

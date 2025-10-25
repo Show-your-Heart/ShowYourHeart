@@ -20,6 +20,7 @@ document.addEventListener('alpine:init', () => {
         description: "",
         code: "",
         value: "",
+        placeholder: "",
         type: "",
         isDirectIndicator: true,
         required: true,
@@ -32,6 +33,7 @@ document.addEventListener('alpine:init', () => {
         show: true,
         init() {
             const indicator = Alpine.store('survey')["indicators"].find(i => i.code == code)
+            console.log("Indicator", code, indicator)
             const initialValue = Alpine.store('survey')["initialValues"][code] || null
             this.id = indicator.id
             this.name = indicator.name
@@ -39,6 +41,7 @@ document.addEventListener('alpine:init', () => {
             this.code = indicator.code
             this.type = indicator.data_type
             this.value = this.loadInitialValue(initialValue, indicator.data_type)
+            // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             Alpine.store('survey').shallowIndicatorResultUpdate(this.code, this.value)
             this.isDirectIndicator = indicator.is_direct_indicator
             this.required = indicator.required
@@ -51,9 +54,36 @@ document.addEventListener('alpine:init', () => {
             this.msg = indicator.message
             this.show = indicator.is_direct_indicator && (indicator.condition == "" || Alpine.store('survey').isVisible(indicator))
         },
-        update(event) {
+        loadInitialValue(initialValue, type) {
+            let value = ""
+            if (this.hasOptions(type)) {
+                if (initialValue) {
+                    value = initialValue.split("|")
+                } else {
+                    value = []
+                }
+            } else if (this.isGendered(type)) {
+                if (initialValue && initialValue.female) {
+                    value = {
+                        female: initialValue.female,
+                        male: initialValue.male,
+                        nonBinary: initialValue.non_binary,
+                    }
+                } else {
+                    value = {
+                        female: 0,
+                        male: 0,
+                        nonBinary: 0,
+                    }
+                }
+            } else {
+                value = initialValue
+            }
+            return value
+        },
+        update(event, subtype = "") {
             try {
-                this.value = this.updateValue(event.target.value, this.value, this.type)
+                this.value = this.updateValue(event.target.value, this.value, this.type, subtype)
                 const field = {
                     code: this.code,
                     value: this.value,
@@ -75,18 +105,32 @@ document.addEventListener('alpine:init', () => {
                 this.error = e.message
             }
         },
-        loadInitialValue(initialValue, type) {
+        updateValue(input, current, type, subtype = "") {
             let value = ""
-            if (this.hasOptions(type)) {
-                if (initialValue) {
-                    value = initialValue.split("|")
+            if (this.isMultiAnswer(type)) {
+                const index = current.findIndex(v => v == input)
+                value = current
+                if (index != -1) {
+                    value.splice(index, 1)
                 } else {
-                    value = []
+                    value.push(input)
                 }
+            } else if (this.isGendered(type)) {
+                value = current
+                value[subtype] = input
             } else {
-                value = initialValue
+                value = input
             }
             return value
+        },
+        isGendered(type) {
+            switch (type) {
+                case FieldType.INTEGERGENDER:
+                case FieldType.DECIMALGENDER:
+                    return true
+                default:
+                    return false
+            }
         },
         hasOptions(type) {
             switch (type) {
@@ -95,6 +139,7 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.INTEGER:
                 case FieldType.DECIMAL:
                 case FieldType.BOOLEAN:
+                case FieldType.INTEGERGENDER:
                     return false
                 case FieldType.DROPDOWN:
                 case FieldType.CHECKBOX:
@@ -114,6 +159,7 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.DROPDOWN:
                 case FieldType.RADIOBUTTON:
                 case FieldType.BOOLEAN:
+                case FieldType.INTEGERGENDER:
                     return false
                 case FieldType.CHECKBOX:
                     return true
@@ -122,21 +168,7 @@ document.addEventListener('alpine:init', () => {
                     return false
             }
         },
-        updateValue(input, current, type) {
-            let value = ""
-            if (this.isMultiAnswer(type)) {
-                const index = current.findIndex(v => v == input)
-                value = current
-                if (index != -1) {
-                    value.splice(index, 1)
-                } else {
-                    value.push(input)
-                }
-            } else {
-                value = input
-            }
-            return value
-        },
+
 
     }))
 })
