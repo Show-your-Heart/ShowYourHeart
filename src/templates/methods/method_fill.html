@@ -4,24 +4,26 @@
 
 <c-default-layout pageTitle={% translate 'Form' %}>
 
-  <c-slot name="extra_head_js">
+  <c-slot name="extra_js">
     {{ indicators|json_script:"indicators" }}
     {{ initial_values|json_script:"initialValues" }}
+    {{ sections_data|json_script:"sections" }}
     <script src="{% static 'js/field.js' %}"></script>
     <script src="{% static 'js/surveyStore.js' %}"></script>
   </c-slot>
 
   <c-slot name="sidebar">
     <div class="mb-4 mt-8 pl-4">
-      <ul class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" id="default-tab"
+      <ul class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" 
+        id="survey-tabs"
         data-tabs-toggle="#tab-content" role="tablist"
         data-tabs-active-classes="border-blue-700"
       >
         {% for section, fields in sections.items %}
         <li class="w-full border border-gray-300 rounded-lg" role="presentation" >
-          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" id="{{ section.title }}-tab"
+          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" id="tab-{{ section.id }}"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
-            aria-selected="false">
+            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}')">
             {{ section.title }}
             <c-icon icon="check" class="w-6 h-6 inline text-green-800"></c-icon>
             {% comment %} {% if sectionWithStatus.status == 'completed' %}
@@ -41,7 +43,6 @@
   <div
     class="flex flex-col gap-4 items-center max-w-[900px] mx-auto"
   >
-
     <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}
       class="w-full space-y-4 md:space-y-6">
         {% csrf_token %}
@@ -72,8 +73,17 @@
       </div>
     
       {% if not readonly %}
-      <div class="flex gap-4 min-w-[60%]">
-        <c-button type="submit" name="action" value="save">
+      <div class="flex gap-4 space-between min-w-[60%]">
+        <div x-data x-show="$store.survey.prevSection != ''">
+          <c-button class="overflow-ellipsis bg-transparent !text-blue-600 hover:!border-blue-700 hover:!text-white" 
+            id="prev-section-btn" 
+            @click="$store.survey.gotToPrevSection()"
+            >
+            <c-icon icon="arrow-right" class="w-6 h-6 inline rotate-z-180 me-1"></c-icon>
+            <span x-text="$store.survey.prevSection"></span>
+          </c-button>
+        </div>
+        <c-button class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white" type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>
         <c-button type="submit" name="action" value="submit">
@@ -82,6 +92,5 @@
       </div>
       {% endif %}
     </form>
-
   </div>
 </c-default-layout>

@@ -1,5 +1,36 @@
 document.addEventListener('alpine:init', () => {
     Alpine.store('survey', {
+        sections: [],
+        prevSection: "",
+        prevSectionId: "",
+        initSections(sections) {
+            this.sections = sections
+        },
+        setSection(name) {
+            const index = sections.findIndex(s => s.title == name)
+            if (index && index != -1) {
+                if (index > 0) {
+                    this.prevSection = this.sections[index - 1].title
+                    this.prevSectionId = this.sections[index - 1].id
+                } else {
+                    this.prevSection = ""
+                    this.prevSectionId = ""
+                }
+            } else {
+                console.log("section doesn't exist")
+            }
+        },
+        gotToPrevSection() {
+            const index = this.sections.findIndex(s => s.id == this.prevSectionId)
+            this.prevSection = sections[index].title
+            if (index == 0) {
+                this.prevSectionId = ""
+                this.prevSection = ""
+            } else {
+                this.prevSectionId = sections[index - 1].id
+            }
+            FlowbiteInstances.getAllInstances().Tabs["survey-tabs"].show(`#section-${this.sections[index].id}`)
+        },
         indicators: [],
         parseExpression(expr, currentIndicatorCode = "", currentIndicatorValue = 0) {
             const tokens = expr.split(" ")
@@ -103,4 +134,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('survey')["indicators"] = indicators
     const initialValues = JSON.parse(document.getElementById('initialValues').textContent);
     Alpine.store('survey')["initialValues"] = initialValues
+    const sections = JSON.parse(document.getElementById('sections').textContent);
+    Alpine.store('survey').initSections(sections)
+
 })

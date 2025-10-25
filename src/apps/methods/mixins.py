@@ -77,6 +77,15 @@ class MethodFillMixin:
         context["method_name"] = current_method.name
         context["readonly"] = readonly
         context["sections"] = get_form_sections(current_method)
+        sections_data = []
+        for section in context["sections"]:
+            sections_data.append(
+                {
+                    "id": section.id,
+                    "title": section.title,
+                }
+            )
+        context["sections_data"] = sections_data
         try:
             indicators = list(
                 Method.objects.get(id=current_method.id).indicators.all().values()
