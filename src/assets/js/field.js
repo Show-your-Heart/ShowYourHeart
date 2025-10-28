@@ -32,9 +32,8 @@ document.addEventListener('alpine:init', () => {
         error: "",
         show: true,
         init() {
-            const indicator = Alpine.store('survey')["indicators"].find(i => i.code == code)
-            console.log("Indicator", code, indicator)
-            const initialValue = Alpine.store('survey')["initialValues"][code] || null
+            const indicator = Alpine.store('indicators')["indicators"].find(i => i.code == code)
+            const initialValue = Alpine.store('indicators')["initialValues"][code] || null
             this.id = indicator.id
             this.name = indicator.name
             this.description = indicator.description
@@ -42,7 +41,7 @@ document.addEventListener('alpine:init', () => {
             this.type = indicator.data_type
             this.value = this.loadInitialValue(initialValue, indicator.data_type)
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
-            Alpine.store('survey').shallowIndicatorResultUpdate(this.code, this.value)
+            Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value)
             this.isDirectIndicator = indicator.is_direct_indicator
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
@@ -52,7 +51,20 @@ document.addEventListener('alpine:init', () => {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
-            this.show = indicator.is_direct_indicator && (indicator.condition == "" || Alpine.store('survey').isVisible(indicator))
+            this.show = indicator.is_direct_indicator && (indicator.condition == "" || Alpine.store('indicators').isVisible(indicator))
+            const field = {
+                id: this.id,
+                code: this.code,
+                value: this.value,
+                validation: this.validation,
+            }
+            isValid = Alpine.store('indicators').validate(field)
+            if (isValid && isValid.error == undefined) {
+                this.hasErrors = false
+            } else {
+                this.hasErrors = true
+                this.error = `Value its incorrect, has to meet condition: '${this.validation}'`
+            }
         },
         loadInitialValue(initialValue, type) {
             let value = ""
@@ -85,15 +97,16 @@ document.addEventListener('alpine:init', () => {
             try {
                 this.value = this.updateValue(event.target.value, this.value, this.type, subtype)
                 const field = {
+                    id: this.id,
                     code: this.code,
                     value: this.value,
                     validation: this.validation,
                 }
-                isValid = Alpine.store('survey').isValid(field)
+                isValid = Alpine.store('indicators').validate(field)
                 if (isValid && isValid.error == undefined) {
                     console.log('Valido', this.value)
                     this.hasErrors = false
-                    Alpine.store('survey').updateIndicatorResult(this.code, this.value)
+                    Alpine.store('indicators').updateIndicatorResult(this.code, this.value)
                 } else {
                     this.hasErrors = true
                     this.error = `Value its incorrect, has to meet condition: '${this.validation}'`

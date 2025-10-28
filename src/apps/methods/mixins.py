@@ -83,6 +83,9 @@ class MethodFillMixin:
                 {
                     "id": section.id,
                     "title": section.title,
+                    "indicators_ids": [
+                        i["id"] for i in list(section.indicators.all().values())
+                    ],
                 }
             )
         context["sections_data"] = sections_data

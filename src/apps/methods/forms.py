@@ -9,7 +9,6 @@ from unfold.widgets import (
 
 from apps.methods.widgets import syh_forms
 
-from .helpers import get_gender_field_value
 from .models import Indicator, Method, Section
 
 

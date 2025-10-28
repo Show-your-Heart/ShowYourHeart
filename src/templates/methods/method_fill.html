@@ -10,6 +10,7 @@
     {{ sections_data|json_script:"sections" }}
     <script src="{% static 'js/field.js' %}"></script>
     <script src="{% static 'js/surveyStore.js' %}"></script>
+    <script src="{% static 'js/indicatorsStore.js' %}"></script>
   </c-slot>
 
   <c-slot name="sidebar">
@@ -17,22 +18,51 @@
       <ul class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" 
         id="survey-tabs"
         data-tabs-toggle="#tab-content" role="tablist"
-        data-tabs-active-classes="border-blue-700"
+        x-data="{
+          getLiClass(title) {
+              if ($store.survey.currentSection == title) {
+                  return '!border-blue-600'
+              } else if ($store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)) {
+                  return '!border-green-600'
+              } else if ($store.survey.isSectionTouched(title) && !$store.survey.isSectionCompleted(title)) {
+                  return '!border-orange-600'
+              }
+          },
+          getBtnClass(title) {
+              if ($store.survey.currentSection == title) {
+                  return '!bg-blue-50'
+              } else if ($store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)) {
+                  return '!bg-green-50 !text-green-800'
+              } else if ($store.survey.isSectionTouched(title) && !$store.survey.isSectionCompleted(title)) {
+                  return '!bg-orange-50 !text-orange-800'
+              }
+          },
+          showCurrent(title) {
+            return $store.survey.currentSection == title
+          },
+          showCheck(title) {
+            return !($store.survey.currentSection == title) && $store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)
+          },
+          showPending(title) {
+            return $store.survey.isSectionTouched(title) && !($store.survey.currentSection == title) && !$store.survey.isSectionCompleted(title)
+          },
+        }"
       >
         {% for section, fields in sections.items %}
-        <li class="w-full border border-gray-300 rounded-lg" role="presentation" >
-          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" id="tab-{{ section.id }}"
+        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" 
+          :class="getLiClass('{{section.title}}')" 
+          role="presentation" 
+        >
+          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" 
+            id="tab-{{ section.id }}"
+            :class="getBtnClass('{{section.title}}')" 
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
-            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}')">
+            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}')"
+          >
             {{ section.title }}
-            <c-icon icon="check" class="w-6 h-6 inline text-green-800"></c-icon>
-            {% comment %} {% if sectionWithStatus.status == 'completed' %}
-              <c-icon icon="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
-            {% elif sectionWithStatus.status == 'inProgress' %}
-              <c-icon icon="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
-            {% else %}
-              <c-icon icon="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
-            {% endif %} {% endcomment %}
+            <c-icon x-show="showCurrent('{{section.title}}')" icon="arrow-right" class="w-6 h-6 inline text-blue-600"></c-icon>
+            <c-icon x-show="showCheck('{{section.title}}')" icon="check" class="w-6 h-6 inline text-green-800"></c-icon>
+            <c-icon x-show="showPending('{{section.title}}')" icon="close" class="w-6 h-6 inline text-orange-800"></c-icon>
           </button>
         </li>
         {% endfor %}
@@ -83,7 +113,8 @@
             <span x-text="$store.survey.prevSection"></span>
           </c-button>
         </div>
-        <c-button class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white" type="submit" name="action" value="save">
+        <c-button class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white" 
+          type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>
         <c-button type="submit" name="action" value="submit">

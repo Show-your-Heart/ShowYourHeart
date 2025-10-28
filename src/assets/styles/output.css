@@ -24,10 +24,12 @@
     --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-orange-600: oklch(64.6% 0.222 41.116);
     --color-orange-700: oklch(55.3% 0.195 38.402);
+    --color-orange-800: oklch(47% 0.157 37.304);
     --color-amber-100: oklch(96.2% 0.059 95.617);
     --color-amber-600: oklch(66.6% 0.179 58.318);
     --color-yellow-200: oklch(94.5% 0.129 101.54);
     --color-yellow-300: oklch(90.5% 0.182 98.111);
+    --color-green-50: oklch(98.2% 0.018 155.826);
     --color-green-100: oklch(96.2% 0.044 156.743);
     --color-green-200: oklch(92.5% 0.084 155.995);
     --color-green-300: oklch(87.1% 0.15 154.449);
@@ -949,6 +951,12 @@
   .\!border-blue-700 {
     border-color: var(--color-blue-700) !important;
   }
+  .\!border-green-600 {
+    border-color: var(--color-green-600) !important;
+  }
+  .\!border-orange-600 {
+    border-color: var(--color-orange-600) !important;
+  }
   .border-blue-600 {
     border-color: var(--color-blue-600);
   }
@@ -969,6 +977,15 @@
   }
   .border-transparent {
     border-color: transparent;
+  }
+  .\!bg-blue-50 {
+    background-color: var(--color-blue-50) !important;
+  }
+  .\!bg-green-50 {
+    background-color: var(--color-green-50) !important;
+  }
+  .\!bg-orange-50 {
+    background-color: var(--color-orange-50) !important;
   }
   .bg-blue-50 {
     background-color: var(--color-blue-50);
@@ -1260,11 +1277,23 @@
   .\!text-blue-700 {
     color: var(--color-blue-700) !important;
   }
+  .\!text-green-600 {
+    color: var(--color-green-600) !important;
+  }
+  .\!text-green-800 {
+    color: var(--color-green-800) !important;
+  }
+  .\!text-orange-800 {
+    color: var(--color-orange-800) !important;
+  }
   .text-blue-600 {
     color: var(--color-blue-600);
   }
   .text-blue-700 {
     color: var(--color-blue-700);
+  }
+  .text-blue-800 {
+    color: var(--color-blue-800);
   }
   .text-gray-300 {
     color: var(--color-gray-300);
@@ -1292,6 +1321,9 @@
   }
   .text-orange-600 {
     color: var(--color-orange-600);
+  }
+  .text-orange-800 {
+    color: var(--color-orange-800);
   }
   .text-pink-600 {
     color: var(--color-pink-600);
