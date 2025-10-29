@@ -94,7 +94,7 @@ class MethodFillMixin:
                 Method.objects.get(id=current_method.id).indicators.all().values()
             )
             for i in indicators:
-                i["unit"] = Indicator.Unit(i["unit"]).label
+                i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
 
         except Method.DoesNotExist:
             indicators = list([])
