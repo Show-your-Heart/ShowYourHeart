@@ -1,18 +1,14 @@
 {% load i18n %}
 
 <c-forms.base-field>
-    <input 
-        :id="`question_${id}`" 
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5" 
-        :name="`question_${id}`" 
-        :value="value"
-        type="{{ widget.type}}" 
-        placeholder="{{placeholder}}" 
-        required="{{required}}" 
-        {% include "django/forms/widgets/attrs.html" %}
-        @blur="update($event)" 
-    />
-    <div class="text-red-600" x-show="hasErrors">
-        <p x-text="error"></p>
+    <div class="flex gap-4">
+        <input :id="`question_${id}`"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+            :name="`question_${id}`" :value="value" type="{{ widget.type}}" placeholder="{{placeholder}}"
+            required="{{required}}" {% include "django/forms/widgets/attrs.html" %} @blur="update($event)" />
+        <div class="text-red-600" x-show="hasErrors">
+            <p x-text="error"></p>
+        </div>
+        <span class="flex items-center" x-text="unit"></span>
     </div>
 </c-forms.base-field>

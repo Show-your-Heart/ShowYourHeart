@@ -13,7 +13,6 @@
         <c-help-drawer msg="{{widget.attrs.description}}" id="{{widget.attrs.id}}"></c-help-drawer>
     </div>
 
-    <div class="flex gap-4">
-        {{ slot }} <span class="flex items-center" x-text="unit"></span>
-    </div>
+    {{ slot }}
+
 </div>
