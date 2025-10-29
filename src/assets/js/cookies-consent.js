@@ -1,7 +1,3 @@
-function scrollToTop(){
-  window.scrollTo(0,0)
-}
-
 /*** Cookie message ***/
 let cookiesOfDocument = document.cookie;
 
@@ -12,7 +8,10 @@ if (document.getElementById("cookies-banner")) {
 
   function acceptCookies() {
     // Cookie message disappears
-    cookiesMessage.classList.add("hidden");
+    cookiesMessage.classList.add('slide-out-down')
+    setTimeout(() => {
+      cookiesMessage.classList.add("hidden");
+    }, 1500)
     // and the acceptance cookie is created
     document.cookie = "cookies=accepted; path=/; samesite=strict; max-age=31536000";
   }
@@ -39,17 +38,20 @@ if (document.getElementById("cookies-banner")) {
   });
 
   // Close the message when clicking on an option & create a cookie
-  acceptCookiesButton.addEventListener("click", function(){
+  acceptCookiesButton.addEventListener("click", function () {
     acceptCookies();
   });
 
-  denyCookiesButton.addEventListener("click", function(){
-    cookiesMessage.classList.add("hidden");
+  denyCookiesButton.addEventListener("click", function () {
     document.cookie = "cookies=denied; path=/; samesite=strict; max-age=31536000";
+    cookiesMessage.classList.add('slide-out-down')
+    setTimeout(() => {
+      cookiesMessage.classList.add("hidden");
+    }, 1500)
   })
 
   // Close the message when scrolling the page and create an acceptance cookie
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function () {
     var scrollNumber = window.scrollY;
 
     // If the user scrolls enough, 800px in this case

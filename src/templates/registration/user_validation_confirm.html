@@ -1,28 +1,35 @@
-{% extends "../base_form.html" %}
 {% load i18n %}
 
-{# Blocks de base.html #}
-{% block page_title %}{% translate "New password" %}{% endblock %}
-{% block bodyclasses %}{% endblock %}
-{% block mainclasses %} password {% endblock %}
-{% block extra_js %}{% endblock %}
+<c-default-layout pageTitle={% translate 'New password' %}>
+  <main class="grid grid-cols-1 gap-4 p-16 max-w-[40rem] m-auto">
+    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+      {% translate "New password" %}
+    </h1>
 
-{# Blocks de base_form.html #}
-{% block form_classes %}{% endblock %}
+    <c-base-form>
 
-{% block form_fields %}
-  <div class="field {% if form.email.errors %}error{% endif %}">
-    <label for="{{ form.email.id_for_label }}">
-      {{ form.email.label }}
-    </label>
-    {% if form.email.errors %}
-      <span class="field__error text-sm">{{ form.email.errors.0 }}</span>
-    {% endif %}
-    {{ form.email }}
-    {% if form.email.help_text %}
-      <span class="field__helptext text-sm">{{ form.email.help_text }}</span>
-    {% endif %}
-  </div>
+      <c-slot name="fields">
+        <div class="field {% if form.email.errors %}error{% endif %}">
+          <label for="{{ form.email.id_for_label }}">
+            {{ form.email.label }}
+          </label>
+          {% if form.email.errors %}
+            <span class="field__error text-sm">{{ form.email.errors.0 }}</span>
+          {% endif %}
+          {{ form.email }}
+          {% if form.email.help_text %}
+            <span class="field__helptext text-sm">{{ form.email.help_text }}</span>
+          {% endif %}
+        </div>
+      </c-slot>
+      
+      <c-slot name="submit">
+        <c-button type="submit" name="action" value="submit">
+          {% translate 'Submit' %}
+        </c-button>
+      </c-slot>
 
-<!-- {% block submit_text %}{% translate 'Set' %}{% endblock %} -->
-{% endblock %}
+    </c-base-form>
+
+  </main>
+</c-default-layout>

@@ -11,3 +11,37 @@
     content: '*';
     color: red;
 }
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-up {
+    animation: slideInUp 1s ease-out;
+}
+
+
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(300%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.slide-out-down {
+    animation: slideOutDown 2s ease-in;
+}

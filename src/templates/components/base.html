@@ -19,36 +19,9 @@
   
   {{ slot }}
 
-  <div id="cookies-banner" tabindex="-1"
-    class="fixed bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-t border-gray-200 bg-gray-50">
-    <p class="text-sm font-normal text-gray-500">
-      {% translate "We use cookies to optimize your experience and to analyze the web traffic. We don't sell data to third parties. If you continue navigating, we'll understand that you are ok with that." %}
-    </p>
-    <div class="flex gap-12 items-center mx-auto mt-6">
-      <button type="button" id="cookies-accept"
-        class="inline-flex gap-2 items-center px-12 py-2 bg-primary-700 rounded-lg text-sm font-medium text-center text-white
-          hover:bg-primary-800
-          focus:ring-4 focus:outline-none focus:ring-primary-300">
-        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-        </svg>
-
-        {% translate "Accept" %}
-      </button>
-      <button type="button" id="cookies-deny"
-        class="inline-flex gap-2 items-center px-12 py-2 bg-primary-700 rounded-lg text-sm font-medium text-center text-white
-          hover:bg-primary-800
-          focus:ring-4 focus:outline-none focus:ring-primary-300">
-        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-        </svg>
-        {% translate "Deny" %}
-      </button>
-    </div>
-  </div>
-
+  <c-cookies-banner></c-cookies-banner>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  <script src="{% static 'js/scripts.js' %}"></script>
   {{ extra_js }}
 </body>
 
