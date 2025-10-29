@@ -110,12 +110,42 @@ def get_survey_stats(survey, method):
     return stats
 
 
+def is_gendered(data_type):
+    if data_type == "IG":
+        return True
+    else:
+        return False
+
+
 def get_gender_suffix(gender: IndicatorResult.Gender):
     return {
         IndicatorResult.Gender.MALE: "male",
         IndicatorResult.Gender.FEMALE: "female",
         IndicatorResult.Gender.NON_BINARY: "non_binary",
     }.get(gender)
+
+
+def get_gender_field_value(indicator_result_list, indicator, suffix):
+    field_value = None
+
+    gender_lookup = {
+        "male": IndicatorResult.Gender.MALE,
+        "female": IndicatorResult.Gender.FEMALE,
+        "non_binary": IndicatorResult.Gender.NON_BINARY,
+    }
+    indicator_result = next(
+        (
+            res
+            for res in indicator_result_list
+            if res.indicator == indicator and res.gender == gender_lookup[suffix]
+        ),
+        None,
+    )
+
+    if indicator_result:
+        field_value = indicator_result.value
+
+    return field_value
 
 
 def parse_indicators_from_expression(expr: str):

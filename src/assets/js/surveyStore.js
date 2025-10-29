@@ -1,103 +1,76 @@
 document.addEventListener('alpine:init', () => {
     Alpine.store('survey', {
-        indicators: [],
-        parseExpression(expr, currentIndicatorCode = "", currentIndicatorValue = 0) {
-            const tokens = expr.split(" ")
+        sections: [],
+        currentSection: "",
+        prevSection: "",
+        prevSectionId: "",
+        initSections(sections) {
+            sections.forEach(s =>
+                this.sections.push({
+                    id: s.id,
+                    title: s.title,
+                    indicatorsStats: s.indicators_ids.map(i => ({ id: i, isValid: false })),
+                    touched: false,
+                })
+            );
+            this.sections[0].touched = true
+            this.currentSection = this.sections[0].title
 
-            let loadedTokens = []
-            for (let token of tokens) {
-                if (token.match(/^[a-zA-Z_]\w*$/)) {
-                    // If current indicator, get value from params
-                    if (token == currentIndicatorCode) {
-                        loadedTokens.push(currentIndicatorValue)
-                        // If reference to another indicator, get value from global state
-                    } else {
-                        const value = this.loadIndicatorResult(token)
-                        if (value == undefined) {
-                            throw new Error(`Missing value, please fill question ${token} before.`)
-                        }
-                        loadedTokens.push(value)
-                    }
-                } else if (token == "=") {
-                    token = "=="
-                    loadedTokens.push(token)
+        },
+        setSection(title) {
+            const index = this.sections.findIndex(s => s.title == title)
+            if (index != null && index != -1) {
+                this.currentSection = this.sections[index].title
+                this.sections[index].touched = true
+                if (index > 0) {
+                    this.prevSection = this.sections[index - 1].title
+                    this.prevSectionId = this.sections[index - 1].id
                 } else {
-                    loadedTokens.push(token)
+                    this.prevSection = ""
+                    this.prevSectionId = ""
                 }
-            }
-
-            const jsExpr = loadedTokens.join(" ")
-            return jsExpr
-        },
-        evaluateExpression(expr) {
-            try {
-                return eval(expr)
-            } catch (e) {
-                throw e
-            }
-        },
-        isValid(field) {
-            if (!field.validation) {
-                return true
-            }
-            try {
-                parsedExpression = this.parseExpression(field.validation, field.code, field.value)
-                result = this.evaluateExpression(parsedExpression)
-                return result
-            } catch (e) {
-                return false
-            }
-        },
-        isVisible(indicator) {
-            try {
-                parsedExpression = this.parseExpression(indicator.condition, indicator.code, indicator.value)
-                return this.evaluateExpression(parsedExpression)
-            } catch (e) {
-                return false
-            }
-        },
-        computeFormula(indicator) {
-            try {
-                parsedExpression = this.parseExpression(indicator.formula)
-                return this.evaluateExpression(parsedExpression)
-            } catch (e) {
-                return null
-            }
-        },
-        loadIndicatorResult(code) {
-            return this.indicators.find(i => i.code == code).value || null
-        },
-        updateIndicatorResult(code, value) {
-            const index = this.indicators.findIndex(i => i.code == code)
-            this.indicators[index].value = value
-            this.indicators = indicators
-            if (indicators[index].dependant_indicators) {
-                for (code of indicators[index].dependant_indicators) {
-                    this.updateDependantIndicator(code)
-                }
-            }
-        },
-        updateDependantIndicator(code) {
-            console.log("Update dependant indicator:", code)
-            const index = this.indicators.findIndex(i => i.code == code)
-            let indicator = this.indicators[index]
-            console.log(indicator)
-            if (indicator.is_direct_indicator) {
-                console.log("Is direct")
-                const show = this.isVisible(indicator)
-                const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                Alpine.$data(fieldEl).show = show
             } else {
-                console.log("Is indirect")
-                const value = this.computeFormula(indicator)
-                if (value != null) {
-                    const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                    Alpine.$data(fieldEl).value = value
-                }
+                console.log("section doesn't exist", title)
             }
+        },
+        gotToPrevSection() {
+            const index = this.sections.findIndex(s => s.id == this.prevSectionId)
+            this.prevSection = this.sections[index].title
+            if (index == 0) {
+                this.prevSectionId = ""
+                this.prevSection = ""
+            } else {
+                this.prevSectionId = this.sections[index - 1].id
+            }
+            FlowbiteInstances.getAllInstances().Tabs["survey-tabs"].show(`#section-${this.sections[index].id}`)
+        },
+        isSectionCompleted(title) {
+            const section = this.sections.find(s => s.title == title)
+            if (section) {
+                return section.indicatorsStats.reduce((acc, curr) => acc && curr.isValid, true)
+            }
+            return false
+        },
+        isSectionTouched(title) {
+            const section = this.sections.find(s => s.title == title)
+            if (section) {
+                return section.touched
+            } else {
+                console.log("section doesn't exist", title)
+            }
+            return false
+        },
+        setIndicatorValidation(id, value) {
+            this.sections.forEach(s => {
+                const index = s.indicatorsStats.findIndex(i => i.id == id)
+                if (index > -1) {
+                    s.indicatorsStats[index].isValid = value
+                }
+            })
         },
     })
 
-    const indicators = JSON.parse(document.getElementById('indicators').textContent);
-    Alpine.store('survey')["indicators"] = indicators
+    const sections = JSON.parse(document.getElementById('sections').textContent);
+    Alpine.store('survey').initSections(sections)
+
 })

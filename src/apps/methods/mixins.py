@@ -7,7 +7,7 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 
 from .forms import get_dynamic_form, get_form_sections
-from .helpers import get_gender_suffix
+from .helpers import get_gender_field_value, get_gender_suffix, is_gendered
 from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 
 
@@ -44,6 +44,30 @@ class MethodFillMixin:
                 readonly,
                 placeholder_dict,
             )
+
+            indicator_results = IndicatorResult.objects.filter(
+                survey=survey,
+            ).all()
+            initial_values = {}
+            for i in indicator_results:
+                # Handle gendered indicators (3 fields)
+                if is_gendered(i.indicator.data_type):
+                    initial_values[i.indicator.code] = {
+                        "non_binary": get_gender_field_value(
+                            indicator_results, i.indicator, "non_binary"
+                        ),
+                        "male": get_gender_field_value(
+                            indicator_results, i.indicator, "male"
+                        ),
+                        "female": get_gender_field_value(
+                            indicator_results, i.indicator, "female"
+                        ),
+                    }
+                else:
+                    initial_values[i.indicator.code] = i.value
+
+            context["initial_values"] = initial_values
+
         except ObjectDoesNotExist:
             # If there is none, get new survey
             context["form"] = get_dynamic_form(
@@ -53,6 +77,18 @@ class MethodFillMixin:
         context["method_name"] = current_method.name
         context["readonly"] = readonly
         context["sections"] = get_form_sections(current_method)
+        sections_data = []
+        for section in context["sections"]:
+            sections_data.append(
+                {
+                    "id": section.id,
+                    "title": section.title,
+                    "indicators_ids": [
+                        i["id"] for i in list(section.indicators.all().values())
+                    ],
+                }
+            )
+        context["sections_data"] = sections_data
         try:
             indicators = list(
                 Method.objects.get(id=current_method.id).indicators.all().values()

@@ -5,7 +5,7 @@
                 <label class="inline-flex items-center cursor-pointer mr-4" @click="update($event)">
                     <input type="radio" :name="`question_${id}`" value="{{ option.value.value }}"
                         class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" 
-                        {% if option.selected %}checked{%endif %} 
+                        :checked="value.includes(String({{ option.value.value }}))"
                         {% include "django/forms/widgets/attrs.html" %}
                     >
                     <span class="ml-2 text-sm text-gray-700">{{ option.label }}</span>

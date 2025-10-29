@@ -8,8 +8,9 @@
                             
                 <label class="inline-flex items-center cursor-pointer" @click="update($event)">
                     <input type="checkbox" :name="`question_${id}`" value="{{ option.value.value }}" class="h-4 w-4 text-pink-600 bg-gray-100 border-gray-300 rounded
-                        focus:ring-blue-500" {% if option.selected %}checked{% endif %} {%
-                        include "django/forms/widgets/attrs.html" %}
+                        focus:ring-blue-500" 
+                        :checked="value.includes(String({{ option.value.value }}))"
+                        {% include "django/forms/widgets/attrs.html" %}
                     >
                     <span class="ml-2 text-sm text-gray-700">
                         {{ option.label }}

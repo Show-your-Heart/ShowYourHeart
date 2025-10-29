@@ -6,7 +6,7 @@
             {% for option in options %}
                 <option 
                     value="{{ option.value.value }}" 
-                    {% if option.selected %}selected{% endif %}
+                    :selected="value.includes(String({{ option.value.value }}))"
                     @click="update($event)"
                 >
                     {{ option.label }}
