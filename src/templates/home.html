@@ -10,7 +10,8 @@
 
 
     <div class="flex block gap-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <figure class="max-w-30"><img src="{{ organization.logo.url }}" alt="{% translate 'Organization logo' %}"></figure>
+      {% if organization.logo %}<figure class="max-w-30"><img src="{{ organization.logo.url }}"
+          alt="{% translate 'Organization logo' %}"></figure>{% endif %}
       <div class="flex flex-col flex-grow">
         <h4 class="text-2xl font-bold">{{ organization.name }}</h4>
         <p><strong>{% translate 'NIF' %}</strong> {{ organization.vat_number }}</p>
