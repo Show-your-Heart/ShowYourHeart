@@ -121,7 +121,7 @@ class Indicator(BaseModel):
         self.__original_formula = self.formula
 
     def __str__(self):
-        return self.name
+        return f"{self.code} - {self.name}"
 
     def clean(self):
         super().clean()
