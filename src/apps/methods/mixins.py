@@ -52,19 +52,22 @@ class MethodFillMixin:
             for i in indicator_results:
                 # Handle gendered indicators (3 fields)
                 if is_gendered(i.indicator.data_type):
-                    initial_values[i.indicator.code] = {
-                        "non_binary": get_gender_field_value(
-                            indicator_results, i.indicator, "non_binary"
-                        ),
-                        "male": get_gender_field_value(
-                            indicator_results, i.indicator, "male"
-                        ),
-                        "female": get_gender_field_value(
-                            indicator_results, i.indicator, "female"
-                        ),
-                    }
+                    initial_values[i.indicator.code] = (
+                        {
+                            "non_binary": get_gender_field_value(
+                                indicator_results, i.indicator, "non_binary"
+                            ),
+                            "male": get_gender_field_value(
+                                indicator_results, i.indicator, "male"
+                            ),
+                            "female": get_gender_field_value(
+                                indicator_results, i.indicator, "female"
+                            ),
+                        },
+                        i.not_applicable,
+                    )
                 else:
-                    initial_values[i.indicator.code] = i.value
+                    initial_values[i.indicator.code] = (i.value, i.not_applicable)
 
             context["initial_values"] = initial_values
 
@@ -133,7 +136,11 @@ class MethodFillMixin:
 
         for indicator in method.indicators.all():
             field_name = f"question_{indicator.id}"
-
+            na = (
+                None
+                if not indicator.mandatory
+                else request.POST.get(f"{field_name}_na", False)
+            )
             # Handle gendered indicators
             if indicator.data_type in [
                 Indicator.DataType.INTEGERGENDER,
@@ -150,21 +157,24 @@ class MethodFillMixin:
                             survey=survey,
                             indicator=indicator,
                             gender=gender,
-                            defaults={"value": value},
+                            defaults={
+                                "value": value,
+                                "not_applicable": na,
+                            },
                         )
                     else:
                         IndicatorResult.objects.filter(
                             survey=survey, indicator=indicator, gender=gender
                         ).delete()
 
-            # Handle normal indicators
+            # Handle standard indicators
             else:
                 values = request.POST.getlist(field_name)
                 if values:
                     IndicatorResult.objects.update_or_create(
                         survey=survey,
                         indicator=indicator,
-                        defaults={"value": "|".join(values)},
+                        defaults={"value": "|".join(values), "not_applicable": na},
                     )
                 else:
                     IndicatorResult.objects.filter(

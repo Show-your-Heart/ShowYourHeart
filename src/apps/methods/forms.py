@@ -125,18 +125,6 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
     return DynamicSurveyForm
 
 
-def get_field_value(indicator_result_list, indicator):
-    field_value = None
-    if len(indicator_result_list):
-        indicator_result = indicator_result_list.filter(indicator=indicator).first()
-        if indicator_result:
-            if indicator.data_type == Indicator.DataType.CHECKBOX:
-                field_value = indicator_result.value.split("|")
-            else:
-                field_value = indicator_result.value
-    return field_value
-
-
 def get_form_sections(method):
     result = {}
     sections = Section.objects.filter(method=method).order_by("order")

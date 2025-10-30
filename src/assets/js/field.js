@@ -32,6 +32,7 @@ document.addEventListener('alpine:init', () => {
         error: "",
         show: true,
         unit: "",
+        mandatory: false,
         init() {
             const indicator = Alpine.store('indicators')["indicators"].find(i => i.code == code)
             const initialValue = Alpine.store('indicators')["initialValues"][code] || null
@@ -41,7 +42,9 @@ document.addEventListener('alpine:init', () => {
             this.code = indicator.code
             this.type = indicator.data_type
             this.unit = indicator.unit
-            this.value = this.loadInitialValue(initialValue, indicator.data_type)
+            this.mandatory = indicator.mandatory
+            this.value = this.loadInitialValue(initialValue?.[0] ?? null, indicator.data_type)
+            this.not_applicable = initialValue?.[1] ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value)
             this.isDirectIndicator = indicator.is_direct_indicator

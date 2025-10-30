@@ -112,7 +112,7 @@ class Indicator(BaseModel):
     dependant_indicators = models.JSONField(
         "dependant_indicators", blank=True, null=True
     )
-
+    mandatory = models.BooleanField(_("Is it mandatory?"), blank=False, default=True)
     message = models.CharField(_("message"), max_length=400, blank=True)
 
     def __init__(self, *args, **kwargs):
@@ -325,6 +325,9 @@ class IndicatorResult(BaseModel):
         choices=Gender.choices, default=None, blank=True, null=True
     )
     value = models.CharField(blank=True)
+    not_applicable = models.BooleanField(
+        _("not applicable"), blank=True, null=True, default=None
+    )
 
     class Meta:
         constraints = [
