@@ -155,6 +155,7 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.DECIMAL:
                 case FieldType.BOOLEAN:
                 case FieldType.INTEGERGENDER:
+                case FieldType.DECIMALGENDER:
                     return false
                 case FieldType.DROPDOWN:
                 case FieldType.CHECKBOX:
@@ -175,6 +176,7 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.RADIOBUTTON:
                 case FieldType.BOOLEAN:
                 case FieldType.INTEGERGENDER:
+                case FieldType.DECIMALGENDER:
                     return false
                 case FieldType.CHECKBOX:
                     return true

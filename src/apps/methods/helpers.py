@@ -111,7 +111,7 @@ def get_survey_stats(survey, method):
 
 
 def is_gendered(data_type):
-    if data_type == "IG":
+    if data_type == "IG" or data_type == "DG":
         return True
     else:
         return False
