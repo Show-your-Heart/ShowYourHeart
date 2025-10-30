@@ -1,0 +1,32 @@
+{% load i18n static %}
+
+<div id="cookies-banner" tabindex="-1"
+  class="fixed bottom-8 start-8 end-8 shadow z-50 flex flex-col justify-between p-4 rounded-lg border border-gray-300 bg-gray-50 slide-in-up ">
+  <p class="text-sm font-normal text-gray-500 text-center">
+    {% translate "We use cookies to optimize your experience and to analyze the web traffic. We don't sell data to third parties. If you continue navigating, we'll understand that you are ok with that." %}
+  </p>
+  <div class="flex gap-12 items-center mx-auto mt-6">
+    <button type="button" id="cookies-accept"
+      class="inline-flex gap-2 items-center px-12 py-2 bg-blue-700 rounded-lg text-sm font-medium text-center text-white
+        hover:bg-blue-800 hover:cursor-pointer
+        focus:ring-4 focus:outline-none focus:ring-blue-300">
+      <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+
+      {% translate "Accept" %}
+    </button>
+    <button type="button" id="cookies-deny"
+      class="inline-flex gap-2 items-center px-12 py-2 bg-blue-700 rounded-lg text-sm font-medium text-center text-white
+        hover:bg-blue-800 hover:cursor-pointer
+        focus:ring-4 focus:outline-none focus:ring-blue-300">
+      <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+      {% translate "Deny" %}
+    </button>
+  </div>
+</div>
+
+<script src="{% static 'js/cookies-consent.js' %}"></script>
+

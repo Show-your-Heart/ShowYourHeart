@@ -24,29 +24,22 @@
             <div class="h-auto flex flex-column justify-center items-center">
                 <div class="w-full p-6 space-y-4 md:space-y-6 p-8 bg-white rounded-lg shadow">
 
-                    {% block form_intro %}
-                    {% endblock %}
-
                     <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {%
                         block form_action %}{% endblock %} class="space-y-4 md:space-y-6">
                         <h2 class="font-bold">{{ _("Log in") }}</h2>
                         {% csrf_token %}
 
-                        {% block form_fields %}
                         {{ form }}
                         <a href="{% url 'registration:password_reset' %}"
                             class="inline-flex text-sm font-medium text-blue-600 hover:underline !mt-0">
                             {% translate "Forgot your password?" %}
                         </a>
-                        {% endblock %}
 
-                        {% block submit_whole %}
                         {% if not form.fields.field_text_1.disabled %}
-                        <input type="submit" class="w-full px-5 py-2.5 rounded-lg bg-blue-600 text-white font-bold text-sm text-center cursor-pointer
-                            hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                            value="{% block submit_text %}{% translate 'Start' %}{% endblock %}" id="id_submit">
+                            <input type="submit" class="w-full px-5 py-2.5 rounded-lg bg-blue-600 text-white font-bold text-sm text-center cursor-pointer
+                                hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                value="{% block submit_text %}{% translate 'Start' %}{% endblock %}" id="id_submit">
                         {% endif %}
-                        {% endblock %}
                     </form>
 
                     {% include 'components/form_errors.html' %}

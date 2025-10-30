@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
@@ -14,6 +15,10 @@ from .models import Organization
 
 
 class OrganizationSignUpForm(forms.ModelForm):
+    error_messages = {
+        "invalid_signup": _("Invalid signup, check that you don't have an account."),
+    }
+
     name = forms.CharField(
         label=_("Organization name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
@@ -106,20 +111,23 @@ class OrganizationSignUpForm(forms.ModelForm):
         if not self.data.get("legal_structure"):
             self.fields["methods"].queryset = Method.objects.none()
 
+    def clean(self):
+        contact = User.objects.filter(email=self.cleaned_data["contact_mail"])
+        if contact.exists():
+            raise self.get_invalid_signup_error()
+
     @transaction.atomic
     def save(self, commit=True):
         organization = super().save(commit=False)
 
-        contact = User.objects.filter(email=self.cleaned_data["contact_mail"])
-        if not contact.exists():
-            contact = User.objects.create_user(
-                email=self.cleaned_data["contact_mail"],
-                name=self.cleaned_data["contact_name"],
-                user_profile_data={
-                    "telephone": self.cleaned_data["contact_telephone"],
-                    "organization": organization,
-                },
-            )
+        User.objects.create_user(
+            email=self.cleaned_data["contact_mail"],
+            name=self.cleaned_data["contact_name"],
+            user_profile_data={
+                "telephone": self.cleaned_data["contact_telephone"],
+                "organization": organization,
+            },
+        )
         if commit:
             organization.save()
             # save(commit=False) used before does not save the many to
@@ -131,6 +139,12 @@ class OrganizationSignUpForm(forms.ModelForm):
 
     def get_privacy_policy_url(self):
         return reverse("registration:privacy_policy")
+
+    def get_invalid_signup_error(self):
+        return ValidationError(
+            self.error_messages["invalid_signup"],
+            code="invalid_signup",
+        )
 
 
 class OrganizationAdminForm(forms.ModelForm):

@@ -1,23 +1,25 @@
-{% extends "../base_form.html" %}
 {% load i18n %}
 
-{# Blocks de base.html #}
-{% block page_title %}{% translate "Mail validation" %}{% endblock %}
-{% block bodyclasses %}{% endblock %}
-{% block mainclasses %}{% endblock %}
-{% block extra_js %}{% endblock %}
+<c-default-layout pageTitle={% translate 'Mail validation' %}>
+  <main class="grid grid-cols-1 gap-4 p-16 max-w-[40rem] m-auto">
+    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+      {% translate "Mail validation" %}
+    </h1>
 
-{# Blocks de base_form.html #}
-{% block before_form_content %}{% endblock %}
-{% block form_intro %}{% endblock %}
-{% block enctype %}{% endblock %}
-{% block submit_text %}{% translate "Go" %}{% endblock %}
-{% block form_outro %}{% endblock %}
+    <c-base-form>
 
-{% block form_fields %}
-  {{ form }}
-  {% block submit_value %}{% endblock %}
-{% endblock %}
+      <c-slot name="fields">
+        <p>{% translate "By clicking the button a verification code will be send to your email address. Check your email to find it." %}</p>
+        {{ form }}
+      </c-slot>
+      
+      <c-slot name="submit">
+        <c-button type="submit" name="action" value="submit">
+          {% translate 'Send' %}
+        </c-button>
+      </c-slot>
 
-{% block after_form_content %}
-{% endblock after_form_content %}
+    </c-base-form>
+
+  </main>
+</c-default-layout>
