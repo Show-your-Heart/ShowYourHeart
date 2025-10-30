@@ -10,7 +10,9 @@
         </label>
         {% comment %} Here we use the widget object to fill data into Cotton fields since Alpine and Cotton would clash
         in the use of dynamic fields {% endcomment %}
+        {% if widget.attrs.description %}
         <c-help-drawer msg="{{widget.attrs.description}}" id="{{widget.attrs.id}}"></c-help-drawer>
+        {% endif %}
     </div>
 
     {{ slot }}
