@@ -39,7 +39,8 @@ def update_user_groups(sender, **kwargs):
         "settings": get_permission_codenames("network", "vacd")
         + get_permission_codenames("legalstructure", "vacd")
         + get_permission_codenames("sector", "vacd"),
-        "organizations": get_permission_codenames("organization", "vacd"),
+        "organizations": get_permission_codenames("organization", "vacd")
+        + get_permission_codenames("project", "vacd"),
         "methods": get_permission_codenames("topic", "vacd")
         + get_permission_codenames("indicator", "vacd")
         + get_permission_codenames("method", "vacd")
