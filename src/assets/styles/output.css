@@ -272,6 +272,9 @@
   }
 }
 @layer utilities {
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
   .collapse {
     visibility: collapse;
   }
@@ -1573,9 +1576,24 @@
       outline-style: none;
     }
   }
+  .disabled\:pointer-events-none {
+    &:disabled {
+      pointer-events: none;
+    }
+  }
+  .disabled\:cursor-default {
+    &:disabled {
+      cursor: default;
+    }
+  }
   .disabled\:cursor-not-allowed {
     &:disabled {
       cursor: not-allowed;
+    }
+  }
+  .disabled\:bg-gray-100 {
+    &:disabled {
+      background-color: var(--color-gray-100);
     }
   }
   .disabled\:bg-gray-400 {

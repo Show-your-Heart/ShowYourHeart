@@ -1,16 +1,17 @@
 {% load i18n %}
 
 <c-forms.base-field>
-    <label class="inline-flex items-center cursor-pointer mr-4" @click="update($event)">
+    <label class="inline-flex items-center cursor-pointer mr-4 " @click="update($event)">
         <input type="radio" :name="`question_${id}`" value="True" :checked="value == 'True'"
-            class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" {%
-            include "django/forms/widgets/attrs.html" %}>
-        <span class="ml-2 text-sm text-gray-700">{% translate 'Yes' %}</span>
+            class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-default"
+            {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="not_applicable">
+        <span class="ml-2 text-sm text-gray-700 disabled:cursor-default" x-bind:disabled="not_applicable">{% translate
+            'Yes' %}</span>
     </label>
     <label class="inline-flex items-center cursor-pointer mr-4" @click="update($event)">
         <input type="radio" :name="`question_${id}`" value="False" :checked="value == 'False'"
-            class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" {%
-            include "django/forms/widgets/attrs.html" %}>
+            class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-default"
+            {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="not_applicable">
         <span class="ml-2 text-sm text-gray-700">{% translate 'No' %}</span>
     </label>
 </c-forms.base-field>

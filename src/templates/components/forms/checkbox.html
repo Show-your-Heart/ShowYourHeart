@@ -6,11 +6,13 @@
         {% for group_name, options, index in widget.optgroups %}
         {% for option in options %}
 
-        <label class="inline-flex items-center cursor-pointer" @click="update($event)">
+        <label class="inline-flex items-center cursor-pointer disabled:cursor-default" @click="update($event)"
+            x-bind:disabled="not_applicable">
             <input type="checkbox" :name="`question_${id}`" value="{{ option.value.value }}" class="h-4 w-4 text-pink-600 bg-gray-100 border-gray-300 rounded
-                        focus:ring-blue-500" :checked="value.includes(String({{ option.value.value }}))" {%
-                include "django/forms/widgets/attrs.html" %}>
-            <span class="ml-2 text-sm text-gray-700">
+                        focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-default"
+                :checked="value && value.includes(String({{ option.value.value }}))" {%
+                include "django/forms/widgets/attrs.html" %} x-bind:disabled="not_applicable">
+            <span class="ml-2 text-sm text-gray-700 ">
                 {{ option.label }} <span class="items-center" x-text="unit"></span>
             </span>
         </label>

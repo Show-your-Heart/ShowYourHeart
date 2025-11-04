@@ -124,6 +124,7 @@ document.addEventListener('alpine:init', () => {
             }
         },
         updateValue(input, current, type, subtype = "") {
+            if (!current) return ""
             let value = ""
             if (this.isMultiAnswer(type)) {
                 const index = current.findIndex(v => v == input)
@@ -159,13 +160,14 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.BOOLEAN:
                 case FieldType.INTEGERGENDER:
                 case FieldType.DECIMALGENDER:
+                case FieldType.DATE:
                     return false
                 case FieldType.DROPDOWN:
                 case FieldType.CHECKBOX:
                 case FieldType.RADIOBUTTON:
                     return true
                 default:
-                    console.log("No matching type found")
+                    console.log(type, "No matching type found")
                     return false
             }
         },
@@ -180,11 +182,12 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.BOOLEAN:
                 case FieldType.INTEGERGENDER:
                 case FieldType.DECIMALGENDER:
+                case FieldType.DATE:
                     return false
                 case FieldType.CHECKBOX:
                     return true
                 default:
-                    console.log("No matching type found")
+                    console.log(type, "No matching type found")
                     return false
             }
         },
