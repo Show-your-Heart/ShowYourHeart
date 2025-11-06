@@ -8,7 +8,7 @@ from project.decorators import gov_admin_register, register_with_default_templat
 
 from .forms import OrganizationAdminForm
 from .helpers import get_organization_method_filter
-from .models import Organization
+from .models import Organization, Project
 
 
 # Add superadmin views with default Unfold templates
@@ -96,3 +96,33 @@ class OrganizationAdmin(ModelAdmin):
             )
         else:
             return "-"
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Project)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=Project)
+class ProjectAdmin(ModelAdmin):
+    list_display = (
+        "name",
+        "organization",
+    )
+    filter_horizontal = ("methods",)
+    autocomplete_fields = ["region1", "city"]
+    search_fields = ["name", "organization"]
+
+    def get_fieldsets(self, request, obj=None):
+        # Do not display "log fields" twice, display them only on a "Log" section
+        log_fields = [
+            "created_by",
+            "created_at",
+            "updated_at",
+        ]
+        default_fields = super().get_fieldsets(request, obj)
+
+        fieldsets = self.build_fieldsets(
+            main_fields=[
+                f for f in default_fields[0][1]["fields"] if f not in log_fields
+            ],
+        )
+        return fieldsets
