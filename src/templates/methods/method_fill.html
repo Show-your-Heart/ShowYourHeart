@@ -6,7 +6,7 @@
 
   <c-slot name="extra_js">
     {{ indicators|json_script:"indicators" }}
-    {{ initial_values|json_script:"initialValues" }}
+    {{ initial_values|json_script:"indicatorResults" }}
     {{ sections_data|json_script:"sections" }}
     <script src="{% static 'js/field.js' %}"></script>
     <script src="{% static 'js/surveyStore.js' %}"></script>
@@ -15,10 +15,9 @@
 
   <c-slot name="sidebar">
     <div class="mb-4 mt-8 pl-4">
-      <ul class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto" 
-        id="survey-tabs"
-        data-tabs-toggle="#tab-content" role="tablist"
-        x-data="{
+      <ul
+        class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
+        id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist" x-data="{
           getLiClass(title) {
               if ($store.survey.currentSection == title) {
                   return '!border-blue-600'
@@ -46,54 +45,48 @@
           showPending(title) {
             return $store.survey.isSectionTouched(title) && !($store.survey.currentSection == title) && !$store.survey.isSectionCompleted(title)
           },
-        }"
-      >
+        }">
         {% for section, fields in sections.items %}
-        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" 
-          :class="getLiClass('{{section.title}}')" 
-          role="presentation" 
-        >
-          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center" 
-            id="tab-{{ section.id }}"
-            :class="getBtnClass('{{section.title}}')" 
+        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" :class="getLiClass('{{section.title}}')"
+          role="presentation">
+          <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center"
+            id="tab-{{ section.id }}" :class="getBtnClass('{{section.title}}')"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
-            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}')"
-          >
+            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}')">
             {{ section.title }}
-            <c-icon x-show="showCurrent('{{section.title}}')" icon="arrow-right" class="w-6 h-6 inline text-blue-600"></c-icon>
+            <c-icon x-show="showCurrent('{{section.title}}')" icon="arrow-right"
+              class="w-6 h-6 inline text-blue-600"></c-icon>
             <c-icon x-show="showCheck('{{section.title}}')" icon="check" class="w-6 h-6 inline text-green-800"></c-icon>
-            <c-icon x-show="showPending('{{section.title}}')" icon="close" class="w-6 h-6 inline text-orange-800"></c-icon>
+            <c-icon x-show="showPending('{{section.title}}')" icon="close"
+              class="w-6 h-6 inline text-orange-800"></c-icon>
           </button>
         </li>
         {% endfor %}
       </ul>
     </div>
   </c-slot>
-  
-  <div
-    class="flex flex-col gap-4 items-center max-w-[900px] mx-auto"
-  >
-    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}
-      class="w-full space-y-4 md:space-y-6">
-        {% csrf_token %}
-      
+
+  <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
+    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block
+      form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
+      {% csrf_token %}
+
       <div id="tab-content">
         {% for section, fields in sections.items %}
-        <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8"
-          id="section-{{ section.id }}" role="tabpanel"
+        <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8" id="section-{{ section.id }}" role="tabpanel"
           aria-labelledby="{{ section.id }}{{ forloop.counter }}-tab">
 
           {% for field in fields.indicators %}
-            {{ form|get_item:field.field_name }}
+          {{ form|get_item:field.field_name }}
           {% endfor %}
 
           {% for subsection in fields.subsections %}
-            {% for subsectionName, subsectionIndicators in subsection.items %}
-              <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
-              {% for field in subsectionIndicators %}
-                {{ form|get_item:field.field_name }}
-              {% endfor %}
-            {% endfor %}
+          {% for subsectionName, subsectionIndicators in subsection.items %}
+          <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
+          {% for field in subsectionIndicators %}
+          {{ form|get_item:field.field_name }}
+          {% endfor %}
+          {% endfor %}
 
           {% endfor %}
 
@@ -101,19 +94,18 @@
         </div>
         {% endfor %}
       </div>
-    
+
       {% if not readonly %}
       <div class="flex gap-4 space-between min-w-[60%]">
         <div x-data x-show="$store.survey.prevSection != ''">
-          <c-button class="overflow-ellipsis bg-transparent !text-blue-600 hover:!border-blue-700 hover:!text-white" 
-            id="prev-section-btn" 
-            @click="$store.survey.gotToPrevSection()"
-            >
+          <c-button class="overflow-ellipsis bg-transparent !text-blue-600 hover:!border-blue-700 hover:!text-white"
+            id="prev-section-btn" @click="$store.survey.gotToPrevSection()">
             <c-icon icon="arrow-right" class="w-6 h-6 inline rotate-z-180 me-1"></c-icon>
             <span x-text="$store.survey.prevSection"></span>
           </c-button>
         </div>
-        <c-button class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white" 
+        <c-button
+          class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white"
           type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>

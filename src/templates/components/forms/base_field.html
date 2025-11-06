@@ -10,10 +10,11 @@
                 <span x-text="name"></span>
             </label>
 
-            <div x-show="mandatory">
-                <input type="checkbox" id="{{ widget.name }}_na" name="{{ widget.name }}_na" value="True" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+            <div x-show="mandatory" class="flex items-center">
+                <input type="checkbox" id="{{ widget.name }}_na" name="{{ widget.name }}_na" value="True" class="cursor-pointer h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
                         focus:ring-blue-500" x-model="notApplicable" {% include "django/forms/widgets/attrs.html" %}>
-                <label for="{{ widget.name }}_na" class="ml-2 text-sm text-gray-700"> {% translate 'Not applicable'
+                <label for="{{ widget.name }}_na" class="cursor-pointer ml-2 text-sm text-gray-700"> {% translate 'Not
+                    applicable'
                     %}</label>
             </div>
         </div>

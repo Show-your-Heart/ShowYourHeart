@@ -52,8 +52,8 @@ class MethodFillMixin:
             for i in indicator_results:
                 # Handle gendered indicators (3 fields)
                 if is_gendered(i.indicator.data_type):
-                    initial_values[i.indicator.code] = (
-                        {
+                    initial_values[i.indicator.code] = {
+                        "value": {
                             "non_binary": get_gender_field_value(
                                 indicator_results, i.indicator, "non_binary"
                             ),
@@ -64,10 +64,13 @@ class MethodFillMixin:
                                 indicator_results, i.indicator, "female"
                             ),
                         },
-                        i.not_applicable,
-                    )
+                        "not_applicable": i.not_applicable,
+                    }
                 else:
-                    initial_values[i.indicator.code] = (i.value, i.not_applicable)
+                    initial_values[i.indicator.code] = {
+                        "value": i.value,
+                        "not_applicable": i.not_applicable,
+                    }
 
             context["initial_values"] = initial_values
 

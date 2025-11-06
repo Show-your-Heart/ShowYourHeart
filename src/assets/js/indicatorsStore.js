@@ -106,7 +106,7 @@ document.addEventListener('alpine:init', () => {
 
     const indicators = JSON.parse(document.getElementById('indicators').textContent);
     Alpine.store('indicators')["indicators"] = indicators
-    const initialValues = JSON.parse(document.getElementById('initialValues').textContent);
-    Alpine.store('indicators')["initialValues"] = initialValues
+    const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
+    Alpine.store('indicators')["indicatorResults"] = indicatorResults
 
 })

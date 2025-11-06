@@ -1402,6 +1402,21 @@
       border-color: var(--color-red-600);
     }
   }
+  .peer-disabled\:cursor-default {
+    &:is(:where(.peer):disabled ~ *) {
+      cursor: default;
+    }
+  }
+  .peer-disabled\:bg-gray-600 {
+    &:is(:where(.peer):disabled ~ *) {
+      background-color: var(--color-gray-600);
+    }
+  }
+  .peer-disabled\:text-gray-400 {
+    &:is(:where(.peer):disabled ~ *) {
+      color: var(--color-gray-400);
+    }
+  }
   .last\:mb-8 {
     &:last-child {
       margin-bottom: calc(var(--spacing) * 8);
@@ -1647,6 +1662,21 @@
           background-color: var(--color-gray-400);
         }
       }
+    }
+  }
+  .has-disabled\:pointer-events-none {
+    &:has(*:disabled) {
+      pointer-events: none;
+    }
+  }
+  .has-disabled\:cursor-default {
+    &:has(*:disabled) {
+      cursor: default;
+    }
+  }
+  .has-disabled\:text-blue-600 {
+    &:has(*:disabled) {
+      color: var(--color-blue-600);
     }
   }
   .max-md\:-mt-px {
