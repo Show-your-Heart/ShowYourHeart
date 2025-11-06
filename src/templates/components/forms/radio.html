@@ -2,11 +2,14 @@
     <div class="flex flex-col space-y-2 pl-4">
         {% for group, options, index in widget.optgroups %}
         {% for option in options %}
-        <label class="inline-flex items-center cursor-pointer mr-4" @click="update($event)">
-            <input type="radio" :name="`question_${id}`" value="{{ option.value.value }}"
-                class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:bg-gray-100 disabled:pointer-events-none"
+        <label :for="`question_${id}_option_{{index}}`" class="inline-flex items-center cursor-pointer mr-4 group"
+            @click="console.log($event.target.value);$event.target.value && update($event.target.value)">
+            <input type="radio" :id="`question_${id}_option_{{index}}`" :name="`question_${id}`"
+                value="{{ option.value.value }}"
+                class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 group-disabled:bg-gray-100 group-disabled:pointer-events-none"
                 :checked="value && value.includes(String({{ option.value.value }}))" {%
-                include "django/forms/widgets/attrs.html" %} x-bind:disabled="not_applicable">
+                include "django/forms/widgets/attrs.html" %} x-model="value" x-bind:disabled="notApplicable"
+                x-effect="if (notApplicable) {update(null) }">
             <span class="ml-2 text-sm text-gray-700">{{ option.label }} <span class="items-center"
                     x-text="unit"></span></span>
         </label>

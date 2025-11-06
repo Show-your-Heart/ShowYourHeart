@@ -33,6 +33,7 @@ document.addEventListener('alpine:init', () => {
         show: true,
         unit: "",
         mandatory: false,
+        notApplicable: false,
         init() {
             const indicator = Alpine.store('indicators')["indicators"].find(i => i.code == code)
             const initialValue = Alpine.store('indicators')["initialValues"][code] || null
@@ -44,7 +45,7 @@ document.addEventListener('alpine:init', () => {
             this.unit = indicator.unit
             this.mandatory = indicator.mandatory
             this.value = this.loadInitialValue(initialValue?.[0] ?? null, indicator.data_type)
-            this.not_applicable = initialValue?.[1] ?? false
+            this.notApplicable = initialValue?.[1] ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value)
             this.isDirectIndicator = indicator.is_direct_indicator
@@ -98,9 +99,9 @@ document.addEventListener('alpine:init', () => {
             }
             return value
         },
-        update(event, subtype = "") {
+        update(currentValue, subtype = "") {
             try {
-                this.value = this.updateValue(event.target.value, this.value, this.type, subtype)
+                this.value = this.updateValue(currentValue, this.value, this.type, subtype)
                 const field = {
                     id: this.id,
                     code: this.code,
@@ -127,12 +128,17 @@ document.addEventListener('alpine:init', () => {
             if (!current) return ""
             let value = ""
             if (this.isMultiAnswer(type)) {
-                const index = current.findIndex(v => v == input)
-                value = current
-                if (index != -1) {
-                    value.splice(index, 1)
+                //input is setted on the call to update from the x-effect of the component
+                if (input && input.constructor == Array && input.length == 0) {
+                    value = []
                 } else {
-                    value.push(input)
+                    const index = current.findIndex(v => v == input)
+                    value = current
+                    if (index != -1) {
+                        value.splice(index, 1)
+                    } else {
+                        value.push(input)
+                    }
                 }
             } else if (this.isGendered(type)) {
                 value = current

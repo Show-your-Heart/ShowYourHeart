@@ -2,11 +2,12 @@
     <div class="flex gap-4">
         <select :id="id" :name="`question_${id}`"
             class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:cursor-default"
-            :required="required" {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="not_applicable">
+            :required="required" {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable">
             {% for group, options, index in widget.optgroups %}
             {% for option in options %}
-            <option value="{{ option.value.value }}" :selected="value.includes(String({{ option.value.value }}))"
-                @click="update($event)">
+            <option value="{{ option.value.value }}"
+                :selected="value && value.includes(String({{ option.value.value }}))"
+                @click="update($event.target.value)">
                 {{ option.label }}
             </option>
             {% endfor %}

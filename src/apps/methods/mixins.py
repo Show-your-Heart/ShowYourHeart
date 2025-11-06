@@ -152,13 +152,13 @@ class MethodFillMixin:
                     "non_binary": IndicatorResult.Gender.NON_BINARY,
                 }.items():
                     value = request.POST.get(f"{field_name}_{suffix}")
-                    if value:
+                    if value or na:
                         IndicatorResult.objects.update_or_create(
                             survey=survey,
                             indicator=indicator,
                             gender=gender,
                             defaults={
-                                "value": value,
+                                "value": "" if value is None else value,
                                 "not_applicable": na,
                             },
                         )
@@ -170,7 +170,7 @@ class MethodFillMixin:
             # Handle standard indicators
             else:
                 values = request.POST.getlist(field_name)
-                if values:
+                if values or na:
                     IndicatorResult.objects.update_or_create(
                         survey=survey,
                         indicator=indicator,
