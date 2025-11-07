@@ -319,7 +319,7 @@ class GovAdminSite(UnfoldAdminSite):
                 },
                 {
                     "app_name": "methods",
-                    "name": _("Methods"),
+                    "name": _("Methods management"),
                     "icon": "adjustments-horizontal",
                     "url": apps_dict["Methods"]["app_url"],
                     "is_active": self.is_app_active(apps_dict["Methods"], request),
