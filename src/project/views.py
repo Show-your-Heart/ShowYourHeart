@@ -45,18 +45,13 @@ class HomeView(TemplateView):
                 self.request.user.profile.organization.status
                 == Organization.Status.ACCEPTED
             )
-            open_campaign = Campaign.objects.filter(status=True)
+            open_campaign = Campaign.objects.filter(status=True).first()
             if open_campaign:
                 for method in self.request.user.profile.organization.methods.filter(
-                    id__in=open_campaign.first().methods.all()
+                    id__in=open_campaign.methods.all()
                 ):
-                    method_list.append(
-                        {
-                            "id": method.id,
-                            "name": method.name,
-                            "sections": get_form_sections(method),
-                        }
-                    )
+                    method.sections = get_form_sections(method)
+                    method_list.append(method)
 
             surveys = Survey.objects.filter(
                 user=self.request.user,
@@ -64,21 +59,19 @@ class HomeView(TemplateView):
             )
 
             for method in method_list:
-                # Get survey belonging to method (if exists)
-                survey = next(
-                    (s for s in surveys if s.method.name == method["name"]), None
-                )
+                survey = next((s for s in surveys if s.method_id == method.id), None)
                 current_surveys_stats.append(get_survey_stats(survey, method))
 
-        add_context = {
-            "user": self.request.user,
-            "organization": self.request.user.profile.organization
-            if hasattr(self.request.user, "profile")
-            else None,
-            "current_surveys_stats": current_surveys_stats,
-            "organization_accepted": organization_accepted,
-        }
-        context.update(add_context)
+        context.update(
+            {
+                "user": self.request.user,
+                "organization": getattr(self.request.user.profile, "organization", None)
+                if hasattr(self.request.user, "profile")
+                else None,
+                "current_surveys_stats": current_surveys_stats,
+                "organization_accepted": organization_accepted,
+            }
+        )
         return context
 
 

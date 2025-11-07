@@ -56,7 +56,7 @@ def get_survey_stats(survey, method):
         )
         total_indicators = 0
         total_answered__indicators = 0
-        for section, section_data in method["sections"].items():
+        for section, section_data in method.sections.items():
             total_indicators += section.indicators.count()
             total_section_indicators = section.indicators.count()
             indicators_list = list(section.indicators.all())
@@ -103,8 +103,8 @@ def get_survey_stats(survey, method):
             )
 
     else:
-        stats["totalToDo"] = len(method["sections"])
-        for section in method["sections"]:
+        stats["totalToDo"] = len(method.sections)
+        for section in method.sections:
             stats["sectionsWithStatus"].append({"status": "toDo", "section": section})
 
     return stats
