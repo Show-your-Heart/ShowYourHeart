@@ -33,6 +33,7 @@ class OrganizationAdmin(ModelAdmin):
             "created_by",
             "created_at",
             "updated_at",
+            "privacy_policy_accepted",
         ]
         default_fields = super().get_fieldsets(request, obj)
 
