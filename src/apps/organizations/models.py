@@ -20,10 +20,6 @@ class Organization(BaseModel):
             2,
             "Rejected",
         )
-        REGISTERED = (
-            3,
-            "Registered",
-        )
 
     name = models.CharField(_("name"), max_length=150)
     logo = models.FileField(upload_to="logos/", null=True, blank=True)
