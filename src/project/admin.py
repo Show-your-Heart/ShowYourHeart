@@ -9,8 +9,12 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
+from post_office.admin import EmailTemplateAdmin
+from post_office.models import EmailTemplate
 from unfold.admin import ModelAdmin as BaseModelAdmin
 from unfold.sites import UnfoldAdminSite
+
+from project.decorators import gov_admin_register
 
 from .helpers import available_apps_to_dict
 
@@ -377,26 +381,24 @@ class GovAdminSite(UnfoldAdminSite):
                     "url": apps_dict["Settings"]["app_url"],
                     "is_active": self.is_app_active(apps_dict["Settings"], request)
                     or self.is_app_active(apps_dict["Users"], request)
-                    or self.is_app_active(apps_dict["Geodata"], request),
+                    or self.is_app_active(apps_dict["Geodata"], request)
+                    or self.is_app_active(apps_dict["Post Office"], request),
                     "app": apps_dict["Settings"],
                     "items": [
-                        # {
-                        #     "name": apps_dict["PostOffice"]["models_dict"][
-                        #         "emailtemplate"
-                        #     ][
-                        #         "name"
-                        #     ],
-                        #     "url": apps_dict["PostOffice"]["models_dict"][
-                        #         "emailtemplate"
-                        #     ][
-                        #         "admin_url"
-                        #     ],
-                        #     "is_active": self.is_model_active(
-                        #         apps_dict["PostOffice"]["models_dict"]
-                        #               ["emailtemplate"],
-                        #         request,
-                        #     ),
-                        # },
+                        {
+                            "name": apps_dict["Post Office"]["models_dict"][
+                                "EmailTemplate"
+                            ]["name"],
+                            "url": apps_dict["Post Office"]["models_dict"][
+                                "EmailTemplate"
+                            ]["admin_url"],
+                            "is_active": self.is_model_active(
+                                apps_dict["Post Office"]["models_dict"][
+                                    "EmailTemplate"
+                                ],
+                                request,
+                            ),
+                        },
                         {
                             "name": apps_dict["Users"]["models_dict"]["User"]["name"],
                             "url": apps_dict["Users"]["models_dict"]["User"][
@@ -451,3 +453,8 @@ class GovAdminSite(UnfoldAdminSite):
 
 
 gov_admin_site = GovAdminSite(name="gov_admin")
+
+
+@gov_admin_register(gov_admin_site, model=EmailTemplate)
+class MyEmailTemplateAdmin(EmailTemplateAdmin):
+    pass
