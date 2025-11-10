@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.urls import NoReverseMatch, reverse
+from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.encoding import force_str
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
@@ -298,9 +298,8 @@ class GovAdminSite(UnfoldAdminSite):
                     "name": _("Entities"),
                     "icon": "group",
                     "url": apps_dict["Organizations"]["app_url"],
-                    "is_active": self.is_app_active(
-                        apps_dict["Organizations"], request
-                    ),
+                    "is_active": self.is_app_active(apps_dict["Organizations"], request)
+                    and ("registration-requests" not in request.get_full_path()),
                     "app": apps_dict["Organizations"],
                     "items": [
                         {
@@ -368,8 +367,15 @@ class GovAdminSite(UnfoldAdminSite):
                 {
                     "name": "Features",
                     "icon": "clipboard-list",
+                    "is_active": "registration-requests" in request.get_full_path(),
                     "items": [
-                        {"name": _("Registration Requests")},
+                        {
+                            "name": _("Registration Requests"),
+                            "url": reverse_lazy("gov_admin:registration_requests"),
+                            "is_active": (
+                                "registration-requests" in request.get_full_path()
+                            ),
+                        },
                         {"name": _("Review Etitities Balances")},
                         {"name": _("Review Projects Balances")},
                         {"name": _("Documents")},

@@ -17,7 +17,7 @@
                   x-data="{ open: {% if item.is_active %} true {% else %} false {% endif %} }"
                 >
                   <div class="flex items-center p-3 text-gray-300 cursor-pointer rounded-lg hover:bg-gray-600 group w-full">
-                    <c-icon icon="{{ item.icon }}"></c-icons>
+                    <c-icon name="{{ item.icon }}"></c-icons>
                     <span class="ms-3">{% translate item.name %}</span>
                   </div>
                   <ul class="ml-9 space-y-0 font-medium" x-show="open">
