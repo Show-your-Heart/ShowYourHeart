@@ -19,7 +19,8 @@
             <input type="text" class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark" name="q" value="{{ query_filter }}" id="searchbar" placeholder="{% trans 'Type to search' %}">
         </div>
     </form>
-    <form>
+    <form method="post">
+        {% csrf_token %}
         <div class="lg:rounded-default -mx-1 px-1 overflow-x-auto lg:border lg:border-base-200 lg:mx-0 lg:px-0 lg:shadow-xs">
             <table id="result_list" class="block border-base-200 border-spacing-none border-separate w-full lg:table">
                 <thead>
@@ -98,20 +99,24 @@
                                     date 2
                                 </c-table.data> {% endcomment %}
                                 <c-table.data class="field-accept">
-                                    <c-button variant="outlined" type="submit">{% trans 'Accept' %}</c-button>
+                                    <c-button variant="outlined" class="bg-white" type="submit">{% trans 'Accept' %}</c-button>
                                 </c-table.data>
                                 <c-table.data class="field-reject">
-                                    <c-button variant="outlined" class="border-gray-500 text-gray-500 hover:border-gray-500 hover:bg-gray-500 hover-text-white">{% trans 'Reject' %}</c-button>
+                                    <c-button variant="outlined" class="bg-white border-gray-500 text-gray-500 hover:border-gray-500 hover:bg-gray-500 hover-text-white">{% trans 'Reject' %}</c-button>
                                 </c-table.data>
                                 <c-table.data class="field-edit !px-1">
-                                    <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
-                                        <c-icon name="edit" class="text-blue-600"></c-icon>
-                                    </c-button>
+                                    <a href="/es/admin/organizations/organization/{{org.id}}/change/">
+                                        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                                            <c-icon name="edit" class="text-blue-600"></c-icon>
+                                        </c-button>
+                                    </a>
                                 </c-table.data>
                                 <c-table.data class="field-delete !px-1">
-                                    <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
-                                        <c-icon name="trash-bin" class="text-gray-500"></c-icon>
-                                    </c-button>
+                                    <a href="/es/admin/organizations/organization/{{org.id}}/delete/">
+                                        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                                            <c-icon name="trash-bin" class="text-gray-500"></c-icon>
+                                        </c-button>
+                                    </a>
                                 </c-table.data>
                             </tr>
                         </tbody>
