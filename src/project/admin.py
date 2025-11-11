@@ -329,15 +329,14 @@ class GovAdminSite(UnfoldAdminSite):
                     "app": apps_dict["Methods"],
                     "items": [
                         {
-                            "name": apps_dict["Methods"]["models_dict"]["Indicator"][
+                            "name": apps_dict["Methods"]["models_dict"]["Campaign"][
                                 "name"
                             ],
-                            "url": apps_dict["Methods"]["models_dict"]["Indicator"][
+                            "url": apps_dict["Methods"]["models_dict"]["Campaign"][
                                 "admin_url"
                             ],
                             "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Indicator"],
-                                request,
+                                apps_dict["Methods"]["models_dict"]["Campaign"], request
                             ),
                         },
                         {
@@ -352,14 +351,61 @@ class GovAdminSite(UnfoldAdminSite):
                             ),
                         },
                         {
-                            "name": apps_dict["Methods"]["models_dict"]["Campaign"][
+                            "name": apps_dict["Methods"]["models_dict"][
+                                "ExternalSurveyInvitation"
+                            ]["name"],
+                            "url": apps_dict["Methods"]["models_dict"][
+                                "ExternalSurveyInvitation"
+                            ]["admin_url"],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"][
+                                    "ExternalSurveyInvitation"
+                                ],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Indicator"][
                                 "name"
                             ],
-                            "url": apps_dict["Methods"]["models_dict"]["Campaign"][
+                            "url": apps_dict["Methods"]["models_dict"]["Indicator"][
                                 "admin_url"
                             ],
                             "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Campaign"], request
+                                apps_dict["Methods"]["models_dict"]["Indicator"],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["List"]["name"],
+                            "url": apps_dict["Methods"]["models_dict"]["List"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["List"], request
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["ListItem"][
+                                "name"
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["ListItem"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["ListItem"],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Topic"][
+                                "name"
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["Topic"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["Topic"], request
                             ),
                         },
                     ],
