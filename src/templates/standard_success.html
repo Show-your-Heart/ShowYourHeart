@@ -1,9 +1,7 @@
 {% load i18n %}
 
 <c-base>
-    <div class="p-2">
-        <c-header></c-header>
-    </div>
+    <c-header></c-header>
     <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
         <h1 class="text-3xl font-bold">{% translate "Done!" %}</h1>
         <a href="{% url 'home' %}">

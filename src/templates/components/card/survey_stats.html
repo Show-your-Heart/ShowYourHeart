@@ -40,11 +40,11 @@
       {% for sectionWithStatus in surveyStats.sectionsWithStatus %}
       <p class="flex gap-1 items-center">
         {% if sectionWithStatus.status == 'completed' %}
-          <c-icon icon="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
+          <c-icon name="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
         {% elif sectionWithStatus.status == 'inProgress' %}
-          <c-icon icon="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
+          <c-icon name="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
         {% else %}
-          <c-icon icon="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
+          <c-icon name="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
         {% endif %}
         <span>{% translate sectionWithStatus.section.title%}</span>
       </p>
@@ -54,7 +54,7 @@
     <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.method.id %}">
       <c-button>
         <span>{% translate 'Ir al balance'%}</span>
-        <c-icon icon="arrow-right" class="inline text-white"></c-icons>
+        <c-icon name="arrow-right" class="inline text-white"></c-icons>
       </c-button>
     </a>
   </div>

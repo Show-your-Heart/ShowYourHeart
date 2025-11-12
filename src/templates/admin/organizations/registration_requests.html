@@ -1,0 +1,130 @@
+{% load i18n %}
+
+<c-admin.default-layout>
+    <h1 class="mb-2 text-black font-bold text-2xl">{% trans 'Features'%}</h1>
+    <div class="mb-4 flex justify-between items-center">
+        <h2 class="text-black text-lg">{% trans 'Register requests'%}</h2>
+        <c-button class="flex justify-center items-center gap-2" variant="outlined">
+            <c-icon name="download"></c-icon>
+            {% trans 'Download data' %}
+        </c-button>
+    </div>
+    <form id="changelist-search" method="get">
+        <div class="mb-2 bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
+            <button type="submit" class="flex items-center focus:outline-hidden" id="searchbar-submit">
+                <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
+                    {% trans 'search' %}
+                </span>
+            </button>
+            <input type="text" class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark" name="q" value="{{ query_filter }}" id="searchbar" placeholder="{% trans 'Type to search' %}">
+        </div>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        <div class="lg:rounded-default -mx-1 px-1 overflow-x-auto lg:border lg:border-base-200 lg:mx-0 lg:px-0 lg:shadow-xs">
+            <table id="result_list" class="block border-base-200 border-spacing-none border-separate w-full lg:table">
+                <thead>
+                    <tr>
+                        <c-table.header>
+                            <input type="checkbox" name="action-toggle" id="action-toggle" aria-label="Seleccione todos los objetos de esta página para una acción" class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 checked:bg-primary-600 checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 ">
+                            <span class="block font-normal lg:hidden">
+                                {% trans 'Select all rows' %}
+                            </span>
+                        </c-table.header>
+                        <c-table.header>
+                            <a href="?o=1">
+                                {% trans 'VAT Number' %}
+                            </a>
+                        </c-table.header>
+                        <c-table.header>
+                            <a href="?o=1">
+                                {% trans 'Name' %}
+                            </a>
+                        </c-table.header>
+                        <c-table.header>
+                            <a href="?o=2">
+                                {% trans 'Requested methods' %}
+                            </a>
+                        </c-table.header>
+                        <c-table.header>
+                            <a href="?o=2">
+                                {% trans 'Region' %}
+                            </a>
+                        </c-table.header>
+                        <c-table.header>
+                            <a href="?o=2">
+                                {% trans 'Aplication date' %}
+                            </a>
+                        </c-table.header>
+                        {% comment %} <c-table.header>
+                            <a href="?o=2">
+                                {% trans 'Resolution date' %}
+                            </a>
+                        </c-table.header> {% endcomment %}
+                        {% comment %} Accept btn {% endcomment %}
+                        <c-table.header></c-table.header>
+                        {% comment %} Reject btn {% endcomment %}
+                        <c-table.header></c-table.header>
+                        {% comment %} Edit btn {% endcomment %}
+                        <c-table.header></c-table.header>
+                        {% comment %} Delete btn {% endcomment %}
+                        <c-table.header></c-table.header>
+                    </tr>
+                </thead>
+                {% for org in organizations %}
+                    {% comment %} <form action="" method="post"> {% endcomment %}
+                        <tbody class="block relative odd:bg-white even:bg-grey-200 lg:table-row-group lg:hover:shadow-raised lg:hover:z-20 " x-data="{rowOpen: false}">
+                            <tr class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none dark:border-base-800">
+                                <c-table.data class="action-checkbox">
+                                    <input type="checkbox" name="_selected_action" value="ea3be194-ec2c-470f-ae54-2aeb3217d357" class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 dark:bg-base-700 dark:border-base-500 dark:checked:after:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 dark:after:text-base-700 checked:bg-primary-600 dark:checked:bg-primary-600 checked:border-primary-600 dark:checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 action-select" aria-label="Select record">
+                                </c-table.data>
+                                <c-table.data class="field-vat_number">
+                                    {{ org.vat_number}}
+                                </c-table.data>
+                                <c-table.data class="field-name">
+                                    {{org.name}}
+                                </c-table.data>
+                                <c-table.data class="field-methods">
+                                    {% for method in org.methods.all %}
+                                        <span class="inline-block text-center text-blue-600 bg-blue-100 rounded-lg px-3 py-1" >{{method.name}}</span>
+                                    {% endfor %}
+                                </c-table.data>
+                                <c-table.data class="field-region">
+                                    {{org.city}}
+                                </c-table.data>
+                                <c-table.data class="field-aplication_date">
+                                    {{org.created_at}}
+                                </c-table.data>
+                                {% comment %} <c-table.data class="field-resolution_date">
+                                    date 2
+                                </c-table.data> {% endcomment %}
+                                <c-table.data class="field-accept">
+                                    <c-button variant="outlined" class="bg-white" type="submit">{% trans 'Accept' %}</c-button>
+                                </c-table.data>
+                                <c-table.data class="field-reject">
+                                    <c-button variant="outlined" class="bg-white border-gray-500 text-gray-500 hover:border-gray-500 hover:bg-gray-500 hover-text-white">{% trans 'Reject' %}</c-button>
+                                </c-table.data>
+                                <c-table.data class="field-edit !px-1">
+                                    <a href="/es/admin/organizations/organization/{{org.id}}/change/">
+                                        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                                            <c-icon name="edit" class="text-blue-600"></c-icon>
+                                        </c-button>
+                                    </a>
+                                </c-table.data>
+                                <c-table.data class="field-delete !px-1">
+                                    <a href="/es/admin/organizations/organization/{{org.id}}/delete/">
+                                        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                                            <c-icon name="trash-bin" class="text-gray-500"></c-icon>
+                                        </c-button>
+                                    </a>
+                                </c-table.data>
+                            </tr>
+                        </tbody>
+                    {% comment %} </form> {% endcomment %}
+                    
+                {% endfor %}
+                
+            </table>
+        </div>
+    </form>
+</c-admin.default-layout>

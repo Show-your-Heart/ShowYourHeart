@@ -7,30 +7,36 @@
     <div class="h-full overflow-y-auto">
       <nav>
         {% if app_list %}
-          <ul class="space-y-1 font-medium">
+          <ul class="space-y-1 font-medium"  
+            x-data="{ 
+              openedSubmenuIndex: 0, 
+              setIndex(index) { this.openedSubmenuIndex = index } ,
+              clickSubmenuHandler(index) { if(this.openedSubmenuIndex != index) this.setIndex(index) }, 
+            }"
+          >
             {% for item in main_menu %}
               {% if item.name == 'Settings' %}
               <hr>
               {% endif %}
-              <a href="{{ item.url }}">
-                <li class="app-{{ item.app.app_label }} module{% if item.is_active %} current-app{% endif %} flex flex-col rounded-lg {% if item.is_active %} bg-gray-600 {% endif %}" 
-                  x-data="{ open: {% if item.is_active %} true {% else %} false {% endif %} }"
-                >
-                  <div class="flex items-center p-3 text-gray-300 cursor-pointer rounded-lg hover:bg-gray-600 group w-full">
-                    <c-icon icon="{{ item.icon }}"></c-icons>
-                    <span class="ms-3">{% translate item.name %}</span>
-                  </div>
-                  <ul class="ml-9 space-y-0 font-medium" x-show="open">
-                    {% for subitem in item.items %}
-                    <a href="{{ subitem.url }}">
-                      <li class="flex items-center p-2 text-xs text-gray-300 rounded-lg {% if subitem.is_active %} font-bold {% endif %} hover:bg-gray-600 group">
-                      {% translate subitem.name %}
-                      </li>
-                    </a>
-                    {% endfor %}
-                  </ul>
-                </li>
-              </a>
+              <li class="app-{{ item.app.app_label }} module{% if item.is_active %} current-app{% endif %} flex flex-col rounded-lg p-1 {% if item.is_active %} bg-gray-600 {% endif %}" 
+                {% if item.is_active %} x-init="setIndex({{forloop.counter}})" {% endif %}
+                @click="clickSubmenuHandler({{ forloop.counter }})" 
+                :class="openedSubmenuIndex == {{ forloop.counter }} && 'border border-gray-600'"
+              >
+                <div class="flex items-center p-3 text-gray-300 cursor-pointer rounded-lg group w-full">
+                  <c-icon name="{{ item.icon }}"></c-icons>
+                  <span class="ms-3">{% translate item.name %}</span>
+                </div>
+                <ul class="ml-9 space-y-0 font-medium" x-show="openedSubmenuIndex == {{ forloop.counter }} {% if item.is_active %}  || true {% endif %}">
+                  {% for subitem in item.items %}
+                  <a href="{{ subitem.url }}">
+                    <li class="flex items-center p-2 text-xs text-gray-300 rounded-lg {% if subitem.is_active %} font-bold {% endif %} hover:bg-gray-600 group">
+                    {% translate subitem.name %}
+                    </li>
+                  </a>
+                  {% endfor %}
+                </ul>
+              </li>
               {% endfor %}
         {% else %}
             <p>No app list</p>

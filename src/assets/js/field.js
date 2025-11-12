@@ -69,7 +69,10 @@ document.addEventListener('alpine:init', () => {
                 this.hasErrors = false
             } else {
                 this.hasErrors = true
-                this.error = `Value its incorrect, has to meet condition: '${this.validation}'`
+                if (this.msg)
+                    this.error = this.msg
+                else
+                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
             }
         },
         loadInitialValue(initialValue, type) {
@@ -115,7 +118,7 @@ document.addEventListener('alpine:init', () => {
                     Alpine.store('indicators').updateIndicatorResult(this.code, this.value)
                 } else {
                     this.hasErrors = true
-                    this.error = `Value its incorrect, has to meet condition: '${this.validation}'`
+                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
                 }
             } catch (e) {
                 console.log('Invalido')
