@@ -2,7 +2,7 @@ import json
 
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
@@ -24,6 +24,7 @@ from .models import (
     Survey,
     Topic,
 )
+from .views import BalanceReview
 
 
 # Add superadmin views with default Unfold templates
@@ -266,6 +267,16 @@ class SurveyAdmin(ModelAdmin):
 
     def has_change_permission(self, request, obj=None):
         return request.user.is_superuser
+
+    def get_urls(self):
+        urls = super().get_urls() + [
+            path(
+                "review-balances",
+                self.admin_site.admin_view(BalanceReview.as_view(model_admin=self)),
+                name="review_balances",
+            ),
+        ]
+        return urls
 
 
 # Add superadmin views with default Unfold templates

@@ -289,6 +289,9 @@ class GovAdminSite(UnfoldAdminSite):
         context = super().each_context(request)
 
         apps_dict = available_apps_to_dict(context["available_apps"])
+        request_path = request.get_full_path()
+        request_path_array = request_path.split("/")
+        relative_path = request_path_array[len(request_path_array) - 1]
 
         main_menu = []
         if apps_dict:
@@ -299,7 +302,10 @@ class GovAdminSite(UnfoldAdminSite):
                     "icon": "group",
                     "url": apps_dict["Organizations"]["app_url"],
                     "is_active": self.is_app_active(apps_dict["Organizations"], request)
-                    and ("registration-requests" not in request.get_full_path()),
+                    and (
+                        relative_path
+                        not in ["registration-requests", "review-balances"]
+                    ),
                     "app": apps_dict["Organizations"],
                     "items": [
                         {
@@ -325,7 +331,11 @@ class GovAdminSite(UnfoldAdminSite):
                     "name": _("Methods management"),
                     "icon": "adjustments-horizontal",
                     "url": apps_dict["Methods"]["app_url"],
-                    "is_active": self.is_app_active(apps_dict["Methods"], request),
+                    "is_active": self.is_app_active(apps_dict["Methods"], request)
+                    and (
+                        relative_path
+                        not in ["registration-requests", "review-balances"]
+                    ),
                     "app": apps_dict["Methods"],
                     "items": [
                         {
@@ -413,17 +423,19 @@ class GovAdminSite(UnfoldAdminSite):
                 {
                     "name": "Features",
                     "icon": "clipboard-list",
-                    "is_active": "registration-requests" in request.get_full_path(),
+                    "is_active": relative_path
+                    in ["registration-requests", "review-balances"],
                     "items": [
                         {
                             "name": _("Registration Requests"),
                             "url": reverse_lazy("gov_admin:registration_requests"),
-                            "is_active": (
-                                "registration-requests" in request.get_full_path()
-                            ),
+                            "is_active": ("registration-requests" in request_path),
                         },
-                        {"name": _("Review Etitities Balances")},
-                        {"name": _("Review Projects Balances")},
+                        {
+                            "name": _("Review Balances"),
+                            "url": reverse_lazy("gov_admin:review_balances"),
+                            "is_active": ("review-balances" in request_path),
+                        },
                         {"name": _("Documents")},
                     ],
                 },

@@ -9,11 +9,12 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
+from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.methods.mixins import MethodFillMixin
 
 from .helpers import ParseExternalInvitations, get_external_survey_filter
-from .models import Campaign, Invitation, Method
+from .models import Campaign, Invitation, Method, Survey
 from .services import send_invitation
 
 
@@ -135,3 +136,20 @@ def load_ext_surveys(request):
     else:
         methods = []
     return render(request, "organizations/methods_options.html", {"methods": methods})
+
+
+class BalanceReview(UnfoldModelAdminViewMixin, TemplateView):
+    title = "Balance review"
+    permission_required = ()
+    template_name = "admin/methods/balance_review.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        all_surveys = Survey.objects.all()
+        for s in all_surveys:
+            s.status = Survey.Status(s.status).label
+
+        context["surveys"] = all_surveys
+
+        return context
