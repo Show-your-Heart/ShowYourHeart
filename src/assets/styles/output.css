@@ -276,6 +276,9 @@
   }
 }
 @layer utilities {
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
   .collapse {
     visibility: collapse;
   }
@@ -1418,6 +1421,16 @@
       border-color: var(--color-red-600);
     }
   }
+  .peer-disabled\:cursor-default {
+    &:is(:where(.peer):disabled ~ *) {
+      cursor: default;
+    }
+  }
+  .peer-disabled\:text-gray-400 {
+    &:is(:where(.peer):disabled ~ *) {
+      color: var(--color-gray-400);
+    }
+  }
   .before\:mr-auto {
     &::before {
       content: var(--tw-content);
@@ -1815,9 +1828,24 @@
       outline-style: none;
     }
   }
+  .disabled\:pointer-events-none {
+    &:disabled {
+      pointer-events: none;
+    }
+  }
+  .disabled\:cursor-default {
+    &:disabled {
+      cursor: default;
+    }
+  }
   .disabled\:cursor-not-allowed {
     &:disabled {
       cursor: not-allowed;
+    }
+  }
+  .disabled\:bg-gray-100 {
+    &:disabled {
+      background-color: var(--color-gray-100);
     }
   }
   .disabled\:bg-gray-400 {
@@ -1837,6 +1865,16 @@
           background-color: var(--color-gray-400);
         }
       }
+    }
+  }
+  .has-disabled\:pointer-events-none {
+    &:has(*:disabled) {
+      pointer-events: none;
+    }
+  }
+  .has-disabled\:cursor-default {
+    &:has(*:disabled) {
+      cursor: default;
     }
   }
   .max-md\:-mt-px {

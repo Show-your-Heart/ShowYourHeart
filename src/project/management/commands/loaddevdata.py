@@ -201,6 +201,7 @@ class Command(BaseCommand):
                     version="1",
                     name=indicator_name,
                     is_direct_indicator=True,
+                    unit="",
                 )
                 indicator.topics.set(topics)
             else:
