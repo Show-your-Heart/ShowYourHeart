@@ -21,7 +21,7 @@ Input params:
 {% block bodyclass %}{{ bodyclass }}{% endblock %}
 
 {% block base %}
-    <div id="page" class="max-w-full relative min-h-screen flex flex-col {% element_classes 'page' %}">
+    <div id="page" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="max-w-full relative min-h-screen flex flex-col {% element_classes 'page' %}">
         
         <c-header displayAvatar="True" />
         

@@ -1,5 +1,10 @@
+
 from django.contrib import admin
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.urls import path
+from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_POST
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from apps.methods.models import Method
@@ -102,7 +107,7 @@ class OrganizationAdmin(ModelAdmin):
 
     # Add custom urls
     def get_urls(self):
-        urls = super().get_urls() + [
+        urls = [
             path(
                 "registration-requests",
                 self.admin_site.admin_view(
@@ -110,8 +115,29 @@ class OrganizationAdmin(ModelAdmin):
                 ),
                 name="registration_requests",
             ),
-        ]
+            path(
+                "registration-request-action/<uuid:pk>/",
+                self.admin_site.admin_view(
+                    self.register_request_action,
+                ),
+                name="register_request_actions",
+            ),
+        ] + super().get_urls()
         return urls
+
+    @method_decorator(require_POST)
+    def register_request_action(self, request, pk):
+        organization = get_object_or_404(Organization, pk=pk)
+        action = request.POST.get("action")
+
+        if action == "accept":
+            organization.status = Organization.Status.ACCEPTED
+            organization.save()
+        elif action == "reject":
+            organization.status = Organization.Status.REJECTED
+            organization.save()
+
+        return HttpResponse("")
 
 
 # Add superadmin views with default Unfold templates
