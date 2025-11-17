@@ -29,7 +29,7 @@
             hx-post="{% url 'gov_admin:register_request_actions' organization.id %}"
             hx-target="#organization-{{ organization.id }}"
             hx-disabled-elt="button"
-            class="flex space-x-2 flex-nowrap"
+            class="flex space-x-2 flex-nowrap justify-center"
         >
             <c-button variant="outlined" class="bg-white min-w-[150px]" name="action" value="accept" type="submit">{% trans 'Accept' %}</c-button>
             <c-button 

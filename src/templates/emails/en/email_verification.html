@@ -1,0 +1,15 @@
+{% load post_office %}
+
+<p>Hello {{user_name}}!</p>
+<p>We're sending you this e-mail because today {{date}} at {{time}}
+you have asked to verify your email {{user_email}}
+for {{absolute_url}}.</p>
+
+<p>To complete this action and verify your email, enter the code
+<b>{{ user_code }}</b> at the verification page that you might have still open, or
+if you closed it, here's the shortcut to it:
+    <a href="{{email_verification_url}}">{{email_verification_url}}</a>
+</p>
+
+<p> If it weren't you who requested it,
+ignore this message.</p>

@@ -532,14 +532,16 @@ class GovAdminSite(UnfoldAdminSite):
 
     def index(self, request, extra_context=None):
         extra_context = extra_context or {}
-        extra_context["pending_registrations_requests"] =  Organization.objects.filter(
+        extra_context["pending_registrations_requests"] = Organization.objects.filter(
             status=Organization.Status.PENDING
         ).count()
         return super(GovAdminSite, self).index(request, extra_context)
 
+
 gov_admin_site = GovAdminSite(name="gov_admin")
 
 
+# Register post office in gov admin UI
 @gov_admin_register(gov_admin_site, model=EmailTemplate)
-class MyEmailTemplateAdmin(EmailTemplateAdmin):
+class EmailTemplateAdmin(EmailTemplateAdmin):
     pass

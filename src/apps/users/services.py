@@ -77,6 +77,29 @@ def send_welcome_mail(user_instance):
     )
 
 
+def send_rejected_mail(user_instance):
+    context = {
+        "project_name": Setting.get("PROJECT_NAME"),
+        "user_name": user_instance.name,
+        "date": str(
+            formats.date_format(
+                timezone.now().date(),
+                format="SHORT_DATE_FORMAT",
+                use_l10n=True,
+            )
+        ),
+        "time": str(formats.time_format(timezone.localtime(timezone.now()).time())),
+        "user_email": user_instance.email,
+    }
+    send(
+        recipients=[
+            user_instance.email,
+        ],
+        template="rejected_registration_request",
+        context=context,
+    )
+
+
 def send_network_assigned_mail(network_instance):
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
@@ -91,6 +114,7 @@ def send_network_assigned_mail(network_instance):
         "time": str(formats.time_format(timezone.localtime(timezone.now()).time())),
         "network_name": network_instance.name,
     }
+
     send(
         recipients=[
             network_instance.network_admin.email,
