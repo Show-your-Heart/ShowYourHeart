@@ -58,6 +58,11 @@ class OrganizationSignUpForm(forms.ModelForm):
     city = forms.ModelChoiceField(
         label=_("City"), queryset=City.objects.all(), required=False
     )
+    address = forms.CharField(
+        label=_("Address"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Address")}),
+        required=False,
+    )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
         queryset=LegalStructure.objects.all(),
@@ -93,6 +98,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "country",
             "region3",
             "city",
+            "address",
             "legal_structure",
             "methods",
         )
@@ -119,6 +125,9 @@ class OrganizationSignUpForm(forms.ModelForm):
     @transaction.atomic
     def save(self, commit=True):
         organization = super().save(commit=False)
+        organization.set_boolean_datetime(
+            "privacy_policy_accepted", self.cleaned_data["accept_conditions"]
+        )
 
         User.objects.create_user(
             email=self.cleaned_data["contact_mail"],
@@ -186,6 +195,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "country",
             "region3",
             "city",
+            "address",
             "legal_structure",
         ]
 
