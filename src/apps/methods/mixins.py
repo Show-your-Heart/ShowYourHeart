@@ -5,6 +5,7 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 
 from .forms import get_dynamic_form, get_form_sections
 from .helpers import get_gender_field_value, get_gender_suffix, is_gendered
@@ -131,60 +132,72 @@ class MethodFillMixin:
                 campaign_id=campaign_id,
             )
 
+        current_date = timezone.now()
+        if created:
+            survey.start_date = current_date
+
         if action == "submit":
             survey.status = Survey.Status.SUBMITTED
-            survey.save()
+            survey.closed_date = current_date
 
-        method = Method.objects.get(pk=method_id)
+        survey.modified_date = current_date
+        # TODO update of other dates
+        survey.save()
 
-        for indicator in method.indicators.all():
-            field_name = f"question_{indicator.id}"
-            na = (
-                None
-                if not indicator.mandatory
-                else request.POST.get(f"{field_name}_na", False)
-            )
-            # Handle gendered indicators
-            if indicator.data_type in [
-                Indicator.DataType.INTEGERGENDER,
-                Indicator.DataType.DECIMALGENDER,
-            ]:
-                for suffix, gender in {
-                    "male": IndicatorResult.Gender.MALE,
-                    "female": IndicatorResult.Gender.FEMALE,
-                    "non_binary": IndicatorResult.Gender.NON_BINARY,
-                }.items():
-                    value = request.POST.get(f"{field_name}_{suffix}")
-                    if value or na:
-                        IndicatorResult.objects.update_or_create(
-                            survey=survey,
-                            indicator=indicator,
-                            gender=gender,
-                            defaults={
-                                "value": "" if value is None else value,
-                                "not_applicable": na,
-                            },
-                        )
-                    else:
-                        IndicatorResult.objects.filter(
-                            survey=survey, indicator=indicator, gender=gender
-                        ).delete()
+        save_indicator_results(method_id, request, survey)
 
-            # Handle standard indicators
-            else:
-                values = request.POST.getlist(field_name)
-                if values or na:
+        return HttpResponseRedirect(request.path_info)
+
+
+def save_indicator_results(method_id, request, survey):
+    method = Method.objects.get(pk=method_id)
+
+    for indicator in method.indicators.all():
+        field_name = f"question_{indicator.id}"
+        na = (
+            None
+            if not indicator.mandatory
+            else request.POST.get(f"{field_name}_na", False)
+        )
+        # Handle gendered indicators
+        if indicator.data_type in [
+            Indicator.DataType.INTEGERGENDER,
+            Indicator.DataType.DECIMALGENDER,
+        ]:
+            for suffix, gender in {
+                "male": IndicatorResult.Gender.MALE,
+                "female": IndicatorResult.Gender.FEMALE,
+                "non_binary": IndicatorResult.Gender.NON_BINARY,
+            }.items():
+                value = request.POST.get(f"{field_name}_{suffix}")
+                if value or na:
                     IndicatorResult.objects.update_or_create(
                         survey=survey,
                         indicator=indicator,
-                        defaults={"value": "|".join(values), "not_applicable": na},
+                        gender=gender,
+                        defaults={
+                            "value": "" if value is None else value,
+                            "not_applicable": na,
+                        },
                     )
                 else:
                     IndicatorResult.objects.filter(
-                        survey=survey, indicator=indicator
+                        survey=survey, indicator=indicator, gender=gender
                     ).delete()
 
-        return HttpResponseRedirect(request.path_info)
+        # Handle standard indicators
+        else:
+            values = request.POST.getlist(field_name)
+            if values or na:
+                IndicatorResult.objects.update_or_create(
+                    survey=survey,
+                    indicator=indicator,
+                    defaults={"value": "|".join(values), "not_applicable": na},
+                )
+            else:
+                IndicatorResult.objects.filter(
+                    survey=survey, indicator=indicator
+                ).delete()
 
 
 def is_valid_uuid(value):
