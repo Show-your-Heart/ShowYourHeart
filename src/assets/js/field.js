@@ -32,16 +32,20 @@ document.addEventListener('alpine:init', () => {
         error: "",
         show: true,
         unit: "",
+        mandatory: false,
+        notApplicable: false,
         init() {
             const indicator = Alpine.store('indicators')["indicators"].find(i => i.code == code)
-            const initialValue = Alpine.store('indicators')["initialValues"][code] || null
+            const indicatorResults = Alpine.store('indicators')["indicatorResults"][code] || null
             this.id = indicator.id
             this.name = indicator.name
             this.description = indicator.description
             this.code = indicator.code
             this.type = indicator.data_type
             this.unit = indicator.unit
-            this.value = this.loadInitialValue(initialValue, indicator.data_type)
+            this.mandatory = indicator.mandatory
+            this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
+            this.notApplicable = indicatorResults?.not_applicable ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value)
             this.isDirectIndicator = indicator.is_direct_indicator
@@ -98,9 +102,9 @@ document.addEventListener('alpine:init', () => {
             }
             return value
         },
-        update(event, subtype = "") {
+        update(currentValue, subtype = "") {
             try {
-                this.value = this.updateValue(event.target.value, this.value, this.type, subtype)
+                this.value = this.updateValue(currentValue, this.value, this.type, subtype)
                 const field = {
                     id: this.id,
                     code: this.code,
@@ -124,14 +128,20 @@ document.addEventListener('alpine:init', () => {
             }
         },
         updateValue(input, current, type, subtype = "") {
+            if (!current) return ""
             let value = ""
             if (this.isMultiAnswer(type)) {
-                const index = current.findIndex(v => v == input)
-                value = current
-                if (index != -1) {
-                    value.splice(index, 1)
+                //input is setted on the call to update from the x-effect of the component
+                if (input && input.constructor == Array && input.length == 0) {
+                    value = []
                 } else {
-                    value.push(input)
+                    const index = current.findIndex(v => v == input)
+                    value = current
+                    if (index != -1) {
+                        value.splice(index, 1)
+                    } else {
+                        value.push(input)
+                    }
                 }
             } else if (this.isGendered(type)) {
                 value = current
@@ -159,13 +169,14 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.BOOLEAN:
                 case FieldType.INTEGERGENDER:
                 case FieldType.DECIMALGENDER:
+                case FieldType.DATE:
                     return false
                 case FieldType.DROPDOWN:
                 case FieldType.CHECKBOX:
                 case FieldType.RADIOBUTTON:
                     return true
                 default:
-                    console.log("No matching type found")
+                    console.log(type, "No matching type found")
                     return false
             }
         },
@@ -180,11 +191,12 @@ document.addEventListener('alpine:init', () => {
                 case FieldType.BOOLEAN:
                 case FieldType.INTEGERGENDER:
                 case FieldType.DECIMALGENDER:
+                case FieldType.DATE:
                     return false
                 case FieldType.CHECKBOX:
                     return true
                 default:
-                    console.log("No matching type found")
+                    console.log(type, "No matching type found")
                     return false
             }
         },

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.urls import path
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from apps.methods.models import Method
@@ -9,6 +10,7 @@ from project.decorators import gov_admin_register, register_with_default_templat
 from .forms import OrganizationAdminForm
 from .helpers import get_organization_method_filter
 from .models import Organization, Project
+from .views import RegistrationRequestView
 
 
 # Add superadmin views with default Unfold templates
@@ -97,6 +99,19 @@ class OrganizationAdmin(ModelAdmin):
             )
         else:
             return "-"
+
+    # Add custom urls
+    def get_urls(self):
+        urls = super().get_urls() + [
+            path(
+                "registration-requests",
+                self.admin_site.admin_view(
+                    RegistrationRequestView.as_view(model_admin=self)
+                ),
+                name="registration_requests",
+            ),
+        ]
+        return urls
 
 
 # Add superadmin views with default Unfold templates

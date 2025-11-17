@@ -46,6 +46,7 @@ def gov_admin_register(gov_admin_site, model=None):
         class WrappedAdmin(admin_class):
             change_form_template = "admin/syh_change_form.html"
             change_list_template = "admin/syh_change_list.html"
+            delete_confirmation_template = "admin/syh_delete_confirmation.html"
             pass
 
         if model is None:

@@ -68,7 +68,15 @@ document.addEventListener('alpine:init', () => {
             }
         },
         loadIndicatorResult(code) {
-            return this.indicators.find(i => i.code == code).value || null
+            const indicator = this.indicators.find(i => i.code == code)
+            let result = indicator.value || null
+
+            if (indicator.mandatory) {
+                const na_element = document.getElementById(`question_${indicator.id}_na`)
+                if (na_element.checked)
+                    result = 0
+            }
+            return result
         },
         shallowIndicatorResultUpdate(code, value) {
             const index = this.indicators.findIndex(i => i.code == code)
@@ -97,7 +105,7 @@ document.addEventListener('alpine:init', () => {
                     const value = this.computeFormula(indicator)
                     if (value != null) {
                         const fieldEl = document.querySelector(`#question_${indicator.id}`);
-                        Alpine.$data(fieldEl).value = String(value)
+                        fieldEl && (Alpine.$data(fieldEl).value = String(value))
                     }
                 }
             }
@@ -106,7 +114,7 @@ document.addEventListener('alpine:init', () => {
 
     const indicators = JSON.parse(document.getElementById('indicators').textContent);
     Alpine.store('indicators')["indicators"] = indicators
-    const initialValues = JSON.parse(document.getElementById('initialValues').textContent);
-    Alpine.store('indicators')["initialValues"] = initialValues
+    const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
+    Alpine.store('indicators')["indicatorResults"] = indicatorResults
 
 })

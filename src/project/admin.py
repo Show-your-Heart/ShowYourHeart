@@ -3,14 +3,18 @@ from django.contrib import admin
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.urls import NoReverseMatch, reverse
+from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.encoding import force_str
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
+from post_office.admin import EmailTemplateAdmin
+from post_office.models import EmailTemplate
 from unfold.admin import ModelAdmin as BaseModelAdmin
 from unfold.sites import UnfoldAdminSite
+
+from project.decorators import gov_admin_register
 
 from .helpers import available_apps_to_dict
 
@@ -294,9 +298,8 @@ class GovAdminSite(UnfoldAdminSite):
                     "name": _("Entities"),
                     "icon": "group",
                     "url": apps_dict["Organizations"]["app_url"],
-                    "is_active": self.is_app_active(
-                        apps_dict["Organizations"], request
-                    ),
+                    "is_active": self.is_app_active(apps_dict["Organizations"], request)
+                    and ("registration-requests" not in request.get_full_path()),
                     "app": apps_dict["Organizations"],
                     "items": [
                         {
@@ -319,22 +322,21 @@ class GovAdminSite(UnfoldAdminSite):
                 },
                 {
                     "app_name": "methods",
-                    "name": _("Methods"),
+                    "name": _("Methods management"),
                     "icon": "adjustments-horizontal",
                     "url": apps_dict["Methods"]["app_url"],
                     "is_active": self.is_app_active(apps_dict["Methods"], request),
                     "app": apps_dict["Methods"],
                     "items": [
                         {
-                            "name": apps_dict["Methods"]["models_dict"]["Indicator"][
+                            "name": apps_dict["Methods"]["models_dict"]["Campaign"][
                                 "name"
                             ],
-                            "url": apps_dict["Methods"]["models_dict"]["Indicator"][
+                            "url": apps_dict["Methods"]["models_dict"]["Campaign"][
                                 "admin_url"
                             ],
                             "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Indicator"],
-                                request,
+                                apps_dict["Methods"]["models_dict"]["Campaign"], request
                             ),
                         },
                         {
@@ -349,14 +351,61 @@ class GovAdminSite(UnfoldAdminSite):
                             ),
                         },
                         {
-                            "name": apps_dict["Methods"]["models_dict"]["Campaign"][
+                            "name": apps_dict["Methods"]["models_dict"][
+                                "ExternalSurveyInvitation"
+                            ]["name"],
+                            "url": apps_dict["Methods"]["models_dict"][
+                                "ExternalSurveyInvitation"
+                            ]["admin_url"],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"][
+                                    "ExternalSurveyInvitation"
+                                ],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Indicator"][
                                 "name"
                             ],
-                            "url": apps_dict["Methods"]["models_dict"]["Campaign"][
+                            "url": apps_dict["Methods"]["models_dict"]["Indicator"][
                                 "admin_url"
                             ],
                             "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Campaign"], request
+                                apps_dict["Methods"]["models_dict"]["Indicator"],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["List"]["name"],
+                            "url": apps_dict["Methods"]["models_dict"]["List"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["List"], request
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["ListItem"][
+                                "name"
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["ListItem"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["ListItem"],
+                                request,
+                            ),
+                        },
+                        {
+                            "name": apps_dict["Methods"]["models_dict"]["Topic"][
+                                "name"
+                            ],
+                            "url": apps_dict["Methods"]["models_dict"]["Topic"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Methods"]["models_dict"]["Topic"], request
                             ),
                         },
                     ],
@@ -364,8 +413,15 @@ class GovAdminSite(UnfoldAdminSite):
                 {
                     "name": "Features",
                     "icon": "clipboard-list",
+                    "is_active": "registration-requests" in request.get_full_path(),
                     "items": [
-                        {"name": _("Registration Requests")},
+                        {
+                            "name": _("Registration Requests"),
+                            "url": reverse_lazy("gov_admin:registration_requests"),
+                            "is_active": (
+                                "registration-requests" in request.get_full_path()
+                            ),
+                        },
                         {"name": _("Review Etitities Balances")},
                         {"name": _("Review Projects Balances")},
                         {"name": _("Documents")},
@@ -377,26 +433,24 @@ class GovAdminSite(UnfoldAdminSite):
                     "url": apps_dict["Settings"]["app_url"],
                     "is_active": self.is_app_active(apps_dict["Settings"], request)
                     or self.is_app_active(apps_dict["Users"], request)
-                    or self.is_app_active(apps_dict["Geodata"], request),
+                    or self.is_app_active(apps_dict["Geodata"], request)
+                    or self.is_app_active(apps_dict["Post Office"], request),
                     "app": apps_dict["Settings"],
                     "items": [
-                        # {
-                        #     "name": apps_dict["PostOffice"]["models_dict"][
-                        #         "emailtemplate"
-                        #     ][
-                        #         "name"
-                        #     ],
-                        #     "url": apps_dict["PostOffice"]["models_dict"][
-                        #         "emailtemplate"
-                        #     ][
-                        #         "admin_url"
-                        #     ],
-                        #     "is_active": self.is_model_active(
-                        #         apps_dict["PostOffice"]["models_dict"]
-                        #               ["emailtemplate"],
-                        #         request,
-                        #     ),
-                        # },
+                        {
+                            "name": apps_dict["Post Office"]["models_dict"][
+                                "EmailTemplate"
+                            ]["name"],
+                            "url": apps_dict["Post Office"]["models_dict"][
+                                "EmailTemplate"
+                            ]["admin_url"],
+                            "is_active": self.is_model_active(
+                                apps_dict["Post Office"]["models_dict"][
+                                    "EmailTemplate"
+                                ],
+                                request,
+                            ),
+                        },
                         {
                             "name": apps_dict["Users"]["models_dict"]["User"]["name"],
                             "url": apps_dict["Users"]["models_dict"]["User"][
@@ -451,3 +505,8 @@ class GovAdminSite(UnfoldAdminSite):
 
 
 gov_admin_site = GovAdminSite(name="gov_admin")
+
+
+@gov_admin_register(gov_admin_site, model=EmailTemplate)
+class MyEmailTemplateAdmin(EmailTemplateAdmin):
+    pass

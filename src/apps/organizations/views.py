@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
+from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.methods.models import Method
 from apps.organizations.forms import OrganizationSignUpForm, OrganizationUpdateForm
@@ -44,3 +45,24 @@ def load_methods(request):
     else:
         methods = []
     return render(request, "organizations/methods_options.html", {"methods": methods})
+
+
+# Custom view
+class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
+    title = "Registration requests"
+    permission_required = ()
+    template_name = "admin/organizations/registration_requests.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if "q" in self.request.GET:
+            query_filter = self.request.GET["q"]
+            context["organizations"] = Organization.objects.filter(
+                name__contains=query_filter
+            ).exclude(status=Organization.Status.ACCEPTED)
+            context["query_filter"] = self.request.GET["q"]
+        else:
+            context["organizations"] = Organization.objects.all().exclude(
+                status=Organization.Status.ACCEPTED
+            )
+        return context
