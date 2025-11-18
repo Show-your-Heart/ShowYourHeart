@@ -88,6 +88,29 @@
                 class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
                 name="name" value="{{ name_filter }}" id="name-searchbar" placeholder="{% trans 'Name' %}">
         </div>
+
+         
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <button type="submit" class="px-3 py-2.5 rounded-lg text-xs text-center cursor-pointer
+                        ring-0 focus:ring-4 focus:outline-none focus:ring-blue-300 disabled:opacity-50 disabled:bg-gray-400 
+                        font-bold  bg-blue-600 text-white hover:bg-blue-700  ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white " name="page" value="{{ page_obj.previous_page_number }}">
+                    {% trans 'Previous' %} 
+                    </button>
+                {% endif %}
+                <span class="page-current">
+                    {% trans 'Page' %} {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <button type="submit" class="px-3 py-2.5 rounded-lg text-xs text-center cursor-pointer
+                        ring-0 focus:ring-4 focus:outline-none focus:ring-blue-300 disabled:opacity-50 disabled:bg-gray-400 
+                        font-bold  bg-blue-600 text-white hover:bg-blue-700  ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white " name="page" value="{{ page_obj.next_page_number }}">
+                    {% trans 'Next' %} 
+                    </button>
+                {% endif %}
+            </span>
+        </div>
     </form>
 
     <form>
@@ -153,7 +176,7 @@
 
                     </tr>
                 </thead>
-                {% for survey in surveys %}
+                {% for survey in object_list %}
                 {% comment %} <form action="" method="post"> {% endcomment %}
                     <tbody
                         class="block relative odd:bg-white even:bg-grey-200 lg:table-row-group lg:hover:shadow-raised lg:hover:z-20 "

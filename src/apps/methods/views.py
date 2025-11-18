@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.geodata.models import Region3
@@ -145,14 +145,13 @@ def load_ext_surveys(request):
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 
-class BalanceReview(UnfoldModelAdminViewMixin, TemplateView):
+class BalanceReview(UnfoldModelAdminViewMixin, ListView):
     title = "Balance review"
     permission_required = ()
     template_name = "admin/methods/balance_review.html"
+    paginate_by = 20
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+    def get_queryset(self):
         all_surveys = Survey.objects.filter(self.get_survey_query(self.request.GET))
 
         for s in all_surveys:
@@ -166,6 +165,10 @@ class BalanceReview(UnfoldModelAdminViewMixin, TemplateView):
 
             stats = get_survey_stats(s, method)
             s.totalProgress = stats["totalProgress"]
+        return all_surveys
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         all_status = []
         for s in Survey.Status:
@@ -174,7 +177,6 @@ class BalanceReview(UnfoldModelAdminViewMixin, TemplateView):
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
 
-        context["surveys"] = all_surveys
         context["campaigns"] = Campaign.objects.all()
         context["regions"] = Region3.objects.all()
         context["methods"] = Method.objects.all()
