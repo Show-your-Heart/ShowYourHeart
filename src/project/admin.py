@@ -290,7 +290,7 @@ class GovAdminSite(UnfoldAdminSite):
 
         apps_dict = available_apps_to_dict(context["available_apps"])
         request_path = request.get_full_path()
-        request_path_array = request_path.split("/")
+        request_path_array = request_path.split("?")[0].split("/")
         relative_path = request_path_array[len(request_path_array) - 1]
 
         main_menu = []
