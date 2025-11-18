@@ -38,7 +38,7 @@ class MethodFillMixin:
                     method=current_method,
                 )
 
-            readonly = survey.status == Survey.Status.SUBMITTED
+            readonly = survey.status == Survey.Status.CLOSED
             context["form"] = get_dynamic_form(
                 current_method,
                 IndicatorResult.objects.filter(survey=survey),
@@ -137,7 +137,7 @@ class MethodFillMixin:
             survey.start_date = current_date
 
         if action == "submit":
-            survey.status = Survey.Status.SUBMITTED
+            survey.status = Survey.Status.CLOSED
             survey.closed_date = current_date
 
         survey.modified_date = current_date

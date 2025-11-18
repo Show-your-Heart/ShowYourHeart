@@ -3,6 +3,7 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -12,9 +13,9 @@ from django.views.generic import TemplateView
 from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.geodata.models import Region3
-from apps.methods.forms import get_form_sections
 from apps.methods.mixins import MethodFillMixin
 
+from .forms import get_form_sections
 from .helpers import (
     ParseExternalInvitations,
     get_external_survey_filter,
@@ -149,51 +150,13 @@ class BalanceReview(UnfoldModelAdminViewMixin, TemplateView):
     permission_required = ()
     template_name = "admin/methods/balance_review.html"
 
-    def post(self, request, *args, **kwargs):
-        # Save the form values on the view instance so ``get_context_data`` can use it
-        self.filtered_campaign_id = request.POST.get("campaign")
-        self.filtered_region3_id = request.POST.get("region3")
-        self.filtered_method_id = request.POST.get("method")
-        self.filtered_status_id = request.POST.get("status")
-        self.filtered_unit_of_analysis = request.POST.get("unit-analysis")
-
-        return self.get(request, *args, **kwargs)
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        campaign_id = getattr(self, "filtered_campaign_id", None)
-        region3_id = getattr(self, "filtered_region3_id", None)
-        method_id = getattr(self, "filtered_method_id", None)
-        status_id = getattr(self, "filtered_status_id", None)
-        unit_of_analysis_id = getattr(self, "filtered_unit_of_analysis", None)
-
-        print(campaign_id)
-        print(region3_id)
-        print(method_id)
-        print(status_id)
-        print(unit_of_analysis_id)
-
-        nif_filter = self.request.GET.get("nif") or ""
-        name_filter = self.request.GET.get("name") or ""
-        print(self.request.GET)
-        print(nif_filter)
-        print(name_filter)
-        all_surveys = Survey.objects.filter(
-            organization__vat_number__icontains=nif_filter,
-            organization__name__icontains=name_filter,
-            organization__region3_id=region3_id,
-            campaign_id=campaign_id,
-            method_id=method_id,
-            status=status_id,
-            method__unit_of_analysis=unit_of_analysis_id,
-        )
-
-        context["nif_filter"] = nif_filter
-        context["name_filter"] = name_filter
+        all_surveys = Survey.objects.filter(self.get_survey_query(self.request.GET))
 
         for s in all_surveys:
-            s.status = Survey.Status(s.status).label
+            s.status = Survey.Status(s.status).value
 
             method = {
                 "id": s.method.id,
@@ -218,4 +181,39 @@ class BalanceReview(UnfoldModelAdminViewMixin, TemplateView):
         context["unitanalysis"] = unit_of_analysis
         context["status"] = all_status
 
+        # Set variables to display them back on the balance_review.html
+        context["nif_filter"] = self.request.GET.get("nif") or ""
+        context["name_filter"] = self.request.GET.get("name") or ""
+        context["campaign_filter"] = self.request.GET.get("campaign") or ""
+        context["region3_filter"] = self.request.GET.get("region3") or ""
+        context["method_filter"] = self.request.GET.get("method") or ""
+        context["status_filter"] = self.request.GET.get("status") or ""
+        context["unit_analysis_filter"] = self.request.GET.get("unit-analysis") or ""
+
         return context
+
+    def get_survey_query(self, get_request):
+        nif_filter = get_request.get("nif") or ""
+        name_filter = get_request.get("name") or ""
+        campaign_filter = get_request.get("campaign") or ""
+        region3_filter = get_request.get("region3") or ""
+        method_filter = get_request.get("method") or ""
+        status_filter = get_request.get("status") or ""
+        unit_analysis_filter = get_request.get("unit-analysis") or ""
+
+        query = Q(
+            organization__vat_number__icontains=nif_filter,
+            organization__name__icontains=name_filter,
+        )
+        if region3_filter:
+            query &= Q(organization__region3_id=region3_filter)
+        if campaign_filter:
+            query &= Q(campaign_id=campaign_filter)
+        if method_filter:
+            query &= Q(method_id=method_filter)
+        if status_filter:
+            query &= Q(status=status_filter)
+        if unit_analysis_filter:
+            query &= Q(method__unit_of_analysis=unit_analysis_filter)
+
+        return query

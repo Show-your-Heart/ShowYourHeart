@@ -9,15 +9,15 @@
             {% trans 'Download data' %}
         </c-button>
     </div>
-    <form id="balance-filter" method="POST">
-        {% csrf_token %}
 
+    <form id="balance-filter" method="GET">
         <h2 class=" text-black text-lg">{% trans 'FILTER BY'%}</h2>
         <select id="filter-campaign" name="campaign"
             class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             {% include "django/forms/widgets/attrs.html" %}>
+            <option value="">— All —</option>
             {% for campaign in campaigns %}
-            <option value="{{ campaign.id }}" selected="value && value.includes(String({{ campaign.id }}))">
+            <option value="{{ campaign.id }}" {% if campaign.id|stringformat:"s" == campaign_filter %}selected{% endif %}>
                 {{ campaign.name }} - {{ campaign.year }}
             </option>
             {% endfor %}
@@ -25,8 +25,9 @@
         <select id="filter-region3" name="region3"
             class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             {% include "django/forms/widgets/attrs.html" %}>
+            <option value="">— All —</option>
             {% for region in regions %}
-            <option value="{{ region.id }}" selected="value && value.includes(String({{ region.id }}))">
+            <option value="{{ region.id }}" {% if region.id|stringformat:"s" == region3_filter %}selected{% endif %}>
                 {{ region.name }}
             </option>
             {% endfor %}
@@ -34,8 +35,9 @@
         <select id="filter-method" name="method"
             class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             {% include "django/forms/widgets/attrs.html" %}>
+            <option value="">— All —</option>
             {% for method in methods %}
-            <option value="{{ method.id }}" selected="value && value.includes(String({{ method.id }}))">
+            <option value="{{ method.id }}" {% if method.id|stringformat:"s" == method_filter %}selected{% endif %}>
                 {{ method.name }}
             </option>
             {% endfor %}
@@ -43,17 +45,19 @@
         <select id="filter-status" name="status"
             class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             {% include "django/forms/widgets/attrs.html" %}>
+            <option value="">— All —</option>
             {% for s in status %}
-            <option value="{{ s.id }}" selected="value && value.includes(String({{ s.id }}))">
+            <option value="{{ s.id }}" {% if s.id|stringformat:"s" == status_filter %}selected{% endif %}>
                 {{ s.name }}
             </option>
             {% endfor %}
-        </select>
+        </select> 
         <select id="filter-unit-analysis" name="unit-analysis"
             class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
             {% include "django/forms/widgets/attrs.html" %}>
+            <option value="">— All —</option>
             {% for ua in unitanalysis %}
-            <option value="{{ ua.id }}" selected="value && value.includes(String({{ ua.id }}))">
+            <option value="{{ ua.id }}" {% if ua.id|stringformat:"s" == unit_analysis_filter %}selected{% endif %}>
                 {{ ua.name }}
             </option>
             {% endfor %}
@@ -61,9 +65,7 @@
         <c-button type="submit" class="flex justify-center items-center gap-2" variant="filled">
             {% trans 'Filter' %}
         </c-button>
-    </form>
 
-    <form id="balance-search" method="get">
         <div
             class="mb-2 bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
             <button type="submit" class="flex items-center focus:outline-hidden" id="nif-searchbar-submit">
@@ -87,6 +89,7 @@
                 name="name" value="{{ name_filter }}" id="name-searchbar" placeholder="{% trans 'Name' %}">
         </div>
     </form>
+
     <form>
         <div
             class="lg:rounded-default -mx-1 px-1 overflow-x-auto lg:border lg:border-base-200 lg:mx-0 lg:px-0 lg:shadow-xs">
@@ -180,7 +183,16 @@
                                 </c-button>
                             </c-table.data>
                             <c-table.data class="field-status">
-                                {{ survey.status }}
+                                <select id="status-select"
+                                    class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+                                    {% include "django/forms/widgets/attrs.html" %}>
+                                    {% for s in status %}
+                                    <option value="{{ s.id }}" {% if s.id|stringformat:"s" == survey.status %}selected{% endif %}>
+                                        {{ s.name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+
                             </c-table.data>
                             <c-table.data class="field-answers">
                                 <div class="flex flex-col gap-0">
@@ -199,20 +211,17 @@
                             <c-table.data class="field-contact">
                                 {{survey.user}}
                             </c-table.data>
-                            {% comment %}
                             <c-table.data class="field-external-surveys">
-                                {% for method in survey.methods.all %}
-                                <span
-                                    class="inline-block text-center text-blue-600 bg-blue-100 rounded-lg px-3 py-1">{{method.name}}</span>
-                                {% endfor %}
+
                             </c-table.data>
-                            {% end comment %}
                             <c-table.data class="field-start-date">
                                 {{survey.start_date}}
                             </c-table.data>
                             <c-table.data class="field-end-date">
                                 {{survey.closed_date}}
                             </c-table.data>
+
+
                         </tr>
                     </tbody>
                     {% comment %}
