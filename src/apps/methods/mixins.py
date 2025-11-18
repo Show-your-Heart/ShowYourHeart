@@ -141,7 +141,13 @@ class MethodFillMixin:
             survey.closed_date = current_date
 
         survey.modified_date = current_date
-        # TODO update of other dates
+
+        if survey.status == Survey.Status.TECH_VALIDATED:
+            survey.validated_date = current_date
+
+        if survey.status == Survey.Status.QUALITY_CHECKED:
+            survey.evaluated_date = current_date
+
         survey.save()
 
         save_indicator_results(method_id, request, survey)
