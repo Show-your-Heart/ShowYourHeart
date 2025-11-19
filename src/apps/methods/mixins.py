@@ -109,7 +109,7 @@ class MethodFillMixin:
         return context
 
     @transaction.atomic
-    def post(self, request, method_id, campaign_id):
+    def post(self, request, method_id, campaign_id, project_id=None):
         action = request.POST.get("action")
 
         if action == "submit":
@@ -128,6 +128,7 @@ class MethodFillMixin:
                 method_id=method_id,
                 user=request.user,
                 organization=request.user.profile.organization,
+                project_id=project_id,
                 campaign_id=campaign_id,
             )
 

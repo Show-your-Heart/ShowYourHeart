@@ -302,6 +302,13 @@ class Survey(BaseModel):
         null=True,
         default="",
     )
+    project = models.ForeignKey(
+        "organizations.project",
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        default="",
+    )
 
     def __str__(self):
         return self.method.name + " | " + self.campaign.year

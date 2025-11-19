@@ -28,8 +28,9 @@ class MethodFillView(MethodFillMixin, TemplateView):
         kwargs["method"] = method
         return super().get_context_data(**kwargs)
 
-    def post(self, request, id):
+    def post(self, request, id, **kwargs):
         method_id = id
+        project_id = self.kwargs.get("project_id")
         try:
             campaign = Campaign.objects.get(
                 methods__id__contains=method_id, status=True
@@ -39,7 +40,7 @@ class MethodFillView(MethodFillMixin, TemplateView):
                 _("The method has no asociated campaign and can't be answered")
             ) from error
 
-        return super().post(request, method_id, campaign.id)
+        return super().post(request, method_id, campaign.id, project_id)
 
 
 @method_decorator(login_not_required, name="dispatch")
