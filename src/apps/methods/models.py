@@ -300,14 +300,14 @@ class Survey(BaseModel):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        default="",
+        default=None,
     )
     project = models.ForeignKey(
         "organizations.project",
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        default="",
+        default=None,
     )
 
     def __str__(self):
