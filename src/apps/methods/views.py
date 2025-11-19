@@ -145,7 +145,7 @@ def load_ext_surveys(request):
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 
-class BalanceReview(UnfoldModelAdminViewMixin, ListView):
+class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
     title = "Balance review"
     permission_required = ()
     template_name = "admin/methods/balance_review.html"
