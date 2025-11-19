@@ -4,12 +4,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
-<<<<<<< HEAD
-from django.views.generic.edit import CreateView, UpdateView
-from unfold.views import UnfoldModelAdminViewMixin
-=======
 from django.views.generic.edit import CreateView, FormView, UpdateView
->>>>>>> 93376cd (Create and choose project views)
+from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.methods.models import Method
 from apps.organizations.forms import (
