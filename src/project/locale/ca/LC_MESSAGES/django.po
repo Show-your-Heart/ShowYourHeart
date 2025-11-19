@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-29 18:23+0200\n"
+"POT-Creation-Date: 2025-11-19 23:56+0100\n"
 "PO-Revision-Date: 2024-10-21 15:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,90 +19,90 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: project/admin.py:83
+#: project/admin.py:77
 msgid "Add/Edit"
 msgstr ""
 
-#: project/admin.py:95
+#: project/admin.py:89
 #, fuzzy
 #| msgid "registration/"
 msgid "Translations"
 msgstr "compte/"
 
-#: project/admin.py:103
+#: project/admin.py:97
 msgid "Actions"
 msgstr ""
 
-#: project/admin.py:127
+#: project/admin.py:121
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr ""
 
-#: project/admin.py:128
+#: project/admin.py:122
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr ""
 
-#: project/admin.py:129
+#: project/admin.py:123
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr ""
 
-#: project/admin.py:134 project/admin.py:274
+#: project/admin.py:128 project/admin.py:268
 msgid "action"
 msgstr ""
 
-#: project/admin.py:147
+#: project/admin.py:141
 msgid "staff user"
 msgstr ""
 
-#: project/admin.py:173
+#: project/admin.py:167
 msgid "Metadata"
 msgstr ""
 
-#: project/admin.py:184
+#: project/admin.py:178
 msgid "Details"
 msgstr ""
 
-#: project/admin.py:243
+#: project/admin.py:237
 msgid "object"
 msgstr ""
 
-#: project/admin.py:260
+#: project/admin.py:254
 msgid "user"
 msgstr ""
 
-#: project/admin.py:280
+#: project/admin.py:274
 msgid "change message"
 msgstr ""
 
-#: project/admin.py:302
+#: project/admin.py:298
 msgid "Entities"
 msgstr ""
 
-#: project/admin.py:326
-msgid "Methods"
+#: project/admin.py:325
+msgid "Methods management"
 msgstr ""
 
-#: project/admin.py:367
+#: project/admin.py:419
 #, fuzzy
 #| msgid "registration/"
 msgid "Registration Requests"
 msgstr "compte/"
 
-#: project/admin.py:368
+#: project/admin.py:425
 msgid "Review Etitities Balances"
 msgstr ""
 
-#: project/admin.py:369
+#: project/admin.py:426
 msgid "Review Projects Balances"
 msgstr ""
 
-#: project/admin.py:370
+#: project/admin.py:427
 msgid "Documents"
 msgstr ""
 
-#: project/admin.py:406
+#: project/admin.py:464
 msgid "Location data"
 msgstr ""
 
@@ -161,11 +161,11 @@ msgstr ""
 msgid "Creating sample organizations..."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:173
+#: project/management/commands/loaddevdata.py:172
 msgid "Creating sample topics..."
 msgstr ""
 
-#: project/management/commands/loaddevdata.py:193
+#: project/management/commands/loaddevdata.py:192
 msgid "Creating sample indicators..."
 msgstr ""
 
@@ -190,11 +190,11 @@ msgid "City already exists."
 msgstr ""
 
 #: project/management/commands/loaddevdata.py:264
-msgid "Creating sample Region..."
+msgid "Creating sample Region3..."
 msgstr ""
 
 #: project/management/commands/loaddevdata.py:272
-msgid "Region already exists."
+msgid "Region3 already exists."
 msgstr ""
 
 #: project/management/commands/loaddevdata.py:277
@@ -241,23 +241,27 @@ msgstr ""
 msgid "Dutch"
 msgstr ""
 
-#: project/settings.py:364
+#: project/settings.py:73
+msgid "French"
+msgstr ""
+
+#: project/settings.py:366
 msgid ""
 "This name will be used for the HTML title of the public app, logo alt text "
 "and other places."
 msgstr ""
 
-#: project/settings.py:373
+#: project/settings.py:375
 msgid ""
 "Logo image that will be used to customize the public app, e-mail templates "
 "and other."
 msgstr ""
 
-#: project/settings.py:380
+#: project/settings.py:382
 msgid "Dynamic settings"
 msgstr ""
 
-#: project/settings.py:467
+#: project/settings.py:469
 msgid ""
 "Access to: configuration and customization settings, the log of emails sent "
 "by the system, email templates, users management. Gives permission to edit "
@@ -292,7 +296,7 @@ msgstr ""
 msgid "Profile details"
 msgstr "%s | Fitxa del perfil"
 
-#: project/tests/test_selenium.py:61 project/views.py:60
+#: project/tests/test_selenium.py:61 project/views.py:88
 msgid "Registry updated"
 msgstr "Registre actualitzat"
 
@@ -326,19 +330,19 @@ msgstr "compte/"
 msgid "methods/"
 msgstr ""
 
-#: project/views.py:59
+#: project/views.py:87
 msgid "Back"
 msgstr "Enrere"
 
-#: project/views.py:61
+#: project/views.py:89
 msgid "Registry successfully updated"
 msgstr "Registre correctament actualitzat"
 
-#: project/views.py:62
+#: project/views.py:90
 msgid "Done!"
 msgstr "Fet!"
 
-#: project/views.py:63
+#: project/views.py:91
 msgid "The registry was updated correctly."
 msgstr "El registre s'ha actualitzat correctament."
 
