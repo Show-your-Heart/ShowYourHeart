@@ -124,7 +124,7 @@ class ProjectAdmin(ModelAdmin):
         "organization",
     )
     filter_horizontal = ("methods",)
-    autocomplete_fields = ["region1", "city"]
+    autocomplete_fields = ["region3", "city"]
     search_fields = ["name", "organization"]
 
     def get_fieldsets(self, request, obj=None):
