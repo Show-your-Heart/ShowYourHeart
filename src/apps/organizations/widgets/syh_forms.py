@@ -2,4 +2,4 @@ from django import forms
 
 
 class FileInput(forms.ClearableFileInput):
-    template_name = "components/forms/image.html"
+    template_name = "organizations/components/file.html"
