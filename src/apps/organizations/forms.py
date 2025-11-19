@@ -12,7 +12,7 @@ from apps.organizations.widgets import syh_forms
 from apps.settings.models import LegalStructure
 from apps.users.models import User, UserProfile
 
-from .models import Organization
+from .models import Organization, Project
 
 
 class OrganizationSignUpForm(forms.ModelForm):
@@ -230,3 +230,117 @@ class OrganizationUpdateForm(forms.ModelForm):
         if commit:
             org.save()
         return org
+
+
+class ProjectCreationForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Project name"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Project name")}
+        ),
+    )
+    description = forms.CharField(
+        label=_("Brief description"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Brief description")}
+        ),
+    )
+    start_date = forms.DateField(
+        label=_("Start date"),
+        widget=syh_forms.DateInput(
+            format="%Y-%m-%d", attrs={"autofocus": True, "type": "date"}
+        ),
+        input_formats=["%Y-%m-%d"],
+    )
+    main_action_scope = forms.ChoiceField(
+        label=_("Main action scope"),
+        choices=Project.ActionScope.choices,
+        required=True,
+    )
+    secondary_action_scope = forms.ChoiceField(
+        label=_("Secondary action scope"), choices=Project.ActionScope.choices
+    )
+    main_legal_entity_type = forms.ChoiceField(
+        choices=Project.LegalEntityType.choices,
+        required=True,
+    )
+    secondary_legal_entity_type = forms.ChoiceField(
+        choices=Project.LegalEntityType.choices,
+        required=True,
+    )
+    contact_name = forms.CharField(
+        label=_("Name of the contact person"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Contact name")}
+        ),
+    )
+    contact_telephone = forms.CharField(
+        label=_("Phone number of the contact person"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Contact phone number")}
+        ),
+    )
+    contact_email = forms.CharField(
+        label=_("Email address of the contact person"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Contact email")}
+        ),
+    )
+    publish_results = forms.BooleanField(
+        label=_("I want to make public the results"), widget=forms.CheckboxInput()
+    )
+    authorize = forms.BooleanField(
+        label=_("Authorize the use of my data for inclusion in the final report"),
+        widget=forms.CheckboxInput(),
+    )
+
+    class Meta:
+        model = Project
+        fields = (
+            "name",
+            "description",
+            "start_date",
+            "main_action_scope",
+            "secondary_action_scope",
+            "main_legal_entity_type",
+            "secondary_legal_entity_type",
+            "contact_name",
+            "contact_telephone",
+            "contact_email",
+            "publish_results",
+            "authorize",
+        )
+
+    def __init__(self, *args, organization=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.organization = organization
+
+    @transaction.atomic
+    def save(self, commit=True):
+        project = super().save(commit=False)
+
+        if self.organization:
+            project.organization = self.organization
+
+        if commit:
+            project.save()
+            # save(commit=False) used before does not save the many to
+            # many relations as it needs the instance to be created before
+            # setting their values
+            self.save_m2m()
+
+        return project
+
+
+class ProjectSelectionForm(forms.Form):
+    project = forms.ModelChoiceField(
+        label=_("Choose Existing Project"),
+        queryset=Project.objects.all(),
+        widget=forms.Select(
+            attrs={"x-on:change": "setSelectedProjectId($event.target.value)"}
+        ),
+    )
+
+    def __init__(self, *args, organization=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["project"].queryset = organization.projects.all()
