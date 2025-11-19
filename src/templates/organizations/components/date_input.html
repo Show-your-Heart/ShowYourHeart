@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<input
+    type="date"
+    id="{{ widget.attrs.id|default:'id' }}"
+    name="{{ widget.name }}"
+    value="{{ widget.value|stringformat:'s' }}"
+    placeholder="{{ placeholder }}"
+    required="{{ required }}"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+           focus:ring-blue-500 focus:border-blue-500 block w-full max-w-200 p-2.5"
+    {% include "django/forms/widgets/attrs.html" %}
+    @blur="update($event)"
+/>
+
+{% if unit %}
+    <span class="mt-1 text-sm text-gray-700" x-text="unit"></span>
+{% endif %}
