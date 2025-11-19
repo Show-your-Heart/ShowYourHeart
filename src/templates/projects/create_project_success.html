@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<c-base>
+    <div class="p-2">
+        <c-header></c-header>
+    </div>
+    <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
+        <p class="text-center">{% translate "Tu proyecto se ha creado con exito." %}</p>
+        <a href="{% url 'home' %}">
+            <c-button type="submit" name="action" value="submit">
+                {% translate "Back to home" %}
+            </c-button>
+        </a>
+    </div>
+</c-base>
