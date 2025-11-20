@@ -281,9 +281,17 @@ class Survey(BaseModel):
             0,
             "Open",
         )
-        SUBMITTED = (
+        CLOSED = (
             1,
-            "Submitted",
+            "Closed",
+        )
+        TECH_VALIDATED = (
+            2,
+            "Tech validated",
+        )
+        QUALITY_CHECKED = (
+            3,
+            "Quality checked",
         )
 
     method = models.ForeignKey("methods.method", on_delete=models.PROTECT)
@@ -302,6 +310,11 @@ class Survey(BaseModel):
         null=True,
         default="",
     )
+    start_date = models.DateTimeField(_("Start date"), blank=True, null=True)
+    closed_date = models.DateTimeField(_("Closed date"), blank=True, null=True)
+    modified_date = models.DateTimeField(_("Modified date"), blank=True, null=True)
+    validated_date = models.DateTimeField(_("Validated date"), blank=True, null=True)
+    evaluated_date = models.DateTimeField(_("Evaluated date"), blank=True, null=True)
 
     def __str__(self):
         return self.method.name + " | " + self.campaign.year
