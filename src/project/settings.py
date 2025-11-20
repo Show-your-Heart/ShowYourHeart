@@ -70,7 +70,7 @@ LANGUAGES = [
     ("eu", _("Basque")),
     ("es", _("Spanish")),
     ("nl", _("Dutch")),
-    ("fr", _("French"))
+    ("fr", _("French")),
 ]
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#use-i18n
