@@ -24,7 +24,7 @@ from .models import (
     Survey,
     Topic,
 )
-from .views import BalanceReview
+from .views import BalanceReviewView
 
 
 # Add superadmin views with default Unfold templates
@@ -272,7 +272,7 @@ class SurveyAdmin(ModelAdmin):
         urls = super().get_urls() + [
             path(
                 "review-balances",
-                self.admin_site.admin_view(BalanceReview.as_view(model_admin=self)),
+                self.admin_site.admin_view(BalanceReviewView.as_view(model_admin=self)),
                 name="review_balances",
             ),
         ]
