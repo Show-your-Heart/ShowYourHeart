@@ -4,14 +4,19 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, FormView, UpdateView
 from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.methods.models import Method
-from apps.organizations.forms import OrganizationSignUpForm, OrganizationUpdateForm
+from apps.organizations.forms import (
+    OrganizationSignUpForm,
+    OrganizationUpdateForm,
+    ProjectCreationForm,
+    ProjectSelectionForm,
+)
 
 from .helpers import get_organization_method_filter
-from .models import Organization
+from .models import Organization, Project
 
 
 @method_decorator(login_not_required, name="dispatch")
@@ -66,3 +71,50 @@ class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
                 status=Organization.Status.ACCEPTED
             )
         return context
+
+
+class CreateProjectView(CreateView):
+    model = Project
+    template_name = "projects/create_project.html"
+    form_class = ProjectCreationForm
+    success_url = reverse_lazy("organizations:create_project_success")
+
+    def dispatch(self, request, *args, **kwargs):
+        self.organization = request.user.profile.organization
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["organization"] = self.organization
+        return kwargs
+
+    def form_valid(self, form):
+        project = form.save(commit=False)
+        project.organization = self.organization
+        project.save()
+        return super().form_valid(form)
+
+
+class CreateProjectSuccessView(TemplateView):
+    template_name = "projects/create_project_success.html"
+
+
+class ChooseProjectView(FormView):
+    template_name = "components/modals/choose_project.html"
+    form_class = ProjectSelectionForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.organization = request.user.profile.organization
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["organization"] = self.organization
+        return kwargs
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields["project"].queryset = Project.objects.filter(
+            organization=self.request.user.profile.organization
+        )
+        return form

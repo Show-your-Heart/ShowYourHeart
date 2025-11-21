@@ -308,7 +308,14 @@ class Survey(BaseModel):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        default="",
+        default=None,
+    )
+    project = models.ForeignKey(
+        "organizations.project",
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        default=None,
     )
     start_date = models.DateTimeField(_("Start date"), blank=True, null=True)
     closed_date = models.DateTimeField(_("Closed date"), blank=True, null=True)
