@@ -56,7 +56,7 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
-    search_fields = ["name"]
+    search_fields = ["code", "name"]
 
     list_display = (
         "code",
