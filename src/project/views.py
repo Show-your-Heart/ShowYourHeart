@@ -41,7 +41,9 @@ class HomeView(TemplateView):
         method_list = []
         current_surveys_stats = []
         organization_accepted = False
+        organization = None
         if hasattr(self.request.user, "profile"):
+            organization = getattr(self.request.user.profile, "organization", None)
             organization_accepted = (
                 self.request.user.profile.organization.status
                 == Organization.Status.ACCEPTED
@@ -66,14 +68,12 @@ class HomeView(TemplateView):
         context.update(
             {
                 "user": self.request.user,
-                "organization": getattr(self.request.user.profile, "organization", None)
+                "organization": organization
                 if hasattr(self.request.user, "profile")
                 else None,
                 "current_surveys_stats": current_surveys_stats,
                 "organization_accepted": organization_accepted,
-                "choose_project_form": ProjectSelectionForm(
-                    organization=self.request.user.profile.organization
-                ),
+                "choose_project_form": ProjectSelectionForm(organization=organization),
             }
         )
         return context

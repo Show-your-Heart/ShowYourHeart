@@ -343,4 +343,6 @@ class ProjectSelectionForm(forms.Form):
 
     def __init__(self, *args, organization=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["project"].queryset = organization.projects.all()
+        self.fields["project"].queryset = (
+            organization.projects.all() if organization else Project.objects.none()
+        )
