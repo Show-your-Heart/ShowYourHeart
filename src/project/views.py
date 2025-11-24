@@ -3,8 +3,7 @@ from django.utils.translation import activate, get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 
-from apps.methods.forms import get_form_sections
-from apps.methods.helpers import get_survey_stats
+from apps.methods.helpers import get_form_sections, get_survey_stats
 from apps.methods.models import Campaign, Survey
 from apps.organizations.forms import ProjectSelectionForm
 from apps.organizations.models import Organization

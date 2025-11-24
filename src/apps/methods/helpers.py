@@ -1,6 +1,6 @@
 import re
 
-from .models import IndicatorResult, Invitation, Method
+from .models import IndicatorResult, Invitation, Method, Section
 
 
 class ParseExternalInvitations:
@@ -75,10 +75,8 @@ def get_survey_stats(survey, method):
                         (ii for ii in indicator_results if i.id == ii.indicator.id),
                         None,
                     )
-                    if (
-                        indicator_result
-                        and indicator_result.value
-                        or indicator_result.not_applicable
+                    if indicator_result and (
+                        indicator_result.value or indicator_result.not_applicable
                     ):
                         answered_indicators += 1
 
@@ -161,3 +159,31 @@ def parse_indicators_from_expression(expr: str):
             indicators_project_id.append(token)
 
     return indicators_project_id
+
+
+def get_form_sections(method):
+    result = {}
+    sections = Section.objects.filter(method=method).order_by("order")
+
+    for section in sections.filter(parent__isnull=True):
+        indicators = get_indicators_list(section.indicators.all())
+
+        children = sections.filter(parent=section)
+        subsections = []
+        for child in children:
+            child_indicators = get_indicators_list(child.indicators.all())
+            subsections.append({child.title: child_indicators})
+
+        result[section] = {
+            "indicators": indicators,
+            "subsections": subsections,
+        }
+
+    return result
+
+
+def get_indicators_list(indicators_list):
+    indicators = []
+    for i in indicators_list:
+        indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
+    return indicators

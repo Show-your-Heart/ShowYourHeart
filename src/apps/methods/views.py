@@ -15,10 +15,10 @@ from unfold.views import UnfoldModelAdminViewMixin
 from apps.geodata.models import Region3
 from apps.methods.mixins import MethodFillMixin
 
-from .forms import get_form_sections
 from .helpers import (
     ParseExternalInvitations,
     get_external_survey_filter,
+    get_form_sections,
     get_survey_stats,
 )
 from .models import Campaign, Invitation, Method, Survey

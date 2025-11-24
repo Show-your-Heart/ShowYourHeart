@@ -1,14 +1,19 @@
 import uuid
 from collections import defaultdict
 
-from django import forms
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
-from .forms import get_dynamic_form, get_form_sections
-from .helpers import get_gender_field_value, get_gender_suffix, is_gendered
+from .forms import get_dynamic_form
+from .helpers import (
+    get_form_sections,
+    get_gender_field_value,
+    get_gender_suffix,
+    is_gendered,
+)
 from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 
 
@@ -114,9 +119,14 @@ class MethodFillMixin:
         action = request.POST.get("action")
 
         if action == "submit":
-            form = forms.Form(request.POST)
-            if not form.is_valid():
-                pass
+            mandatory_indicators_empty = get_empty_mandatory_indicators(
+                method_id, request
+            )
+            if len(mandatory_indicators_empty) > 0:
+                # TODO open the modal of the issue 237?
+                print("there are mandatory indicators not filled")
+                return HttpResponseRedirect(request.path_info)
+            # raise ValidationError(_("Fill the mandatory questions before submit"))
 
         if not is_valid_uuid(request.user.id):
             survey, created = Survey.objects.get_or_create(
@@ -154,6 +164,31 @@ class MethodFillMixin:
         save_indicator_results(method_id, request, survey)
 
         return HttpResponseRedirect(request.path_info)
+
+
+def get_empty_mandatory_indicators(method_id, request):
+    method = Method.objects.get(pk=method_id)
+    method_sections = get_form_sections(method)
+    mandatory_indicators_empty = []
+    # TODO get if the value is valid??
+
+    if len(method_sections):
+        for section, section_data in method_sections.items():
+            indicators_list = list(section.indicators.all())
+
+            for subsection in section_data["subsections"]:
+                for _, subsection_indicators in subsection.items():
+                    indicators_list += subsection_indicators
+
+            for i in indicators_list:
+                field_name = f"question_{i.id}"
+                na = request.POST.get(f"{field_name}_na", False)
+                values = request.POST.getlist(field_name)
+
+                if not ("|".join(values) or na):
+                    mandatory_indicators_empty.append(i)
+
+    return mandatory_indicators_empty
 
 
 def save_indicator_results(method_id, request, survey):
@@ -195,11 +230,12 @@ def save_indicator_results(method_id, request, survey):
         # Handle standard indicators
         else:
             values = request.POST.getlist(field_name)
-            if values or na:
+            formatted_values = "|".join(values)
+            if formatted_values or na:
                 IndicatorResult.objects.update_or_create(
                     survey=survey,
                     indicator=indicator,
-                    defaults={"value": "|".join(values), "not_applicable": na},
+                    defaults={"value": formatted_values, "not_applicable": na},
                 )
             else:
                 IndicatorResult.objects.filter(
