@@ -177,7 +177,7 @@ class Indicator(BaseModel):
                     # TODO: throw error, circular dep
                     print("Circular dependencies")
                     continue
-                indicator = Indicator.objects.get(code=code)
+                indicator = Indicator.objects.filter(code=code)
                 if indicator:
                     if indicator.dependant_indicators:
                         indicator.dependant_indicators.append(self.code)
@@ -187,7 +187,7 @@ class Indicator(BaseModel):
                         indicator.save()
 
             for code in deps_to_remove:
-                indicator = Indicator.objects.get(code=code)
+                indicator = Indicator.objects.filter(code=code)
                 if indicator:
                     if self.code in indicator.dependant_indicators:
                         indicator.dependant_indicators.remove(self.code)
