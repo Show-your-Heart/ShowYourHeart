@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import TemplateView
 
 from apps.settings.models import Network
 from apps.users.services import send_network_assigned_mail
@@ -20,3 +21,23 @@ def admin_assigned_view(request, id):
     return HttpResponseRedirect(
         reverse_lazy("admin:settings_network_change", args=(network.id,))
     )
+
+
+class WhatIsSocialBalanceView(TemplateView):
+    template_name = "info/what_is_social_balance.html"
+
+
+class GoodPracticesView(TemplateView):
+    template_name = "info/good_practices.html"
+
+
+class DocumentsView(TemplateView):
+    template_name = "info/documents.html"
+
+
+class ResourcesView(TemplateView):
+    template_name = "info/resources.html"
+
+
+class ContactView(TemplateView):
+    template_name = "info/contact.html"

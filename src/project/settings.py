@@ -192,7 +192,10 @@ LOGOUT_REDIRECT_URL = "/"
 # In theory, everywhere that the user will have access while not logged in
 # should be also accessible if it's logged in but without the email validated.
 VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
+    "contact",
+    "documents",
     "home",
+    "good_practices",
     "registration:signup",
     "registration:privacy_policy",
     "registration:login",
@@ -208,6 +211,8 @@ VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
     "registration:user_validation",
     "registration:send_verification_code",
     "registration:email_verification_complete",
+    "resources",
+    "what_is_social_balance",
 ]
 
 ################################################################################
