@@ -133,7 +133,7 @@ class Organization(BaseModel):
     city = models.ForeignKey(
         "geodata.city", on_delete=models.CASCADE, blank=True, null=True
     )
-    address = models.CharField(_("address"), max_length=100, blank=True)
+    address = models.CharField(_("address"), max_length=200, blank=True)
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
@@ -149,6 +149,7 @@ class Organization(BaseModel):
         blank=True,
     )
     privacy_policy_accepted = models.DateTimeField(blank=True, null=True)
+    bs_allow_public = models.BooleanField(_("Active"), blank=True, null=True)
 
     def __str__(self):
         return self.name
