@@ -157,23 +157,20 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
             self.get_survey_query(self.request.GET)
         ).order_by("-start_date")
 
-        for s in all_surveys:
-            s.status = Survey.Status(s.status).value
-
-            """ method = {
-                "id": s.method.id,
-                "name": s.method.name,
-                "sections": get_form_sections(s.method),
-            } """
-
-            s.method.sections = get_form_sections(s.method)
-
-            stats = get_survey_stats(s, s.method)
-            s.totalProgress = stats["totalProgress"]
         return all_surveys
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        page = context["page_obj"]
+        processed = []
+        for s in page.object_list:
+            s.status = Survey.Status(s.status).value
+            s.method.sections = get_form_sections(s.method)
+
+            stats = get_survey_stats(s, s.method)
+            s.totalProgress = stats["totalProgress"]
+            processed.append(s)
 
         all_status = []
         for s in Survey.Status:
@@ -196,6 +193,8 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         context["method_filter"] = self.request.GET.get("method") or ""
         context["status_filter"] = self.request.GET.get("status") or ""
         context["unit_analysis_filter"] = self.request.GET.get("unit-analysis") or ""
+
+        context["object_list"] = processed
 
         return context
 

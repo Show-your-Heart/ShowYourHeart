@@ -70,15 +70,25 @@ def get_survey_stats(survey, method):
                         indicators_list += subsection_indicators
 
                 for i in indicators_list:
-                    # Get indicator result
-                    indicator_result = next(
-                        (ii for ii in indicator_results if i.id == ii.indicator.id),
-                        None,
-                    )
-                    if indicator_result and (
-                        indicator_result.value or indicator_result.not_applicable
-                    ):
-                        answered_indicators += 1
+                    indicator_id = None
+                    if hasattr(i, "id"):
+                        indicator_id = i.id
+                    elif i.get("indicator", None):
+                        indicator_id = i["indicator"].id
+
+                    if indicator_id:
+                        indicator_result = next(
+                            (
+                                ii
+                                for ii in indicator_results
+                                if indicator_id == ii.indicator.id
+                            ),
+                            None,
+                        )
+                        if indicator_result and (
+                            indicator_result.value or indicator_result.not_applicable
+                        ):
+                            answered_indicators += 1
 
                 total_answered__indicators += answered_indicators
 
