@@ -65,30 +65,22 @@ def get_survey_stats(survey, method):
 
                 for subsection in section_data["subsections"]:
                     for _, subsection_indicators in subsection.items():
-                        total_indicators += len(subsection_indicators)
-                        total_section_indicators += len(subsection_indicators)
-                        indicators_list += subsection_indicators
+                        indicators = [
+                            item["indicator"] for item in subsection_indicators
+                        ]
+                        total_indicators += len(indicators)
+                        total_section_indicators += len(indicators)
+                        indicators_list += indicators
 
                 for i in indicators_list:
-                    indicator_id = None
-                    if hasattr(i, "id"):
-                        indicator_id = i.id
-                    elif i.get("indicator", None):
-                        indicator_id = i["indicator"].id
-
-                    if indicator_id:
-                        indicator_result = next(
-                            (
-                                ii
-                                for ii in indicator_results
-                                if indicator_id == ii.indicator.id
-                            ),
-                            None,
-                        )
-                        if indicator_result and (
-                            indicator_result.value or indicator_result.not_applicable
-                        ):
-                            answered_indicators += 1
+                    indicator_result = next(
+                        (ii for ii in indicator_results if i.id == ii.indicator.id),
+                        None,
+                    )
+                    if indicator_result and (
+                        indicator_result.value or indicator_result.not_applicable
+                    ):
+                        answered_indicators += 1
 
                 total_answered__indicators += answered_indicators
 

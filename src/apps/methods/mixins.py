@@ -174,11 +174,17 @@ def get_empty_mandatory_indicators(method_id, request):
 
     if len(method_sections):
         for section, section_data in method_sections.items():
-            indicators_list = list(section.indicators.all())
-
+            indicators_list = list(section.indicators.filter(mandatory=True))
             for subsection in section_data["subsections"]:
                 for _, subsection_indicators in subsection.items():
-                    indicators_list += subsection_indicators
+                    indicators = [
+                        item["indicator"]
+                        for item in subsection_indicators
+                        if getattr(
+                            item["indicator"], "mandatory", False
+                        )  # keep only mandatory ones
+                    ]
+                    indicators_list += indicators
 
             for i in indicators_list:
                 field_name = f"question_{i.id}"
