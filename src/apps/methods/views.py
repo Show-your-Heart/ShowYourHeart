@@ -153,18 +153,22 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        all_surveys = Survey.objects.filter(self.get_survey_query(self.request.GET))
+        all_surveys = Survey.objects.filter(
+            self.get_survey_query(self.request.GET)
+        ).order_by("-start_date")
 
         for s in all_surveys:
             s.status = Survey.Status(s.status).value
 
-            method = {
+            """ method = {
                 "id": s.method.id,
                 "name": s.method.name,
                 "sections": get_form_sections(s.method),
-            }
+            } """
 
-            stats = get_survey_stats(s, method)
+            s.method.sections = get_form_sections(s.method)
+
+            stats = get_survey_stats(s, s.method)
             s.totalProgress = stats["totalProgress"]
         return all_surveys
 
