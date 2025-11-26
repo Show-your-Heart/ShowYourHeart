@@ -3,5 +3,25 @@
 <c-default-layout>
     <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
         <h1 class="text-3xl font-bold">{% translate "Documents" %}</h1>
+         <table>
+            <tr class="border">
+                <th class="border">{% translate "Campaigns" %}</th>
+                {% for survey in surveys %}
+                <th class="border">{{ survey.method.name }}</th>
+                {% endfor %}
+                <th class="border">{% translate "Infographics" %}</th>
+                <th class="border">{% translate "Stamps" %}</th>
+            </tr>
+            {% for survey in surveys %}
+            <tr>
+                <td class="border">{{ survey.campaign.name }}</td>
+                {% for survey in surveys %}
+                <td class="border">{{ survey.method.name }} excel</td>
+                {% endfor %}
+                <td class="border">{{ organization.name }} pdf de que metodo??</td>
+                <td class="border">{{ organization.name }} sello</td>
+            </tr>
+            {% endfor %}
+        </table> 
     </div>
 </c-default-layout>
