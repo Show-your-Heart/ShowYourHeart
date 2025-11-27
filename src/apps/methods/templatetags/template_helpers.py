@@ -4,11 +4,6 @@ register = Library()
 
 
 @register.filter
-def get_item(form, field_name):
-    return form[field_name]
-
-
-@register.filter
 def get_id(path):
     search_string = "methods/method/"
     start_id_index = path.index(search_string) + len(search_string)

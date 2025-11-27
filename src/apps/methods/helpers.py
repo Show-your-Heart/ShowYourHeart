@@ -166,8 +166,9 @@ def parse_indicators_from_expression(expr: str):
 def get_form_sections(method):
     result = {}
     sections = Section.objects.filter(method=method).order_by("order")
+    top_level_sections = sections.filter(parent__isnull=True)
 
-    for section in sections.filter(parent__isnull=True):
+    for section in top_level_sections:
         indicators = get_indicators_list(section.indicators.all())
 
         children = sections.filter(parent=section)
