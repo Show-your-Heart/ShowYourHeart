@@ -1,11 +1,10 @@
 import uuid
 from collections import defaultdict
 
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 from .forms import get_dynamic_form
 from .helpers import (
