@@ -58,7 +58,7 @@
             <a class="h-fit-content" href="#" @click.prevent="open = true">
               <c-button>
                 <span>{% translate 'Choose project' %}</span>
-                <c-icon icon="arrow-right" class="inline text-white"></c-icon>
+                <c-icon name="arrow-right" class="inline text-white"></c-icon>
               </c-button>
             </a>
 
@@ -66,7 +66,7 @@
             <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.method.id %}">
               <c-button>
                 <span>{% translate 'Ir al balance'%}</span>
-                <c-icon icon="arrow-right" class="inline text-white"></c-icon>
+                <c-icon name="arrow-right" class="inline text-white"></c-icon>
               </c-button>
             </a>
         {% endif %}
