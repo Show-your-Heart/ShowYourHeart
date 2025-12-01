@@ -49,16 +49,14 @@ class MethodFillMixin:
                 readonly,
                 placeholder_dict,
             )
-            context["form"] = form
 
             context["initial_values"] = get_initial_values(survey)
 
         except ObjectDoesNotExist:
             # If there is none, get new survey
-            context["form"] = get_dynamic_form(
-                current_method, [], False, placeholder_dict
-            )
+            form = get_dynamic_form(current_method, [], False, placeholder_dict)
 
+        context["form"] = form
         context["method_name"] = current_method.name
         context["readonly"] = readonly
         context["sections"] = get_sections(
