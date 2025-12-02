@@ -68,7 +68,8 @@
 
   <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
     <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block
-      form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
+      form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6" x-data
+      @submit="$store.survey.onSumbit($event)">
       {% csrf_token %}
 
       <div id="tab-content">

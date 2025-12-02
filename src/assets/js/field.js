@@ -47,7 +47,7 @@ document.addEventListener('alpine:init', () => {
             this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
             this.notApplicable = indicatorResults?.not_applicable ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
-            Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value)
+            Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.isDirectIndicator = indicator.is_direct_indicator
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
@@ -150,6 +150,10 @@ document.addEventListener('alpine:init', () => {
                 value = input
             }
             return value
+        },
+        updateNotApplicable(event) {
+            this.notApplicable = event
+            Alpine.store('indicators').updateIndicatorResultNa(this.code, this.notApplicable)
         },
         isGendered(type) {
             switch (type) {

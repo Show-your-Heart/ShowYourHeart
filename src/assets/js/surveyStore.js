@@ -68,6 +68,37 @@ document.addEventListener('alpine:init', () => {
                 }
             })
         },
+        onSumbit(e) {
+            if (e.submitter.value === "submit") {
+                //check isValid. if not valid, the value remains empty
+                this.sections.forEach(s => {
+                    const index = s.indicatorsStats.findIndex(i => i.isValid == false)
+                    if (index > -1) {
+                        e.preventDefault()
+                        console.log('notvalid')
+                    }
+                })
+
+                const methodIndicators = Alpine.store('indicators')["indicators"]
+                const mandatoryIndicators = methodIndicators.filter(i => i.mandatory && !i.not_applicable)
+                let emptyMandatoryQuestions = []
+                mandatoryIndicators.forEach(mi => {
+                    // Works for object values (gendered questions) and arrays (multi answer questions)
+                    if (typeof (mi.value) == 'object') {
+                        const isEmpty = Object.values(mi.value).every(x => x === null || x === '');
+                        if (isEmpty) {
+                            emptyMandatoryQuestions.push(mi)
+                        }
+                    }
+                })
+
+                if (emptyMandatoryQuestions.length) {
+                    e.preventDefault()
+                    console.log("not mandatory questions empty", emptyMandatoryQuestions)
+                }
+
+            }
+        },
     })
 
     const sections = JSON.parse(document.getElementById('sections').textContent);

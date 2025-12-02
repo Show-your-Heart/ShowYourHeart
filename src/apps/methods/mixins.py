@@ -83,16 +83,6 @@ class MethodFillMixin:
     def post(self, request, method_id, campaign_id, project_id=None):
         action = request.POST.get("action")
 
-        if action == "submit":
-            mandatory_indicators_empty = get_empty_mandatory_indicators(
-                method_id, request
-            )
-            if len(mandatory_indicators_empty) > 0:
-                # TODO open the modal of the issue 237?
-                print("there are mandatory indicators not filled")
-                return HttpResponseRedirect(request.path_info)
-            # raise ValidationError(_("Fill the mandatory questions before submit"))
-
         if not is_valid_uuid(request.user.id):
             survey, created = Survey.objects.get_or_create(
                 method_id=method_id,
@@ -129,37 +119,6 @@ class MethodFillMixin:
         save_indicator_results(method_id, request, survey)
 
         return HttpResponseRedirect(request.path_info)
-
-
-def get_empty_mandatory_indicators(method_id, request):
-    method = Method.objects.get(pk=method_id)
-    method_sections = get_form_sections(method)
-    mandatory_indicators_empty = []
-    # TODO get if the value is valid??
-
-    if len(method_sections):
-        for section, section_data in method_sections.items():
-            indicators_list = list(section.indicators.filter(mandatory=True))
-            for subsection in section_data["subsections"]:
-                for _, subsection_indicators in subsection.items():
-                    indicators = [
-                        item["indicator"]
-                        for item in subsection_indicators
-                        if getattr(
-                            item["indicator"], "mandatory", False
-                        )  # keep only mandatory ones
-                    ]
-                    indicators_list += indicators
-
-            for i in indicators_list:
-                field_name = f"question_{i.id}"
-                na = request.POST.get(f"{field_name}_na", False)
-                values = request.POST.getlist(field_name)
-
-                if not ("|".join(values) or na):
-                    mandatory_indicators_empty.append(i)
-
-    return mandatory_indicators_empty
 
 
 def save_indicator_results(method_id, request, survey):
