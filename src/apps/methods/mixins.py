@@ -249,27 +249,20 @@ def get_sections(current_method, form_instance):
     sections = get_form_sections(current_method)
     for _, sec_val in sections.items():
         # ---- top‑level indicators ----
-        enriched_top = []
         for ind in sec_val["indicators"]:
             # ind is like {"field_name": "question_42", "indicator": <Indicator …>}
             field_obj = field_lookup.get(ind["field_name"])
             # Attach the bound field (or its HTML) directly:
             ind["field"] = field_obj  # or str(field_obj) for raw HTML
-            enriched_top.append(ind)
-        sec_val["indicators"] = enriched_top
 
         # ---- subsections ----
         for sub_dict in sec_val[
             "subsections"
         ]:  # each sub_dict is {title: [indicators]}
-            for sub_title, sub_inds in sub_dict.items():
-                enriched_sub = []
+            for _, sub_inds in sub_dict.items():
                 for ind in sub_inds:
                     field_obj = field_lookup.get(ind["field_name"])
                     ind["field"] = field_obj
-                    enriched_sub.append(ind)
-                sub_dict[sub_title] = enriched_sub
-
     return sections
 
 
