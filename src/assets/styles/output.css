@@ -767,6 +767,9 @@
   .grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
+  .grid-cols-\[80\%_20\%\] {
+    grid-template-columns: 80% 20%;
+  }
   .flex-col {
     flex-direction: column;
   }

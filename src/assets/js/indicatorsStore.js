@@ -37,7 +37,7 @@ document.addEventListener('alpine:init', () => {
             }
         },
         validate(field) {
-            if (!field.validation) {
+            if (!field.validation || field.notApplicable) {
                 Alpine.store("survey").setIndicatorValidation(field.id, true)
                 return true
             }

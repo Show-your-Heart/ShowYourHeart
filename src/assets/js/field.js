@@ -63,6 +63,7 @@ document.addEventListener('alpine:init', () => {
                 code: this.code,
                 value: this.value,
                 validation: this.validation,
+                notApplicable: this.notApplicable,
             }
             isValid = Alpine.store('indicators').validate(field)
             if (isValid && isValid.error == undefined) {
@@ -110,6 +111,7 @@ document.addEventListener('alpine:init', () => {
                     code: this.code,
                     value: this.value,
                     validation: this.validation,
+                    notApplicable: this.notApplicable,
                 }
                 isValid = Alpine.store('indicators').validate(field)
                 if (isValid && isValid.error == undefined) {
