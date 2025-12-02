@@ -113,12 +113,16 @@ document.addEventListener('alpine:init', () => {
                 }
                 isValid = Alpine.store('indicators').validate(field)
                 if (isValid && isValid.error == undefined) {
-                    console.log('Valido', this.value)
+                    //console.log('Valido', this.value)
                     this.hasErrors = false
                     Alpine.store('indicators').updateIndicatorResult(this.code, this.value)
                 } else {
                     this.hasErrors = true
-                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                    if (this.msg) {
+                        this.error = this.msg
+                    } else {
+                        this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                    }
                 }
             } catch (e) {
                 console.log('Invalido')
