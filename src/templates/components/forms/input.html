@@ -7,9 +7,9 @@
             :name="`question_${id}`" :value="value" type="{{ widget.type}}" placeholder="{{placeholder}}" {%
             include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value)"
             x-bind:disabled="notApplicable" x-model="value" x-effect="if (notApplicable) {update('') }" />
-        <div class="text-red-600" x-show="hasErrors">
-            <p x-text="error"></p>
-        </div>
         <span class="flex items-center" x-text="unit"></span>
+    </div>
+    <div class="text-red-600" x-show="hasErrors">
+        <p x-text="error"></p>
     </div>
 </c-forms.base-field>
