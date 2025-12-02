@@ -221,7 +221,6 @@ class Command(BaseCommand):
                 method = Method.objects.create(
                     name=method_name,
                     description=f"Method description {x}",
-                    active=True,
                     network_owner=network,
                 )
                 method.indicators.set(indicators)

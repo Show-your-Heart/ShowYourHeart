@@ -142,7 +142,6 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
         "description",
         "network_owner",
         "unit_of_analysis",
-        "active",
     )
 
     conditional_fields = {
@@ -173,7 +172,6 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
             main_fields=[
                 "name_en",
                 "description_en",
-                "active",
                 "network_owner",
                 "unit_of_analysis",
                 "indicators",
