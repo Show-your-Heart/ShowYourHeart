@@ -47,8 +47,8 @@ class HomeView(TemplateView):
                 self.request.user.profile.organization.status
                 == Organization.Status.ACCEPTED
             )
-            open_campaign = Campaign.objects.filter(status=True).first()
-            if open_campaign:
+            open_campaigns = Campaign.objects.filter(status=True).all()
+            for open_campaign in open_campaigns:
                 for method in self.request.user.profile.organization.methods.filter(
                     id__in=open_campaign.methods.all()
                 ):

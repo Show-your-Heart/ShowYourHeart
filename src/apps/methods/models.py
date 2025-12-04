@@ -258,21 +258,6 @@ class Campaign(BaseModel):
     def __str__(self):
         return self.year
 
-    def clean(self):
-        super().clean()
-
-        if self.status:
-            active_campaigns = Campaign.objects.filter(status=True).exclude(id=self.id)
-            if active_campaigns:
-                raise ValidationError(
-                    {
-                        "status": _(
-                            "It's not possible to have multiple active Campaigns. "
-                            + "Please, close the current one before opening this one."
-                        )
-                    }
-                )
-
 
 class Survey(BaseModel):
     class Status(models.IntegerChoices):
