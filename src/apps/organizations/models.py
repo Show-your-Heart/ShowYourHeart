@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.users.models import UserProfile
+from apps.users.services import send_welcome_mail
 from project.models import BaseModel
 
 
