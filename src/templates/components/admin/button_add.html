@@ -1,10 +1,18 @@
 {% load i18n admin_urls %}
+{% if cl %}
+{% url cl.opts|admin_urlname:"add" as add_url %}
+{% else %}
+{% url opts|admin_urlname:"add" as add_url %}
+{% endif %}
 
+{% if add_url %}
 <div class="flex flex-row items-center justify-end">
-    <a href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink bg-primary-600 px-4 py-2 mb-4 flex items-center justify-center rounded-lg" title="{{ title }}">
+    <a href="{% add_preserved_filters add_url is_popup to_field %}"
+        class="addlink bg-primary-600 px-4 py-2 mb-4 flex items-center justify-center rounded-lg" title="{{ title }}">
         <c-icon name="circle-plus" class="text-white"></c-icon>
         <span class="ms-2 text-white">
             {% blocktrans with name=opts.verbose_name %}Add new {{ name }}{% endblocktrans %}
         </span>
     </a>
 </div>
+{% endif %}
