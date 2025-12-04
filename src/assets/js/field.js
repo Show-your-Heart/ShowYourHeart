@@ -47,7 +47,7 @@ document.addEventListener('alpine:init', () => {
             this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
             this.notApplicable = indicatorResults?.not_applicable ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
-            Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value)
+            Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.isDirectIndicator = indicator.is_direct_indicator
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
@@ -63,6 +63,7 @@ document.addEventListener('alpine:init', () => {
                 code: this.code,
                 value: this.value,
                 validation: this.validation,
+                notApplicable: this.notApplicable,
             }
             isValid = Alpine.store('indicators').validate(field)
             if (isValid && isValid.error == undefined) {
@@ -110,15 +111,20 @@ document.addEventListener('alpine:init', () => {
                     code: this.code,
                     value: this.value,
                     validation: this.validation,
+                    notApplicable: this.notApplicable,
                 }
                 isValid = Alpine.store('indicators').validate(field)
                 if (isValid && isValid.error == undefined) {
-                    console.log('Valido', this.value)
+                    //console.log('Valido', this.value)
                     this.hasErrors = false
                     Alpine.store('indicators').updateIndicatorResult(this.code, this.value)
                 } else {
                     this.hasErrors = true
-                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                    if (this.msg) {
+                        this.error = this.msg
+                    } else {
+                        this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                    }
                 }
             } catch (e) {
                 console.log('Invalido')
@@ -150,6 +156,10 @@ document.addEventListener('alpine:init', () => {
                 value = input
             }
             return value
+        },
+        updateNotApplicable(event) {
+            this.notApplicable = event
+            Alpine.store('indicators').updateIndicatorResultNa(this.code, this.notApplicable)
         },
         isGendered(type) {
             switch (type) {

@@ -37,7 +37,8 @@ document.addEventListener('alpine:init', () => {
             }
         },
         validate(field) {
-            if (!field.validation) {
+            if (!field.validation || field.notApplicable) {
+                Alpine.store("survey").setIndicatorValidation(field.id, true)
                 return true
             }
             try {
@@ -78,9 +79,10 @@ document.addEventListener('alpine:init', () => {
             }
             return result
         },
-        shallowIndicatorResultUpdate(code, value) {
+        shallowIndicatorResultUpdate(code, value, notApplicable) {
             const index = this.indicators.findIndex(i => i.code == code)
             this.indicators[index].value = value
+            this.indicators[index].not_applicable = notApplicable
         },
         updateIndicatorResult(code, value) {
             const index = this.indicators.findIndex(i => i.code == code)
@@ -110,6 +112,18 @@ document.addEventListener('alpine:init', () => {
                 }
             }
         },
+        updateIndicatorResultNa(code, value) {
+            const index = this.indicators.findIndex(i => i.code == code)
+            if (index != -1) {
+                this.indicators[index].not_applicable = value
+                console.log(this.indicators[index])
+                /*  if (indicators[index].dependant_indicators) {
+                     for (code of indicators[index].dependant_indicators) {
+                         this.updateIndicatorResultNa(code, value)
+                     }
+                 } */
+            }
+        }
     })
 
     const indicators = JSON.parse(document.getElementById('indicators').textContent);

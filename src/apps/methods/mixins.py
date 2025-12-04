@@ -1,14 +1,18 @@
 import uuid
 from collections import defaultdict
 
-from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
-from .forms import get_dynamic_form, get_form_sections
-from .helpers import get_gender_field_value, get_gender_suffix, is_gendered
+from .forms import get_dynamic_form
+from .helpers import (
+    get_form_sections,
+    get_gender_field_value,
+    get_gender_suffix,
+    is_gendered,
+)
 from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 
 
@@ -39,63 +43,27 @@ class MethodFillMixin:
                 )
 
             readonly = survey.status == Survey.Status.CLOSED
-            context["form"] = get_dynamic_form(
+            form = get_dynamic_form(
                 current_method,
                 IndicatorResult.objects.filter(survey=survey),
                 readonly,
                 placeholder_dict,
             )
 
-            indicator_results = IndicatorResult.objects.filter(
-                survey=survey,
-            ).all()
-            initial_values = {}
-            for i in indicator_results:
-                # Handle gendered indicators (3 fields)
-                if is_gendered(i.indicator.data_type):
-                    initial_values[i.indicator.code] = {
-                        "value": {
-                            "non_binary": get_gender_field_value(
-                                indicator_results, i.indicator, "non_binary"
-                            ),
-                            "male": get_gender_field_value(
-                                indicator_results, i.indicator, "male"
-                            ),
-                            "female": get_gender_field_value(
-                                indicator_results, i.indicator, "female"
-                            ),
-                        },
-                        "not_applicable": i.not_applicable,
-                    }
-                else:
-                    initial_values[i.indicator.code] = {
-                        "value": i.value,
-                        "not_applicable": i.not_applicable,
-                    }
-
-            context["initial_values"] = initial_values
+            context["initial_values"] = get_initial_values(survey)
 
         except ObjectDoesNotExist:
             # If there is none, get new survey
-            context["form"] = get_dynamic_form(
-                current_method, [], False, placeholder_dict
-            )
+            form = get_dynamic_form(current_method, [], False, placeholder_dict)
 
+        context["form"] = form
         context["method_name"] = current_method.name
         context["readonly"] = readonly
-        context["sections"] = get_form_sections(current_method)
-        sections_data = []
-        for section in context["sections"]:
-            sections_data.append(
-                {
-                    "id": section.id,
-                    "title": section.title,
-                    "indicators_ids": [
-                        i["id"] for i in list(section.indicators.all().values())
-                    ],
-                }
-            )
-        context["sections_data"] = sections_data
+        context["sections"] = get_sections(
+            current_method, form(data=self.request.POST or None)
+        )
+
+        context["sections_data"] = get_sections_data(context["sections"])
         try:
             indicators = list(
                 Method.objects.get(id=current_method.id).indicators.all().values()
@@ -112,11 +80,6 @@ class MethodFillMixin:
     @transaction.atomic
     def post(self, request, method_id, campaign_id, project_id=None):
         action = request.POST.get("action")
-
-        if action == "submit":
-            form = forms.Form(request.POST)
-            if not form.is_valid():
-                pass
 
         if not is_valid_uuid(request.user.id):
             survey, created = Survey.objects.get_or_create(
@@ -195,11 +158,12 @@ def save_indicator_results(method_id, request, survey):
         # Handle standard indicators
         else:
             values = request.POST.getlist(field_name)
-            if values or na:
+            formatted_values = "|".join(values)
+            if formatted_values or na:
                 IndicatorResult.objects.update_or_create(
                     survey=survey,
                     indicator=indicator,
-                    defaults={"value": "|".join(values), "not_applicable": na},
+                    defaults={"value": formatted_values, "not_applicable": na},
                 )
             else:
                 IndicatorResult.objects.filter(
@@ -249,3 +213,68 @@ def get_previous_campaign_answers(campaign_id, current_method_id, user):
                         placeholder_dict[field_name] = r.value
 
     return placeholder_dict
+
+
+def get_initial_values(survey):
+    indicator_results = IndicatorResult.objects.filter(
+        survey=survey,
+    ).all()
+    initial_values = {}
+    for i in indicator_results:
+        if is_gendered(i.indicator.data_type):
+            initial_values[i.indicator.code] = {
+                "value": {
+                    "non_binary": get_gender_field_value(
+                        indicator_results, i.indicator, "non_binary"
+                    ),
+                    "male": get_gender_field_value(
+                        indicator_results, i.indicator, "male"
+                    ),
+                    "female": get_gender_field_value(
+                        indicator_results, i.indicator, "female"
+                    ),
+                },
+                "not_applicable": i.not_applicable,
+            }
+        else:
+            initial_values[i.indicator.code] = {
+                "value": i.value,
+                "not_applicable": i.not_applicable,
+            }
+    return initial_values
+
+
+def get_sections(current_method, form_instance):
+    # Convert field objects array into a dictionary
+    field_lookup = {name: form_instance[name] for name in form_instance.fields}
+    sections = get_form_sections(current_method)
+    # Store fields HTML in indicator object
+    for _, section in sections.items():
+        # Top‑level indicators
+        for indicator in section["indicators"]:
+            field_obj = field_lookup[indicator["field_name"]]
+            indicator["field"] = field_obj  # or str(field_obj) for raw HTML
+
+        # Subsection indicators
+        for subsection in section["subsections"]:
+            for _, sub_inds in subsection.items():
+                for indicator in sub_inds:
+                    field_obj = field_lookup[indicator["field_name"]]
+                    indicator["field"] = field_obj
+
+    return sections
+
+
+def get_sections_data(context_sections):
+    sections_data = []
+    for section in context_sections:
+        sections_data.append(
+            {
+                "id": section.id,
+                "title": section.title,
+                "indicators_ids": [
+                    i["id"] for i in list(section.indicators.all().values())
+                ],
+            }
+        )
+    return sections_data
