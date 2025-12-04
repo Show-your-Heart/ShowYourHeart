@@ -204,7 +204,6 @@ class Method(BaseModel):
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
-    active = models.BooleanField(_("active"))
     name = models.CharField(_("name"), max_length=150)
     description = models.CharField(_("description"), max_length=1000)
     network_owner = models.ForeignKey("settings.network", on_delete=models.PROTECT)
