@@ -245,24 +245,23 @@ def get_initial_values(survey):
 
 
 def get_sections(current_method, form_instance):
+    # Convert field objects array into a dictionary
     field_lookup = {name: form_instance[name] for name in form_instance.fields}
     sections = get_form_sections(current_method)
-    for _, sec_val in sections.items():
-        # ---- top‑level indicators ----
-        for ind in sec_val["indicators"]:
-            # ind is like {"field_name": "question_42", "indicator": <Indicator …>}
-            field_obj = field_lookup.get(ind["field_name"])
-            # Attach the bound field (or its HTML) directly:
-            ind["field"] = field_obj  # or str(field_obj) for raw HTML
+    # Store fields HTML in indicator object
+    for _, section in sections.items():
+        # Top‑level indicators
+        for indicator in section["indicators"]:
+            field_obj = field_lookup[indicator["field_name"]]
+            indicator["field"] = field_obj  # or str(field_obj) for raw HTML
 
-        # ---- subsections ----
-        for sub_dict in sec_val[
-            "subsections"
-        ]:  # each sub_dict is {title: [indicators]}
-            for _, sub_inds in sub_dict.items():
-                for ind in sub_inds:
-                    field_obj = field_lookup.get(ind["field_name"])
-                    ind["field"] = field_obj
+        # Subsection indicators
+        for subsection in section["subsections"]:
+            for _, sub_inds in subsection.items():
+                for indicator in sub_inds:
+                    field_obj = field_lookup[indicator["field_name"]]
+                    indicator["field"] = field_obj
+
     return sections
 
 
