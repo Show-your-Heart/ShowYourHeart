@@ -75,7 +75,11 @@ document.addEventListener('alpine:init', () => {
                     const index = s.indicatorsStats.findIndex(i => i.isValid == false)
                     if (index > -1) {
                         e.preventDefault()
+<<<<<<< HEAD
                         console.log('there are indicators with not valid answers')
+=======
+                        console.log('notvalid')
+>>>>>>> 01f7ddc (Merge branch 'submitValidation')
                     }
                 })
 
@@ -84,7 +88,11 @@ document.addEventListener('alpine:init', () => {
                 let emptyMandatoryQuestions = []
                 mandatoryIndicators.forEach(mi => {
                     // Works for object values (gendered questions) and arrays (multi answer questions)
+<<<<<<< HEAD
                     if (mi.value != null && typeof (mi.value) == 'object') {
+=======
+                    if (typeof (mi.value) == 'object') {
+>>>>>>> 01f7ddc (Merge branch 'submitValidation')
                         const isEmpty = Object.values(mi.value).every(x => x === null || x === '');
                         if (isEmpty) {
                             emptyMandatoryQuestions.push(mi)
