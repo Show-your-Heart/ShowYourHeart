@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import path
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 

@@ -47,6 +47,27 @@
 }
 
 tr.htmx-swapping td {
-  opacity: 0;
-  transition: opacity 1s ease-out;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+[x-cloak] {
+    display: none;
+}
+
+.progress {
+    animation: progress;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }

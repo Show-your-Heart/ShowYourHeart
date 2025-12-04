@@ -21,7 +21,9 @@ class Command(BaseCommand):
                 id="password_reset",
                 translated_templates={
                     "en": {
-                        "subject": "Password reset for your account at {{project_name}}",
+                        "subject": (
+                            "Password reset for your account at {{project_name}}"
+                        ),
                         "body": open(
                             "./templates/emails/en/password_reset.html"
                         ).read(),
@@ -46,7 +48,9 @@ class Command(BaseCommand):
                         ).read(),
                     },
                     "ca": {
-                        "subject": "Verificació del correu electrònic a {{project_name}}",
+                        "subject": (
+                            "Verificació del correu electrònic a {{project_name}}"
+                        ),
                         "body": open(
                             "./templates/emails/ca/email_verification.html"
                         ).read(),
