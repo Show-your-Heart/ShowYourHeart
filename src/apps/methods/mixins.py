@@ -19,7 +19,7 @@ from .models import Campaign, Indicator, IndicatorResult, Method, Survey
 class MethodFillMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        campaign_id = kwargs.get("campaign")
+        campaign_id = kwargs.get("campaign_id")
         current_method = kwargs.get("method")
 
         placeholder_dict = get_previous_campaign_answers(
@@ -182,35 +182,37 @@ def is_valid_uuid(value):
 
 def get_previous_campaign_answers(campaign_id, current_method_id, user):
     placeholder_dict = defaultdict(dict)
-    current_campaign = Campaign.objects.get(id=campaign_id)
-    if current_campaign.previous_campaign:
-        # Check if the method was included on the previous campaign
-        previous_campaign = Campaign.objects.filter(
-            id=current_campaign.previous_campaign.id,
-            methods__id__contains=current_method_id,
-        ).first()
-
-        if previous_campaign:
-            # Check if the user answered the same method on the previous campaign
-            previous_survey = Survey.objects.filter(
-                user=user,
-                campaign__id=previous_campaign.id,
-                method__id=current_method_id,
+    # On previews there is no campaign
+    if campaign_id:
+        current_campaign = Campaign.objects.get(id=campaign_id)
+        if current_campaign.previous_campaign:
+            # Check if the method was included on the previous campaign
+            previous_campaign = Campaign.objects.filter(
+                id=current_campaign.previous_campaign.id,
+                methods__id__contains=current_method_id,
             ).first()
 
-            if previous_survey:
-                indicator_results = IndicatorResult.objects.filter(
-                    survey=previous_survey,
-                )
+            if previous_campaign:
+                # Check if the user answered the same method on the previous campaign
+                previous_survey = Survey.objects.filter(
+                    user=user,
+                    campaign__id=previous_campaign.id,
+                    method__id=current_method_id,
+                ).first()
 
-                for r in indicator_results:
-                    field_name = f"question_{r.indicator.id}"
-                    if r.gender is not None:
-                        placeholder_dict[field_name][get_gender_suffix(r.gender)] = (
-                            r.value
-                        )
-                    else:
-                        placeholder_dict[field_name] = r.value
+                if previous_survey:
+                    indicator_results = IndicatorResult.objects.filter(
+                        survey=previous_survey,
+                    )
+
+                    for r in indicator_results:
+                        field_name = f"question_{r.indicator.id}"
+                        if r.gender is not None:
+                            placeholder_dict[field_name][
+                                get_gender_suffix(r.gender)
+                            ] = r.value
+                        else:
+                            placeholder_dict[field_name] = r.value
 
     return placeholder_dict
 

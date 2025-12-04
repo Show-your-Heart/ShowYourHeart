@@ -1,77 +1,78 @@
 {% load i18n %}
 
 <div class="flex flex-col block gap-4 w-full h-fit p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-    <h5 class="text-xl font-bold">{{ surveyStats.method.name }}</h5>
-    
-    <div class="flex flex-col gap-0">
-      <div class="w-full bg-gray-200 rounded-full h-2">
-        <div class="bg-pink-500 h-2 rounded-full" style="width: {{surveyStats.totalProgress}}%"></div>
-      </div>
-      <p class="text-sm text-gray-500">{{surveyStats.totalProgress}}%</p>
+  <h5 class="text-xl font-bold">{{ surveyStats.method.name }} - {{ surveyStats.campaign.name }}</h5>
+
+  <div class="flex flex-col gap-0">
+    <div class="w-full bg-gray-200 rounded-full h-2">
+      <div class="bg-pink-500 h-2 rounded-full" style="width: {{surveyStats.totalProgress}}%"></div>
     </div>
-
-    <p class="text-sm text-gray-500">{% blocktrans with value=surveyStats.totalProgress %} Habéis completado el {{ value }}% de la Auditoria Social.<br> Recuerda que con los datos aportados, mejoramos todas. {% endblocktrans %}</p>
-
-    <h6 class="text-lg font-bold">{% translate 'Resumen por sección' %}</h6>
-
-    <div class="flex gap-4">
-      <div class="flex flex-col block w-full p-6 bg-blue-50 rounded-lg">
-        <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-blue-100 text-bold text-blue-600">
-          {{surveyStats.totalCompleted}}
-        </p>
-        <p class="text-blue-600 text-xs text-center">{% translate 'Completadas' %}</p>
-      </div>
-      <div class="flex flex-col block w-full p-6 bg-teal-50 rounded-lg">
-        <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-teal-100 text-bold text-teal-600">
-          {{surveyStats.totalInProgress}}
-        </p>
-        <p class="text-teal-600 text-xs text-center">{% translate 'En progreso' %}</p>
-      </div>
-      <div class="flex flex-col block w-full p-6 bg-orange-50 rounded-lg">
-        <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-orange-100 text-bold text-orange-600">
-          {{surveyStats.totalToDo}}
-        </p>
-        <p class="text-orange-600 text-xs text-center">{% translate 'Por hacer' %}</p>
-      </div>
-          
-    </div>
-      
-    <div class="flex flex-col gap-2">
-      {% for sectionWithStatus in surveyStats.sectionsWithStatus %}
-      <p class="flex gap-1 items-center">
-        {% if sectionWithStatus.status == 'completed' %}
-          <c-icon name="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
-        {% elif sectionWithStatus.status == 'inProgress' %}
-          <c-icon name="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
-        {% else %}
-          <c-icon name="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
-        {% endif %}
-        <span>{% translate sectionWithStatus.section.title%}</span>
-      </p>
-      {% endfor %}
-    </div>
-
-    <div x-data="{ open: false }"
-        x-init="$watch('open', value => document.body.classList.toggle('overflow-hidden', value))">
-
-        {% if surveyStats.method.unit_of_analysis == "PRO" %}
-            <a class="h-fit-content" href="#" @click.prevent="open = true">
-              <c-button>
-                <span>{% translate 'Choose project' %}</span>
-                <c-icon name="arrow-right" class="inline text-white"></c-icon>
-              </c-button>
-            </a>
-
-        {% elif surveyStats.method.unit_of_analysis == "ORG" %}
-            <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.method.id %}">
-              <c-button>
-                <span>{% translate 'Ir al balance'%}</span>
-                <c-icon name="arrow-right" class="inline text-white"></c-icon>
-              </c-button>
-            </a>
-        {% endif %}
-
-        {% include "components/modals/choose_project.html" %}
-
-    </div>
+    <p class="text-sm text-gray-500">{{surveyStats.totalProgress}}%</p>
   </div>
+
+  <p class="text-sm text-gray-500">{% blocktrans with value=surveyStats.totalProgress %} Habéis completado el {{ value
+    }}% de la Auditoria Social.<br> Recuerda que con los datos aportados, mejoramos todas. {% endblocktrans %}</p>
+
+  <h6 class="text-lg font-bold">{% translate 'Resumen por sección' %}</h6>
+
+  <div class="flex gap-4">
+    <div class="flex flex-col block w-full p-6 bg-blue-50 rounded-lg">
+      <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-blue-100 text-bold text-blue-600">
+        {{surveyStats.totalCompleted}}
+      </p>
+      <p class="text-blue-600 text-xs text-center">{% translate 'Completadas' %}</p>
+    </div>
+    <div class="flex flex-col block w-full p-6 bg-teal-50 rounded-lg">
+      <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-teal-100 text-bold text-teal-600">
+        {{surveyStats.totalInProgress}}
+      </p>
+      <p class="text-teal-600 text-xs text-center">{% translate 'En progreso' %}</p>
+    </div>
+    <div class="flex flex-col block w-full p-6 bg-orange-50 rounded-lg">
+      <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-orange-100 text-bold text-orange-600">
+        {{surveyStats.totalToDo}}
+      </p>
+      <p class="text-orange-600 text-xs text-center">{% translate 'Por hacer' %}</p>
+    </div>
+
+  </div>
+
+  <div class="flex flex-col gap-2">
+    {% for sectionWithStatus in surveyStats.sectionsWithStatus %}
+    <p class="flex gap-1 items-center">
+      {% if sectionWithStatus.status == 'completed' %}
+      <c-icon name="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
+      {% elif sectionWithStatus.status == 'inProgress' %}
+      <c-icon name="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
+      {% else %}
+      <c-icon name="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
+      {% endif %}
+      <span>{% translate sectionWithStatus.section.title%}</span>
+    </p>
+    {% endfor %}
+  </div>
+
+  <div x-data="{ open: false }"
+    x-init="$watch('open', value => document.body.classList.toggle('overflow-hidden', value))">
+
+    {% if surveyStats.method.unit_of_analysis == "PRO" %}
+    <a class="h-fit-content" href="#" @click.prevent="open = true">
+      <c-button>
+        <span>{% translate 'Choose project' %}</span>
+        <c-icon name="arrow-right" class="inline text-white"></c-icon>
+      </c-button>
+    </a>
+
+    {% elif surveyStats.method.unit_of_analysis == "ORG" %}
+    <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.campaign.id surveyStats.method.id %}">
+      <c-button>
+        <span>{% translate 'Ir al balance'%}</span>
+        <c-icon name="arrow-right" class="inline text-white"></c-icon>
+      </c-button>
+    </a>
+    {% endif %}
+
+    {% include "components/modals/choose_project.html" %}
+
+  </div>
+</div>

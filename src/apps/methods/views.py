@@ -2,7 +2,6 @@ import csv
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -30,25 +29,19 @@ class MethodFillView(MethodFillMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         method = Method.objects.get(pk=self.kwargs["id"])
-        kwargs["campaign"] = Campaign.objects.get(
-            methods__id__contains=method.id, status=True
-        ).id
+        if "campaign_id" in self.kwargs:
+            self.kwargs["campaign"] = self.kwargs["campaign_id"]
+
         kwargs["method"] = method
         return super().get_context_data(**kwargs)
 
     def post(self, request, id, **kwargs):
         method_id = id
         project_id = self.kwargs.get("project_id")
-        try:
-            campaign = Campaign.objects.get(
-                methods__id__contains=method_id, status=True
-            )
-        except ObjectDoesNotExist as error:
-            raise ObjectDoesNotExist(
-                _("The method has no asociated campaign and can't be answered")
-            ) from error
 
-        return super().post(request, method_id, campaign.id, project_id)
+        return super().post(
+            request, method_id, self.kwargs.get("campaign_id"), project_id
+        )
 
 
 @method_decorator(login_not_required, name="dispatch")
@@ -58,7 +51,7 @@ class ExternalMethodFillView(MethodFillMixin, TemplateView):
     def get_context_data(self, **kwargs):
         invitation = Invitation.objects.get(token=self.kwargs["id"])
 
-        kwargs["campaign"] = invitation.external_survey_invitation.campaign.id
+        kwargs["campaign_id"] = invitation.external_survey_invitation.campaign.id
         kwargs["method"] = invitation.external_survey_invitation.external_survey
         return super().get_context_data(**kwargs)
 
