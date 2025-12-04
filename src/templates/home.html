@@ -1,7 +1,10 @@
 {% load i18n %}
 
 <c-default-layout pageTitle={% translate 'Home' %}>
-
+  <c-slot name="extra_header"> 
+    <c-navbar/>
+  </c-slot>
+  
   <div class="flex flex-col gap-8 items-center max-w-[900px] mx-auto">
 
     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
