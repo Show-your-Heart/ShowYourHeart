@@ -38,7 +38,7 @@ Input params:
                     </div>
                 {% endblock messages %}
 
-                <div class="px-4">
+                <div class="px-4 pb-4 grow">
                     <div id="content" class="container mx-auto {% block coltype %}colM{% endblock %}">
                         {{object_tools}}
                         {% if cl %}
@@ -54,7 +54,11 @@ Input params:
                     </div>
                 </div>
     
-                {% block footer %}{% endblock %}
+                {% block footer %}
+                    {% block pagination %}
+                        {% include "unfold/helpers/pagination.html" %}
+                    {% endblock %}
+                {% endblock %}
 
             </div>
         </div>
@@ -64,4 +68,4 @@ Input params:
     <script src="/static/js/flowbite_v2.3.0.min.js"></script>
 
 {% endblock %}
-
+ 
