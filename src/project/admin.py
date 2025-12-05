@@ -324,6 +324,20 @@ class GovAdminSite(UnfoldAdminSite):
                                 request,
                             ),
                         },
+                        {
+                            "name": _(
+                                apps_dict["Organizations"]["models_dict"]["Project"][
+                                    "name"
+                                ]
+                            ),
+                            "url": apps_dict["Organizations"]["models_dict"]["Project"][
+                                "admin_url"
+                            ],
+                            "is_active": self.is_model_active(
+                                apps_dict["Organizations"]["models_dict"]["Project"],
+                                request,
+                            ),
+                        },
                     ],
                 },
                 {
