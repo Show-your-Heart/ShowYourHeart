@@ -149,7 +149,9 @@ class Organization(BaseModel):
         blank=True,
     )
     privacy_policy_accepted = models.DateTimeField(blank=True, null=True)
-    bs_allow_public = models.BooleanField(_("Active"), blank=True, null=True)
+    bs_allow_public = models.BooleanField(
+        _("Allow infographics to be public"), blank=True, null=True
+    )
 
     def __str__(self):
         return self.name
