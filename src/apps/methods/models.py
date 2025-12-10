@@ -235,9 +235,10 @@ class Method(BaseModel):
         blank=True,
     )
     documentation = models.FileField(upload_to="documentation/", null=True, blank=True)
+    version = models.CharField(_("Version"), max_length=400, blank=True)
 
     def __str__(self):
-        return self.name + " | " + self.network_owner.name
+        return self.version + " | " + self.name + " | " + self.network_owner.name
 
 
 class Campaign(BaseModel):
