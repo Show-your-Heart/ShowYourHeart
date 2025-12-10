@@ -1,27 +1,44 @@
 {% load i18n %}
 
 <c-default-layout>
-    <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
+    <div class="flex flex-col gap-8 items-center max-w-4xl mx-auto pt-16 px-4">
         <h1 class="text-3xl font-bold">{% translate "Documents" %}</h1>
-         <table>
-            <tr class="border">
-                <th class="border">{% translate "Campaigns" %}</th>
-                {% for survey in surveys %}
-                <th class="border">{{ survey.method.name }}</th>
-                {% endfor %}
-                <th class="border">{% translate "Infographics" %}</th>
-                <th class="border">{% translate "Stamps" %}</th>
-            </tr>
-            {% for survey in surveys %}
-            <tr>
-                <td class="border">{{ survey.campaign.name }}</td>
-                {% for survey in surveys %}
-                <td class="border">{{ survey.method.name }} excel</td>
-                {% endfor %}
-                <td class="border">{{ organization.name }} pdf de que metodo??</td>
-                <td class="border">{{ organization.name }} sello</td>
-            </tr>
-            {% endfor %}
-        </table> 
+
+        <!-- Responsive wrapper -->
+        <div class="w-full overflow-x-auto rounded-xl shadow">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-pink-600">
+                    <tr>
+                        <th class="px-4 py-3 font-semibold border-b">{% translate "Campaigns" %}</th>
+
+                        {% for survey in surveys %}
+                        <th class="px-4 py-3 font-semibold border-b whitespace-nowrap">
+                            {{ survey.method.name }}
+                        </th>
+                        {% endfor %}
+
+                        <th class="px-4 py-3 font-semibold border-b">{% translate "Infographics" %}</th>
+                        <th class="px-4 py-3 font-semibold border-b">{% translate "Stamps" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y">
+                    {% for survey in surveys %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium">{{ survey.campaign.name }}</td>
+
+                        {% for s in surveys %}
+                        <td class="px-4 py-3 text-gray-700">
+                            {{ s.method.name }} excel
+                        </td>
+                        {% endfor %}
+
+                        <td class="px-4 py-3">{{ organization.name }} PDF</td>
+                        <td class="px-4 py-3">{{ organization.name }} sello</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </c-default-layout>
