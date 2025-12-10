@@ -38,9 +38,7 @@ class DocumentsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["organization"] = self.request.user.profile.organization
-        context["surveys"] = Survey.objects.filter(
-            organization=context["organization"]
-        )
+        context["surveys"] = Survey.objects.filter(organization=context["organization"])
         return context
 
 
