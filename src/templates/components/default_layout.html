@@ -16,7 +16,7 @@
   {{ extra_head_js }}
 </head>
 
-<body class="bg-gray-50 mx-auto relative">
+<body class="bg-gray-50 mx-auto relative" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
   <c-header displayAvatar="true"/>
   {{ extra_header}}
   
@@ -32,7 +32,7 @@
 
   <script src="{% static 'js/notificationsStore.js' %}"></script>
     <div
-        id="notifications" class="absolute bottom-5 right-5 flex flex-col"
+        id="notifications" class="z-[99] fixed bottom-5 right-5 flex flex-col space-y-2"
         x-data
         class="fixed inset-0 flex flex-col-reverse items-end justify-end h-screen w-screen"
         @notification.window="$store.notifications.add($event.detail)"

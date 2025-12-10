@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_not_required
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, FormView, UpdateView
@@ -52,7 +54,50 @@ def load_methods(request):
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 
-# Custom view
+@method_decorator(login_not_required)
+@require_http_methods("POST")
+def create_project_action(request, organization_id):
+    project, created = Project.objects.get_or_create(
+        organization_id=organization_id,
+        name=request.POST["name"],
+        description=request.POST["description"],
+        start_date=request.POST["start_date"],
+        contact_name=request.POST["contact_name"],
+        contact_email=request.POST["contact_email"],
+        contact_telephone=request.POST["contact_telephone"],
+        main_action_scope=request.POST["main_action_scope"],
+        secondary_action_scope=request.POST["secondary_action_scope"],
+        main_legal_entity_type=request.POST["main_legal_entity_type"],
+        secondary_legal_entity_type=request.POST["secondary_legal_entity_type"],
+        authorize=request.POST["authorize"] == "on",
+        publish_results=request.POST["publish_results"] == "on",
+    )
+    if created:
+        return HttpResponse(
+            "",
+            headers={
+                "HX-Redirect": f"/methods/{request.POST['method_id']}/fill/{project.id}",
+            },
+        )
+    else:
+        msg = _("Error creating project. Contact your network admin.")
+        return HttpResponse(
+            "",
+            headers={
+                "HX-Retarget": "#notifications",
+                "HX-Reswap": "beforeend",
+                "HX-Trigger": '{"notification": {"type": "error","text": "'
+                + msg
+                + '"}}',
+            },
+        )
+
+
+################
+# Custom views #
+################
+
+
 class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
     title = "Registration requests"
     permission_required = ()
