@@ -98,7 +98,9 @@ class Indicator(BaseModel):
     data_type = models.CharField(
         _("data type"), choices=DataType.choices, default=DataType.STRING
     )
-    unit = models.CharField(_("unit"), choices=Unit.choices, default=None, blank=True)
+    unit = models.CharField(  # noqa: DJ001
+        _("unit"), choices=Unit.choices, default=None, blank=True, null=True
+    )
     list_options = models.ForeignKey(
         List,
         null=True,

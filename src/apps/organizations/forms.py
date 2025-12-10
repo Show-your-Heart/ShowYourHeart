@@ -89,6 +89,10 @@ class OrganizationSignUpForm(forms.ModelForm):
             }
         ),
     )
+    bs_allow_public = forms.BooleanField(
+        label=_("Allow infographics to be public"),
+        widget=forms.CheckboxInput(),
+    )
 
     class Meta:
         model = Organization
@@ -186,6 +190,10 @@ class OrganizationUpdateForm(forms.ModelForm):
     )
     contact_telephone = forms.CharField(
         label=_("Phone number of the contact person"), max_length=20
+    )
+    bs_allow_public = forms.BooleanField(
+        label=_("Allow infographics to be public"),
+        widget=forms.CheckboxInput(),
     )
 
     class Meta:
