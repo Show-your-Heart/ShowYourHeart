@@ -39,7 +39,7 @@ def get_external_survey_filter(network_owner__id):
     )
 
 
-def get_survey_stats(survey, method):
+def get_survey_stats(survey, method, campaign):
     stats = {
         "totalProgress": 0,
         "totalCompleted": 0,
@@ -48,6 +48,7 @@ def get_survey_stats(survey, method):
         "survey": survey,
         "method": method,
         "sectionsWithStatus": [],
+        "campaign": campaign,
     }
 
     if survey:

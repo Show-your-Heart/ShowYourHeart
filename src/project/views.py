@@ -47,12 +47,16 @@ class HomeView(TemplateView):
                 self.request.user.profile.organization.status
                 == Organization.Status.ACCEPTED
             )
-            open_campaign = Campaign.objects.filter(status=True).first()
-            if open_campaign:
+            open_campaigns = Campaign.objects.filter(status=True).all()
+            for open_campaign in open_campaigns:
                 for method in self.request.user.profile.organization.methods.filter(
                     id__in=open_campaign.methods.all()
                 ):
                     method.sections = get_form_sections(method)
+                    method.campaign = {
+                        "id": open_campaign.id,
+                        "name": open_campaign.name,
+                    }
                     method_list.append(method)
 
             surveys = Survey.objects.filter(
@@ -61,8 +65,19 @@ class HomeView(TemplateView):
             )
 
             for method in method_list:
-                survey = next((s for s in surveys if s.method_id == method.id), None)
-                current_surveys_stats.append(get_survey_stats(survey, method))
+                survey = next(
+                    (
+                        s
+                        for s in surveys
+                        if s.method_id == method.id
+                        and s.campaign_id == method.campaign["id"]
+                    ),
+                    None,
+                )
+
+                current_surveys_stats.append(
+                    get_survey_stats(survey, method, method.campaign)
+                )
 
         context.update(
             {

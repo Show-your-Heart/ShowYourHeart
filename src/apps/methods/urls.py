@@ -15,7 +15,16 @@ from .views import (
 app_name = "methods"
 urlpatterns = [
     # Methods
-    path(_("fill/<id>"), MethodFillView.as_view(), name="method_fill"),
+    path(
+        _("fill/<campaign_id>/<id>"),
+        MethodFillView.as_view(),
+        name="method_fill",
+    ),
+    path(
+        _("fill/<id>"),
+        MethodFillView.as_view(),
+        name="method_fill",
+    ),
     path(
         _("external-survey/<id>"),  # invitation.token
         ExternalMethodFillView.as_view(),
