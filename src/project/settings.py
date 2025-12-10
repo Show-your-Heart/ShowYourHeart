@@ -485,12 +485,14 @@ GROUPS = {
 
 # Credentials for the initial superuser. Leave empty to skip its creation.
 # Variables for non-interactive superuser creation
-SUPERUSER_EMAIL = env.str("SUPERUSER_EMAIL", default="")
-SUPERUSER_PASSWORD = env.str("SUPERUSER_PASSWORD", default="")
+SUPERUSER_EMAIL = env.str("SUPERUSER_EMAIL", default="superadmin@syh.org")
+SUPERUSER_PASSWORD = env.str("SUPERUSER_PASSWORD", default="123asdASD")
 USER_ADMIN_EMAIL = env.str("USER_ADMIN_EMAIL", default="")
 USER_ADMIN_PASSWORD = env.str("USER_ADMIN_PASSWORD", default="")
-USER_GOV_ADMIN_EMAIL = env.str("USER_GOV_ADMIN_EMAIL", default="")
-USER_GOV_ADMIN_PASSWORD = env.str("USER_GOV_ADMIN_PASSWORD", default="")
+USER_GOV_ADMIN_EMAIL = env.str("USER_GOV_ADMIN_EMAIL", default="govadmin@syh.org")
+USER_GOV_ADMIN_PASSWORD = env.str("USER_GOV_ADMIN_PASSWORD", default="123asdASD")
+USER_EMAIL = env.str("USER_EMAIL", default="user@syh.org")
+USER_PASSWORD = env.str("USER_PASSWORD", default="123asdASD")
 
 ################################################################################
 #                           Logger / logging                                   #
