@@ -14,6 +14,7 @@ from post_office.models import EmailTemplate
 from unfold.admin import ModelAdmin as BaseModelAdmin
 from unfold.sites import UnfoldAdminSite
 
+from apps.organizations.models import Organization
 from project.decorators import gov_admin_register
 
 from .helpers import available_apps_to_dict
@@ -529,10 +530,18 @@ class GovAdminSite(UnfoldAdminSite):
         )
         return context
 
+    def index(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["pending_registrations_requests"] = Organization.objects.filter(
+            status=Organization.Status.PENDING
+        ).count()
+        return super(GovAdminSite, self).index(request, extra_context)
+
 
 gov_admin_site = GovAdminSite(name="gov_admin")
 
 
+# Register post office in gov admin UI
 @gov_admin_register(gov_admin_site, model=EmailTemplate)
-class MyEmailTemplateAdmin(EmailTemplateAdmin):
+class EmailTemplateAdmin(EmailTemplateAdmin):
     pass

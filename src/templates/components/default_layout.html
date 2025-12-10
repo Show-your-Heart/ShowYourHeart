@@ -29,6 +29,21 @@
     </main>
   </div>
 
+  <script src="{% static 'js/notificationsStore.js' %}"></script>
+    <div
+        id="notifications" class="absolute bottom-5 right-5 flex flex-col"
+        x-data
+        class="fixed inset-0 flex flex-col-reverse items-end justify-end h-screen w-screen"
+        @notification.window="$store.notifications.add($event.detail)"
+        style="pointer-events:none"
+    >
+        <template x-for="notification of $store.notifications.notifications" :key="notification.id">
+            <template x-if="notification.type == 'error'">
+                <c-toasts.error></c-toasts.error>
+            </template>
+        </template>
+    </div>
+
   <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
   {{ extra_js }}
 </body>

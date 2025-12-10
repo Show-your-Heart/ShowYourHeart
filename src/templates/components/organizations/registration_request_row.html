@@ -1,0 +1,56 @@
+{% load i18n %}
+
+<tr id="organization-{{ organization.id }}" 
+    class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none"
+    hx-swap="outerHTML swap:1s"
+>
+    <c-table.data class="action-checkbox">
+        <input type="checkbox" name="_selected_action" value="ea3be194-ec2c-470f-ae54-2aeb3217d357" class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 dark:bg-base-700 dark:border-base-500 dark:checked:after:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 dark:after:text-base-700 checked:bg-primary-600 dark:checked:bg-primary-600 checked:border-primary-600 dark:checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 action-select" aria-label="Select record">
+    </c-table.data>
+    <c-table.data class="field-vat_number">
+        {{ organization.vat_number}}
+    </c-table.data>
+    <c-table.data class="field-name">
+        {{organization.name}}
+    </c-table.data>
+    <c-table.data class="field-methods space-y-1">
+        {% for method in organization.methods.all %}
+            <span class="inline-block text-center text-blue-600 bg-blue-100 rounded-lg px-3 py-1" >{{method.name}}</span>
+        {% endfor %}
+    </c-table.data>
+    <c-table.data class="field-region">
+        {{organization.city}}
+    </c-table.data>
+    <c-table.data class="field-aplication_date">
+        {{organization.created_at}}
+    </c-table.data>
+    <c-table.data class="field-actions">
+        <form 
+            hx-post="{% url 'gov_admin:register_request_actions' organization.id %}"
+            hx-target="#organization-{{ organization.id }}"
+            hx-disabled-elt="button"
+            class="flex space-x-2 flex-nowrap justify-center"
+        >
+            <c-button variant="outlined" class="bg-white min-w-[150px]" name="action" value="accept" type="submit">{% trans 'Accept' %}</c-button>
+            <c-button 
+                name="action" value="reject"
+                variant="outlined" type="submit"
+                class="min-w-[150px] bg-white border-gray-500 text-gray-500 hover:border-gray-500 hover:bg-gray-500 hover-text-white"
+            >{% trans 'Reject' %}</c-button>
+        </form>
+    </c-table.data>
+    <c-table.data class="field-edit !px-1">
+        <a href="{% url 'gov_admin:organizations_organization_change' organization.id %}">
+            <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                <c-icon name="edit" class="text-blue-600"></c-icon>
+            </c-button>
+        </a>
+    </c-table.data>
+    <c-table.data class="field-delete !px-1">
+        <a href="{% url 'gov_admin:organizations_organization_delete' organization.id %}">
+            <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                <c-icon name="trash-bin" class="text-gray-500"></c-icon>
+            </c-button>
+        </a>
+    </c-table.data>
+</tr>
