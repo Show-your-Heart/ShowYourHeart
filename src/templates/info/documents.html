@@ -7,37 +7,61 @@
         <!-- Responsive wrapper -->
         <div class="w-full overflow-x-auto rounded-xl shadow">
             <table class="w-full text-left border-collapse">
+                
+                <!-- Pink header -->
                 <thead class="bg-pink-600">
                     <tr>
-                        <th class="px-4 py-3 font-semibold border-b">{% translate "Campaigns" %}</th>
+                        <th class="px-4 py-3 font-semibold text-white">
+                            <p class="flex justify-center items-center">{% translate "Campaigns" %}</p>
+                        </th>
 
                         {% for survey in surveys %}
-                        <th class="px-4 py-3 font-semibold border-b whitespace-nowrap">
-                            {{ survey.method.name }}
+                        <th class="px-4 py-3 font-semibold whitespace-nowrap text-white">
+                            <p class="flex justify-center items-center">{{ survey.method.name }}</p>
                         </th>
                         {% endfor %}
 
-                        <th class="px-4 py-3 font-semibold border-b">{% translate "Infographics" %}</th>
-                        <th class="px-4 py-3 font-semibold border-b">{% translate "Stamps" %}</th>
+                        <th class="px-4 py-3 font-semibold text-white">
+                            <p class="flex justify-center items-center">{% translate "Infographics" %}</p>
+                        </th>
+                        <th class="px-4 py-3 font-semibold text-white">
+                            <p class="flex justify-center items-center">{% translate "Stamps" %}</p>
+                        </th>
                     </tr>
                 </thead>
 
-                <tbody class="divide-y">
+                <tbody>
                     {% for survey in surveys %}
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 font-medium">{{ survey.campaign.name }}</td>
+                    <tr class="{% cycle 'bg-white' 'bg-gray-50' %} hover:bg-gray-100 transition">
+                        <td class="px-4 py-3 font-medium">
+                            <p class="flex justify-center items-center">{{ survey.campaign.name }}</p>
+                        </td>
 
-                        {% for s in surveys %}
+                        {% for survey in surveys %}
                         <td class="px-4 py-3 text-gray-700">
-                            {{ s.method.name }} excel
+                            {% if survey.method.id == survey.method.id %}
+                                <a href="https://bi-show-your-heart.coopdevs.org/apidata/export-answers?campaign={{ survey.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
+                                    <c-icon name="download" class="text-blue-600"></c-icon>
+                                </div>
+                            {% else %}
+                                <!-- Leave empty -->
+                                <p>hola</p>
+                            {% endif %}
                         </td>
                         {% endfor %}
 
-                        <td class="px-4 py-3">{{ organization.name }} PDF</td>
-                        <td class="px-4 py-3">{{ organization.name }} sello</td>
+                        <td class="px-4 py-3">
+                            <a href="https://bi-show-your-heart.coopdevs.org/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ survey.campaign.id }}&method={{ survey.method.id }}" target="_blank" class="flex items-center justify-center">
+                                <c-icon name="pdf" class="text-blue-600"></c-icon>
+                            </a>
+                        </td>
+                        <td class="px-4 py-3">
+                            <p class="flex justify-center items-center">Stamp WIP</p>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+
             </table>
         </div>
     </div>
