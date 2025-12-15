@@ -27,7 +27,6 @@ class ListItem(BaseModel):
     title = models.CharField(_("title"), max_length=300)
     formula = models.CharField(_("formula"), max_length=50, blank=True)
     value = models.PositiveSmallIntegerField(_("value"))
-    active = models.BooleanField(_("active"), max_length=50)
 
     def __str__(self):
         return self.title
