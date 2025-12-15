@@ -24,11 +24,6 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Organization name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
-    logo = forms.FileField(
-        label=_("Organization logo"),
-        required=False,
-        widget=syh_forms.FileInput(),
-    )
     vat_number = forms.CharField(
         label=_("VAT Number"),
         widget=forms.TextInput(
@@ -96,6 +91,9 @@ class OrganizationSignUpForm(forms.ModelForm):
 
     class Meta:
         model = Organization
+        widgets = {
+            "logo": syh_forms.FileInput(),
+        }
         fields = (
             "name",
             "logo",
@@ -198,8 +196,12 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Organization
+        widgets = {
+            "logo": syh_forms.FileInput(),
+        }
         fields = [
             "name",
+            "logo",
             "vat_number",
             "contact_name",
             "contact_telephone",
