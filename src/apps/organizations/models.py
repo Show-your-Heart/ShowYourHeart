@@ -153,6 +153,9 @@ class Project(BaseModel):
         _("Authorize the use of my data for inclusion in the final report"),
         max_length=50,
     )
+    bs_allow_public = models.BooleanField(
+        _("Allow infographics to be public"), blank=True, null=True
+    )
 
     def __str__(self):
         return self.name
