@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Ignore dark theme classes */
+@custom-variant dark (&:not(*));
+
 @theme static {
     --color-primary: var(--color-pink-500);
     --color-secondary: var(--color-green-500);
