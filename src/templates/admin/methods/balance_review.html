@@ -10,106 +10,110 @@
         </c-button>
     </div>
 
-    <form id="balance-filter" method="GET">
-        <h2 class=" text-black text-lg">{% trans 'FILTER BY'%}</h2>
-        <select id="filter-campaign" name="campaign"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            {% include "django/forms/widgets/attrs.html" %}>
-            <option value="">— All —</option>
-            {% for campaign in campaigns %}
-            <option value="{{ campaign.id }}" {% if campaign.id|stringformat:"s" == campaign_filter %}selected{% endif %}>
-                {{ campaign.name }} - {{ campaign.year }}
-            </option>
-            {% endfor %}
-        </select>
-        <select id="filter-region3" name="region3"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            {% include "django/forms/widgets/attrs.html" %}>
-            <option value="">— All —</option>
-            {% for region in regions %}
-            <option value="{{ region.id }}" {% if region.id|stringformat:"s" == region3_filter %}selected{% endif %}>
-                {{ region.name }}
-            </option>
-            {% endfor %}
-        </select>
-        <select id="filter-method" name="method"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            {% include "django/forms/widgets/attrs.html" %}>
-            <option value="">— All —</option>
-            {% for method in methods %}
-            <option value="{{ method.id }}" {% if method.id|stringformat:"s" == method_filter %}selected{% endif %}>
-                {{ method.name }}
-            </option>
-            {% endfor %}
-        </select>
-        <select id="filter-status" name="status"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            {% include "django/forms/widgets/attrs.html" %}>
-            <option value="">— All —</option>
-            {% for s in status %}
-            <option value="{{ s.id }}" {% if s.id|stringformat:"s" == status_filter %}selected{% endif %}>
-                {{ s.name }}
-            </option>
-            {% endfor %}
-        </select> 
-        <select id="filter-unit-analysis" name="unit-analysis"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-            {% include "django/forms/widgets/attrs.html" %}>
-            <option value="">— All —</option>
-            {% for ua in unitanalysis %}
-            <option value="{{ ua.id }}" {% if ua.id|stringformat:"s" == unit_analysis_filter %}selected{% endif %}>
-                {{ ua.name }}
-            </option>
-            {% endfor %}
-        </select>
-        <c-button type="submit" class="flex justify-center items-center gap-2" variant="filled">
-            {% trans 'Filter' %}
-        </c-button>
-
-        <div
-            class="mb-2 bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
-            <button type="submit" class="flex items-center focus:outline-hidden" id="nif-searchbar-submit">
-                <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
-                    {% trans 'search' %}
-                </span>
-            </button>
-            <input type="text"
-                class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
-                name="nif" value="{{ nif_filter }}" id="nif-searchbar" placeholder="{% trans 'NIF' %}">
+    <form id="balance-filter" method="GET" class="flex flex-col space-y-2">
+        <div class="flex space-x-2 items-center">
+            <h2 class="min-w-[80px] uppercase font-bold text-gray-500 text-xs">{% trans 'Filter by'%}</h2>
+            <select id="filter-campaign" name="campaign"
+                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+                {% include "django/forms/widgets/attrs.html" %}>
+                <option value="">— All —</option>
+                {% for campaign in campaigns %}
+                <option value="{{ campaign.id }}" {% if campaign.id|stringformat:"s" == campaign_filter %}selected{% endif %}>
+                    {{ campaign.name }} - {{ campaign.year }}
+                </option>
+                {% endfor %}
+            </select>
+            <select id="filter-region3" name="region3"
+                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+                {% include "django/forms/widgets/attrs.html" %}>
+                <option value="">— All —</option>
+                {% for region in regions %}
+                <option value="{{ region.id }}" {% if region.id|stringformat:"s" == region3_filter %}selected{% endif %}>
+                    {{ region.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <select id="filter-method" name="method"
+                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+                {% include "django/forms/widgets/attrs.html" %}>
+                <option value="">— All —</option>
+                {% for method in methods %}
+                <option value="{{ method.id }}" {% if method.id|stringformat:"s" == method_filter %}selected{% endif %}>
+                    {{ method.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <select id="filter-status" name="status"
+                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+                {% include "django/forms/widgets/attrs.html" %}>
+                <option value="">— All —</option>
+                {% for s in status %}
+                <option value="{{ s.id }}" {% if s.id|stringformat:"s" == status_filter %}selected{% endif %}>
+                    {{ s.name }}
+                </option>
+                {% endfor %}
+            </select> 
+            <select id="filter-unit-analysis" name="unit-analysis"
+                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+                {% include "django/forms/widgets/attrs.html" %}>
+                <option value="">— All —</option>
+                {% for ua in unitanalysis %}
+                <option value="{{ ua.id }}" {% if ua.id|stringformat:"s" == unit_analysis_filter %}selected{% endif %}>
+                    {{ ua.name }}
+                </option>
+                {% endfor %}
+            </select>
         </div>
-        <div
-            class="mb-2 bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
-            <button type="submit" class="flex items-center focus:outline-hidden" id="name-searchbar-submit">
-                <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
-                    {% trans 'search' %}
-                </span>
-            </button>
-            <input type="text"
-                class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
-                name="name" value="{{ name_filter }}" id="name-searchbar" placeholder="{% trans 'Name' %}">
+        <div class="flex space-x-2 items-center">
+            <div
+                class="bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
+                <button type="submit" class="flex items-center focus:outline-hidden" id="nif-searchbar-submit">
+                    <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
+                        {% trans 'search' %}
+                    </span>
+                </button>
+                <input type="text"
+                    class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
+                    name="nif" value="{{ nif_filter }}" id="nif-searchbar" placeholder="{% trans 'NIF' %}">
+            </div>
+            <div
+                class="bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
+                <button type="submit" class="flex items-center focus:outline-hidden" id="name-searchbar-submit">
+                    <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
+                        {% trans 'search' %}
+                    </span>
+                </button>
+                <input type="text"
+                    class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
+                    name="name" value="{{ name_filter }}" id="name-searchbar" placeholder="{% trans 'Name' %}">
+            </div>
+            <c-button type="submit" class="flex justify-center items-center gap-2" variant="filled">
+                {% trans 'Filter' %}
+            </c-button>
         </div>
-
          
-        <div class="pagination">
-            <span class="page-links">
+        <div class="pagination mt-4 mb-2">
+            <div class="page-links flex space-x-2">
                 {% if page_obj.has_previous %}
-                    <button type="submit" class="px-3 py-2.5 rounded-lg text-xs text-center cursor-pointer
+                    <button type="submit" class="px-3 py-2 rounded-lg text-xs text-center cursor-pointer
                         ring-0 focus:ring-4 focus:outline-none focus:ring-blue-300 disabled:opacity-50 disabled:bg-gray-400 
-                        font-bold  bg-blue-600 text-white hover:bg-blue-700  ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white " name="page" value="{{ page_obj.previous_page_number }}">
+                        font-bold text-white hover:bg-blue-700 border-blue-700 !text-blue-600 border hover:!border-blue-700 hover:!text-white " 
+                        name="page" value="{{ page_obj.previous_page_number }}">
                     {% trans 'Previous' %} 
                     </button>
                 {% endif %}
-                <span class="page-current">
+                <div class="page-current px-3 py-2 rounded-lg text-xs text-center ring-0 border bg-white">
                     {% trans 'Page' %} {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
-                </span>
+                </div>
                 {% if page_obj.has_next %}
-                    <button type="submit" class="px-3 py-2.5 rounded-lg text-xs text-center cursor-pointer
+                    <button type="submit" class="px-3 py-2 rounded-lg text-xs text-center cursor-pointer
                         ring-0 focus:ring-4 focus:outline-none focus:ring-blue-300 disabled:opacity-50 disabled:bg-gray-400 
-                        font-bold  bg-blue-600 text-white hover:bg-blue-700  ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white " name="page" value="{{ page_obj.next_page_number }}">
+                        font-bold text-white hover:bg-blue-700 border-blue-700 !text-blue-600 border hover:!border-blue-700 hover:!text-white " 
+                        name="page" value="{{ page_obj.next_page_number }}">
                     {% trans 'Next' %} 
                     </button>
                 {% endif %}
-            </span>
+            </div>
         </div>
     </form>
 

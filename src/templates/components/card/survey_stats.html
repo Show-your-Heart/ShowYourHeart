@@ -65,7 +65,7 @@
               <c-icon name="arrow-right" class="inline text-white"></c-icon>
             </c-button>
         {% elif surveyStats.method.unit_of_analysis == "ORG" %}
-            <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.method.id %}">
+            <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.campaign.id surveyStats.method.id %}">
               <c-button>
                 <span>{% translate 'Ir al balance'%}</span>
                 <c-icon name="arrow-right" class="inline text-white"></c-icon>
