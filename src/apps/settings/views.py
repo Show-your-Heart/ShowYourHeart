@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from apps.methods.models import Campaign, Survey
 from apps.settings.models import Network
 from apps.users.services import send_network_assigned_mail
 
@@ -33,6 +34,23 @@ class GoodPracticesView(TemplateView):
 
 class DocumentsView(TemplateView):
     template_name = "info/documents.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        organization = self.request.user.profile.organization
+        context["organization"] = organization
+
+        surveys = Survey.objects.filter(organization=organization).select_related(
+            "campaign", "method"
+        )
+        context["surveys"] = surveys
+
+        campaigns = Campaign.objects.filter(
+            survey__organization=organization
+        ).distinct()
+        context["campaigns"] = campaigns
+
+        return context
 
 
 class ResourcesView(TemplateView):

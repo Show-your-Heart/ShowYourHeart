@@ -161,7 +161,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
             s.status = Survey.Status(s.status).value
             s.method.sections = get_form_sections(s.method)
 
-            stats = get_survey_stats(s, s.method)
+            stats = get_survey_stats(s, s.method, s.campaign)
             s.totalProgress = stats["totalProgress"]
             processed.append(s)
 
