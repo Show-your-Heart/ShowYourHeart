@@ -31,27 +31,24 @@
                 </thead>
 
                 <tbody>
-                    {% for survey in surveys %}
+                    {% for campaign in campaigns %}
                     <tr class="{% cycle 'bg-white' 'bg-gray-50' %} hover:bg-gray-100 transition">
                         <td class="px-4 py-3 font-medium">
-                            <p class="flex justify-center items-center">{{ survey.campaign.name }}</p>
+                            <p class="flex justify-center items-center">{{ campaign.name }}</p>
                         </td>
 
-                        {% for survey in surveys %}
+                    {% for survey in surveys %}
+                        {% if survey.campaign.id == campaign.id %}
                         <td class="px-4 py-3 text-gray-700">
-                            {% if survey.method.id == survey.method.id %}
-                                <a href="https://bi-show-your-heart.coopdevs.org/apidata/export-answers?campaign={{ survey.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
-                                    <c-icon name="download" class="text-blue-600"></c-icon>
-                                </div>
-                            {% else %}
-                                <!-- Leave empty -->
-                                <p>hola</p>
-                            {% endif %}
+                            <a href="https://bi-show-your-heart.coopdevs.org/apidata/export-answers?campaign={{ survey.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
+                                <c-icon name="download" class="text-blue-600"></c-icon>
+                            </a>
                         </td>
-                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
 
                         <td class="px-4 py-3">
-                            <a href="https://bi-show-your-heart.coopdevs.org/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ survey.campaign.id }}&method={{ survey.method.id }}" target="_blank" class="flex items-center justify-center">
+                            <a href="https://bi-show-your-heart.coopdevs.org/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ campaign.id }}" target="_blank" class="flex items-center justify-center">
                                 <c-icon name="pdf" class="text-blue-600"></c-icon>
                             </a>
                         </td>
