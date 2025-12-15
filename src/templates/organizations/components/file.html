@@ -2,7 +2,7 @@
 
 <input
     type="file"
-    id="id"
+    name="{{ widget.name }}"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
             focus:ring-blue-500 focus:border-blue-500 block w-full max-w-200 p-2.5
             cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0
@@ -10,7 +10,7 @@
     {% include "django/forms/widgets/attrs.html" %}
 />
 
-{% if widget.value %}
+{% if widget.is_initial %}
     <p class="mt-2 text-sm text-gray-600">
         {% trans "Current file:" %} 
         <a href="{{ widget.value.url }}" class="underline">{{ widget.value.name }}</a>
