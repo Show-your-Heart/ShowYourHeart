@@ -5,7 +5,7 @@ from django.views.generic import RedirectView, TemplateView
 
 from apps.methods.helpers import get_form_sections, get_survey_stats
 from apps.methods.models import Campaign, Survey
-from apps.organizations.forms import ProjectSelectionForm
+from apps.organizations.forms import ProjectCreationForm, ProjectSelectionForm
 from apps.organizations.models import Organization
 
 
@@ -88,6 +88,7 @@ class HomeView(TemplateView):
                 "current_surveys_stats": current_surveys_stats,
                 "organization_accepted": organization_accepted,
                 "choose_project_form": ProjectSelectionForm(organization=organization),
+                "create_project_form": ProjectCreationForm(organization=organization),
             }
         )
         return context

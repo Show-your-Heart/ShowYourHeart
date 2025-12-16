@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<c-forms.base-field>
+    <div class="flex flex-col space-y-2 pl-4">
+        <label :for="`question_${id}_yes`"
+            class="inline-flex items-center cursor-pointer mr-4 has-disabled:cursor-default has-disabled:pointer-events-none"
+            @click="$event.target.value && update($event.target.value)">
+            <input type="radio" :id="`question_${id}_yes`" :name="`question_${id}`" value="True"
+                :checked="value == 'True'"
+                class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:cursor-default peer"
+                {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable" x-model="value"
+                x-effect="if (notApplicable) {update(null) }">
+            <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">{%
+                translate
+                'Yes' %}</span>
+        </label>
+        <label :for="`question_${id}_no`"
+            class="inline-flex items-center cursor-pointer mr-4 has-disabled:cursor-default has-disabled:pointer-events-none"
+            @click="$event.target.value && update($event.target.value)">
+            <input type="radio" :id="`question_${id}_no`" :name="`question_${id}`" value="False"
+                :checked="value == 'False'"
+                class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:cursor-default peer"
+                {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable" x-model="value"
+                x-effect="if (notApplicable) {update(null) }">
+            <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">{%
+                translate 'No'
+                %}</span>
+        </label>
+    </div>
+</c-forms.base-field>

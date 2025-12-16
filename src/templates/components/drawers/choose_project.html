@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<c-drawers.base 
+  title="{% translate 'Project selection' %}" 
+  target="drawer-choose-project"
+  width="sm"
+  x-data="{
+    selectedProjectUrl: '',
+    setSelectedProjectId(id){
+      this.selectedProjectUrl = 'methods/' + selectedMethod + '/fill/' + id
+    }
+  }"
+>
+  <div class="p-2">
+    {{ choose_project_form }}
+  </div>
+  <div class="p-2 flex space-x-2">
+    <a class="h-fit-content" :href="selectedProjectUrl">
+      <c-button>
+        <span>{% translate 'Ir al balance'%}</span>
+        <c-icon name="arrow-right" class="inline text-white"></c-icon>
+      </c-button>
+    </a>
+    <c-button data-drawer-target="drawer-create-project" data-drawer-placement="right" data-drawer-show="drawer-create-project" aria-controls="drawer-create-project">
+      <span>{% translate 'Create project' %}</span>
+      <c-icon name="arrow-right" class="inline text-white"></c-icon>
+    </c-button>
+  </div>
+</c-drawers.base>

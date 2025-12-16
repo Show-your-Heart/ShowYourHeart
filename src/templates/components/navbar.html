@@ -1,31 +1,33 @@
 {% load i18n active_link_tags %}
 
-<div class="border-b-gray-300">
-    <ul class="py-1 grid grid-cols-5" role="none">
-        <li class="{% active_link 'what_is_social_balance' %}">
-            <a href="{% url 'settings:what_is_social_balance' %}"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem">{% translate "What is social balance?" %}</a>
-        </li>
-        <li class="{% active_link 'good_practices' %}">
-            <a href="{% url 'settings:good_practices' %}"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem">{% translate "Good Practices" %}</a>
-        </li>
-        <li class="{% active_link 'documents' %}">
-            <a href="{% url 'settings:documents' %}"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem">{% translate "Documents" %}</a>
-        </li>
-        <li class="{% active_link 'resources' %}">
-            <a href="{% url 'settings:resources' %}"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem">{% translate "Resources" %}</a>
-        </li>
-        <li class="{% active_link 'contact' %}">
-            <a href="{% url 'settings:contact' %}"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem">{% translate "Contact" %}</a>
-        </li>
-    </ul>
+<div class="px-2 -mt-2 mb-2">
+    <div class="border-b border-b-gray-300">
+        <ul class="flex" role="none">
+            <li class="{% active_link 'what_is_social_balance' %}">
+                <a href="{% url 'settings:what_is_social_balance' %}"
+                class="block px-4 py-2 text-sm hover:bg-gray-200"
+                role="menuitem">{% translate "What is social balance?" %}</a>
+            </li>
+            <li class="{% active_link 'good_practices' %}">
+                <a href="{% url 'settings:good_practices' %}"
+                class="block px-4 py-2 text-sm hover:bg-gray-200"
+                role="menuitem">{% translate "Good Practices" %}</a>
+            </li>
+            <li class="{% active_link 'documents' %}">
+                <a href="{% url 'settings:documents' %}"
+                class="block px-4 py-2 text-sm hover:bg-gray-200"
+                role="menuitem">{% translate "Documents" %}</a>
+            </li>
+            <li class="{% active_link 'resources' %}">
+                <a href="{% url 'settings:resources' %}"
+                class="block px-4 py-2 text-sm hover:bg-gray-200"
+                role="menuitem">{% translate "Resources" %}</a>
+            </li>
+            <li class="{% active_link 'contact' %}">
+                <a href="{% url 'settings:contact' %}"
+                class="block px-4 py-2 text-sm hover:bg-gray-200"
+                role="menuitem">{% translate "Contact" %}</a>
+            </li>
+        </ul>
+    </div>
 </div>

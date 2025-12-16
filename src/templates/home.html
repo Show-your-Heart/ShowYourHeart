@@ -1,8 +1,11 @@
 {% load i18n %}
 
 <c-default-layout pageTitle={% translate 'Home' %}>
-
-  <div class="flex flex-col gap-8 items-center max-w-[900px] mx-auto">
+  <c-slot name="extra_header"> 
+    <c-navbar/>
+  </c-slot>
+  
+  <div x-data="{ selectedMethod: '' }" class="flex flex-col gap-8 items-center max-w-[900px] mx-auto">
 
     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
       {% translate 'Hola' %} {{ organization.name }}
@@ -45,5 +48,9 @@
     {% else %}
     {% translate "You are not assigned to any organization. Please contact an admin" %}
     {% endif %}
+
+    <c-drawers.choose-project></c-drawers.choose-project>
+    <c-drawers.create-project></c-drawers.create-project>
+
   </div>
 </c-default-layout>

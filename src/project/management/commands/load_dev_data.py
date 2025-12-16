@@ -144,6 +144,32 @@ class Command(BaseCommand):
         else:
             self.stdout.write(_("Governace admin user already exists."))
 
+        # Test user
+        email = settings.USER_EMAIL
+        password = settings.USER_PASSWORD
+        if not User.objects.filter(email=email).exists():
+            user = User.objects.create(
+                email=email,
+                password=password,
+                name="User",
+                surnames="",
+                is_staff=False,
+                is_active=True,
+                email_verified=True,
+            )
+            self.stdout.write(
+                _("User created with email '{email}'.").format(
+                    email=email,
+                )
+            )
+
+            user.user_profile = UserProfile.objects.create(
+                user=user, organization=(Organization.objects.filter().all())[1]
+            )
+            user.save()
+        else:
+            self.stdout.write(_("User already exists."))
+
     def create_sample_organizations(
         self, user, legal_structure, country, region3, city, methods
     ):

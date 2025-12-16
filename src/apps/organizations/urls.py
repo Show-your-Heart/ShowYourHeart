@@ -5,8 +5,8 @@ from apps.organizations.views import (
     CreateOrganizationSuccessView,
     CreateOrganizationView,
     CreateProjectSuccessView,
-    CreateProjectView,
     UpdateOrganizationView,
+    create_project_action,
     load_methods,
 )
 
@@ -23,7 +23,7 @@ urlpatterns = [
     path(_("update/<pk>"), UpdateOrganizationView.as_view(), name="update"),
     path(
         _("<uuid:organization_id>/project/"),
-        CreateProjectView.as_view(),
+        create_project_action,
         name="create_project",
     ),
     path(

@@ -4,45 +4,45 @@ from .widgets import GenderInputWidget
 
 
 class TextInput(forms.TextInput):
-    template_name = "components/forms/input.html"
+    template_name = "components/methods/input.html"
 
 
 class TextArea(forms.Textarea):
-    template_name = "components/forms/textarea.html"
+    template_name = "components/methods/textarea.html"
 
 
 class IntegerInput(forms.NumberInput):
-    template_name = "components/forms/input.html"
+    template_name = "components/methods/input.html"
     input_type = "number"
 
 
 class DecimalInput(forms.NumberInput):
-    template_name = "components/forms/input.html"
+    template_name = "components/methods/input.html"
 
 
 class BooleanInput(forms.CheckboxInput):
-    template_name = "components/forms/boolean.html"
+    template_name = "components/methods/boolean.html"
 
 
 class DateInput(forms.DateInput):
-    template_name = "components/forms/input.html"
+    template_name = "components/methods/input.html"
     input_type = "date"
 
 
 class AttachmentInput(forms.ClearableFileInput):
-    template_name = "components/forms/file.html"
+    template_name = "components/methods/file.html"
 
 
 class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    template_name = "components/forms/checkbox.html"
+    template_name = "components/methods/checkbox.html"
 
 
 class RadioButtonInput(forms.RadioSelect):
-    template_name = "components/forms/radio.html"
+    template_name = "components/methods/radio.html"
 
 
 class DropdownInput(forms.Select):
-    template_name = "components/forms/dropdown.html"
+    template_name = "components/methods/dropdown.html"
 
 
 class GenderInput(forms.MultiValueField):
