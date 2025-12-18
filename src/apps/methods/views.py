@@ -172,7 +172,11 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
 
-        context["campaigns"] = Campaign.objects.all()
+        campaigs = Campaign.objects.all()
+        for c in campaigs:
+            c.name = f"{c.name} | {c.year}"
+
+        context["campaigns"] = campaigs
         context["regions"] = Region3.objects.all()
         context["methods"] = Method.objects.all()
         context["unitanalysis"] = unit_of_analysis

@@ -13,80 +13,15 @@
     <form id="balance-filter" method="GET" class="flex flex-col space-y-2">
         <div class="flex space-x-2 items-center">
             <h2 class="min-w-[80px] uppercase font-bold text-gray-500 text-xs">{% trans 'Filter by'%}</h2>
-            <select id="filter-campaign" name="campaign"
-                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-                {% include "django/forms/widgets/attrs.html" %}>
-                <option value="">— All —</option>
-                {% for campaign in campaigns %}
-                <option value="{{ campaign.id }}" {% if campaign.id|stringformat:"s" == campaign_filter %}selected{% endif %}>
-                    {{ campaign.name }} - {{ campaign.year }}
-                </option>
-                {% endfor %}
-            </select>
-            <select id="filter-region3" name="region3"
-                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-                {% include "django/forms/widgets/attrs.html" %}>
-                <option value="">— All —</option>
-                {% for region in regions %}
-                <option value="{{ region.id }}" {% if region.id|stringformat:"s" == region3_filter %}selected{% endif %}>
-                    {{ region.name }}
-                </option>
-                {% endfor %}
-            </select>
-            <select id="filter-method" name="method"
-                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-                {% include "django/forms/widgets/attrs.html" %}>
-                <option value="">— All —</option>
-                {% for method in methods %}
-                <option value="{{ method.id }}" {% if method.id|stringformat:"s" == method_filter %}selected{% endif %}>
-                    {{ method.name }}
-                </option>
-                {% endfor %}
-            </select>
-            <select id="filter-status" name="status"
-                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-                {% include "django/forms/widgets/attrs.html" %}>
-                <option value="">— All —</option>
-                {% for s in status %}
-                <option value="{{ s.id }}" {% if s.id|stringformat:"s" == status_filter %}selected{% endif %}>
-                    {{ s.name }}
-                </option>
-                {% endfor %}
-            </select> 
-            <select id="filter-unit-analysis" name="unit-analysis"
-                class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-                {% include "django/forms/widgets/attrs.html" %}>
-                <option value="">— All —</option>
-                {% for ua in unitanalysis %}
-                <option value="{{ ua.id }}" {% if ua.id|stringformat:"s" == unit_analysis_filter %}selected{% endif %}>
-                    {{ ua.name }}
-                </option>
-                {% endfor %}
-            </select>
+            <c-forms.dropdown id="filter-campaign" name="campaign" label="{% trans 'Campaign' %}" :options="campaigns" :showLabel="False" :optionSelected="campaign_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-region" name="region" label="{% trans 'Region' %}" :options="regions" :showLabel="False" :optionSelected="region3_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-method" name="method" label="{% trans 'Method' %}" :options="methods" :showLabel="False" :optionSelected="method_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-status" name="status" label="{% trans 'Status' %}" :options="statuss" :showLabel="False" :optionSelected="status_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-unitanalysis" name="unitanalysis" label="{% trans 'Unit of analysis' %}" :options="unitanalysiss" :showLabel="False" :optionSelected="unit_analysis_filter"></c-forms.dropdown>
         </div>
         <div class="flex space-x-2 items-center">
-            <div
-                class="bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
-                <button type="submit" class="flex items-center focus:outline-hidden" id="nif-searchbar-submit">
-                    <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
-                        {% trans 'search' %}
-                    </span>
-                </button>
-                <input type="text"
-                    class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
-                    name="nif" value="{{ nif_filter }}" id="nif-searchbar" placeholder="{% trans 'NIF' %}">
-            </div>
-            <div
-                class="bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96 dark:bg-base-900 dark:border-base-700">
-                <button type="submit" class="flex items-center focus:outline-hidden" id="name-searchbar-submit">
-                    <span class="material-symbols-outlined md-18 text-base-400 dark:text-base-500">
-                        {% trans 'search' %}
-                    </span>
-                </button>
-                <input type="text"
-                    class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden dark:bg-base-900 dark:placeholder-font-subtle-dark dark:text-font-default-dark"
-                    name="name" value="{{ name_filter }}" id="name-searchbar" placeholder="{% trans 'Name' %}">
-            </div>
+            <c-forms.text-field name="nif" value="{{ nif_filter }}" id="nif-searchbar" placeholder="{% trans 'NIF' %}"></c-forms.text-field>
+            <c-forms.text-field name="name" value="{{ name_filter }}" id="name-searchbar" placeholder="{% trans 'Name' %}"></c-forms.text-field>
             <c-button type="submit" class="flex justify-center items-center gap-2" variant="filled">
                 {% trans 'Filter' %}
             </c-button>
@@ -186,11 +121,11 @@
                         class="block relative odd:bg-white even:bg-grey-200 lg:table-row-group lg:hover:shadow-raised lg:hover:z-20 "
                         x-data="{rowOpen: false}">
                         <tr
-                            class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none dark:border-base-800">
+                            class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none">
                             <c-table.data class="action-checkbox">
                                 <input type="checkbox" name="_selected_action"
                                     value="ea3be194-ec2c-470f-ae54-2aeb3217d357"
-                                    class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 dark:bg-base-700 dark:border-base-500 dark:checked:after:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 dark:after:text-base-700 checked:bg-primary-600 dark:checked:bg-primary-600 checked:border-primary-600 dark:checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 action-select"
+                                    class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 checked:bg-primary-600 checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 action-select"
                                     aria-label="Select record">
                             </c-table.data>
 
