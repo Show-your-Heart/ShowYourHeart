@@ -292,6 +292,7 @@ class Command(BaseCommand):
         if not region3_qs.exists():
             region3 = Region3.objects.create(
                 name=self.REGION3_NAME,
+                country=self.create_sample_country(),
             )
         else:
             self.stdout.write(_("Region3 already exists."))
