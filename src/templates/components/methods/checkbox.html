@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<c-forms.base-field>
+<c-methods.base-field>
     <div class="flex flex-col space-y-2 pl-4">
         {# Django renders each option as a tuple (value, label) inside optgroups #}
         {% for group_name, options, index in widget.optgroups %}
@@ -22,4 +22,4 @@
         {% endfor %}
         {% endfor %}
     </div>
-</c-forms.base-field>
+</c-methods.base-field>
