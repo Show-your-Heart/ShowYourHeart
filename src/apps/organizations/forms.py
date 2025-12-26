@@ -64,14 +64,14 @@ class OrganizationSignUpForm(forms.ModelForm):
     )
     region3 = forms.ModelChoiceField(
         label=_("Region3"),
-        queryset=Region3.objects.none(),
-        required=False,
+        queryset=Region3.objects.all(),
         widget=forms.Select(
             attrs={
-                "hx-get": reverse_lazy("organizations:load_city"),
-                "hx-target": "#id_city",
+                "hx-get": reverse_lazy("organizations:load_methods"),
+                "hx-target": "#id_methods",
+                "hx-include": "#id_region3, #id_legal_structure",
                 "hx-trigger": "change",
-                "hx-include": "#id_region3",
+                "autocomplete": "off",
             }
         ),
     )
@@ -90,6 +90,8 @@ class OrganizationSignUpForm(forms.ModelForm):
             attrs={
                 "hx-get": reverse_lazy("organizations:load_methods"),
                 "hx-target": "#id_methods",
+                "hx-include": "#id_region3, #id_legal_structure",
+                "hx-trigger": "change",
                 "autocomplete": "off",
             }
         ),
@@ -195,6 +197,7 @@ class OrganizationAdminForm(forms.ModelForm):
         fields = "__all__"  # noqa: DJ007
         widgets = {
             "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+            "region3": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
 
 

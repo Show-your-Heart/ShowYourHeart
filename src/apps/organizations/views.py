@@ -17,7 +17,7 @@ from apps.organizations.forms import (
     ProjectCreationForm,
 )
 
-from .helpers import get_organization_method_filter
+from .helpers import filter_methods_by_legal_structure, get_methods_for_region3
 from .models import Organization, Project
 
 
@@ -44,13 +44,20 @@ class UpdateOrganizationView(UpdateView):
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_methods(request):
-    if legal_structure_id := request.GET.get("legal_structure"):
+    legal_structure_id = request.GET.get("legal_structure")
+    region3_id = request.GET.get("region3")
+
+    if region3_id:
         try:
-            methods = get_organization_method_filter(legal_structure_id)
+            methods = get_methods_for_region3(region3_id)
         except Method.DoesNotExist:
             methods = []
-    else:
-        methods = []
+
+    if legal_structure_id:
+        try:
+            methods = filter_methods_by_legal_structure(methods, legal_structure_id)
+        except Method.DoesNotExist:
+            methods = []
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 

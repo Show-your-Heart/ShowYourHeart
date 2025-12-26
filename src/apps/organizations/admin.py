@@ -16,7 +16,7 @@ from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 
 from .forms import OrganizationAdminForm
-from .helpers import get_organization_method_filter
+from .helpers import filter_methods_by_legal_structure
 from .models import Organization, Project
 from .views import RegistrationRequestView
 
@@ -89,7 +89,7 @@ class OrganizationAdmin(ModelAdmin):
         # Display only the corresponding methods
         if db_field.name == "methods":
             if hasattr(self, "legal_structure_id"):
-                kwargs["queryset"] = get_organization_method_filter(
+                kwargs["queryset"] = filter_methods_by_legal_structure(
                     self.legal_structure_id
                 )
             else:
