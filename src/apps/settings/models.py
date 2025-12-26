@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.geodata.models import Region3
+from apps.methods.models import Campaign, Indicator, Method
 from project.models import BaseModel
 
 
@@ -20,6 +22,16 @@ class Network(BaseModel):
     network_admin = models.ForeignKey("users.User", on_delete=models.CASCADE)
     parent_network = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.RESTRICT
+    )
+    campaigns = models.ManyToManyField(Campaign, related_name="network_campaigns")
+    methods = models.ManyToManyField(Method, related_name="network_methods")
+    indicators = models.ManyToManyField(Indicator, related_name="network_indicators")
+    region3 = models.ForeignKey(
+        Region3,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="network_region3",
     )
 
     class Meta:

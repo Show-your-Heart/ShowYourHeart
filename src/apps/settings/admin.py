@@ -33,7 +33,22 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
 class NetworkAdmin(ModelAdmin):
     search_fields = ["name"]
     list_display = ("name", "parent_network", "network_admin")
-    fieldsets = (("", {"fields": ("name", "network_admin", "parent_network")}),)
+    fieldsets = (
+        (
+            "",
+            {
+                "fields": (
+                    "name",
+                    "network_admin",
+                    "parent_network",
+                    "campaigns",
+                    "methods",
+                    "indicators",
+                    "region3",
+                )
+            },
+        ),
+    )
     autocomplete_fields = ["parent_network", "network_admin"]
 
     common_fieldsets = (
