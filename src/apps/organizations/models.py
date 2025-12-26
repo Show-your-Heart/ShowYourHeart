@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from apps.settings.models import Network
 from apps.users.models import UserProfile
 from apps.users.services import send_welcome_mail
 from project.models import BaseModel
@@ -57,6 +58,7 @@ class Organization(BaseModel):
     bs_allow_public = models.BooleanField(
         _("Allow infographics to be public"), blank=True, null=True
     )
+    networks = models.ManyToManyField(Network, related_name="organization_networks")
 
     def __str__(self):
         return self.name
