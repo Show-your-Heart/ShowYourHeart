@@ -142,24 +142,3 @@ class CreateProjectView(CreateView):
 
 class CreateProjectSuccessView(TemplateView):
     template_name = "projects/create_project_success.html"
-
-
-class ChooseProjectView(FormView):
-    template_name = "components/modals/choose_project.html"
-    form_class = ProjectSelectionForm
-
-    def dispatch(self, request, *args, **kwargs):
-        self.organization = request.user.profile.organization
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["organization"] = self.organization
-        return kwargs
-
-    def get_form(self):
-        form = super().get_form()
-        form.fields["project"].queryset = Project.objects.filter(
-            organization=self.request.user.profile.organization
-        )
-        return form
