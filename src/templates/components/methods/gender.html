@@ -9,7 +9,7 @@
                 :name="`question_${id}_female`" :value="value.female" type="number" {% comment %}
                 :placeholder="placeholder.female" {% endcomment %} {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'female')" :step="type == 'decimal' ? 0.1 : 1"
-                x-bind:disabled="notApplicable" x-model="value.female"
+                x-bind:disabled="notApplicable" x-model="value.female" :min="type === 'decimal' ? 0.0 : 0"
                 x-effect="if (notApplicable) {update(null,'female') }" />
         </div>
         <div class="flex flex-col space-y-2">
@@ -19,7 +19,7 @@
                 :name="`question_${id}_male`" :value="value.male" type="number" {% comment %}
                 :placeholder="placeholder.male" {% endcomment %} {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'male')" :step="type == 'decimal' ? 0.1 : 1"
-                x-bind:disabled="notApplicable" x-model="value.male"
+                x-bind:disabled="notApplicable" x-model="value.male" :min="type === 'decimal' ? 0.0 : 0"
                 x-effect="if (notApplicable) {update(null,'male') }" />
         </div>
 
@@ -30,7 +30,7 @@
                 :name="`question_${id}_non_binary`" :value="value.nonBinary" type="number" {% comment %}
                 :placeholder="placeholder.nonBinary" {% endcomment %} {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'nonBinary')" :step="type == 'decimal' ? 0.1 : 1"
-                x-bind:disabled="notApplicable" x-model="value.nonBinary"
+                x-bind:disabled="notApplicable" x-model="value.nonBinary" :min="type === 'decimal' ? 0.0 : 0"
                 x-effect="if (notApplicable) {update(null, 'nonBinary') }" />
         </div>
 
