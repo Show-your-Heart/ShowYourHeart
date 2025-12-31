@@ -1,6 +1,13 @@
-{% load i18n %}
+{% load i18n static %}
 
 <c-admin.default-layout>
+
+  <c-slot name="extra_js">
+    <script src="{% static 'js/field.js' %}"></script>
+    <script src="{% static 'js/surveyStore.js' %}"></script>
+    <script src="{% static 'js/indicatorsStore.js' %}"></script>
+  </c-slot>
+
     <h1 class="mb-2 text-black font-bold text-2xl">{% trans 'Balance review'%}</h1>
     <div class="mb-4 flex justify-between items-center">
         <h2 class="text-black text-lg">{% trans 'Simple balance'%}</h2>
@@ -51,8 +58,6 @@
             </div>
         </div>
     </form>
-
-    <form>
         <div
             class="lg:rounded-default -mx-1 px-1 overflow-x-auto lg:border lg:border-base-200 lg:mx-0 lg:px-0 lg:shadow-xs">
             <table id="result_list" class="block border-base-200 border-spacing-none border-separate w-full lg:table">
@@ -116,7 +121,6 @@
                     </tr>
                 </thead>
                 {% for survey in object_list %}
-                {% comment %} <form action="" method="post"> {% endcomment %}
                     <tbody
                         class="block relative odd:bg-white even:bg-grey-200 lg:table-row-group lg:hover:shadow-raised lg:hover:z-20 "
                         x-data="{rowOpen: false}">
@@ -135,9 +139,22 @@
                                 </c-button>
                             </c-table.data>
                             <c-table.data class="field-edit !px-1">
-                                <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
-                                    <c-icon name="edit" class="text-blue-600"></c-icon>
-                                </c-button>
+                                <div>
+                                    <form 
+                                        hx-get="{% url 'gov_admin:review_survey_actions' survey.id %}"
+                                        hx-target="#modal-content"
+                                        hx-disabled-elt="button"
+                                        class="flex space-x-2 flex-nowrap justify-center"
+                                    >
+                                        <c-button 
+                                            type="submit"
+                                            data-modal-target="edit-survey-modal"
+                                            class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                                            <c-icon name="edit" class="text-blue-600"></c-icon>
+                                        </c-button>
+                                    </form>
+                                </div>
+
                             </c-table.data>
                             <c-table.data class="field-info !px-1">
                                 <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
@@ -186,12 +203,22 @@
 
                         </tr>
                     </tbody>
-                    {% comment %}
-                </form> {% endcomment %}
 
                 {% endfor %}
 
             </table>
         </div>
-    </form>
+
+    <c-modals.base-modal 
+        x-data="{ titleDetails: '' }" id="edit-survey-modal" 
+        @show-modal.window="FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].show(); titleDetails = $event.detail.titleDetails;" 
+        @hide-modal.window="FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].hide()"
+        height="98vh"
+    >
+        <c-slot name="title">
+            <c-icon name="edit"></c-icon>
+            <span class="font-bold"> {% trans "Edit balance" %}</span>
+            <span x-text="titleDetails"></span>
+        </c-slot>
+    </c-modals.base-modal>
 </c-admin.default-layout>

@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, FormView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.methods.models import Method
@@ -14,7 +14,6 @@ from apps.organizations.forms import (
     OrganizationSignUpForm,
     OrganizationUpdateForm,
     ProjectCreationForm,
-    ProjectSelectionForm,
 )
 
 from .helpers import get_organization_method_filter

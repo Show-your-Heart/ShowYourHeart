@@ -1,3 +1,5 @@
+<c-vars type="success" color="green" icon="check" />
+
 <div
     class="relative"
     x-show="$store.notifications.visible.includes(notification)"
@@ -10,7 +12,14 @@
     @click="$store.notifications.remove(notification.id)"
     style="pointer-events:all"
 >
-    {{slot}}
+    <div class="flex items-start space-x-2 max-w-[500px] sm:items-center p-4 text-sm rounded-lg border {% if  color == 'green' %} text-green-700 bg-green-200 border-green-700 {% elif  color == 'yellow' %} text-yellow-700 bg-yellow-200 border-yellow-700 {% else %} text-red-700 bg-red-200 border-red-700 {% endif %}" 
+        role="alert"
+    >
+        <div class="self-start">
+            <c-icon name="{{icon}}"></c-icon>
+        </div>
+        <p id="{{type}}-msg" x-text="notification.text"></p>
+    </div>
     <div
         x-cloak
         :class="$store.notifications.getBgColor(notification.type, 300)"

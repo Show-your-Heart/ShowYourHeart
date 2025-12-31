@@ -142,7 +142,7 @@ def load_ext_surveys(request):
 class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
     title = "Balance review"
     permission_required = ()
-    template_name = "admin/methods/balance_review.html"
+    template_name = "admin/methods/survey_review.html"
     paginate_by = 20
 
     def get_queryset(self):
@@ -182,7 +182,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         context["unitanalysis"] = unit_of_analysis
         context["status"] = all_status
 
-        # Set variables to display them back on the balance_review.html
+        # Set variables to display them back on the survey_review.html
         context["nif_filter"] = self.request.GET.get("nif") or ""
         context["name_filter"] = self.request.GET.get("name") or ""
         context["campaign_filter"] = self.request.GET.get("campaign") or ""
