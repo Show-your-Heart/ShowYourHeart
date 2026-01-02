@@ -71,6 +71,7 @@
       form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6" x-data
       @submit="$store.survey.onSumbit($event)">
       {% csrf_token %}
+      <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
 
       <div id="tab-content">
         {% for section, fields in sections.items %}

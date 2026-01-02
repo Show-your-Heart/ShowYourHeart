@@ -29,6 +29,7 @@ class MethodFillView(MethodFillMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         method = Method.objects.get(pk=self.kwargs["id"])
+
         if "campaign_id" in self.kwargs:
             self.kwargs["campaign"] = self.kwargs["campaign_id"]
 

@@ -374,12 +374,6 @@ class SurveyAdmin(ModelAdmin):
 
             survey.modified_date = current_date
 
-            if survey.status == Survey.Status.TECH_VALIDATED:
-                survey.validated_date = current_date
-
-            if survey.status == Survey.Status.QUALITY_CHECKED:
-                survey.evaluated_date = current_date
-
             survey.save()
 
             save_indicator_results(survey.method.id, request, survey)
