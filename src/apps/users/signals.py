@@ -34,7 +34,7 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("log", "v")
         + get_permission_codenames("emailtemplate", "v,c"),
         "users": get_permission_codenames("user", "vacd")
-        + get_permission_codenames("profile", "vacd"),
+        + get_permission_codenames("userprofile", "vacd"),
         "admin": get_permission_codenames("logentry", "c"),
         "settings": get_permission_codenames("network", "vacd")
         + get_permission_codenames("legalstructure", "vacd")
@@ -48,7 +48,8 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("listitem", "vacd")
         + get_permission_codenames("campaign", "vacd")
         + get_permission_codenames("externalsurveyinvitation", "vacd")
-        + get_permission_codenames("invitation", "vacd"),
+        + get_permission_codenames("invitation", "vacd")
+        + get_permission_codenames("section", "vacd"),
         "geodata": get_permission_codenames("region1", "vacd")
         + get_permission_codenames("city", "vacd")
         + get_permission_codenames("country", "vacd")
