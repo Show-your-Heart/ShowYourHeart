@@ -479,6 +479,7 @@ GROUPS = {
             "'Is staff', 'Is active' and 'Groups'."
         ),
     },
+    "network_admin": {"name": "Network Admins"},
 }
 
 ################################################################################
