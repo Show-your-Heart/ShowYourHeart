@@ -1,17 +1,12 @@
 <c-forms.base-field>
-    <div class="flex gap-4">
-        <select :id="id" :name="`question_${id}`"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:cursor-default"
-            {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable">
-            {% for group, options, index in widget.optgroups %}
-            {% for option in options %}
-            <option value="{{ option.value.value }}"
-                :selected="value && value.includes(String({{ option.value.value }}))"
-                @click="update($event.target.value)">
-                {{ option.label }}
-            </option>
-            {% endfor %}
-            {% endfor %}
-        </select> <span class="flex items-center" x-text="unit"></span>
-    </div>
+    <select id="{{id}}" name="{{name}}"
+        class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
+        {% include "django/forms/widgets/attrs.html" %}>
+        <option value="">{{label}}</option>
+        {% for option in options %}
+        <option value="{{ option.id }}" {% if option.id|stringformat:"s" == optionSelected %}selected{% endif %}>
+            {{ option.name }}
+        </option>
+        {% endfor %}
+    </select>
 </c-forms.base-field>

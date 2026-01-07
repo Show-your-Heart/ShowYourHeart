@@ -2,48 +2,45 @@
 {% load template_helpers %}
 
 
-<c-default-layout pageTitle={% translate 'Form' %}>
+{{ indicators|json_script:"indicators" }}
+{{ initial_values|json_script:"indicatorResults" }}
+{{ sections_data|json_script:"sections" }}
 
-  <c-slot name="extra_js">
-    {{ indicators|json_script:"indicators" }}
-    {{ initial_values|json_script:"indicatorResults" }}
-    {{ sections_data|json_script:"sections" }}
-    <script src="{% static 'js/field.js' %}"></script>
-    <script src="{% static 'js/surveyStore.js' %}"></script>
-    <script src="{% static 'js/indicatorsStore.js' %}"></script>
-  </c-slot>
+<script>
 
-  <c-slot name="sidebar">
-    <div class="mb-4 mt-8 pl-4">
+  // Initialize all dynamically loaded components: https://stackoverflow.com/questions/76051980/flowbite-component-not-working-when-loaded-via-htmx-django-project
+  htmx.onLoad(function(content) {
+    // initFlowbite();
+    initTabs()
+  })
+
+  // Initialize stores
+  var sections = JSON.parse(document.getElementById('sections').textContent);
+  Alpine.store('survey').initSections(sections)
+
+  var indicators = JSON.parse(document.getElementById('indicators').textContent);
+  Alpine.store('indicators')["indicators"] = indicators
+  var indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
+  Alpine.store('indicators')["indicatorResults"] = indicatorResults
+
+</script>
+
+<div class="grid grid-cols-12 gap-4 w-full">
+
+  <div class="col-span-3">
+    <div class="pl-4 py-4">
       <ul
-        class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
+        class="min-w-[6rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
         id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist" x-data="{
           getLiClass(title) {
               if ($store.survey.currentSection == title) {
                   return '!border-blue-600'
-              } else if ($store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)) {
-                  return '!border-green-600'
-              } else if ($store.survey.isSectionTouched(title) && !$store.survey.isSectionCompleted(title)) {
-                  return '!border-orange-600'
               }
           },
           getBtnClass(title) {
               if ($store.survey.currentSection == title) {
                   return '!bg-blue-50 !text-blue-600'
-              } else if ($store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)) {
-                  return '!bg-green-50 !text-green-800'
-              } else if ($store.survey.isSectionTouched(title) && !$store.survey.isSectionCompleted(title)) {
-                  return '!bg-orange-50 !text-orange-800'
               }
-          },
-          showCurrent(title) {
-            return $store.survey.currentSection == title
-          },
-          showCheck(title) {
-            return !($store.survey.currentSection == title) && $store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)
-          },
-          showPending(title) {
-            return $store.survey.isSectionTouched(title) && !($store.survey.currentSection == title) && !$store.survey.isSectionCompleted(title)
           },
         }">
         {% for section, fields in sections.items %}
@@ -54,28 +51,24 @@
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
             aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}')">
             {{ section.title }}
-            <c-icon x-show="showCurrent('{{section.title}}')" name="arrow-right"
-              class="w-6 h-6 inline text-blue-600"></c-icon>
-            <c-icon x-show="showCheck('{{section.title}}')" name="check" class="w-6 h-6 inline text-green-800"></c-icon>
-            <c-icon x-show="showPending('{{section.title}}')" name="close"
-              class="w-6 h-6 inline text-orange-800"></c-icon>
           </button>
         </li>
         {% endfor %}
       </ul>
     </div>
-  </c-slot>
+  </div>
 
-  <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
-    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block
-      form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6" x-data
-      @submit="$store.survey.onSumbit($event)">
-      {% csrf_token %}
-      <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
-
+  <div class="col-span-9 flex flex-col gap-4 items-center w-full max-w-[900px] mx-auto px-4">
+    <form 
+      hx-post="{% url 'gov_admin:review_survey_actions' survey_id %}"
+      hx-disabled-elt="button"
+      class="w-full space-y-4 md:space-y-6"
+      x-data
+      @submit="$store.survey.onSumbit($event)"
+    >
       <div id="tab-content">
         {% for section, fields in sections.items %}
-        <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8" id="section-{{ section.id }}" role="tabpanel"
+        <div class="hidden py-4 flex flex-col gap-8" id="section-{{ section.id }}" role="tabpanel"
           aria-labelledby="{{ section.id }}{{ forloop.counter }}-tab">
 
           {% for field in fields.indicators %}
@@ -105,6 +98,7 @@
             <span x-text="$store.survey.prevSection"></span>
           </c-button>
         </div>
+      
         <c-button
           class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white"
           type="submit" name="action" value="save">
@@ -115,6 +109,6 @@
         </c-button>
       </div>
       {% endif %}
-    </form>
-  </div>
-</c-default-layout>
+    </div>
+  </form>
+</div>

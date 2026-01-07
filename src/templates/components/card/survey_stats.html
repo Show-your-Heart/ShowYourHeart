@@ -55,7 +55,7 @@
     <div>
         {% if surveyStats.method.unit_of_analysis == "PRO" %}
             <c-button 
-              @click="selectedMethod = '{{surveyStats.method.id}}'"
+              @click="selectedMethod = '{{surveyStats.method.id}}'; campaignId = '{{surveyStats.campaign.id}}'"
               data-drawer-target="drawer-choose-project" 
               data-drawer-placement="right" 
               data-drawer-show="drawer-choose-project" 

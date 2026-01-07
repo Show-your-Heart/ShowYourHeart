@@ -2,7 +2,6 @@
 
 {% load admin_list static i18n unfold %}
 
-
 {% comment %} 
 
 Admin default layout component
@@ -74,13 +73,12 @@ Input params:
         style="pointer-events:none"
     >
         <template x-for="notification of $store.notifications.notifications" :key="notification.id">
-            <template x-if="notification.type == 'error'">
-                <c-toasts.error></c-toasts.error>
-            </template>
+            <c-toasts.toast ::type="notification.type" ::color="notification.color" ::icon="notification.icon"></c-toast>
         </template>
     </div>
 
     <script src="/static/js/flowbite_v2.3.0.min.js"></script>
+    {{ extra_js }}
 
 {% endblock %}
  

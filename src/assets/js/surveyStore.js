@@ -1,4 +1,4 @@
-document.addEventListener('alpine:init', () => {
+const initSurveyStore = () => {
     Alpine.store('survey', {
         sections: [],
         currentSection: "",
@@ -100,7 +100,14 @@ document.addEventListener('alpine:init', () => {
         },
     })
 
-    const sections = JSON.parse(document.getElementById('sections').textContent);
-    Alpine.store('survey').initSections(sections)
+    if(document.getElementById('sections')){
+        const sections = JSON.parse(document.getElementById('sections').textContent);
+        Alpine.store('survey').initSections(sections)
+    }
+}
 
-})
+if(document.readyState === "complete" && Alpine){
+    initSurveyStore()
+} else {
+    document.addEventListener('alpine:init', initSurveyStore)
+}

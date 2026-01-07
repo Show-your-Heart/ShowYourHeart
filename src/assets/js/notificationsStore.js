@@ -6,6 +6,8 @@ document.addEventListener('alpine:init', () => {
         add(notification) {
             notification.id = Date.now()
             notification.animationTime = this.getAnimationTime()
+            notification.icon = this.getIconName(notification.type)
+            notification.color = this.getThemeColor(notification.type)
             this.notifications.push(notification)
             this.fire(notification)
         },
@@ -16,7 +18,6 @@ document.addEventListener('alpine:init', () => {
             }, notification.animationTime)
         },
         remove(id) {
-            console.log(this.visible)
             const notification = this.visible.find(notification => notification.id == id)
             const index = this.visible.indexOf(notification)
             this.visible.splice(index, 1)
@@ -35,6 +36,14 @@ document.addEventListener('alpine:init', () => {
                 case 'warning': return 'orange'
                 case 'error': return 'red'
                 default: return 'blue'
+            }
+        },
+        getIconName(type) {
+            switch (type) {
+                case 'success': return 'check'
+                case 'warning': return 'info-circle'
+                case 'error': return 'info-circle'
+                default: return 'info-circle'
             }
         },
     })

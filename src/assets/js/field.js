@@ -13,7 +13,7 @@ const FieldType = {
     DECIMALGENDER: "DG",
 }
 
-document.addEventListener('alpine:init', () => {
+const initFieldData = () => {
     Alpine.data('field', (code = "") => ({
         id: "",
         name: "",
@@ -213,4 +213,10 @@ document.addEventListener('alpine:init', () => {
 
 
     }))
-})
+}
+
+if(document.readyState === "complete" && Alpine){
+    initFieldData()
+} else {
+    document.addEventListener('alpine:init', initFieldData)
+}

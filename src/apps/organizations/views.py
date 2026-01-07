@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, FormView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.methods.models import Method
@@ -14,7 +14,6 @@ from apps.organizations.forms import (
     OrganizationSignUpForm,
     OrganizationUpdateForm,
     ProjectCreationForm,
-    ProjectSelectionForm,
 )
 
 from .helpers import get_organization_method_filter
@@ -142,24 +141,3 @@ class CreateProjectView(CreateView):
 
 class CreateProjectSuccessView(TemplateView):
     template_name = "projects/create_project_success.html"
-
-
-class ChooseProjectView(FormView):
-    template_name = "components/modals/choose_project.html"
-    form_class = ProjectSelectionForm
-
-    def dispatch(self, request, *args, **kwargs):
-        self.organization = request.user.profile.organization
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["organization"] = self.organization
-        return kwargs
-
-    def get_form(self):
-        form = super().get_form()
-        form.fields["project"].queryset = Project.objects.filter(
-            organization=self.request.user.profile.organization
-        )
-        return form

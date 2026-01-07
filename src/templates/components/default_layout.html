@@ -39,9 +39,7 @@
         style="pointer-events:none"
     >
         <template x-for="notification of $store.notifications.notifications" :key="notification.id">
-            <template x-if="notification.type == 'error'">
-                <c-toasts.error></c-toasts.error>
-            </template>
+            <c-toasts.toast ::type="notification.type" ::color="notification.color" ::icon="notification.icon"></c-toast>
         </template>
     </div>
 

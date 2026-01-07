@@ -2,15 +2,32 @@ import json
 
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import path, reverse
+from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
 
+from apps.methods.mixins import save_indicator_results
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 
-from .forms import IndicatorForm, InvitationInlineForm, MethodForm, SectionInlineForm
+from .forms import (
+    IndicatorForm,
+    InvitationInlineForm,
+    MethodForm,
+    SectionInlineForm,
+    get_dynamic_form,
+)
+from .mixins import (
+    get_initial_values,
+    get_previous_campaign_answers,
+    get_sections,
+    get_sections_data,
+)
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
@@ -269,14 +286,109 @@ class SurveyAdmin(ModelAdmin):
         return request.user.is_superuser
 
     def get_urls(self):
-        urls = super().get_urls() + [
+        urls = [
             path(
                 "review-balances",
                 self.admin_site.admin_view(BalanceReviewView.as_view(model_admin=self)),
                 name="review_balances",
             ),
-        ]
+            path(
+                "review_survey_actions/<uuid:pk>/",
+                self.admin_site.admin_view(
+                    self.review_survey_action,
+                ),
+                name="review_survey_actions",
+            ),
+        ] + super().get_urls()
         return urls
+
+    # @method_decorator(require_GET)
+    def review_survey_action(self, request, pk, **kwargs):
+        if request.method == "GET":
+            survey = get_object_or_404(Survey, pk=pk)
+
+            placeholder_dict = get_previous_campaign_answers(
+                survey.campaign.id, survey.method.id, survey.user
+            )
+
+            readonly = False
+            # Get the current survey already started
+            try:
+                form = get_dynamic_form(
+                    survey.method,
+                    IndicatorResult.objects.filter(survey=survey),
+                    readonly,
+                    placeholder_dict,
+                )
+
+            except ObjectDoesNotExist:
+                # If there is none, get new survey
+                form = get_dynamic_form(survey.method, [], False, placeholder_dict)
+
+            sections = get_sections(survey.method, form(data=request.POST or None))
+
+            try:
+                indicators = list(
+                    Method.objects.get(id=survey.method.id).indicators.all().values()
+                )
+                for i in indicators:
+                    i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
+
+            except Method.DoesNotExist:
+                indicators = list([])
+
+            return HttpResponse(
+                render(
+                    request,
+                    "admin/methods/method_fill.html",
+                    {
+                        "method_name": survey.method.name,
+                        "initial_values": get_initial_values(survey),
+                        "readonly": readonly,
+                        "form": form,
+                        "sections": sections,
+                        "sections_data": get_sections_data(sections),
+                        "indicators": indicators,
+                        "survey_id": survey.id,
+                    },
+                ),
+                headers={
+                    "HX-Trigger": '{ "show-modal": {"titleDetails": " - '
+                    + survey.organization.vat_number
+                    + " "
+                    + survey.organization.name
+                    + '" } }',
+                },
+            )
+
+        elif request.method == "POST":
+            action = request.POST.get("action")
+
+            survey = Survey.objects.get(id=pk)
+
+            current_date = timezone.now()
+
+            if action == "submit":
+                survey.status = Survey.Status.CLOSED
+                survey.closed_date = current_date
+
+            survey.modified_date = current_date
+
+            survey.save()
+
+            save_indicator_results(survey.method.id, request, survey)
+
+            msg = _("Balance successfuly updated.")
+
+            return HttpResponse(
+                "",
+                headers={
+                    "HX-Trigger": '{ "hide-modal": {}, '
+                    + '"notification": { "type": "success", "text": "'
+                    + msg
+                    + '" } }',
+                },
+            )
 
 
 # Add superadmin views with default Unfold templates

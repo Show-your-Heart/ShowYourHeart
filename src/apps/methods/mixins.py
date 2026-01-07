@@ -56,6 +56,7 @@ class MethodFillMixin:
             # If there is none, get new survey
             form = get_dynamic_form(current_method, [], False, placeholder_dict)
 
+        context["campaign_id"] = campaign_id
         context["form"] = form
         context["method_name"] = current_method.name
         context["readonly"] = readonly

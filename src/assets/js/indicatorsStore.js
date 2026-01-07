@@ -1,4 +1,4 @@
-document.addEventListener('alpine:init', () => {
+const initIndicatorsStore = () => {
     Alpine.store('indicators', {
         indicators: [],
         parseExpression(expr, currentIndicatorCode = "", currentIndicatorValue = 0) {
@@ -88,8 +88,8 @@ document.addEventListener('alpine:init', () => {
             const index = this.indicators.findIndex(i => i.code == code)
             if (index != -1) {
                 this.indicators[index].value = value
-                if (indicators[index].dependant_indicators) {
-                    for (code of indicators[index].dependant_indicators) {
+                if (this.indicators[index].dependant_indicators) {
+                    for (code of this.indicators[index].dependant_indicators) {
                         this.updateDependantIndicator(code)
                     }
                 }
@@ -118,7 +118,7 @@ document.addEventListener('alpine:init', () => {
                 this.indicators[index].not_applicable = value
                 console.log(this.indicators[index])
                 /*  if (indicators[index].dependant_indicators) {
-                     for (code of indicators[index].dependant_indicators) {
+                     for (code of this.indicators[index].dependant_indicators) {
                          this.updateIndicatorResultNa(code, value)
                      }
                  } */
@@ -126,9 +126,19 @@ document.addEventListener('alpine:init', () => {
         }
     })
 
-    const indicators = JSON.parse(document.getElementById('indicators').textContent);
-    Alpine.store('indicators')["indicators"] = indicators
-    const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
-    Alpine.store('indicators')["indicatorResults"] = indicatorResults
+    if(document.getElementById('indicators')){
+        const indicators = JSON.parse(document.getElementById('indicators').textContent);
+        Alpine.store('indicators')["indicators"] = indicators
+    } 
+    if(document.getElementById('indicatorResults')){
+        const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
+        Alpine.store('indicators')["indicatorResults"] = indicatorResults
+    }
+    
+}
 
-})
+if(document.readyState === "complete" && Alpine){
+    initIndicatorsStore()
+} else {
+    document.addEventListener('alpine:init', initIndicatorsStore)
+}

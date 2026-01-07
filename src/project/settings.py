@@ -511,6 +511,7 @@ UNFOLD = {
     "STYLES": [
         lambda request: static("styles/output.css"),
     ],
+    "THEME": "light",
     "COLORS": {
         "primary": {
             # "50": "250, 245, 255",

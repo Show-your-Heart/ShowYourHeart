@@ -29,6 +29,7 @@ class MethodFillView(MethodFillMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         method = Method.objects.get(pk=self.kwargs["id"])
+
         if "campaign_id" in self.kwargs:
             self.kwargs["campaign"] = self.kwargs["campaign_id"]
 
@@ -142,7 +143,7 @@ def load_ext_surveys(request):
 class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
     title = "Balance review"
     permission_required = ()
-    template_name = "admin/methods/balance_review.html"
+    template_name = "admin/methods/survey_review.html"
     paginate_by = 20
 
     def get_queryset(self):
@@ -172,13 +173,17 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
 
-        context["campaigns"] = Campaign.objects.all()
+        campaigs = Campaign.objects.all()
+        for c in campaigs:
+            c.name = f"{c.name} | {c.year}"
+
+        context["campaigns"] = campaigs
         context["regions"] = Region3.objects.all()
         context["methods"] = Method.objects.all()
         context["unitanalysis"] = unit_of_analysis
         context["status"] = all_status
 
-        # Set variables to display them back on the balance_review.html
+        # Set variables to display them back on the survey_review.html
         context["nif_filter"] = self.request.GET.get("nif") or ""
         context["name_filter"] = self.request.GET.get("name") or ""
         context["campaign_filter"] = self.request.GET.get("campaign") or ""

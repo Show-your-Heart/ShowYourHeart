@@ -28,7 +28,6 @@
     --color-amber-100: oklch(96.2% 0.059 95.617);
     --color-amber-600: oklch(66.6% 0.179 58.318);
     --color-yellow-200: oklch(94.5% 0.129 101.54);
-    --color-yellow-300: oklch(90.5% 0.182 98.111);
     --color-green-50: oklch(98.2% 0.018 155.826);
     --color-green-100: oklch(96.2% 0.044 156.743);
     --color-green-200: oklch(92.5% 0.084 155.995);
@@ -376,6 +375,12 @@
   .z-\[99\] {
     z-index: 99;
   }
+  .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+  .col-span-9 {
+    grid-column: span 9 / span 9;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -565,11 +570,17 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
+  .h-9 {
+    height: calc(var(--spacing) * 9);
+  }
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
   .h-\[38px\] {
     height: 38px;
+  }
+  .h-\[calc\(100\%-1rem\)\] {
+    height: calc(100% - 1rem);
   }
   .h-auto {
     height: auto;
@@ -582,6 +593,12 @@
   }
   .h-screen {
     height: 100vh;
+  }
+  .max-h-\[98vh\] {
+    max-height: 98vh;
+  }
+  .max-h-full {
+    max-height: 100%;
   }
   .min-h-\[calc\(100vh-2rem\)\] {
     min-height: calc(100vh - 2rem);
@@ -613,6 +630,9 @@
   .w-8 {
     width: calc(var(--spacing) * 8);
   }
+  .w-9 {
+    width: calc(var(--spacing) * 9);
+  }
   .w-12 {
     width: calc(var(--spacing) * 12);
   }
@@ -625,8 +645,8 @@
   .w-80 {
     width: calc(var(--spacing) * 80);
   }
-  .w-96 {
-    width: calc(var(--spacing) * 96);
+  .w-100 {
+    width: calc(var(--spacing) * 100);
   }
   .w-\[40vw\] {
     width: 40vw;
@@ -685,6 +705,9 @@
   .max-w-\[900px\] {
     max-width: 900px;
   }
+  .max-w-\[1100px\] {
+    max-width: 1100px;
+  }
   .max-w-\[1240px\] {
     max-width: 1240px;
   }
@@ -708,6 +731,9 @@
   }
   .min-w-4 {
     min-width: calc(var(--spacing) * 4);
+  }
+  .min-w-\[6rem\] {
+    min-width: 6rem;
   }
   .min-w-\[18rem\] {
     min-width: 18rem;
@@ -805,6 +831,9 @@
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
   .grid-cols-\[80\%_20\%\] {
     grid-template-columns: 80% 20%;
@@ -969,6 +998,9 @@
   .overflow-x-auto {
     overflow-x: auto;
   }
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
   .overflow-x-scroll {
     overflow-x: scroll;
   }
@@ -1081,12 +1113,6 @@
   }
   .\!bg-orange-50 {
     background-color: var(--color-orange-50) !important;
-  }
-  .bg-black\/50 {
-    background-color: color-mix(in srgb, #000 50%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-black) 50%, transparent);
-    }
   }
   .bg-blue-50 {
     background-color: var(--color-blue-50);
@@ -1412,9 +1438,6 @@
   .text-gray-300 {
     color: var(--color-gray-300);
   }
-  .text-gray-400 {
-    color: var(--color-gray-400);
-  }
   .text-gray-500 {
     color: var(--color-gray-500);
   }
@@ -1510,11 +1533,6 @@
   }
   .filter\! {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,) !important;
-  }
-  .backdrop-blur-sm {
-    --tw-backdrop-blur: blur(var(--blur-sm));
-    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   }
   .transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
@@ -2111,6 +2129,11 @@
       line-height: var(--tw-leading, var(--text-2xl--line-height));
     }
   }
+  .md\:inset-0 {
+    @media (width >= 48rem) {
+      inset: calc(var(--spacing) * 0);
+    }
+  }
   .md\:me-24 {
     @media (width >= 48rem) {
       margin-inline-end: calc(var(--spacing) * 24);
@@ -2178,6 +2201,16 @@
   .md\:p-16 {
     @media (width >= 48rem) {
       padding: calc(var(--spacing) * 16);
+    }
+  }
+  .md\:py-6 {
+    @media (width >= 48rem) {
+      padding-block: calc(var(--spacing) * 6);
+    }
+  }
+  .md\:pb-5 {
+    @media (width >= 48rem) {
+      padding-bottom: calc(var(--spacing) * 5);
     }
   }
   .md\:text-2xl {
@@ -2437,14 +2470,6 @@
       }
     }
   }
-  .dark\:bg-red-500\/20 {
-    &:not(*) {
-      background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 20%, transparent);
-      @supports (color: color-mix(in lab, red, red)) {
-        background-color: color-mix(in oklab, var(--color-red-500) 20%, transparent);
-      }
-    }
-  }
   .dark\:text-blue-500 {
     &:not(*) {
       color: var(--color-blue-500);
@@ -2455,24 +2480,9 @@
       color: var(--color-gray-400);
     }
   }
-  .dark\:text-red-500 {
-    &:not(*) {
-      color: var(--color-red-500);
-    }
-  }
   .dark\:text-white {
     &:not(*) {
       color: var(--color-white);
-    }
-  }
-  .dark\:checked\:after\:text-white {
-    &:not(*) {
-      &:checked {
-        &::after {
-          content: var(--tw-content);
-          color: var(--color-white);
-        }
-      }
     }
   }
   .dark\:hover\:bg-gray-800 {
@@ -2745,42 +2755,6 @@ tr.htmx-swapping td {
   syntax: "*";
   inherits: false;
 }
-@property --tw-backdrop-blur {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-brightness {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-contrast {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-grayscale {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-hue-rotate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-invert {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-opacity {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-saturate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-sepia {
-  syntax: "*";
-  inherits: false;
-}
 @property --tw-duration {
   syntax: "*";
   inherits: false;
@@ -2850,15 +2824,6 @@ tr.htmx-swapping td {
       --tw-drop-shadow-color: initial;
       --tw-drop-shadow-alpha: 100%;
       --tw-drop-shadow-size: initial;
-      --tw-backdrop-blur: initial;
-      --tw-backdrop-brightness: initial;
-      --tw-backdrop-contrast: initial;
-      --tw-backdrop-grayscale: initial;
-      --tw-backdrop-hue-rotate: initial;
-      --tw-backdrop-invert: initial;
-      --tw-backdrop-opacity: initial;
-      --tw-backdrop-saturate: initial;
-      --tw-backdrop-sepia: initial;
       --tw-duration: initial;
       --tw-ease: initial;
       --tw-content: "";
