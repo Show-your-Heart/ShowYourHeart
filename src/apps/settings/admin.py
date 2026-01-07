@@ -32,14 +32,13 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
 @gov_admin_register(gov_admin_site, model=Network)
 class NetworkAdmin(ModelAdmin):
     search_fields = ["name"]
-    list_display = ("name", "parent_network", "network_admin")
+    list_display = ("name", "parent_network")
     fieldsets = (
         (
             "",
             {
                 "fields": (
                     "name",
-                    "network_admin",
                     "parent_network",
                     "campaigns",
                     "methods",
@@ -49,7 +48,7 @@ class NetworkAdmin(ModelAdmin):
             },
         ),
     )
-    autocomplete_fields = ["parent_network", "network_admin"]
+    autocomplete_fields = ["parent_network"]
 
     common_fieldsets = (
         (
@@ -75,7 +74,8 @@ class NetworkAdmin(ModelAdmin):
 
     @admin.display(description=_("Actions"))
     def actions_field(self, obj):
-        if not obj or not obj.network_admin:
+        if not obj:
+            # if not obj or not obj.network_admin: TODO get if network admin from user
             return "-"
         confirmed_verification_msg = _(
             "Are you sure you want to send an email to the user to notify he has been "

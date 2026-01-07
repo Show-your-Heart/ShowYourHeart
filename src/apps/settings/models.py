@@ -19,7 +19,6 @@ class LegalStructure(BaseModel):
 
 class Network(BaseModel):
     name = models.CharField(_("name"), max_length=100)
-    network_admin = models.ForeignKey("users.User", on_delete=models.CASCADE)
     parent_network = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.RESTRICT
     )

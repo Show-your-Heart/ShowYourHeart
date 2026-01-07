@@ -71,6 +71,9 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
         "is_staff",
         "is_superuser",
         "email_verified",
+        "is_governance_admin",
+        "is_network_admin",
+        "network",
     )
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")
@@ -92,17 +95,14 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
     common_fieldsets = (
         (
             _("Personal details"),
-            {
-                "fields": (
-                    "name",
-                    "surnames",
-                )
-            },
+            {"fields": ("name", "surnames", "network")},
         ),
         (
             _("Permissions and authorizations"),
             {
                 "fields": (
+                    "is_governance_admin",
+                    "is_network_admin",
                     "is_staff",
                     "is_active",
                     "is_superuser",
