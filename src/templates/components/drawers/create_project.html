@@ -6,20 +6,22 @@
     width="40"
 >
     <c-form-errors></c-form-errors>
-    <form 
-        id="create-project-form"
-        hx-post="{% url 'organizations:create_project' organization.id%}"
-        hx-disabled-elt="button"
-        class="flex flex-col space-y-4 flex-nowrap justify-center"
-    >
-        {{ create_project_form }}
-        <input name="method_id" type="text" class="hidden" :value="selectedMethod">
+    {% if organization %}
+        <form 
+            id="create-project-form"
+            hx-post="{% url 'organizations:create_project' organization.id %}"
+            hx-disabled-elt="button"
+            class="flex flex-col space-y-4 flex-nowrap justify-center"
+        >
+            {{ create_project_form }}
+            <input name="method_id" type="text" class="hidden" :value="selectedMethod">
 
-        {% if not form.fields.field_text_1.disabled %}
-            <div class="flex justify-end">
-                <c-button type="submit">{% translate 'Create project and start balance' %}</c-button>
-            </div>
-        {% endif %}
-    </form>
+            {% if not form.fields.field_text_1.disabled %}
+                <div class="flex justify-end">
+                    <c-button type="submit">{% translate 'Create project and start balance' %}</c-button>
+                </div>
+            {% endif %}
+        </form>
+    {% endif %}
 </c-drawers.base>
 

@@ -238,7 +238,10 @@ class Method(BaseModel):
     version = models.CharField(_("Version"), max_length=400, blank=True)
 
     def __str__(self):
-        return self.version + " | " + self.name + " | " + self.network_owner.name
+        if self.version:
+            return self.name + "-" + self.version + " | " + self.network_owner.name
+        else:
+            return self.name + " | " + self.network_owner.name
 
 
 class Campaign(BaseModel):

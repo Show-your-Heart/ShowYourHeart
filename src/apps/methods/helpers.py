@@ -109,8 +109,9 @@ def get_survey_stats(survey, method, campaign):
             )
 
     else:
-        stats["totalToDo"] = len(method.sections)
-        for section in method.sections:
+        method_sections = getattr(method, "sections", [])
+        stats["totalToDo"] = len(method_sections)
+        for section in method_sections:
             stats["sectionsWithStatus"].append({"status": "toDo", "section": section})
 
     return stats
