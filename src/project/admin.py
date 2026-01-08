@@ -446,7 +446,7 @@ class GovAdminSite(UnfoldAdminSite):
             post_office_models = apps_dict.get("Post Office", {}).get("models_dict", {})
 
             settings_items = []
-            for model_key, model_info in {
+            for model_info in {
                 **post_office_models,
                 **users_models,
                 **settings_models,
