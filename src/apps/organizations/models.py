@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import UserProfile
@@ -38,6 +41,7 @@ class Organization(BaseModel):
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
+    resolution_date = models.DateTimeField(blank=True, null=True, default=None)
     legal_structure = models.ForeignKey(
         "settings.LegalStructure",
         on_delete=models.CASCADE,
@@ -66,6 +70,25 @@ class Organization(BaseModel):
             profile = UserProfile.objects.filter(organization=self).first()
             if profile and not profile.user.email_verified:
                 send_welcome_mail(profile.user)
+
+
+@receiver(pre_save, sender=Organization)
+def set_resolution_date(sender, instance, **kwargs):
+    if (
+        not instance
+        or not instance.pk
+        or instance.status == Organization.Status.PENDING
+    ):
+        # New organization or status getting back to pending
+        return
+
+    # Get the current status
+    try:
+        old_status = sender.objects.only("status").get(pk=instance.pk).status
+        if old_status != instance.status:
+            instance.resolution_date = timezone.now()
+    except Organization.DoesNotExist:
+        pass
 
 
 class Project(BaseModel):
