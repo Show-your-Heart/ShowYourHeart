@@ -27,12 +27,9 @@ from .views import RegistrationRequestView
 @gov_admin_register(gov_admin_site, model=Organization)
 class OrganizationAdmin(ModelAdmin):
     form = OrganizationAdminForm
-    list_display = (
-        "name",
-        "status",
-    )
+    list_display = ("name", "status", "resolution_date")
     filter_horizontal = ("methods",)
-    readonly_fields = ("contact",)
+    readonly_fields = ("contact", "resolution_date")
     list_filter = [("status", ChoicesDropdownFilter)]
     autocomplete_fields = ["country", "region3", "city"]
     search_fields = ["name"]
@@ -58,11 +55,14 @@ class OrganizationAdmin(ModelAdmin):
             # Replace it on his original place
             fieldsets[0][1]["fields"].remove("legal_structure")
             fieldsets[0][1]["fields"].insert(
-                len(fieldsets[0][1]["fields"]) - 2, "legal_structure"
+                len(fieldsets[0][1]["fields"]) - 3, "legal_structure"
             )
 
         fieldsets[0][1]["fields"].remove("contact")
         fieldsets[0][1]["fields"].insert(2, "contact")
+        fieldsets[0][1]["fields"].remove("resolution_date")
+        fieldsets[0][1]["fields"].insert(10, "resolution_date")
+
         return fieldsets
 
     def get_readonly_fields(self, request, obj=None):
