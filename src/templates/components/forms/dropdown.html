@@ -2,9 +2,13 @@
     <select id="{{id}}" name="{{name}}"
         class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
         {% include "django/forms/widgets/attrs.html" %}>
-        <option value="">{{label}}</option>
+        
+        {% if showEmptyOption %}
+            <option value="">{% if showLabel %}{{label}} {% endif %}</option>
+        {% endif %}
+
         {% for option in options %}
-        <option value="{{ option.id }}" {% if option.id|stringformat:"s" == optionSelected %}selected{% endif %}>
+        <option value="{{ option.id }}" {% if option.id|stringformat:"s" == optionSelected|stringformat:"s" %}selected{% endif %}>
             {{ option.name }}
         </option>
         {% endfor %}

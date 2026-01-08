@@ -20,11 +20,11 @@
     <form id="balance-filter" method="GET" class="flex flex-col space-y-2">
         <div class="flex space-x-2 items-center">
             <h2 class="min-w-[80px] uppercase font-bold text-gray-500 text-xs">{% trans 'Filter by'%}</h2>
-            <c-forms.dropdown id="filter-campaign" name="campaign" label="{% trans 'Campaign' %}" :options="campaigns" :showLabel="False" :optionSelected="campaign_filter"></c-forms.dropdown>
-            <c-forms.dropdown id="filter-region" name="region" label="{% trans 'Region' %}" :options="regions" :showLabel="False" :optionSelected="region3_filter"></c-forms.dropdown>
-            <c-forms.dropdown id="filter-method" name="method" label="{% trans 'Method' %}" :options="methods" :showLabel="False" :optionSelected="method_filter"></c-forms.dropdown>
-            <c-forms.dropdown id="filter-status" name="status" label="{% trans 'Status' %}" :options="statuss" :showLabel="False" :optionSelected="status_filter"></c-forms.dropdown>
-            <c-forms.dropdown id="filter-unitanalysis" name="unitanalysis" label="{% trans 'Unit of analysis' %}" :options="unitanalysiss" :showLabel="False" :optionSelected="unit_analysis_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-campaign" name="campaign" label="{% trans 'Campaign' %}" :options="campaigns" :showEmptyOption="True" :showLabel="False" :optionSelected="campaign_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-region" name="region3" label="{% trans 'Region' %}" :options="regions" :showEmptyOption="True" :showLabel="False" :optionSelected="region3_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-method" name="method" label="{% trans 'Method' %}" :options="methods" :showEmptyOption="True" :showLabel="False" :optionSelected="method_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-status" name="status" label="{% trans 'Status' %}" :options="status" :showEmptyOption="True" :showLabel="False" :optionSelected="status_filter"></c-forms.dropdown>
+            <c-forms.dropdown id="filter-unitanalysis" name="unitanalysis" label="{% trans 'Unit of analysis' %}" :options="unitanalysis" :showEmptyOption="True" :showLabel="False" :optionSelected="unit_analysis_filter"></c-forms.dropdown>
         </div>
         <div class="flex space-x-2 items-center">
             <c-forms.text-field name="nif" value="{{ nif_filter }}" id="nif-searchbar" placeholder="{% trans 'NIF' %}"></c-forms.text-field>
@@ -161,17 +161,20 @@
                                     <c-icon name="info-circle" class="text-gray-500"></c-icon>
                                 </c-button>
                             </c-table.data>
-                            <c-table.data class="field-status">
-                                <select id="status-select"
-                                    class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5"
-                                    {% include "django/forms/widgets/attrs.html" %}>
-                                    {% for s in status %}
-                                    <option value="{{ s.id }}" {% if s.id|stringformat:"s" == survey.status %}selected{% endif %}>
-                                        {{ s.name }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-
+                            <c-table.data class="field-status">   
+                                   <form 
+                                        hx-post="{% url 'gov_admin:survey_status_change' survey.id  %}"
+                                        hx-trigger= "change",
+                                        hx-target="#status-select"
+                                    >
+                                      <c-forms.dropdown  
+                                            id="status-select" 
+                                            name="status-selection" 
+                                            :options="status" 
+                                            :showEmptyOption="False"
+                                            :optionSelected="survey.status">
+                                        </c-forms.dropdown>  
+                                    </form>
                             </c-table.data>
                             <c-table.data class="field-answers">
                                 <div class="flex flex-col gap-0">

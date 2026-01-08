@@ -299,6 +299,13 @@ class SurveyAdmin(ModelAdmin):
                 ),
                 name="review_survey_actions",
             ),
+            path(
+                "survey_status_change/<uuid:pk>",
+                self.admin_site.admin_view(
+                    self.survey_status_update,
+                ),
+                name="survey_status_change",
+            ),
         ] + super().get_urls()
         return urls
 
@@ -389,6 +396,31 @@ class SurveyAdmin(ModelAdmin):
                     + '" } }',
                 },
             )
+
+    def survey_status_update(self, request, pk, **kwargs):
+        survey = get_object_or_404(Survey, pk=pk)
+        survey.status = int(request.POST.get("status-selection"))
+
+        current_date = timezone.now()
+        if survey.status == Survey.Status.CLOSED:
+            survey.closed_date = current_date
+        elif survey.status == Survey.Status.TECH_VALIDATED:
+            survey.validated_date = current_date
+        elif survey.status == Survey.Status.QUALITY_CHECKED:
+            survey.evaluated_date = current_date
+
+        survey.save()
+
+        msg = _("Balance status successfuly updated.")
+        return HttpResponse(
+            "",
+            headers={
+                "HX-Trigger": "{ "
+                + '"notification": { "type": "success", "text": "'
+                + msg
+                + '" } }',
+            },
+        )
 
 
 # Add superadmin views with default Unfold templates
