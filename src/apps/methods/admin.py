@@ -22,6 +22,10 @@ from .forms import (
     SectionInlineForm,
     get_dynamic_form,
 )
+from .helpers import (
+    get_form_sections,
+    get_survey_stats,
+)
 from .mixins import (
     get_initial_values,
     get_previous_campaign_answers,
@@ -411,9 +415,21 @@ class SurveyAdmin(ModelAdmin):
 
         survey.save()
 
+        survey.method.sections = get_form_sections(survey.method)
+        stats = get_survey_stats(survey, survey.method, survey.campaign)
+        survey.totalProgress = stats["totalProgress"]
+
+        status = []
+        for s in Survey.Status:
+            status.append({"id": s.value, "name": s.label})
+
         msg = _("Balance status successfuly updated.")
         return HttpResponse(
-            "",
+            render(
+                request,
+                "components/methods/survey_review_row.html",
+                {"survey": survey, "status": status},
+            ),
             headers={
                 "HX-Trigger": "{ "
                 + '"notification": { "type": "success", "text": "'
