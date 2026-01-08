@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from unfold.views import UnfoldModelAdminViewMixin
 
+from apps.geodata.models import City, Region3
 from apps.methods.models import Method
 from apps.organizations.forms import (
     OrganizationSignUpForm,
@@ -51,6 +52,38 @@ def load_methods(request):
     else:
         methods = []
     return render(request, "organizations/methods_options.html", {"methods": methods})
+
+
+@method_decorator(login_not_required, name="dispatch")
+@require_http_methods("GET")
+def load_region3(request):
+    if country_id := request.GET.get("country"):
+        try:
+            regions = Region3.objects.filter(country_id=country_id).order_by("name")
+        except Region3.DoesNotExist:
+            regions = []
+
+    return render(
+        request,
+        "organizations/region3_options.html",
+        {"regions": regions},
+    )
+
+
+@method_decorator(login_not_required, name="dispatch")
+@require_http_methods("GET")
+def load_city(request):
+    if region3_id := request.GET.get("region3"):
+        try:
+            cities = City.objects.filter(region3_id=region3_id).order_by("name")
+        except City.DoesNotExist:
+            cities = []
+
+    return render(
+        request,
+        "organizations/city_options.html",
+        {"cities": cities},
+    )
 
 
 @method_decorator(login_not_required)

@@ -50,13 +50,33 @@ class OrganizationSignUpForm(forms.ModelForm):
         required=False,
     )
     country = forms.ModelChoiceField(
-        label=_("Country"), queryset=Country.objects.all(), required=False
+        label=_("Country"),
+        queryset=Country.objects.all(),
+        required=False,
+        widget=forms.Select(
+            attrs={
+                "hx-get": reverse_lazy("organizations:load_region3"),
+                "hx-target": "#id_region3, #id_city",
+                "hx-trigger": "change",
+                "hx-include": "#id_country",
+            }
+        ),
     )
     region3 = forms.ModelChoiceField(
-        label=_("Region3"), queryset=Region3.objects.all(), required=False
+        label=_("Region3"),
+        queryset=Region3.objects.none(),
+        required=False,
+        widget=forms.Select(
+            attrs={
+                "hx-get": reverse_lazy("organizations:load_city"),
+                "hx-target": "#id_city",
+                "hx-trigger": "change",
+                "hx-include": "#id_region3",
+            }
+        ),
     )
     city = forms.ModelChoiceField(
-        label=_("City"), queryset=City.objects.all(), required=False
+        label=_("City"), queryset=City.objects.none(), required=False
     )
     address = forms.CharField(
         label=_("Address"),

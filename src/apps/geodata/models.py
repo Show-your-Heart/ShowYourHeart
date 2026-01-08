@@ -58,6 +58,11 @@ class Region2(BaseModel):
 
 class Region3(BaseModel):
     name = models.CharField(max_length=100)
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.CASCADE,
+        related_name="region3_country",
+    )
     region1 = models.ForeignKey(
         Region1,
         on_delete=models.SET_NULL,
