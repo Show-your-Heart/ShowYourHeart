@@ -133,6 +133,8 @@ INSTALLED_APPS = [
     "storages",
     "sortedm2m",
     "adminsortable2",
+    "unfold.contrib.import_export",
+    "import_export",
 ]
 
 

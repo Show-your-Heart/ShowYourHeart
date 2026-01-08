@@ -1,0 +1,29 @@
+{% load admin_urls i18n unfold %}
+
+{% if has_import_permission %}
+    {% trans "Import" as title %}
+    {% url opts|admin_urlname:"import" as link %}
+    {% comment %} {% include "unfold/helpers/tab_action.html" with title=title link=link icon="upload" %} {% endcomment %}
+
+    <a {% if link %}href="{{ link }}"{% endif %} class="cursor-pointer text-left whitespace-nowrap" {% if blank %} target="_blank"{% endif %} {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
+        <c-button variant="outlined">
+            <c-icon name="arrow-up-from-bracket" class="me-2"></c-icon>
+            {{ title }}
+        </c-button>
+    </a>
+
+{% endif %}
+
+{% if has_export_permission %}
+    {% trans "Export" as title %}
+    {% url opts|admin_urlname:"export" as link %}
+    {% comment %} {% include "unfold/helpers/tab_action.html" with title=title link=link icon="upload" %} {% endcomment %}
+
+    <a {% if link %}href="{{ link }}"{% endif %} class="cursor-pointer text-left whitespace-nowrap" {% if blank %} target="_blank"{% endif %} {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
+        <c-button variant="outlined">
+            <c-icon name="arrow-down-to-bracket" class="me-2"></c-icon>
+            {{ title }}
+        </c-button>
+    </a>
+
+{% endif %}

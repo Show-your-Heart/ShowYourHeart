@@ -9,9 +9,11 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
+from import_export.admin import ImportExportModelAdmin
 from post_office.admin import EmailTemplateAdmin
 from post_office.models import EmailTemplate
 from unfold.admin import ModelAdmin as BaseModelAdmin
+from unfold.contrib.import_export.forms import ExportForm, ImportForm
 from unfold.sites import UnfoldAdminSite
 
 from apps.organizations.models import Organization
@@ -123,6 +125,61 @@ action_names = {
     DELETION: pgettext_lazy("logentry_admin:action_type", "Deletion"),
     CHANGE: pgettext_lazy("logentry_admin:action_type", "Change"),
 }
+
+
+# ImporExportModelAdmin has to be the last one to properly set style classes
+class ImportExportModelAdmin(ModelAdminMixin, BaseModelAdmin, ImportExportModelAdmin):
+    list_filter_submit = True
+
+    import_form_class = ImportForm
+    export_form_class = ExportForm
+
+    @staticmethod
+    def build_fieldsets(
+        main_fields, translatable_fields=None, display_log=True, display_actions=False
+    ):
+        fields = [
+            (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
+        ]
+
+        if translatable_fields:
+            other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
+            translation_fields = [
+                f"{field}_{lang}"
+                for field in translatable_fields
+                for lang in other_langs
+            ]
+            fields.append(
+                (
+                    _("Translations"),
+                    {"fields": translation_fields, "classes": ("tab",)},
+                ),
+            )
+
+        if display_actions:
+            fields.append(
+                (
+                    _("Actions"),
+                    {"fields": ("actions_field",)},
+                ),
+            )
+
+        if display_log:
+            fields.append(
+                (
+                    ("Log"),
+                    {
+                        "fields": (
+                            "created_by",
+                            "created_at",
+                            "updated_at",
+                        ),
+                        "classes": ("tab",),
+                    },
+                )
+            )
+
+        return fields
 
 
 class ActionListFilter(admin.SimpleListFilter):
