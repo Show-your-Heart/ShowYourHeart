@@ -173,11 +173,11 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
 
-        campaigs = Campaign.objects.all()
-        for c in campaigs:
+        campaigns = Campaign.objects.all()
+        for c in campaigns:
             c.name = f"{c.name} | {c.year}"
 
-        context["campaigns"] = campaigs
+        context["campaigns"] = campaigns
         context["regions"] = Region3.objects.all()
         context["methods"] = Method.objects.all()
         context["unitanalysis"] = unit_of_analysis
@@ -190,7 +190,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         context["region3_filter"] = self.request.GET.get("region3") or ""
         context["method_filter"] = self.request.GET.get("method") or ""
         context["status_filter"] = self.request.GET.get("status") or ""
-        context["unit_analysis_filter"] = self.request.GET.get("unit-analysis") or ""
+        context["unit_analysis_filter"] = self.request.GET.get("unitanalysis") or ""
 
         context["object_list"] = processed
 
@@ -203,7 +203,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         region3_filter = get_request.get("region3") or ""
         method_filter = get_request.get("method") or ""
         status_filter = get_request.get("status") or ""
-        unit_analysis_filter = get_request.get("unit-analysis") or ""
+        unit_analysis_filter = get_request.get("unitanalysis") or ""
 
         query = Q(
             organization__vat_number__icontains=nif_filter,

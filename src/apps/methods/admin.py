@@ -23,6 +23,10 @@ from .forms import (
     SectionInlineForm,
     get_dynamic_form,
 )
+from .helpers import (
+    get_form_sections,
+    get_survey_stats,
+)
 from .mixins import (
     get_initial_values,
     get_previous_campaign_answers,
@@ -307,6 +311,13 @@ class SurveyAdmin(ModelAdmin):
                 ),
                 name="review_survey_actions",
             ),
+            path(
+                "survey_status_change/<uuid:pk>",
+                self.admin_site.admin_view(
+                    self.survey_status_update,
+                ),
+                name="survey_status_change",
+            ),
         ] + super().get_urls()
         return urls
 
@@ -397,6 +408,43 @@ class SurveyAdmin(ModelAdmin):
                     + '" } }',
                 },
             )
+
+    def survey_status_update(self, request, pk, **kwargs):
+        survey = get_object_or_404(Survey, pk=pk)
+        survey.status = int(request.POST.get("status-selection"))
+
+        current_date = timezone.now()
+        if survey.status == Survey.Status.CLOSED:
+            survey.closed_date = current_date
+        elif survey.status == Survey.Status.TECH_VALIDATED:
+            survey.validated_date = current_date
+        elif survey.status == Survey.Status.QUALITY_CHECKED:
+            survey.evaluated_date = current_date
+
+        survey.save()
+
+        survey.method.sections = get_form_sections(survey.method)
+        stats = get_survey_stats(survey, survey.method, survey.campaign)
+        survey.totalProgress = stats["totalProgress"]
+
+        status = []
+        for s in Survey.Status:
+            status.append({"id": s.value, "name": s.label})
+
+        msg = _("Balance status successfuly updated.")
+        return HttpResponse(
+            render(
+                request,
+                "components/methods/survey_review_row.html",
+                {"survey": survey, "status": status},
+            ),
+            headers={
+                "HX-Trigger": "{ "
+                + '"notification": { "type": "success", "text": "'
+                + msg
+                + '" } }',
+            },
+        )
 
 
 # Add superadmin views with default Unfold templates

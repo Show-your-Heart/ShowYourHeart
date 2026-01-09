@@ -1,0 +1,78 @@
+<tr id="survey-{{ survey.id }}" status={{status}}
+    class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none">
+    <c-table.data class="action-checkbox">
+        <input type="checkbox" name="_selected_action"
+            value="ea3be194-ec2c-470f-ae54-2aeb3217d357"
+            class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 checked:bg-primary-600 checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 action-select"
+            aria-label="Select record">
+    </c-table.data>
+
+    <c-table.data class="field-download">
+        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+            <c-icon name="download" class="text-blue-600"></c-icon>
+        </c-button>
+    </c-table.data>
+    <c-table.data class="field-edit !px-1">
+        <div>
+            <form 
+                hx-get="{% url 'gov_admin:review_survey_actions' survey.id %}"
+                hx-target="#modal-content"
+                hx-disabled-elt="button"
+                class="flex space-x-2 flex-nowrap justify-center"
+            >
+                <c-button 
+                    type="submit"
+                    data-modal-target="edit-survey-modal"
+                    class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                    <c-icon name="edit" class="text-blue-600"></c-icon>
+                </c-button>
+            </form>
+        </div>
+
+    </c-table.data>
+    <c-table.data class="field-info !px-1">
+        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+            <c-icon name="info-circle" class="text-gray-500"></c-icon>
+        </c-button>
+    </c-table.data>
+    <c-table.data class="field-status">   
+        <form 
+            hx-post="{% url 'gov_admin:survey_status_change' survey.id  %}"
+            hx-trigger= "change",
+            hx-target="#survey-{{ survey.id }}"
+            hx-swap="outerHTML"
+        >
+            <c-forms.dropdown  
+                name="status-selection" 
+                :options="status" 
+                :optionSelected="survey.status">
+            </c-forms.dropdown>  
+        </form>
+    </c-table.data>
+    <c-table.data class="field-answers">
+        <div class="flex flex-col gap-0">
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-pink-500 h-2 rounded-full"
+                    style="width:  {{ survey.totalProgress }}%"></div>
+            </div>
+        </div>
+    </c-table.data>
+    <c-table.data class="field-nif">
+        {{survey.organization.vat_number}}
+    </c-table.data>
+    <c-table.data class="field-name">
+        {{survey.organization.name}}
+    </c-table.data>
+    <c-table.data class="field-contact">
+        {{survey.user}}
+    </c-table.data>
+    <c-table.data class="field-external-surveys">
+
+    </c-table.data>
+    <c-table.data class="field-start-date">
+        {{survey.start_date}}
+    </c-table.data>
+    <c-table.data class="field-end-date">
+        {{survey.closed_date}}
+    </c-table.data>
+</tr>
