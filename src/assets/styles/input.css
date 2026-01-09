@@ -31,7 +31,6 @@
     animation: slideInUp 1s ease-out;
 }
 
-
 @keyframes slideOutDown {
     from {
         transform: translateY(0);
@@ -73,4 +72,8 @@ tr.htmx-swapping td {
     100% {
         width: 100%;
     }
+}
+
+div[drawer-backdrop=""] {
+    z-index: 50;
 }

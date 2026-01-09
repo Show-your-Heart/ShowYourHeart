@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from apps.geodata.models import (
@@ -188,6 +189,7 @@ class Command(BaseCommand):
                     city=city,
                     status=1,
                     legal_structure=legal_structure,
+                    resolution_date=timezone.now(),
                 )
                 org.methods.set(methods)
                 organizations.append(org)
@@ -292,6 +294,7 @@ class Command(BaseCommand):
         if not region3_qs.exists():
             region3 = Region3.objects.create(
                 name=self.REGION3_NAME,
+                country=self.create_sample_country(),
             )
         else:
             self.stdout.write(_("Region3 already exists."))

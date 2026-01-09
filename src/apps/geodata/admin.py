@@ -76,12 +76,12 @@ class Region2Admin(ModelAdmin, TranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Region3)
 class Region3Admin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "region1", "region2")
+    list_display = ("name", "country", "region1", "region2")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "region1", "region2"],
+            main_fields=["name_en", "country", "region1", "region2"],
             translatable_fields=["name"],
             display_log=False,
         )

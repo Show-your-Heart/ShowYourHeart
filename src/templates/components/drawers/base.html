@@ -2,7 +2,7 @@
 
 <c-vars target="drawer-base" width="60"></c-vars>
 
-<div {{attrs}} id="{{target}}" tabindex="-1" aria-labelledby="{{target}}" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white {% if width == 'sm' %} w-[40vw] {% else %} w-[60vw] {% endif %} max-w-[900px] rounded-l-lg">
+<div {{attrs}} id="{{target}}" tabindex="-1" aria-labelledby="{{target}}" class="fixed top-0 right-0 z-60 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white {% if width == 'sm' %} w-[40vw] {% else %} w-[60vw] {% endif %} max-w-[900px] rounded-l-lg">
     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200"> 
         <h3 class="text-xl font-semibold text-gray-900">
             {% translate title %}

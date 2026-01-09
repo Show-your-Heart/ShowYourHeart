@@ -9,10 +9,11 @@ from django.urls import path, reverse
 from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
+from import_export import resources
 from modeltranslation.admin import TranslationAdmin
 
 from apps.methods.mixins import save_indicator_results
-from project.admin import ModelAdmin, gov_admin_site
+from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 
 from .forms import (
@@ -70,11 +71,16 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+class IndicatorResource(resources.ModelResource):
+    class Meta:
+        model = Indicator
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Indicator)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Indicator)
-class IndicatorAdmin(ModelAdmin, TranslationAdmin):
+class IndicatorAdmin(ImportExportModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
     search_fields = ["code", "name"]
@@ -97,6 +103,8 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     }
 
     exclude = ("dependant_indicators",)
+
+    resource_classes = [IndicatorResource]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(

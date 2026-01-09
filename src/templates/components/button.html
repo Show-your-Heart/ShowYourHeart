@@ -1,9 +1,10 @@
 <c-vars type="button" variant="filled" />
 
-<button class="w-full max-w-[200px] px-5 py-2.5 rounded-lg text-sm text-center cursor-pointer
-   ring-0 focus:ring-4 focus:outline-none focus:ring-blue-300 flex items-center justify-center
-   {% if variant == 'outlined' %} border border-blue-600 bg-transparent text-blue-600 hover:text-white disabled:opacity-50
-    hover:border-blue-700 hover:bg-blue-700 font-semibold{% else %} font-bold  bg-blue-600 text-white hover:bg-blue-700{% endif %} {{class}} "
+<button class="w-full max-w-[200px] px-5 py-2 rounded-lg text-sm text-center cursor-pointer
+   ring-0 focus:ring-4 focus:outline-none focus:ring-blue-300 border border-blue-600
+   {% if variant == 'outlined' %} bg-transparent text-blue-600 hover:text-white disabled:opacity-50
+    hover:border-blue-700 hover:bg-blue-700 font-semibold {% else %} font-bold  bg-blue-600 text-white hover:bg-blue-700 {% endif %}
+    flex items-center justify-center {{class}} "
   type="{{type}}" {{ attrs }}
 >
   {{slot}}

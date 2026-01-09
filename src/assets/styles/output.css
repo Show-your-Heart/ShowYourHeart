@@ -381,6 +381,9 @@
   .z-50 {
     z-index: 50;
   }
+  .z-60 {
+    z-index: 60;
+  }
   .z-\[99\] {
     z-index: 99;
   }
@@ -584,6 +587,9 @@
   }
   .h-12 {
     height: calc(var(--spacing) * 12);
+  }
+  .h-64 {
+    height: calc(var(--spacing) * 64);
   }
   .h-\[38px\] {
     height: 38px;
@@ -1059,6 +1065,10 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-2 {
+    border-style: var(--tw-border-style);
+    border-width: 2px;
+  }
   .border-e {
     border-inline-end-style: var(--tw-border-style);
     border-inline-end-width: 1px;
@@ -1074,6 +1084,10 @@
   .border-b {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
+  }
+  .border-dashed {
+    --tw-border-style: dashed;
+    border-style: dashed;
   }
   .\!border-blue-600 {
     border-color: var(--color-blue-600) !important;
@@ -1312,6 +1326,9 @@
   .pt-0 {
     padding-top: calc(var(--spacing) * 0);
   }
+  .pt-2\.5 {
+    padding-top: calc(var(--spacing) * 2.5);
+  }
   .pt-3 {
     padding-top: calc(var(--spacing) * 3);
   }
@@ -1335,6 +1352,9 @@
   }
   .pb-4 {
     padding-bottom: calc(var(--spacing) * 4);
+  }
+  .pb-6 {
+    padding-bottom: calc(var(--spacing) * 6);
   }
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
@@ -1509,6 +1529,9 @@
   }
   .text-yellow-700 {
     color: var(--color-yellow-700);
+  }
+  .capitalize {
+    text-transform: capitalize;
   }
   .lowercase {
     text-transform: lowercase;
@@ -2312,6 +2335,11 @@
       display: table-cell;
     }
   }
+  .lg\:table-header-group {
+    @media (width >= 64rem) {
+      display: table-header-group;
+    }
+  }
   .lg\:table-row {
     @media (width >= 64rem) {
       display: table-row;
@@ -2389,6 +2417,11 @@
   .lg\:px-5 {
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 5);
+    }
+  }
+  .lg\:py-3 {
+    @media (width >= 64rem) {
+      padding-block: calc(var(--spacing) * 3);
     }
   }
   .lg\:py-16 {
@@ -2501,6 +2534,14 @@
       }
     }
   }
+  .dark\:bg-white\/\[\.02\] {
+    &:not(*) {
+      background-color: color-mix(in srgb, #fff 2%, transparent);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-white) 2%, transparent);
+      }
+    }
+  }
   .dark\:text-blue-500 {
     &:not(*) {
       color: var(--color-blue-500);
@@ -2595,6 +2636,9 @@ tr.htmx-swapping td {
   100% {
     width: 100%;
   }
+}
+div[drawer-backdrop=""] {
+  z-index: 50;
 }
 @property --tw-translate-x {
   syntax: "*";

@@ -1,0 +1,28 @@
+{% comment %} NOT USED, left in case we need it in the future {% endcomment %}
+{% load i18n %}
+
+<c-vars format="jpg, png..."></c-vars>
+
+<div  x-data="
+  { 
+    fileName: '',
+    updateFileName(name) {
+      this.fileName = name
+    },
+  }"
+>
+  <div x-show="fileName == ''" class="relative flex flex-col items-center justify-center w-full">
+    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 bg-gray-50 border-2 border-dashed border-default-strong rounded-lg cursor-pointer hover:bg-gray-100">
+      <div class="flex flex-col items-center justify-center text-body pt-5 pb-6">
+        <c-icon name="cloud-arrow-up" class="h-8 w-8"></c-icon>
+        <p class="text-sm">{% translate 'Drag and drop or click to browse your files'%}</p>
+        <p class="text-sm mb-4 font-semibold">{% translate 'Allowed formats:' %} {{format}}</p>
+      </div>
+    </label>
+    <input @change="(event) => updateFileName(event.target.files[0].name) " id="dropzone-file" type="file" class="absolute top-0 left-0 w-full h-full opacity-0" />
+  </div>
+  <div x-show="fileName != ''" class="flex space-x-2  items-center justify-start">
+    <c-icon name="file" class="h-8 w-8"></c-icon>
+    <sapn x-text="fileName" class="text-sm"></sapn>
+  </div>
+</div>

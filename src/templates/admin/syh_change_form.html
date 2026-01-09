@@ -13,10 +13,12 @@
     {% endspaceless %}{% endblock %}  {% endcomment %}
 
     
-
     {% block content %}
         {% if has_add_permission %}
-            <c-admin.button-add></c-admin.button-add>
+            <div class="flex justify-end space-x-2 mb-4">
+                <c-admin.button-import-export></c-admin.button-import-export>
+                <c-admin.button-add></c-admin.button-add>
+            </div>
         {% endif %}
 
         <div id="content-main">
