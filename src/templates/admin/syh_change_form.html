@@ -12,16 +12,19 @@
         {% endif %}
     {% endspaceless %}{% endblock %}  {% endcomment %}
 
-    
-    {% block content %}
+    <c-slot name="buttons">
         {% if has_add_permission %}
             <div class="flex justify-end space-x-2 mb-4">
                 <c-admin.button-import-export></c-admin.button-import-export>
                 <c-admin.button-add></c-admin.button-add>
             </div>
         {% endif %}
+    </c-slot>
 
-        <div id="content-main">
+
+    {% block content %}
+
+        <div id="content-main" class="grow">
             {% include "unfold/helpers/popup_header.html" %}
 
             {% block form_before %}{% endblock %}
