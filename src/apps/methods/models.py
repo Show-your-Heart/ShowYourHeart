@@ -208,7 +208,6 @@ class Method(BaseModel):
 
     name = models.CharField(_("name"), max_length=150)
     description = models.CharField(_("description"), max_length=1000)
-    network_owner = models.ForeignKey("settings.network", on_delete=models.PROTECT)
     unit_of_analysis = models.CharField(
         _("unit of analysis"),
         choices=UnitAnalysis.choices,
@@ -239,9 +238,11 @@ class Method(BaseModel):
 
     def __str__(self):
         if self.version:
-            return self.name + "-" + self.version + " | " + self.network_owner.name
+            networks_str = ", ".join([n.name for n in self.networks.all()])
+            return f"{self.name}-{self.version} | {networks_str}"
         else:
-            return self.name + " | " + self.network_owner.name
+            networks_str = ", ".join([n.name for n in self.networks.all()])
+            return f"{self.name} | {networks_str}"
 
 
 class Campaign(BaseModel):

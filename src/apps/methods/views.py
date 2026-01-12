@@ -130,9 +130,9 @@ def import_csv(request, id):
 
 @require_http_methods("GET")
 def load_ext_surveys(request):
-    if network_owner_id := request.GET.get("network_owner"):
+    if network_id := request.GET.get("network"):
         try:
-            methods = get_external_survey_filter(network_owner_id)
+            methods = get_external_survey_filter(network_id)
         except Method.DoesNotExist:
             pass
     else:
