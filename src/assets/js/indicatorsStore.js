@@ -37,7 +37,11 @@ const initIndicatorsStore = () => {
             }
         },
         validate(field) {
-            if (!field.validation || field.notApplicable) {
+            if (field.notApplicable) {
+                Alpine.store("survey").setIndicatorValidation(field.id, true)
+                return true
+            }
+            if (!field.validation && field.value != null && field.value != "") {
                 Alpine.store("survey").setIndicatorValidation(field.id, true)
                 return true
             }
@@ -116,7 +120,6 @@ const initIndicatorsStore = () => {
             const index = this.indicators.findIndex(i => i.code == code)
             if (index != -1) {
                 this.indicators[index].not_applicable = value
-                console.log(this.indicators[index])
                 /*  if (indicators[index].dependant_indicators) {
                      for (code of this.indicators[index].dependant_indicators) {
                          this.updateIndicatorResultNa(code, value)
@@ -126,18 +129,18 @@ const initIndicatorsStore = () => {
         }
     })
 
-    if(document.getElementById('indicators')){
+    if (document.getElementById('indicators')) {
         const indicators = JSON.parse(document.getElementById('indicators').textContent);
         Alpine.store('indicators')["indicators"] = indicators
-    } 
-    if(document.getElementById('indicatorResults')){
+    }
+    if (document.getElementById('indicatorResults')) {
         const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
         Alpine.store('indicators')["indicatorResults"] = indicatorResults
     }
-    
+
 }
 
-if(document.readyState === "complete" && Alpine){
+if (document.readyState === "complete" && Alpine) {
     initIndicatorsStore()
 } else {
     document.addEventListener('alpine:init', initIndicatorsStore)

@@ -4,6 +4,7 @@ const initSurveyStore = () => {
         currentSection: "",
         prevSection: "",
         prevSectionId: "",
+        validatedSections: [],
         initSections(sections) {
             sections.forEach(s =>
                 this.sections.push({
@@ -15,9 +16,8 @@ const initSurveyStore = () => {
             );
             this.sections[0].touched = true
             this.currentSection = this.sections[0].title
-
         },
-        setSection(title) {
+        setSection(title, triggerTab) {
             const index = this.sections.findIndex(s => s.title == title)
             if (index != null && index != -1) {
                 this.currentSection = this.sections[index].title
@@ -28,6 +28,9 @@ const initSurveyStore = () => {
                 } else {
                     this.prevSection = ""
                     this.prevSectionId = ""
+                }
+                if (triggerTab) {
+                    FlowbiteInstances.getAllInstances().Tabs["survey-tabs"].show(`#section-${this.sections[index].id}`)
                 }
             } else {
                 console.log("section doesn't exist", title)
@@ -68,13 +71,41 @@ const initSurveyStore = () => {
                 }
             })
         },
-        onSumbit(e) {
-            if (e.submitter.value === "submit") {
+        getInvalidIndicatos() {
+            let validatedSections = []
+            this.sections.forEach(s => {
+                let invalidIndicators = []
+                s.indicatorsStats.forEach(i => {
+                    if (!i.isValid) {
+                        const indicator = Alpine.store('indicators')['indicators'].find(ind => i.id == ind.id)
+                        if (!!indicator) {
+                            invalidIndicators.push({
+                                code: indicator.code,
+                                name: indicator.name
+                            })
+                        }
+                    }
+                })
+                if (invalidIndicators.length > 0) {
+                    validatedSections.push({
+                        id: s.id,
+                        title: s.title,
+                        invalidIndicators
+                    })
+                }
+            })
+            this.validatedSections = validatedSections
+        },
+        onSubmit(e) {
+            if (e.target.value === "submit") {
                 //check isValid. if not valid, the value remains empty
                 this.sections.forEach(s => {
                     const index = s.indicatorsStats.findIndex(i => i.isValid == false)
                     if (index > -1) {
                         e.preventDefault()
+                        this.getInvalidIndicatos()
+                        const showModalEvent = new Event('show-modal')
+                        window.dispatchEvent(showModalEvent)
                     }
                 })
 
@@ -93,20 +124,21 @@ const initSurveyStore = () => {
 
                 if (emptyMandatoryQuestions.length) {
                     e.preventDefault()
-                    console.log("not mandatory questions empty", emptyMandatoryQuestions)
+                    console.log("Mandatory questions empty", emptyMandatoryQuestions)
                 }
+
 
             }
         },
     })
 
-    if(document.getElementById('sections')){
+    if (document.getElementById('sections')) {
         const sections = JSON.parse(document.getElementById('sections').textContent);
         Alpine.store('survey').initSections(sections)
     }
 }
 
-if(document.readyState === "complete" && Alpine){
+if (document.readyState === "complete" && Alpine) {
     initSurveyStore()
 } else {
     document.addEventListener('alpine:init', initSurveyStore)

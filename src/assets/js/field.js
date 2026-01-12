@@ -66,15 +66,6 @@ const initFieldData = () => {
                 notApplicable: this.notApplicable,
             }
             isValid = Alpine.store('indicators').validate(field)
-            if (isValid && isValid.error == undefined) {
-                this.hasErrors = false
-            } else {
-                this.hasErrors = true
-                if (this.msg)
-                    this.error = this.msg
-                else
-                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
-            }
         },
         loadInitialValue(initialValue, type) {
             let value = ""
@@ -115,16 +106,18 @@ const initFieldData = () => {
                 }
                 isValid = Alpine.store('indicators').validate(field)
                 if (isValid && isValid.error == undefined) {
-                    //console.log('Valido', this.value)
                     this.hasErrors = false
                     Alpine.store('indicators').updateIndicatorResult(this.code, this.value)
                 } else {
                     this.hasErrors = true
                     if (this.msg) {
                         this.error = this.msg
+                    } else if (this.validation == "") {
+                        this.error = "Required field."
                     } else {
                         this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
                     }
+
                 }
             } catch (e) {
                 console.log('Invalido')
@@ -215,7 +208,7 @@ const initFieldData = () => {
     }))
 }
 
-if(document.readyState === "complete" && Alpine){
+if (document.readyState === "complete" && Alpine) {
     initFieldData()
 } else {
     document.addEventListener('alpine:init', initFieldData)

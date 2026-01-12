@@ -714,6 +714,12 @@
   .max-w-\[250px\] {
     max-width: 250px;
   }
+  .max-w-\[300px\] {
+    max-width: 300px;
+  }
+  .max-w-\[400px\] {
+    max-width: 400px;
+  }
   .max-w-\[500px\] {
     max-width: 500px;
   }
@@ -1326,6 +1332,9 @@
   .pt-0 {
     padding-top: calc(var(--spacing) * 0);
   }
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
+  }
   .pt-2\.5 {
     padding-top: calc(var(--spacing) * 2.5);
   }
@@ -1805,6 +1814,11 @@
   .odd\:bg-white {
     &:nth-child(odd) {
       background-color: var(--color-white);
+    }
+  }
+  .even\:bg-gray-100 {
+    &:nth-child(even) {
+      background-color: var(--color-gray-100);
     }
   }
   .checked\:transition-all {
