@@ -89,7 +89,9 @@ class OrganizationAdmin(ModelAdmin):
         # Display only the corresponding methods
         if db_field.name == "methods":
             if hasattr(self, "legal_structure_id"):
+                qs = Method.objects.all()
                 kwargs["queryset"] = filter_methods_by_legal_structure(
+                    qs,
                     self.legal_structure_id
                 )
             else:

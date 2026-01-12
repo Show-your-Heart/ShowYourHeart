@@ -67,16 +67,15 @@ class OrganizationSignUpForm(forms.ModelForm):
         queryset=Region3.objects.all(),
         widget=forms.Select(
             attrs={
-                "hx-get": reverse_lazy("organizations:load_methods"),
-                "hx-target": "#id_methods",
-                "hx-include": "#id_region3, #id_legal_structure",
+                "hx-get": reverse_lazy("organizations:load_city"),
+                "hx-target": "#id_city",
                 "hx-trigger": "change",
                 "autocomplete": "off",
             }
         ),
     )
     city = forms.ModelChoiceField(
-        label=_("City"), queryset=City.objects.none(), required=False
+        label=_("City"), queryset=City.objects.all(), required=False
     )
     address = forms.CharField(
         label=_("Address"),
@@ -90,7 +89,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             attrs={
                 "hx-get": reverse_lazy("organizations:load_methods"),
                 "hx-target": "#id_methods",
-                "hx-include": "#id_region3, #id_legal_structure",
+                "hx-include": "#id_region3",
                 "hx-trigger": "change",
                 "autocomplete": "off",
             }

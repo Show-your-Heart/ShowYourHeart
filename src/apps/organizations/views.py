@@ -44,31 +44,24 @@ class UpdateOrganizationView(UpdateView):
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_methods(request):
+    methods = Method.objects.none()
     legal_structure_id = request.GET.get("legal_structure")
     region3_id = request.GET.get("region3")
 
     if region3_id:
-        try:
-            methods = get_methods_for_region3(region3_id)
-        except Method.DoesNotExist:
-            methods = []
+        methods = get_methods_for_region3(region3_id)
 
     if legal_structure_id:
-        try:
-            methods = filter_methods_by_legal_structure(methods, legal_structure_id)
-        except Method.DoesNotExist:
-            methods = []
+        methods = filter_methods_by_legal_structure(methods, legal_structure_id)
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_region3(request):
+    regions = Region3.objects.none()
     if country_id := request.GET.get("country"):
-        try:
-            regions = Region3.objects.filter(country_id=country_id).order_by("name")
-        except Region3.DoesNotExist:
-            regions = []
+        regions = Region3.objects.filter(country_id=country_id).order_by("name")
 
     return render(
         request,
@@ -80,11 +73,9 @@ def load_region3(request):
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_city(request):
+    cities = City.objects.none()
     if region3_id := request.GET.get("region3"):
-        try:
-            cities = City.objects.filter(region3_id=region3_id).order_by("name")
-        except City.DoesNotExist:
-            cities = []
+        cities = City.objects.filter(region3_id=region3_id).order_by("name")
 
     return render(
         request,

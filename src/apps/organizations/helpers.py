@@ -2,7 +2,7 @@ from apps.methods.models import Method
 
 
 def get_methods_for_region3(region3_id):
-    return Method.objects.filter(network_owner__region3_id=region3_id).exclude(
+    return Method.objects.filter(networks__region3_id=region3_id).exclude(
         unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY
     )
 
