@@ -337,151 +337,145 @@ class GovAdminSite(UnfoldAdminSite):
     index_template = "admin/syh_index.html"
     app_index_template = "admin/syh_app_index_template.html"
 
+    # Permissions: GROUP-BASED ONLY
     def has_permission(self, request):
-        """Allow governance or network admins"""
         user = request.user
-        return user.is_authenticated and (
-            user.is_governance_admin or user.is_network_admin
+        return (
+            user.is_authenticated
+            and user.groups.filter(name__in=["Governance Admins", "Network Admins"]).exists()
         )
 
     def is_app_active(self, app, request):
-        return app and app.get("app_url") in request.path
+        return app.get("app_url", "") in request.path
 
     def is_model_active(self, model, request):
-        return model and model.get("admin_url") in request.path
+        return model.get("admin_url", "") in request.path
 
     def each_context(self, request):
         context = super().each_context(request)
-        apps_dict = available_apps_to_dict(context["available_apps"])
-        request_path = request.get_full_path()
-        relative_path = request_path.split("?")[0].split("/")[-1]
+
+        available_apps = context.get("available_apps")
+
+        if not available_apps or not isinstance(available_apps, (list, tuple)):
+            context["main_menu"] = []
+            return context
+
+        apps_dict = available_apps_to_dict(available_apps)
+
+        if not isinstance(apps_dict, dict):
+            context["main_menu"] = []
+            return context
+
+        request_path = request.get_full_path().split("?")[0]
+        relative_path = request_path.rstrip("/").split("/")[-1]
 
         main_menu = []
 
-        if apps_dict:
-            # ORGANIZATIONS
-            org_models = apps_dict.get("Organizations", {}).get("models_dict", {})
-            org_items = []
-            for key in ["Organization", "Project"]:
-                model_info = org_models.get(key)
-                if model_info:
-                    org_items.append(
-                        {
-                            "name": model_info["name"],
-                            "url": model_info["admin_url"],
-                            "is_active": self.is_model_active(model_info, request),
-                        }
-                    )
+        # ENTITIES
+        if "Organizations" in apps_dict:
+            org_app = apps_dict["Organizations"]
+            models = org_app.get("models_dict", {})
 
-            main_menu.append(
-                {
+            items = []
+            if "Organization" in models:
+                items.append({
+                    "name": models["Organization"]["name"],
+                    "url": models["Organization"]["admin_url"],
+                    "is_active": self.is_model_active(models["Organization"], request),
+                })
+
+            if "Project" in models:
+                items.append({
+                    "name": models["Project"]["name"],
+                    "url": models["Project"]["admin_url"],
+                    "is_active": self.is_model_active(models["Project"], request),
+                })
+
+            if items:
+                main_menu.append({
                     "app_name": "organizations",
                     "name": _("Entities"),
                     "icon": "group",
-                    "url": apps_dict.get("Organizations", {}).get("app_url"),
-                    "is_active": self.is_app_active(
-                        apps_dict.get("Organizations"), request
-                    )
-                    and relative_path
-                    not in ["registration-requests", "review-balances"],
-                    "app": apps_dict.get("Organizations"),
-                    "items": org_items,
-                }
-            )
+                    "url": org_app["app_url"],
+                    "is_active": self.is_app_active(org_app, request),
+                    "items": items,
+                })
 
-            # METHODS
-            methods_models = apps_dict.get("Methods", {}).get("models_dict", {})
-            methods_items = []
-            for model_key in methods_models:
-                model_info = methods_models[model_key]
-                if model_info:
-                    methods_items.append(
-                        {
-                            "name": model_info["name"],
-                            "url": model_info["admin_url"],
-                            "is_active": self.is_model_active(model_info, request),
-                        }
-                    )
+        # METHODS
+        if "Methods" in apps_dict:
+            methods_app = apps_dict["Methods"]
+            models = methods_app.get("models_dict", {})
 
-            main_menu.append(
-                {
+            items = []
+            for model_name in [
+                "Campaign",
+                "Method",
+                "ExternalSurveyInvitation",
+                "Indicator",
+                "List",
+                "ListItem",
+                "Topic",
+            ]:
+                if model_name in models:
+                    items.append({
+                        "name": models[model_name]["name"],
+                        "url": models[model_name]["admin_url"],
+                        "is_active": self.is_model_active(models[model_name], request),
+                    })
+
+            if items:
+                main_menu.append({
                     "app_name": "methods",
                     "name": _("Methods management"),
                     "icon": "adjustments-horizontal",
-                    "url": apps_dict.get("Methods", {}).get("app_url"),
-                    "is_active": self.is_app_active(apps_dict.get("Methods"), request)
-                    and relative_path
-                    not in ["registration-requests", "review-balances"],
-                    "app": apps_dict.get("Methods"),
-                    "items": methods_items,
-                }
-            )
+                    "url": methods_app["app_url"],
+                    "is_active": self.is_app_active(methods_app, request),
+                    "items": items,
+                })
 
-            # FEATURES
-            main_menu.append(
+        # FEATURES
+        main_menu.append({
+            "name": _("Features"),
+            "icon": "clipboard-list",
+            "is_active": relative_path in ["registration-requests", "review-balances"],
+            "items": [
                 {
-                    "name": "Features",
-                    "icon": "clipboard-list",
-                    "is_active": relative_path
-                    in ["registration-requests", "review-balances"],
-                    "items": [
-                        {
-                            "name": _("Registration Requests"),
-                            "url": reverse_lazy("gov_admin:registration_requests"),
-                            "is_active": "registration-requests" in request_path,
-                        },
-                        {
-                            "name": _("Review Balances"),
-                            "url": reverse_lazy("gov_admin:review_balances"),
-                            "is_active": "review-balances" in request_path,
-                        },
-                        {"name": _("Documents")},
-                    ],
-                }
-            )
-
-            # SETTINGS
-            settings_models = apps_dict.get("Settings", {}).get("models_dict", {})
-            users_models = apps_dict.get("Users", {}).get("models_dict", {})
-            post_office_models = apps_dict.get("Post Office", {}).get("models_dict", {})
-
-            settings_items = []
-            for model_info in {
-                **post_office_models,
-                **users_models,
-                **settings_models,
-            }.items():
-                if model_info:
-                    settings_items.append(
-                        {
-                            "name": model_info["name"],
-                            "url": model_info["admin_url"],
-                            "is_active": self.is_model_active(model_info, request),
-                        }
-                    )
-
-            main_menu.append(
+                    "name": _("Registration Requests"),
+                    "url": reverse_lazy("gov_admin:registration_requests"),
+                    "is_active": "registration-requests" in request_path,
+                },
                 {
-                    "name": "Settings",
+                    "name": _("Review Balances"),
+                    "url": reverse_lazy("gov_admin:review_balances"),
+                    "is_active": "review-balances" in request_path,
+                },
+            ],
+        })
+
+        # SETTINGS
+        if "Settings" in apps_dict:
+            settings_app = apps_dict["Settings"]
+            models = settings_app.get("models_dict", {})
+
+            items = []
+            for model_name in ["Network", "LegalStructure"]:
+                if model_name in models:
+                    items.append({
+                        "name": models[model_name]["name"],
+                        "url": models[model_name]["admin_url"],
+                        "is_active": self.is_model_active(models[model_name], request),
+                    })
+
+            if items:
+                main_menu.append({
+                    "name": _("Settings"),
                     "icon": "cog",
-                    "url": apps_dict.get("Settings", {}).get("app_url"),
-                    "is_active": any(
-                        [
-                            self.is_app_active(apps_dict.get("Settings"), request),
-                            self.is_app_active(apps_dict.get("Users"), request),
-                            self.is_app_active(apps_dict.get("Geodata"), request),
-                            self.is_app_active(apps_dict.get("Post Office"), request),
-                        ]
-                    ),
-                    "app": apps_dict.get("Settings"),
-                    "items": settings_items,
-                }
-            )
+                    "url": settings_app["app_url"],
+                    "is_active": self.is_app_active(settings_app, request),
+                    "items": items,
+                })
 
-            # AUXILIARY
-            main_menu.append({"name": "Auxiliary data", "icon": "book", "items": []})
-
-        context.update({"main_menu": main_menu})
+        context["main_menu"] = main_menu
         return context
 
     def index(self, request, extra_context=None):
