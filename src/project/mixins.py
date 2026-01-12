@@ -27,4 +27,3 @@ class NetworkFilterMixin:
         if hasattr(request.user, "network") and request.user.network:
             return qs.filter(networks=request.user.network)
         return qs.none()
-

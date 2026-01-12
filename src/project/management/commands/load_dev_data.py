@@ -250,7 +250,7 @@ class Command(BaseCommand):
                 )
                 method.indicators.set(indicators)
                 method.legal_structures.set([legal_structures])
-                method.networks.set([network]),
+                (method.networks.set([network]),)
             else:
                 method = method_qs.first()
                 self.stdout.write(_(f"{method_name} already exists."))
