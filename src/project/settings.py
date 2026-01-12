@@ -479,7 +479,12 @@ GROUPS = {
             "'Is staff', 'Is active' and 'Groups'."
         ),
     },
-    "network_admin": {"name": "Network Admins"},
+    "network_admin": {
+        "name": "Network Admins",
+        "description": _(
+            "Access to: all basic models read-only mode."
+        ),
+    },
 }
 
 ################################################################################
