@@ -81,7 +81,7 @@ class IndicatorResource(resources.ModelResource):
 @register_with_default_templates(admin.site, model=Indicator)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Indicator)
-class IndicatorAdmin(ImportExportModelAdmin, TranslationAdmin):
+class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
     search_fields = ["code", "name"]
@@ -248,7 +248,7 @@ class ListItemAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=Campaign)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Campaign)
-class CampaignAdmin(ModelAdmin):
+class CampaignAdmin(NetworkFilterMixin, ModelAdmin):
     list_display = (
         "year",
         "name",

@@ -14,6 +14,7 @@ from apps.users.services import (
 )
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
+from project.mixins import NetworkFilterMixin
 
 from .forms import OrganizationAdminForm
 from .helpers import filter_methods_by_legal_structure
@@ -25,7 +26,7 @@ from .views import RegistrationRequestView
 @register_with_default_templates(admin.site, model=Organization)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Organization)
-class OrganizationAdmin(ModelAdmin):
+class OrganizationAdmin(NetworkFilterMixin, ModelAdmin):
     form = OrganizationAdminForm
     list_display = ("name", "status", "resolution_date")
     filter_horizontal = ("methods",)
