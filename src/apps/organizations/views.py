@@ -135,16 +135,23 @@ class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        organizations = Organization.objects.all().exclude(
+            status=Organization.Status.ACCEPTED
+        )
         if "q" in self.request.GET:
             query_filter = self.request.GET["q"]
-            context["organizations"] = Organization.objects.filter(
-                name__contains=query_filter
-            ).exclude(status=Organization.Status.ACCEPTED)
-            context["query_filter"] = self.request.GET["q"]
-        else:
-            context["organizations"] = Organization.objects.all().exclude(
-                status=Organization.Status.ACCEPTED
-            )
+            organizations = organizations.filter(name__contains=query_filter)
+            context["query_filter"] = query_filter
+
+        if self.request.user.groups.filter(name="Network Admins").exists():
+            user_network = getattr(self.request.user, "network", None)
+            if user_network:
+                organizations = organizations.filter(region3=user_network.region3)
+            else:
+                organizations = organizations.none()
+
+        context["organizations"] = organizations
         return context
 
 
