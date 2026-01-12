@@ -22,15 +22,15 @@ class Network(BaseModel):
     parent_network = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.RESTRICT
     )
-    campaigns = models.ManyToManyField(Campaign, related_name="network_campaigns")
-    methods = models.ManyToManyField(Method, related_name="network_methods")
-    indicators = models.ManyToManyField(Indicator, related_name="network_indicators")
+    campaigns = models.ManyToManyField(Campaign, related_name="networks")
+    methods = models.ManyToManyField(Method, related_name="networks")
+    indicators = models.ManyToManyField(Indicator, related_name="networks")
     region3 = models.ForeignKey(
         Region3,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="network_region3",
+        related_name="networks",
     )
 
     class Meta:
