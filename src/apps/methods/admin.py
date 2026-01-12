@@ -356,6 +356,20 @@ class SurveyAdmin(ModelAdmin):
             except Method.DoesNotExist:
                 indicators = list([])
 
+            if request.GET.get("action") == "edit":
+                # Display edit modal event
+                headers = {
+                    "HX-Trigger": '{ "show-modal": { "id": "edit-survey-modal", '
+                    + '"titleDetails": " - '
+                    + survey.organization.vat_number
+                    + " "
+                    + survey.organization.name
+                    + '" } }',
+                }
+
+            elif request.GET.get("action") == "info":
+                headers = {}
+
             return HttpResponse(
                 render(
                     request,
@@ -369,15 +383,12 @@ class SurveyAdmin(ModelAdmin):
                         "sections_data": get_sections_data(sections),
                         "indicators": indicators,
                         "survey_id": survey.id,
+                        "validate_survey": True
+                        if request.GET.get("action") == "info"
+                        else False,
                     },
                 ),
-                headers={
-                    "HX-Trigger": '{ "show-modal": {"titleDetails": " - '
-                    + survey.organization.vat_number
-                    + " "
-                    + survey.organization.name
-                    + '" } }',
-                },
+                headers=headers,
             )
 
         elif request.method == "POST":

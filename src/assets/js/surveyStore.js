@@ -96,38 +96,26 @@ const initSurveyStore = () => {
             })
             this.validatedSections = validatedSections
         },
+        validateSurvey() {
+            //check isValid. if not valid, the value remains empty
+            this.sections.forEach(s => {
+                const index = s.indicatorsStats.findIndex(i => i.isValid == false)
+                if (index > -1) {
+                    this.getInvalidIndicatos()
+                    let showModalEvent = new Event('show-modal')
+                    showModalEvent.detail = { 'id': 'survey-errors-modal' }
+                    window.dispatchEvent(showModalEvent)
+                    return false
+                } else {
+                    return true
+                }
+            })
+        },
         onSubmit(e) {
             if (e.target.value === "submit") {
-                //check isValid. if not valid, the value remains empty
-                this.sections.forEach(s => {
-                    const index = s.indicatorsStats.findIndex(i => i.isValid == false)
-                    if (index > -1) {
-                        e.preventDefault()
-                        this.getInvalidIndicatos()
-                        const showModalEvent = new Event('show-modal')
-                        window.dispatchEvent(showModalEvent)
-                    }
-                })
-
-                const methodIndicators = Alpine.store('indicators')["indicators"]
-                const mandatoryIndicators = methodIndicators.filter(i => i.mandatory && !i.not_applicable)
-                let emptyMandatoryQuestions = []
-                mandatoryIndicators.forEach(mi => {
-                    // Works for object values (gendered questions) and arrays (multi answer questions)
-                    if (mi.value != null && typeof (mi.value) == 'object') {
-                        const isEmpty = Object.values(mi.value).every(x => x === null || x === '');
-                        if (isEmpty) {
-                            emptyMandatoryQuestions.push(mi)
-                        }
-                    }
-                })
-
-                if (emptyMandatoryQuestions.length) {
+                if (!this.validateSurvey()) {
                     e.preventDefault()
-                    console.log("Mandatory questions empty", emptyMandatoryQuestions)
                 }
-
-
             }
         },
     })

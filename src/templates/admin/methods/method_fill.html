@@ -10,7 +10,6 @@
 
   // Initialize all dynamically loaded components: https://stackoverflow.com/questions/76051980/flowbite-component-not-working-when-loaded-via-htmx-django-project
   htmx.onLoad(function(content) {
-    // initFlowbite();
     initTabs()
   })
 
@@ -23,10 +22,12 @@
   var indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
   Alpine.store('indicators')["indicatorResults"] = indicatorResults
 
+  {% if validate_survey %}
+    setTimeout(() => Alpine.store('survey').validateSurvey(), 100)
+  {% endif %}
 </script>
 
 <div class="grid grid-cols-12 gap-4 w-full">
-
   <div class="col-span-3">
     <div class="pl-4 py-4">
       <ul
@@ -104,7 +105,7 @@
           type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>
-        <c-button type="submit" name="action" value="submit">
+        <c-button type="submit" name="action" value="submit" data-modal-target="survey-errors-modal" @click="$store.survey.onSubmit($event)">
           {% translate 'Submit' %}
         </c-button>
       </div>

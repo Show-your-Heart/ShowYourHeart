@@ -8,7 +8,7 @@
     </c-table.data>
 
     <c-table.data class="field-download">
-        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent border-none">
             <c-icon name="download" class="text-blue-600"></c-icon>
         </c-button>
     </c-table.data>
@@ -20,10 +20,12 @@
                 hx-disabled-elt="button"
                 class="flex space-x-2 flex-nowrap justify-center"
             >
-                <c-button 
+                <c-button
+                    name="action"
+                    value="edit"
                     type="submit"
                     data-modal-target="edit-survey-modal"
-                    class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
+                    class="!p-0 bg-transparent flex justify-center hover:!bg-transparent border-none">
                     <c-icon name="edit" class="text-blue-600"></c-icon>
                 </c-button>
             </form>
@@ -31,9 +33,24 @@
 
     </c-table.data>
     <c-table.data class="field-info !px-1">
-        <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent">
-            <c-icon name="info-circle" class="text-gray-500"></c-icon>
-        </c-button>
+        <div>
+            <form 
+                hx-get="{% url 'gov_admin:review_survey_actions' survey.id %}"
+                hx-target="#modal-content"
+                hx-disabled-elt="button"
+                class="flex space-x-2 flex-nowrap justify-center"
+            >
+                <c-button 
+                    name="action"
+                    value="info"
+                    type="submit"
+                    data-modal-target="edit-survey-modal"
+                    class="!p-0 bg-transparent flex justify-center hover:!bg-transparent border-none"
+                >
+                    <c-icon name="info-circle" class="text-blue-600"></c-icon>
+                </c-button>
+            </form>
+        </div>
     </c-table.data>
     <c-table.data class="field-status">   
         <form 
