@@ -22,7 +22,9 @@ class AnonymousRequiredMixin(AccessMixin):
 class NetworkFilterMixin:
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.groups.filter(
+            name="Governance Admins"
+        ):
             return qs
         if hasattr(request.user, "network") and request.user.network:
             return qs.filter(networks=request.user.network)
