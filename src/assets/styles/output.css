@@ -491,9 +491,6 @@
   .-mr-2 {
     margin-right: calc(var(--spacing) * -2);
   }
-  .mr-3 {
-    margin-right: calc(var(--spacing) * 3);
-  }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
   }
@@ -1337,6 +1334,9 @@
   }
   .py-\[40px\] {
     padding-block: 40px;
+  }
+  .ps-4 {
+    padding-inline-start: calc(var(--spacing) * 4);
   }
   .pe-4 {
     padding-inline-end: calc(var(--spacing) * 4);
