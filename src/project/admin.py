@@ -337,15 +337,22 @@ class GovAdminSite(UnfoldAdminSite):
     index_template = "admin/syh_index.html"
     app_index_template = "admin/syh_app_index_template.html"
 
-    # Permissions: GROUP-BASED ONLY
     def has_permission(self, request):
         user = request.user
-        return (
-            user.is_authenticated
-            and user.groups.filter(
-                name__in=["Governance Admins", "Network Admins"]
-            ).exists()
-        )
+
+        if not user.is_authenticated:
+            return False
+
+        if user.is_superuser:
+            return True
+
+        # Group-based access
+        return user.groups.filter(
+            name__in=[
+                "Governance Admins",
+                "Network Admins",
+            ]
+        ).exists()
 
     def is_app_active(self, app, request):
         return app.get("app_url", "") in request.path
