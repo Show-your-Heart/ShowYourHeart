@@ -127,7 +127,7 @@ const initFieldData = () => {
             }
         },
         updateValue(input, current, type, subtype = "") {
-            if (!current) return ""
+            // if (!current) return ""
             let value = ""
             if (this.isMultiAnswer(type)) {
                 //input is setted on the call to update from the x-effect of the component
@@ -153,6 +153,7 @@ const initFieldData = () => {
         updateNotApplicable(event) {
             this.notApplicable = event
             Alpine.store('indicators').updateIndicatorResultNa(this.code, this.notApplicable)
+            this.update("")
         },
         isGendered(type) {
             switch (type) {
