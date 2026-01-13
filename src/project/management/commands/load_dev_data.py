@@ -81,10 +81,8 @@ class Command(BaseCommand):
         network = Network.objects.filter(name=network_name)
 
         if not network.exists():
-            network_admin = User.objects.get(email=settings.SUPERUSER_EMAIL)
             network = Network.objects.create(
                 name=network_name,
-                network_admin=network_admin,
             )
         else:
             self.stdout.write(_("Network test already exists."))
@@ -249,10 +247,10 @@ class Command(BaseCommand):
                 method = Method.objects.create(
                     name=method_name,
                     description=f"Method description {x}",
-                    network_owner=network,
                 )
                 method.indicators.set(indicators)
                 method.legal_structures.set([legal_structures])
+                (method.networks.set([network]),)
             else:
                 method = method_qs.first()
                 self.stdout.write(_(f"{method_name} already exists."))
@@ -280,6 +278,8 @@ class Command(BaseCommand):
         if not city_qs.exists():
             city = City.objects.create(
                 name=self.CITY_NAME,
+                country=self.create_sample_country(),
+                region3=self.create_sample_region3(),
             )
         else:
             self.stdout.write(_("City already exists."))

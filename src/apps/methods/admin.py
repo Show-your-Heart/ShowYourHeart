@@ -15,6 +15,7 @@ from modeltranslation.admin import TranslationAdmin
 from apps.methods.mixins import save_indicator_results
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
+from project.mixins import NetworkFilterMixin
 
 from .forms import (
     IndicatorForm,
@@ -80,7 +81,7 @@ class IndicatorResource(resources.ModelResource):
 @register_with_default_templates(admin.site, model=Indicator)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Indicator)
-class IndicatorAdmin(ImportExportModelAdmin, TranslationAdmin):
+class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
     search_fields = ["code", "name"]
@@ -159,8 +160,8 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
 @register_with_default_templates(admin.site, model=Method)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Method)
-class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
-    autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
+class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["sectors", "legal_structures", "networks"]
     search_fields = ["name"]
     filter_horizontal = ("indicators",)
     form = MethodForm
@@ -169,7 +170,6 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
     list_display = (
         "name",
         "description",
-        "network_owner",
         "unit_of_analysis",
         "version",
     )
@@ -178,19 +178,13 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
         "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
     }
 
-    def get_form(self, request, obj=None, **kwargs):
-        # Add network_owner property to use it on formfield_for_manytomany
-        if obj:
-            self.network_owner = obj.network_owner
-        return super().get_form(request, obj, **kwargs)
-
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         # External surveys field must only display
         # methods for the same network and set as external survey
         if db_field.name == "external_surveys":
-            if hasattr(self, "network_owner"):
+            if hasattr(self, "networks"):
                 kwargs["queryset"] = Method.objects.filter(
-                    network_owner=self.network_owner,
+                    networks=self.networks,
                     unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
                 )
             else:
@@ -203,7 +197,6 @@ class MethodAdmin(SortableAdminBase, ModelAdmin, TranslationAdmin):
                 "name_en",
                 "description_en",
                 "version",
-                "network_owner",
                 "unit_of_analysis",
                 "indicators",
                 "legal_structures",
@@ -255,7 +248,7 @@ class ListItemAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=Campaign)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Campaign)
-class CampaignAdmin(ModelAdmin):
+class CampaignAdmin(NetworkFilterMixin, ModelAdmin):
     list_display = (
         "year",
         "name",
@@ -286,7 +279,7 @@ class CampaignAdmin(ModelAdmin):
 @gov_admin_register(gov_admin_site, model=Survey)
 class SurveyAdmin(ModelAdmin):
     list_display = ("method", "campaign", "user", "status")
-    search_fields = ["method__name", "method__network_owner__name"]
+    search_fields = ["method__name"]
 
     def has_add_permission(self, request, obj=None):
         return request.user.is_superuser

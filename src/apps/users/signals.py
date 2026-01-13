@@ -28,8 +28,8 @@ def update_user_groups(sender, **kwargs):
     but it also helps to have a full list of available permissions.
     """
 
-    # Administrators
-    permissions = {
+    # Governance Admins (full access)
+    permissions_gov = {
         "post_office": get_permission_codenames("email", "v")
         + get_permission_codenames("log", "v")
         + get_permission_codenames("emailtemplate", "v,c"),
@@ -57,7 +57,20 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("region3", "vacd")
         + get_permission_codenames("zip_code", "vacd"),
     }
-    create_group(settings.GROUPS["admins"]["name"], permissions)
+    create_group(settings.GROUPS["admins"]["name"], permissions_gov)
+
+    # Network Admins (mostly read-only)
+    permissions_network = {
+        "organizations": get_permission_codenames("organization", "v")
+        + get_permission_codenames("project", "v"),
+        "methods": get_permission_codenames("method", "v")
+        + get_permission_codenames("campaign", "v")
+        + get_permission_codenames("indicator", "v")
+        + get_permission_codenames("externalsurveyinvitation", "v"),
+        "settings": get_permission_codenames("network", "v"),
+        "users": get_permission_codenames("user", "v"),
+    }
+    create_group(settings.GROUPS["network_admin"]["name"], permissions_network)
 
     # Superusers
     """

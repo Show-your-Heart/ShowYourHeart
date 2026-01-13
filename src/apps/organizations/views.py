@@ -17,7 +17,7 @@ from apps.organizations.forms import (
     ProjectCreationForm,
 )
 
-from .helpers import get_organization_method_filter
+from .helpers import filter_methods_by_legal_structure, get_methods_for_region3
 from .models import Organization, Project
 
 
@@ -44,24 +44,24 @@ class UpdateOrganizationView(UpdateView):
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_methods(request):
-    if legal_structure_id := request.GET.get("legal_structure"):
-        try:
-            methods = get_organization_method_filter(legal_structure_id)
-        except Method.DoesNotExist:
-            methods = []
-    else:
-        methods = []
+    methods = Method.objects.none()
+    legal_structure_id = request.GET.get("legal_structure")
+    region3_id = request.GET.get("region3")
+
+    if region3_id:
+        methods = get_methods_for_region3(region3_id)
+
+    if legal_structure_id:
+        methods = filter_methods_by_legal_structure(methods, legal_structure_id)
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_region3(request):
+    regions = Region3.objects.none()
     if country_id := request.GET.get("country"):
-        try:
-            regions = Region3.objects.filter(country_id=country_id).order_by("name")
-        except Region3.DoesNotExist:
-            regions = []
+        regions = Region3.objects.filter(country_id=country_id).order_by("name")
 
     return render(
         request,
@@ -73,11 +73,9 @@ def load_region3(request):
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
 def load_city(request):
+    cities = City.objects.none()
     if region3_id := request.GET.get("region3"):
-        try:
-            cities = City.objects.filter(region3_id=region3_id).order_by("name")
-        except City.DoesNotExist:
-            cities = []
+        cities = City.objects.filter(region3_id=region3_id).order_by("name")
 
     return render(
         request,
@@ -137,16 +135,23 @@ class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        organizations = Organization.objects.all().exclude(
+            status=Organization.Status.ACCEPTED
+        )
         if "q" in self.request.GET:
             query_filter = self.request.GET["q"]
-            context["organizations"] = Organization.objects.filter(
-                name__contains=query_filter
-            ).exclude(status=Organization.Status.ACCEPTED)
-            context["query_filter"] = self.request.GET["q"]
-        else:
-            context["organizations"] = Organization.objects.all().exclude(
-                status=Organization.Status.ACCEPTED
-            )
+            organizations = organizations.filter(name__contains=query_filter)
+            context["query_filter"] = query_filter
+
+        if self.request.user.groups.filter(name="Network Admins").exists():
+            user_network = getattr(self.request.user, "network", None)
+            if user_network:
+                organizations = organizations.filter(region3=user_network.region3)
+            else:
+                organizations = organizations.none()
+
+        context["organizations"] = organizations
         return context
 
 

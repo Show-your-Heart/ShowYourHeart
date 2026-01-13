@@ -24,7 +24,7 @@ class MethodForm(forms.ModelForm):
             "hx-target": "#id_external_surveys",
         }
         widgets = {
-            "network_owner": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+            "networks": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
 
     def clean_pdf_file(self):

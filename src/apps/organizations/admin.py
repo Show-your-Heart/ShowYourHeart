@@ -14,9 +14,10 @@ from apps.users.services import (
 )
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
+from project.mixins import NetworkFilterMixin
 
 from .forms import OrganizationAdminForm
-from .helpers import get_organization_method_filter
+from .helpers import filter_methods_by_legal_structure
 from .models import Organization, Project
 from .views import RegistrationRequestView
 
@@ -25,7 +26,7 @@ from .views import RegistrationRequestView
 @register_with_default_templates(admin.site, model=Organization)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Organization)
-class OrganizationAdmin(ModelAdmin):
+class OrganizationAdmin(NetworkFilterMixin, ModelAdmin):
     form = OrganizationAdminForm
     list_display = ("name", "status", "resolution_date")
     filter_horizontal = ("methods",)
@@ -89,8 +90,9 @@ class OrganizationAdmin(ModelAdmin):
         # Display only the corresponding methods
         if db_field.name == "methods":
             if hasattr(self, "legal_structure_id"):
-                kwargs["queryset"] = get_organization_method_filter(
-                    self.legal_structure_id
+                qs = Method.objects.all()
+                kwargs["queryset"] = filter_methods_by_legal_structure(
+                    qs, self.legal_structure_id
                 )
             else:
                 kwargs["queryset"] = Method.objects.none()

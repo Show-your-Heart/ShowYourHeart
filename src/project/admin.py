@@ -337,254 +337,170 @@ class GovAdminSite(UnfoldAdminSite):
     index_template = "admin/syh_index.html"
     app_index_template = "admin/syh_app_index_template.html"
 
+    # Permissions: GROUP-BASED ONLY
+    def has_permission(self, request):
+        user = request.user
+        return (
+            user.is_authenticated
+            and user.groups.filter(
+                name__in=["Governance Admins", "Network Admins"]
+            ).exists()
+        )
+
     def is_app_active(self, app, request):
-        return True if app["app_url"] in request.path else False
+        return app.get("app_url", "") in request.path
 
     def is_model_active(self, model, request):
-        return True if model["admin_url"] in request.path else False
+        return model.get("admin_url", "") in request.path
 
     def each_context(self, request):
         context = super().each_context(request)
 
-        apps_dict = available_apps_to_dict(context["available_apps"])
-        request_path = request.get_full_path()
-        request_path_array = request_path.split("?")[0].split("/")
-        relative_path = request_path_array[len(request_path_array) - 1]
+        available_apps = context.get("available_apps")
+
+        if not available_apps or not isinstance(available_apps, (list, tuple)):
+            context["main_menu"] = []
+            return context
+
+        apps_dict = available_apps_to_dict(available_apps)
+
+        if not isinstance(apps_dict, dict):
+            context["main_menu"] = []
+            return context
+
+        request_path = request.get_full_path().split("?")[0]
+        relative_path = request_path.rstrip("/").split("/")[-1]
 
         main_menu = []
-        if apps_dict:
-            main_menu = [
-                {
-                    "app_name": "organizations",
-                    "name": _("Entities"),
-                    "icon": "group",
-                    "url": apps_dict["Organizations"]["app_url"],
-                    "is_active": self.is_app_active(apps_dict["Organizations"], request)
-                    and (
-                        relative_path
-                        not in ["registration-requests", "review-balances"]
-                    ),
-                    "app": apps_dict["Organizations"],
-                    "items": [
-                        {
-                            "name": _(
-                                apps_dict["Organizations"]["models_dict"][
-                                    "Organization"
-                                ]["name"]
-                            ),
-                            "url": apps_dict["Organizations"]["models_dict"][
-                                "Organization"
-                            ]["admin_url"],
-                            "is_active": self.is_model_active(
-                                apps_dict["Organizations"]["models_dict"][
-                                    "Organization"
-                                ],
-                                request,
-                            ),
-                        },
-                        {
-                            "name": _(
-                                apps_dict["Organizations"]["models_dict"]["Project"][
-                                    "name"
-                                ]
-                            ),
-                            "url": apps_dict["Organizations"]["models_dict"]["Project"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Organizations"]["models_dict"]["Project"],
-                                request,
-                            ),
-                        },
-                    ],
-                },
-                {
-                    "app_name": "methods",
-                    "name": _("Methods management"),
-                    "icon": "adjustments-horizontal",
-                    "url": apps_dict["Methods"]["app_url"],
-                    "is_active": self.is_app_active(apps_dict["Methods"], request)
-                    and (
-                        relative_path
-                        not in ["registration-requests", "review-balances"]
-                    ),
-                    "app": apps_dict["Methods"],
-                    "items": [
-                        {
-                            "name": apps_dict["Methods"]["models_dict"]["Campaign"][
-                                "name"
-                            ],
-                            "url": apps_dict["Methods"]["models_dict"]["Campaign"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Campaign"], request
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Methods"]["models_dict"]["Method"][
-                                "name"
-                            ],
-                            "url": apps_dict["Methods"]["models_dict"]["Method"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Method"], request
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Methods"]["models_dict"][
-                                "ExternalSurveyInvitation"
-                            ]["name"],
-                            "url": apps_dict["Methods"]["models_dict"][
-                                "ExternalSurveyInvitation"
-                            ]["admin_url"],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"][
-                                    "ExternalSurveyInvitation"
-                                ],
-                                request,
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Methods"]["models_dict"]["Indicator"][
-                                "name"
-                            ],
-                            "url": apps_dict["Methods"]["models_dict"]["Indicator"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Indicator"],
-                                request,
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Methods"]["models_dict"]["List"]["name"],
-                            "url": apps_dict["Methods"]["models_dict"]["List"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["List"], request
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Methods"]["models_dict"]["ListItem"][
-                                "name"
-                            ],
-                            "url": apps_dict["Methods"]["models_dict"]["ListItem"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["ListItem"],
-                                request,
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Methods"]["models_dict"]["Topic"][
-                                "name"
-                            ],
-                            "url": apps_dict["Methods"]["models_dict"]["Topic"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Methods"]["models_dict"]["Topic"], request
-                            ),
-                        },
-                    ],
-                },
-                {
-                    "name": "Features",
-                    "icon": "clipboard-list",
-                    "is_active": relative_path
-                    in ["registration-requests", "review-balances"],
-                    "items": [
-                        {
-                            "name": _("Registration Requests"),
-                            "url": reverse_lazy("gov_admin:registration_requests"),
-                            "is_active": ("registration-requests" in request_path),
-                        },
-                        {
-                            "name": _("Review Balances"),
-                            "url": reverse_lazy("gov_admin:review_balances"),
-                            "is_active": ("review-balances" in request_path),
-                        },
-                        {"name": _("Documents")},
-                    ],
-                },
-                {
-                    "name": "Settings",
-                    "icon": "cog",
-                    "url": apps_dict["Settings"]["app_url"],
-                    "is_active": self.is_app_active(apps_dict["Settings"], request)
-                    or self.is_app_active(apps_dict["Users"], request)
-                    or self.is_app_active(apps_dict["Geodata"], request)
-                    or self.is_app_active(apps_dict["Post Office"], request),
-                    "app": apps_dict["Settings"],
-                    "items": [
-                        {
-                            "name": apps_dict["Post Office"]["models_dict"][
-                                "EmailTemplate"
-                            ]["name"],
-                            "url": apps_dict["Post Office"]["models_dict"][
-                                "EmailTemplate"
-                            ]["admin_url"],
-                            "is_active": self.is_model_active(
-                                apps_dict["Post Office"]["models_dict"][
-                                    "EmailTemplate"
-                                ],
-                                request,
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Users"]["models_dict"]["User"]["name"],
-                            "url": apps_dict["Users"]["models_dict"]["User"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Users"]["models_dict"]["User"], request
-                            ),
-                        },
-                        {
-                            "name": _("Location data"),
-                            "url": apps_dict["Geodata"]["app_url"],
-                            "is_active": self.is_app_active(
-                                apps_dict["Geodata"], request
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Settings"]["models_dict"]["Network"][
-                                "name"
-                            ],
-                            "url": apps_dict["Settings"]["models_dict"]["Network"][
-                                "admin_url"
-                            ],
-                            "is_active": self.is_model_active(
-                                apps_dict["Settings"]["models_dict"]["Network"],
-                                request,
-                            ),
-                        },
-                        {
-                            "name": apps_dict["Settings"]["models_dict"][
-                                "LegalStructure"
-                            ]["name"],
-                            "url": apps_dict["Settings"]["models_dict"][
-                                "LegalStructure"
-                            ]["admin_url"],
-                            "is_active": self.is_model_active(
-                                apps_dict["Settings"]["models_dict"]["LegalStructure"],
-                                request,
-                            ),
-                        },
-                    ],
-                },
-                {"name": "Auxiliary data", "icon": "book", "items": []},
-            ]
 
-        context.update(
+        # ENTITIES
+        if "Organizations" in apps_dict:
+            org_app = apps_dict["Organizations"]
+            models = org_app.get("models_dict", {})
+
+            items = []
+            if "Organization" in models:
+                items.append(
+                    {
+                        "name": models["Organization"]["name"],
+                        "url": models["Organization"]["admin_url"],
+                        "is_active": self.is_model_active(
+                            models["Organization"], request
+                        ),
+                    }
+                )
+
+            if "Project" in models:
+                items.append(
+                    {
+                        "name": models["Project"]["name"],
+                        "url": models["Project"]["admin_url"],
+                        "is_active": self.is_model_active(models["Project"], request),
+                    }
+                )
+
+            if items:
+                main_menu.append(
+                    {
+                        "app_name": "organizations",
+                        "name": _("Entities"),
+                        "icon": "group",
+                        "url": org_app["app_url"],
+                        "is_active": self.is_app_active(org_app, request),
+                        "items": items,
+                    }
+                )
+
+        # METHODS
+        if "Methods" in apps_dict:
+            methods_app = apps_dict["Methods"]
+            models = methods_app.get("models_dict", {})
+
+            items = []
+            for model_name in [
+                "Campaign",
+                "Method",
+                "ExternalSurveyInvitation",
+                "Indicator",
+                "List",
+                "ListItem",
+                "Topic",
+            ]:
+                if model_name in models:
+                    items.append(
+                        {
+                            "name": models[model_name]["name"],
+                            "url": models[model_name]["admin_url"],
+                            "is_active": self.is_model_active(
+                                models[model_name], request
+                            ),
+                        }
+                    )
+
+            if items:
+                main_menu.append(
+                    {
+                        "app_name": "methods",
+                        "name": _("Methods management"),
+                        "icon": "adjustments-horizontal",
+                        "url": methods_app["app_url"],
+                        "is_active": self.is_app_active(methods_app, request),
+                        "items": items,
+                    }
+                )
+
+        # FEATURES
+        main_menu.append(
             {
-                "main_menu": main_menu,
+                "name": _("Features"),
+                "icon": "clipboard-list",
+                "is_active": relative_path
+                in ["registration-requests", "review-balances"],
+                "items": [
+                    {
+                        "name": _("Registration Requests"),
+                        "url": reverse_lazy("gov_admin:registration_requests"),
+                        "is_active": "registration-requests" in request_path,
+                    },
+                    {
+                        "name": _("Review Balances"),
+                        "url": reverse_lazy("gov_admin:review_balances"),
+                        "is_active": "review-balances" in request_path,
+                    },
+                ],
             }
         )
+
+        # SETTINGS
+        if "Settings" in apps_dict:
+            settings_app = apps_dict["Settings"]
+            models = settings_app.get("models_dict", {})
+
+            items = []
+            for model_name in ["Network", "LegalStructure"]:
+                if model_name in models:
+                    items.append(
+                        {
+                            "name": models[model_name]["name"],
+                            "url": models[model_name]["admin_url"],
+                            "is_active": self.is_model_active(
+                                models[model_name], request
+                            ),
+                        }
+                    )
+
+            if items:
+                main_menu.append(
+                    {
+                        "name": _("Settings"),
+                        "icon": "cog",
+                        "url": settings_app["app_url"],
+                        "is_active": self.is_app_active(settings_app, request),
+                        "items": items,
+                    }
+                )
+
+        context["main_menu"] = main_menu
         return context
 
     def index(self, request, extra_context=None):
@@ -592,13 +508,14 @@ class GovAdminSite(UnfoldAdminSite):
         extra_context["pending_registrations_requests"] = Organization.objects.filter(
             status=Organization.Status.PENDING
         ).count()
-        return super(GovAdminSite, self).index(request, extra_context)
+        return super().index(request, extra_context)
 
 
+# Instantiate the admin site
 gov_admin_site = GovAdminSite(name="gov_admin")
 
 
-# Register post office in gov admin UI
+# Register post office models
 @gov_admin_register(gov_admin_site, model=EmailTemplate)
 class EmailTemplateAdmin(EmailTemplateAdmin):
     pass

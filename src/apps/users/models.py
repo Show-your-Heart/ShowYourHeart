@@ -93,6 +93,12 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     email_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    network = models.ForeignKey(
+        "settings.Network",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
 
     objects = UserManager()
 
