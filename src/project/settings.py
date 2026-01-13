@@ -471,7 +471,7 @@ ACTIVE_LINK_STRICT = True
 # For the same reason, names cannot be multilingual.
 GROUPS = {
     "admins": {
-        "name": "Governance admins",
+        "name": "Governance Admins",
         "description": _(
             "Access to: configuration and customization "
             "settings, the log of emails sent by the system, email "
