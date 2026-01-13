@@ -74,8 +74,7 @@ class NetworkAdmin(ModelAdmin):
 
     @admin.display(description=_("Actions"))
     def actions_field(self, obj):
-        if not obj:
-            # if not obj or not obj.network_admin: TODO get if network admin from user
+        if not obj or not self.request.user.groups.filter(name="Network Admins"):
             return "-"
         confirmed_verification_msg = _(
             "Are you sure you want to send an email to the user to notify he has been "
