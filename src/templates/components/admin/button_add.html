@@ -7,7 +7,7 @@
 
 {% if add_url %}
 <a href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink" title="{{ title }}">
-    <c-button>
+    <c-button class="max-w-[400px]">
         <c-icon name="circle-plus" class="text-white"></c-icon>
         <span class="ms-2 text-white font-bold">
             {% blocktrans with name=opts.verbose_name %}Add new {{ name }}{% endblocktrans %}

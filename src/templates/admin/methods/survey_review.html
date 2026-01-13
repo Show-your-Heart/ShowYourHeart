@@ -130,8 +130,8 @@
 
     <c-modals.base-modal 
         x-data="{ titleDetails: '' }" id="edit-survey-modal" 
-        @show-modal.window="FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].show(); titleDetails = $event.detail.titleDetails;" 
-        @hide-modal.window="FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].hide()"
+        @show-modal.window="if($event.detail.id == 'edit-survey-modal'){ FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].show(); titleDetails = $event.detail.titleDetails; }" 
+        @hide-modal.window="$event.detail.id == 'edit-survey-modal' ? FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].hide() : null"
         height="98vh"
     >
         <c-slot name="title">
@@ -139,5 +139,37 @@
             <span class="font-bold"> {% trans "Edit balance" %}</span>
             <span x-text="titleDetails"></span>
         </c-slot>
+    </c-modals.base-modal>
+
+    {% comment %} Add hidden button to trigger Flowbite init {% endcomment %}
+    <button class="hidden" data-modal-target="survey-errors-modal"></button>
+    <c-modals.base-modal 
+        x-data="{ titleDetails: '{{method.name}}' }" id="survey-errors-modal" 
+        @show-modal.window="$event.detail.id == 'survey-errors-modal' ? FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].show() : null" 
+        @hide-modal.window="$event.detail.id == 'survey-errors-modal' ? FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide() : null"
+        height="70vh" width="900px"
+    >
+        <c-slot name="title">
+            <c-icon name="info-circle"></c-icon>
+            <span class="font-bold"> {% trans "Balance errors" %}</span>
+            <span x-text="' | ' + titleDetails"></span>
+        </c-slot>
+
+        <template x-for="section in $store.survey.validatedSections" :key="section.id">
+            <div>
+                <h3 class="font-bold text-md mb-4" x-text="section.title"></h3>
+                <ul class="rounded-lg  border border-gray-200 shadow-sm">
+                <template x-for="invalidIndicator in section.invalidIndicators">
+                    <li class="flex space-x-2 even:bg-gray-100 odd:bg-white">
+                    <div class="p-4" x-text="invalidIndicator.code"></div>
+                    <div class="p-4 grow" x-text="invalidIndicator.name"></div>
+                    <div class="p-4">
+                        <c-icon name="close" class="text-red-600"></c-icon>
+                    </div>
+                    </li>
+                </template>
+                </ul>
+            </div>
+        </template>
     </c-modals.base-modal>
 </c-admin.default-layout>

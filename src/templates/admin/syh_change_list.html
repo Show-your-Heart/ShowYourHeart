@@ -2,18 +2,21 @@
 
 <c-admin.default-layout>
 
-    <div id="content-main" x-data="{ filterOpen: false }">
-        {% if cl.formset and cl.formset.errors %}
-            {% include "unfold/helpers/messages/errornote.html" with errors=cl.formset.errors %}
-
-            {{ cl.formset.non_form_errors }}
-        {% endif %}
-
+    <c-slot name="buttons">
         {% if has_add_permission %}
             <div class="flex justify-end space-x-2 mb-4">
                 <c-admin.button-import-export></c-admin.button-import-export>
                 <c-admin.button-add></c-admin.button-add>
             </div>
+        {% endif %}
+    </c-slot>
+
+
+    <div id="content-main" x-data="{ filterOpen: false }">
+        {% if cl.formset and cl.formset.errors %}
+            {% include "unfold/helpers/messages/errornote.html" with errors=cl.formset.errors %}
+
+            {{ cl.formset.non_form_errors }}
         {% endif %}
         
         <div class="flex -mx-4 module{% if cl.has_filters %} filtered{% endif %}" id="changelist" x-data="{ changeListWidth: 0 }">

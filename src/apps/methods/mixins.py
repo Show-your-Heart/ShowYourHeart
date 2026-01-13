@@ -271,13 +271,18 @@ def get_sections(current_method, form_instance):
 def get_sections_data(context_sections):
     sections_data = []
     for section in context_sections:
+        indicators_ids = [i["id"] for i in list(section.indicators.all().values())]
+
+        for subsection in context_sections[section]["subsections"]:
+            for _, fields in subsection.items():
+                indicators_ids.extend([field["indicator"].id for field in fields])
+
         sections_data.append(
             {
                 "id": section.id,
                 "title": section.title,
-                "indicators_ids": [
-                    i["id"] for i in list(section.indicators.all().values())
-                ],
+                "indicators_ids": indicators_ids,
             }
         )
+
     return sections_data

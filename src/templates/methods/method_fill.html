@@ -110,11 +110,43 @@
           type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>
-        <c-button type="submit" name="action" value="submit">
+        <c-button name="action" value="submit" type="submit" data-modal-target="survey-errors-modal" @click="$store.survey.onSubmit($event)">
           {% translate 'Submit' %}
         </c-button>
       </div>
       {% endif %}
     </form>
+
+    <c-modals.base-modal 
+        x-data="{ titleDetails: '{{method.name}}' }" id="survey-errors-modal" 
+        @show-modal.window="FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].show()" 
+        @hide-modal.window="FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide()"
+        height="98vh"
+    >
+        <c-slot name="title">
+            <c-icon name="info-circle"></c-icon>
+            <span class="font-bold"> {% trans "Balance errors" %}</span>
+            <span x-text="' | ' + titleDetails"></span>
+        </c-slot>
+
+        <template x-for="section in $store.survey.validatedSections">
+          <div>
+            <h3 class="font-bold text-md mb-4" x-text="section.title"></h3>
+            <ul class="rounded-lg  border border-gray-200 shadow-sm">
+              <template x-for="invalidIndicator in section.invalidIndicators">
+                <li class="flex space-x-2 even:bg-gray-100 odd:bg-white cursor-pointer"
+                  @click="FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide(); $store.survey.setSection(section.title, true)"
+                >
+                  <div class="p-4" x-text="invalidIndicator.code"></div>
+                  <div class="p-4 grow" x-text="invalidIndicator.name"></div>
+                  <div class="p-4">
+                    <c-icon name="close" class="text-red-600"></c-icon>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+    </c-modals.base-modal>
   </div>
 </c-default-layout>
