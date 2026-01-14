@@ -49,7 +49,7 @@ ROOT_URLCONF = "project.urls"
 WSGI_APPLICATION = "project.wsgi.application"
 
 # https://docs.djangoproject.com/en/5.1/ref/settings/#data-upload-max-number-fields
-DATA_UPLOAD_MAX_NUMBER_FIELDS=None
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 ################################################################################
 #                Internationalization and localization                         #
