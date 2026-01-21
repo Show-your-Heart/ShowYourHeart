@@ -14,12 +14,7 @@ app_name = "methods"
 urlpatterns = [
     # Methods
     path(
-        _("fill/<campaign_id>/<id>"),
-        MethodFillView.as_view(),
-        name="method_fill",
-    ),
-    path(
-        _("fill/<id>"),
+        _("fill/<uuid:campaign_id>/<uuid:method_id>/"),
         MethodFillView.as_view(),
         name="method_fill",
     ),
@@ -33,7 +28,7 @@ urlpatterns = [
     path(_("import-csv/<id>"), import_csv, name="import_csv"),
     path(_("load_ext_surveys/"), load_ext_surveys, name="load_ext_surveys"),
     path(
-        _("<uuid:id>/fill/<uuid:project_id>/"),
+        _("fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"),
         MethodFillView.as_view(),
         name="method_fill_project",
     ),

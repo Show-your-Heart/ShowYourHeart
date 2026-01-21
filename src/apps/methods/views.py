@@ -28,21 +28,14 @@ class MethodFillView(MethodFillMixin, TemplateView):
     template_name = "methods/method_fill.html"
 
     def get_context_data(self, **kwargs):
-        method = Method.objects.get(pk=self.kwargs["id"])
-
-        if "campaign_id" in self.kwargs:
-            self.kwargs["campaign"] = self.kwargs["campaign_id"]
-
+        method = Method.objects.get(pk=self.kwargs["method_id"])
+        kwargs["campaign_id"] = self.kwargs["campaign_id"]
         kwargs["method"] = method
         return super().get_context_data(**kwargs)
 
-    def post(self, request, id, **kwargs):
-        method_id = id
+    def post(self, request, method_id, campaign_id, **kwargs):
         project_id = self.kwargs.get("project_id")
-
-        return super().post(
-            request, method_id, self.kwargs.get("campaign_id"), project_id
-        )
+        return super().post(request, method_id, campaign_id, project_id)
 
 
 @method_decorator(login_not_required, name="dispatch")
