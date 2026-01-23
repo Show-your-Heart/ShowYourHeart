@@ -106,7 +106,7 @@ def create_project_action(request, organization_id):
         return HttpResponse(
             "",
             headers={
-                "HX-Redirect": f"/methods/{request.POST['method_id']}/fill/{project.id}",  # noqa: E501
+                "HX-Redirect": f"/methods/fill/{request.POST['campaign_id']}/{request.POST['method_id']}/{project.id}",  # noqa: E501
             },
         )
     else:

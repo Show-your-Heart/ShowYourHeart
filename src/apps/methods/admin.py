@@ -178,6 +178,8 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
         "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
     }
 
+    change_form_template = "admin/methods/method/change_form.html"
+
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         # External surveys field must only display
         # methods for the same network and set as external survey
@@ -205,6 +207,16 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
                 "external_surveys",
             ],
             translatable_fields=["name", "description"],
+        )
+
+    def changeform_view(self, request, object_id=None, form_url="", extra_context=None):
+        extra_context = extra_context or {}
+        method = self.get_object(request, object_id)
+        campaign = method.campaign_methods.all().order_by("created_at").last()
+        extra_context["campaign_id"] = campaign.id if campaign else None
+
+        return super().changeform_view(
+            request, object_id, form_url, extra_context=extra_context
         )
 
 
