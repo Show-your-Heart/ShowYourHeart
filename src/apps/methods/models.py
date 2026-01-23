@@ -1,6 +1,10 @@
 import uuid
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import (
+    MultipleObjectsReturned,
+    ObjectDoesNotExist,
+    ValidationError,
+)
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -176,10 +180,19 @@ class Indicator(BaseModel):
             for code in deps_to_add:
                 # avoid circular dependencies
                 if self.dependant_indicators and code in self.dependant_indicators:
-                    # TODO: throw error, circular dep
-                    print("Circular dependencies")
+                    raise ValidationError({_("Circular dependencies")})
                     continue
-                indicator = Indicator.objects.filter(code=code)
+                try:
+                    indicator = Indicator.objects.get(code=code)
+                except ObjectDoesNotExist:
+                    raise ValidationError(
+                        {_(f"Indicator with code {code} does not exist")}
+                    ) from ObjectDoesNotExist
+                except MultipleObjectsReturned:
+                    raise ValidationError(
+                        {_(f"There are multiple indicators with code {code}")}
+                    ) from MultipleObjectsReturned
+
                 if indicator:
                     if indicator.dependant_indicators:
                         indicator.dependant_indicators.append(self.code)
@@ -189,7 +202,17 @@ class Indicator(BaseModel):
                         indicator.save()
 
             for code in deps_to_remove:
-                indicator = Indicator.objects.filter(code=code)
+                try:
+                    indicator = Indicator.objects.get(code=code)
+                except ObjectDoesNotExist:
+                    raise ValidationError(
+                        {_(f"Indicator with code {code} does not exist")}
+                    ) from ObjectDoesNotExist
+                except MultipleObjectsReturned:
+                    raise ValidationError(
+                        {_(f"There are multiple indicators with code {code}")}
+                    ) from MultipleObjectsReturned
+
                 if indicator:
                     if self.code in indicator.dependant_indicators:
                         indicator.dependant_indicators.remove(self.code)
