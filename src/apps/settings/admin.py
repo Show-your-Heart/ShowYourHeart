@@ -43,7 +43,6 @@ class NetworkAdmin(ModelAdmin):
                     "campaigns",
                     "methods",
                     "indicators",
-                    "region3",
                 )
             },
         ),
