@@ -161,7 +161,7 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Method)
 class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, TranslationAdmin):
-    autocomplete_fields = ["sectors", "legal_structures", "networks"]
+    autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
     filter_horizontal = ("indicators",)
     form = MethodForm
@@ -203,6 +203,7 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
                 "indicators",
                 "legal_structures",
                 "sectors",
+                "region1",
                 "documentation",
                 "external_surveys",
             ],

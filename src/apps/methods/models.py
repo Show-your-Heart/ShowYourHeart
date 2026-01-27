@@ -258,6 +258,12 @@ class Method(BaseModel):
     )
     documentation = models.FileField(upload_to="documentation/", null=True, blank=True)
     version = models.CharField(_("Version"), max_length=400, blank=True)
+    region1 = models.ManyToManyField(
+        "geodata.region1",
+        verbose_name=_("Region1"),
+        related_name="region1",
+        blank=True,
+    )
 
     def __str__(self):
         if self.version:
