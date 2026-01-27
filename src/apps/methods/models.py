@@ -114,7 +114,7 @@ class Indicator(BaseModel):
     )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
-    validation = models.CharField(_("validation"), max_length=50, blank=True)
+    validation = models.CharField(_("validation"), max_length=400, blank=True)
     dependant_indicators = models.JSONField(
         "dependant_indicators", blank=True, null=True
     )
