@@ -31,8 +31,8 @@ class Organization(BaseModel):
     country = models.ForeignKey(
         "geodata.country", on_delete=models.CASCADE, blank=True, null=True
     )
-    region3 = models.ForeignKey(
-        "geodata.region3", on_delete=models.CASCADE, blank=True, null=True
+    region1 = models.ForeignKey(
+        "geodata.region1", on_delete=models.CASCADE, blank=True, null=True
     )
     city = models.ForeignKey(
         "geodata.city", on_delete=models.CASCADE, blank=True, null=True
@@ -137,8 +137,8 @@ class Project(BaseModel):
     city = models.ForeignKey(
         "geodata.city", on_delete=models.CASCADE, blank=True, null=True
     )
-    region3 = models.ForeignKey(
-        "geodata.region3", on_delete=models.CASCADE, blank=True, null=True
+    region1 = models.ForeignKey(
+        "geodata.region1", on_delete=models.CASCADE, blank=True, null=True
     )
     main_action_scope = models.CharField(
         _("main scope of action"),
@@ -187,4 +187,4 @@ class Project(BaseModel):
         super().save(*args, **kwargs)
         self.vat_number = self.organization.vat_number
         self.city = self.organization.city
-        self.region3 = self.organization.region3
+        self.region1 = self.organization.region1

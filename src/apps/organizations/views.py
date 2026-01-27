@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from unfold.views import UnfoldModelAdminViewMixin
 
-from apps.geodata.models import City, Region3
+from apps.geodata.models import City, Region1
 from apps.methods.models import Method
 from apps.organizations.forms import (
     OrganizationSignUpForm,
@@ -17,7 +17,7 @@ from apps.organizations.forms import (
     ProjectCreationForm,
 )
 
-from .helpers import filter_methods_by_legal_structure, get_methods_for_region3
+from .helpers import filter_methods_by_legal_structure, get_methods_for_region1
 from .models import Organization, Project
 
 
@@ -46,10 +46,10 @@ class UpdateOrganizationView(UpdateView):
 def load_methods(request):
     methods = Method.objects.none()
     legal_structure_id = request.GET.get("legal_structure")
-    region3_id = request.GET.get("region3")
+    region1_id = request.GET.get("region1")
 
-    if region3_id:
-        methods = get_methods_for_region3(region3_id)
+    if region1_id:
+        methods = get_methods_for_region1(region1_id)
 
     if legal_structure_id:
         methods = filter_methods_by_legal_structure(methods, legal_structure_id)
@@ -58,14 +58,14 @@ def load_methods(request):
 
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")
-def load_region3(request):
-    regions = Region3.objects.none()
+def load_region1(request):
+    regions = Region1.objects.none()
     if country_id := request.GET.get("country"):
-        regions = Region3.objects.filter(country_id=country_id).order_by("name")
+        regions = Region1.objects.filter(country_id=country_id).order_by("name")
 
     return render(
         request,
-        "organizations/region3_options.html",
+        "organizations/region1_options.html",
         {"regions": regions},
     )
 
@@ -74,8 +74,8 @@ def load_region3(request):
 @require_http_methods("GET")
 def load_city(request):
     cities = City.objects.none()
-    if region3_id := request.GET.get("region3"):
-        cities = City.objects.filter(region3_id=region3_id).order_by("name")
+    if region1_id := request.GET.get("region1"):
+        cities = City.objects.filter(region1_id=region1_id).order_by("name")
 
     return render(
         request,
@@ -147,7 +147,7 @@ class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
         if self.request.user.groups.filter(name="Network Admins").exists():
             user_network = getattr(self.request.user, "network", None)
             if user_network:
-                organizations = organizations.filter(region3=user_network.region3)
+                organizations = organizations.filter(region1=user_network.region1)
             else:
                 organizations = organizations.none()
 
