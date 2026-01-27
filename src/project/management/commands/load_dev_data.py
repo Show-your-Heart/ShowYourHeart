@@ -11,7 +11,7 @@ from django.utils.translation import gettext as _
 from apps.geodata.models import (
     City,
     Country,
-    Region3,
+    Region1,
 )
 from apps.methods.models import Campaign, Indicator, Method, Topic
 from apps.organizations.models import Organization
@@ -30,7 +30,7 @@ class Command(BaseCommand):
     ORGANIZATION_NAMES = ["Organization TEST", "Organization TEST2"]
     LEGAL_STRUCTURE_NAME = "LegalStructure test"
     COUNTRY_NAME = "Spain"
-    REGION3_NAME = "Galicia"
+    REGION1_NAME = "Galicia"
     CITY_NAME = "Pontevedra"
 
     def handle(self, *args, **options):
@@ -42,16 +42,16 @@ class Command(BaseCommand):
 
         legal_structure = self.create_legal_structure()
         country = self.create_sample_country()
-        region3 = self.create_sample_region3()
+        region1 = self.create_sample_region1()
         city = self.create_sample_city()
         network = self.create_sample_network()
         topics = self.create_sample_topics()
         indicators = self.create_sample_indicators(topics)
         methods = self.create_sample_methods(legal_structure, indicators, network)
         self.create_sample_campaign(methods)
-        self.create_sample_users(legal_structure, country, region3, city, methods)
+        self.create_sample_users(legal_structure, country, region1, city, methods)
 
-    def create_sample_users(self, legal_structure, country, region3, city, methods):
+    def create_sample_users(self, legal_structure, country, region1, city, methods):
         self.stdout.write(_("Creating sample users..."))
 
         # Superuser
@@ -70,7 +70,7 @@ class Command(BaseCommand):
             self.stdout.write(_("Superuser already exists."))
 
         self.create_users_with_organization(
-            legal_structure, country, region3, city, methods
+            legal_structure, country, region1, city, methods
         )
 
         return 0
@@ -109,7 +109,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def create_users_with_organization(
-        self, legal_structure, country, region3, city, methods
+        self, legal_structure, country, region1, city, methods
     ):
         # Governance admin
         email = settings.USER_GOV_ADMIN_EMAIL
@@ -133,7 +133,7 @@ class Command(BaseCommand):
             )
 
             organizations = self.create_sample_organizations(
-                user, legal_structure, country, region3, city, methods
+                user, legal_structure, country, region1, city, methods
             )
 
             user.user_profile = UserProfile.objects.create(
@@ -170,7 +170,7 @@ class Command(BaseCommand):
             self.stdout.write(_("User already exists."))
 
     def create_sample_organizations(
-        self, user, legal_structure, country, region3, city, methods
+        self, user, legal_structure, country, region1, city, methods
     ):
         organizations = []
         self.stdout.write(_("Creating sample organizations..."))
@@ -183,7 +183,7 @@ class Command(BaseCommand):
                         random.choices(string.ascii_uppercase + string.digits, k=10)
                     ),
                     country=country,
-                    region3=region3,
+                    region1=region1,
                     city=city,
                     status=1,
                     legal_structure=legal_structure,
@@ -279,7 +279,7 @@ class Command(BaseCommand):
             city = City.objects.create(
                 name=self.CITY_NAME,
                 country=self.create_sample_country(),
-                region3=self.create_sample_region3(),
+                region1=self.create_sample_region1(),
             )
         else:
             self.stdout.write(_("City already exists."))
@@ -287,19 +287,19 @@ class Command(BaseCommand):
 
         return city
 
-    def create_sample_region3(self):
-        self.stdout.write(_("Creating sample Region3..."))
-        region3_qs = Region3.objects.filter(name=self.REGION3_NAME)
+    def create_sample_region1(self):
+        self.stdout.write(_("Creating sample Region1..."))
+        region1_qs = Region1.objects.filter(name=self.REGION1_NAME)
 
-        if not region3_qs.exists():
-            region3 = Region3.objects.create(
-                name=self.REGION3_NAME,
+        if not region1_qs.exists():
+            region1 = Region1.objects.create(
+                name=self.REGION1_NAME,
                 country=self.create_sample_country(),
             )
         else:
-            self.stdout.write(_("Region3 already exists."))
-            region3 = region3_qs.first()
-        return region3
+            self.stdout.write(_("Region1 already exists."))
+            region1 = region1_qs.first()
+        return region1
 
     def create_sample_campaign(self, methods):
         self.stdout.write(_("Creating sample Campaign..."))
