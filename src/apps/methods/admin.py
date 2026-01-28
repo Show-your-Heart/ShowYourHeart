@@ -213,7 +213,9 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
     def changeform_view(self, request, object_id=None, form_url="", extra_context=None):
         extra_context = extra_context or {}
         method = self.get_object(request, object_id)
-        campaign = method.campaign_methods.all().order_by("created_at").last()
+        campaign = None
+        if method is not None:
+            campaign = method.campaign_methods.order_by("created_at").last()
         extra_context["campaign_id"] = campaign.id if campaign else None
 
         return super().changeform_view(
