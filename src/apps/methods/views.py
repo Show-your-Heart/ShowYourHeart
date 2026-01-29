@@ -13,6 +13,7 @@ from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.geodata.models import Region1
 from apps.methods.mixins import MethodFillMixin
+from project.mixins import NetworkFilterMixin
 
 from .helpers import (
     ParseExternalInvitations,
@@ -133,16 +134,19 @@ def load_ext_surveys(request):
     return render(request, "organizations/methods_options.html", {"methods": methods})
 
 
-class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
+class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin):
     title = "Balance review"
     permission_required = ()
     template_name = "admin/methods/survey_review.html"
     paginate_by = 20
+    organization_field = "organization"
 
     def get_queryset(self):
         all_surveys = Survey.objects.filter(
             self.get_survey_query(self.request.GET)
         ).order_by("-start_date")
+
+        all_surveys = self.filter_queryset_by_network(self.request, all_surveys)
 
         return all_surveys
 

@@ -151,7 +151,7 @@ class OrganizationAdmin(NetworkFilterMixin, ModelAdmin):
 @register_with_default_templates(admin.site, model=Project)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Project)
-class ProjectAdmin(ModelAdmin):
+class ProjectAdmin(NetworkFilterMixin, ModelAdmin):
     list_display = (
         "name",
         "organization",
@@ -159,6 +159,7 @@ class ProjectAdmin(ModelAdmin):
     filter_horizontal = ("methods",)
     autocomplete_fields = ["region1", "city"]
     search_fields = ["name", "organization"]
+    organization_field = "organization"
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
