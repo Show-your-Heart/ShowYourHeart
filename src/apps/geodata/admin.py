@@ -28,12 +28,12 @@ class Region1Admin(ModelAdmin, TranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=City)
 class CityAdmin(ModelAdmin, TranslationAdmin):
-    list_display = ("name", "region2", "region3", "country")
+    list_display = ("name", "region1", "region2", "region3", "country")
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en", "region2", "region3", "country"],
+            main_fields=["name_en", "region1", "region2", "region3", "country"],
             translatable_fields=["name"],
             display_log=False,
         )
