@@ -7,7 +7,6 @@
         <!-- Responsive wrapper -->
         <div class="w-full overflow-x-auto rounded-xl shadow">
             <table class="w-full text-left border-collapse">
-                
                 <!-- Pink header -->
                 <thead class="bg-pink-600">
                     <tr>
@@ -15,9 +14,9 @@
                             <p class="flex justify-center items-center">{% translate "Campaigns" %}</p>
                         </th>
 
-                        {% for survey in surveys %}
+                        {% for method in methods %}
                         <th class="px-4 py-3 font-semibold whitespace-nowrap text-white">
-                            <p class="flex justify-center items-center">{{ survey.method.name }}</p>
+                            <p class="flex justify-center items-center">{{ method.method__name }}</p>
                         </th>
                         {% endfor %}
 
@@ -31,24 +30,30 @@
                 </thead>
 
                 <tbody>
-                    {% for campaign in campaigns %}
+                    {% for row in table_rows %}
                     <tr class="{% cycle 'bg-white' 'bg-gray-50' %} hover:bg-gray-100 transition">
                         <td class="px-4 py-3 font-medium">
-                            <p class="flex justify-center items-center">{{ campaign.name }}</p>
+                            <p class="flex justify-center items-center">{{ row.campaign.name }}</p>
                         </td>
 
-                    {% for survey in surveys %}
-                        {% if survey.campaign.id == campaign.id %}
+                    {% for survey in row.cells %}
                         <td class="px-4 py-3 text-gray-700">
-                            <a href="https://bi-show-your-heart.coopdevs.org/apidata/export-answers?campaign={{ survey.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
-                                <c-icon name="download" class="text-blue-600"></c-icon>
-                            </a>
-                        </td>
+                        {% if survey %}
+                            {% if survey.evaluated_date %}
+                                <a href="https://bi-show-your-heart.coopdevs.org/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
+                                    <c-icon name="download" class="text-blue-600"></c-icon>
+                                </a>
+                            {% else %}
+                                <p class="flex justify-center items-center">-</p>
+                            {% endif %}
+                        {% else %}
+                            <p class="flex justify-center items-center">-</p>
                         {% endif %}
+                        </td>
                     {% endfor %}
 
                         <td class="px-4 py-3">
-                            <a href="https://bi-show-your-heart.coopdevs.org/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ campaign.id }}" target="_blank" class="flex items-center justify-center">
+                            <a href="https://bi-show-your-heart.coopdevs.org/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}" target="_blank" class="flex items-center justify-center">
                                 <c-icon name="pdf" class="text-blue-600"></c-icon>
                             </a>
                         </td>

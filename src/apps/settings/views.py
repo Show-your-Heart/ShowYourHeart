@@ -43,13 +43,35 @@ class DocumentsView(TemplateView):
         surveys = Survey.objects.filter(organization=organization).select_related(
             "campaign", "method"
         )
-        context["surveys"] = surveys
+
+        methods = (
+            surveys.values("method__id", "method__name")
+            .distinct()
+            .order_by("method__name")
+        )
+        context["methods"] = methods
 
         campaigns = Campaign.objects.filter(
             survey__organization=organization
         ).distinct()
-        context["campaigns"] = campaigns
 
+        table_rows = []
+        for campaign in campaigns:
+            row = {"campaign": campaign, "cells": []}
+            for method in methods:
+                survey = next(
+                    (
+                        s
+                        for s in surveys
+                        if s.campaign_id == campaign.id
+                        and s.method_id == method["method__id"]
+                    ),
+                    None,
+                )
+                row["cells"].append(survey)
+            table_rows.append(row)
+
+        context["table_rows"] = table_rows
         return context
 
 
