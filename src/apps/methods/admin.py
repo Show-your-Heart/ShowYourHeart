@@ -247,14 +247,11 @@ class ListAdmin(ModelAdmin, TranslationAdmin):
 class ListItemAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["title"]
 
-    list_display = (
-        "title",
-        "active",
-    )
+    list_display = ("title",)
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["title_en", "formula", "value", "active"],
+            main_fields=["title_en", "formula", "value"],
             translatable_fields=["title"],
         )
 
