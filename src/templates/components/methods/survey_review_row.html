@@ -80,6 +80,13 @@
     <c-table.data class="field-name">
         {{survey.organization.name}}
     </c-table.data>
+    <c-table.data class="field-project">
+    {% if survey.project %}
+        {{survey.project}}
+    {% else %}
+        -
+    {% endif %}
+    </c-table.data>
     <c-table.data class="field-contact">
         {{survey.user}}
     </c-table.data>
