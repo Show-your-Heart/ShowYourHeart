@@ -317,7 +317,7 @@ Remember to load the tag in the template as described in the library's documenta
 
 ### Initial data generation or loading for development
 
-The `project` app includes the `loaddevdata` and `load_email_templates` command. Its purpose is to
+The `project` app includes the `load_dev_data` and `load_email_templates` command. Its purpose is to
 populate the database with initial data, either generated or loaded from
 fixtures, so when the developers needs to reset the database they don't have to
 repeat all the set up steps and manually create models entries to work with.
