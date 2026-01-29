@@ -32,7 +32,7 @@ class OrganizationAdmin(NetworkFilterMixin, ModelAdmin):
     filter_horizontal = ("methods",)
     readonly_fields = ("contact", "resolution_date")
     list_filter = [("status", ChoicesDropdownFilter)]
-    autocomplete_fields = ["country", "region3", "city"]
+    autocomplete_fields = ["country", "region1", "city"]
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
@@ -157,7 +157,7 @@ class ProjectAdmin(ModelAdmin):
         "organization",
     )
     filter_horizontal = ("methods",)
-    autocomplete_fields = ["region3", "city"]
+    autocomplete_fields = ["region1", "city"]
     search_fields = ["name", "organization"]
 
     def get_fieldsets(self, request, obj=None):

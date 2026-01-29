@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, TemplateView
 from unfold.views import UnfoldModelAdminViewMixin
 
-from apps.geodata.models import Region3
+from apps.geodata.models import Region1
 from apps.methods.mixins import MethodFillMixin
 
 from .helpers import (
@@ -171,7 +171,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
             c.name = f"{c.name} | {c.year}"
 
         context["campaigns"] = campaigns
-        context["regions"] = Region3.objects.all()
+        context["regions"] = Region1.objects.all()
         context["methods"] = Method.objects.all()
         context["unitanalysis"] = unit_of_analysis
         context["status"] = all_status
@@ -180,7 +180,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         context["nif_filter"] = self.request.GET.get("nif") or ""
         context["name_filter"] = self.request.GET.get("name") or ""
         context["campaign_filter"] = self.request.GET.get("campaign") or ""
-        context["region3_filter"] = self.request.GET.get("region3") or ""
+        context["region1_filter"] = self.request.GET.get("region1") or ""
         context["method_filter"] = self.request.GET.get("method") or ""
         context["status_filter"] = self.request.GET.get("status") or ""
         context["unit_analysis_filter"] = self.request.GET.get("unitanalysis") or ""
@@ -193,7 +193,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
         nif_filter = get_request.get("nif") or ""
         name_filter = get_request.get("name") or ""
         campaign_filter = get_request.get("campaign") or ""
-        region3_filter = get_request.get("region3") or ""
+        region1_filter = get_request.get("region1") or ""
         method_filter = get_request.get("method") or ""
         status_filter = get_request.get("status") or ""
         unit_analysis_filter = get_request.get("unitanalysis") or ""
@@ -202,8 +202,8 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView):
             organization__vat_number__icontains=nif_filter,
             organization__name__icontains=name_filter,
         )
-        if region3_filter:
-            query &= Q(organization__region3_id=region3_filter)
+        if region1_filter:
+            query &= Q(organization__region1_id=region1_filter)
         if campaign_filter:
             query &= Q(campaign_id=campaign_filter)
         if method_filter:

@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.geodata.models import Region3
 from apps.methods.models import Campaign, Indicator, Method
 from apps.organizations.models import Organization
 from project.models import BaseModel
@@ -27,13 +26,6 @@ class Network(BaseModel):
     methods = models.ManyToManyField(Method, related_name="networks")
     indicators = models.ManyToManyField(Indicator, related_name="networks")
     organizations = models.ManyToManyField(Organization, related_name="networks")
-    region3 = models.ForeignKey(
-        Region3,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="networks",
-    )
 
     class Meta:
         ordering = ["name"]

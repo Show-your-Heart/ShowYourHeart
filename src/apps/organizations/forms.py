@@ -6,7 +6,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.widgets import UnfoldAdminSelectWidget
 
-from apps.geodata.models import City, Country, Region3
+from apps.geodata.models import City, Country, Region1
 from apps.methods.models import Method
 from apps.organizations.widgets import syh_forms
 from apps.settings.models import LegalStructure
@@ -55,16 +55,16 @@ class OrganizationSignUpForm(forms.ModelForm):
         required=False,
         widget=forms.Select(
             attrs={
-                "hx-get": reverse_lazy("organizations:load_region3"),
-                "hx-target": "#id_region3, #id_city",
+                "hx-get": reverse_lazy("organizations:load_region1"),
+                "hx-target": "#id_region1, #id_city",
                 "hx-trigger": "change",
                 "hx-include": "#id_country",
             }
         ),
     )
-    region3 = forms.ModelChoiceField(
-        label=_("Region3"),
-        queryset=Region3.objects.all(),
+    region1 = forms.ModelChoiceField(
+        label=_("Region1"),
+        queryset=Region1.objects.all(),
         widget=forms.Select(
             attrs={
                 "hx-get": reverse_lazy("organizations:load_city"),
@@ -89,7 +89,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             attrs={
                 "hx-get": reverse_lazy("organizations:load_methods"),
                 "hx-target": "#id_methods",
-                "hx-include": "#id_region3",
+                "hx-include": "#id_region1",
                 "hx-trigger": "change",
                 "autocomplete": "off",
             }
@@ -124,7 +124,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "contact_mail",
             "website",
             "country",
-            "region3",
+            "region1",
             "city",
             "address",
             "legal_structure",
@@ -196,7 +196,7 @@ class OrganizationAdminForm(forms.ModelForm):
         fields = "__all__"  # noqa: DJ007
         widgets = {
             "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
-            "region3": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+            "region1": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
 
 
@@ -230,7 +230,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "contact_email",
             "website",
             "country",
-            "region3",
+            "region1",
             "city",
             "address",
             "legal_structure",

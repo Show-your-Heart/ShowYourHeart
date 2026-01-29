@@ -161,7 +161,7 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Method)
 class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, TranslationAdmin):
-    autocomplete_fields = ["sectors", "legal_structures", "networks"]
+    autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
     filter_horizontal = ("indicators",)
     form = MethodForm
@@ -203,6 +203,7 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
                 "indicators",
                 "legal_structures",
                 "sectors",
+                "region1",
                 "documentation",
                 "external_surveys",
             ],
@@ -212,7 +213,9 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
     def changeform_view(self, request, object_id=None, form_url="", extra_context=None):
         extra_context = extra_context or {}
         method = self.get_object(request, object_id)
-        campaign = method.campaign_methods.all().order_by("created_at").last()
+        campaign = None
+        if method is not None:
+            campaign = method.campaign_methods.order_by("created_at").last()
         extra_context["campaign_id"] = campaign.id if campaign else None
 
         return super().changeform_view(

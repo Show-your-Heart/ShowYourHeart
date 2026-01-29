@@ -33,6 +33,7 @@ class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
 class NetworkAdmin(ModelAdmin):
     search_fields = ["name"]
     list_display = ("name", "parent_network")
+    filter_horizontal = ("methods", "campaigns", "indicators")
     fieldsets = (
         (
             "",
@@ -43,7 +44,6 @@ class NetworkAdmin(ModelAdmin):
                     "campaigns",
                     "methods",
                     "indicators",
-                    "region3",
                 )
             },
         ),

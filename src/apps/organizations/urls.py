@@ -9,7 +9,7 @@ from apps.organizations.views import (
     create_project_action,
     load_city,
     load_methods,
-    load_region3,
+    load_region1,
 )
 
 app_name = "organizations"
@@ -22,7 +22,7 @@ urlpatterns = [
         name="signup_success",
     ),
     path(_("sign-up/load_methods/"), load_methods, name="load_methods"),
-    path(_("sign-up/load_region3/"), load_region3, name="load_region3"),
+    path(_("sign-up/load_region1/"), load_region1, name="load_region1"),
     path(_("sign-up/load_city/"), load_city, name="load_city"),
     path(_("update/<pk>"), UpdateOrganizationView.as_view(), name="update"),
     path(

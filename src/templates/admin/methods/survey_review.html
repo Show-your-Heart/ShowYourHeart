@@ -21,7 +21,7 @@
         <div class="flex space-x-2 items-center">
             <h2 class="min-w-[80px] uppercase font-bold text-gray-500 text-xs">{% trans 'Filter by'%}</h2>
             <c-forms.dropdown class="grow" id="filter-campaign" name="campaign" label="{% trans 'Campaign' %}" :options="campaigns" :showLabel="True" :optionSelected="campaign_filter"></c-forms.dropdown>
-            <c-forms.dropdown class="grow" id="filter-region" name="region3" label="{% trans 'Region' %}" :options="regions" :showLabel="True" :optionSelected="region3_filter"></c-forms.dropdown>
+            <c-forms.dropdown class="grow" id="filter-region" name="region1" label="{% trans 'Region' %}" :options="regions" :showLabel="True" :optionSelected="region1_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-method" name="method" label="{% trans 'Method' %}" :options="methods" :showLabel="True" :optionSelected="method_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-status" name="status" label="{% trans 'Status' %}" :options="status" :showLabel="True" :optionSelected="status_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-unitanalysis" name="unitanalysis" label="{% trans 'Unit of analysis' %}" :options="unitanalysis" :showLabel="True" :optionSelected="unit_analysis_filter"></c-forms.dropdown>

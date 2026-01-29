@@ -95,6 +95,13 @@ class City(BaseModel):
         blank=True,
         related_name="city_country",
     )
+    region1 = models.ForeignKey(
+        Region1,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="city_region1",
+    )
     region2 = models.ForeignKey(
         Region2,
         on_delete=models.SET_NULL,

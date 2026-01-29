@@ -1,8 +1,8 @@
 from apps.methods.models import Method
 
 
-def get_methods_for_region3(region3_id):
-    return Method.objects.filter(networks__region3_id=region3_id).exclude(
+def get_methods_for_region1(region1):
+    return Method.objects.filter(region1=region1).exclude(
         unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY
     )
 
