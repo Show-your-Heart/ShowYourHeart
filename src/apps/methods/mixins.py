@@ -13,7 +13,7 @@ from .helpers import (
     get_gender_suffix,
     is_gendered,
 )
-from .models import Campaign, Indicator, IndicatorResult, Method, Survey
+from .models import Campaign, Indicator, IndicatorResult, List, Method, Survey
 
 
 class MethodFillMixin:
@@ -71,6 +71,13 @@ class MethodFillMixin:
             )
             for i in indicators:
                 i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
+                # Add options value
+                if i["list_options_id"] != None:
+                    list_options = List.objects.get(id=i["list_options_id"])
+                    options = list_options.items.all().values()
+                    i["options"] = []
+                    for o in options:
+                        i["options"].append({"id": o["id"], "value": o["value"]})
 
         except Method.DoesNotExist:
             indicators = list([])
