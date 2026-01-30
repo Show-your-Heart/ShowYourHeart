@@ -53,12 +53,20 @@
                     {% endfor %}
 
                         <td class="px-4 py-3">
+                        {% if row.has_evaluated %}
                             <a href="https://bi-show-your-heart.coopdevs.org/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}" target="_blank" class="flex items-center justify-center">
                                 <c-icon name="pdf" class="text-blue-600"></c-icon>
                             </a>
+                        {% else %}
+                            <p class="flex justify-center items-center">-</p>
+                        {% endif %}
                         </td>
                         <td class="px-4 py-3">
+                        {% if row.has_evaluated %}
                             <p class="flex justify-center items-center">Stamp WIP</p>
+                        {% else %}
+                            <p class="flex justify-center items-center">-</p>
+                        {% endif %}   
                         </td>
                     </tr>
                     {% endfor %}

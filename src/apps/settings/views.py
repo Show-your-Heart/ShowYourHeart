@@ -57,7 +57,11 @@ class DocumentsView(TemplateView):
 
         table_rows = []
         for campaign in campaigns:
-            row = {"campaign": campaign, "cells": []}
+            row = {
+                "campaign": campaign,
+                "cells": [],
+                "has_evaluated": False,
+            }
             for method in methods:
                 survey = next(
                     (
@@ -68,6 +72,9 @@ class DocumentsView(TemplateView):
                     ),
                     None,
                 )
+                if survey and survey.evaluated_date:
+                    row["has_evaluated"] = True
+
                 row["cells"].append(survey)
             table_rows.append(row)
 
