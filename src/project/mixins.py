@@ -20,12 +20,27 @@ class AnonymousRequiredMixin(AccessMixin):
 
 
 class NetworkFilterMixin:
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser or request.user.groups.filter(
-            name="Governance Admins"
+    def filter_queryset_by_network(self, request, qs):
+        if (
+            request.user.is_superuser
+            or request.user.groups.filter(name="Governance Admins").exists()
         ):
             return qs
-        if hasattr(request.user, "network") and request.user.network:
-            return qs.filter(networks=request.user.network)
+
+        user_network = getattr(request.user, "network", None)
+        if not user_network:
+            return qs.none()
+
+        # Model has direct 'networks' ManyToManyField
+        if hasattr(qs.model, "networks"):
+            return qs.filter(networks=user_network)
+
+        # Model has related organization and organization_field defined
+        if self.organization_field:
+            return qs.filter(**{f"{self.organization_field}__networks": user_network})
+
         return qs.none()
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return self.filter_queryset_by_network(request, qs)

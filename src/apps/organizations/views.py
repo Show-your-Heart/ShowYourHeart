@@ -16,6 +16,7 @@ from apps.organizations.forms import (
     OrganizationUpdateForm,
     ProjectCreationForm,
 )
+from project.mixins import NetworkFilterMixin
 
 from .helpers import filter_methods_by_legal_structure, get_methods_for_region1
 from .models import Organization, Project
@@ -103,10 +104,13 @@ def create_project_action(request, organization_id):
         publish_results=request.POST["publish_results"] == "on",
     )
     if created:
+        method_id = request.POST.get("method_id")
+        method = Method.objects.get(pk=method_id)
+        campaign = method.campaign_methods.filter(status=True).first()
         return HttpResponse(
             "",
             headers={
-                "HX-Redirect": f"/methods/fill/{request.POST['campaign_id']}/{request.POST['method_id']}/{project.id}",  # noqa: E501
+                "HX-Redirect": f"/methods/fill/{campaign.id}/{request.POST['method_id']}/{project.id}",  # noqa: E501
             },
         )
     else:
@@ -128,7 +132,9 @@ def create_project_action(request, organization_id):
 ################
 
 
-class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
+class RegistrationRequestView(
+    UnfoldModelAdminViewMixin, TemplateView, NetworkFilterMixin
+):
     title = "Registration requests"
     permission_required = ()
     template_name = "admin/organizations/registration_requests.html"
@@ -144,12 +150,7 @@ class RegistrationRequestView(UnfoldModelAdminViewMixin, TemplateView):
             organizations = organizations.filter(name__contains=query_filter)
             context["query_filter"] = query_filter
 
-        if self.request.user.groups.filter(name="Network Admins").exists():
-            user_network = getattr(self.request.user, "network", None)
-            if user_network:
-                organizations = organizations.filter(region1=user_network.region1)
-            else:
-                organizations = organizations.none()
+        organizations = self.filter_queryset_by_network(self.request, organizations)
 
         context["organizations"] = organizations
         return context
