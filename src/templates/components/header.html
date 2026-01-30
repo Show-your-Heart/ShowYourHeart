@@ -10,9 +10,9 @@ Input params:
 
 {% endcomment %}
 
-<c-vars :transparent="False" displayAvatar/>
+<c-vars :transparent="False" displayAvatar :fixedHeader="False"/>
 
-<header class="w-full mx-auto p-2">
+<header class="w-full mx-auto p-2 bg-white {% if fixedHeader %} fixed top-0 z-10 {% endif %} shadow-lg shadow-white">
   <div class="p-3 lg:px-5 lg:pl-3 rounded-md w-[100%] {% if not transparent %} bg-pink-600 {% endif %}">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start rtl:justify-end">

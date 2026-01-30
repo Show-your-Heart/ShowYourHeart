@@ -1,4 +1,7 @@
 {% load i18n static active_link_tags extra_settings django_htmx %}
+
+<c-vars :fixedHeader="False">
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,10 +20,10 @@
 </head>
 
 <body class="bg-gray-50 mx-auto relative" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-  <c-header displayAvatar="true"/>
+  <c-header displayAvatar="true" :fixedHeader="fixedHeader" />
   {{ extra_header}}
   
-  <div class="flex gap-2 mt-0 pt-0 p-2 items-stretch">
+  <div class="flex gap-2 mt-0 py-0 px-2 items-stretch {% if fixedHeader %} mt-[80px] {% endif %}">
     <aside>
       {{ sidebar }}
     </aside>

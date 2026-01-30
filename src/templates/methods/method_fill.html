@@ -2,7 +2,7 @@
 {% load template_helpers %}
 
 
-<c-default-layout pageTitle={% translate 'Form' %}>
+<c-default-layout pageTitle={% translate 'Form' %} :fixedHeader="True">
 
   <c-slot name="extra_js">
     {{ indicators|json_script:"indicators" }}
@@ -14,9 +14,9 @@
   </c-slot>
 
   <c-slot name="sidebar">
-    <div class="fixed mb-4 mt-8 pl-4">
+    <div class="sticky overflow-y-scroll mt-8 pl-4" style="height: calc(100vh - 80px - 2rem); top: calc(80px + 2rem);">
       <ul
-        class="min-w-[18rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
+        class="w-[clamp(10rem,18rem,25vw)] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
         id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist" x-data="{
           getLiClass(title) {
               if ($store.survey.currentSection == title) {
