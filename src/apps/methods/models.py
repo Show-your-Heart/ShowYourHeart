@@ -26,15 +26,31 @@ class Topic(BaseModel):
     def __str__(self):
         return self.name
 
+    def delete(self, *args, **kwargs):
+        if self.topics.exists():
+            raise ValidationError(
+                _("This topic is already used by indicators and cannot be deleted.")
+            )
+        super().delete(*args, **kwargs)
+
 
 class ListItem(BaseModel):
     title = models.CharField(_("title"), max_length=300)
     formula = models.CharField(_("formula"), max_length=50, blank=True)
     value = models.PositiveSmallIntegerField(_("value"))
-    active = models.BooleanField(_("active"), max_length=50)
 
     def __str__(self):
         return self.title
+
+    def delete(self, *args, **kwargs):
+        if self.items.exists():
+            raise ValidationError(
+                _(
+                    "This list item has already been used and cannot be deleted. "
+                    "Please create a new list item instead."
+                )
+            )
+        super().delete(*args, **kwargs)
 
 
 class List(BaseModel):
@@ -46,6 +62,13 @@ class List(BaseModel):
 
     def __str__(self):
         return self.title
+
+    def delete(self, *args, **kwargs):
+        if self.list_options.exists():
+            raise ValidationError(
+                _("This list is already used by indicators and cannot be deleted.")
+            )
+        super().delete(*args, **kwargs)
 
 
 class Indicator(BaseModel):
@@ -129,6 +152,18 @@ class Indicator(BaseModel):
 
     def __str__(self):
         return f"{self.code} - {self.name}"
+
+    def delete(self, *args, **kwargs):
+        if (
+            self.indicators.exists()
+            or self.indicatorresult_set.exists()
+            or self.section_set.exists()
+            or self.dependant_indicators
+        ):
+            raise ValidationError(
+                _("This indicator has already been used and cannot be deleted.")
+            )
+        super().delete(*args, **kwargs)
 
     def clean(self):
         super().clean()
@@ -273,6 +308,18 @@ class Method(BaseModel):
             networks_str = ", ".join([n.name for n in self.networks.all()])
             return f"{self.name} | {networks_str}"
 
+    def delete(self, *args, **kwargs):
+        if (
+            self.campaign_methods.exists()
+            or self.survey_set.exists()
+            or self.externalsurveyinvitation_set.exists()
+            or self.section_set.exists()
+        ):
+            raise ValidationError(
+                _("This method has already been used and cannot be deleted.")
+            )
+        super().delete(*args, **kwargs)
+
 
 class Campaign(BaseModel):
     name = models.CharField(_("Name"), max_length=400, blank=True)
@@ -293,6 +340,17 @@ class Campaign(BaseModel):
 
     def __str__(self):
         return self.year
+
+    def delete(self, *args, **kwargs):
+        if (
+            self.survey_set.exists()
+            or self.externalsurveyinvitation_set.exists()
+            or self.campaign_set.exists()
+        ):
+            raise ValidationError(
+                _("This campaign has already been used and cannot be deleted.")
+            )
+        super().delete(*args, **kwargs)
 
 
 class Survey(BaseModel):
