@@ -1,23 +1,32 @@
+const FieldType = {
+    STRING: "S",
+    TEXT: "T",
+    INTEGER: "I",
+    DECIMAL: "DC",
+    BOOLEAN: "B",
+    DATE: "D",
+    ATTACHMENT: "A",
+    CHECKBOX: "CH",
+    RADIOBUTTON: "R",
+    DROPDOWN: "DR",
+    INTEGERGENDER: "IG",
+    DECIMALGENDER: "DG",
+}
+
 const initIndicatorsStore = () => {
     Alpine.store('indicators', {
         indicators: [],
-        parseExpression(expr, currentIndicatorCode = "", currentIndicatorValue = 0) {
+        parseExpression(expr) {
             const tokens = expr.split(" ")
 
             let loadedTokens = []
             for (let token of tokens) {
                 if (token.match(/^[a-zA-Z_]\w*$/)) {
-                    // If current indicator, get value from params
-                    if (token == currentIndicatorCode) {
-                        loadedTokens.push(currentIndicatorValue)
-                        // If reference to another indicator, get value from global state
-                    } else {
-                        const value = this.loadIndicatorResult(token)
-                        if (value == undefined) {
-                            throw new Error(`Missing value, please fill question ${token} before.`)
-                        }
-                        loadedTokens.push(value)
+                    const value = this.loadIndicatorResult(token)
+                    if (value == undefined) {
+                        throw new Error(`Missing value, please fill question ${token} before.`)
                     }
+                    loadedTokens.push(value)
                 } else if (token == "=") {
                     token = "=="
                     loadedTokens.push(token)
@@ -46,7 +55,7 @@ const initIndicatorsStore = () => {
                 return true
             }
             try {
-                parsedExpression = this.parseExpression(field.validation, field.code, field.value)
+                parsedExpression = this.parseExpression(field.validation)
                 result = this.evaluateExpression(parsedExpression)
                 Alpine.store("survey").setIndicatorValidation(field.id, !!result)
                 return result
@@ -57,7 +66,7 @@ const initIndicatorsStore = () => {
         },
         isVisible(indicator) {
             try {
-                parsedExpression = this.parseExpression(indicator.condition, indicator.code, indicator.value)
+                parsedExpression = this.parseExpression(indicator.condition)
                 return this.evaluateExpression(parsedExpression)
             } catch (e) {
                 console.log("Checking visibility of field failed", e)
@@ -74,7 +83,18 @@ const initIndicatorsStore = () => {
         },
         loadIndicatorResult(code) {
             const indicator = this.indicators.find(i => i.code == code)
-            let result = indicator.value || null
+            let result = null
+            if (this.hasOptions(indicator.data_type)) {
+                const fieldEl = document.querySelector(`#question_${indicator.id}`);
+                const fieldData = Alpine.$data(fieldEl)
+                if (this.isMultiAnswer(indicator.data_type)) {
+                    result = fieldData.value.map(v => v.value)
+                } else {
+                    result = fieldData.value.value
+                }
+            } else {
+                result = indicator.value || null
+            }
 
             if (indicator.mandatory) {
                 const na_element = document.getElementById(`question_${indicator.id}_na`)
@@ -126,7 +146,56 @@ const initIndicatorsStore = () => {
                      }
                  } */
             }
-        }
+        },
+        isGendered(type) {
+            switch (type) {
+                case FieldType.INTEGERGENDER:
+                case FieldType.DECIMALGENDER:
+                    return true
+                default:
+                    return false
+            }
+        },
+        hasOptions(type) {
+            switch (type) {
+                case FieldType.STRING:
+                case FieldType.TEXT:
+                case FieldType.INTEGER:
+                case FieldType.DECIMAL:
+                case FieldType.BOOLEAN:
+                case FieldType.INTEGERGENDER:
+                case FieldType.DECIMALGENDER:
+                case FieldType.DATE:
+                    return false
+                case FieldType.DROPDOWN:
+                case FieldType.CHECKBOX:
+                case FieldType.RADIOBUTTON:
+                    return true
+                default:
+                    console.log(type, "No matching type found")
+                    return false
+            }
+        },
+        isMultiAnswer(type) {
+            switch (type) {
+                case FieldType.STRING:
+                case FieldType.TEXT:
+                case FieldType.INTEGER:
+                case FieldType.DECIMAL:
+                case FieldType.DROPDOWN:
+                case FieldType.RADIOBUTTON:
+                case FieldType.BOOLEAN:
+                case FieldType.INTEGERGENDER:
+                case FieldType.DECIMALGENDER:
+                case FieldType.DATE:
+                    return false
+                case FieldType.CHECKBOX:
+                    return true
+                default:
+                    console.log(type, "No matching type found")
+                    return false
+            }
+        },
     })
 
     if (document.getElementById('indicators')) {

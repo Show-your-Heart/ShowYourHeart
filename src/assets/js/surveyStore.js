@@ -97,6 +97,7 @@ const initSurveyStore = () => {
             this.validatedSections = validatedSections
         },
         validateSurvey() {
+            let isValid = true
             //check isValid. if not valid, the value remains empty
             this.sections.forEach(s => {
                 const index = s.indicatorsStats.findIndex(i => i.isValid == false)
@@ -105,11 +106,10 @@ const initSurveyStore = () => {
                     let showModalEvent = new Event('show-modal')
                     showModalEvent.detail = { 'id': 'survey-errors-modal' }
                     window.dispatchEvent(showModalEvent)
-                    return false
-                } else {
-                    return true
+                    isValid = false
                 }
             })
+            return isValid
         },
         onSubmit(e) {
             if (e.target.value === "submit") {

@@ -1338,6 +1338,9 @@
   .py-\[40px\] {
     padding-block: 40px;
   }
+  .ps-4 {
+    padding-inline-start: calc(var(--spacing) * 4);
+  }
   .pe-4 {
     padding-inline-end: calc(var(--spacing) * 4);
   }

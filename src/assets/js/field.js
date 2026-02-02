@@ -1,18 +1,3 @@
-const FieldType = {
-    STRING: "S",
-    TEXT: "T",
-    INTEGER: "I",
-    DECIMAL: "DC",
-    BOOLEAN: "B",
-    DATE: "D",
-    ATTACHMENT: "A",
-    CHECKBOX: "CH",
-    RADIOBUTTON: "R",
-    DROPDOWN: "DR",
-    INTEGERGENDER: "IG",
-    DECIMALGENDER: "DG",
-}
-
 const initFieldData = () => {
     Alpine.data('field', (code = "") => ({
         id: "",
@@ -20,6 +5,8 @@ const initFieldData = () => {
         description: "",
         code: "",
         value: "",
+        options: [],
+        checkedOptions: [],
         placeholder: "",
         type: "",
         isDirectIndicator: true,
@@ -34,9 +21,10 @@ const initFieldData = () => {
         unit: "",
         mandatory: false,
         notApplicable: false,
+        indicatorsStore: Alpine.store('indicators'),
         init() {
-            const indicator = Alpine.store('indicators')["indicators"].find(i => i.code == code)
-            const indicatorResults = Alpine.store('indicators')["indicatorResults"][code] || null
+            const indicator = this.indicatorsStore["indicators"].find(i => i.code == code)
+            const indicatorResults = this.indicatorsStore["indicatorResults"][code] || null
             this.id = indicator.id
             this.name = indicator.name
             this.description = indicator.description
@@ -44,10 +32,13 @@ const initFieldData = () => {
             this.type = indicator.data_type
             this.unit = indicator.unit
             this.mandatory = indicator.mandatory
+            if (indicator.options) {
+                this.options = indicator.options
+            }
             this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
             this.notApplicable = indicatorResults?.not_applicable ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
-            Alpine.store('indicators').shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
+            this.indicatorsStore.shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.isDirectIndicator = indicator.is_direct_indicator
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
@@ -57,7 +48,7 @@ const initFieldData = () => {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
-            this.show = indicator.is_direct_indicator && (indicator.condition == "" || Alpine.store('indicators').isVisible(indicator))
+            this.show = indicator.is_direct_indicator && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator))
             const field = {
                 id: this.id,
                 code: this.code,
@@ -65,17 +56,27 @@ const initFieldData = () => {
                 validation: this.validation,
                 notApplicable: this.notApplicable,
             }
-            isValid = Alpine.store('indicators').validate(field)
+            isValid = this.indicatorsStore.validate(field)
         },
         loadInitialValue(initialValue, type) {
             let value = ""
-            if (this.hasOptions(type)) {
-                if (initialValue) {
-                    value = initialValue.split("|")
+            if (initialValue == null && this.indicatorsStore.isMultiAnswer(type)) {
+                value = []
+            }
+            if (this.indicatorsStore.hasOptions(type)) {
+                if (this.indicatorsStore.isMultiAnswer(type)) {
+                    if (initialValue == "" || initialValue == null) {
+                        value = []
+                        this.options.forEach(o => this.checkedOptions.push(false))
+                    } else {
+                        optionIds = initialValue.split("|")
+                        value = optionIds.map(id => this.getOption(id))
+                        this.options.forEach(o => this.checkedOptions.push(optionIds.includes(o.id)))
+                    }
                 } else {
-                    value = []
+                    value = this.getOption(initialValue) || ""
                 }
-            } else if (this.isGendered(type)) {
+            } else if (this.indicatorsStore.isGendered(type)) {
                 if (initialValue && initialValue.female) {
                     value = {
                         female: initialValue.female,
@@ -89,14 +90,14 @@ const initFieldData = () => {
                         nonBinary: 0,
                     }
                 }
-            } else {
+            } else if (initialValue != null) {
                 value = initialValue
             }
             return value
         },
-        update(currentValue, subtype = "") {
+        update(newValue, subtype = "") {
             try {
-                this.value = this.updateValue(currentValue, this.value, this.type, subtype)
+                this.value = this.updateValue(newValue, this.value, this.type, subtype)
                 const field = {
                     id: this.id,
                     code: this.code,
@@ -104,10 +105,10 @@ const initFieldData = () => {
                     validation: this.validation,
                     notApplicable: this.notApplicable,
                 }
-                isValid = Alpine.store('indicators').validate(field)
+                isValid = this.indicatorsStore.validate(field)
                 if (isValid && isValid.error == undefined) {
                     this.hasErrors = false
-                    Alpine.store('indicators').updateIndicatorResult(this.code, this.value)
+                    this.indicatorsStore.updateIndicatorResult(this.code, this.value)
                 } else {
                     this.hasErrors = true
                     if (this.msg) {
@@ -117,7 +118,6 @@ const initFieldData = () => {
                     } else {
                         this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
                     }
-
                 }
             } catch (e) {
                 console.log('Invalido')
@@ -127,22 +127,29 @@ const initFieldData = () => {
             }
         },
         updateValue(input, current, type, subtype = "") {
-            if (!current) return ""
+            // if (!current) return ""
             let value = ""
-            if (this.isMultiAnswer(type)) {
+            if (this.indicatorsStore.hasOptions(type) && !this.indicatorsStore.isMultiAnswer(type)) {
+                value = this.getOption(input)
+            } else if (this.indicatorsStore.isMultiAnswer(type)) {
                 //input is setted on the call to update from the x-effect of the component
-                if (input && input.constructor == Array && input.length == 0) {
+                if (input && input.constructor == Array && input.length == 0 || input == "") {
                     value = []
+                    this.checkedOptions = this.checkedOptions.map(o => false)
                 } else {
-                    const index = current.findIndex(v => v == input)
+                    const index = current.findIndex(v => v.id == input)
                     value = current
                     if (index != -1) {
                         value.splice(index, 1)
+                        const optionIndex = this.options.findIndex(v => v.id == input)
+                        this.checkedOptions[optionIndex] = false
                     } else {
-                        value.push(input)
+                        value.push(this.getOption(input))
+                        const optionIndex = this.options.findIndex(v => v.id == input)
+                        this.checkedOptions[optionIndex] = true
                     }
                 }
-            } else if (this.isGendered(type)) {
+            } else if (this.indicatorsStore.isGendered(type)) {
                 value = current
                 value[subtype] = input
             } else {
@@ -152,57 +159,15 @@ const initFieldData = () => {
         },
         updateNotApplicable(event) {
             this.notApplicable = event
-            Alpine.store('indicators').updateIndicatorResultNa(this.code, this.notApplicable)
+            this.indicatorsStore.updateIndicatorResultNa(this.code, this.notApplicable)
+            this.update("")
         },
-        isGendered(type) {
-            switch (type) {
-                case FieldType.INTEGERGENDER:
-                case FieldType.DECIMALGENDER:
-                    return true
-                default:
-                    return false
-            }
+        isOptionSelected(optionId) {
+            return this.value.id == optionId
         },
-        hasOptions(type) {
-            switch (type) {
-                case FieldType.STRING:
-                case FieldType.TEXT:
-                case FieldType.INTEGER:
-                case FieldType.DECIMAL:
-                case FieldType.BOOLEAN:
-                case FieldType.INTEGERGENDER:
-                case FieldType.DECIMALGENDER:
-                case FieldType.DATE:
-                    return false
-                case FieldType.DROPDOWN:
-                case FieldType.CHECKBOX:
-                case FieldType.RADIOBUTTON:
-                    return true
-                default:
-                    console.log(type, "No matching type found")
-                    return false
-            }
-        },
-        isMultiAnswer(type) {
-            switch (type) {
-                case FieldType.STRING:
-                case FieldType.TEXT:
-                case FieldType.INTEGER:
-                case FieldType.DECIMAL:
-                case FieldType.DROPDOWN:
-                case FieldType.RADIOBUTTON:
-                case FieldType.BOOLEAN:
-                case FieldType.INTEGERGENDER:
-                case FieldType.DECIMALGENDER:
-                case FieldType.DATE:
-                    return false
-                case FieldType.CHECKBOX:
-                    return true
-                default:
-                    console.log(type, "No matching type found")
-                    return false
-            }
-        },
+        getOption(id) {
+            return this.options.find(o => o.id == id)
+        }
 
 
     }))
