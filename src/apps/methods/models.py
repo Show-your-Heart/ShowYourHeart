@@ -1,3 +1,4 @@
+import re
 import uuid
 
 from django.core.exceptions import (
@@ -218,7 +219,16 @@ class Indicator(BaseModel):
                     raise ValidationError({_("Circular dependencies")})
                     continue
                 try:
-                    indicator = Indicator.objects.get(code=code)
+                    if (
+                        "_men" in code
+                        or "_women" in code
+                        or "_nb" in code
+                        or "_total" in code
+                    ):
+                        subtoken = re.split(r"[_]", code)
+                        indicator = Indicator.objects.get(code=subtoken[0])
+                    else:
+                        indicator = Indicator.objects.get(code=code)
                 except ObjectDoesNotExist:
                     raise ValidationError(
                         {_(f"Indicator with code {code} does not exist")}
