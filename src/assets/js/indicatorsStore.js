@@ -127,6 +127,7 @@ const initIndicatorsStore = () => {
                     const show = indicator.condition == "" || this.isVisible(indicator)
                     const fieldEl = document.querySelector(`#field-${indicator.id}`);
                     Alpine.$data(fieldEl).show = show
+                    Alpine.$data(fieldEl).notApplicable = !show
                 } else {
                     const value = this.computeFormula(indicator)
                     if (value != null) {
