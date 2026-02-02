@@ -72,7 +72,7 @@ class MethodFillMixin:
             for i in indicators:
                 i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
                 # Add options value
-                if i["list_options_id"] != None:
+                if i["list_options_id"] is not None:
                     list_options = List.objects.get(id=i["list_options_id"])
                     options = list_options.items.all().values()
                     i["options"] = []
