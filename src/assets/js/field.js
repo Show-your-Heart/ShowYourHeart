@@ -6,6 +6,7 @@ const initFieldData = () => {
         code: "",
         value: "",
         options: [],
+        checkedOptions: [],
         placeholder: "",
         type: "",
         isDirectIndicator: true,
@@ -64,8 +65,14 @@ const initFieldData = () => {
             }
             if (this.indicatorsStore.hasOptions(type)) {
                 if (this.indicatorsStore.isMultiAnswer(type)) {
-                    optionIds = initialValue.split("|")
-                    value = optionIds.map(id => this.getOption(id))
+                    if (initialValue == "" || initialValue == null) {
+                        value = []
+                        this.options.forEach(o => this.checkedOptions.push(false))
+                    } else {
+                        optionIds = initialValue.split("|")
+                        value = optionIds.map(id => this.getOption(id))
+                        this.options.forEach(o => this.checkedOptions.push(optionIds.includes(o.id)))
+                    }
                 } else {
                     value = this.getOption(initialValue) || ""
                 }
@@ -126,15 +133,20 @@ const initFieldData = () => {
                 value = this.getOption(input)
             } else if (this.indicatorsStore.isMultiAnswer(type)) {
                 //input is setted on the call to update from the x-effect of the component
-                if (input && input.constructor == Array && input.length == 0) {
+                if (input && input.constructor == Array && input.length == 0 || input == "") {
                     value = []
+                    this.checkedOptions = this.checkedOptions.map(o => false)
                 } else {
                     const index = current.findIndex(v => v.id == input)
                     value = current
                     if (index != -1) {
                         value.splice(index, 1)
+                        const optionIndex = this.options.findIndex(v => v.id == input)
+                        this.checkedOptions[optionIndex] = false
                     } else {
-                        value.push(this.getOption(optionId))
+                        value.push(this.getOption(input))
+                        const optionIndex = this.options.findIndex(v => v.id == input)
+                        this.checkedOptions[optionIndex] = true
                     }
                 }
             } else if (this.indicatorsStore.isGendered(type)) {
@@ -151,9 +163,6 @@ const initFieldData = () => {
             this.update("")
         },
         isOptionSelected(optionId) {
-            if (this.indicatorsStore.isMultiAnswer(this.type)) {
-                return !!this.value.find(v => v.id == optionId)
-            }
             return this.value.id == optionId
         },
         getOption(id) {
