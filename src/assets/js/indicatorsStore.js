@@ -21,8 +21,14 @@ const initIndicatorsStore = () => {
 
             let loadedTokens = []
             for (let token of tokens) {
+                let value = null
                 if (token.match(/^[a-zA-Z_]\w*$/)) {
-                    const value = this.loadIndicatorResult(token)
+                    if (token.match(/(_men|_women|_nb|_total)/)) {
+                        const subtokens = token.split("_")
+                        value = this.loadIndicatorResult(subtokens[0], subtokens[1])
+                    } else {
+                        value = this.loadIndicatorResult(token)
+                    }
                     if (value == undefined) {
                         throw new Error(`Missing value, please fill question ${token} before.`)
                     }
@@ -81,9 +87,10 @@ const initIndicatorsStore = () => {
                 return null
             }
         },
-        loadIndicatorResult(code) {
-            const indicator = this.indicators.find(i => i.code == code)
+        loadIndicatorResult(code, subtype = "") {
             let result = null
+            const indicator = this.indicators.find(i => i.code == code)
+
             if (this.hasOptions(indicator.data_type)) {
                 const fieldEl = document.querySelector(`#question_${indicator.id}`);
                 const fieldData = Alpine.$data(fieldEl)
@@ -91,6 +98,21 @@ const initIndicatorsStore = () => {
                     result = fieldData.value.map(v => v.value)
                 } else {
                     result = fieldData.value.value
+                }
+            } else if (subtype != "") {
+                switch (subtype) {
+                    case 'men':
+                        result = Number(indicator.value.male)
+                        break;
+                    case 'women':
+                        result = Number(indicator.value.female)
+                        break;
+                    case 'nb':
+                        result = Number(indicator.value.nonBinary)
+                        break;
+                    case 'total':
+                        result = Number(indicator.value.male) + Number(indicator.value.female) + Number(indicator.value.nonBinary)
+                        break;
                 }
             } else {
                 result = indicator.value || null
