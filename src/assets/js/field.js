@@ -157,10 +157,18 @@ const initFieldData = () => {
             }
             return value
         },
-        updateNotApplicable(event) {
-            this.notApplicable = event
+        updateNotApplicable(checked) {
+            this.notApplicable = checked
             this.indicatorsStore.updateIndicatorResultNa(this.code, this.notApplicable)
-            this.update("")
+            if (this.indicatorsStore.isMultiAnswer(this.type)) {
+                this.update([])
+            } else if (this.indicatorsStore.isGendered(this.type)) {
+                this.update(0, "male")
+                this.update(0, "female")
+                this.update(0, "nonBinay")
+            } else {
+                this.update("")
+            }
         },
         isOptionSelected(optionId) {
             return this.value.id == optionId
