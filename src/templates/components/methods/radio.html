@@ -4,11 +4,11 @@
         {% for option in options %}
         <label :for="`question_${id}_option_{{index}}`"
             class="inline-flex items-center cursor-pointer mr-4 has-disabled:cursor-default has-disabled:pointer-events-none"
-            @click="$event.target.value && update($event.target.value)">
+            @click="update('{{ option.value.id }}')">
             <input type="radio" :id="`question_${id}_option_{{index}}`" :name="`question_${id}`"
                 value="{{ option.value.value }}"
                 class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer focus:ring-blue-500 disabled:cursor-default peer"
-                :checked="value && value.includes(String({{ option.value.value }}))" {%
+                :checked="isOptionSelected('{{option.value.id}}')" {%
                 include "django/forms/widgets/attrs.html" %} x-model="value" x-bind:disabled="notApplicable"
             >
             <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">{{
