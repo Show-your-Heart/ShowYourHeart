@@ -36,7 +36,6 @@ const initFieldData = () => {
                 this.options = indicator.options
             }
             this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
-            this.notApplicable = indicatorResults?.not_applicable ?? false
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             this.indicatorsStore.shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.isDirectIndicator = indicator.is_direct_indicator
@@ -49,6 +48,7 @@ const initFieldData = () => {
             }
             this.msg = indicator.message
             this.show = indicator.is_direct_indicator && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator))
+            this.notApplicable = (indicatorResults?.not_applicable || !this.show) ?? false
             const field = {
                 id: this.id,
                 code: this.code,
