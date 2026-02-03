@@ -47,8 +47,8 @@ class ListItem(BaseModel):
         if self.items.exists():
             raise ValidationError(
                 _(
-                    "This list item has already been used and cannot be deleted. "
-                    "Please create a new list item instead."
+                    "This options item has already been used and cannot be deleted. "
+                    "Please create a new option instead."
                 )
             )
         super().delete(*args, **kwargs)

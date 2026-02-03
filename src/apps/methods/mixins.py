@@ -13,7 +13,14 @@ from .helpers import (
     get_gender_suffix,
     is_gendered,
 )
-from .models import Campaign, Indicator, IndicatorResult, List, Method, Survey
+from .models import (
+    Campaign,
+    Indicator,
+    IndicatorResult,
+    List,
+    Method,
+    Survey,
+)
 
 
 class MethodFillMixin:

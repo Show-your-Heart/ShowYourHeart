@@ -244,7 +244,7 @@ class ListAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=ListItem)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=ListItem)
-class ListItemAdmin(ModelAdmin, TranslationAdmin):
+class OptionAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["title"]
 
     list_display = ("title",)
