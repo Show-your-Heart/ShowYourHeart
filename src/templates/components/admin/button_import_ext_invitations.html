@@ -1,0 +1,45 @@
+{% load admin_urls i18n %}
+ 
+{% trans "Import CSV" as title %} 
+ 
+{% if opts|stringformat:"s" == 'methods.externalsurveyinvitation' %}
+<a id="import-csv-btn" href="#" {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
+    <c-button variant="outlined" data-modal-target="import-csv-modal" @click="FlowbiteInstances.getAllInstances().Modal['import-csv-modal'].show();">
+        <c-icon name="arrow-down-to-bracket" class="me-2"></c-icon>
+        {{ title }}
+    </c-button>
+</a>
+{% endif %}
+
+<!-- Modal Structure hidden by default -->
+<c-modals.base-modal 
+    x-data="{ titleDetails: '{{method.name}}' }" id="import-csv-modal" 
+    @show-modal.window="FlowbiteInstances.getAllInstances().Modal['import-csv-modal'].show()" 
+    @hide-modal.window="FlowbiteInstances.getAllInstances().Modal['import-csv-modal'].hide()"
+    width="50vw"
+>
+    
+    <div style="background:#fff; max-width:500px; margin:80px auto; padding:20px; position:relative;">
+        <form id="import-csv-form" action="{% url 'methods:import_csv' original.pk %}" method="POST"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="flex">
+                <div
+                    class="border border-base-200 flex grow items-center overflow-hidden rounded-default shadow-xs max-w-2xl focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 group-[.errors]:border-red-600 focus-within:group-[.errors]:outline-red-500">
+                    <input id="id_csv_file" type="file" name="csv_file" accept=".csv"
+                        class="bg-white grow font-medium min-w-0 px-3 py-2 text-ellipsis" />
+                </div>
+
+                <!-- Text input placeholder expected by fileInputUpdatePath on Django unfold -->
+                <input type="text" readonly value="" style="display: none;" />
+                <button type="submit"
+                    class="ml-2 bg-primary-600 block border border-transparent cursor-pointer font-medium px-3 py-2 rounded-default text-white w-full lg:w-auto">
+                    {% translate 'Upload CSV' %}  
+                </button>
+            </div>
+    
+        </form>
+    </div>
+ 
+ </c-modals.base-modal>

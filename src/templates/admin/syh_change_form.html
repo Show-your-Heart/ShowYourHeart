@@ -15,7 +15,9 @@
     <c-slot name="buttons">
         {% if has_add_permission %}
             <div class="flex justify-end space-x-2 mb-4">
+                <c-admin.button-preview></c-admin.button-preview>
                 <c-admin.button-import-export></c-admin.button-import-export>
+                <c-admin.button-import-ext-invitations></c-admin.button-import-ext-invitations>
                 <c-admin.button-add></c-admin.button-add>
             </div>
         {% endif %}
