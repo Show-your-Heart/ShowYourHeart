@@ -15,6 +15,7 @@ from .helpers import (
 )
 from .models import (
     Campaign,
+    Group,
     Indicator,
     IndicatorResult,
     List,
@@ -85,6 +86,15 @@ class MethodFillMixin:
                     i["options"] = []
                     for o in options:
                         i["options"].append({"id": o["id"], "value": o["value"]})
+                if i["group_id"] is not None:
+                    group = Group.objects.get(id=i["group_id"])
+                    group_items = group.items.all().values()
+                    i["group_title"] = group.title
+                    i["group_items"] = []
+                    for o in group_items:
+                        i["group_items"].append(
+                            {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
+                        )
 
         except Method.DoesNotExist:
             indicators = list([])
@@ -169,7 +179,25 @@ def save_indicator_results(method_id, request, survey):
                     IndicatorResult.objects.filter(
                         survey=survey, indicator=indicator, gender=gender
                     ).delete()
-
+        elif indicator.is_group_indicator:
+            for group_item in indicator.group.items.all():
+                value = request.POST.get(f"{field_name}_{group_item.suffix}")
+                if value or na:
+                    IndicatorResult.objects.update_or_create(
+                        survey=survey,
+                        indicator=indicator,
+                        group_item=group_item,
+                        defaults={
+                            "value": "" if value is None else value,
+                            "not_applicable": na,
+                        },
+                    )
+                else:
+                    IndicatorResult.objects.filter(
+                        survey=survey,
+                        indicator=indicator,
+                        group_item=group_item,
+                    ).delete()
         # Handle standard indicators
         else:
             values = request.POST.getlist(field_name)
@@ -253,6 +281,15 @@ def get_initial_values(survey):
                 },
                 "not_applicable": i.not_applicable,
             }
+        elif i.indicator.is_group_indicator:
+            if i.indicator.code not in initial_values:
+                initial_values[i.indicator.code] = {
+                    "value": {},
+                    "not_applicable": i.not_applicable,
+                }
+                initial_values[i.indicator.code]["value"][i.group_item.suffix] = i.value
+            else:
+                initial_values[i.indicator.code]["value"][i.group_item.suffix] = i.value
         else:
             initial_values[i.indicator.code] = {
                 "value": i.value,

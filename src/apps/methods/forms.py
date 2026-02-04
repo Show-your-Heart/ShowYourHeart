@@ -45,56 +45,70 @@ def get_choices(options_list):
 def get_field(indicator):
     field_name = indicator.name
 
-    return {
-        Indicator.DataType.STRING: forms.CharField(
-            label=field_name, required=False, widget=syh_forms.TextInput
-        ),
-        Indicator.DataType.TEXT: forms.CharField(
-            label=field_name, required=False, widget=syh_forms.TextArea
-        ),
-        Indicator.DataType.INTEGER: forms.IntegerField(
-            label=field_name, required=False, widget=syh_forms.IntegerInput
-        ),
-        Indicator.DataType.DECIMAL: forms.DecimalField(
-            label=field_name, required=False, widget=syh_forms.DecimalInput
-        ),
-        Indicator.DataType.BOOLEAN: forms.BooleanField(
-            label=field_name, required=False, widget=syh_forms.BooleanInput
-        ),
-        Indicator.DataType.DATE: forms.DateField(
-            label=field_name,
-            required=False,
-            widget=syh_forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            input_formats=["%Y-%m-%d"],
-        ),
-        Indicator.DataType.ATTACHMENT: forms.FileField(
-            label=field_name, required=False, widget=syh_forms.AttachmentInput
-        ),
-        Indicator.DataType.CHECKBOX: forms.MultipleChoiceField(
-            label=field_name,
-            required=False,
-            widget=syh_forms.CheckboxSelectMultiple,
-            choices=get_choices(indicator.list_options),
-        ),
-        Indicator.DataType.RADIOBUTTON: forms.ChoiceField(
-            label=field_name,
-            required=False,
-            choices=get_choices(indicator.list_options),
-            widget=syh_forms.RadioButtonInput,
-        ),
-        Indicator.DataType.DROPDOWN: forms.ChoiceField(
-            label=field_name,
-            required=False,
-            choices=get_choices(indicator.list_options),
-            widget=syh_forms.DropdownInput,
-        ),
-        Indicator.DataType.INTEGERGENDER: syh_forms.GenderInput(
-            required=False, input_type="integer"
-        ),
-        Indicator.DataType.DECIMALGENDER: syh_forms.GenderInput(
-            required=False, input_type="decimal"
-        ),
-    }.get(indicator.data_type)
+    if indicator.is_group_indicator:
+        return {
+            Indicator.DataType.STRING: forms.CharField(
+                label=field_name, required=False, widget=syh_forms.GroupTextInput
+            ),
+            Indicator.DataType.INTEGER: forms.IntegerField(
+                label=field_name, required=False, widget=syh_forms.GroupIntegerInput
+            ),
+            Indicator.DataType.DECIMAL: forms.DecimalField(
+                label=field_name, required=False, widget=syh_forms.GroupDecimalInput
+            ),
+        }.get(indicator.data_type)
+
+    else:
+        return {
+            Indicator.DataType.STRING: forms.CharField(
+                label=field_name, required=False, widget=syh_forms.TextInput
+            ),
+            Indicator.DataType.TEXT: forms.CharField(
+                label=field_name, required=False, widget=syh_forms.TextArea
+            ),
+            Indicator.DataType.INTEGER: forms.IntegerField(
+                label=field_name, required=False, widget=syh_forms.IntegerInput
+            ),
+            Indicator.DataType.DECIMAL: forms.DecimalField(
+                label=field_name, required=False, widget=syh_forms.DecimalInput
+            ),
+            Indicator.DataType.BOOLEAN: forms.BooleanField(
+                label=field_name, required=False, widget=syh_forms.BooleanInput
+            ),
+            Indicator.DataType.DATE: forms.DateField(
+                label=field_name,
+                required=False,
+                widget=syh_forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+                input_formats=["%Y-%m-%d"],
+            ),
+            Indicator.DataType.ATTACHMENT: forms.FileField(
+                label=field_name, required=False, widget=syh_forms.AttachmentInput
+            ),
+            Indicator.DataType.CHECKBOX: forms.MultipleChoiceField(
+                label=field_name,
+                required=False,
+                widget=syh_forms.CheckboxSelectMultiple,
+                choices=get_choices(indicator.list_options),
+            ),
+            Indicator.DataType.RADIOBUTTON: forms.ChoiceField(
+                label=field_name,
+                required=False,
+                choices=get_choices(indicator.list_options),
+                widget=syh_forms.RadioButtonInput,
+            ),
+            Indicator.DataType.DROPDOWN: forms.ChoiceField(
+                label=field_name,
+                required=False,
+                choices=get_choices(indicator.list_options),
+                widget=syh_forms.DropdownInput,
+            ),
+            Indicator.DataType.INTEGERGENDER: syh_forms.GenderInput(
+                required=False, input_type="integer"
+            ),
+            Indicator.DataType.DECIMALGENDER: syh_forms.GenderInput(
+                required=False, input_type="decimal"
+            ),
+        }.get(indicator.data_type)
 
 
 def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):

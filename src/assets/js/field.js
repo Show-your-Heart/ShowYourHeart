@@ -10,6 +10,9 @@ const initFieldData = () => {
         placeholder: "",
         type: "",
         isDirectIndicator: true,
+        isGroupIndicator: false,
+        groupTitle: "",
+        groupItems: [],
         required: true,
         condition: "",
         formula: "",
@@ -32,13 +35,18 @@ const initFieldData = () => {
             this.type = indicator.data_type
             this.unit = indicator.unit
             this.mandatory = indicator.mandatory
+            this.isDirectIndicator = indicator.is_direct_indicator
+            this.isGroupIndicator = indicator.is_group_indicator
             if (indicator.options) {
                 this.options = indicator.options
+            }
+            if (indicator.is_group_indicator) {
+                this.groupTitle = indicator.group_title
+                this.groupItems = indicator.group_items
             }
             this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             this.indicatorsStore.shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
-            this.isDirectIndicator = indicator.is_direct_indicator
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
                 this.condition = indicator.condition
@@ -90,6 +98,17 @@ const initFieldData = () => {
                         male: null,
                         nonBinary: null,
                     }
+                }
+            } else if (this.isGroupIndicator) {
+                value = {}
+                if (initialValue && Object.keys(initialValue).length > 0) {
+                    this.groupItems.forEach(item => {
+                        value[item.suffix] = initialValue[item.suffix]
+                    })
+                } else {
+                    this.groupItems.forEach(item => {
+                        value[item.suffix] = this.type == this.indicatorsStore.fieldTypes.STRING ? "" : 0
+                    })
                 }
             } else if (initialValue != null) {
                 value = initialValue
@@ -150,7 +169,7 @@ const initFieldData = () => {
                         this.checkedOptions[optionIndex] = true
                     }
                 }
-            } else if (this.indicatorsStore.isGendered(type)) {
+            } else if (this.isGroupIndicator || this.indicatorsStore.isGendered(type)) {
                 value = current
                 value[subtype] = input
             } else {

@@ -1,21 +1,20 @@
-const FieldType = {
-    STRING: "S",
-    TEXT: "T",
-    INTEGER: "I",
-    DECIMAL: "DC",
-    BOOLEAN: "B",
-    DATE: "D",
-    ATTACHMENT: "A",
-    CHECKBOX: "CH",
-    RADIOBUTTON: "R",
-    DROPDOWN: "DR",
-    INTEGERGENDER: "IG",
-    DECIMALGENDER: "DG",
-}
-
 const initIndicatorsStore = () => {
     Alpine.store('indicators', {
         indicators: [],
+        fieldTypes: {
+            STRING: "S",
+            TEXT: "T",
+            INTEGER: "I",
+            DECIMAL: "DC",
+            BOOLEAN: "B",
+            DATE: "D",
+            ATTACHMENT: "A",
+            CHECKBOX: "CH",
+            RADIOBUTTON: "R",
+            DROPDOWN: "DR",
+            INTEGERGENDER: "IG",
+            DECIMALGENDER: "DG",
+        },
         parseExpression(expr) {
             const tokens = expr.split(" ")
 
@@ -23,7 +22,7 @@ const initIndicatorsStore = () => {
             for (let token of tokens) {
                 let value = null
                 if (token.match(/^[a-zA-Z_]\w*$/)) {
-                    if (token.match(/(_men|_women|_nb|_total)/)) {
+                    if (token.match(/(_)/)) {
                         const subtokens = token.split("_")
                         value = this.loadIndicatorResult(subtokens[0], subtokens[1])
                     } else {
@@ -87,7 +86,7 @@ const initIndicatorsStore = () => {
                 return null
             }
         },
-        loadIndicatorResult(code, subtype = "") {
+        loadIndicatorResult(code, suffix = "") {
             let result = null
             const indicator = this.indicators.find(i => i.code == code)
 
@@ -99,8 +98,8 @@ const initIndicatorsStore = () => {
                 } else {
                     result = fieldData.value.value
                 }
-            } else if (subtype != "") {
-                switch (subtype) {
+            } else if (suffix != "") {
+                switch (suffix) {
                     case 'men':
                         result = Number(indicator.value.male)
                         break;
@@ -111,8 +110,10 @@ const initIndicatorsStore = () => {
                         result = Number(indicator.value.nonBinary)
                         break;
                     case 'total':
-                        result = Number(indicator.value.male) + Number(indicator.value.female) + Number(indicator.value.nonBinary)
+                        result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k]), 0)
                         break;
+                    default:
+                        result = indicator.value[suffix]
                 }
             } else {
                 result = indicator.value || null
@@ -172,8 +173,8 @@ const initIndicatorsStore = () => {
         },
         isGendered(type) {
             switch (type) {
-                case FieldType.INTEGERGENDER:
-                case FieldType.DECIMALGENDER:
+                case this.fieldTypes.INTEGERGENDER:
+                case this.fieldTypes.DECIMALGENDER:
                     return true
                 default:
                     return false
@@ -181,18 +182,18 @@ const initIndicatorsStore = () => {
         },
         hasOptions(type) {
             switch (type) {
-                case FieldType.STRING:
-                case FieldType.TEXT:
-                case FieldType.INTEGER:
-                case FieldType.DECIMAL:
-                case FieldType.BOOLEAN:
-                case FieldType.INTEGERGENDER:
-                case FieldType.DECIMALGENDER:
-                case FieldType.DATE:
+                case this.fieldTypes.STRING:
+                case this.fieldTypes.TEXT:
+                case this.fieldTypes.INTEGER:
+                case this.fieldTypes.DECIMAL:
+                case this.fieldTypes.BOOLEAN:
+                case this.fieldTypes.INTEGERGENDER:
+                case this.fieldTypes.DECIMALGENDER:
+                case this.fieldTypes.DATE:
                     return false
-                case FieldType.DROPDOWN:
-                case FieldType.CHECKBOX:
-                case FieldType.RADIOBUTTON:
+                case this.fieldTypes.DROPDOWN:
+                case this.fieldTypes.CHECKBOX:
+                case this.fieldTypes.RADIOBUTTON:
                     return true
                 default:
                     console.log(type, "No matching type found")
@@ -201,18 +202,18 @@ const initIndicatorsStore = () => {
         },
         isMultiAnswer(type) {
             switch (type) {
-                case FieldType.STRING:
-                case FieldType.TEXT:
-                case FieldType.INTEGER:
-                case FieldType.DECIMAL:
-                case FieldType.DROPDOWN:
-                case FieldType.RADIOBUTTON:
-                case FieldType.BOOLEAN:
-                case FieldType.INTEGERGENDER:
-                case FieldType.DECIMALGENDER:
-                case FieldType.DATE:
+                case this.fieldTypes.STRING:
+                case this.fieldTypes.TEXT:
+                case this.fieldTypes.INTEGER:
+                case this.fieldTypes.DECIMAL:
+                case this.fieldTypes.DROPDOWN:
+                case this.fieldTypes.RADIOBUTTON:
+                case this.fieldTypes.BOOLEAN:
+                case this.fieldTypes.INTEGERGENDER:
+                case this.fieldTypes.DECIMALGENDER:
+                case this.fieldTypes.DATE:
                     return false
-                case FieldType.CHECKBOX:
+                case this.fieldTypes.CHECKBOX:
                     return true
                 default:
                     console.log(type, "No matching type found")
