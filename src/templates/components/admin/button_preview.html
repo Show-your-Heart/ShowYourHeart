@@ -4,7 +4,7 @@
  
  
 {% if opts|stringformat:"s" == 'methods.method' %}
-<a href="{% url 'methods:method_fill' campaign_id request.path|get_id %}" class="cursor-pointer text-left whitespace-nowrap" {% if blank %} target="_blank"{% endif %} {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
+<a href="{% url 'methods:method_preview' request.path|get_id %}" target="_blank" class="cursor-pointer text-left whitespace-nowrap"  {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
     <c-button variant="outlined" >
         <c-icon name="eye" class="me-2"></c-icon>
         {{ title }}
