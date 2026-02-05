@@ -413,7 +413,8 @@ class GovAdminSite(UnfoldAdminSite):
                         "name": _("Entities"),
                         "icon": "group",
                         "url": org_app["app_url"],
-                        "is_active": self.is_app_active(org_app, request),
+                        "is_active": self.is_app_active(org_app, request)
+                        and relative_path != "registration-requests",
                         "items": items,
                     }
                 )
@@ -451,7 +452,8 @@ class GovAdminSite(UnfoldAdminSite):
                         "name": _("Methods management"),
                         "icon": "adjustments-horizontal",
                         "url": methods_app["app_url"],
-                        "is_active": self.is_app_active(methods_app, request),
+                        "is_active": self.is_app_active(methods_app, request)
+                        and relative_path != "review-balances",
                         "items": items,
                     }
                 )
