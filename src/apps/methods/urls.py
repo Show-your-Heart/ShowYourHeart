@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .views import (
     ExternalMethodFillView,
     MethodFillView,
+    MethodPreviewView,
     import_csv,
     invitation_sent_view,
     invitations_sent_view,
@@ -31,5 +32,10 @@ urlpatterns = [
         _("fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"),
         MethodFillView.as_view(),
         name="method_fill_project",
+    ),
+    path(
+        _("preview/<uuid:method_id>/"),
+        MethodPreviewView.as_view(),
+        name="method_preview",
     ),
 ]

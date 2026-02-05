@@ -6,6 +6,7 @@ from .models import IndicatorResult, Invitation, Method, Section
 class ParseExternalInvitations:
     def parse_csv(self, csv_reader, id):
         error_messages = []
+        # TODO validate csv format
         for row in csv_reader:
             if row[1]:
                 if self.is_valid_email(row[1]):

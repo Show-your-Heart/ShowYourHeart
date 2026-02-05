@@ -3,7 +3,7 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -37,6 +37,18 @@ class MethodFillView(MethodFillMixin, TemplateView):
     def post(self, request, method_id, campaign_id, **kwargs):
         project_id = self.kwargs.get("project_id")
         return super().post(request, method_id, campaign_id, project_id)
+
+
+class MethodPreviewView(MethodFillMixin, TemplateView):
+    template_name = "methods/method_fill.html"
+
+    def get_context_data(self, **kwargs):
+        method = Method.objects.get(pk=self.kwargs["method_id"])
+        kwargs["method"] = method
+        return super().get_context_data(**kwargs)
+
+    def post(self, request, method_id):
+        return HttpResponse(status=204)
 
 
 @method_decorator(login_not_required, name="dispatch")

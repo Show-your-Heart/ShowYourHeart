@@ -1,0 +1,13 @@
+{% load admin_urls i18n template_helpers %}
+ 
+{% trans "Preview" as title %} 
+ 
+ 
+{% if opts|stringformat:"s" == 'methods.method' %}
+<a href="{% url 'methods:method_preview' request.path|get_id %}" target="_blank" class="cursor-pointer text-left whitespace-nowrap"  {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
+    <c-button variant="outlined" >
+        <c-icon name="eye" class="me-2"></c-icon>
+        {{ title }}
+    </c-button>
+</a>
+{% endif %}
