@@ -86,7 +86,7 @@ const initFieldData = () => {
                         this.options.forEach(o => this.checkedOptions.push(optionIds.includes(o.id)))
                     }
                 } else {
-                    value = this.getOption(initialValue) || ""
+                    value = this.getOption(initialValue)
                 }
             } else if (this.indicatorsStore.isGendered(this.type)) {
                 if (initialValue && initialValue.female) {
@@ -230,7 +230,7 @@ const initFieldData = () => {
             return this.value.id == optionId
         },
         getOption(id) {
-            return this.options.find(o => o.id == id)
+            return this.options.find(o => o.id == id) || { value: "", id: "" }
         }
     }))
 }
