@@ -93,8 +93,9 @@ class Indicator(BaseModel):
         DECIMALGENDER = "DG", _("Real gendered number")
 
     class Unit(models.TextChoices):
-        C = "C", "C"
+        PEOPLE = "PE", _("people")
         DOLLAR = "DL", "$"
+        EUROS = "EU", "€"
         KILO = "K", _("kg")
         M2 = "M", _("m2")
         TEMP = "T", _("°C")
@@ -102,6 +103,8 @@ class Indicator(BaseModel):
         POINTS = "P", _("points")
         ENERGY = "E", _("KWh")
         EURO_HOUR = "EH", _("€/h")
+        NUMBER = "N", _("number")
+        PERCENTAGE = "PER", _("percentage")
 
     list_types = [
         DataType.DROPDOWN,
