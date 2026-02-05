@@ -13,6 +13,8 @@ const initFieldData = () => {
         isGroupIndicator: false,
         groupTitle: "",
         groupItems: [],
+        group2Title: "",
+        group2Items: [],
         required: true,
         condition: "",
         formula: "",
@@ -43,8 +45,10 @@ const initFieldData = () => {
             if (indicator.is_group_indicator) {
                 this.groupTitle = indicator.group_title
                 this.groupItems = indicator.group_items
+                this.group2Title = indicator.group_2_title || ""
+                this.group2Items = indicator.group_2_items || []
             }
-            this.value = this.loadInitialValue(indicatorResults?.value ?? null, indicator.data_type)
+            this.value = this.loadInitialValue(indicatorResults?.value ?? null)
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
             this.indicatorsStore.shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.required = indicator.required
@@ -66,13 +70,13 @@ const initFieldData = () => {
             }
             isValid = this.indicatorsStore.validate(field)
         },
-        loadInitialValue(initialValue, type) {
+        loadInitialValue(initialValue) {
             let value = ""
-            if (initialValue == null && this.indicatorsStore.isMultiAnswer(type)) {
+            if (initialValue == null && this.indicatorsStore.isMultiAnswer(this.type)) {
                 value = []
             }
-            if (this.indicatorsStore.hasOptions(type)) {
-                if (this.indicatorsStore.isMultiAnswer(type)) {
+            if (this.indicatorsStore.hasOptions(this.type)) {
+                if (this.indicatorsStore.isMultiAnswer(this.type)) {
                     if (initialValue == "" || initialValue == null) {
                         value = []
                         this.options.forEach(o => this.checkedOptions.push(false))
@@ -84,7 +88,7 @@ const initFieldData = () => {
                 } else {
                     value = this.getOption(initialValue) || ""
                 }
-            } else if (this.indicatorsStore.isGendered(type)) {
+            } else if (this.indicatorsStore.isGendered(this.type)) {
                 if (initialValue && initialValue.female) {
                     value = {
                         female: initialValue.female,
@@ -100,24 +104,52 @@ const initFieldData = () => {
                     }
                 }
             } else if (this.isGroupIndicator) {
-                value = {}
-                if (initialValue && Object.keys(initialValue).length > 0) {
-                    this.groupItems.forEach(item => {
-                        value[item.suffix] = initialValue[item.suffix]
-                    })
+                if (this.group2Title == "") {
+                    value = this.loadListInitialValue(initialValue)
                 } else {
-                    this.groupItems.forEach(item => {
-                        value[item.suffix] = this.type == this.indicatorsStore.fieldTypes.STRING ? "" : 0
-                    })
+                    value = this.loadTableInitialValue(initialValue)
                 }
             } else if (initialValue != null) {
                 value = initialValue
             }
             return value
         },
-        update(newValue, subtype = "") {
+        loadListInitialValue(initialValue) {
+            value = {}
+            if (initialValue && Object.keys(initialValue).length > 0) {
+                this.groupItems.forEach(item => {
+                    value[item.suffix] = initialValue[item.suffix]
+                })
+            } else {
+                this.groupItems.forEach(item => {
+                    value[item.suffix] = this.type == this.indicatorsStore.fieldTypes.STRING ? "" : 0
+                })
+            }
+            return value
+        },
+        loadTableInitialValue(initialValue) {
+            value = {}
+            if (initialValue && Object.keys(initialValue).length > 0) {
+                this.groupItems.forEach(item => {
+                    value[item.suffix] = {}
+                    this.group2Items.forEach(group2Item => {
+                        value[item.suffix][group2Item.suffix] = initialValue[item.suffix][group2Item.suffix]
+
+                    })
+                })
+            } else {
+                this.groupItems.forEach(item => {
+                    value[item.suffix] = {}
+                    this.group2Items.forEach(group2Item => {
+                        value[item.suffix][group2Item.suffix] = this.type == this.indicatorsStore.fieldTypes.STRING ? "" : 0
+                    })
+                })
+            }
+            return value
+        },
+        update(newValue, suffix = "", suffix2 = "") {
             try {
-                this.value = this.updateValue(newValue, this.value, this.type, subtype)
+                this.value = this.updateValue(newValue, this.value, this.type, suffix, suffix2)
                 const field = {
                     id: this.id,
                     code: this.code,
@@ -146,7 +178,7 @@ const initFieldData = () => {
                 this.error = e.message
             }
         },
-        updateValue(input, current, type, subtype = "") {
+        updateValue(input, current, type, suffix = "", suffix2 = "") {
             // if (!current) return ""
             let value = ""
             if (this.indicatorsStore.hasOptions(type) && !this.indicatorsStore.isMultiAnswer(type)) {
@@ -171,7 +203,11 @@ const initFieldData = () => {
                 }
             } else if (this.isGroupIndicator || this.indicatorsStore.isGendered(type)) {
                 value = current
-                value[subtype] = input
+                if (suffix2 == '') {
+                    value[suffix] = input
+                } else {
+                    value[suffix][suffix2] = input
+                }
             } else {
                 value = input
             }
@@ -196,8 +232,6 @@ const initFieldData = () => {
         getOption(id) {
             return this.options.find(o => o.id == id)
         }
-
-
     }))
 }
 

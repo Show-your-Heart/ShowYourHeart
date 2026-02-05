@@ -105,7 +105,9 @@ class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmi
         "condition": "is_direct_indicator == true",
         "formula": "is_direct_indicator == false",
         "list_options": f"{list_types_js}.includes(data_type)",
-        "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true ",
+        "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true",
+        "group_2": f"""{group_types_js}.includes(data_type)
+                        && is_group_indicator == true""",
     }
 
     exclude = ("dependant_indicators",)
@@ -128,6 +130,7 @@ class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmi
                 "unit",
                 "list_options",
                 "group",
+                "group_2",
                 "condition",
                 "formula",
                 "validation",

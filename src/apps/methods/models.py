@@ -191,6 +191,13 @@ class Indicator(BaseModel):
         on_delete=models.PROTECT,
         related_name="group",
     )
+    group_2 = models.ForeignKey(
+        Group,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="group_2",
+    )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
     validation = models.CharField(_("validation"), max_length=400, blank=True)
@@ -489,6 +496,15 @@ class IndicatorResult(BaseModel):
         blank=True,
         null=True,
         on_delete=models.PROTECT,
+        related_name="group_item",
+    )
+    group_2_item = models.ForeignKey(
+        GroupItem,
+        default=None,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="group_2_item",
     )
     gender = models.PositiveSmallIntegerField(
         choices=Gender.choices, default=None, blank=True, null=True

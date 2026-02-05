@@ -21,10 +21,10 @@ const initIndicatorsStore = () => {
             let loadedTokens = []
             for (let token of tokens) {
                 let value = null
-                if (token.match(/^[a-zA-Z_]\w*$/)) {
+                if (token.match(/^[a-zA-Z]\w*/)) {
                     if (token.match(/(_)/)) {
                         const subtokens = token.split("_")
-                        value = this.loadIndicatorResult(subtokens[0], subtokens[1])
+                        value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
                     } else {
                         value = this.loadIndicatorResult(token)
                     }
@@ -74,7 +74,6 @@ const initIndicatorsStore = () => {
                 parsedExpression = this.parseExpression(indicator.condition)
                 return this.evaluateExpression(parsedExpression)
             } catch (e) {
-                console.log("Checking visibility of field failed", e)
                 return false
             }
         },
@@ -86,7 +85,7 @@ const initIndicatorsStore = () => {
                 return null
             }
         },
-        loadIndicatorResult(code, suffix = "") {
+        loadIndicatorResult(code, suffix = "", suffix2 = "") {
             let result = null
             const indicator = this.indicators.find(i => i.code == code)
 
@@ -99,22 +98,27 @@ const initIndicatorsStore = () => {
                     result = fieldData.value.value
                 }
             } else if (suffix != "") {
-                switch (suffix) {
-                    case 'men':
-                        result = Number(indicator.value.male)
-                        break;
-                    case 'women':
-                        result = Number(indicator.value.female)
-                        break;
-                    case 'nb':
-                        result = Number(indicator.value.nonBinary)
-                        break;
-                    case 'total':
-                        result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k]), 0)
-                        break;
-                    default:
-                        result = indicator.value[suffix]
+                if (suffix2 == "") {
+                    switch (suffix) {
+                        case 'men':
+                            result = Number(indicator.value.male)
+                            break;
+                        case 'women':
+                            result = Number(indicator.value.female)
+                            break;
+                        case 'nb':
+                            result = Number(indicator.value.nonBinary)
+                            break;
+                        case 'total':
+                            result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k]), 0)
+                            break;
+                        default:
+                            result = indicator.value[suffix]
+                    }
+                } else {
+                    result = indicator.value[suffix][suffix2]
                 }
+
             } else {
                 result = indicator.value || null
             }

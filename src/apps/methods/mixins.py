@@ -95,6 +95,15 @@ class MethodFillMixin:
                         i["group_items"].append(
                             {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
                         )
+                if i["group_2_id"] is not None:
+                    group = Group.objects.get(id=i["group_2_id"])
+                    group_items = group.items.all().values()
+                    i["group_2_title"] = group.title
+                    i["group_2_items"] = []
+                    for o in group_items:
+                        i["group_2_items"].append(
+                            {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
+                        )
 
         except Method.DoesNotExist:
             indicators = list([])
@@ -179,25 +188,52 @@ def save_indicator_results(method_id, request, survey):
                     IndicatorResult.objects.filter(
                         survey=survey, indicator=indicator, gender=gender
                     ).delete()
+        # Handle group indicators
         elif indicator.is_group_indicator:
             for group_item in indicator.group.items.all():
-                value = request.POST.get(f"{field_name}_{group_item.suffix}")
-                if value or na:
-                    IndicatorResult.objects.update_or_create(
-                        survey=survey,
-                        indicator=indicator,
-                        group_item=group_item,
-                        defaults={
-                            "value": "" if value is None else value,
-                            "not_applicable": na,
-                        },
-                    )
+                # Handle lists
+                if indicator.group_2 is None:
+                    value = request.POST.get(f"{field_name}_{group_item.suffix}")
+                    if value or na:
+                        IndicatorResult.objects.update_or_create(
+                            survey=survey,
+                            indicator=indicator,
+                            group_item=group_item,
+                            defaults={
+                                "value": "" if value is None else value,
+                                "not_applicable": na,
+                            },
+                        )
+                    else:
+                        IndicatorResult.objects.filter(
+                            survey=survey,
+                            indicator=indicator,
+                            group_item=group_item,
+                        ).delete()
+                # Handle tables
                 else:
-                    IndicatorResult.objects.filter(
-                        survey=survey,
-                        indicator=indicator,
-                        group_item=group_item,
-                    ).delete()
+                    for group_2_item in indicator.group_2.items.all():
+                        value = request.POST.get(
+                            f"{field_name}_{group_item.suffix}_{group_2_item.suffix}"
+                        )
+                        if value or na:
+                            IndicatorResult.objects.update_or_create(
+                                survey=survey,
+                                indicator=indicator,
+                                group_item=group_item,
+                                group_2_item=group_2_item,
+                                defaults={
+                                    "value": "" if value is None else value,
+                                    "not_applicable": na,
+                                },
+                            )
+                        else:
+                            IndicatorResult.objects.filter(
+                                survey=survey,
+                                indicator=indicator,
+                                group_item=group_item,
+                                group_2_item=group_2_item,
+                            ).delete()
         # Handle standard indicators
         else:
             values = request.POST.getlist(field_name)
@@ -282,14 +318,34 @@ def get_initial_values(survey):
                 "not_applicable": i.not_applicable,
             }
         elif i.indicator.is_group_indicator:
-            if i.indicator.code not in initial_values:
-                initial_values[i.indicator.code] = {
-                    "value": {},
-                    "not_applicable": i.not_applicable,
-                }
-                initial_values[i.indicator.code]["value"][i.group_item.suffix] = i.value
+            if i.indicator.group_2 is None:
+                if i.indicator.code not in initial_values:
+                    initial_values[i.indicator.code] = {
+                        "value": {},
+                        "not_applicable": i.not_applicable,
+                    }
+                    initial_values[i.indicator.code]["value"][i.group_item.suffix] = (
+                        i.value
+                    )
+                else:
+                    initial_values[i.indicator.code]["value"][i.group_item.suffix] = (
+                        i.value
+                    )
             else:
-                initial_values[i.indicator.code]["value"][i.group_item.suffix] = i.value
+                if i.indicator.code not in initial_values:
+                    initial_values[i.indicator.code] = {
+                        "value": {},
+                        "not_applicable": i.not_applicable,
+                    }
+                    for item in i.indicator.group.items.all():
+                        initial_values[i.indicator.code]["value"][item.suffix] = {}
+                    initial_values[i.indicator.code]["value"][i.group_item.suffix][
+                        i.group_2_item.suffix
+                    ] = i.value
+                else:
+                    initial_values[i.indicator.code]["value"][i.group_item.suffix][
+                        i.group_2_item.suffix
+                    ] = i.value
         else:
             initial_values[i.indicator.code] = {
                 "value": i.value,
