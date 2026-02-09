@@ -176,6 +176,7 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
 
     conditional_fields = {
         "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
+        "external_survey_category": f"unit_of_analysis == '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
     }
 
     change_form_template = "admin/methods/method/change_form.html"
@@ -200,6 +201,7 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
                 "description_en",
                 "version",
                 "unit_of_analysis",
+                "external_survey_category",
                 "indicators",
                 "legal_structures",
                 "sectors",

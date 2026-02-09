@@ -269,6 +269,12 @@ class Method(BaseModel):
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
+    class ExternalSurveyCategory(models.TextChoices):
+        WORK = "W", _("Work")
+        PROFESSIONAL = "PR", _("Professional")
+        ASSOCIATIVE = "AS", _("Associative")
+        VOLUNTEERING = "V", _("Volunteering")
+
     name = models.CharField(_("name"), max_length=150)
     description = models.CharField(_("description"), max_length=1000)
     unit_of_analysis = models.CharField(
@@ -304,6 +310,13 @@ class Method(BaseModel):
         related_name="region1",
         blank=True,
     )
+    external_survey_category = models.CharField(
+        _("external survey category"),
+        choices=ExternalSurveyCategory.choices,
+        default=ExternalSurveyCategory.WORK,
+        blank=False,
+    )
+
 
     def __str__(self):
         if self.version:
@@ -480,6 +493,7 @@ class Invitation(BaseModel):
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
+    send_date = models.DateField(_("Send date"), blank=True, null=True)
     token = models.CharField(max_length=32, unique=True, blank=True)
     external_survey_invitation = models.ForeignKey(
         ExternalSurveyInvitation, on_delete=models.CASCADE, related_name="invitation"
