@@ -166,7 +166,7 @@ const initFieldData = () => {
             } else if (this.indicatorsStore.isGendered(this.type)) {
                 this.update(0, "male")
                 this.update(0, "female")
-                this.update(0, "nonBinay")
+                this.update(0, "nonBinary")
             } else {
                 this.update("")
             }
