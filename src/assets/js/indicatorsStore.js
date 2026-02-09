@@ -15,7 +15,7 @@ const initIndicatorsStore = () => {
             INTEGERGENDER: "IG",
             DECIMALGENDER: "DG",
         },
-        parseExpression(expr) {
+        parseExpression(expr, code = '') {
             const tokens = expr.split(" ")
 
             let loadedTokens = []
@@ -23,9 +23,18 @@ const initIndicatorsStore = () => {
                 let value = null
                 if (token.match(/^[a-zA-Z]\w*/)) {
                     if (token.match(/(_)/)) {
+                        // Reference to other group indicator
                         const subtokens = token.split("_")
                         value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
+                    } else if (token == 'val' && code.match(/(_)/)) {
+                        // Reference to current group indicator
+                        const subtokens = code.split("_")
+                        value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
+                    } else if (token == 'val') {
+                        value = this.loadIndicatorResult(code)
+                        // Reference to other indicator 
                     } else {
+                        // Reference to current indicator
                         value = this.loadIndicatorResult(token)
                     }
                     if (value == undefined) {
@@ -60,7 +69,7 @@ const initIndicatorsStore = () => {
                 return true
             }
             try {
-                parsedExpression = this.parseExpression(field.validation)
+                parsedExpression = this.parseExpression(field.validation, field.code)
                 result = this.evaluateExpression(parsedExpression)
                 Alpine.store("survey").setIndicatorValidation(field.id, !!result)
                 return result
@@ -71,7 +80,7 @@ const initIndicatorsStore = () => {
         },
         isVisible(indicator) {
             try {
-                parsedExpression = this.parseExpression(indicator.condition)
+                parsedExpression = this.parseExpression(indicator.condition, indicator.code)
                 return this.evaluateExpression(parsedExpression)
             } catch (e) {
                 return false
@@ -79,7 +88,7 @@ const initIndicatorsStore = () => {
         },
         computeFormula(indicator) {
             try {
-                parsedExpression = this.parseExpression(indicator.formula)
+                parsedExpression = this.parseExpression(indicator.formula, indicator.code)
                 return this.evaluateExpression(parsedExpression)
             } catch (e) {
                 return null

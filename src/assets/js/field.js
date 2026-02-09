@@ -152,7 +152,7 @@ const initFieldData = () => {
                 this.value = this.updateValue(newValue, this.value, this.type, suffix, suffix2)
                 const field = {
                     id: this.id,
-                    code: this.code,
+                    code: suffix == "" ? this.code : suffix2 == "" ? `${this.code}_${suffix}` : `${this.code}_${suffix}_${suffix2}`,
                     value: this.value,
                     validation: this.validation,
                     notApplicable: this.notApplicable,

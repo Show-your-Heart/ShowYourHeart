@@ -18,6 +18,8 @@ def parse_expression_dependencies(expr: str):
             if "_" in token:
                 subtokens = re.split(r"[_]", token)
                 dependencies.append(subtokens[0])
+            elif token == "val" or token == "true" or token == "false":  # keywords
+                continue
             else:
                 dependencies.append(token)
 
