@@ -6,8 +6,8 @@
             <p>Mujeres</p>
             <input :id="`question_${id}_female`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:pointer-events-none"
-                :name="`question_${id}_female`" :value="value.female" type="number" {% comment %}
-                :placeholder="placeholder.female" {% endcomment %} {% include "django/forms/widgets/attrs.html" %}
+                :name="`question_${id}_female`" :value="value.female" type="number" 
+                :placeholder="{{ widget.attrs.placeholder.female }}" {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'female')" :step="type == 'DG' ? 0.1 : 1"
                 x-bind:disabled="notApplicable" x-model="value.female" :min="type === 'DG' ? 0.0 : 0"
                 />
@@ -16,10 +16,11 @@
             <p>Hombres</p>
             <input :id="`question_${id}_male`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:pointer-events-none"
-                :name="`question_${id}_male`" :value="value.male" type="number" {% comment %}
-                :placeholder="placeholder.male" {% endcomment %} {% include "django/forms/widgets/attrs.html" %}
+                :name="`question_${id}_male`" :value="value.male" type="number" :placeholder="{{ widget.attrs.placeholder.male }}" 
+                {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'male')" :step="type == 'DG' ? 0.1 : 1"
                 x-bind:disabled="notApplicable" x-model="value.male" :min="type === 'DG' ? 0.0 : 0"
+                
                 />
         </div>
 
@@ -27,8 +28,9 @@
             <p>No binarias</p>
             <input :id="`question_${id}_nonBinary`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:pointer-events-none"
-                :name="`question_${id}_non_binary`" :value="value.nonBinary" type="number" {% comment %}
-                :placeholder="placeholder.nonBinary" {% endcomment %} {% include "django/forms/widgets/attrs.html" %}
+                :name="`question_${id}_non_binary`" :value="value.nonBinary" type="number"  
+                :placeholder="{{ widget.attrs.placeholder.non_binary }}" 
+                {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'nonBinary')" :step="type == 'DG' ? 0.1 : 1"
                 x-bind:disabled="notApplicable" x-model="value.nonBinary" :min="type === 'DG' ? 0.0 : 0"
                 />

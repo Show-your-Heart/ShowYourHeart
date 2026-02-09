@@ -84,10 +84,11 @@ const initFieldData = () => {
                         nonBinary: initialValue.non_binary,
                     }
                 } else {
+                    // Do not set initial values to display the placeholder
                     value = {
-                        female: 0,
-                        male: 0,
-                        nonBinary: 0,
+                        female: null,
+                        male: null,
+                        nonBinary: null,
                     }
                 }
             } else if (initialValue != null) {
