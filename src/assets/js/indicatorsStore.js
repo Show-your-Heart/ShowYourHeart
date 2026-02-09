@@ -25,14 +25,19 @@ const initIndicatorsStore = () => {
                     if (token.match(/(_)/)) {
                         // Reference to other group indicator
                         const subtokens = token.split("_")
-                        value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
+                        if (subtokens.includes('total')) {
+                            // Load list or table column total
+                            value = this.loadTotalIndicatorResult(subtokens)
+                        } else {
+                            value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
+                        }
                     } else if (token == 'val' && code.match(/(_)/)) {
                         // Reference to current group indicator
                         const subtokens = code.split("_")
                         value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
                     } else if (token == 'val') {
-                        value = this.loadIndicatorResult(code)
                         // Reference to other indicator 
+                        value = this.loadIndicatorResult(code)
                     } else {
                         // Reference to current indicator
                         value = this.loadIndicatorResult(token)
@@ -136,6 +141,28 @@ const initIndicatorsStore = () => {
                 const na_element = document.getElementById(`question_${indicator.id}_na`)
                 if (na_element.checked)
                     result = 0
+            }
+            return result
+        },
+        loadTotalIndicatorResult(subtokens) {
+            let result = null
+            const indicator = this.indicators.find(i => i.code == subtokens[0])
+
+            if (indicator.group_2_id == null) {
+                // List total
+                result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k]), 0)
+            } else if (indicator.group_2_items.length > 0) {
+                const columnIndex = indicator.group_2_items.findIndex(i => i.suffix == subtokens[1])
+                if (columnIndex == -1) {
+                    // Table row total
+                    result = indicator.group_2_items.reduce((prev, i) => prev + Number(indicator.value[subtokens[1]][i.suffix]), 0)
+                } else {
+                    // Table column total
+                    result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k][subtokens[1]]), 0)
+                }
+            } else {
+                console.log("Invalid total token ")
+                result = 0
             }
             return result
         },
