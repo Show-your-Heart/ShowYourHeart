@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <c-methods.group-base-field>
-    <div class="flex w-fit p-2 border border-gray-300 rounded-lg bg-gray-100">
+    <div class="flex w-fit p-2 border border-gray-300 rounded-lg bg-gray-100" :class="hasErrors ? 'border-red-600' : 'border-gray-300'">
         <table>
             <template x-if="group2Title != ''">
                 <thead>
@@ -29,9 +29,9 @@
                                         x-bind:disabled="notApplicable" x-model="value[item.suffix]" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                 </div>
-                                <div class="text-red-600" x-show="hasErrors">
+                                {% comment %} <div class="text-red-600" x-show="hasErrors">
                                     <p x-text="error"></p>
-                                </div>
+                                </div> {% endcomment %}
                             </td>
                         </template>
                         <template x-if="group2Title != ''" >
@@ -45,9 +45,9 @@
                                             x-bind:disabled="notApplicable" x-model="value[item.suffix][group2Item.suffix]" />
                                         <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                     </div>
-                                    <div class="text-red-600" x-show="hasErrors">
+                                    {% comment %} <div class="text-red-600" x-show="hasErrors">
                                         <p x-text="error"></p>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </td>
                             </template>
                         </template>
@@ -55,6 +55,9 @@
                 </template>
             </tbody>
         </table>
+    </div>
+    <div class="text-red-600" x-show="hasErrors">
+        <p x-text="error"></p>
     </div>
 
        
