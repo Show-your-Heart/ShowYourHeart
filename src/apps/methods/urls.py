@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .views import (
     ExternalMethodFillView,
+    ExternalSurveysView,
     MethodFillView,
     MethodPreviewView,
     import_csv,
@@ -23,6 +24,11 @@ urlpatterns = [
         _("external-survey/<id>"),  # invitation.token
         ExternalMethodFillView.as_view(),
         name="external_method_fill",
+    ),
+    path(
+        _("external-surveys"),
+        ExternalSurveysView.as_view(),
+        name="external_surveys_view",
     ),
     path(_("send-invitations/<id>"), invitations_sent_view, name="send_invitations"),
     path(_("send-invitation/<id>"), invitation_sent_view, name="send_invitation"),

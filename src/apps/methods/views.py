@@ -21,7 +21,7 @@ from .helpers import (
     get_form_sections,
     get_survey_stats,
 )
-from .models import Campaign, Invitation, Method, Survey
+from .models import Campaign, ExternalSurveyInvitation, Invitation, Method, Survey
 from .services import send_invitation
 
 
@@ -49,6 +49,43 @@ class MethodPreviewView(MethodFillMixin, TemplateView):
 
     def post(self, request, method_id):
         return HttpResponse(status=204)
+
+
+class ExternalSurveysView(TemplateView):
+    template_name = "methods/external_surveys_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        methods = Method.objects.filter(
+            unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY
+        )
+
+        selected_method_id = self.request.GET.get("method")
+        if selected_method_id:
+            selected_method = methods.filter(id=selected_method_id).first()
+        else:
+            selected_method = methods.first()
+
+        invitations = Invitation.objects.none()
+
+        if selected_method:
+            survey_invitations = ExternalSurveyInvitation.objects.filter(
+                external_survey=selected_method
+            )
+            print(survey_invitations)
+            invitations = Invitation.objects.filter(
+                external_survey_invitation__in=survey_invitations
+            )
+        context.update(
+            {
+                "methods": methods,
+                "selected_method": selected_method,
+                "invitations": invitations,
+            }
+        )
+
+        return context
 
 
 @method_decorator(login_not_required, name="dispatch")

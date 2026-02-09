@@ -317,7 +317,6 @@ class Method(BaseModel):
         blank=False,
     )
 
-
     def __str__(self):
         if self.version:
             networks_str = ", ".join([n.name for n in self.networks.all()])

@@ -1,0 +1,80 @@
+{% load i18n %}
+
+<c-default-layout>
+    <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
+        <c-slot name="sidebar">
+            <div class="sticky overflow-y-scroll mt-8 pl-4" style="height: calc(100vh - 80px - 2rem); top: calc(80px + 2rem);">
+                <ul
+                    class="w-[clamp(10rem,18rem,25vw)] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
+                    id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist">
+                    {% for method in methods %}
+                    <li class="w-full border border-gray-300 rounded-lg overflow-hidden" :class="getLiClass('{{method.name}}')"
+                    role="presentation">
+                    <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center"
+                        id="tab-{{ method.id }}" :class="getBtnClass('{{method.name}}')"
+                        data-tabs-target="#method-{{ method.id }}" type="button" role="tab" aria-controls="{{ method.name }}"
+                        aria-selected="false">
+                        <a href="?method={{ method.id }}"
+                            class="w-full py-4 px-8 flex justify-between items-center">
+                                {{ method.name }}
+                        </a>
+                        <c-icon x-show="showCurrent('{{method.name}}')" name="arrow-right"
+                        class="w-6 h-6 inline text-blue-600"></c-icon>
+                    </button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </c-slot>
+        <div>
+        {% if selected_method %}
+            <div class="px-4 py-6 space-y-6">
+
+                <p class="flex justify-center items-center text-center">
+                    {{ selected_method.description }}
+                </p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border border-gray-300 border-collapse text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">
+                                    {% translate "Name" %}
+                                </th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">
+                                    {% translate "Email" %}
+                                </th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">
+                                    {% translate "Date" %}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invitation in invitations %}
+                                <tr class="odd:bg-white even:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ invitation.name }}
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ invitation.email }}
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ invitation.send_date }}
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="border border-gray-300 px-4 py-4 text-center text-gray-500">
+                                        {% translate "No invitations found." %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</c-default-layout>

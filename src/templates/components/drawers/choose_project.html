@@ -21,6 +21,11 @@
         <c-icon name="arrow-right" class="inline text-white"></c-icon>
       </c-button>
     </a>
+    <a class="h-fit-content" href="{% url 'methods:external_surveys_view' %}">
+      <c-button name="action" value="send_external_surveys">
+        {% translate 'Send external surveys' %}
+      </c-button>
+    </a>
     <c-button data-drawer-target="drawer-create-project" data-drawer-placement="right" data-drawer-show="drawer-create-project" aria-controls="drawer-create-project">
       <span>{% translate 'Create project' %}</span>
       <c-icon name="arrow-right" class="inline text-white"></c-icon>
