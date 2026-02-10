@@ -30,7 +30,8 @@ class DateInput(forms.DateInput):
 
 
 class AttachmentInput(forms.ClearableFileInput):
-    template_name = "components/methods/file.html"
+    template_name = "components/methods/input.html"
+    input_type = "file"
 
 
 class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):

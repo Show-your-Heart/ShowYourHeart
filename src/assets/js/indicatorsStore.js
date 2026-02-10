@@ -189,6 +189,7 @@ const initIndicatorsStore = () => {
                 case FieldType.INTEGERGENDER:
                 case FieldType.DECIMALGENDER:
                 case FieldType.DATE:
+                case FieldType.ATTACHMENT:
                     return false
                 case FieldType.DROPDOWN:
                 case FieldType.CHECKBOX:
@@ -211,6 +212,7 @@ const initIndicatorsStore = () => {
                 case FieldType.INTEGERGENDER:
                 case FieldType.DECIMALGENDER:
                 case FieldType.DATE:
+                case FieldType.ATTACHMENT:
                     return false
                 case FieldType.CHECKBOX:
                     return true
