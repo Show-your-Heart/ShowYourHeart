@@ -152,6 +152,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
     template_name = "admin/methods/survey_review.html"
     paginate_by = 20
     organization_field = "organization"
+    method_field = "method"
 
     def get_queryset(self):
         all_surveys = Survey.objects.filter(
