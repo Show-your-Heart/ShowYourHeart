@@ -15,7 +15,7 @@ const initIndicatorsStore = () => {
             INTEGERGENDER: "IG",
             DECIMALGENDER: "DG",
         },
-        parseExpression(expr, code = '') {
+        parseExpression(expr, val) {
             const tokens = expr.split(" ")
 
             let loadedTokens = []
@@ -31,13 +31,13 @@ const initIndicatorsStore = () => {
                         } else {
                             value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
                         }
-                    } else if (token == 'val' && code.match(/(_)/)) {
+                    } else if (token == 'val' && val.match(/(_)/)) {
                         // Reference to current group indicator
-                        const subtokens = code.split("_")
+                        const subtokens = val.split("_")
                         value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
                     } else if (token == 'val') {
                         // Reference to other indicator 
-                        value = this.loadIndicatorResult(code)
+                        value = this.loadIndicatorResult(val)
                     } else {
                         // Reference to current indicator
                         value = this.loadIndicatorResult(token)
@@ -57,46 +57,96 @@ const initIndicatorsStore = () => {
             const jsExpr = loadedTokens.join(" ")
             return jsExpr
         },
-        evaluateExpression(expr) {
+        evaluateExpression(expr, val = '') {
             try {
-                return eval(expr)
+                const parsedExpression = this.parseExpression(expr, val)
+                return eval(parsedExpression)
             } catch (e) {
                 throw e
             }
         },
-        validate(field) {
+        validateField(field, validateGroupItem = false, setGroupItems = false) {
+
+            let result = {
+                isValid: true,
+                isFieldValid: true
+            }
+
+            let fieldEl = null
+            let fieldData = null
+            if (setGroupItems) {
+                fieldEl = document.querySelector(`#field-${field.id}`)
+                fieldData = Alpine.$data(fieldEl)
+            }
+
             if (field.notApplicable) {
                 Alpine.store("survey").setIndicatorValidation(field.id, true)
-                return true
+                return result
             }
-            if (!field.validation && field.value != null && field.value != "") {
+            if (!field.validation && field.value != null && field.value != "" && !(field.value instanceof Object)) {
                 Alpine.store("survey").setIndicatorValidation(field.id, true)
-                return true
+                return result
             }
             try {
-                parsedExpression = this.parseExpression(field.validation, field.code)
-                result = this.evaluateExpression(parsedExpression)
-                Alpine.store("survey").setIndicatorValidation(field.id, !!result)
+
+                if (typeof field.value === 'object' && !Array.isArray(field.value) && field.value !== null) {
+                    // Validate lists and tables
+                    const indicator = this.indicators.find(i => i.id == field.id)
+                    result.isValid = field.isValid
+
+                    if (indicator.group_2_items) {
+                        indicator.group_items.forEach(({ suffix: k }) => {
+                            if (result.isValid[k] == undefined) {
+                                result.isValid[k] = {}
+                            }
+                            indicator.group_2_items.forEach(({ suffix: k2 }) => {
+                                // Only validate for the current groupItem or if the whole field has to be validated
+                                if (!validateGroupItem || (validateGroupItem && `${indicator.code}_${k}_${k2}` == field.code)) {
+                                    result.isValid[k][k2] = field.validation == '' && field.value[k][k2] != null ? true : this.evaluateExpression(field.validation, `${indicator.code}_${k}_${k2}`)
+                                }
+                                if (!result.isValid[k][k2]) {
+                                    result.isFieldValid = false
+                                }
+                                if (setGroupItems) {
+                                    fieldData.setGroupItemValid(k, k2)
+                                }
+                            })
+                        })
+                    } else {
+                        indicator.group_items.forEach(({ suffix: k }) => {
+                            // Only validate for the current groupItem or if the whole field has to be validated
+                            if (!validateGroupItem || (validateGroupItem && `${indicator.code}_${k}` == field.code)) {
+                                result.isValid[k] = field.validation == '' && field.value[k] != null ? true : this.evaluateExpression(field.validation, `${indicator.code}_${k}`)
+                            }
+                            if (!result.isValid[k]) {
+                                result.isFieldValid = false
+                            }
+                            if (setGroupItems) {
+                                fieldData.setGroupItemValid(k)
+                            }
+                        })
+                    }
+                    Alpine.store("survey").setIndicatorValidation(field.id, result.isFieldValid)
+                } else {
+                    // Validate simple indicators
+                    result.isValid = this.evaluateExpression(field.validation, field.code)
+                    result.isFieldValid = result.isValid
+                    Alpine.store("survey").setIndicatorValidation(field.id, result.isValid)
+                }
                 return result
             } catch (e) {
                 Alpine.store("survey").setIndicatorValidation(field.id, false)
-                return false
+                return {
+                    isValid: false,
+                    isFieldValid: false
+                }
             }
         },
         isVisible(indicator) {
             try {
-                parsedExpression = this.parseExpression(indicator.condition, indicator.code)
-                return this.evaluateExpression(parsedExpression)
+                return this.evaluateExpression(indicator.condition, indicator.code)
             } catch (e) {
                 return false
-            }
-        },
-        computeFormula(indicator) {
-            try {
-                parsedExpression = this.parseExpression(indicator.formula, indicator.code)
-                return this.evaluateExpression(parsedExpression)
-            } catch (e) {
-                return null
             }
         },
         loadIndicatorResult(code, suffix = "", suffix2 = "") {
@@ -192,7 +242,7 @@ const initIndicatorsStore = () => {
                     Alpine.$data(fieldEl).show = show
                     Alpine.$data(fieldEl).notApplicable = !show
                 } else {
-                    const value = this.computeFormula(indicator)
+                    const value = this.evaluateExpression(indicator.formula, indicator.code)
                     if (value != null) {
                         const fieldEl = document.querySelector(`#question_${indicator.id}`);
                         fieldEl && (Alpine.$data(fieldEl).value = String(value))

@@ -79,6 +79,17 @@ const initSurveyStore = () => {
                     if (!i.isValid) {
                         const indicator = Alpine.store('indicators')['indicators'].find(ind => i.id == ind.id)
                         if (!!indicator) {
+                            const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                            const fieldData = Alpine.$data(fieldEl)
+                            const { isValid, isFieldValid } = Alpine.store('indicators').validateField({
+                                id: fieldData.id,
+                                code: fieldData.code,
+                                value: fieldData.value,
+                                validation: fieldData.validation,
+                                isValid: fieldData.isValid,
+                                notApplicable: fieldData.notApplicable,
+                            }, false, true)
+                            Alpine.$data(fieldEl).updateErrors(isFieldValid)
                             invalidIndicators.push({
                                 code: indicator.code,
                                 name: indicator.name

@@ -19,6 +19,7 @@ const initFieldData = () => {
         condition: "",
         formula: "",
         validation: "",
+        isValid: false,
         msg: "",
         hasErrors: false,
         error: "",
@@ -47,6 +48,7 @@ const initFieldData = () => {
                 this.groupItems = indicator.group_items
                 this.group2Title = indicator.group_2_title || ""
                 this.group2Items = indicator.group_2_items || []
+                this.isValid = {}
             }
             this.value = this.loadInitialValue(indicatorResults?.value ?? null)
             // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
@@ -67,8 +69,10 @@ const initFieldData = () => {
                 value: this.value,
                 validation: this.validation,
                 notApplicable: this.notApplicable,
+                isValid: this.isValid,
             }
-            isValid = this.indicatorsStore.validate(field)
+            const { isValid, isFieldValid } = this.indicatorsStore.validateField(field)
+            this.isValid = isValid
         },
         loadInitialValue(initialValue) {
             let value = ""
@@ -155,21 +159,17 @@ const initFieldData = () => {
                     code: suffix == "" ? this.code : suffix2 == "" ? `${this.code}_${suffix}` : `${this.code}_${suffix}_${suffix2}`,
                     value: this.value,
                     validation: this.validation,
+                    isValid: this.isValid,
                     notApplicable: this.notApplicable,
                 }
-                isValid = this.indicatorsStore.validate(field)
-                if (isValid && isValid.error == undefined) {
-                    this.hasErrors = false
-                    this.indicatorsStore.updateIndicatorResult(this.code, this.value)
+                const { isValid, isFieldValid } = this.indicatorsStore.validateField(field, this.isGroupIndicator)
+                this.isValid = isValid
+                if (suffix == '') {
+                    this.updateErrors(isFieldValid)
+                } else if (suffix2 == '') {
+                    this.updateErrors(isFieldValid || isValid[suffix])
                 } else {
-                    this.hasErrors = true
-                    if (this.msg) {
-                        this.error = this.msg
-                    } else if (this.validation == "") {
-                        this.error = "Required field."
-                    } else {
-                        this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
-                    }
+                    this.updateErrors(isFieldValid || isValid[suffix] || isValid[suffix][suffix2])
                 }
             } catch (e) {
                 console.log('Invalido')
@@ -226,11 +226,35 @@ const initFieldData = () => {
                 this.update("")
             }
         },
+        updateErrors(isFieldValid) {
+            if (isFieldValid) {
+                this.hasErrors = false
+                this.indicatorsStore.updateIndicatorResult(this.code, this.value)
+            } else {
+                this.hasErrors = true
+                if (this.msg) {
+                    this.error = this.msg
+                } else if (this.validation == "") {
+                    this.error = "Required field."
+                } else {
+                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                }
+            }
+        },
         isOptionSelected(optionId) {
             return this.value.id == optionId
         },
         getOption(id) {
             return this.options.find(o => o.id == id) || { value: "", id: "" }
+        },
+        setGroupItemValid(suffix, suffix2 = "") {
+            if (suffix2 == "") {
+                const el = document.querySelector(`#question_${this.id}_${suffix}`)
+                el.classList.toggle('border-red-600', !this.isValid[suffix])
+            } else {
+                const el = document.querySelector(`#question_${this.id}_${suffix}_${suffix2}`)
+                el.classList.toggle('border-red-600', !this.isValid[suffix][suffix2])
+            }
         }
     }))
 }
