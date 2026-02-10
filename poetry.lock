@@ -313,7 +313,7 @@ files = [
 [[package]]
 name = "django-admin-sortable2"
 version = "2.2.8"
-description = "Generic drag-and-drop sorting for the IndicatorOptions, the Stacked- and the Tabular-Inlines Views in the Django Admin"
+description = "Generic drag-and-drop sorting for the List, the Stacked- and the Tabular-Inlines Views in the Django Admin"
 optional = false
 python-versions = "*"
 groups = ["main"]

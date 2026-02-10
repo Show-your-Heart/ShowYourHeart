@@ -39,7 +39,7 @@ class GroupItemTranslationOptions(TranslationOptions):
 
 
 @register(ListItem)
-class OptionTranslationOptions(TranslationOptions):
+class ListItemTranslationOptions(TranslationOptions):
     fields = ("title",)
 
 

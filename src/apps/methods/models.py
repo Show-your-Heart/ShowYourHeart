@@ -47,8 +47,8 @@ class ListItem(BaseModel):
         if self.items.exists():
             raise ValidationError(
                 _(
-                    "This options item has already been used and cannot be deleted. "
-                    "Please create a new option instead."
+                    "This list item has already been used and cannot be deleted. "
+                    "Please create a new list item instead."
                 )
             )
         super().delete(*args, **kwargs)
@@ -63,16 +63,6 @@ class List(BaseModel):
 
     def __str__(self):
         return self.title
-
-    def delete(self, *args, **kwargs):
-        if self.list_options.exists():
-            raise ValidationError(
-                _(
-                    """This list is already used by indicators
-                     and cannot be deleted."""
-                )
-            )
-        super().delete(*args, **kwargs)
 
 
 class GroupItem(BaseModel):
@@ -102,13 +92,6 @@ class Group(BaseModel):
 
     def __str__(self):
         return self.title
-
-    def delete(self, *args, **kwargs):
-        if self.group.exists():
-            raise ValidationError(
-                _("This group is already used by indicators and cannot be deleted.")
-            )
-        super().delete(*args, **kwargs)
 
 
 class Indicator(BaseModel):
