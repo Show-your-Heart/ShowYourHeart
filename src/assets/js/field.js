@@ -169,7 +169,7 @@ const initFieldData = () => {
                 } else if (suffix2 == '') {
                     this.updateErrors(isFieldValid || isValid[suffix])
                 } else {
-                    this.updateErrors(isFieldValid || isValid[suffix] || isValid[suffix][suffix2])
+                    this.updateErrors(isFieldValid || isValid[suffix][suffix2])
                 }
             } catch (e) {
                 console.log('Invalido')
