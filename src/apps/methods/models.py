@@ -218,26 +218,8 @@ class Indicator(BaseModel):
                 if self.dependant_indicators and code in self.dependant_indicators:
                     raise ValidationError({_("Circular dependencies")})
                     continue
-                try:
-                    if (
-                        "_men" in code
-                        or "_women" in code
-                        or "_nb" in code
-                        or "_total" in code
-                    ):
-                        subtoken = re.split(r"[_]", code)
-                        indicator = Indicator.objects.get(code=subtoken[0])
-                    else:
-                        indicator = Indicator.objects.get(code=code)
-                except ObjectDoesNotExist:
-                    raise ValidationError(
-                        {_(f"Indicator with code {code} does not exist")}
-                    ) from ObjectDoesNotExist
-                except MultipleObjectsReturned:
-                    raise ValidationError(
-                        {_(f"There are multiple indicators with code {code}")}
-                    ) from MultipleObjectsReturned
 
+                indicator = self.get_indicator(code)
                 if indicator:
                     if indicator.dependant_indicators:
                         indicator.dependant_indicators.append(self.code)
@@ -247,21 +229,34 @@ class Indicator(BaseModel):
                         indicator.save()
 
             for code in deps_to_remove:
-                try:
-                    indicator = Indicator.objects.get(code=code)
-                except ObjectDoesNotExist:
-                    raise ValidationError(
-                        {_(f"Indicator with code {code} does not exist")}
-                    ) from ObjectDoesNotExist
-                except MultipleObjectsReturned:
-                    raise ValidationError(
-                        {_(f"There are multiple indicators with code {code}")}
-                    ) from MultipleObjectsReturned
+                indicator = self.get_indicator(code)
 
                 if indicator:
-                    if self.code in indicator.dependant_indicators:
+                    if (
+                        indicator.dependant_indicators
+                        and self.code in indicator.dependant_indicators
+                    ):
                         indicator.dependant_indicators.remove(self.code)
                         indicator.save()
+
+    def get_indicator(self, code):
+        indicator = None
+        try:
+            if "_men" in code or "_women" in code or "_nb" in code or "_total" in code:
+                subtoken = re.split(r"[_]", code)
+                indicator = Indicator.objects.get(code=subtoken[0])
+            else:
+                indicator = Indicator.objects.get(code=code)
+        except ObjectDoesNotExist:
+            raise ValidationError(
+                {_(f"Indicator with code {code} does not exist")}
+            ) from ObjectDoesNotExist
+        except MultipleObjectsReturned:
+            raise ValidationError(
+                {_(f"There are multiple indicators with code {code}")}
+            ) from MultipleObjectsReturned
+
+        return indicator
 
     def save(self, *args, **kwargs):
         self.update_dependencies()
