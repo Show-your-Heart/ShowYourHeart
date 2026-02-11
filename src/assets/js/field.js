@@ -126,7 +126,7 @@ const initFieldData = () => {
                 })
             } else {
                 this.groupItems.forEach(item => {
-                    value[item.suffix] = this.type == this.indicatorsStore.fieldTypes.STRING ? "" : 0
+                    value[item.suffix] = null
                 })
             }
             return value
@@ -145,7 +145,7 @@ const initFieldData = () => {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = {}
                     this.group2Items.forEach(group2Item => {
-                        value[item.suffix][group2Item.suffix] = this.type == this.indicatorsStore.fieldTypes.STRING ? "" : 0
+                        value[item.suffix][group2Item.suffix] = null
                     })
                 })
             }

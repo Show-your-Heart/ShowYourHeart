@@ -53,7 +53,6 @@ const initIndicatorsStore = () => {
                     loadedTokens.push(token)
                 }
             }
-
             const jsExpr = loadedTokens.join(" ")
             return jsExpr
         },
@@ -88,7 +87,6 @@ const initIndicatorsStore = () => {
                 return result
             }
             try {
-
                 if (typeof field.value === 'object' && !Array.isArray(field.value) && field.value !== null) {
                     // Validate lists and tables
                     const indicator = this.indicators.find(i => i.id == field.id)
@@ -192,6 +190,11 @@ const initIndicatorsStore = () => {
                 if (na_element.checked)
                     result = 0
             }
+
+            if (result == null || (indicator.data_type != this.fieldTypes.STRING && result == "")) {
+                result = 'null'
+            }
+
             return result
         },
         loadTotalIndicatorResult(subtokens) {
