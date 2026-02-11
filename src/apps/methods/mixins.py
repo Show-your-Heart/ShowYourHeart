@@ -33,6 +33,7 @@ class MethodFillMixin:
         placeholder_dict = get_previous_campaign_answers(
             campaign_id, current_method.id, self.request.user
         )
+        context["placeholders"] = placeholder_dict
 
         readonly = False
         # Get the current survey already started
@@ -285,13 +286,21 @@ def get_previous_campaign_answers(campaign_id, current_method_id, user):
                     )
 
                     for r in indicator_results:
-                        field_name = f"question_{r.indicator.id}"
+                        code = r.indicator.code
                         if r.gender is not None:
-                            placeholder_dict[field_name][
-                                get_gender_suffix(r.gender)
+                            placeholder_dict[code][get_gender_suffix(r.gender)] = (
+                                r.value
+                            )
+                        elif r.group_item is not None and r.group_2_item is not None:
+                            if r.group_item.suffix not in placeholder_dict[code]:
+                                placeholder_dict[code][r.group_item.suffix] = {}
+                            placeholder_dict[code][r.group_item.suffix][
+                                r.group_2_item.suffix
                             ] = r.value
+                        elif r.group_item is not None and r.group_2_item is None:
+                            placeholder_dict[code][r.group_item.suffix] = r.value
                         else:
-                            placeholder_dict[field_name] = r.value
+                            placeholder_dict[code] = r.value
 
     return placeholder_dict
 

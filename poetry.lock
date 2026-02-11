@@ -1348,7 +1348,7 @@ files = [
 [[package]]
 name = "sortedcontainers"
 version = "2.4.0"
-description = "Sorted Containers -- Sorted IndicatorOptions, Sorted Dict, Sorted Set"
+description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
 optional = false
 python-versions = "*"
 groups = ["dev"]

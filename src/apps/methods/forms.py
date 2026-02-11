@@ -126,7 +126,7 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                 self.fields[field_name] = field
                 self.fields[field_name].widget.attrs["readonly"] = readonly
                 self.fields[field_name].widget.attrs["placeholder"] = (
-                    placeholder_dict.get(field_name, "")
+                    placeholder_dict.get(i.code, "")
                 )
                 self.fields[field_name].widget.attrs["description"] = i.description
                 self.fields[field_name].widget.attrs["code"] = i.code

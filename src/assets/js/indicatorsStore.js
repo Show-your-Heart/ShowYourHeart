@@ -323,6 +323,10 @@ const initIndicatorsStore = () => {
         const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
         Alpine.store('indicators')["indicatorResults"] = indicatorResults
     }
+    if (document.getElementById('placeholders')) {
+        const placeholders = JSON.parse(document.getElementById('placeholders').textContent);
+        Alpine.store('indicators')["placeholders"] = placeholders
+    }
 
 }
 

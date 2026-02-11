@@ -31,6 +31,7 @@ const initFieldData = () => {
         init() {
             const indicator = this.indicatorsStore["indicators"].find(i => i.code == code)
             const indicatorResults = this.indicatorsStore["indicatorResults"][code] || null
+            this.placeholder = this.indicatorsStore["placeholders"][code] || null
             this.id = indicator.id
             this.name = indicator.name
             this.description = indicator.description
