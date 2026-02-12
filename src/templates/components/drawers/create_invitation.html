@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<c-drawers.base title="{% translate 'Add new contact' %}" target="drawer-create-invitation" width="sm">
+  <c-form-errors></c-form-errors>
+  <form id="create-project-form" hx-post="{% url 'methods:create_invitation' %}" hx-disabled-elt="button"
+    class="flex flex-col space-y-4 flex-nowrap justify-center">
+    {% csrf_token %}
+
+    <input type="hidden" name="method_id" value="{{ selected_method.id }}">
+    
+    {{ create_invitation_form }}
+
+    {% if not form.fields.field_text_1.disabled %}
+    <div class="flex justify-end">
+      <c-button type="submit">{% translate 'Create invitation' %}</c-button>
+    </div>
+    {% endif %}
+  </form>
+</c-drawers.base>

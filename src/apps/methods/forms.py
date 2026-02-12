@@ -1,5 +1,7 @@
 from django import forms
+from django.conf import settings
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
     UnfoldAdminSelectWidget,
@@ -9,7 +11,7 @@ from unfold.widgets import (
 
 from apps.methods.widgets import syh_forms
 
-from .models import Indicator, Method, Section
+from .models import Indicator, Invitation, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -132,6 +134,36 @@ class InvitationInlineForm(forms.ModelForm):
         widget=UnfoldAdminEmailInputWidget,
         required=True,
     )
+
+
+class InvitationCreationForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Name"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
+    )
+    surnames = forms.CharField(
+        label=_("Surnames"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Surnames")}),
+    )
+    language = forms.ChoiceField(
+        choices=settings.LANGUAGES,
+        label=_("Language"),
+        widget=forms.Select(attrs={"class": "form-select"}),
+    )
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=Invitation.Gender.choices,
+        widget=forms.Select(
+            attrs={
+                "hx-trigger": "change",
+                "autocomplete": "off",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Invitation
+        fields = ("name", "surnames", "email", "language", "gender")
 
 
 class SectionInlineForm(forms.ModelForm):

@@ -3,8 +3,10 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
@@ -12,6 +14,7 @@ from django.views.generic import ListView, TemplateView
 from unfold.views import UnfoldModelAdminViewMixin
 
 from apps.geodata.models import Region1
+from apps.methods.forms import InvitationCreationForm
 from apps.methods.mixins import MethodFillMixin
 from project.mixins import NetworkFilterMixin
 
@@ -62,26 +65,41 @@ class ExternalSurveysView(TemplateView):
         )
 
         selected_method_id = self.request.GET.get("method")
+        selected_method = (
+            methods.filter(id=selected_method_id).first()
+            if selected_method_id
+            else methods.first()
+        )
+        invitations = Invitation.objects.none()
+        send_invitations_url = None
+
         if selected_method_id:
             selected_method = methods.filter(id=selected_method_id).first()
         else:
             selected_method = methods.first()
 
-        invitations = Invitation.objects.none()
-
         if selected_method:
             survey_invitations = ExternalSurveyInvitation.objects.filter(
                 external_survey=selected_method
             )
-            print(survey_invitations)
             invitations = Invitation.objects.filter(
                 external_survey_invitation__in=survey_invitations
             )
+
+            extsurvinv_to_send = survey_invitations.first()
+            if extsurvinv_to_send:
+                send_invitations_url = reverse(
+                    "methods:send_invitations",
+                    args=[extsurvinv_to_send.id],
+                )
+
         context.update(
             {
                 "methods": methods,
                 "selected_method": selected_method,
                 "invitations": invitations,
+                "create_invitation_form": InvitationCreationForm,
+                "send_invitations_url": send_invitations_url,
             }
         )
 
@@ -121,6 +139,7 @@ def invitations_sent_view(request, id):
         for invitation in invitations:
             send_invitation(invitation)
             invitation.status = Invitation.Status.SENT
+            invitation.send_date = timezone.now()
             invitation.save()
 
         messages.success(
@@ -140,6 +159,7 @@ def invitation_sent_view(request, id):
     invitation = Invitation.objects.get(pk=id)
     send_invitation(invitation)
     invitation.status = Invitation.Status.SENT
+    invitation.send_date = timezone.now()
     invitation.save()
 
     messages.success(
@@ -267,3 +287,46 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
             query &= Q(method__unit_of_analysis=unit_analysis_filter)
 
         return query
+
+
+@require_http_methods("POST")
+def create_invitation_action(request):
+    method_id = request.POST.get("method_id")
+
+    if not method_id:
+        return HttpResponseBadRequest("Missing method_id")
+
+    selected_method = get_object_or_404(
+        Method,
+        id=method_id,
+        unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+    )
+
+    extsurvinv, _ = ExternalSurveyInvitation.objects.get_or_create(
+        external_survey=selected_method,
+        defaults={
+            "name": selected_method.name,
+        },
+    )
+
+    invitation, created = Invitation.objects.get_or_create(
+        name=request.POST["name"],
+        surnames=request.POST["surnames"],
+        email=request.POST["email"],
+        gender=request.POST["gender"],
+        external_survey_invitation=extsurvinv,
+    )
+
+    if created:
+        return HttpResponse(
+            "",
+            headers={"HX-Redirect": "/methods/external-surveys?method=" + method_id},
+        )
+
+    msg = _("Error creating contact. Contact your network admin.")
+    return HttpResponse(
+        "",
+        headers={
+            "HX-Trigger": '{"notification": {"type": "error","text": "' + msg + '"}}',
+        },
+    )

@@ -108,6 +108,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
     "unfold",
+    "unfold.contrib.forms",
     "unfold.contrib.filters",
     "django_htmx",
     "maintenance_mode",
