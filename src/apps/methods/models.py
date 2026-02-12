@@ -276,7 +276,7 @@ class Method(BaseModel):
         VOLUNTEERING = "V", _("Volunteering")
 
     name = models.CharField(_("name"), max_length=150)
-    description = models.CharField(_("description"), max_length=1000)
+    description = models.TextField(_("description"), max_length=1000)
     unit_of_analysis = models.CharField(
         _("unit of analysis"),
         choices=UnitAnalysis.choices,
@@ -350,7 +350,6 @@ class Campaign(BaseModel):
         verbose_name=_("Methods"),
         related_name="campaign_methods",
         blank=True,
-        limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY),
     )
     start_date = models.DateField(_("Start date"), blank=True, null=True)
     end_date = models.DateField(_("End date"), blank=True, null=True)
@@ -459,7 +458,6 @@ class ExternalSurveyInvitation(BaseModel):
         on_delete=models.PROTECT,
         limit_choices_to={"unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY},
     )
-    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
