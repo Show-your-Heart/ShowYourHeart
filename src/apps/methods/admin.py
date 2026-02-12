@@ -183,17 +183,17 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
 
     change_form_template = "admin/methods/method/change_form.html"
 
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
+
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        # External surveys field must only display
-        # methods for the same network and set as external survey
         if db_field.name == "external_surveys":
-            if hasattr(self, "networks"):
-                kwargs["queryset"] = Method.objects.filter(
-                    networks=self.networks,
-                    unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
-                )
-            else:
-                kwargs["queryset"] = Method.objects.none()
+            kwargs["queryset"] = Method.objects.filter(
+                unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+            )
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
@@ -498,6 +498,7 @@ class InvitationInline(admin.StackedInline):
         "name",
         "email",
         "status",
+        "send_date",
         "token",
         "actions_field",
     )
