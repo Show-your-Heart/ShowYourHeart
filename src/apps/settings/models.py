@@ -24,7 +24,6 @@ class Network(BaseModel):
     )
     campaigns = models.ManyToManyField(Campaign, related_name="networks")
     methods = models.ManyToManyField(Method, related_name="networks")
-    indicators = models.ManyToManyField(Indicator, related_name="networks")
     organizations = models.ManyToManyField(Organization, related_name="networks")
 
     class Meta:
