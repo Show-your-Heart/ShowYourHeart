@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from apps.organizations.views import (
     CreateOrganizationSuccessView,
     CreateOrganizationView,
-    CreateProjectSuccessView,
     UpdateOrganizationView,
     create_project_action,
     load_city,
@@ -29,10 +28,5 @@ urlpatterns = [
         _("<uuid:organization_id>/project/"),
         create_project_action,
         name="create_project",
-    ),
-    path(
-        _("project/success"),
-        CreateProjectSuccessView.as_view(),
-        name="create_project_success",
     ),
 ]

@@ -14,7 +14,6 @@ from apps.methods.models import Method
 from apps.organizations.forms import (
     OrganizationSignUpForm,
     OrganizationUpdateForm,
-    ProjectCreationForm,
 )
 from project.mixins import NetworkFilterMixin
 
@@ -156,27 +155,3 @@ class RegistrationRequestView(
         return context
 
 
-class CreateProjectView(CreateView):
-    model = Project
-    template_name = "projects/create_project.html"
-    form_class = ProjectCreationForm
-    success_url = reverse_lazy("organizations:create_project_success")
-
-    def dispatch(self, request, *args, **kwargs):
-        self.organization = request.user.profile.organization
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["organization"] = self.organization
-        return kwargs
-
-    def form_valid(self, form):
-        project = form.save(commit=False)
-        project.organization = self.organization
-        project.save()
-        return super().form_valid(form)
-
-
-class CreateProjectSuccessView(TemplateView):
-    template_name = "projects/create_project_success.html"
