@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.methods.models import Campaign, Indicator, Method
+from apps.methods.models import Campaign, Method
 from apps.organizations.models import Organization
 from project.models import BaseModel
 
