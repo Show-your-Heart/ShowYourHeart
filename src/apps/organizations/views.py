@@ -153,5 +153,3 @@ class RegistrationRequestView(
 
         context["organizations"] = organizations
         return context
-
-

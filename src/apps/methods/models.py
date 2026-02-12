@@ -308,7 +308,7 @@ class Method(BaseModel):
         "geodata.region1",
         verbose_name=_("Region1"),
         related_name="region1",
-        blank=True,
+        blank=False,
     )
     external_survey_category = models.CharField(
         _("external survey category"),
@@ -482,10 +482,25 @@ class Invitation(BaseModel):
             "Registered",
         )
 
+    class Gender(models.IntegerChoices):
+        MALE = (
+            0,
+            "Male",
+        )
+        FEMALE = (
+            1,
+            "Female",
+        )
+        NON_BINARY = (2, "Non binary")
+
     name = models.CharField(_("Name"), max_length=400)
+    surnames = models.CharField(_("Surnames"), max_length=400)
     email = models.EmailField(
         verbose_name=_("email address"),
         max_length=255,
+    )
+    gender = models.PositiveSmallIntegerField(
+        choices=Gender.choices, default=None, blank=True, null=True
     )
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
