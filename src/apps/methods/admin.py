@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from import_export import resources
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TranslationAdmin, TranslationStackedInline
 
 from apps.methods.mixins import save_indicator_results
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
@@ -138,15 +138,9 @@ class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmi
         return form
 
 
-class SectionInline(SortableStackedInline, admin.StackedInline):
+class SectionInline(TranslationStackedInline, SortableStackedInline):
     model = Section
     extra = 0
-    fields = (
-        "title",
-        "parent",
-        "method",
-        "indicators",
-    )
     tab = True  # Display the profile information on a new tab
     hide_title = True
     form = SectionInlineForm
