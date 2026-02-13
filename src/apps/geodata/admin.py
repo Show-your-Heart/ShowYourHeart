@@ -1,5 +1,5 @@
 from django.contrib import admin
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TabbedTranslationAdmin
 
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
@@ -11,7 +11,7 @@ from .models import City, Country, Region1, Region2, Region3, ZipCode
 @register_with_default_templates(admin.site, model=Region1)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Region1)
-class Region1Admin(ModelAdmin, TranslationAdmin):
+class Region1Admin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name", "country")
     search_fields = ["name"]
 
@@ -27,7 +27,7 @@ class Region1Admin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=City)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=City)
-class CityAdmin(ModelAdmin, TranslationAdmin):
+class CityAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name", "region1", "region2", "region3", "country")
     search_fields = ["name"]
 
@@ -43,7 +43,7 @@ class CityAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=Country)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Country)
-class CountryAdmin(ModelAdmin, TranslationAdmin):
+class CountryAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
 
@@ -59,7 +59,7 @@ class CountryAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=Region2)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Region2)
-class Region2Admin(ModelAdmin, TranslationAdmin):
+class Region2Admin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name", "country", "region1")
     search_fields = ["name"]
 
@@ -75,7 +75,7 @@ class Region2Admin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=Region3)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Region3)
-class Region3Admin(ModelAdmin, TranslationAdmin):
+class Region3Admin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name", "country", "region1", "region2")
     search_fields = ["name"]
 
