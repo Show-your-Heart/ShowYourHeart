@@ -6,9 +6,11 @@
     </div>
     <main class="grid grid-cols-1 gap-[48px] p-16">
         <div class="text-center">
-            <h1 class="text-3xl font-bold mb-4">{% if 'update' in request.path %}{% translate 'Organization update' %}{%
-                else
-                %}{% translate 'Registration request' %}{%endif%}</h1>
+            <h1 class="text-3xl font-bold mb-4">
+                {% if 'update' in request.path %}{% translate 'Organization update' %}
+                {% else %}{% translate 'Registration request' %}
+                {%endif%}
+            </h1>
             <h2 class="text-md">{{ _("Transparent, social and solidarity based economy") }}</h2>
         </div>
         <div class="w-full bg-white rounded-md shadow max-w-3xl mt-0 mx-auto p-0">
