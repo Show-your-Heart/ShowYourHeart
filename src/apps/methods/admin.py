@@ -3,6 +3,7 @@ import json
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import path, reverse
@@ -11,6 +12,7 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from import_export import resources
 from modeltranslation.admin import TranslationAdmin
+from unfold.contrib.forms.widgets import WysiwygWidget
 
 from apps.methods.mixins import save_indicator_results
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
@@ -163,7 +165,7 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
 class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
-    filter_horizontal = ("indicators",)
+    filter_horizontal = ("indicators", "external_surveys")
     form = MethodForm
     inlines = (SectionInline,)
 
@@ -176,21 +178,22 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
 
     conditional_fields = {
         "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
+        "external_survey_category": f"unit_of_analysis == '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
     }
 
     change_form_template = "admin/methods/method/change_form.html"
 
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
+
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        # External surveys field must only display
-        # methods for the same network and set as external survey
         if db_field.name == "external_surveys":
-            if hasattr(self, "networks"):
-                kwargs["queryset"] = Method.objects.filter(
-                    networks=self.networks,
-                    unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
-                )
-            else:
-                kwargs["queryset"] = Method.objects.none()
+            kwargs["queryset"] = Method.objects.filter(
+                unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+            )
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
@@ -200,6 +203,7 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
                 "description_en",
                 "version",
                 "unit_of_analysis",
+                "external_survey_category",
                 "indicators",
                 "legal_structures",
                 "sectors",
@@ -494,6 +498,7 @@ class InvitationInline(admin.StackedInline):
         "name",
         "email",
         "status",
+        "send_date",
         "token",
         "actions_field",
     )
@@ -537,11 +542,10 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
     list_display = (
         "name",
         "external_survey",
-        "campaign",
     )
     inlines = (InvitationInline,)
     readonly_fields = ("actions_field",)
-    autocomplete_fields = ["campaign", "external_survey"]
+    autocomplete_fields = ["external_survey"]
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
@@ -549,7 +553,6 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
             main_fields=[
                 "name",
                 "external_survey",
-                "campaign",
             ],
             translatable_fields=[],
             display_actions=True,

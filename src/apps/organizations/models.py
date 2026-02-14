@@ -29,13 +29,13 @@ class Organization(BaseModel):
     vat_number = models.CharField(_("vat number"), max_length=30)
     website = models.CharField(_("website"), max_length=300, blank=True, default="")
     country = models.ForeignKey(
-        "geodata.country", on_delete=models.CASCADE, blank=True, null=True
+        "geodata.country", on_delete=models.CASCADE, blank=False, null=True
     )
     region1 = models.ForeignKey(
-        "geodata.region1", on_delete=models.CASCADE, blank=True, null=True
+        "geodata.region1", on_delete=models.CASCADE, blank=False, null=True
     )
     city = models.ForeignKey(
-        "geodata.city", on_delete=models.CASCADE, blank=True, null=True
+        "geodata.city", on_delete=models.CASCADE, blank=False, null=True
     )
     address = models.CharField(_("address"), max_length=200, blank=True)
     status = models.PositiveSmallIntegerField(

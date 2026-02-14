@@ -35,7 +35,7 @@ class NetworkAdmin(ModelAdmin):
     form = NetworkForm
     search_fields = ["name"]
     list_display = ("name", "parent_network")
-    filter_horizontal = ("organizations", "methods", "campaigns", "indicators")
+    filter_horizontal = ("organizations", "methods", "campaigns")
     fieldsets = (
         (
             "",
@@ -46,7 +46,6 @@ class NetworkAdmin(ModelAdmin):
                     "organizations",
                     "campaigns",
                     "methods",
-                    "indicators",
                 )
             },
         ),

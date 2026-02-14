@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.methods.models import Campaign, Indicator, Method
+from apps.methods.models import Campaign, Method
 from apps.organizations.models import Organization
 from project.models import BaseModel
 
@@ -24,7 +24,6 @@ class Network(BaseModel):
     )
     campaigns = models.ManyToManyField(Campaign, related_name="networks")
     methods = models.ManyToManyField(Method, related_name="networks")
-    indicators = models.ManyToManyField(Indicator, related_name="networks")
     organizations = models.ManyToManyField(Organization, related_name="networks")
 
     class Meta:

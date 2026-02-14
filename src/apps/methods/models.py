@@ -7,7 +7,6 @@ from django.core.exceptions import (
     ValidationError,
 )
 from django.db import models
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from sortedm2m.fields import SortedManyToManyField
 
@@ -272,8 +271,14 @@ class Method(BaseModel):
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
+    class ExternalSurveyCategory(models.TextChoices):
+        WORK = "W", _("Work")
+        PROFESSIONAL = "PR", _("Professional")
+        ASSOCIATIVE = "AS", _("Associative")
+        VOLUNTEERING = "V", _("Volunteering")
+
     name = models.CharField(_("name"), max_length=150)
-    description = models.CharField(_("description"), max_length=1000)
+    description = models.TextField(_("description"), max_length=1000)
     unit_of_analysis = models.CharField(
         _("unit of analysis"),
         choices=UnitAnalysis.choices,
@@ -305,7 +310,13 @@ class Method(BaseModel):
         "geodata.region1",
         verbose_name=_("Region1"),
         related_name="region1",
-        blank=True,
+        blank=False,
+    )
+    external_survey_category = models.CharField(
+        _("external survey category"),
+        choices=ExternalSurveyCategory.choices,
+        default=ExternalSurveyCategory.WORK,
+        blank=False,
     )
 
     def __str__(self):
@@ -341,7 +352,6 @@ class Campaign(BaseModel):
         verbose_name=_("Methods"),
         related_name="campaign_methods",
         blank=True,
-        limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY),
     )
     start_date = models.DateField(_("Start date"), blank=True, null=True)
     end_date = models.DateField(_("End date"), blank=True, null=True)
@@ -450,7 +460,6 @@ class ExternalSurveyInvitation(BaseModel):
         on_delete=models.PROTECT,
         limit_choices_to={"unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY},
     )
-    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
@@ -475,14 +484,30 @@ class Invitation(BaseModel):
             "Registered",
         )
 
+    class Gender(models.IntegerChoices):
+        MALE = (
+            0,
+            "Male",
+        )
+        FEMALE = (
+            1,
+            "Female",
+        )
+        NON_BINARY = (2, "Non binary")
+
     name = models.CharField(_("Name"), max_length=400)
+    surnames = models.CharField(_("Surnames"), max_length=400)
     email = models.EmailField(
         verbose_name=_("email address"),
         max_length=255,
     )
+    gender = models.PositiveSmallIntegerField(
+        choices=Gender.choices, default=None, blank=True, null=True
+    )
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
+    send_date = models.DateField(_("Send date"), blank=True, null=True)
     token = models.CharField(max_length=32, unique=True, blank=True)
     external_survey_invitation = models.ForeignKey(
         ExternalSurveyInvitation, on_delete=models.CASCADE, related_name="invitation"

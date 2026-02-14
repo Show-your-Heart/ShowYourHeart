@@ -65,12 +65,19 @@
               <c-icon name="arrow-right" class="inline text-white"></c-icon>
             </c-button>
         {% elif surveyStats.method.unit_of_analysis == "ORG" %}
+          <div class="flex gap-4 items-center">
             <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.campaign.id surveyStats.method.id %}">
               <c-button>
-                <span>{% translate 'Ir al balance'%}</span>
+                <span>{% translate 'Ir al balance' %}</span>
                 <c-icon name="arrow-right" class="inline text-white"></c-icon>
               </c-button>
             </a>
+            <a class="h-fit-content" href="{% url 'methods:external_surveys_view' %}">
+              <c-button name="action" value="send_external_surveys">
+                {% translate 'Send external surveys' %}
+              </c-button>
+            </a>
+          </div>
         {% endif %}
     </div>
   </div>
