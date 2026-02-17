@@ -59,3 +59,16 @@ class GenderInput(forms.MultiValueField):
             forms.IntegerField(required=False, widget=widget),
         )
         super().__init__(*args, **kwargs, fields=fields, require_all_fields=False)
+
+
+class GroupTextInput(forms.TextInput):
+    template_name = "components/methods/group_input.html"
+
+
+class GroupIntegerInput(forms.NumberInput):
+    template_name = "components/methods/group_input.html"
+    input_type = "number"
+
+
+class GroupDecimalInput(forms.NumberInput):
+    template_name = "components/methods/group_input.html"

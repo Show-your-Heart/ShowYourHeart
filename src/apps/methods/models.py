@@ -63,12 +63,34 @@ class List(BaseModel):
     def __str__(self):
         return self.title
 
+
+class GroupItem(BaseModel):
+    title = models.CharField(_("title"), max_length=300)
+    suffix = models.CharField(_("suffix"), max_length=300, unique=True)
+
+    def __str__(self):
+        return self.title
+
     def delete(self, *args, **kwargs):
-        if self.list_options.exists():
+        if self.items.exists():
             raise ValidationError(
-                _("This list is already used by indicators and cannot be deleted.")
+                _(
+                    "This group item has already been used and cannot be deleted. "
+                    "Please create a new group item instead."
+                )
             )
         super().delete(*args, **kwargs)
+
+
+class Group(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    # enable_others = models.BooleanField(
+    #     _("Enable others response"), blank=False, default=False
+    # )
+    items = models.ManyToManyField(GroupItem, related_name="items")
+
+    def __str__(self):
+        return self.title
 
 
 class Indicator(BaseModel):
@@ -111,6 +133,12 @@ class Indicator(BaseModel):
         DataType.RADIOBUTTON,
     ]
 
+    group_types = [
+        DataType.STRING,
+        DataType.INTEGER,
+        DataType.DECIMAL,
+    ]
+
     code = models.CharField(_("ID"), max_length=50, unique=True)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=1000, blank=True)
@@ -118,6 +146,9 @@ class Indicator(BaseModel):
     topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(
         _("Is it a direct indicator?"), blank=True
+    )
+    is_group_indicator = models.BooleanField(
+        _("Is it a group indicator? (e.g. lists or tables)"), blank=False, default=False
     )
     category = models.CharField(
         _("category"),
@@ -137,6 +168,20 @@ class Indicator(BaseModel):
         blank=True,
         on_delete=models.PROTECT,
         related_name="list_options",
+    )
+    group = models.ForeignKey(
+        Group,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="group",
+    )
+    group_2 = models.ForeignKey(
+        Group,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="group_2",
     )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
@@ -244,7 +289,7 @@ class Indicator(BaseModel):
     def get_indicator(self, code):
         indicator = None
         try:
-            if "_men" in code or "_women" in code or "_nb" in code or "_total" in code:
+            if "_" in code:
                 subtoken = re.split(r"[_]", code)
                 indicator = Indicator.objects.get(code=subtoken[0])
             else:
@@ -262,6 +307,10 @@ class Indicator(BaseModel):
 
     def save(self, *args, **kwargs):
         self.update_dependencies()
+        if "_" in self.code:
+            raise ValidationError(
+                {_("Indicator code can't contain the underscore character '_'")}
+            )
         return super(Indicator, self).save(*args, **kwargs)
 
 
@@ -437,6 +486,22 @@ class IndicatorResult(BaseModel):
 
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
+    group_item = models.ForeignKey(
+        GroupItem,
+        default=None,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="group_item",
+    )
+    group_2_item = models.ForeignKey(
+        GroupItem,
+        default=None,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="group_2_item",
+    )
     gender = models.PositiveSmallIntegerField(
         choices=Gender.choices, default=None, blank=True, null=True
     )

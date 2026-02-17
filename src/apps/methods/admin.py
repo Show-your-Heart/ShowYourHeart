@@ -39,6 +39,8 @@ from .mixins import (
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
+    Group,
+    GroupItem,
     Indicator,
     IndicatorResult,
     Invitation,
@@ -94,15 +96,20 @@ class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmi
         "name",
         "description",
         "is_direct_indicator",
+        "is_group_indicator",
     )
 
     list_types_js = json.dumps(Indicator.list_types)
+    group_types_js = json.dumps(Indicator.group_types)
 
     conditional_fields = {
         "category": "is_direct_indicator == true",
         "condition": "is_direct_indicator == true",
         "formula": "is_direct_indicator == false",
         "list_options": f"{list_types_js}.includes(data_type)",
+        "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true",
+        "group_2": f"""{group_types_js}.includes(data_type)
+                        && is_group_indicator == true""",
     }
 
     exclude = ("dependant_indicators",)
@@ -117,12 +124,15 @@ class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmi
                 "name_en",
                 "description_en",
                 "is_direct_indicator",
+                "is_group_indicator",
                 "mandatory",
                 "topics",
                 "category",
                 "data_type",
                 "unit",
                 "list_options",
+                "group",
+                "group_2",
                 "condition",
                 "formula",
                 "validation",
@@ -224,6 +234,40 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
 
         return super().changeform_view(
             request, object_id, form_url, extra_context=extra_context
+        )
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Group)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=Group)
+class GroupAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["items"]
+    search_fields = ["title"]
+
+    list_display = ("title",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "items"],
+            # main_fields=["title_en", "enable_others", "items"],
+            translatable_fields=["title"],
+        )
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=GroupItem)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=GroupItem)
+class GroupItemAdmin(ModelAdmin, TranslationAdmin):
+    search_fields = ["title", "suffix"]
+
+    list_display = ("title",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "suffix"],
+            translatable_fields=["title"],
         )
 
 
