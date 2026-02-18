@@ -14,7 +14,6 @@ from import_export import resources
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 
-
 from apps.methods.mixins import save_indicator_results
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
@@ -240,7 +239,7 @@ class MethodAdmin(
 @register_with_default_templates(admin.site, model=Group)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Group)
-class GroupAdmin(ModelAdmin, TranslationAdmin):
+class GroupAdmin(ModelAdmin, TabbedTranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
 
@@ -258,7 +257,7 @@ class GroupAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=GroupItem)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=GroupItem)
-class GroupItemAdmin(ModelAdmin, TranslationAdmin):
+class GroupItemAdmin(ModelAdmin, TabbedTranslationAdmin):
     search_fields = ["title", "suffix"]
 
     list_display = ("title",)
