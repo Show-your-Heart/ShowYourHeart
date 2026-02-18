@@ -1,0 +1,58 @@
+{% load i18n %}
+
+<c-methods.group-base-field>
+    <div class="flex w-fit p-2 border border-gray-300 rounded-lg bg-gray-100" :class="hasErrors ? 'border-red-600' : 'border-gray-300'">
+        <table>
+            <template x-if="group2Title != ''">
+                <thead>
+                    <tr>
+                        <th class="h-full p-2" x-text="groupTitle"></th>
+                        <template x-for="group2Item in group2Items">
+                            <th class="h-full p-2" x-text="group2Item.title"></th>
+                        </template>
+                    </tr>
+                </thead>
+            </template>
+            <tbody>
+                <template x-for="item in groupItems" :key="item.suffix">
+                    <tr>
+                        <td class="p-2">
+                            <label :for="`question_${id}_${item.suffix}`" x-text="item.title"></label>
+                        </td>
+                        <template x-if="group2Title == ''">
+                            <td class="p-2">
+                                <div class="flex gap-2 justify-center">
+                                    <input :id="`question_${id}_${item.suffix}`"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+                                        :name="`question_${id}_${item.suffix}`" :value="value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" {%
+                                        include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix); setGroupItemValid(item.suffix)"
+                                        x-bind:disabled="notApplicable" x-model="value[item.suffix]" />
+                                    <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
+                                </div>
+                            </td>
+                        </template>
+                        <template x-if="group2Title != ''" >
+                            <template x-for="group2Item in group2Items" :key="group2Item.suffix">
+                                <td class="p-2">
+                                    <div class="flex gap-2 justify-center">
+                                        <input :id="`question_${id}_${item.suffix}_${group2Item.suffix}`"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+                                            :name="`question_${id}_${item.suffix}_${group2Item.suffix}`" :value="value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" {%
+                                            include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix, group2Item.suffix); setGroupItemValid(item.suffix,group2Item.suffix)"
+                                            x-bind:disabled="notApplicable" x-model="value[item.suffix][group2Item.suffix]" />
+                                        <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
+                                    </div>
+                                </td>
+                            </template>
+                        </template>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-red-600" x-show="hasErrors">
+        <p x-text="error"></p>
+    </div>
+
+       
+</c-methods.group-base-field>

@@ -3,6 +3,7 @@ import json
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import path, reverse
@@ -11,6 +12,8 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from import_export import resources
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
+from unfold.contrib.forms.widgets import WysiwygWidget
+
 
 from apps.methods.mixins import save_indicator_results
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
@@ -37,6 +40,8 @@ from .mixins import (
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
+    Group,
+    GroupItem,
     Indicator,
     IndicatorResult,
     Invitation,
@@ -94,15 +99,20 @@ class IndicatorAdmin(
         "name",
         "description",
         "is_direct_indicator",
+        "is_group_indicator",
     )
 
     list_types_js = json.dumps(Indicator.list_types)
+    group_types_js = json.dumps(Indicator.group_types)
 
     conditional_fields = {
         "category": "is_direct_indicator == true",
         "condition": "is_direct_indicator == true",
         "formula": "is_direct_indicator == false",
         "list_options": f"{list_types_js}.includes(data_type)",
+        "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true",
+        "group_2": f"""{group_types_js}.includes(data_type)
+                        && is_group_indicator == true""",
     }
 
     exclude = ("dependant_indicators",)
@@ -117,12 +127,15 @@ class IndicatorAdmin(
                 "name_en",
                 "description_en",
                 "is_direct_indicator",
+                "is_group_indicator",
                 "mandatory",
                 "topics",
                 "category",
                 "data_type",
                 "unit",
                 "list_options",
+                "group",
+                "group_2",
                 "condition",
                 "formula",
                 "validation",
@@ -161,7 +174,7 @@ class MethodAdmin(
 ):
     autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
-    filter_horizontal = ("indicators",)
+    filter_horizontal = ("indicators", "external_surveys")
     form = MethodForm
     inlines = (SectionInline,)
 
@@ -174,21 +187,22 @@ class MethodAdmin(
 
     conditional_fields = {
         "external_surveys": f"unit_of_analysis != '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
+        "external_survey_category": f"unit_of_analysis == '{Method.UnitAnalysis.EXTERNAL_SURVEY}'",  # noqa: E501
     }
 
     change_form_template = "admin/methods/method/change_form.html"
 
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
+
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        # External surveys field must only display
-        # methods for the same network and set as external survey
         if db_field.name == "external_surveys":
-            if hasattr(self, "networks"):
-                kwargs["queryset"] = Method.objects.filter(
-                    networks=self.networks,
-                    unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
-                )
-            else:
-                kwargs["queryset"] = Method.objects.none()
+            kwargs["queryset"] = Method.objects.filter(
+                unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
+            )
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
@@ -198,6 +212,7 @@ class MethodAdmin(
                 "description_en",
                 "version",
                 "unit_of_analysis",
+                "external_survey_category",
                 "indicators",
                 "legal_structures",
                 "sectors",
@@ -218,6 +233,40 @@ class MethodAdmin(
 
         return super().changeform_view(
             request, object_id, form_url, extra_context=extra_context
+        )
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Group)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=Group)
+class GroupAdmin(ModelAdmin, TranslationAdmin):
+    autocomplete_fields = ["items"]
+    search_fields = ["title"]
+
+    list_display = ("title",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "items"],
+            # main_fields=["title_en", "enable_others", "items"],
+            translatable_fields=["title"],
+        )
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=GroupItem)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=GroupItem)
+class GroupItemAdmin(ModelAdmin, TranslationAdmin):
+    search_fields = ["title", "suffix"]
+
+    list_display = ("title",)
+
+    def get_fieldsets(self, request, obj=None):
+        return self.build_fieldsets(
+            main_fields=["title_en", "suffix"],
+            translatable_fields=["title"],
         )
 
 
@@ -492,6 +541,7 @@ class InvitationInline(admin.StackedInline):
         "name",
         "email",
         "status",
+        "send_date",
         "token",
         "actions_field",
     )
@@ -535,11 +585,10 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
     list_display = (
         "name",
         "external_survey",
-        "campaign",
     )
     inlines = (InvitationInline,)
     readonly_fields = ("actions_field",)
-    autocomplete_fields = ["campaign", "external_survey"]
+    autocomplete_fields = ["external_survey"]
     search_fields = ["name"]
 
     def get_fieldsets(self, request, obj=None):
@@ -547,7 +596,6 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
             main_fields=[
                 "name",
                 "external_survey",
-                "campaign",
             ],
             translatable_fields=[],
             display_actions=True,

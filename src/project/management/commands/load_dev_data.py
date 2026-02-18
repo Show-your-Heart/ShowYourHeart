@@ -219,11 +219,11 @@ class Command(BaseCommand):
         indicators = []
 
         for x in range(1, 4):
-            indicator_name = f"Indicator name {x}"
+            indicator_name = f"Indicator name q000{x}"
             indicator = Indicator.objects.filter(name=indicator_name)
             if not indicator.exists():
                 indicator = Indicator.objects.create(
-                    code=x,
+                    code=f"q000{x}",
                     version="1",
                     name=indicator_name,
                     is_direct_indicator=True,

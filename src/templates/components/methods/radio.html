@@ -7,9 +7,9 @@
             @click="update('{{ option.value.id }}')">
             <input type="radio" :id="`question_${id}_option_{{index}}`" :name="`question_${id}`"
                 value="{{ option.value.value }}"
-                class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer focus:ring-blue-500 disabled:cursor-default peer"
+                class="pointer-events-none h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer focus:ring-blue-500 disabled:cursor-default peer"
                 :checked="isOptionSelected('{{option.value.id}}')" {%
-                include "django/forms/widgets/attrs.html" %} x-model="value" x-bind:disabled="notApplicable"
+                include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable"
             >
             <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">{{
                 option.label }} <span class="items-center" x-text="unit"></span></span>

@@ -1,5 +1,7 @@
 from django import forms
+from django.conf import settings
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
     UnfoldAdminSelectWidget,
@@ -9,7 +11,7 @@ from unfold.widgets import (
 
 from apps.methods.widgets import syh_forms
 
-from .models import Indicator, Method, Section
+from .models import Indicator, Invitation, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -45,56 +47,70 @@ def get_choices(options_list):
 def get_field(indicator):
     field_name = indicator.name
 
-    return {
-        Indicator.DataType.STRING: forms.CharField(
-            label=field_name, required=False, widget=syh_forms.TextInput
-        ),
-        Indicator.DataType.TEXT: forms.CharField(
-            label=field_name, required=False, widget=syh_forms.TextArea
-        ),
-        Indicator.DataType.INTEGER: forms.IntegerField(
-            label=field_name, required=False, widget=syh_forms.IntegerInput
-        ),
-        Indicator.DataType.DECIMAL: forms.DecimalField(
-            label=field_name, required=False, widget=syh_forms.DecimalInput
-        ),
-        Indicator.DataType.BOOLEAN: forms.BooleanField(
-            label=field_name, required=False, widget=syh_forms.BooleanInput
-        ),
-        Indicator.DataType.DATE: forms.DateField(
-            label=field_name,
-            required=False,
-            widget=syh_forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            input_formats=["%Y-%m-%d"],
-        ),
-        Indicator.DataType.ATTACHMENT: forms.FileField(
-            label=field_name, required=False, widget=syh_forms.AttachmentInput
-        ),
-        Indicator.DataType.CHECKBOX: forms.MultipleChoiceField(
-            label=field_name,
-            required=False,
-            widget=syh_forms.CheckboxSelectMultiple,
-            choices=get_choices(indicator.list_options),
-        ),
-        Indicator.DataType.RADIOBUTTON: forms.ChoiceField(
-            label=field_name,
-            required=False,
-            choices=get_choices(indicator.list_options),
-            widget=syh_forms.RadioButtonInput,
-        ),
-        Indicator.DataType.DROPDOWN: forms.ChoiceField(
-            label=field_name,
-            required=False,
-            choices=get_choices(indicator.list_options),
-            widget=syh_forms.DropdownInput,
-        ),
-        Indicator.DataType.INTEGERGENDER: syh_forms.GenderInput(
-            required=False, input_type="integer"
-        ),
-        Indicator.DataType.DECIMALGENDER: syh_forms.GenderInput(
-            required=False, input_type="decimal"
-        ),
-    }.get(indicator.data_type)
+    if indicator.is_group_indicator:
+        return {
+            Indicator.DataType.STRING: forms.CharField(
+                label=field_name, required=False, widget=syh_forms.GroupTextInput
+            ),
+            Indicator.DataType.INTEGER: forms.IntegerField(
+                label=field_name, required=False, widget=syh_forms.GroupIntegerInput
+            ),
+            Indicator.DataType.DECIMAL: forms.DecimalField(
+                label=field_name, required=False, widget=syh_forms.GroupDecimalInput
+            ),
+        }.get(indicator.data_type)
+
+    else:
+        return {
+            Indicator.DataType.STRING: forms.CharField(
+                label=field_name, required=False, widget=syh_forms.TextInput
+            ),
+            Indicator.DataType.TEXT: forms.CharField(
+                label=field_name, required=False, widget=syh_forms.TextArea
+            ),
+            Indicator.DataType.INTEGER: forms.IntegerField(
+                label=field_name, required=False, widget=syh_forms.IntegerInput
+            ),
+            Indicator.DataType.DECIMAL: forms.DecimalField(
+                label=field_name, required=False, widget=syh_forms.DecimalInput
+            ),
+            Indicator.DataType.BOOLEAN: forms.BooleanField(
+                label=field_name, required=False, widget=syh_forms.BooleanInput
+            ),
+            Indicator.DataType.DATE: forms.DateField(
+                label=field_name,
+                required=False,
+                widget=syh_forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+                input_formats=["%Y-%m-%d"],
+            ),
+            Indicator.DataType.ATTACHMENT: forms.FileField(
+                label=field_name, required=False, widget=syh_forms.AttachmentInput
+            ),
+            Indicator.DataType.CHECKBOX: forms.MultipleChoiceField(
+                label=field_name,
+                required=False,
+                widget=syh_forms.CheckboxSelectMultiple,
+                choices=get_choices(indicator.list_options),
+            ),
+            Indicator.DataType.RADIOBUTTON: forms.ChoiceField(
+                label=field_name,
+                required=False,
+                choices=get_choices(indicator.list_options),
+                widget=syh_forms.RadioButtonInput,
+            ),
+            Indicator.DataType.DROPDOWN: forms.ChoiceField(
+                label=field_name,
+                required=False,
+                choices=get_choices(indicator.list_options),
+                widget=syh_forms.DropdownInput,
+            ),
+            Indicator.DataType.INTEGERGENDER: syh_forms.GenderInput(
+                required=False, input_type="integer"
+            ),
+            Indicator.DataType.DECIMALGENDER: syh_forms.GenderInput(
+                required=False, input_type="decimal"
+            ),
+        }.get(indicator.data_type)
 
 
 def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
@@ -112,7 +128,7 @@ def get_dynamic_form(method, indicator_result_list, readonly, placeholder_dict):
                 self.fields[field_name] = field
                 self.fields[field_name].widget.attrs["readonly"] = readonly
                 self.fields[field_name].widget.attrs["placeholder"] = (
-                    placeholder_dict.get(field_name, "")
+                    placeholder_dict.get(i.code, "")
                 )
                 self.fields[field_name].widget.attrs["description"] = i.description
                 self.fields[field_name].widget.attrs["code"] = i.code
@@ -132,6 +148,36 @@ class InvitationInlineForm(forms.ModelForm):
         widget=UnfoldAdminEmailInputWidget,
         required=True,
     )
+
+
+class InvitationCreationForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Name"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
+    )
+    surnames = forms.CharField(
+        label=_("Surnames"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Surnames")}),
+    )
+    language = forms.ChoiceField(
+        choices=settings.LANGUAGES,
+        label=_("Language"),
+        widget=forms.Select(attrs={"class": "form-select"}),
+    )
+    gender = forms.ChoiceField(
+        label=_("Gender"),
+        choices=Invitation.Gender.choices,
+        widget=forms.Select(
+            attrs={
+                "hx-trigger": "change",
+                "autocomplete": "off",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Invitation
+        fields = ("name", "surnames", "email", "language", "gender")
 
 
 class SectionInlineForm(forms.ModelForm):

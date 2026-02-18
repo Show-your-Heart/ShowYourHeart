@@ -7,7 +7,6 @@ from django.core.exceptions import (
     ValidationError,
 )
 from django.db import models
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from sortedm2m.fields import SortedManyToManyField
 
@@ -64,12 +63,34 @@ class List(BaseModel):
     def __str__(self):
         return self.title
 
+
+class GroupItem(BaseModel):
+    title = models.CharField(_("title"), max_length=300)
+    suffix = models.CharField(_("suffix"), max_length=300, unique=True)
+
+    def __str__(self):
+        return self.title
+
     def delete(self, *args, **kwargs):
-        if self.list_options.exists():
+        if self.items.exists():
             raise ValidationError(
-                _("This list is already used by indicators and cannot be deleted.")
+                _(
+                    "This group item has already been used and cannot be deleted. "
+                    "Please create a new group item instead."
+                )
             )
         super().delete(*args, **kwargs)
+
+
+class Group(BaseModel):
+    title = models.CharField(_("title"), max_length=50)
+    # enable_others = models.BooleanField(
+    #     _("Enable others response"), blank=False, default=False
+    # )
+    items = models.ManyToManyField(GroupItem, related_name="items")
+
+    def __str__(self):
+        return self.title
 
 
 class Indicator(BaseModel):
@@ -93,8 +114,9 @@ class Indicator(BaseModel):
         DECIMALGENDER = "DG", _("Real gendered number")
 
     class Unit(models.TextChoices):
-        C = "C", "C"
+        PEOPLE = "PE", _("people")
         DOLLAR = "DL", "$"
+        EUROS = "EU", "€"
         KILO = "K", _("kg")
         M2 = "M", _("m2")
         TEMP = "T", _("°C")
@@ -102,11 +124,19 @@ class Indicator(BaseModel):
         POINTS = "P", _("points")
         ENERGY = "E", _("KWh")
         EURO_HOUR = "EH", _("€/h")
+        NUMBER = "N", _("number")
+        PERCENTAGE = "PER", _("percentage")
 
     list_types = [
         DataType.DROPDOWN,
         DataType.CHECKBOX,
         DataType.RADIOBUTTON,
+    ]
+
+    group_types = [
+        DataType.STRING,
+        DataType.INTEGER,
+        DataType.DECIMAL,
     ]
 
     code = models.CharField(_("ID"), max_length=50, unique=True)
@@ -116,6 +146,9 @@ class Indicator(BaseModel):
     topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(
         _("Is it a direct indicator?"), blank=True
+    )
+    is_group_indicator = models.BooleanField(
+        _("Is it a group indicator? (e.g. lists or tables)"), blank=False, default=False
     )
     category = models.CharField(
         _("category"),
@@ -135,6 +168,20 @@ class Indicator(BaseModel):
         blank=True,
         on_delete=models.PROTECT,
         related_name="list_options",
+    )
+    group = models.ForeignKey(
+        Group,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="group",
+    )
+    group_2 = models.ForeignKey(
+        Group,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="group_2",
     )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
@@ -242,7 +289,7 @@ class Indicator(BaseModel):
     def get_indicator(self, code):
         indicator = None
         try:
-            if "_men" in code or "_women" in code or "_nb" in code or "_total" in code:
+            if "_" in code:
                 subtoken = re.split(r"[_]", code)
                 indicator = Indicator.objects.get(code=subtoken[0])
             else:
@@ -260,6 +307,10 @@ class Indicator(BaseModel):
 
     def save(self, *args, **kwargs):
         self.update_dependencies()
+        if "_" in self.code:
+            raise ValidationError(
+                {_("Indicator code can't contain the underscore character '_'")}
+            )
         return super(Indicator, self).save(*args, **kwargs)
 
 
@@ -269,8 +320,14 @@ class Method(BaseModel):
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 
+    class ExternalSurveyCategory(models.TextChoices):
+        WORK = "W", _("Work")
+        PROFESSIONAL = "PR", _("Professional")
+        ASSOCIATIVE = "AS", _("Associative")
+        VOLUNTEERING = "V", _("Volunteering")
+
     name = models.CharField(_("name"), max_length=150)
-    description = models.CharField(_("description"), max_length=1000)
+    description = models.TextField(_("description"), max_length=1000)
     unit_of_analysis = models.CharField(
         _("unit of analysis"),
         choices=UnitAnalysis.choices,
@@ -302,7 +359,13 @@ class Method(BaseModel):
         "geodata.region1",
         verbose_name=_("Region1"),
         related_name="region1",
-        blank=True,
+        blank=False,
+    )
+    external_survey_category = models.CharField(
+        _("external survey category"),
+        choices=ExternalSurveyCategory.choices,
+        default=ExternalSurveyCategory.WORK,
+        blank=False,
     )
 
     def __str__(self):
@@ -338,7 +401,6 @@ class Campaign(BaseModel):
         verbose_name=_("Methods"),
         related_name="campaign_methods",
         blank=True,
-        limit_choices_to=~Q(unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY),
     )
     start_date = models.DateField(_("Start date"), blank=True, null=True)
     end_date = models.DateField(_("End date"), blank=True, null=True)
@@ -424,6 +486,22 @@ class IndicatorResult(BaseModel):
 
     survey = models.ForeignKey("methods.survey", on_delete=models.PROTECT)
     indicator = models.ForeignKey("methods.indicator", on_delete=models.PROTECT)
+    group_item = models.ForeignKey(
+        GroupItem,
+        default=None,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="group_item",
+    )
+    group_2_item = models.ForeignKey(
+        GroupItem,
+        default=None,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="group_2_item",
+    )
     gender = models.PositiveSmallIntegerField(
         choices=Gender.choices, default=None, blank=True, null=True
     )
@@ -447,7 +525,6 @@ class ExternalSurveyInvitation(BaseModel):
         on_delete=models.PROTECT,
         limit_choices_to={"unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY},
     )
-    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
@@ -472,14 +549,30 @@ class Invitation(BaseModel):
             "Registered",
         )
 
+    class Gender(models.IntegerChoices):
+        MALE = (
+            0,
+            "Male",
+        )
+        FEMALE = (
+            1,
+            "Female",
+        )
+        NON_BINARY = (2, "Non binary")
+
     name = models.CharField(_("Name"), max_length=400)
+    surnames = models.CharField(_("Surnames"), max_length=400)
     email = models.EmailField(
         verbose_name=_("email address"),
         max_length=255,
     )
+    gender = models.PositiveSmallIntegerField(
+        choices=Gender.choices, default=None, blank=True, null=True
+    )
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
+    send_date = models.DateField(_("Send date"), blank=True, null=True)
     token = models.CharField(max_length=32, unique=True, blank=True)
     external_survey_invitation = models.ForeignKey(
         ExternalSurveyInvitation, on_delete=models.CASCADE, related_name="invitation"

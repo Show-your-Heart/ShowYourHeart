@@ -39,7 +39,15 @@ class NetworkFilterMixin:
         if self.organization_field:
             return qs.filter(**{f"{self.organization_field}__networks": user_network})
 
+        # Model has related method and method_field defined
+        if self.organization_field:
+            return qs.filter(**{f"{self.method_field}__networks": user_network})
+
         return qs.none()
+
+    def filter_model_by_network(self, request, model, **filters):
+        qs = model.objects.filter(**filters)
+        return self.filter_queryset_by_network(request, qs)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
