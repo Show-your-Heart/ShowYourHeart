@@ -2,12 +2,17 @@
  
 {% trans "Preview" as title %} 
  
+{% if cl %}
+{% url cl.opts|admin_urlname:"add" as add_url %}
+{% else %}
+{% url opts|admin_urlname:"add" as add_url %}
+{% endif %}
  
-{% if opts|stringformat:"s" == 'methods.method' %}
-<a href="{% url 'methods:method_preview' request.path|get_id %}" target="_blank" class="cursor-pointer text-left whitespace-nowrap"  {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
-    <c-button variant="outlined" >
-        <c-icon name="eye" class="me-2"></c-icon>
-        {{ title }}
-    </c-button>
-</a>
+{% if add_url != request.path and opts|stringformat:"s" == 'methods.method' %}
+    <a href="{% url 'methods:method_preview' request.path|get_id %}" target="_blank" class="cursor-pointer text-left whitespace-nowrap"  {% include "unfold/helpers/attrs.html" with attrs=action.attrs %}>
+        <c-button variant="outlined" >
+            <c-icon name="eye" class="me-2"></c-icon>
+            {{ title }}
+        </c-button>
+    </a>  
 {% endif %}
