@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-19 23:56+0100\n"
+"POT-Creation-Date: 2026-02-13 11:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: apps/users/admin.py:83
+
+#: apps/users/admin.py:84
 msgid "Authentication"
 msgstr ""
 
-#: apps/users/admin.py:94
+#: apps/users/admin.py:95
 msgid "Personal details"
 msgstr ""
 
-#: apps/users/admin.py:103
+#: apps/users/admin.py:99
 msgid "Permissions and authorizations"
 msgstr ""
 
-#: apps/users/admin.py:117
+#: apps/users/admin.py:113
 msgid "Log"
 msgstr ""
 
-#: apps/users/admin.py:141
+#: apps/users/admin.py:137
 msgid "User roles information"
 msgstr ""
 
-#: apps/users/admin.py:149
+#: apps/users/admin.py:145
 msgid "Actions"
 msgstr ""
 
-#: apps/users/admin.py:154
+#: apps/users/admin.py:150
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 
-#: apps/users/admin.py:160
+#: apps/users/admin.py:156
 msgid "Send email to the user to set the password"
 msgstr ""
 
@@ -125,7 +126,7 @@ msgstr ""
 msgid "telephone"
 msgstr ""
 
-#: apps/users/models.py:80 apps/users/models.py:108
+#: apps/users/models.py:80 apps/users/models.py:114
 msgid "name"
 msgstr ""
 
@@ -137,20 +138,20 @@ msgstr ""
 msgid "email address"
 msgstr ""
 
-#: apps/users/models.py:117
+#: apps/users/models.py:123
 msgid "user"
 msgstr ""
 
-#: apps/users/models.py:118
+#: apps/users/models.py:124
 msgid "users"
 msgstr ""
 
-#: apps/users/signals.py:81
+#: apps/users/signals.py:95
 #, python-brace-format
 msgid "Group {name} created."
 msgstr ""
 
-#: apps/users/signals.py:84
+#: apps/users/signals.py:98
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr ""

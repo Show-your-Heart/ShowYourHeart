@@ -76,10 +76,6 @@ class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
     def build_fieldsets(
         main_fields, translatable_fields=None, display_log=True, display_actions=False
     ):
-        fields = [
-            (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
-        ]
-
         if translatable_fields:
             other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
             translation_fields = [
@@ -87,12 +83,10 @@ class ModelAdmin(ModelAdminMixin, BaseModelAdmin):
                 for field in translatable_fields
                 for lang in other_langs
             ]
-            fields.append(
-                (
-                    _("Translations"),
-                    {"fields": translation_fields, "classes": ("tab",)},
-                ),
-            )
+            main_fields.extend(translation_fields)
+        fields = [
+            (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
+        ]
 
         if display_actions:
             fields.append(
@@ -138,10 +132,6 @@ class ImportExportModelAdmin(ModelAdminMixin, BaseModelAdmin, ImportExportModelA
     def build_fieldsets(
         main_fields, translatable_fields=None, display_log=True, display_actions=False
     ):
-        fields = [
-            (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
-        ]
-
         if translatable_fields:
             other_langs = [lang[0] for lang in settings.LANGUAGES if lang[0] != "en"]
             translation_fields = [
@@ -149,12 +139,10 @@ class ImportExportModelAdmin(ModelAdminMixin, BaseModelAdmin, ImportExportModelA
                 for field in translatable_fields
                 for lang in other_langs
             ]
-            fields.append(
-                (
-                    _("Translations"),
-                    {"fields": translation_fields, "classes": ("tab",)},
-                ),
-            )
+            main_fields.extend(translation_fields)
+        fields = [
+            (_("Add/Edit"), {"fields": main_fields, "classes": ("tab",)}),
+        ]
 
         if display_actions:
             fields.append(

@@ -181,10 +181,21 @@ class InvitationCreationForm(forms.ModelForm):
 
 
 class SectionInlineForm(forms.ModelForm):
-    title = forms.CharField(widget=UnfoldAdminTextInputWidget, required=True)
     parent = forms.ModelChoiceField(
         queryset=Section.objects.all(), widget=UnfoldAdminSelectWidget, required=False
     )
+
+    class Meta:
+        model = Section
+        fields = (
+            "title",
+            "parent",
+            "indicators",
+        )
+
+        widgets = {
+            "title": UnfoldAdminTextInputWidget,
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TabbedTranslationAdmin
 
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
@@ -15,7 +15,7 @@ from .models import LegalStructure, Network, Sector
 @register_with_default_templates(admin.site, model=LegalStructure)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=LegalStructure)
-class LegalStructureAdmin(ModelAdmin, TranslationAdmin):
+class LegalStructureAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
     autocomplete_fields = ["parent"]
@@ -111,7 +111,7 @@ class NetworkAdmin(ModelAdmin):
 @register_with_default_templates(admin.site, model=Sector)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Sector)
-class SectorAdmin(ModelAdmin, TranslationAdmin):
+class SectorAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name",)
     search_fields = ["name"]
 

@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from import_export import resources
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 
 from apps.methods.mixins import save_indicator_results
@@ -58,7 +58,7 @@ from .views import BalanceReviewView
 @register_with_default_templates(admin.site, model=Topic)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Topic)
-class TopicAdmin(ModelAdmin, TranslationAdmin):
+class TopicAdmin(ModelAdmin, TabbedTranslationAdmin):
     search_fields = ["name"]
     autocomplete_fields = ["parent"]
 
@@ -85,7 +85,9 @@ class IndicatorResource(resources.ModelResource):
 @register_with_default_templates(admin.site, model=Indicator)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Indicator)
-class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmin):
+class IndicatorAdmin(
+    NetworkFilterMixin, ImportExportModelAdmin, TabbedTranslationAdmin
+):
     autocomplete_fields = ["topics", "list_options"]
     form = IndicatorForm
     search_fields = ["code", "name"]
@@ -150,15 +152,9 @@ class IndicatorAdmin(NetworkFilterMixin, ImportExportModelAdmin, TranslationAdmi
         return form
 
 
-class SectionInline(SortableStackedInline, admin.StackedInline):
+class SectionInline(TranslationStackedInline, SortableStackedInline):
     model = Section
     extra = 0
-    fields = (
-        "title",
-        "parent",
-        "method",
-        "indicators",
-    )
     tab = True  # Display the profile information on a new tab
     hide_title = True
     form = SectionInlineForm
@@ -172,7 +168,9 @@ class SectionInline(SortableStackedInline, admin.StackedInline):
 @register_with_default_templates(admin.site, model=Method)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Method)
-class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, TranslationAdmin):
+class MethodAdmin(
+    NetworkFilterMixin, SortableAdminBase, ModelAdmin, TabbedTranslationAdmin
+):
     autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
     filter_horizontal = ("indicators", "external_surveys")
@@ -241,7 +239,7 @@ class MethodAdmin(NetworkFilterMixin, SortableAdminBase, ModelAdmin, Translation
 @register_with_default_templates(admin.site, model=Group)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Group)
-class GroupAdmin(ModelAdmin, TranslationAdmin):
+class GroupAdmin(ModelAdmin, TabbedTranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
 
@@ -259,7 +257,7 @@ class GroupAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=GroupItem)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=GroupItem)
-class GroupItemAdmin(ModelAdmin, TranslationAdmin):
+class GroupItemAdmin(ModelAdmin, TabbedTranslationAdmin):
     search_fields = ["title", "suffix"]
 
     list_display = ("title",)
@@ -275,7 +273,7 @@ class GroupItemAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=List)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=List)
-class ListAdmin(ModelAdmin, TranslationAdmin):
+class ListAdmin(ModelAdmin, TabbedTranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
 
@@ -292,7 +290,7 @@ class ListAdmin(ModelAdmin, TranslationAdmin):
 @register_with_default_templates(admin.site, model=ListItem)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=ListItem)
-class ListItemAdmin(ModelAdmin, TranslationAdmin):
+class ListItemAdmin(ModelAdmin, TabbedTranslationAdmin):
     search_fields = ["title"]
 
     list_display = ("title",)

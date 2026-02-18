@@ -11,21 +11,16 @@
                 <p class="mb-4 text-lg">{{ _("Impact measurement can help you manage your impact") }}</p>
                 <p class="font-bold mb-4 text-base">{{ _("Main benefits of Show your Heart") }}</p>
                 <ul class="list-disc list-inside text-xs w-[90%] px-4">
-                    <li class="mb-2">{{ _("Helps you measure your impact by calculating relevant indicators.") }}
-                    </li>
-                    <li class="mb-2">{{ _("Allows you to gather data from your relevant stakeholders (e.g.
-                        employees, suppliers, volunteers).") }}</li>
-                    <li class="mb-2">{{ _("Facilitates certification pr2ocesses with your network of social
-                        enterprises.") }}</li>
-                    <li class="mb-2">{{ _("Generates documents useful to report your impact (infographics,
-                        spreadsheets, labels).") }}</li>
+                    <li class="mb-2">{{ _("Helps you measure your impact by calculating relevant indicators.") }}</li>
+                    <li class="mb-2">{{ _("Allows you to gather data from your relevant stakeholders (e.g. employees, suppliers, volunteers).") }}</li>
+                    <li class="mb-2">{{ _("Facilitates certification pr2ocesses with your network of social enterprises.") }}</li>
+                    <li class="mb-2">{{ _("Generates documents useful to report your impact (infographics, spreadsheets, labels).") }}</li>
                 </ul>
             </div>
             <div class="h-auto flex flex-column justify-center items-center">
                 <div class="w-full p-6 space-y-4 md:space-y-6 p-8 bg-white rounded-lg shadow">
 
-                    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {%
-                        block form_action %}{% endblock %} class="space-y-4 md:space-y-6">
+                    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %} class="space-y-4 md:space-y-6">
                         <h2 class="font-bold">{{ _("Log in") }}</h2>
                         {% csrf_token %}
 
