@@ -39,8 +39,7 @@
             {% get_setting "LOGO" as logo %}
             <img src="{% if logo %}{{ logo.url }}{% endif %}" class="h-8 me-10"
               alt="{% get_setting 'PROJECT_NAME' %} logo" />
-            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">{% get_setting
-              'PROJECT_NAME' %}</span>
+            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">{% get_setting 'PROJECT_NAME' %}</span>
           </a>
         </div>
         {% if request.user.is_authenticated %}
@@ -97,8 +96,8 @@
                   <form method="post" action="{% url 'registration:logout' %}">
                     {% csrf_token %}
                     <button type="submit"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{%
-                      translate "Log out" %}</button>
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      {% translate "Log out" %}</button>
                   </form>
                 </li>
               </ul>

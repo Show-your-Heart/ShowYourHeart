@@ -24,8 +24,8 @@
                                 <div class="flex gap-2 justify-center">
                                     <input :id="`question_${id}_${item.suffix}`"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_${item.suffix}`" :value="value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" {%
-                                        include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix); setGroupItemValid(item.suffix)"
+                                        :name="`question_${id}_${item.suffix}`" :value="value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" 
+                                        {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix); setGroupItemValid(item.suffix)"
                                         x-bind:disabled="notApplicable" x-model="value[item.suffix]" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                 </div>
@@ -37,8 +37,8 @@
                                     <div class="flex gap-2 justify-center">
                                         <input :id="`question_${id}_${item.suffix}_${group2Item.suffix}`"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                            :name="`question_${id}_${item.suffix}_${group2Item.suffix}`" :value="value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" {%
-                                            include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix, group2Item.suffix); setGroupItemValid(item.suffix,group2Item.suffix)"
+                                            :name="`question_${id}_${item.suffix}_${group2Item.suffix}`" :value="value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" 
+                                            {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix, group2Item.suffix); setGroupItemValid(item.suffix,group2Item.suffix)"
                                             x-bind:disabled="notApplicable" x-model="value[item.suffix][group2Item.suffix]" />
                                         <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                     </div>
