@@ -92,6 +92,10 @@ class ExternalSurveysView(TemplateView):
                     "methods:send_invitations",
                     args=[extsurvinv_to_send.id],
                 )
+                import_csv_url = reverse(
+                    "methods:import_csv",
+                    args=[extsurvinv_to_send.id],
+                )
 
         context.update(
             {
@@ -100,6 +104,7 @@ class ExternalSurveysView(TemplateView):
                 "invitations": invitations,
                 "create_invitation_form": InvitationCreationForm,
                 "send_invitations_url": send_invitations_url,
+                "import_csv_url": import_csv_url,
             }
         )
 
