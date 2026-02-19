@@ -1,0 +1,10 @@
+<div id="{{widget.attrs.id}}" class="min-h-[2rem] text-sm border rounded-lg block w-full p-2.5 bg-gray-50 border-gray-300 focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+    {% for group, options, index in widget.optgroups %}
+    {% for option in options %}
+        <div>
+            {% include option.template_name with widget=widget data=option index=index %}
+        </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+

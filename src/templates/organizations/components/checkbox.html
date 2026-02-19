@@ -1,0 +1,10 @@
+<label for="option-{{index}}"
+    class="inline-flex space-x-2 items-center cursor-pointer has-disabled:cursor-default has-disabled:pointer-events-none"
+>
+    <input type="checkbox" id="option-{{index}}" name="{{widget.name}}"
+        value="{{ data.value }}" class="h-4 w-4 cursor-pointer focus:ring-blue-500 disabled:cursor-default"
+        {% include "django/forms/widgets/attrs.html" %}
+    />
+    <span>{{ data.label }}</span>
+
+</label>
