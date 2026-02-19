@@ -6,9 +6,10 @@ from modeltranslation.admin import TabbedTranslationAdmin
 
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
+from project.mixins import NetworkFilterMixin
 
 from .forms import NetworkForm
-from .models import LegalStructure, Network, Sector
+from .models import LegalStructure, Network, Sector, SMTPServer
 
 
 # Add superadmin views with default Unfold templates
@@ -120,3 +121,11 @@ class SectorAdmin(ModelAdmin, TabbedTranslationAdmin):
             main_fields=["name_en"],
             translatable_fields=["name"],
         )
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=SMTPServer)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=SMTPServer)
+class SMTPServerAdmin(NetworkFilterMixin, ModelAdmin):
+    list_display = ("network", "host", "port", "protocol", "username", "password")

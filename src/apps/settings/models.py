@@ -38,3 +38,24 @@ class Sector(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class SMTPServer(BaseModel):
+    class Protocol(models.TextChoices):
+        TLS = "TLS", "TLS"
+        SSL = "SSL", "SSL"
+
+    network = models.OneToOneField(
+        "settings.Network",
+        on_delete=models.CASCADE,
+        related_name="smtp_server",
+        verbose_name=_("Network"),
+    )
+    host = models.CharField(_("Host"), max_length=255)
+    port = models.PositiveIntegerField(_("Port"))
+    username = models.CharField(_("Username"), max_length=255)
+    password = models.CharField(_("Password"), max_length=255)
+    protocol = models.CharField(_("Protocol"), choices=Protocol.choices, default="TLS")
+
+    def __str__(self):
+        return f"{self.network.name} SMTP"
