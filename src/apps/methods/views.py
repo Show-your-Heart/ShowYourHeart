@@ -72,6 +72,7 @@ class ExternalSurveysView(TemplateView):
         )
         invitations = Invitation.objects.none()
         send_invitations_url = None
+        import_csv_url = None
 
         if selected_method_id:
             selected_method = methods.filter(id=selected_method_id).first()
@@ -85,7 +86,6 @@ class ExternalSurveysView(TemplateView):
             invitations = Invitation.objects.filter(
                 external_survey_invitation__in=survey_invitations
             )
-
             extsurvinv_to_send = survey_invitations.first()
             if extsurvinv_to_send:
                 send_invitations_url = reverse(
