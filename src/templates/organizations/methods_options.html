@@ -1,3 +1,14 @@
 {% for method in methods %}
-<option value="{{ method.id }}">{{ method.name }} | {{ method.network_owner }}</option>
+<div>
+    <label for="option-{{method.id}}"
+        class="inline-flex space-x-2 items-center cursor-pointer has-disabled:cursor-default has-disabled:pointer-events-none"
+    >
+        <input type="checkbox" id="option-{{method.id}}" name="methods"
+        value="{{ method.id }}" class="h-4 w-4 cursor-pointer
+        focus:ring-blue-500 disabled:cursor-default"
+        {% include "django/forms/widgets/attrs.html" %}
+        >
+        <span>{{ method.name }} | {{ method.network_owner }}</span>
+    </label>
+</div>
 {% endfor %}

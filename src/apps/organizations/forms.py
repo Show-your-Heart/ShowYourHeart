@@ -90,7 +90,7 @@ class OrganizationSignUpForm(forms.ModelForm):
                 "hx-get": reverse_lazy("organizations:load_methods"),
                 "hx-target": "#id_methods",
                 "hx-include": "#id_region1",
-                "hx-trigger": "change",
+                "hx-trigger": "load, change",
                 "autocomplete": "off",
             }
         ),
@@ -99,7 +99,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Method of impact mesurement"),
         queryset=Method.objects.all(),
         required=False,
-        widget=forms.SelectMultiple(
+        widget=syh_forms.CheckboxSelectMultiple(
             attrs={
                 "autocomplete": "off",
             }
@@ -141,9 +141,6 @@ class OrganizationSignUpForm(forms.ModelForm):
         self.fields["accept_conditions"] = forms.BooleanField(
             label=format_html(label_html), required=True
         )
-
-        if not self.data.get("legal_structure"):
-            self.fields["methods"].queryset = Method.objects.none()
 
     def clean(self):
         contact = User.objects.filter(email=self.cleaned_data["contact_mail"])
