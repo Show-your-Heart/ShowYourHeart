@@ -59,35 +59,33 @@ class ExternalSurveysView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        methods = Method.objects.filter(
-            unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY
-        )
-
-        selected_method_id = self.request.GET.get("method")
-        selected_method = (
-            methods.filter(id=selected_method_id).first()
-            if selected_method_id
-            else methods.first()
-        )
         invitations = Invitation.objects.none()
         send_invitations_url = None
         import_csv_url = None
+        selected_method_id = kwargs["method_id"]
+        selected_ext_survey_id = self.request.GET.get("ext_survey")
 
-        if selected_method_id:
-            selected_method = methods.filter(id=selected_method_id).first()
+        # Get all the external surveys of the current method
+        ext_surveys = Method.objects.get(
+            id=selected_method_id,
+        ).external_surveys.all()
+
+        if selected_ext_survey_id:
+            selected_ext_survey = ext_surveys.filter(id=selected_ext_survey_id).first()
         else:
-            selected_method = methods.first()
+            selected_ext_survey = ext_surveys.first()
 
-        if selected_method:
+        if selected_ext_survey:
             survey_invitations = ExternalSurveyInvitation.objects.filter(
-                external_survey=selected_method
+                external_survey=selected_ext_survey
             )
-            invitations = Invitation.objects.filter(
-                external_survey_invitation__in=survey_invitations
-            )
+
             extsurvinv_to_send = survey_invitations.first()
             if extsurvinv_to_send:
+                invitations = Invitation.objects.filter(
+                    external_survey_invitation__in=survey_invitations
+                )
+
                 send_invitations_url = reverse(
                     "methods:send_invitations",
                     args=[extsurvinv_to_send.id],
@@ -99,8 +97,9 @@ class ExternalSurveysView(TemplateView):
 
         context.update(
             {
-                "methods": methods,
-                "selected_method": selected_method,
+                "method_id": selected_method_id,
+                "ext_surveys": ext_surveys,
+                "selected_ext_survey": selected_ext_survey,
                 "invitations": invitations,
                 "create_invitation_form": InvitationCreationForm,
                 "send_invitations_url": send_invitations_url,
@@ -175,7 +174,13 @@ def invitation_sent_view(request, id):
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
+def import_csv2(request, method_id):
+    extsurvinv = create_external_survey_invitation(method_id)
+    return import_csv(request, extsurvinv.id)
+
+
 def import_csv(request, id):
+    # aquí el id es del external survey invitation
     if request.method == "POST":
         csv_file = request.FILES["csv_file"]
         decoded_file = csv_file.read().decode("utf-8").splitlines()
@@ -295,10 +300,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         return query
 
 
-@require_http_methods("POST")
-def create_invitation_action(request):
-    method_id = request.POST.get("method_id")
-
+def create_external_survey_invitation(method_id):
     if not method_id:
         return HttpResponseBadRequest("Missing method_id")
 
@@ -314,6 +316,15 @@ def create_invitation_action(request):
             "name": selected_method.name,
         },
     )
+    return extsurvinv
+
+
+@require_http_methods("POST")
+def create_invitation_action(request):
+    method_id = request.POST.get("method_id")
+    ext_survey_id = request.POST.get("ext_survey_id")
+
+    extsurvinv = create_external_survey_invitation(method_id)
 
     invitation, created = Invitation.objects.get_or_create(
         name=request.POST["name"],
@@ -326,7 +337,12 @@ def create_invitation_action(request):
     if created:
         return HttpResponse(
             "",
-            headers={"HX-Redirect": "/methods/external-surveys?method=" + method_id},
+            headers={
+                "HX-Redirect": "/methods/external-surveys/"
+                + method_id
+                + "/?ext_survey="
+                + ext_survey_id
+            },
         )
 
     msg = _("Error creating contact. Contact your network admin.")

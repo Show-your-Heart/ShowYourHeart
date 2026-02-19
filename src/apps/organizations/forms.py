@@ -369,7 +369,7 @@ class ProjectSelectionForm(forms.Form):
         label=_("Choose Existing Project"),
         queryset=Project.objects.all(),
         widget=forms.Select(
-            attrs={"x-on:change": "setSelectedProjectId($event.target.value)"}
+            attrs={"x-on:change": {"setSelectedProjectId($event.target.value);"}}
         ),
     )
 

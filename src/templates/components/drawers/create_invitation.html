@@ -5,8 +5,10 @@
   <form id="create-project-form" hx-post="{% url 'methods:create_invitation' %}" hx-disabled-elt="button"
     class="flex flex-col space-y-4 flex-nowrap justify-center">
     {% csrf_token %}
-
-    <input type="hidden" name="method_id" value="{{ selected_method.id }}">
+ 
+    <input type="hidden" name="ext_survey_id" value="{{ selected_ext_survey.id }}">
+    <input type="hidden" name="method_id" value="{{ method_id }}">
+    
     
     {{ create_invitation_form }}
 
