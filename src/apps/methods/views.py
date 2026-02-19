@@ -68,6 +68,7 @@ class ExternalSurveysView(TemplateView):
         # Get all the external surveys of the current method
         ext_surveys = Method.objects.get(
             id=selected_method_id,
+            # TODO filter by organization
         ).external_surveys.all()
 
         if selected_ext_survey_id:

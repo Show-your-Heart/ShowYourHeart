@@ -525,6 +525,12 @@ class ExternalSurveyInvitation(BaseModel):
         on_delete=models.PROTECT,
         limit_choices_to={"unit_of_analysis": Method.UnitAnalysis.EXTERNAL_SURVEY},
     )
+    organization = models.ForeignKey(
+        "organizations.organization",
+        on_delete=models.PROTECT,
+        blank=False,
+        null=False,
+    )
 
     def __str__(self):
         return self.name
