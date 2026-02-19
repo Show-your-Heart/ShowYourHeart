@@ -8,6 +8,7 @@ from .views import (
     MethodPreviewView,
     create_invitation_action,
     import_csv,
+    import_csv2,
     invitation_sent_view,
     invitations_sent_view,
     load_ext_surveys,
@@ -27,7 +28,7 @@ urlpatterns = [
         name="external_method_fill",
     ),
     path(
-        _("external-surveys"),
+        _("external-surveys/<uuid:method_id>/"),
         ExternalSurveysView.as_view(),
         name="external_surveys_view",
     ),
@@ -39,6 +40,7 @@ urlpatterns = [
     path(_("send-invitations/<id>"), invitations_sent_view, name="send_invitations"),
     path(_("send-invitation/<id>"), invitation_sent_view, name="send_invitation"),
     path(_("import-csv/<id>"), import_csv, name="import_csv"),
+    path(_("import-csv2/<uuid:method_id>"), import_csv2, name="import_csv2"),
     path(_("load_ext_surveys/"), load_ext_surveys, name="load_ext_surveys"),
     path(
         _("fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"),

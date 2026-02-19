@@ -6,8 +6,12 @@
   width="sm"
   x-data="{
     selectedProjectUrl: '',
-    setSelectedProjectId(id){
+    setSelectedProjectId(id) {
       this.selectedProjectUrl = 'methods/fill/' + campaignId + '/' + selectedMethod + '/' + id
+    },
+    selectedMethodUrl: '',
+    setSelectedMethodId() {
+      this.selectedMethodUrl = 'methods/external-surveys/' + selectedMethod
     }
   }"
 >
@@ -21,7 +25,7 @@
         <c-icon name="arrow-right" class="inline text-white"></c-icon>
       </c-button>
     </a>
-    <a class="h-fit-content" href="{% url 'methods:external_surveys_view' %}">
+    <a class="h-fit-content" :href="selectedMethodUrl">
       <c-button name="action" value="send_external_surveys">
         {% translate 'Send external surveys' %}
       </c-button>

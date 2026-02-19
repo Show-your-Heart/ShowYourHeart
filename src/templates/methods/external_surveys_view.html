@@ -7,17 +7,17 @@
                 <ul
                     class="w-[clamp(10rem,18rem,25vw)] flex flex-col gap-4 text-sm font-medium text-center"
                     id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist">
-                    {% for method in methods %}
+                    {% for ext_survey in ext_surveys %}
                     <li class="w-full border border-gray-300 rounded-lg overflow-hidden" role="presentation">
                         <a 
-                            href="?method={{ method.id }}"
+                            href="?ext_survey={{ ext_survey.id }}"
                             class="block w-full py-4 px-6 text-left
-                            {% if selected_method and method.id == selected_method.id %}
+                            {% if selected_ext_survey and ext_survey.id == selected_ext_survey.id %}
                                 font-bold text-gray-900 bg-gray-100
                             {% else %}
                                 font-normal text-gray-600 hover:bg-gray-50
                             {% endif %}">
-                            {{ method.name }}
+                            {{ ext_survey.name }}
                         </a>
                     </li>
                     {% endfor %}
@@ -26,9 +26,9 @@
         </c-slot>
 
         <div class="w-full px-4">
-            {% if selected_method %}
+            {% if selected_ext_survey %}
                 <p class="mb-6 text-center text-gray-700">
-                    {{ selected_method.description|safe }}
+                    {{ selected_ext_survey.description|safe }}
                 </p>
 
                 <div class="mb-6 overflow-x-auto">
@@ -71,6 +71,11 @@
                         <c-icon name="arrow-right" class="inline text-white"></c-icon>
                     </c-button>
 
+                    <c-button id="import-csv-btn" @click="FlowbiteInstances.getAllInstances().Modal['import-csv-modal'].show();">
+                        <c-icon name="arrow-down-to-bracket" class="me-2"></c-icon>
+                        <span>{% translate 'Import contacts' %}</span>
+                    </c-button>
+
                     {% if invitations.exists %}
                         <c-button
                             onclick="if(confirm('{% translate 'Are you sure you want to send the invitations?' %}')) window.location.href='{{ send_invitations_url }}';"
@@ -80,6 +85,54 @@
                         </c-button>
                     {% endif %}
                 </div>
+
+                <!-- Modal Structure hidden by default -->
+                <div id="importCsvModal"
+                    style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000;">
+                    <div style="background:#fff; max-width:500px; margin:80px auto; padding:20px; position:relative;">
+                        <button id="closeModal" style="position:absolute; top:10px; right:10px; cursor: pointer;">&times;</button>
+                        <form id="importCsvForm" action="{% url 'methods:import_csv2' selected_ext_survey.id %}" method="POST"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div
+                                class="border border-base-200 flex grow items-center overflow-hidden rounded-default shadow-xs max-w-2xl focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 group-[.errors]:border-red-600 focus-within:group-[.errors]:outline-red-500">
+                                <input id="id_csv_file" type="file" name="csv_file" accept=".csv"
+                                    class="bg-white grow font-medium min-w-0 px-3 py-2 text-ellipsis" />
+                            </div>
+
+                            <!-- Text input placeholder expected by fileInputUpdatePath on Django unfold -->
+                            <input type="text" readonly value="" style="display: none;" />
+                            <c-button type="submit"
+                                class="bg-primary-600 block border border-transparent cursor-pointer font-medium px-3 py-2 rounded-default text-white w-full lg:w-auto">Upload
+                                CSV</c-button>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const modal = document.getElementById('importCsvModal');
+                        const openBtn = document.getElementById('import-csv-btn');
+                        const closeBtn = document.getElementById('closeModal');
+                        const fileInput = document.querySelector('#importCsvForm input[type="file"]');
+
+                        openBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            modal.style.display = 'block';
+                            // Open file input selector
+                            if (fileInput) {
+                                fileInput.click();
+                            }
+                        });
+
+                        closeBtn.addEventListener('click', function () {
+                            modal.style.display = 'none';
+                        });
+
+
+                    });
+                    
+                </script>
             {% endif %}
         </div>
     </div>
