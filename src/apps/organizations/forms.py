@@ -370,7 +370,7 @@ class ProjectSelectionForm(forms.Form):
         queryset=Project.objects.all(),
         widget=forms.Select(
             attrs={
-                "x-on:change": "setSelectedProjectId($event.target.value); setSelectedMethodId();"
+                "x-on:change": "setSelectedProjectId($event.target.value); setSelectedMethodId();"  # noqa: E501
             }
         ),
     )
