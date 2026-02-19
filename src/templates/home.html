@@ -38,7 +38,7 @@
     <h5 class="text-xl font-bold">{% translate 'Balances pendientes' %}</h5>
     <div class="w-full grid grid-cols-2 gap-4">
       {% for survey_stats in current_surveys_stats %}
-      <c-card.survey-stats :surveyStats="survey_stats"></c-card.survey-stats>
+      <c-card.survey-stats :surveyStats="survey_stats" :organization="organization"></c-card.survey-stats>
       {% endfor %}
     </div>
     {% else %}

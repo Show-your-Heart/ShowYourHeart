@@ -581,10 +581,7 @@ class InvitationInline(admin.StackedInline):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=ExternalSurveyInvitation)
 class ExternalSurveyInvitationAdmin(ModelAdmin):
-    list_display = (
-        "name",
-        "external_survey",
-    )
+    list_display = ("name", "external_survey", "organization")
     inlines = (InvitationInline,)
     readonly_fields = ("actions_field",)
     autocomplete_fields = ["external_survey"]
@@ -595,6 +592,7 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
             main_fields=[
                 "name",
                 "external_survey",
+                "organization",
             ],
             translatable_fields=[],
             display_actions=True,
