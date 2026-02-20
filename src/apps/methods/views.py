@@ -78,23 +78,23 @@ class ExternalSurveysView(TemplateView):
             selected_ext_survey = ext_surveys.first()
 
         if selected_ext_survey:
-            invitations_header = ExternalSurveyInvitation.objects.filter(
+            external_survey_invitation = ExternalSurveyInvitation.objects.filter(
                 external_survey=selected_ext_survey,
                 organization=organization_id,
             ).first()
 
-            if invitations_header:
+            if external_survey_invitation:
                 invitations = Invitation.objects.filter(
-                    external_survey_invitation=invitations_header
+                    external_survey_invitation=external_survey_invitation
                 )
 
                 send_invitations_url = reverse(
                     "methods:send_invitations",
-                    args=[invitations_header.id],
+                    args=[external_survey_invitation.id],
                 )
                 import_csv_url = reverse(
                     "methods:import_csv",
-                    args=[invitations_header.id],
+                    args=[external_survey_invitation.id],
                 )
 
         context.update(
