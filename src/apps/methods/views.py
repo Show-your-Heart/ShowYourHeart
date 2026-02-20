@@ -178,12 +178,13 @@ def invitation_sent_view(request, id):
 
 
 def import_csv2(request, organization_id, method_id):
+    # The method_id comes from the method of type external invitation
     extsurvinv = create_external_survey_invitation(organization_id, method_id)
     return import_csv(request, extsurvinv.id)
 
 
 def import_csv(request, id):
-    # aquí el id es del external survey invitation
+    # The id comes from the ExternalSurveyInvitation
     if request.method == "POST":
         csv_file = request.FILES["csv_file"]
         decoded_file = csv_file.read().decode("utf-8").splitlines()
@@ -307,17 +308,17 @@ def create_external_survey_invitation(organization_id, method_id):
     if not method_id:
         return HttpResponseBadRequest("Missing method_id")
 
-    selected_method = get_object_or_404(
+    ext_survey_method = get_object_or_404(
         Method,
         id=method_id,
         unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
     )
 
     extsurvinv, _ = ExternalSurveyInvitation.objects.get_or_create(
-        external_survey=selected_method,
+        external_survey=ext_survey_method,
         organization_id=organization_id,
         defaults={
-            "name": selected_method.name,
+            "name": ext_survey_method.name,
         },
     )
     return extsurvinv
