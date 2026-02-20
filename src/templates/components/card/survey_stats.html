@@ -53,7 +53,7 @@
     <div>
         {% if surveyStats.method.unit_of_analysis == "PRO" %}
             <c-button 
-              @click="selectedMethod = '{{surveyStats.method.id}}'; campaignId = '{{surveyStats.campaign.id}}'"
+              @click="selectedMethod = '{{surveyStats.method.id}}'; campaignId = '{{surveyStats.campaign.id}}'; organizationId = '{{organization.id}}'"
               data-drawer-target="drawer-choose-project" 
               data-drawer-placement="right" 
               data-drawer-show="drawer-choose-project" 
@@ -70,11 +70,11 @@
                 <c-icon name="arrow-right" class="inline text-white"></c-icon>
               </c-button>
             </a>
-            <a class="h-fit-content" href="{% url 'methods:external_surveys_view' surveyStats.method.id %}">
-              <c-button name="action" value="send_external_surveys">
-                {% translate 'Send external surveys' %}
-              </c-button>
-            </a>
+              <a class="h-fit-content" href="{% url 'methods:external_surveys_view' organization.id surveyStats.method.id %}">
+                <c-button name="action" value="send_external_surveys">
+                  {% translate 'Send external surveys' %}
+                </c-button>
+              </a>
           </div>
         {% endif %}
     </div>

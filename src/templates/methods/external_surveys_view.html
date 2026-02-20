@@ -1,6 +1,10 @@
 {% load i18n %}
 
 <c-default-layout>
+    <h4 class="text-2xl font-bold">{{ method.name }}</h4>  
+    {% if not ext_surveys %} 
+        {% trans 'There are not external surveys configured for this method' %}
+    {% endif %}
     <div class="flex flex-col gap-8 items-center max-w-[600px] mx-auto pt-16">
         <c-slot name="sidebar">
             <div class="sticky overflow-y-auto mt-8 pl-4" style="height: calc(100vh - 80px - 2rem); top: calc(80px + 2rem);">
@@ -24,7 +28,7 @@
                 </ul>
             </div>
         </c-slot>
-
+   
         <div class="w-full px-4">
             {% if selected_ext_survey %}
                 <p class="mb-6 text-center text-gray-700">
@@ -91,7 +95,7 @@
                     style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000;">
                     <div style="background:#fff; max-width:500px; margin:80px auto; padding:20px; position:relative;">
                         <button id="closeModal" style="position:absolute; top:10px; right:10px; cursor: pointer;">&times;</button>
-                        <form id="importCsvForm" action="{% url 'methods:import_csv2' selected_ext_survey.id %}" method="POST"
+                        <form id="importCsvForm" action="{% url 'methods:import_csv2' organization_id selected_ext_survey.id %}" method="POST"
                             enctype="multipart/form-data">
                             {% csrf_token %}
                             <div

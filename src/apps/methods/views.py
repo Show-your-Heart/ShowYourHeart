@@ -63,13 +63,14 @@ class ExternalSurveysView(TemplateView):
         send_invitations_url = None
         import_csv_url = None
         selected_method_id = kwargs["method_id"]
+        organization_id = kwargs["organization_id"]
         selected_ext_survey_id = self.request.GET.get("ext_survey")
 
         # Get all the external surveys of the current method
-        ext_surveys = Method.objects.get(
+        method = Method.objects.get(
             id=selected_method_id,
-            # TODO filter by organization
-        ).external_surveys.all()
+        )
+        ext_surveys = method.external_surveys.all()
 
         if selected_ext_survey_id:
             selected_ext_survey = ext_surveys.filter(id=selected_ext_survey_id).first()
@@ -77,34 +78,35 @@ class ExternalSurveysView(TemplateView):
             selected_ext_survey = ext_surveys.first()
 
         if selected_ext_survey:
-            survey_invitations = ExternalSurveyInvitation.objects.filter(
-                external_survey=selected_ext_survey
-            )
+            invitations_header = ExternalSurveyInvitation.objects.filter(
+                external_survey=selected_ext_survey,
+                organization=organization_id,
+            ).first()
 
-            extsurvinv_to_send = survey_invitations.first()
-            if extsurvinv_to_send:
+            if invitations_header:
                 invitations = Invitation.objects.filter(
-                    external_survey_invitation__in=survey_invitations
+                    external_survey_invitation=invitations_header
                 )
 
                 send_invitations_url = reverse(
                     "methods:send_invitations",
-                    args=[extsurvinv_to_send.id],
+                    args=[invitations_header.id],
                 )
                 import_csv_url = reverse(
                     "methods:import_csv",
-                    args=[extsurvinv_to_send.id],
+                    args=[invitations_header.id],
                 )
 
         context.update(
             {
-                "method_id": selected_method_id,
+                "method": method,
                 "ext_surveys": ext_surveys,
                 "selected_ext_survey": selected_ext_survey,
                 "invitations": invitations,
                 "create_invitation_form": InvitationCreationForm,
                 "send_invitations_url": send_invitations_url,
                 "import_csv_url": import_csv_url,
+                "organization_id": organization_id,
             }
         )
 
@@ -175,13 +177,14 @@ def invitation_sent_view(request, id):
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
-def import_csv2(request, method_id):
-    extsurvinv = create_external_survey_invitation(method_id)
+def import_csv2(request, organization_id, method_id):
+    # The method_id comes from the method of type external invitation
+    extsurvinv = create_external_survey_invitation(organization_id, method_id)
     return import_csv(request, extsurvinv.id)
 
 
 def import_csv(request, id):
-    # aquí el id es del external survey invitation
+    # The id comes from the ExternalSurveyInvitation
     if request.method == "POST":
         csv_file = request.FILES["csv_file"]
         decoded_file = csv_file.read().decode("utf-8").splitlines()
@@ -301,20 +304,21 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         return query
 
 
-def create_external_survey_invitation(method_id):
+def create_external_survey_invitation(organization_id, method_id):
     if not method_id:
         return HttpResponseBadRequest("Missing method_id")
 
-    selected_method = get_object_or_404(
+    ext_survey_method = get_object_or_404(
         Method,
         id=method_id,
         unit_of_analysis=Method.UnitAnalysis.EXTERNAL_SURVEY,
     )
 
     extsurvinv, _ = ExternalSurveyInvitation.objects.get_or_create(
-        external_survey=selected_method,
+        external_survey=ext_survey_method,
+        organization_id=organization_id,
         defaults={
-            "name": selected_method.name,
+            "name": ext_survey_method.name,
         },
     )
     return extsurvinv
@@ -324,8 +328,8 @@ def create_external_survey_invitation(method_id):
 def create_invitation_action(request):
     method_id = request.POST.get("method_id")
     ext_survey_id = request.POST.get("ext_survey_id")
-
-    extsurvinv = create_external_survey_invitation(method_id)
+    organization_id = request.POST.get("organization_id")
+    extsurvinv = create_external_survey_invitation(organization_id, ext_survey_id)
 
     invitation, created = Invitation.objects.get_or_create(
         name=request.POST["name"],
@@ -340,6 +344,8 @@ def create_invitation_action(request):
             "",
             headers={
                 "HX-Redirect": "/methods/external-surveys/"
+                + organization_id
+                + "/"
                 + method_id
                 + "/?ext_survey="
                 + ext_survey_id
