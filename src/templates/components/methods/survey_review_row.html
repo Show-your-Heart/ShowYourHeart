@@ -90,7 +90,10 @@
     {% endif %}
     </c-table.data>
     <c-table.data class="field-contact">
-        <a href="mailto: {{survey.user.email}}" class="text-blue-600"><c-icon name="envelope" class="text-blue-600 inline"></c-icon>{{survey.user}}</a>
+        <a href="{% url 'methods:user_survey_reminder_email' survey.id %}" class="text-blue-600">
+            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
+            {{survey.user}}
+        </a>
     </c-table.data>
     <c-table.data class="field-external-surveys">
 

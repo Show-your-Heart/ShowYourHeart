@@ -30,6 +30,16 @@ def send_survey_reminder_email():
             user_emails.append(survey.user.email)
 
     send(
-        recipients=user_emails,
+        bcc=user_emails,
         template="survey_reminder",
+    )
+
+
+def send_user_survey_reminder_email(survey_id):
+    survey = Survey.objects.get(id=survey_id)
+    context = {"user_name": survey.user.name, "survey": survey.method.name}
+    send(
+        recipients=[survey.user.email],
+        template="user_survey_reminder",
+        context=context,
     )
