@@ -4,6 +4,7 @@ from django.db import transaction
 from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from import_export.forms import ExportForm
 from unfold.widgets import UnfoldAdminSelectWidget
 
 from apps.geodata.models import City, Country, Region1
@@ -195,6 +196,10 @@ class OrganizationAdminForm(forms.ModelForm):
             "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
             "region1": UnfoldAdminSelectWidget(attrs=htmx_attrs),
         }
+
+
+class OrganizationAdminExportForm(ExportForm):
+    region1 = forms.ModelChoiceField(queryset=Region1.objects.all(), required=True)
 
 
 class OrganizationUpdateForm(forms.ModelForm):
