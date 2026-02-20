@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 11:37+0100\n"
+"POT-Creation-Date: 2026-02-20 10:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,82 +18,82 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/admin.py:80 project/admin.py:142
+#: project/admin.py:88 project/admin.py:144
 msgid "Add/Edit"
 msgstr ""
 
-#: project/admin.py:92 project/admin.py:154
-msgid "Translations"
-msgstr ""
-
-#: project/admin.py:100 project/admin.py:162
+#: project/admin.py:94 project/admin.py:150
 msgid "Actions"
 msgstr ""
 
-#: project/admin.py:124
+#: project/admin.py:118
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr ""
 
-#: project/admin.py:125
+#: project/admin.py:119
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr ""
 
-#: project/admin.py:126
+#: project/admin.py:120
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr ""
 
-#: project/admin.py:186 project/admin.py:326
+#: project/admin.py:174 project/admin.py:314
 msgid "action"
 msgstr ""
 
-#: project/admin.py:199
+#: project/admin.py:187
 msgid "staff user"
 msgstr ""
 
-#: project/admin.py:225
+#: project/admin.py:213
 msgid "Metadata"
 msgstr ""
 
-#: project/admin.py:236
+#: project/admin.py:224
 msgid "Details"
 msgstr ""
 
-#: project/admin.py:295
+#: project/admin.py:283
 msgid "object"
 msgstr ""
 
-#: project/admin.py:312
+#: project/admin.py:300
 msgid "user"
 msgstr ""
 
-#: project/admin.py:332
+#: project/admin.py:320
 msgid "change message"
 msgstr ""
 
-#: project/admin.py:413
+#: project/admin.py:401
 msgid "Entities"
 msgstr ""
 
-#: project/admin.py:452
+#: project/admin.py:439
 msgid "Methods management"
 msgstr ""
 
-#: project/admin.py:464
+#: project/admin.py:451
 msgid "Features"
 msgstr ""
 
-#: project/admin.py:470
+#: project/admin.py:457
 msgid "Registration Requests"
 msgstr ""
 
-#: project/admin.py:475
+#: project/admin.py:462
 msgid "Review Balances"
 msgstr ""
 
-#: project/admin.py:504
+#: project/admin.py:493
+msgid "Users"
+msgstr ""
+
+#: project/admin.py:502
 msgid "Settings"
 msgstr ""
 
@@ -249,30 +249,30 @@ msgstr ""
 msgid "French"
 msgstr ""
 
-#: project/settings.py:375
+#: project/settings.py:376
 msgid ""
 "This name will be used for the HTML title of the public app, logo alt text "
 "and other places."
 msgstr ""
 
-#: project/settings.py:384
+#: project/settings.py:385
 msgid ""
 "Logo image that will be used to customize the public app, e-mail templates "
 "and other."
 msgstr ""
 
-#: project/settings.py:391
+#: project/settings.py:392
 msgid "Dynamic settings"
 msgstr ""
 
-#: project/settings.py:478
+#: project/settings.py:479
 msgid ""
 "Access to: configuration and customization settings, the log of emails sent "
 "by the system, email templates, users management. Gives permission to edit "
 "the fields 'Is staff', 'Is active' and 'Groups'."
 msgstr ""
 
-#: project/settings.py:486
+#: project/settings.py:487
 msgid "Access to: all basic models read-only mode."
 msgstr ""
 

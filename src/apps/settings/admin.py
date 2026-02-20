@@ -80,15 +80,15 @@ class NetworkAdmin(ModelAdmin):
         if not obj or not self.request.user.groups.filter(name="Network Admins"):
             return "-"
         confirmed_verification_msg = _(
-            "Are you sure you want to send an email to the user to notify he has been "
-            "added as network admin?"
+            "Are you sure you want to send an email to the user to notify they "
+            "have been added as network admin?"
         )
         confirmed_verification_url = reverse(
             "settings:admin_assigned",
             args=[obj.id],
         )
         confirmed_verification_text = _(
-            "Send email to the user to notify he has been added as network admin"
+            "Send email to the user to notify they have been added as network admin"
         )
         buttons = [
             self._get_url_with_alert_msg(
