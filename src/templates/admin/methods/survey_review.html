@@ -33,7 +33,13 @@
                 {% trans 'Filter' %}
             </c-button>
         </div>
-         
+
+
+         <a href="{% url 'methods:survey_reminder_email' %}" class="text-blue-600">
+            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
+            {% trans 'Send email to all with open balances' %}
+        </a>
+  
         <div class="pagination mt-4 mb-2">
             <div class="page-links flex space-x-2">
                 {% if page_obj.has_previous %}

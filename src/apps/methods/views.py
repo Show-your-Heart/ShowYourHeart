@@ -25,7 +25,7 @@ from .helpers import (
     get_survey_stats,
 )
 from .models import Campaign, ExternalSurveyInvitation, Invitation, Method, Survey
-from .services import send_invitation
+from .services import send_invitation, send_survey_reminder_email
 
 
 class MethodFillView(MethodFillMixin, TemplateView):
@@ -359,3 +359,12 @@ def create_invitation_action(request):
             "HX-Trigger": '{"notification": {"type": "error","text": "' + msg + '"}}',
         },
     )
+
+
+def survey_reminder_view(request):
+    send_survey_reminder_email()
+    messages.success(
+        request,
+        _("An email to all the involved contacts has been sent."),
+    )
+    return redirect(request.META.get("HTTP_REFERER", "/"))
