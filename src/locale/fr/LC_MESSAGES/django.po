@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 12:30+0100\n"
+"POT-Creation-Date: 2026-02-20 12:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgstr "Balance correctement actualisé."
 msgid "Balance status successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:558 apps/methods/admin.py:603
+#: apps/methods/admin.py:558 apps/methods/admin.py:601
 #: apps/settings/admin.py:58 apps/settings/admin.py:78
 msgid "Actions"
 msgstr "Actions"
@@ -63,11 +63,11 @@ msgstr "Êtes-vous sûrs que vous voulez envoyer l'invitation?"
 msgid "Send invitation"
 msgstr "Envoyer invitation"
 
-#: apps/methods/admin.py:607 templates/methods/external_surveys_view.html:81
+#: apps/methods/admin.py:605 templates/methods/external_surveys_view.html:85
 msgid "Are you sure you want to send the invitations?"
 msgstr "Êtes-vous sûrs que vous voulez envoyer les invitations?"
 
-#: apps/methods/admin.py:612
+#: apps/methods/admin.py:610
 msgid "Send invitations"
 msgstr "Envoyer invitations"
 
@@ -77,7 +77,7 @@ msgstr "Envoyer invitations"
 #: apps/organizations/forms.py:35 templates/admin/methods/survey_review.html:31
 #: templates/admin/methods/survey_review.html:100
 #: templates/admin/organizations/registration_requests.html:40
-#: templates/methods/external_surveys_view.html:38
+#: templates/methods/external_surveys_view.html:42
 msgid "Name"
 msgstr "Prénom"
 
@@ -175,7 +175,7 @@ msgstr "Decimal"
 msgid "Boolean"
 msgstr "Booléen"
 
-#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:40
+#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:44
 msgid "Date"
 msgstr "Date"
 
@@ -444,7 +444,9 @@ msgid "external-survey/<id>"
 msgstr "sondage-externe/<id>"
 
 #: apps/methods/urls.py:31
-msgid "external-surveys/<uuid:method_id>/"
+#, fuzzy
+#| msgid "external-surveys/<uuid:method_id>/"
+msgid "external-surveys/<uuid:organization_id>/<uuid:method_id>/"
 msgstr "sondage-externe/<uuid:method_id>/"
 
 #: apps/methods/urls.py:36
@@ -463,39 +465,39 @@ msgstr "envoyer invitation/<id>"
 msgid "import-csv/<id>"
 msgstr "importer-csv/<id>"
 
-#: apps/methods/urls.py:43
-msgid "import-csv2/<uuid:method_id>"
+#: apps/methods/urls.py:44
+msgid "import-csv2/<uuid:organization_id>/<uuid:method_id>"
 msgstr ""
 
-#: apps/methods/urls.py:44
+#: apps/methods/urls.py:48
 msgid "load_ext_surveys/"
 msgstr "charger_ext_sondages"
 
-#: apps/methods/urls.py:46
+#: apps/methods/urls.py:50
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:51
+#: apps/methods/urls.py:55
 msgid "preview/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/views.py:152
+#: apps/methods/views.py:154
 msgid "The invitations have been sent."
 msgstr "Les invitations ont été envoyées."
 
-#: apps/methods/views.py:157
+#: apps/methods/views.py:159
 msgid "There are no invitations to send."
 msgstr "Il n'y a pas d'invitations pour envoyer."
 
-#: apps/methods/views.py:172
+#: apps/methods/views.py:174
 msgid "The invitation has been sent."
 msgstr "L'invitation a été  envoyée."
 
-#: apps/methods/views.py:200
+#: apps/methods/views.py:203
 msgid "The CSV has been imported correctly."
 msgstr "Le CSV a été importé correctement."
 
-#: apps/methods/views.py:349
+#: apps/methods/views.py:355
 msgid "Error creating contact. Contact your network admin."
 msgstr ""
 
@@ -532,7 +534,7 @@ msgid "Email address of the contact person"
 msgstr "Adresse e-mail de la personne de contact"
 
 #: apps/organizations/forms.py:45 templates/home.html:21
-#: templates/methods/external_surveys_view.html:39
+#: templates/methods/external_surveys_view.html:43
 msgid "Email"
 msgstr "Adresse e-mail"
 
@@ -991,7 +993,7 @@ msgstr "Méthode"
 
 #: templates/admin/methods/survey_review.html:26
 #: templates/admin/methods/survey_review.html:85
-#: templates/methods/external_surveys_view.html:41
+#: templates/methods/external_surveys_view.html:45
 msgid "Status"
 msgstr ""
 
@@ -1088,13 +1090,16 @@ msgstr ""
 "d'objets suivants :"
 
 #: templates/admin/syh_delete_confirmation.html:25
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would require deleting "
+#| "the following protected related objects:"
 msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
 "following protected related objects:"
 msgstr ""
-"Supprimer le %(object_name) '%(escaped_object)' nécessiterait de supprimer "
-"le suivant des objets liés protégés :"
+"Supprimer %(object_name) '%(escaped_object)' entraînerait la suppression de "
+"objets liés suivantes :"
 
 #: templates/admin/syh_delete_confirmation.html:41
 #, python-format
@@ -1211,7 +1216,7 @@ msgstr "Revenir à l'accueil"
 #: templates/components/admin/button_add.html:13
 #, python-format
 msgid "Add new %(name)s"
-msgstr "Ajoutter de nouveaux %(noms)s"
+msgstr "Ajoutter de nouveaux %(name)s"
 
 #: templates/components/admin/button_import_export.html:4
 msgid "Import"
@@ -1231,8 +1236,6 @@ msgid ""
 " Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
 "con los datos aportados, mejoramos todas. "
 msgstr ""
-"Vous avez completé %(value)%% de la Balance social.<br> Souvenez-vous que  "
-"avec les données rapportées, nous nous améliorons toutes. "
 
 #: templates/components/card/survey_stats.html:14
 msgid "Resumen por sección"
@@ -1289,11 +1292,11 @@ msgid "Create project"
 msgstr ""
 
 #: templates/components/drawers/create_invitation.html:3
-#: templates/methods/external_surveys_view.html:70
+#: templates/methods/external_surveys_view.html:74
 msgid "Add new contact"
 msgstr ""
 
-#: templates/components/drawers/create_invitation.html:17
+#: templates/components/drawers/create_invitation.html:18
 msgid "Create invitation"
 msgstr "Créer invitation"
 
@@ -1411,15 +1414,19 @@ msgstr ""
 msgid "What is Social Balance?"
 msgstr ""
 
-#: templates/methods/external_surveys_view.html:55
+#: templates/methods/external_surveys_view.html:6
+msgid "There are not external surveys configured for this method"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:59
 msgid "No invitations found."
 msgstr "Il n'y a pas d'invitations."
 
-#: templates/methods/external_surveys_view.html:76
+#: templates/methods/external_surveys_view.html:80
 msgid "Import contacts"
 msgstr ""
 
-#: templates/methods/external_surveys_view.html:83
+#: templates/methods/external_surveys_view.html:87
 msgid "Send surveys"
 msgstr "Enovyer sondages externes"
 
