@@ -176,7 +176,7 @@ class Project(BaseModel):
         _("I want to make the results public"), max_length=50, blank=True, null=True
     )
     authorize = models.BooleanField(
-        _("Authorize the use of my data for inclusion in the final report"),
+        _("Authorise the use of my data for inclusion in the final report"),
         max_length=50,
     )
 

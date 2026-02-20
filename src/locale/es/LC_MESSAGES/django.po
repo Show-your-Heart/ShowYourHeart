@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 12:37+0100\n"
+"POT-Creation-Date: 2026-02-20 13:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,7 +309,7 @@ msgid "Indicator code can't contain the underscore character '_'"
 msgstr ""
 
 #: apps/methods/models.py:319
-msgid "Organization"
+msgid "Organisation"
 msgstr "Organización"
 
 #: apps/methods/models.py:320 templates/admin/methods/survey_review.html:105
@@ -505,7 +505,7 @@ msgid "Invalid signup, check that you don't have an account."
 msgstr "Registro no válido, comprueba que no tienes una cuenta."
 
 #: apps/organizations/forms.py:24
-msgid "Organization name"
+msgid "Organisation name"
 msgstr "Nombre de la organización"
 
 #: apps/organizations/forms.py:28 apps/organizations/forms.py:30
@@ -604,7 +604,7 @@ msgid "I want to make the results public"
 msgstr "Quiero hacer públicos los resultados"
 
 #: apps/organizations/forms.py:322 apps/organizations/models.py:179
-msgid "Authorize the use of my data for inclusion in the final report"
+msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autorizo el uso de los datos para la inclusión en el informe final"
 
 #: apps/organizations/forms.py:366
