@@ -1,17 +1,17 @@
 {% load i18n static%}
 
-<div x-data="field('{{widget.attrs.code}}')" :id="`field-${id}`" class="flex flex-col" x-show="show" x-transition
+<div x-data="field('{{widget.attrs.code}}')" :id="`field-${id}`" class="indicator flex flex-col" x-show="show" x-transition
     x-transition.delay.200ms>
 
     <div class="flex gap-4 mb-1">
         <div class="w-full grid grid-cols-[80%_20%] gap-4">
             <label :for="`question_${id}`" class="block flex align-items-start space-x-4 mb-2 text-md font-medium text-gray-900">
                 <span class="px-2 py-1 h-fit text-xs font-bold rounded-sm bg-pink-100" x-text="code"></span>
-                <span class="h-fit" x-text="name"></span>
+                <span class="h-fit" x-html="name"></span>
                 {% comment %} Here we use the widget object to fill data into Cotton fields since Alpine and Cotton would
                 clash in the use of dynamic fields {% endcomment %}
                 {% if widget.attrs.description %}
-                <c-help-drawer class="self-align-start" msg="{{widget.attrs.description}}" id="{{widget.attrs.id}}"></c-help-drawer>
+                <c-help-drawer class="self-align-start" id="{{widget.attrs.id}}"></c-help-drawer>
                 {% endif %}
             </label>
 
