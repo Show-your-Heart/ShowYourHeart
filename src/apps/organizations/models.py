@@ -57,6 +57,12 @@ class Organization(BaseModel):
     bs_allow_public = models.BooleanField(
         _("Allow infographics to be public"), blank=True, null=True
     )
+    sectors = models.ManyToManyField(
+        "settings.Sector",
+        verbose_name=_("Sectors"),
+        related_name="organization_sectors",
+        blank=True,
+    )
 
     def __str__(self):
         return self.name

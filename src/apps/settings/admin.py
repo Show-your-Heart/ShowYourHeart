@@ -59,7 +59,7 @@ class SectorAdmin(ModelAdmin, TabbedTranslationAdmin):
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
-            main_fields=["name_en"],
+            main_fields=["name_en", "parent"],
             translatable_fields=["name"],
         )
 

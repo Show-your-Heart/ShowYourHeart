@@ -35,6 +35,7 @@ class Network(BaseModel):
 
 class Sector(BaseModel):
     name = models.CharField(_("name"), max_length=150)
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.RESTRICT)
 
     def __str__(self):
         return self.name
