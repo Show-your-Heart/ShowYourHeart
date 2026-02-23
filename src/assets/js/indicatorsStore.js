@@ -38,6 +38,10 @@ const initIndicatorsStore = () => {
                     } else if (token == 'val') {
                         // Reference to other indicator 
                         value = this.loadIndicatorResult(val)
+                    } else if (token == 'AND' || token == 'and') {
+                        value = '&&'
+                    } else if (token == 'OR' || token == 'or') {
+                        value = '||'
                     } else {
                         // Reference to current indicator
                         value = this.loadIndicatorResult(token)
