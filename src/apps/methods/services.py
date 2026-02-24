@@ -5,7 +5,7 @@ from project.post_office import send
 from .models import Survey
 
 
-def send_invitation(invitation):
+def send_invitation(invitation, sender_user):
     context = {
         "method_name": invitation.external_survey_invitation.name,
         "user_name": invitation.name,
@@ -19,6 +19,7 @@ def send_invitation(invitation):
         ],
         template="external_survey_invitation",
         context=context,
+        network=getattr(sender_user, "network", None),
     )
 
 

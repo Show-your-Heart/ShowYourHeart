@@ -11,7 +11,7 @@ from project.helpers import absolute_url
 from project.post_office import send
 
 
-def send_confirmation_mail(user_instance):
+def send_confirmation_mail(user_instance, sender_user):
     email_verification_code = email_verification_code_regeneration(user_instance)
     email_verification_url = absolute_url(
         reverse(
@@ -40,10 +40,11 @@ def send_confirmation_mail(user_instance):
         ],
         template="email_verification",
         context=context,
+        network=getattr(sender_user, "network", None),
     )
 
 
-def send_welcome_mail(user_instance):
+def send_welcome_mail(user_instance, sender_user):
     password_reset_url = absolute_url(
         reverse(
             "registration:password_reset_confirm",
@@ -74,10 +75,11 @@ def send_welcome_mail(user_instance):
         ],
         template="welcome",
         context=context,
+        network=getattr(sender_user, "network", None),
     )
 
 
-def send_rejected_mail(user_instance):
+def send_rejected_mail(user_instance, sender_user):
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
         "user_name": user_instance.name,
@@ -97,4 +99,5 @@ def send_rejected_mail(user_instance):
         ],
         template="rejected_registration_request",
         context=context,
+        network=getattr(sender_user, "network", None),
     )

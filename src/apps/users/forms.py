@@ -184,6 +184,7 @@ class PasswordResetForm(BasePasswordResetForm):
             ],
             template="password_reset",
             context=context,
+            network=getattr(from_email, "network", None),
         )
 
 

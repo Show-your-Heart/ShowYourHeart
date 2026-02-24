@@ -78,12 +78,12 @@ class Organization(BaseModel):
     def get_absolute_url(self):
         return "/organizations/sign-up"
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, sender_user=None, **kwargs):
         super().save(*args, **kwargs)
         if self.status == Organization.Status.ACCEPTED:
             profile = UserProfile.objects.filter(organization=self).first()
-            if profile and not profile.user.email_verified:
-                send_welcome_mail(profile.user)
+            if profile and not profile.user.email_verified and sender_user:
+                send_welcome_mail(profile.user, sender_user=sender_user)
 
         full_address = ", ".join(
             filter(
