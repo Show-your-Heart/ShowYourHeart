@@ -34,6 +34,7 @@ django-htmx = "^1.23.2"
 django-sortedm2m = "^4.0.0"
 django-admin-sortable2 = "^2.2.8"
 django-import-export = "^4.3.14"
+geopy = "^2.4.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7.0"
