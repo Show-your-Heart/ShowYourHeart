@@ -78,11 +78,13 @@ class Command(BaseCommand):
     def create_sample_network(self):
         self.stdout.write(_("Creating sample network..."))
         network_name = "Network test"
+        network_type = "Network type"
         network = Network.objects.filter(name=network_name)
 
         if not network.exists():
             network = Network.objects.create(
                 name=network_name,
+                network_type=network_type,
             )
         else:
             self.stdout.write(_("Network test already exists."))
