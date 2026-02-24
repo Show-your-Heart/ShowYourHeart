@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from import_export.forms import ExportForm
 from unfold.widgets import UnfoldAdminSelectWidget
 
-from apps.geodata.models import City, Country, Region1
+from apps.geodata.models import City, Country, Region1, ZipCode
 from apps.methods.models import Method
 from apps.organizations.widgets import syh_forms
 from apps.settings.models import LegalStructure
@@ -80,14 +80,24 @@ class OrganizationSignUpForm(forms.ModelForm):
             }
         ),
     )
-    city = forms.ModelChoiceField(label=_("City"), queryset=City.objects.all())
+    city = forms.ModelChoiceField(
+        label=_("City"),
+        queryset=City.objects.all(),
+        widget=forms.Select(
+            attrs={
+                "hx-get": reverse_lazy("organizations:load_zip_code"),
+                "hx-target": "#id_zip_code",
+                "hx-trigger": "change",
+                "autocomplete": "off",
+            }
+        ),
+    )
     address = forms.CharField(
         label=_("Address"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Address")}),
     )
-    zip_code = forms.CharField(
-        label=_("Zip code"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Zip code")}),
+    zip_code = forms.ModelChoiceField(
+        label=_("Zip Code"), queryset=ZipCode.objects.all()
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),

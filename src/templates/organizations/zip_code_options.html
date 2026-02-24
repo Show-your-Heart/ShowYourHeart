@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for zip_code in zip_codes %}
+<option value="{{ zip_code.id }}">{{ zip_code.code }}</option>
+{% endfor %}

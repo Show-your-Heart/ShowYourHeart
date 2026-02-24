@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from unfold.views import UnfoldModelAdminViewMixin
 
-from apps.geodata.models import City, Region1
+from apps.geodata.models import City, Region1, ZipCode
 from apps.methods.models import Method
 from apps.organizations.forms import (
     OrganizationSignUpForm,
@@ -81,6 +81,20 @@ def load_city(request):
         request,
         "organizations/city_options.html",
         {"cities": cities},
+    )
+
+
+@method_decorator(login_not_required, name="dispatch")
+@require_http_methods("GET")
+def load_zip_code(request):
+    zip_codes = ZipCode.objects.none()
+    if city_id := request.GET.get("city"):
+        zip_codes = ZipCode.objects.filter(city_id=city_id).order_by("code")
+
+    return render(
+        request,
+        "organizations/zip_code_options.html",
+        {"zip_codes": zip_codes},
     )
 
 
