@@ -173,10 +173,10 @@ class Project(BaseModel):
     start_date = models.DateField(_("Start date"), blank=True, null=True)
     end_date = models.DateField(_("End date"), blank=True, null=True)
     publish_results = models.BooleanField(
-        _("I want to make public the results"), max_length=50, blank=True, null=True
+        _("I want to make the results public"), max_length=50, blank=True, null=True
     )
     authorize = models.BooleanField(
-        _("Authorize the use of my data for inclusion in the final report"),
+        _("Authorise the use of my data for inclusion in the final report"),
         max_length=50,
     )
 

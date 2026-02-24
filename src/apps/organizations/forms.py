@@ -22,7 +22,7 @@ class OrganizationSignUpForm(forms.ModelForm):
     }
 
     name = forms.CharField(
-        label=_("Organization name"),
+        label=_("Organisation name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
     vat_number = forms.CharField(
@@ -321,10 +321,10 @@ class ProjectCreationForm(forms.ModelForm):
         ),
     )
     publish_results = forms.BooleanField(
-        label=_("I want to make public the results"), widget=forms.CheckboxInput()
+        label=_("I want to make the results public"), widget=forms.CheckboxInput()
     )
     authorize = forms.BooleanField(
-        label=_("Authorize the use of my data for inclusion in the final report"),
+        label=_("Authorise the use of my data for inclusion in the final report"),
         widget=forms.CheckboxInput(),
     )
 

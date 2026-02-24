@@ -316,7 +316,7 @@ class Indicator(BaseModel):
 
 class Method(BaseModel):
     class UnitAnalysis(models.TextChoices):
-        ORGANIZATION = "ORG", _("Organization")
+        ORGANIZATION = "ORG", _("Organisation")
         PROJECT = "PRO", _("Project")
         EXTERNAL_SURVEY = "EXT", _("External Survey")
 

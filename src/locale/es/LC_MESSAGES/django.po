@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 11:37+0100\n"
+"POT-Creation-Date: 2026-02-20 13:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,710 +21,819 @@ msgstr ""
 
 #: apps/geodata/models.py:11
 msgid "countries"
-msgstr ""
+msgstr "Países"
 
 #: apps/geodata/models.py:27
 msgid "regions (1)"
-msgstr ""
+msgstr "Comunidad autónoma"
 
 #: apps/geodata/models.py:52
 msgid "regions (2)"
-msgstr ""
+msgstr "Provinvia"
 
 #: apps/geodata/models.py:82
 msgid "regions (3)"
-msgstr ""
+msgstr "Municipio"
 
 #: apps/geodata/models.py:121
 msgid "cities"
-msgstr ""
+msgstr "Ciudades"
 
 #: apps/geodata/models.py:139
 msgid "zip codes"
-msgstr ""
+msgstr "Código postal"
 
-#: apps/methods/admin.py:410
+#: apps/methods/admin.py:462
 msgid "Balance successfuly updated."
-msgstr ""
+msgstr "Balance correctamente actualizado"
 
-#: apps/methods/admin.py:444
+#: apps/methods/admin.py:496
 msgid "Balance status successfuly updated."
-msgstr ""
+msgstr "Estado del balance correctamente actualizado"
 
-#: apps/methods/admin.py:505 apps/methods/admin.py:552
+#: apps/methods/admin.py:558 apps/methods/admin.py:601
 #: apps/settings/admin.py:58 apps/settings/admin.py:78
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
-#: apps/methods/admin.py:509
+#: apps/methods/admin.py:562
 msgid "Are you sure you want to send the invitation?"
-msgstr ""
+msgstr "¿Estás seguro de que quieres enviar la invitación?"
 
-#: apps/methods/admin.py:514
+#: apps/methods/admin.py:567
 msgid "Send invitation"
-msgstr ""
+msgstr "Enviar invitación"
 
-#: apps/methods/admin.py:556
+#: apps/methods/admin.py:605 templates/methods/external_surveys_view.html:85
 msgid "Are you sure you want to send the invitations?"
-msgstr ""
+msgstr "¿Estás seguro de que quieres enviar las invitaciones?"
 
-#: apps/methods/admin.py:561
+#: apps/methods/admin.py:610
 msgid "Send invitations"
+msgstr "Mandar invitaciones"
+
+#: apps/methods/forms.py:155 apps/methods/forms.py:156
+#: apps/methods/models.py:393 apps/methods/models.py:522
+#: apps/methods/models.py:569 apps/organizations/forms.py:25
+#: apps/organizations/forms.py:35 templates/admin/methods/survey_review.html:31
+#: templates/admin/methods/survey_review.html:100
+#: templates/admin/organizations/registration_requests.html:40
+#: templates/methods/external_surveys_view.html:42
+msgid "Name"
+msgstr "Nombre"
+
+#: apps/methods/forms.py:159 apps/methods/forms.py:160
+#: apps/methods/models.py:570
+msgid "Surnames"
+msgstr "Apellidos"
+
+#: apps/methods/forms.py:164
+msgid "Language"
 msgstr ""
 
-#: apps/methods/models.py:20 apps/methods/models.py:114
-#: apps/methods/models.py:272 apps/organizations/models.py:27
+#: apps/methods/forms.py:168
+msgid "Gender"
+msgstr ""
+
+#: apps/methods/models.py:19 apps/methods/models.py:144
+#: apps/methods/models.py:329 apps/organizations/models.py:27
 #: apps/organizations/models.py:130 apps/settings/models.py:10
-#: apps/settings/models.py:21 apps/settings/models.py:38
+#: apps/settings/models.py:21 apps/settings/models.py:37
 msgid "name"
-msgstr ""
+msgstr "Nombre"
 
-#: apps/methods/models.py:21 apps/methods/models.py:115
-#: apps/methods/models.py:273 apps/organizations/models.py:131
+#: apps/methods/models.py:20 apps/methods/models.py:145
+#: apps/methods/models.py:330 apps/organizations/models.py:131
 msgid "description"
-msgstr ""
+msgstr "Descripción"
 
-#: apps/methods/models.py:33
+#: apps/methods/models.py:32
 msgid "This topic is already used by indicators and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:39 apps/methods/models.py:58
+#: apps/methods/models.py:38 apps/methods/models.py:57
+#: apps/methods/models.py:68 apps/methods/models.py:86
 msgid "title"
-msgstr ""
+msgstr "Titulo"
 
-#: apps/methods/models.py:40 apps/methods/models.py:140
+#: apps/methods/models.py:39 apps/methods/models.py:187
 msgid "formula"
-msgstr ""
+msgstr "Formula"
 
-#: apps/methods/models.py:41
+#: apps/methods/models.py:40
 msgid "value"
-msgstr ""
+msgstr "Valor"
 
-#: apps/methods/models.py:50
+#: apps/methods/models.py:49
 msgid ""
 "This list item has already been used and cannot be deleted. Please create a "
 "new list item instead."
 msgstr ""
 
-#: apps/methods/models.py:60
+#: apps/methods/models.py:59
 msgid "Enable others response"
-msgstr ""
+msgstr "Habilitar respuestas otros"
 
-#: apps/methods/models.py:70
-msgid "This list is already used by indicators and cannot be deleted."
-msgstr ""
-
-#: apps/methods/models.py:77
-msgid "Performance"
+#: apps/methods/models.py:69
+msgid "suffix"
 msgstr ""
 
 #: apps/methods/models.py:78
-msgid "Scoring"
-msgstr ""
-
-#: apps/methods/models.py:79
-msgid "Certification"
-msgstr ""
-
-#: apps/methods/models.py:82
-msgid "String"
-msgstr ""
-
-#: apps/methods/models.py:83
-msgid "Text"
-msgstr ""
-
-#: apps/methods/models.py:84
-msgid "Integer"
-msgstr ""
-
-#: apps/methods/models.py:85
-msgid "Decimal"
-msgstr ""
-
-#: apps/methods/models.py:86
-msgid "Boolean"
-msgstr ""
-
-#: apps/methods/models.py:87
-msgid "Date"
-msgstr ""
-
-#: apps/methods/models.py:88
-msgid "Attachment"
-msgstr ""
-
-#: apps/methods/models.py:89
-msgid "Checkbox"
-msgstr ""
-
-#: apps/methods/models.py:90
-msgid "Radiobutton"
-msgstr ""
-
-#: apps/methods/models.py:91
-msgid "Dropdown"
-msgstr ""
-
-#: apps/methods/models.py:92
-msgid "Integer gendered value"
-msgstr ""
-
-#: apps/methods/models.py:93
-msgid "Real gendered number"
+msgid ""
+"This group item has already been used and cannot be deleted. Please create a "
+"new group item instead."
 msgstr ""
 
 #: apps/methods/models.py:98
-msgid "kg"
-msgstr ""
+msgid "Performance"
+msgstr "Rendimiento"
 
 #: apps/methods/models.py:99
-msgid "m2"
-msgstr ""
+msgid "Scoring"
+msgstr "Puntuación"
 
 #: apps/methods/models.py:100
-msgid "°C"
-msgstr ""
-
-#: apps/methods/models.py:101
-msgid "days"
-msgstr ""
-
-#: apps/methods/models.py:102
-msgid "points"
-msgstr ""
+msgid "Certification"
+msgstr "Certificación"
 
 #: apps/methods/models.py:103
-msgid "KWh"
-msgstr ""
+msgid "String"
+msgstr "cadena"
 
 #: apps/methods/models.py:104
-msgid "€/h"
-msgstr ""
+msgid "Text"
+msgstr "Texto"
+
+#: apps/methods/models.py:105
+msgid "Integer"
+msgstr "Entero"
+
+#: apps/methods/models.py:106
+msgid "Decimal"
+msgstr "Decimal"
+
+#: apps/methods/models.py:107
+msgid "Boolean"
+msgstr "Booleano"
+
+#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:44
+msgid "Date"
+msgstr "Día"
+
+#: apps/methods/models.py:109
+msgid "Attachment"
+msgstr "Anexo"
+
+#: apps/methods/models.py:110
+msgid "Checkbox"
+msgstr "Casilla de selección"
+
+#: apps/methods/models.py:111
+msgid "Radiobutton"
+msgstr "Botón de opción"
 
 #: apps/methods/models.py:112
-msgid "ID"
-msgstr ""
+msgid "Dropdown"
+msgstr "Desplegable"
 
 #: apps/methods/models.py:113
-msgid "version"
+msgid "Integer gendered value"
+msgstr "Valor genero entero"
+
+#: apps/methods/models.py:114
+msgid "Real gendered number"
+msgstr "Número real con género"
+
+#: apps/methods/models.py:117
+msgid "people"
 msgstr ""
 
-#: apps/methods/models.py:118
-msgid "Is it a direct indicator?"
-msgstr ""
+#: apps/methods/models.py:120
+msgid "kg"
+msgstr "Kg"
 
 #: apps/methods/models.py:121
-msgid "category"
-msgstr ""
+msgid "m2"
+msgstr "m2"
+
+#: apps/methods/models.py:122
+msgid "°C"
+msgstr "ºC"
+
+#: apps/methods/models.py:123
+msgid "days"
+msgstr "Días"
+
+#: apps/methods/models.py:124
+msgid "points"
+msgstr "Ppuntos"
+
+#: apps/methods/models.py:125
+msgid "KWh"
+msgstr "KWh"
+
+#: apps/methods/models.py:126
+msgid "€/h"
+msgstr "€/h"
 
 #: apps/methods/models.py:127
+msgid "number"
+msgstr "número"
+
+#: apps/methods/models.py:128
+msgid "percentage"
+msgstr ""
+
+#: apps/methods/models.py:142
+msgid "ID"
+msgstr "ID"
+
+#: apps/methods/models.py:143
+msgid "version"
+msgstr "Categoría"
+
+#: apps/methods/models.py:148
+msgid "Is it a direct indicator?"
+msgstr "¿Es un indidador directo"
+
+#: apps/methods/models.py:151
+msgid "Is it a group indicator? (e.g. lists or tables)"
+msgstr ""
+
+#: apps/methods/models.py:154
+msgid "category"
+msgstr "Categoría"
+
+#: apps/methods/models.py:160
 msgid "data type"
-msgstr ""
+msgstr "Tipos de datos"
 
-#: apps/methods/models.py:130
+#: apps/methods/models.py:163
 msgid "unit"
-msgstr ""
+msgstr "unidad"
 
-#: apps/methods/models.py:139
+#: apps/methods/models.py:186
 msgid "condition"
-msgstr ""
+msgstr "Condición"
 
-#: apps/methods/models.py:141
+#: apps/methods/models.py:188
 msgid "validation"
-msgstr ""
+msgstr "Validación"
 
-#: apps/methods/models.py:145
+#: apps/methods/models.py:192
 msgid "Is it mandatory?"
-msgstr ""
+msgstr "¿Es obligatorio?"
 
-#: apps/methods/models.py:146
+#: apps/methods/models.py:193
 msgid "message"
-msgstr ""
+msgstr "mensaje"
 
-#: apps/methods/models.py:165
+#: apps/methods/models.py:212
 msgid "This indicator has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:176
+#: apps/methods/models.py:223
 msgid "This field is required when data type "
-msgstr ""
+msgstr "Este campo es obligatorio cuando el tipo de datos es"
 
-#: apps/methods/models.py:183
+#: apps/methods/models.py:230
 msgid "This field is required if the indicator is indirect."
-msgstr ""
+msgstr "Este campo es obligatorio si el indicador es indirecto."
 
-#: apps/methods/models.py:219
+#: apps/methods/models.py:266
 msgid "Circular dependencies"
 msgstr ""
 
-#: apps/methods/models.py:268
-msgid "Organization"
+#: apps/methods/models.py:312
+msgid "Indicator code can't contain the underscore character '_'"
 msgstr ""
 
-#: apps/methods/models.py:269 templates/admin/methods/survey_review.html:105
+#: apps/methods/models.py:319
+msgid "Organisation"
+msgstr "Organización"
+
+#: apps/methods/models.py:320 templates/admin/methods/survey_review.html:105
 msgid "Project"
-msgstr ""
+msgstr "Proyecto"
 
-#: apps/methods/models.py:270
+#: apps/methods/models.py:321
 msgid "External Survey"
-msgstr ""
-
-#: apps/methods/models.py:275
-msgid "unit of analysis"
-msgstr ""
-
-#: apps/methods/models.py:284
-msgid "Which entity does this method applies to?"
-msgstr ""
-
-#: apps/methods/models.py:290
-msgid "Sectors"
-msgstr ""
-
-#: apps/methods/models.py:296 templates/admin/methods/survey_review.html:115
-msgid "External surveys"
-msgstr ""
-
-#: apps/methods/models.py:300
-msgid "Version"
-msgstr ""
-
-#: apps/methods/models.py:303 apps/organizations/forms.py:66
-msgid "Region1"
-msgstr ""
+msgstr "Cuestionario externo"
 
 #: apps/methods/models.py:324
-msgid "This method has already been used and cannot be deleted."
+msgid "Work"
 msgstr ""
 
-#: apps/methods/models.py:330 apps/methods/models.py:444
-#: apps/methods/models.py:475 apps/organizations/forms.py:25
-#: apps/organizations/forms.py:35 templates/admin/methods/survey_review.html:31
-#: templates/admin/methods/survey_review.html:100
-#: templates/admin/organizations/registration_requests.html:40
-msgid "Name"
+#: apps/methods/models.py:325
+msgid "Professional"
+msgstr "Profesional"
+
+#: apps/methods/models.py:326
+msgid "Associative"
 msgstr ""
 
-#: apps/methods/models.py:331
-msgid "Year"
+#: apps/methods/models.py:327
+msgid "Volunteering"
 msgstr ""
 
 #: apps/methods/models.py:332
-msgid "Active"
+msgid "unit of analysis"
+msgstr "Unidad de análisis"
+
+#: apps/methods/models.py:341
+msgid "Which entity does this method applies to?"
+msgstr "¿A qué entidad se aplica este método?"
+
+#: apps/methods/models.py:347
+msgid "Sectors"
+msgstr "Sectores"
+
+#: apps/methods/models.py:353 templates/admin/methods/survey_review.html:115
+msgid "External surveys"
+msgstr "Cuestionarios Externos"
+
+#: apps/methods/models.py:357
+msgid "Version"
+msgstr "Versión"
+
+#: apps/methods/models.py:360 apps/organizations/forms.py:66
+msgid "Region1"
+msgstr "Región1"
+
+#: apps/methods/models.py:365
+msgid "external survey category"
+msgstr "categoría de cuestionarios externos"
+
+#: apps/methods/models.py:387
+msgid "This method has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:338 apps/organizations/models.py:52
+#: apps/methods/models.py:394
+msgid "Year"
+msgstr "año"
+
+#: apps/methods/models.py:395
+msgid "Active"
+msgstr "Activo"
+
+#: apps/methods/models.py:401 apps/organizations/models.py:52
 #: apps/organizations/models.py:169
 msgid "Methods"
-msgstr ""
+msgstr "Metodos"
 
-#: apps/methods/models.py:343 apps/methods/models.py:403
-#: apps/organizations/forms.py:281 apps/organizations/models.py:173
+#: apps/methods/models.py:405 apps/methods/models.py:465
+#: apps/organizations/forms.py:278 apps/organizations/models.py:173
 #: templates/admin/methods/survey_review.html:120
 msgid "Start date"
-msgstr ""
+msgstr "Fecha de inicio"
 
-#: apps/methods/models.py:344 apps/organizations/models.py:174
+#: apps/methods/models.py:406 apps/organizations/models.py:174
 #: templates/admin/methods/survey_review.html:125
 msgid "End date"
-msgstr ""
+msgstr "Fecha de finalización"
 
-#: apps/methods/models.py:356
+#: apps/methods/models.py:418
 msgid "This campaign has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:384
+#: apps/methods/models.py:446
 msgid "Token"
-msgstr ""
+msgstr "Ficha"
 
-#: apps/methods/models.py:404
+#: apps/methods/models.py:466
 msgid "Closed date"
-msgstr ""
+msgstr "Data de cierre"
 
-#: apps/methods/models.py:405
+#: apps/methods/models.py:467
 msgid "Modified date"
-msgstr ""
+msgstr "Fecha modificada"
 
-#: apps/methods/models.py:406
-#, fuzzy
-#| msgid "Organization update"
+#: apps/methods/models.py:468
 msgid "Validated date"
-msgstr "Actualización de datos de la organización"
+msgstr "Fecha de validación"
 
-#: apps/methods/models.py:407
+#: apps/methods/models.py:469
 msgid "Evaluated date"
-msgstr ""
+msgstr "Fecha de evaluación"
 
-#: apps/methods/models.py:432
+#: apps/methods/models.py:510
 msgid "not applicable"
-msgstr ""
+msgstr "No aplicable."
 
-#: apps/methods/models.py:477
+#: apps/methods/models.py:572
 msgid "email address"
-msgstr ""
+msgstr "Dirección de correo electrónico"
 
-#: apps/methods/models.py:505
+#: apps/methods/models.py:581
+msgid "Send date"
+msgstr "Fecha de envío"
+
+#: apps/methods/models.py:604
 msgid "Title"
-msgstr ""
+msgstr "Titulo"
 
-#: apps/methods/models.py:508
+#: apps/methods/models.py:607
 msgid "order"
-msgstr ""
+msgstr "Orden"
 
-#: apps/methods/urls.py:18
+#: apps/methods/urls.py:21
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:23
+#: apps/methods/urls.py:26
 msgid "external-survey/<id>"
+msgstr "Cuestionario externo/<id>"
+
+#: apps/methods/urls.py:31
+msgid "external-surveys/<uuid:organization_id>/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:27
+#: apps/methods/urls.py:36
+msgid "invitation"
+msgstr "invitación"
+
+#: apps/methods/urls.py:40
 msgid "send-invitations/<id>"
 msgstr ""
 
-#: apps/methods/urls.py:28
+#: apps/methods/urls.py:41
 msgid "send-invitation/<id>"
 msgstr ""
 
-#: apps/methods/urls.py:29
+#: apps/methods/urls.py:42
 msgid "import-csv/<id>"
 msgstr ""
 
-#: apps/methods/urls.py:30
-msgid "load_ext_surveys/"
+#: apps/methods/urls.py:44
+msgid "import-csv2/<uuid:organization_id>/<uuid:method_id>"
 msgstr ""
 
-#: apps/methods/urls.py:32
+#: apps/methods/urls.py:48
+msgid "load_ext_surveys/"
+msgstr "cargar_ext_cuestionarios/"
+
+#: apps/methods/urls.py:50
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:37
+#: apps/methods/urls.py:55
 msgid "preview/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/views.py:91
+#: apps/methods/views.py:154
 msgid "The invitations have been sent."
-msgstr ""
+msgstr "Las invitaciones han sido enviadas."
 
-#: apps/methods/views.py:96
+#: apps/methods/views.py:159
 msgid "There are no invitations to send."
-msgstr ""
+msgstr "No hay invitaciones para enviar."
 
-#: apps/methods/views.py:110
+#: apps/methods/views.py:174
 msgid "The invitation has been sent."
-msgstr ""
+msgstr "La invitación ha sido enviada."
 
-#: apps/methods/views.py:132
+#: apps/methods/views.py:203
 msgid "The CSV has been imported correctly."
+msgstr "El CSV ha sido importado correctamente"
+
+#: apps/methods/views.py:355
+msgid "Error creating contact. Contact your network admin."
 msgstr ""
 
 #: apps/organizations/forms.py:20
 msgid "Invalid signup, check that you don't have an account."
-msgstr ""
+msgstr "Registro no válido, comprueba que no tienes una cuenta."
 
 #: apps/organizations/forms.py:24
-msgid "Organization name"
-msgstr ""
+msgid "Organisation name"
+msgstr "Nombre de la organización"
 
 #: apps/organizations/forms.py:28 apps/organizations/forms.py:30
 #: templates/admin/organizations/registration_requests.html:35
 msgid "VAT Number"
-msgstr ""
+msgstr "Numero de CIF"
 
-#: apps/organizations/forms.py:34 apps/organizations/forms.py:205
-#: apps/organizations/forms.py:304
+#: apps/organizations/forms.py:34 apps/organizations/forms.py:202
+#: apps/organizations/forms.py:301
 msgid "Name of the contact person"
-msgstr ""
+msgstr "Nombre de la persona de contacto"
 
-#: apps/organizations/forms.py:38 apps/organizations/forms.py:212
-#: apps/organizations/forms.py:310
+#: apps/organizations/forms.py:38 apps/organizations/forms.py:209
+#: apps/organizations/forms.py:307
 msgid "Phone number of the contact person"
-msgstr ""
+msgstr "Numero de teléfono de la persona de contacto"
 
 #: apps/organizations/forms.py:40
 msgid "Phone number"
-msgstr ""
+msgstr "Número de teléfono"
 
-#: apps/organizations/forms.py:44 apps/organizations/forms.py:208
-#: apps/organizations/forms.py:316
+#: apps/organizations/forms.py:44 apps/organizations/forms.py:205
+#: apps/organizations/forms.py:313
 msgid "Email address of the contact person"
-msgstr ""
+msgstr "Correo electrónico de la persona de contacto"
 
 #: apps/organizations/forms.py:45 templates/home.html:21
+#: templates/methods/external_surveys_view.html:43
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: apps/organizations/forms.py:48 apps/organizations/forms.py:49
 msgid "Website"
-msgstr ""
+msgstr "Página web"
 
 #: apps/organizations/forms.py:53
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: apps/organizations/forms.py:78
 #: templates/admin/organizations/registration_requests.html:50
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: apps/organizations/forms.py:81 apps/organizations/forms.py:82
 msgid "Address"
-msgstr ""
+msgstr "Dirección"
 
 #: apps/organizations/forms.py:86
 msgid "Legal entity type"
-msgstr ""
+msgstr "Tipo de identidad jurídica"
 
 #: apps/organizations/forms.py:99
 msgid "Method of impact mesurement"
-msgstr ""
+msgstr "Método de medición de impacto"
 
-#: apps/organizations/forms.py:109 apps/organizations/forms.py:215
+#: apps/organizations/forms.py:109 apps/organizations/forms.py:212
 #: apps/organizations/models.py:58
 msgid "Allow infographics to be public"
 msgstr ""
 
 #: apps/organizations/forms.py:140
 msgid "I have read and accept the {}"
-msgstr ""
+msgstr "He leído y acepto el {}"
 
-#: apps/organizations/forms.py:269 apps/organizations/forms.py:271
+#: apps/organizations/forms.py:266 apps/organizations/forms.py:268
 msgid "Project name"
-msgstr ""
+msgstr "Nombre del proyecto"
 
-#: apps/organizations/forms.py:275 apps/organizations/forms.py:277
+#: apps/organizations/forms.py:272 apps/organizations/forms.py:274
 msgid "Brief description"
-msgstr ""
+msgstr "Descripción breve"
 
-#: apps/organizations/forms.py:288
+#: apps/organizations/forms.py:285
 msgid "Main action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:293
+#: apps/organizations/forms.py:290
 msgid "Secondary action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:306
+#: apps/organizations/forms.py:303
 msgid "Contact name"
 msgstr ""
 
-#: apps/organizations/forms.py:312
+#: apps/organizations/forms.py:309
 msgid "Contact phone number"
-msgstr ""
+msgstr "Número de teléfono de contacto"
 
-#: apps/organizations/forms.py:318
+#: apps/organizations/forms.py:315
 msgid "Contact email"
-msgstr ""
+msgstr "Correo electrónico de contacto"
 
-#: apps/organizations/forms.py:322 apps/organizations/models.py:176
-msgid "I want to make public the results"
-msgstr ""
+#: apps/organizations/forms.py:319 apps/organizations/models.py:176
+msgid "I want to make the results public"
+msgstr "Quiero hacer públicos los resultados"
 
-#: apps/organizations/forms.py:325 apps/organizations/models.py:179
-msgid "Authorize the use of my data for inclusion in the final report"
-msgstr ""
+#: apps/organizations/forms.py:322 apps/organizations/models.py:179
+msgid "Authorise the use of my data for inclusion in the final report"
+msgstr "Autorizo el uso de los datos para la inclusión en el informe final"
 
-#: apps/organizations/forms.py:369
+#: apps/organizations/forms.py:366
 msgid "Choose Existing Project"
 msgstr ""
 
 #: apps/organizations/models.py:29 apps/organizations/models.py:129
 msgid "vat number"
-msgstr ""
+msgstr "Número de CIF"
 
 #: apps/organizations/models.py:30
 msgid "website"
-msgstr ""
+msgstr "Página web"
 
 #: apps/organizations/models.py:40
 msgid "address"
-msgstr ""
+msgstr "Dirección"
 
 #: apps/organizations/models.py:96
 msgid "Community action"
-msgstr ""
+msgstr "Acción comunitaria"
 
 #: apps/organizations/models.py:97
 msgid "Social cohesion"
-msgstr ""
+msgstr "Cohesión social"
 
 #: apps/organizations/models.py:98
 msgid "Culture"
-msgstr ""
+msgstr "Cultura"
 
 #: apps/organizations/models.py:99
 msgid "Sports"
-msgstr ""
+msgstr "Deportes"
 
 #: apps/organizations/models.py:100
 msgid "Childhood"
-msgstr ""
+msgstr "Infancia"
 
 #: apps/organizations/models.py:101
 msgid "Youth"
-msgstr ""
+msgstr "Jovenes"
 
 #: apps/organizations/models.py:102
 msgid "Elderly"
-msgstr ""
+msgstr "Tercera edad"
 
 #: apps/organizations/models.py:103
 msgid "Women - Feminism"
-msgstr ""
+msgstr "Mujer-Feminismo"
 
 #: apps/organizations/models.py:104
 msgid "LGTBI"
-msgstr ""
+msgstr "LGTBI"
 
 #: apps/organizations/models.py:105
 msgid "Health"
-msgstr ""
+msgstr "Salud"
 
 #: apps/organizations/models.py:106
 msgid "Interculturality"
-msgstr ""
+msgstr "Interculturalidad"
 
 #: apps/organizations/models.py:107
 msgid "Funcional diversity"
-msgstr ""
+msgstr "Diversidad funcional"
 
 #: apps/organizations/models.py:108
 msgid "Environmental sustainability"
-msgstr ""
+msgstr "Sostenibilidad ambiental"
 
 #: apps/organizations/models.py:109
-#, fuzzy
-#| msgid "Transparent, social and solidarity based economy"
 msgid "Social and solidarity economy"
-msgstr "La Economía Social y Solidaria transparente"
+msgstr "Economía social y solidaria"
 
 #: apps/organizations/models.py:110
 msgid "Commerce"
-msgstr ""
+msgstr "Comercio"
 
 #: apps/organizations/models.py:111
 msgid "Urban planning"
-msgstr ""
+msgstr "Urbanismo"
 
 #: apps/organizations/models.py:112
 msgid "International cooperation"
-msgstr ""
+msgstr "Cooperación internacional"
 
 #: apps/organizations/models.py:113
 msgid "Leisure education and educational services"
-msgstr ""
+msgstr "Ocio y servicios educativos"
 
 #: apps/organizations/models.py:114
 msgid "Research and new technologies"
-msgstr ""
+msgstr "Investigación y nuevas tecnologías"
 
 #: apps/organizations/models.py:115
 msgid "Networks and support for entities"
-msgstr ""
+msgstr "Redes y apoyo a las entidades"
 
 #: apps/organizations/models.py:116
 msgid "Other"
-msgstr ""
+msgstr "Otras"
 
 #: apps/organizations/models.py:119
 msgid "Neighborhood"
-msgstr ""
+msgstr "Barrios"
 
 #: apps/organizations/models.py:120
 msgid "District"
-msgstr ""
+msgstr "Distrito"
 
 #: apps/organizations/models.py:121
 msgid "City/Municipality"
-msgstr ""
+msgstr "Ciudad/municipio"
 
 #: apps/organizations/models.py:122
 msgid "County"
-msgstr ""
+msgstr "Comarca"
 
 #: apps/organizations/models.py:132
 msgid "contact person"
-msgstr ""
+msgstr "Persona de contacto"
 
 #: apps/organizations/models.py:133
 msgid "contact email"
-msgstr ""
+msgstr "Correo electrónico de contacto"
 
 #: apps/organizations/models.py:135
 msgid "contact telephone"
-msgstr ""
+msgstr "Teléfono de contacto"
 
 #: apps/organizations/models.py:144
 msgid "main scope of action"
-msgstr ""
+msgstr "Ambito de actuación principal"
 
 #: apps/organizations/models.py:150
 msgid "secondary fields of action"
-msgstr ""
+msgstr "Ambito de actuación secundario"
 
 #: apps/organizations/models.py:156
 msgid "Main legal entity type"
-msgstr ""
+msgstr "Forma jurídica principal"
 
 #: apps/organizations/models.py:162
 msgid "Secondary legal entity type"
-msgstr ""
+msgstr "Forma jurídica secundaria"
 
-#: apps/organizations/urls.py:18
+#: apps/organizations/urls.py:17
 msgid "sign-up/"
-msgstr ""
+msgstr "registrarse"
 
-#: apps/organizations/urls.py:20
+#: apps/organizations/urls.py:19
 msgid "sign-up/success"
-msgstr ""
+msgstr "Registro con éxito"
 
-#: apps/organizations/urls.py:24
+#: apps/organizations/urls.py:23
 msgid "sign-up/load_methods/"
 msgstr ""
 
-#: apps/organizations/urls.py:25
+#: apps/organizations/urls.py:24
 msgid "sign-up/load_region1/"
 msgstr ""
 
-#: apps/organizations/urls.py:26
+#: apps/organizations/urls.py:25
 msgid "sign-up/load_city/"
 msgstr ""
 
-#: apps/organizations/urls.py:27
+#: apps/organizations/urls.py:26
 msgid "update/<pk>"
-msgstr ""
+msgstr "actualizado/<pk>"
 
-#: apps/organizations/urls.py:29
+#: apps/organizations/urls.py:28
 msgid "<uuid:organization_id>/project/"
 msgstr ""
 
-#: apps/organizations/urls.py:34
-msgid "project/success"
-msgstr ""
-
-#: apps/organizations/views.py:117
+#: apps/organizations/views.py:116
 msgid "Error creating project. Contact your network admin."
 msgstr ""
 
 #: apps/settings/admin.py:62
 msgid "Log"
-msgstr ""
+msgstr "Registro"
 
 #: apps/settings/admin.py:83
+#, fuzzy
+#| msgid ""
+#| "Are you sure you want to send an email to the user to notify he has been "
+#| "added as network admin?"
 msgid ""
-"Are you sure you want to send an email to the user to notify he has been "
+"Are you sure you want to send an email to the user to notify they have been "
 "added as network admin?"
 msgstr ""
+"¿Estás seguro de que quieres enviar un correo electrónico al usuario para "
+"notificarle que ha sido  añadido como administrador de red?"
 
 #: apps/settings/admin.py:91
-msgid "Send email to the user to notify he has been added as network admin"
+#, fuzzy
+#| msgid "Send email to the user to notify he has been added as network admin"
+msgid "Send email to the user to notify they have been added as network admin"
+msgstr ""
+"Enviar un correo electrónico al usuario para notificarle que ha sido añadido "
+"como administrador de red."
+
+#: apps/settings/models.py:52
+msgid "Network"
+msgstr ""
+
+#: apps/settings/models.py:54
+msgid "Host"
+msgstr ""
+
+#: apps/settings/models.py:55
+msgid "Port"
+msgstr ""
+
+#: apps/settings/models.py:56
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: apps/settings/models.py:57
+msgid "Password"
+msgstr "Contraseña"
+
+#: apps/settings/models.py:58
+msgid "Protocol"
 msgstr ""
 
 #: apps/settings/urls.py:16
 msgid "admin-assigned/<id>"
-msgstr ""
+msgstr "Administrador asignado"
 
 #: apps/settings/urls.py:18
 msgid "what-is-social-balance"
@@ -744,58 +853,65 @@ msgstr ""
 
 #: apps/settings/urls.py:25
 msgid "contact"
-msgstr ""
+msgstr "contacto"
 
 #: apps/settings/views.py:18
 msgid ""
 "An email has been sent to the user to inform that he is now  administrator "
 "of the network."
 msgstr ""
+"Se ha enviado un correo electrónico al usuario para informarle de que ahora "
+"es  administrador de la red."
 
 #: templates/404.html:13 templates/500.html:13 templates/503.html:13
 msgid "Go back"
-msgstr ""
+msgstr "Volver"
 
 #: templates/404.html:16
 msgid "Error 404: Page not found"
-msgstr ""
+msgstr "Error 404: Página no encontrada"
 
 #: templates/404.html:20
 msgid ""
 "The page you were trying to access does not exist. Please check the spelling "
 "or go back to the beginning."
 msgstr ""
+"La página a la que intentabas acceder no existe. Comprueba la ortografía  o "
+"vuelve al principio."
 
 #: templates/500.html:16
 msgid "Error 500: Internal server error"
-msgstr ""
+msgstr "Error 500: Error interno del servidor"
 
 #: templates/500.html:20
 msgid ""
 "The server encountered an unexpected condition that prevented it from "
 "fulfilling the request."
 msgstr ""
+"El servidor ha encontrado una condición inesperada que le ha impedido "
+"completar la solicitud."
 
 #: templates/503.html:16
 msgid "Error 503: Maintenance mode enabled"
-msgstr ""
+msgstr "Error 503: Modo de mantenimiento habilitado"
 
 #: templates/503.html:20
 msgid ""
 "The application is currently under maintenance, please try again in few "
 "minutes."
 msgstr ""
+"La aplicación se encuentra actualmente en mantenimiento, por favor, "
+"inténtelo de nuevo en unos  minutos."
 
 #: templates/admin/import_export/import_form.html:21
-#: templates/admin/methods/method_fill.html:109
-#: templates/methods/method_fill.html:114
-#: templates/projects/create_project.html:26
+#: templates/admin/methods/method_fill.html:110
+#: templates/methods/method_fill.html:115
 #: templates/registration/password_change_form.html:17
 #: templates/registration/password_reset_confirm.html:19
 #: templates/registration/password_reset_form.html:17
 #: templates/registration/user_validation_confirm.html:28
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/admin/import_export/import_preview.html:23
 msgid "New"
@@ -816,18 +932,18 @@ msgstr ""
 #: templates/admin/methods/externalsurveyinvitation/change_form.html:14
 #: templates/components/admin/button_import_ext_invitations.html:3
 msgid "Import CSV"
-msgstr ""
+msgstr "Importar CSV"
 
 #: templates/admin/methods/method/change_form.html:14
 #: templates/components/admin/button_preview.html:3
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
-#: templates/admin/methods/method_fill.html:106 templates/base_form.html:47
-#: templates/methods/method_fill.html:111 templates/profile/details.html:44
+#: templates/admin/methods/method_fill.html:107 templates/base_form.html:47
+#: templates/methods/method_fill.html:112 templates/profile/details.html:44
 #: templates/registration/signup.html:26
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: templates/admin/methods/section/stacked_inline.html:8
 msgid ""
@@ -836,15 +952,15 @@ msgstr ""
 
 #: templates/admin/methods/section/stacked_inline.html:63
 msgid "Change"
-msgstr ""
+msgstr "Cambiar"
 
 #: templates/admin/methods/section/stacked_inline.html:65
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: templates/admin/methods/section/stacked_inline.html:77
 msgid "View on site"
-msgstr ""
+msgstr "Ver en el sitio web"
 
 #: templates/admin/methods/survey_review.html:11
 msgid "Balance review"
@@ -852,15 +968,15 @@ msgstr ""
 
 #: templates/admin/methods/survey_review.html:13
 msgid "Simple balance"
-msgstr ""
+msgstr "Balance simple"
 
 #: templates/admin/methods/survey_review.html:16
 msgid "Download data"
-msgstr ""
+msgstr "Descargar datos"
 
 #: templates/admin/methods/survey_review.html:22
 msgid "Filter by"
-msgstr ""
+msgstr "Filtrar por"
 
 #: templates/admin/methods/survey_review.html:23
 msgid "Campaign"
@@ -868,33 +984,34 @@ msgstr ""
 
 #: templates/admin/methods/survey_review.html:24
 msgid "Region"
-msgstr ""
+msgstr "Región"
 
 #: templates/admin/methods/survey_review.html:25
 msgid "Method"
-msgstr ""
+msgstr "Método"
 
 #: templates/admin/methods/survey_review.html:26
 #: templates/admin/methods/survey_review.html:85
+#: templates/methods/external_surveys_view.html:45
 msgid "Status"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:27
 msgid "Unit of analysis"
-msgstr ""
+msgstr "Unidad de análisis"
 
 #: templates/admin/methods/survey_review.html:30
 #: templates/admin/methods/survey_review.html:95 templates/home.html:20
 msgid "NIF"
-msgstr ""
+msgstr "NIF"
 
 #: templates/admin/methods/survey_review.html:33
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: templates/admin/methods/survey_review.html:44
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: templates/admin/methods/survey_review.html:48
 msgid "Page"
@@ -907,66 +1024,69 @@ msgstr ""
 #: templates/admin/methods/survey_review.html:71
 #: templates/admin/organizations/registration_requests.html:30
 msgid "Select all rows"
-msgstr ""
+msgstr "Seleccionar todas las filas"
 
 #: templates/admin/methods/survey_review.html:90
 msgid "Answers"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:110
-#: templates/components/navbar.html:29 templates/info/contact.html:5
+#: templates/components/navbar.html:29 templates/info/contact.html:8
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: templates/admin/methods/survey_review.html:147
 msgid "Edit balance"
-msgstr ""
+msgstr "Editar balance"
 
 #: templates/admin/methods/survey_review.html:163
-#: templates/methods/method_fill.html:128
+#: templates/methods/method_fill.html:129
 msgid "Balance errors"
-msgstr ""
+msgstr "Errores del balance"
 
 #: templates/admin/organizations/registration_requests.html:4
 msgid "Features"
-msgstr ""
+msgstr "Características"
 
 #: templates/admin/organizations/registration_requests.html:6
-#, fuzzy
-#| msgid "Registration request"
 msgid "Register requests"
-msgstr "Solicitud de registro"
+msgstr "Registrar solicitudes"
 
 #: templates/admin/organizations/registration_requests.html:17
 #: templates/components/forms/text_field.html:7
 msgid "search"
-msgstr ""
+msgstr "buscar"
 
 #: templates/admin/organizations/registration_requests.html:20
 msgid "Type to search"
-msgstr ""
+msgstr "Escriba para buscar"
 
 #: templates/admin/organizations/registration_requests.html:45
 msgid "Requested methods"
-msgstr ""
+msgstr "Métodos solicitados"
 
 #: templates/admin/organizations/registration_requests.html:55
-#, fuzzy
-#| msgid "Organization update"
 msgid "Aplication date"
-msgstr "Actualización de datos de la organización"
+msgstr "Fecha de solicitud"
 
 #: templates/admin/syh_change_list.html:44
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: templates/admin/syh_delete_confirmation.html:9
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#| "deleting related objects, but your account doesn't have permission to "
+#| "delete the following types of objects:"
 msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
-"related objects, but your account doesn't have permission to delete the "
+"related objects, but your account does not have permission to delete the "
 "following types of objects:"
 msgstr ""
+"Eliminar %(object_name)s “%(escaped_object)s” provocaría la eliminación de "
+"objetos relacionados, pero su cuenta no tiene permiso para eliminar los "
+"siguientes tipos de objetos:"
 
 #: templates/admin/syh_delete_confirmation.html:25
 #, python-format
@@ -974,6 +1094,8 @@ msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
 "following protected related objects:"
 msgstr ""
+"Eliminar el %(object_name)s “%(escaped_object)s” requeriría eliminar los  "
+"siguientes objetos relacionados protegidos:"
 
 #: templates/admin/syh_delete_confirmation.html:41
 #, python-format
@@ -981,113 +1103,121 @@ msgid ""
 "Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
 "All of the following related items will be deleted:"
 msgstr ""
+"¿Está seguro de que desea eliminar %(object_name)s \"%(escaped_object)s\"? "
+"Se eliminarán los siguientes elementos relacionados:siguientes:"
 
 #: templates/admin/syh_delete_confirmation.html:48
 msgid "Objects"
-msgstr ""
+msgstr "Elementos"
 
 #: templates/admin/syh_index.html:6
 msgid "Hi"
-msgstr ""
+msgstr "Hola"
 
 #: templates/admin/syh_index.html:8
 msgid ""
 "Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
 "tareas por completar."
 msgstr ""
+"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
+"tareas por completar."
 
 #: templates/admin/syh_index.html:13
 msgid "ENTITIES"
-msgstr ""
+msgstr "ENTIDADES"
 
 #: templates/admin/syh_index.html:15
 #, python-format
 msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
-msgstr ""
+msgstr "Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
 
 #: templates/admin/syh_index.html:17
 msgid "Gestionar altas"
-msgstr ""
+msgstr "Gestionar altas"
 
 #: templates/admin/syh_index.html:24
 msgid "FEATURES"
-msgstr ""
+msgstr "CARACTERÍSTICAS"
 
 #: templates/admin/syh_index.html:26
-msgid "82 entidades han finalizado su balance."
-msgstr ""
+msgid "82 entities have finished their balance."
+msgstr "82 entidades han finalizado su balance"
 
 #: templates/admin/syh_index.html:28
 msgid "Revisar balances"
-msgstr ""
+msgstr "Revisar balances"
 
-#: templates/base.html:82 templates/base.html:130
+#: templates/base.html:81 templates/base.html:129
 #: templates/components/header.html:77 templates/components/sidebar.html:18
 #: templates/home.html:3
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
-#: templates/base.html:87 templates/base.html:191
+#: templates/base.html:86 templates/base.html:190
 #: templates/components/header.html:82 templates/components/sidebar.html:79
 #: templates/profile/details.html:4
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
-#: templates/base.html:93 templates/base.html:206
+#: templates/base.html:92 templates/base.html:205
 #: templates/components/header.html:88 templates/components/sidebar.html:94
 msgid "Administration panel"
-msgstr ""
+msgstr "Panel de administración "
 
-#: templates/base.html:144 templates/components/sidebar.html:32
+#: templates/base.html:100 templates/components/header.html:95
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: templates/base.html:143 templates/components/sidebar.html:32
 #: templates/registration/login.html:24
 msgid "Log in"
-msgstr ""
+msgstr "Iniciar sesión"
 
-#: templates/base.html:160 templates/base_success.html:6
+#: templates/base.html:159 templates/base_success.html:6
 #: templates/components/sidebar.html:48 templates/registration/login.html:46
 msgid "Create an account"
-msgstr ""
+msgstr "crear cuenta"
 
-#: templates/base.html:177 templates/components/sidebar.html:64
+#: templates/base.html:176 templates/components/sidebar.html:64
 msgid "Register an organization"
-msgstr ""
+msgstr "Registrar una organización"
 
-#: templates/base.html:333 templates/components/cookies_banner.html:17
+#: templates/base.html:332 templates/components/cookies_banner.html:17
 #: templates/components/organizations/registration_request_row.html:34
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
-#: templates/base.html:343 templates/components/cookies_banner.html:26
+#: templates/base.html:342 templates/components/cookies_banner.html:26
 msgid "Deny"
-msgstr ""
+msgstr "Denegar"
 
 #: templates/base_success.html:25 templates/standard_success.html:6
 msgid "Done!"
-msgstr ""
+msgstr "Hecho!"
 
 #: templates/base_success.html:28
 msgid "Registry successfully updated."
-msgstr ""
+msgstr "Registro correctamente actualizado"
 
 #: templates/base_success.html:35
 #: templates/organizations/signup_success.html:10
 #: templates/projects/create_project_success.html:11
 #: templates/standard_success.html:9
 msgid "Back to home"
-msgstr ""
+msgstr "Volver al inicio"
 
 #: templates/components/admin/button_add.html:13
 #, python-format
 msgid "Add new %(name)s"
-msgstr ""
+msgstr "Añadir nuevo %(name)s "
 
 #: templates/components/admin/button_import_export.html:4
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: templates/components/admin/button_import_export.html:19
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: templates/components/admin/button_import_ext_invitations.html:37
 msgid "Upload CSV"
@@ -1099,31 +1229,38 @@ msgid ""
 " Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
 "con los datos aportados, mejoramos todas. "
 msgstr ""
+"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
+"con los datos aportados, mejoramos todas. "
 
 #: templates/components/card/survey_stats.html:14
 msgid "Resumen por sección"
-msgstr ""
+msgstr "Resumen por sección"
 
 #: templates/components/card/survey_stats.html:21
 msgid "Completadas"
-msgstr ""
+msgstr "Completadas"
 
 #: templates/components/card/survey_stats.html:27
 msgid "En progreso"
-msgstr ""
+msgstr "En progreso"
 
 #: templates/components/card/survey_stats.html:33
 msgid "Por hacer"
-msgstr ""
+msgstr "Por hacer"
 
 #: templates/components/card/survey_stats.html:62
 msgid "Choose project"
 msgstr ""
 
-#: templates/components/card/survey_stats.html:68
-#: templates/components/drawers/choose_project.html:20
+#: templates/components/card/survey_stats.html:69
+#: templates/components/drawers/choose_project.html:24
 msgid "Ir al balance"
-msgstr ""
+msgstr "Ir al balance"
+
+#: templates/components/card/survey_stats.html:75
+#: templates/components/drawers/choose_project.html:30
+msgid "Send external surveys"
+msgstr "Enviar cuestionarios Externos"
 
 #: templates/components/cookies_banner.html:6
 msgid ""
@@ -1131,20 +1268,32 @@ msgid ""
 "We don't sell data to third parties. If you continue navigating, we'll "
 "understand that you are ok with that."
 msgstr ""
+"Utilizamos cookies para optimizar su experiencia y analizar el tráfico web. "
+"No vendemos datos a terceros. Si continúa navegando, entenderemos que está "
+"de acuerdo con ello"
 
 #: templates/components/drawers/base.html:12
 #: templates/components/help_drawer.html:14
 msgid "Close drawer"
-msgstr ""
+msgstr "Cerrar cajón"
 
 #: templates/components/drawers/choose_project.html:4
 msgid "Project selection"
 msgstr ""
 
-#: templates/components/drawers/choose_project.html:25
+#: templates/components/drawers/choose_project.html:34
 #: templates/components/drawers/create_project.html:4
 msgid "Create project"
 msgstr ""
+
+#: templates/components/drawers/create_invitation.html:3
+#: templates/methods/external_surveys_view.html:74
+msgid "Add new contact"
+msgstr "Añadir nuevo contacto"
+
+#: templates/components/drawers/create_invitation.html:18
+msgid "Create invitation"
+msgstr "Crear invitación"
 
 #: templates/components/drawers/create_project.html:21
 msgid "Create project and start balance"
@@ -1152,15 +1301,15 @@ msgstr ""
 
 #: templates/components/form_errors.html:10
 msgid "There has been an error!"
-msgstr ""
+msgstr "¡Se ha producido un error!"
 
 #: templates/components/form_errors.html:33
 msgid "There's an error in the form."
-msgstr ""
+msgstr "Hay un error en el formulario."
 
 #: templates/components/form_errors.html:36
 msgid "Please, check the fields marked in red."
-msgstr ""
+msgstr "Por favor, compruebe los campos marcados en rojo."
 
 #: templates/components/forms/raw_file_dropzone.html:19
 msgid "Drag and drop or click to browse your files"
@@ -1170,95 +1319,123 @@ msgstr ""
 msgid "Allowed formats:"
 msgstr ""
 
-#: templates/components/header.html:95
-msgid "Log out"
-msgstr ""
-
 #: templates/components/help_drawer.html:10
 msgid "Aclaración"
-msgstr ""
+msgstr "Aclaración"
 
 #: templates/components/methods/base_field.html:23
 msgid "Not applicable"
-msgstr ""
+msgstr "No aplicable."
+
+#: templates/components/methods/boolean.html:14
+msgid "Yes"
+msgstr "Si"
+
+#: templates/components/methods/boolean.html:25
+msgid "No"
+msgstr "No"
 
 #: templates/components/navbar.html:9
 msgid "What is social balance?"
 msgstr ""
 
-#: templates/components/navbar.html:14 templates/info/good_practices.html:5
+#: templates/components/navbar.html:14 templates/info/good_practices.html:8
 msgid "Good Practices"
 msgstr ""
 
-#: templates/components/navbar.html:19 templates/info/documents.html:5
+#: templates/components/navbar.html:19 templates/info/documents.html:8
 msgid "Documents"
 msgstr ""
 
-#: templates/components/navbar.html:24 templates/info/resources.html:5
+#: templates/components/navbar.html:24 templates/info/resources.html:8
 msgid "Resources"
 msgstr ""
 
 #: templates/components/organizations/registration_request_row.html:39
 msgid "Reject"
-msgstr ""
+msgstr "Rechazar"
 
 #: templates/helpers/delete_submit_line.html:5
 msgid "No, take me back"
-msgstr ""
+msgstr "No, llevamé de vuelta"
 
 #: templates/helpers/delete_submit_line.html:9
-msgid "Yes, I’m sure"
-msgstr ""
+msgid "Yes, I am sure"
+msgstr "Sí, estoy seguro"
 
 #: templates/home.html:11
 msgid "Hola"
-msgstr ""
+msgstr "Hola"
 
 #: templates/home.html:17
-#, fuzzy
-#| msgid "Organization update"
-msgid "Organization logo"
-msgstr "Actualización de datos de la organización"
+msgid "Organisation logo"
+msgstr "Logo de la organización"
 
 #: templates/home.html:29
 msgid "Modificar datos entidad"
-msgstr ""
+msgstr "Modificar datos entidad"
 
 #: templates/home.html:38
 msgid "Balances pendientes"
-msgstr ""
+msgstr "Balances pendientes"
 
-#: templates/home.html:49
+#: templates/home.html:45
+msgid ""
+"Your organization has not yet been accepted. You must wait until it is "
+"accepted before you can answer the surveys."
+msgstr ""
+"Su organización aún no ha sido aceptada. Debe esperar hasta que sea aceptada "
+"antes de poder responder a las preguntas."
+
+#: templates/home.html:48
 msgid "You are not assigned to any organization. Please contact an admin"
 msgstr ""
+"No estás asignado a ninguna organización. Ponte en contacto con un "
+"administrador."
 
-#: templates/info/documents.html:14
+#: templates/info/documents.html:17
 msgid "Campaigns"
 msgstr ""
 
-#: templates/info/documents.html:24
+#: templates/info/documents.html:27
 msgid "Infographics"
 msgstr ""
 
-#: templates/info/documents.html:27
+#: templates/info/documents.html:30
 msgid "Stamps"
 msgstr ""
 
-#: templates/info/what_is_social_balance.html:5
+#: templates/info/what_is_social_balance.html:8
 msgid "What is Social Balance?"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:6
+msgid "There are not external surveys configured for this method"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:59
+msgid "No invitations found."
+msgstr "No se han encontrado invitaciones."
+
+#: templates/methods/external_surveys_view.html:80
+msgid "Import contacts"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:87
+msgid "Send surveys"
 msgstr ""
 
 #: templates/methods/method_fill.html:5
 msgid "Form"
-msgstr ""
+msgstr "Formulario"
 
 #: templates/organizations/components/file.html:15
 msgid "Current file:"
-msgstr ""
+msgstr "Archivo actual:"
 
 #: templates/organizations/signup.html:10
 msgid "Organization update"
-msgstr "Actualización de datos de la organización"
+msgstr "Actualización de la organizació"
 
 #: templates/organizations/signup.html:11
 msgid "Registration request"
@@ -1266,63 +1443,62 @@ msgstr "Solicitud de registro"
 
 #: templates/organizations/signup.html:14
 msgid "Transparent, social and solidarity based economy"
-msgstr "La Economía Social y Solidaria transparente"
+msgstr "Transparencia, Economía socialy solidaría"
 
 #: templates/organizations/signup.html:31
 msgid "Submit changes"
-msgstr ""
+msgstr "Enviar cambios"
 
 #: templates/organizations/signup.html:31
 msgid "Submit registration request"
-msgstr ""
+msgstr "Enviar solicitud de registro"
 
 #: templates/organizations/signup_success.html:6
 msgid "Solicitud enviada"
-msgstr ""
+msgstr "Solicitud enviada"
 
 #: templates/organizations/signup_success.html:7
 msgid ""
 "¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
 "pronto nos pondremos en contacto contigo."
 msgstr ""
+"¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
+"pronto nos pondremos en contacto contigo."
 
 #: templates/profile/details.html:11
 msgid "Your profile"
-msgstr ""
+msgstr "Tu perfil"
 
 #: templates/profile/details.html:13
 msgid "Here you can see and edit all your data."
-msgstr ""
+msgstr "Aquí puedes ver y editar todos tus datos."
 
 #: templates/profile/details.html:30 templates/profile/details.html:69
 msgid "Warning!"
-msgstr ""
+msgstr "¡Atención!"
 
 #: templates/profile/details.html:31 templates/profile/details.html:70
 msgid "Your email is not verified. Before anything else, you must verify it."
 msgstr ""
+"Tu correo electrónico no está verificado. Antes de nada, debes verificarlo."
 
 #: templates/profile/details.html:33 templates/profile/details.html:72
 msgid "Verify email here."
-msgstr ""
+msgstr "Verifica tu correo electrónico aquí."
 
 #: templates/profile/details.html:58
 #: templates/registration/password_change_form.html:3
 #: templates/registration/password_change_form.html:6
 msgid "Password change"
-msgstr ""
+msgstr "Cambio de contraseña"
 
 #: templates/profile/details.html:60
 msgid "Here you can change your password."
-msgstr ""
+msgstr "Aquí puedes cambiar tu contraseña."
 
 #: templates/profile/details.html:82
 msgid "Change password"
-msgstr ""
-
-#: templates/projects/create_project.html:9
-msgid "Create Project"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #: templates/projects/create_project_success.html:8
 msgid "Tu proyecto se ha creado con exito."
@@ -1330,11 +1506,11 @@ msgstr ""
 
 #: templates/registration/login.html:9
 msgid "Impact measurement to show your heart with pride"
-msgstr ""
+msgstr "Medición del impacto para mostrar tu corazón con orgullo"
 
 #: templates/registration/login.html:11
 msgid "Impact measurement can help you manage your impact"
-msgstr ""
+msgstr "La medición del impacto puede ayudarte a gestionar tu impacto."
 
 #: templates/registration/login.html:12
 msgid "Main benefits of Show your Heart"
@@ -1342,7 +1518,7 @@ msgstr ""
 
 #: templates/registration/login.html:14
 msgid "Helps you measure your impact by calculating relevant indicators."
-msgstr ""
+msgstr "Principales ventajas de enseñar el corazón"
 
 #: templates/registration/login.html:15
 msgid ""
@@ -1363,57 +1539,96 @@ msgstr ""
 
 #: templates/registration/login.html:30
 msgid "Forgot your password?"
-msgstr ""
+msgstr "¿Olvidaste tu contraseña?"
 
 #: templates/registration/login.html:36
 msgid "Start"
-msgstr ""
+msgstr "Empezar"
 
 #: templates/registration/login.html:43
-msgid "Don’t have an account yet?"
-msgstr ""
+msgid "You do not have an account yet?"
+msgstr "¿Aún no tienes una cuenta?"
 
 #: templates/registration/password_reset_confirm.html:3
 #: templates/registration/password_reset_confirm.html:6
 msgid "Password recovery"
-msgstr ""
+msgstr "Recuperación de contraseña"
 
 #: templates/registration/password_reset_confirm.html:9
 msgid ""
 "Introduce your email. A link will be sent to this address so you can reset "
 "your password."
 msgstr ""
+"Introduce tu correo electrónico. Se enviará un enlace a esta dirección para "
+"que puedas restablecer tu contraseña"
 
 #: templates/registration/password_reset_form.html:3
 #: templates/registration/password_reset_form.html:6
 msgid "Password reset"
-msgstr ""
+msgstr "Restablecimiento de contraseña"
 
 #: templates/registration/privacy_policy.html:6
 #: templates/registration/privacy_policy.html:15
 msgid "Privacy policy"
-msgstr ""
+msgstr "Política de privacidad"
 
 #: templates/registration/send_verification_code.html:3
 #: templates/registration/send_verification_code.html:6
 #: templates/registration/user_validation.html:3
 #: templates/registration/user_validation.html:6
 msgid "Mail validation"
-msgstr ""
+msgstr "Validación de correo electrónico"
 
 #: templates/registration/send_verification_code.html:12
 #: templates/registration/user_validation.html:12
 msgid ""
 "By clicking the button a verification code will be send to your email "
-"address. Check your email to find it."
+"address. Check your inbox to find it."
 msgstr ""
+"Al hacer clic en el botón, se enviará un código de verificación a su "
+"dirección de correo electrónico . Compruebe su correo electrónico para "
+"encontrarlo."
 
 #: templates/registration/send_verification_code.html:18
 #: templates/registration/user_validation.html:18
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/registration/user_validation_confirm.html:3
 #: templates/registration/user_validation_confirm.html:6
 msgid "New password"
-msgstr ""
+msgstr "Nueva contraseña"
+
+#~ msgid "active"
+#~ msgstr "Activo"
+
+#~ msgid ""
+#~ "It's not possible to have multiple active Campaigns. Please, close the "
+#~ "current one before opening this one."
+#~ msgstr ""
+#~ "No es posible tener varias campañas activas. Por favor, cierre la actual "
+#~ "antes de abrir esta"
+
+#~ msgid "fill/<id>"
+#~ msgstr "fill/<id>"
+
+#~ msgid "Region3"
+#~ msgstr "Región3"
+
+#~ msgid ""
+#~ "We use cookies to optimize your experience and to analyze the web "
+#~ "traffic. We don't sell data to\n"
+#~ "      third parties. If you continue navigating, we'll understand that "
+#~ "you are ok with that."
+#~ msgstr ""
+#~ "Utilizamos cookies para optimizar su experiencia y analizar el tráfico "
+#~ "web. No vendemos datos a\n"
+#~ "      terceros. Si continúa navegando, entenderemos que está de acuerdo "
+#~ "con ello."
+
+#~ msgid ""
+#~ "Not\n"
+#~ "                    applicable"
+#~ msgstr ""
+#~ "No\n"
+#~ "                    aplicable"

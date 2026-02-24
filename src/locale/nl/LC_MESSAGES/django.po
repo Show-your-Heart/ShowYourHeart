@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 11:37+0100\n"
+"POT-Creation-Date: 2026-02-20 13:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,706 +20,813 @@ msgstr ""
 
 #: apps/geodata/models.py:11
 msgid "countries"
-msgstr ""
+msgstr "landen"
 
 #: apps/geodata/models.py:27
 msgid "regions (1)"
-msgstr ""
+msgstr "regio (1)"
 
 #: apps/geodata/models.py:52
 msgid "regions (2)"
-msgstr ""
+msgstr "regio (2)"
 
 #: apps/geodata/models.py:82
 msgid "regions (3)"
-msgstr ""
+msgstr "regio (3)"
 
 #: apps/geodata/models.py:121
 msgid "cities"
-msgstr ""
+msgstr "steden"
 
 #: apps/geodata/models.py:139
 msgid "zip codes"
-msgstr ""
+msgstr "postcodes"
 
-#: apps/methods/admin.py:410
+#: apps/methods/admin.py:462
 msgid "Balance successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:444
+#: apps/methods/admin.py:496
 msgid "Balance status successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:505 apps/methods/admin.py:552
+#: apps/methods/admin.py:558 apps/methods/admin.py:601
 #: apps/settings/admin.py:58 apps/settings/admin.py:78
 msgid "Actions"
-msgstr ""
+msgstr "Acties"
 
-#: apps/methods/admin.py:509
+#: apps/methods/admin.py:562
 msgid "Are you sure you want to send the invitation?"
-msgstr ""
+msgstr "Weet u zeker dat u de uitnodiging wilt versturen?"
 
-#: apps/methods/admin.py:514
+#: apps/methods/admin.py:567
 msgid "Send invitation"
-msgstr ""
+msgstr "Uitnodiging versturen"
 
-#: apps/methods/admin.py:556
+#: apps/methods/admin.py:605 templates/methods/external_surveys_view.html:85
 msgid "Are you sure you want to send the invitations?"
-msgstr ""
+msgstr "Weet u zeker dat u de uitnodigingen wilt versturen?"
 
-#: apps/methods/admin.py:561
+#: apps/methods/admin.py:610
 msgid "Send invitations"
+msgstr "Uitnodigingen versturen"
+
+#: apps/methods/forms.py:155 apps/methods/forms.py:156
+#: apps/methods/models.py:393 apps/methods/models.py:522
+#: apps/methods/models.py:569 apps/organizations/forms.py:25
+#: apps/organizations/forms.py:35 templates/admin/methods/survey_review.html:31
+#: templates/admin/methods/survey_review.html:100
+#: templates/admin/organizations/registration_requests.html:40
+#: templates/methods/external_surveys_view.html:42
+msgid "Name"
+msgstr "Naam"
+
+#: apps/methods/forms.py:159 apps/methods/forms.py:160
+#: apps/methods/models.py:570
+msgid "Surnames"
 msgstr ""
 
-#: apps/methods/models.py:20 apps/methods/models.py:114
-#: apps/methods/models.py:272 apps/organizations/models.py:27
+#: apps/methods/forms.py:164
+msgid "Language"
+msgstr ""
+
+#: apps/methods/forms.py:168
+msgid "Gender"
+msgstr ""
+
+#: apps/methods/models.py:19 apps/methods/models.py:144
+#: apps/methods/models.py:329 apps/organizations/models.py:27
 #: apps/organizations/models.py:130 apps/settings/models.py:10
-#: apps/settings/models.py:21 apps/settings/models.py:38
+#: apps/settings/models.py:21 apps/settings/models.py:37
 msgid "name"
-msgstr ""
+msgstr "naam"
 
-#: apps/methods/models.py:21 apps/methods/models.py:115
-#: apps/methods/models.py:273 apps/organizations/models.py:131
+#: apps/methods/models.py:20 apps/methods/models.py:145
+#: apps/methods/models.py:330 apps/organizations/models.py:131
 msgid "description"
-msgstr ""
+msgstr "beschrijving"
 
-#: apps/methods/models.py:33
+#: apps/methods/models.py:32
 msgid "This topic is already used by indicators and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:39 apps/methods/models.py:58
+#: apps/methods/models.py:38 apps/methods/models.py:57
+#: apps/methods/models.py:68 apps/methods/models.py:86
 msgid "title"
-msgstr ""
+msgstr "titel"
 
-#: apps/methods/models.py:40 apps/methods/models.py:140
+#: apps/methods/models.py:39 apps/methods/models.py:187
 msgid "formula"
-msgstr ""
+msgstr "formule"
 
-#: apps/methods/models.py:41
+#: apps/methods/models.py:40
 msgid "value"
-msgstr ""
+msgstr "waarde"
 
-#: apps/methods/models.py:50
+#: apps/methods/models.py:49
 msgid ""
 "This list item has already been used and cannot be deleted. Please create a "
 "new list item instead."
 msgstr ""
 
-#: apps/methods/models.py:60
+#: apps/methods/models.py:59
 msgid "Enable others response"
-msgstr ""
+msgstr "Schakel het antwoord anders in"
 
-#: apps/methods/models.py:70
-msgid "This list is already used by indicators and cannot be deleted."
-msgstr ""
-
-#: apps/methods/models.py:77
-msgid "Performance"
+#: apps/methods/models.py:69
+msgid "suffix"
 msgstr ""
 
 #: apps/methods/models.py:78
-msgid "Scoring"
-msgstr ""
-
-#: apps/methods/models.py:79
-msgid "Certification"
-msgstr ""
-
-#: apps/methods/models.py:82
-msgid "String"
-msgstr ""
-
-#: apps/methods/models.py:83
-msgid "Text"
-msgstr ""
-
-#: apps/methods/models.py:84
-msgid "Integer"
-msgstr ""
-
-#: apps/methods/models.py:85
-msgid "Decimal"
-msgstr ""
-
-#: apps/methods/models.py:86
-msgid "Boolean"
-msgstr ""
-
-#: apps/methods/models.py:87
-msgid "Date"
-msgstr ""
-
-#: apps/methods/models.py:88
-msgid "Attachment"
-msgstr ""
-
-#: apps/methods/models.py:89
-msgid "Checkbox"
-msgstr ""
-
-#: apps/methods/models.py:90
-msgid "Radiobutton"
-msgstr ""
-
-#: apps/methods/models.py:91
-msgid "Dropdown"
-msgstr ""
-
-#: apps/methods/models.py:92
-msgid "Integer gendered value"
-msgstr ""
-
-#: apps/methods/models.py:93
-msgid "Real gendered number"
+msgid ""
+"This group item has already been used and cannot be deleted. Please create a "
+"new group item instead."
 msgstr ""
 
 #: apps/methods/models.py:98
-msgid "kg"
-msgstr ""
+msgid "Performance"
+msgstr "Prestatie"
 
 #: apps/methods/models.py:99
-msgid "m2"
-msgstr ""
+msgid "Scoring"
+msgstr "Score"
 
 #: apps/methods/models.py:100
-msgid "°C"
-msgstr ""
-
-#: apps/methods/models.py:101
-msgid "days"
-msgstr ""
-
-#: apps/methods/models.py:102
-msgid "points"
-msgstr ""
+msgid "Certification"
+msgstr "Certificering"
 
 #: apps/methods/models.py:103
-msgid "KWh"
-msgstr ""
+msgid "String"
+msgstr "Tekenreeks"
 
 #: apps/methods/models.py:104
-msgid "€/h"
-msgstr ""
+msgid "Text"
+msgstr "Tekst"
+
+#: apps/methods/models.py:105
+msgid "Integer"
+msgstr "Geheel getal"
+
+#: apps/methods/models.py:106
+msgid "Decimal"
+msgstr "Decimaal"
+
+#: apps/methods/models.py:107
+msgid "Boolean"
+msgstr "Booleaans"
+
+#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:44
+msgid "Date"
+msgstr "Datum"
+
+#: apps/methods/models.py:109
+msgid "Attachment"
+msgstr "Bijlage"
+
+#: apps/methods/models.py:110
+msgid "Checkbox"
+msgstr "Selectievakje"
+
+#: apps/methods/models.py:111
+msgid "Radiobutton"
+msgstr "Radioknop"
 
 #: apps/methods/models.py:112
-msgid "ID"
-msgstr ""
+msgid "Dropdown"
+msgstr "Dropdown"
 
 #: apps/methods/models.py:113
-msgid "version"
+msgid "Integer gendered value"
+msgstr "Gendergebonden geheel getal"
+
+#: apps/methods/models.py:114
+msgid "Real gendered number"
+msgstr "Gendergebonden reëel getal"
+
+#: apps/methods/models.py:117
+msgid "people"
 msgstr ""
 
-#: apps/methods/models.py:118
-msgid "Is it a direct indicator?"
-msgstr ""
+#: apps/methods/models.py:120
+msgid "kg"
+msgstr "kg"
 
 #: apps/methods/models.py:121
-msgid "category"
-msgstr ""
+msgid "m2"
+msgstr "m2"
+
+#: apps/methods/models.py:122
+msgid "°C"
+msgstr "°C"
+
+#: apps/methods/models.py:123
+msgid "days"
+msgstr "dagen"
+
+#: apps/methods/models.py:124
+msgid "points"
+msgstr "punten"
+
+#: apps/methods/models.py:125
+msgid "KWh"
+msgstr "kWh"
+
+#: apps/methods/models.py:126
+msgid "€/h"
+msgstr "€/u"
 
 #: apps/methods/models.py:127
+msgid "number"
+msgstr "nummer"
+
+#: apps/methods/models.py:128
+msgid "percentage"
+msgstr ""
+
+#: apps/methods/models.py:142
+msgid "ID"
+msgstr "ID"
+
+#: apps/methods/models.py:143
+msgid "version"
+msgstr "versie"
+
+#: apps/methods/models.py:148
+msgid "Is it a direct indicator?"
+msgstr "Is dit een directe indicator?"
+
+#: apps/methods/models.py:151
+msgid "Is it a group indicator? (e.g. lists or tables)"
+msgstr ""
+
+#: apps/methods/models.py:154
+msgid "category"
+msgstr "categorie"
+
+#: apps/methods/models.py:160
 msgid "data type"
-msgstr ""
+msgstr "gegevenstype"
 
-#: apps/methods/models.py:130
+#: apps/methods/models.py:163
 msgid "unit"
-msgstr ""
+msgstr "eenheid"
 
-#: apps/methods/models.py:139
+#: apps/methods/models.py:186
 msgid "condition"
-msgstr ""
+msgstr "voorwaarde"
 
-#: apps/methods/models.py:141
+#: apps/methods/models.py:188
 msgid "validation"
-msgstr ""
+msgstr "validatie"
 
-#: apps/methods/models.py:145
+#: apps/methods/models.py:192
 msgid "Is it mandatory?"
-msgstr ""
+msgstr "Is dit verplicht?"
 
-#: apps/methods/models.py:146
+#: apps/methods/models.py:193
 msgid "message"
-msgstr ""
+msgstr "bericht"
 
-#: apps/methods/models.py:165
+#: apps/methods/models.py:212
 msgid "This indicator has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:176
+#: apps/methods/models.py:223
 msgid "This field is required when data type "
-msgstr ""
+msgstr "Dit veld is verplicht wanneer het gegevenstype "
 
-#: apps/methods/models.py:183
+#: apps/methods/models.py:230
 msgid "This field is required if the indicator is indirect."
-msgstr ""
+msgstr "Dit veld is verplicht als de indicator indirect is."
 
-#: apps/methods/models.py:219
+#: apps/methods/models.py:266
 msgid "Circular dependencies"
 msgstr ""
 
-#: apps/methods/models.py:268
-msgid "Organization"
+#: apps/methods/models.py:312
+msgid "Indicator code can't contain the underscore character '_'"
 msgstr ""
 
-#: apps/methods/models.py:269 templates/admin/methods/survey_review.html:105
+#: apps/methods/models.py:319
+msgid "Organisation"
+msgstr "Organisatie"
+
+#: apps/methods/models.py:320 templates/admin/methods/survey_review.html:105
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
-#: apps/methods/models.py:270
+#: apps/methods/models.py:321
 msgid "External Survey"
-msgstr ""
-
-#: apps/methods/models.py:275
-msgid "unit of analysis"
-msgstr ""
-
-#: apps/methods/models.py:284
-msgid "Which entity does this method applies to?"
-msgstr ""
-
-#: apps/methods/models.py:290
-msgid "Sectors"
-msgstr ""
-
-#: apps/methods/models.py:296 templates/admin/methods/survey_review.html:115
-msgid "External surveys"
-msgstr ""
-
-#: apps/methods/models.py:300
-msgid "Version"
-msgstr ""
-
-#: apps/methods/models.py:303 apps/organizations/forms.py:66
-msgid "Region1"
-msgstr ""
+msgstr "Externe vragenlijst"
 
 #: apps/methods/models.py:324
-msgid "This method has already been used and cannot be deleted."
+msgid "Work"
 msgstr ""
 
-#: apps/methods/models.py:330 apps/methods/models.py:444
-#: apps/methods/models.py:475 apps/organizations/forms.py:25
-#: apps/organizations/forms.py:35 templates/admin/methods/survey_review.html:31
-#: templates/admin/methods/survey_review.html:100
-#: templates/admin/organizations/registration_requests.html:40
-msgid "Name"
+#: apps/methods/models.py:325
+msgid "Professional"
 msgstr ""
 
-#: apps/methods/models.py:331
-msgid "Year"
+#: apps/methods/models.py:326
+msgid "Associative"
+msgstr ""
+
+#: apps/methods/models.py:327
+msgid "Volunteering"
 msgstr ""
 
 #: apps/methods/models.py:332
-msgid "Active"
+msgid "unit of analysis"
+msgstr "analyse-eenheid"
+
+#: apps/methods/models.py:341
+msgid "Which entity does this method applies to?"
+msgstr "Op welke entiteit is deze methode van toepassing?"
+
+#: apps/methods/models.py:347
+msgid "Sectors"
+msgstr "Sectoren"
+
+#: apps/methods/models.py:353 templates/admin/methods/survey_review.html:115
+msgid "External surveys"
+msgstr "Externe vragenlijsten"
+
+#: apps/methods/models.py:357
+msgid "Version"
+msgstr "Versie"
+
+#: apps/methods/models.py:360 apps/organizations/forms.py:66
+msgid "Region1"
+msgstr "Regio1"
+
+#: apps/methods/models.py:365
+msgid "external survey category"
 msgstr ""
 
-#: apps/methods/models.py:338 apps/organizations/models.py:52
+#: apps/methods/models.py:387
+msgid "This method has already been used and cannot be deleted."
+msgstr ""
+
+#: apps/methods/models.py:394
+msgid "Year"
+msgstr "Jaar"
+
+#: apps/methods/models.py:395
+msgid "Active"
+msgstr "Actief"
+
+#: apps/methods/models.py:401 apps/organizations/models.py:52
 #: apps/organizations/models.py:169
 msgid "Methods"
-msgstr ""
+msgstr "Methoden"
 
-#: apps/methods/models.py:343 apps/methods/models.py:403
-#: apps/organizations/forms.py:281 apps/organizations/models.py:173
+#: apps/methods/models.py:405 apps/methods/models.py:465
+#: apps/organizations/forms.py:278 apps/organizations/models.py:173
 #: templates/admin/methods/survey_review.html:120
 msgid "Start date"
-msgstr ""
+msgstr "Startdatum"
 
-#: apps/methods/models.py:344 apps/organizations/models.py:174
+#: apps/methods/models.py:406 apps/organizations/models.py:174
 #: templates/admin/methods/survey_review.html:125
 msgid "End date"
-msgstr ""
+msgstr "Einddatum"
 
-#: apps/methods/models.py:356
+#: apps/methods/models.py:418
 msgid "This campaign has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:384
+#: apps/methods/models.py:446
 msgid "Token"
-msgstr ""
+msgstr "Token"
 
-#: apps/methods/models.py:404
+#: apps/methods/models.py:466
 msgid "Closed date"
 msgstr ""
 
-#: apps/methods/models.py:405
+#: apps/methods/models.py:467
 msgid "Modified date"
 msgstr ""
 
-#: apps/methods/models.py:406
+#: apps/methods/models.py:468
 msgid "Validated date"
 msgstr ""
 
-#: apps/methods/models.py:407
+#: apps/methods/models.py:469
 msgid "Evaluated date"
 msgstr ""
 
-#: apps/methods/models.py:432
+#: apps/methods/models.py:510
 msgid "not applicable"
-msgstr ""
+msgstr "niet van toepassing"
 
-#: apps/methods/models.py:477
+#: apps/methods/models.py:572
 msgid "email address"
+msgstr "e-mailadres"
+
+#: apps/methods/models.py:581
+msgid "Send date"
 msgstr ""
 
-#: apps/methods/models.py:505
+#: apps/methods/models.py:604
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
-#: apps/methods/models.py:508
+#: apps/methods/models.py:607
 msgid "order"
-msgstr ""
+msgstr "volgorde"
 
-#: apps/methods/urls.py:18
+#: apps/methods/urls.py:21
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:23
+#: apps/methods/urls.py:26
 msgid "external-survey/<id>"
+msgstr "externe-vragenlijst/<id>"
+
+#: apps/methods/urls.py:31
+msgid "external-surveys/<uuid:organization_id>/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:27
+#: apps/methods/urls.py:36
+msgid "invitation"
+msgstr ""
+
+#: apps/methods/urls.py:40
 msgid "send-invitations/<id>"
-msgstr ""
+msgstr "uitnodigingen-versturen/<id>"
 
-#: apps/methods/urls.py:28
+#: apps/methods/urls.py:41
 msgid "send-invitation/<id>"
-msgstr ""
+msgstr "uitnodiging-versturen/<id>"
 
-#: apps/methods/urls.py:29
+#: apps/methods/urls.py:42
 msgid "import-csv/<id>"
+msgstr "csv-importeren/<id>"
+
+#: apps/methods/urls.py:44
+msgid "import-csv2/<uuid:organization_id>/<uuid:method_id>"
 msgstr ""
 
-#: apps/methods/urls.py:30
+#: apps/methods/urls.py:48
 msgid "load_ext_surveys/"
-msgstr ""
+msgstr "externe-vragenlijsten-laden/"
 
-#: apps/methods/urls.py:32
+#: apps/methods/urls.py:50
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:37
+#: apps/methods/urls.py:55
 msgid "preview/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/views.py:91
+#: apps/methods/views.py:154
 msgid "The invitations have been sent."
-msgstr ""
+msgstr "De uitnodigingen zijn verstuurd."
 
-#: apps/methods/views.py:96
+#: apps/methods/views.py:159
 msgid "There are no invitations to send."
-msgstr ""
+msgstr "Er zijn geen uitnodigingen om te versturen."
 
-#: apps/methods/views.py:110
+#: apps/methods/views.py:174
 msgid "The invitation has been sent."
-msgstr ""
+msgstr "De uitnodiging is verstuurd."
 
-#: apps/methods/views.py:132
+#: apps/methods/views.py:203
 msgid "The CSV has been imported correctly."
+msgstr "De CSV is correct geïmporteerd."
+
+#: apps/methods/views.py:355
+msgid "Error creating contact. Contact your network admin."
 msgstr ""
 
 #: apps/organizations/forms.py:20
 msgid "Invalid signup, check that you don't have an account."
-msgstr ""
+msgstr "Ongeldige aanmelding, controleer of u geen account heeft."
 
 #: apps/organizations/forms.py:24
-msgid "Organization name"
-msgstr ""
+msgid "Organisation name"
+msgstr "Naam van de organisatie"
 
 #: apps/organizations/forms.py:28 apps/organizations/forms.py:30
 #: templates/admin/organizations/registration_requests.html:35
 msgid "VAT Number"
-msgstr ""
+msgstr "Btw-nummer"
 
-#: apps/organizations/forms.py:34 apps/organizations/forms.py:205
-#: apps/organizations/forms.py:304
+#: apps/organizations/forms.py:34 apps/organizations/forms.py:202
+#: apps/organizations/forms.py:301
 msgid "Name of the contact person"
-msgstr ""
+msgstr "Naam van de contactpersoon"
 
-#: apps/organizations/forms.py:38 apps/organizations/forms.py:212
-#: apps/organizations/forms.py:310
+#: apps/organizations/forms.py:38 apps/organizations/forms.py:209
+#: apps/organizations/forms.py:307
 msgid "Phone number of the contact person"
-msgstr ""
+msgstr "Telefoonnummer van de contactpersoon"
 
 #: apps/organizations/forms.py:40
 msgid "Phone number"
-msgstr ""
+msgstr "Telefoonnummer"
 
-#: apps/organizations/forms.py:44 apps/organizations/forms.py:208
-#: apps/organizations/forms.py:316
+#: apps/organizations/forms.py:44 apps/organizations/forms.py:205
+#: apps/organizations/forms.py:313
 msgid "Email address of the contact person"
-msgstr ""
+msgstr "E-mailadres van de contactpersoon"
 
 #: apps/organizations/forms.py:45 templates/home.html:21
+#: templates/methods/external_surveys_view.html:43
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: apps/organizations/forms.py:48 apps/organizations/forms.py:49
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #: apps/organizations/forms.py:53
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: apps/organizations/forms.py:78
 #: templates/admin/organizations/registration_requests.html:50
 msgid "City"
-msgstr ""
+msgstr "Stad"
 
 #: apps/organizations/forms.py:81 apps/organizations/forms.py:82
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 #: apps/organizations/forms.py:86
 msgid "Legal entity type"
-msgstr ""
+msgstr "Rechtsvorm"
 
 #: apps/organizations/forms.py:99
 msgid "Method of impact mesurement"
-msgstr ""
+msgstr "Methode voor impactmeting"
 
-#: apps/organizations/forms.py:109 apps/organizations/forms.py:215
+#: apps/organizations/forms.py:109 apps/organizations/forms.py:212
 #: apps/organizations/models.py:58
 msgid "Allow infographics to be public"
 msgstr ""
 
 #: apps/organizations/forms.py:140
 msgid "I have read and accept the {}"
-msgstr ""
+msgstr "Ik heb de {} gelezen en accepteer deze"
 
-#: apps/organizations/forms.py:269 apps/organizations/forms.py:271
+#: apps/organizations/forms.py:266 apps/organizations/forms.py:268
 msgid "Project name"
 msgstr ""
 
-#: apps/organizations/forms.py:275 apps/organizations/forms.py:277
+#: apps/organizations/forms.py:272 apps/organizations/forms.py:274
 msgid "Brief description"
 msgstr ""
 
-#: apps/organizations/forms.py:288
+#: apps/organizations/forms.py:285
 msgid "Main action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:293
+#: apps/organizations/forms.py:290
 msgid "Secondary action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:306
+#: apps/organizations/forms.py:303
 msgid "Contact name"
 msgstr ""
 
-#: apps/organizations/forms.py:312
+#: apps/organizations/forms.py:309
 msgid "Contact phone number"
 msgstr ""
 
-#: apps/organizations/forms.py:318
+#: apps/organizations/forms.py:315
 msgid "Contact email"
 msgstr ""
 
-#: apps/organizations/forms.py:322 apps/organizations/models.py:176
-msgid "I want to make public the results"
-msgstr ""
+#: apps/organizations/forms.py:319 apps/organizations/models.py:176
+msgid "I want to make the results public"
+msgstr "Ik wil de resultaten openbaar maken"
 
-#: apps/organizations/forms.py:325 apps/organizations/models.py:179
-msgid "Authorize the use of my data for inclusion in the final report"
-msgstr ""
+#: apps/organizations/forms.py:322 apps/organizations/models.py:179
+msgid "Authorise the use of my data for inclusion in the final report"
+msgstr "Ik geef toestemming om mijn gegevens op te nemen in het eindrapport"
 
-#: apps/organizations/forms.py:369
+#: apps/organizations/forms.py:366
 msgid "Choose Existing Project"
 msgstr ""
 
 #: apps/organizations/models.py:29 apps/organizations/models.py:129
 msgid "vat number"
-msgstr ""
+msgstr "btw-nummer"
 
 #: apps/organizations/models.py:30
 msgid "website"
-msgstr ""
+msgstr "website"
 
 #: apps/organizations/models.py:40
 msgid "address"
-msgstr ""
+msgstr "adres"
 
 #: apps/organizations/models.py:96
 msgid "Community action"
-msgstr ""
+msgstr "Gemeenschapsactie"
 
 #: apps/organizations/models.py:97
 msgid "Social cohesion"
-msgstr ""
+msgstr "Sociale cohesie"
 
 #: apps/organizations/models.py:98
 msgid "Culture"
-msgstr ""
+msgstr "Cultuur"
 
 #: apps/organizations/models.py:99
 msgid "Sports"
-msgstr ""
+msgstr "Sport"
 
 #: apps/organizations/models.py:100
 msgid "Childhood"
-msgstr ""
+msgstr "Kinderjaren"
 
 #: apps/organizations/models.py:101
 msgid "Youth"
-msgstr ""
+msgstr "Jeugd"
 
 #: apps/organizations/models.py:102
 msgid "Elderly"
-msgstr ""
+msgstr "Ouderen"
 
 #: apps/organizations/models.py:103
 msgid "Women - Feminism"
-msgstr ""
+msgstr "Vrouwen - Feminisme"
 
 #: apps/organizations/models.py:104
 msgid "LGTBI"
-msgstr ""
+msgstr "LGTBI"
 
 #: apps/organizations/models.py:105
 msgid "Health"
-msgstr ""
+msgstr "Gezondheid"
 
 #: apps/organizations/models.py:106
 msgid "Interculturality"
-msgstr ""
+msgstr "Intercultureel"
 
 #: apps/organizations/models.py:107
 msgid "Funcional diversity"
-msgstr ""
+msgstr "Functionele diversiteit"
 
 #: apps/organizations/models.py:108
 msgid "Environmental sustainability"
-msgstr ""
+msgstr "Milieuduurzaamheid"
 
 #: apps/organizations/models.py:109
 msgid "Social and solidarity economy"
-msgstr ""
+msgstr "Sociale en solidaire economie"
 
 #: apps/organizations/models.py:110
 msgid "Commerce"
-msgstr ""
+msgstr "Handel"
 
 #: apps/organizations/models.py:111
 msgid "Urban planning"
-msgstr ""
+msgstr "Stedelijke planning"
 
 #: apps/organizations/models.py:112
 msgid "International cooperation"
-msgstr ""
+msgstr "Internationale samenwerking"
 
 #: apps/organizations/models.py:113
 msgid "Leisure education and educational services"
-msgstr ""
+msgstr "Vrijetijdseducatie en educatieve diensten"
 
 #: apps/organizations/models.py:114
 msgid "Research and new technologies"
-msgstr ""
+msgstr "Onderzoek en nieuwe technologieën"
 
 #: apps/organizations/models.py:115
 msgid "Networks and support for entities"
-msgstr ""
+msgstr "Netwerken en ondersteuning voor entiteiten"
 
 #: apps/organizations/models.py:116
 msgid "Other"
-msgstr ""
+msgstr "Overig"
 
 #: apps/organizations/models.py:119
 msgid "Neighborhood"
-msgstr ""
+msgstr "Buurt"
 
 #: apps/organizations/models.py:120
 msgid "District"
-msgstr ""
+msgstr "District"
 
 #: apps/organizations/models.py:121
 msgid "City/Municipality"
-msgstr ""
+msgstr "Stad/Gemeente"
 
 #: apps/organizations/models.py:122
 msgid "County"
-msgstr ""
+msgstr "Provincie"
 
 #: apps/organizations/models.py:132
 msgid "contact person"
-msgstr ""
+msgstr "contactpersoon"
 
 #: apps/organizations/models.py:133
 msgid "contact email"
-msgstr ""
+msgstr "contact-e-mailadres"
 
 #: apps/organizations/models.py:135
 msgid "contact telephone"
-msgstr ""
+msgstr "contacttelefoon"
 
 #: apps/organizations/models.py:144
 msgid "main scope of action"
-msgstr ""
+msgstr "belangrijkste werkgebied"
 
 #: apps/organizations/models.py:150
 msgid "secondary fields of action"
-msgstr ""
+msgstr "secundaire werkgebieden"
 
 #: apps/organizations/models.py:156
 msgid "Main legal entity type"
-msgstr ""
+msgstr "Primaire rechtsvorm"
 
 #: apps/organizations/models.py:162
 msgid "Secondary legal entity type"
-msgstr ""
+msgstr "Secundaire rechtsvorm"
 
-#: apps/organizations/urls.py:18
+#: apps/organizations/urls.py:17
 msgid "sign-up/"
-msgstr ""
+msgstr "aanmelden/"
 
-#: apps/organizations/urls.py:20
+#: apps/organizations/urls.py:19
 msgid "sign-up/success"
-msgstr ""
+msgstr "aanmelden/succes"
+
+#: apps/organizations/urls.py:23
+msgid "sign-up/load_methods/"
+msgstr "aanmelden/methoden-laden/"
 
 #: apps/organizations/urls.py:24
-msgid "sign-up/load_methods/"
-msgstr ""
-
-#: apps/organizations/urls.py:25
 msgid "sign-up/load_region1/"
 msgstr ""
 
-#: apps/organizations/urls.py:26
+#: apps/organizations/urls.py:25
 msgid "sign-up/load_city/"
 msgstr ""
 
-#: apps/organizations/urls.py:27
+#: apps/organizations/urls.py:26
 msgid "update/<pk>"
-msgstr ""
+msgstr "bewerken/<pk>"
 
-#: apps/organizations/urls.py:29
+#: apps/organizations/urls.py:28
 msgid "<uuid:organization_id>/project/"
 msgstr ""
 
-#: apps/organizations/urls.py:34
-msgid "project/success"
-msgstr ""
-
-#: apps/organizations/views.py:117
+#: apps/organizations/views.py:116
 msgid "Error creating project. Contact your network admin."
 msgstr ""
 
 #: apps/settings/admin.py:62
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: apps/settings/admin.py:83
 msgid ""
-"Are you sure you want to send an email to the user to notify he has been "
+"Are you sure you want to send an email to the user to notify they have been "
 "added as network admin?"
 msgstr ""
+"Weet u zeker dat u de gebruiker een e-mail wilt sturen om te melden dat die "
+"is toegevoegd als netwerkbeheerder?"
 
 #: apps/settings/admin.py:91
-msgid "Send email to the user to notify he has been added as network admin"
+msgid "Send email to the user to notify they have been added as network admin"
+msgstr ""
+"Gebruiker een e-mail sturen om te melden dat hij is toegevoegd als "
+"netwerkbeheerder"
+
+#: apps/settings/models.py:52
+msgid "Network"
+msgstr ""
+
+#: apps/settings/models.py:54
+msgid "Host"
+msgstr ""
+
+#: apps/settings/models.py:55
+msgid "Port"
+msgstr ""
+
+#: apps/settings/models.py:56
+msgid "Username"
+msgstr ""
+
+#: apps/settings/models.py:57
+msgid "Password"
+msgstr ""
+
+#: apps/settings/models.py:58
+msgid "Protocol"
 msgstr ""
 
 #: apps/settings/urls.py:16
 msgid "admin-assigned/<id>"
-msgstr ""
+msgstr "beheerder-toegewezen/<id>"
 
 #: apps/settings/urls.py:18
 msgid "what-is-social-balance"
@@ -749,48 +856,53 @@ msgstr ""
 
 #: templates/404.html:13 templates/500.html:13 templates/503.html:13
 msgid "Go back"
-msgstr ""
+msgstr "Ga terug"
 
 #: templates/404.html:16
 msgid "Error 404: Page not found"
-msgstr ""
+msgstr "Fout 404: Pagina niet gevonden"
 
 #: templates/404.html:20
 msgid ""
 "The page you were trying to access does not exist. Please check the spelling "
 "or go back to the beginning."
 msgstr ""
+"De pagina die u probeerde te openen bestaat niet. Controleer de spelling of "
+"ga terug naar het begin."
 
 #: templates/500.html:16
 msgid "Error 500: Internal server error"
-msgstr ""
+msgstr "Fout 500: Interne serverfout"
 
 #: templates/500.html:20
 msgid ""
 "The server encountered an unexpected condition that prevented it from "
 "fulfilling the request."
 msgstr ""
+"De server kwam een onverwachte fout tegen waardoor de aanvraag niet kon "
+"worden uitgevoerd."
 
 #: templates/503.html:16
 msgid "Error 503: Maintenance mode enabled"
-msgstr ""
+msgstr "Fout 503: Onderhoudsmodus ingeschakeld"
 
 #: templates/503.html:20
 msgid ""
 "The application is currently under maintenance, please try again in few "
 "minutes."
 msgstr ""
+"De applicatie is momenteel in onderhoud, probeer het over enkele minuten "
+"opnieuw."
 
 #: templates/admin/import_export/import_form.html:21
-#: templates/admin/methods/method_fill.html:109
-#: templates/methods/method_fill.html:114
-#: templates/projects/create_project.html:26
+#: templates/admin/methods/method_fill.html:110
+#: templates/methods/method_fill.html:115
 #: templates/registration/password_change_form.html:17
 #: templates/registration/password_reset_confirm.html:19
 #: templates/registration/password_reset_form.html:17
 #: templates/registration/user_validation_confirm.html:28
 msgid "Submit"
-msgstr ""
+msgstr "Verzenden"
 
 #: templates/admin/import_export/import_preview.html:23
 msgid "New"
@@ -811,18 +923,18 @@ msgstr ""
 #: templates/admin/methods/externalsurveyinvitation/change_form.html:14
 #: templates/components/admin/button_import_ext_invitations.html:3
 msgid "Import CSV"
-msgstr ""
+msgstr "CSV importeren"
 
 #: templates/admin/methods/method/change_form.html:14
 #: templates/components/admin/button_preview.html:3
 msgid "Preview"
-msgstr ""
+msgstr "Voorbeeld"
 
-#: templates/admin/methods/method_fill.html:106 templates/base_form.html:47
-#: templates/methods/method_fill.html:111 templates/profile/details.html:44
+#: templates/admin/methods/method_fill.html:107 templates/base_form.html:47
+#: templates/methods/method_fill.html:112 templates/profile/details.html:44
 #: templates/registration/signup.html:26
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: templates/admin/methods/section/stacked_inline.html:8
 msgid ""
@@ -831,15 +943,15 @@ msgstr ""
 
 #: templates/admin/methods/section/stacked_inline.html:63
 msgid "Change"
-msgstr ""
+msgstr "Wijzigen"
 
 #: templates/admin/methods/section/stacked_inline.html:65
 msgid "View"
-msgstr ""
+msgstr "Bekijken"
 
 #: templates/admin/methods/section/stacked_inline.html:77
 msgid "View on site"
-msgstr ""
+msgstr "Op de site bekijken"
 
 #: templates/admin/methods/survey_review.html:11
 msgid "Balance review"
@@ -851,7 +963,7 @@ msgstr ""
 
 #: templates/admin/methods/survey_review.html:16
 msgid "Download data"
-msgstr ""
+msgstr "Gegevens downloaden"
 
 #: templates/admin/methods/survey_review.html:22
 msgid "Filter by"
@@ -863,7 +975,7 @@ msgstr ""
 
 #: templates/admin/methods/survey_review.html:24
 msgid "Region"
-msgstr ""
+msgstr "Regio"
 
 #: templates/admin/methods/survey_review.html:25
 msgid "Method"
@@ -871,17 +983,18 @@ msgstr ""
 
 #: templates/admin/methods/survey_review.html:26
 #: templates/admin/methods/survey_review.html:85
+#: templates/methods/external_surveys_view.html:45
 msgid "Status"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:27
 msgid "Unit of analysis"
-msgstr ""
+msgstr "Analyse-eenheid"
 
 #: templates/admin/methods/survey_review.html:30
 #: templates/admin/methods/survey_review.html:95 templates/home.html:20
 msgid "NIF"
-msgstr ""
+msgstr "NIF"
 
 #: templates/admin/methods/survey_review.html:33
 msgid "Filter"
@@ -902,62 +1015,65 @@ msgstr ""
 #: templates/admin/methods/survey_review.html:71
 #: templates/admin/organizations/registration_requests.html:30
 msgid "Select all rows"
-msgstr ""
+msgstr "Alle rijen selecteren"
 
 #: templates/admin/methods/survey_review.html:90
 msgid "Answers"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:110
-#: templates/components/navbar.html:29 templates/info/contact.html:5
+#: templates/components/navbar.html:29 templates/info/contact.html:8
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: templates/admin/methods/survey_review.html:147
 msgid "Edit balance"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:163
-#: templates/methods/method_fill.html:128
+#: templates/methods/method_fill.html:129
 msgid "Balance errors"
 msgstr ""
 
 #: templates/admin/organizations/registration_requests.html:4
 msgid "Features"
-msgstr ""
+msgstr "Kenmerken"
 
 #: templates/admin/organizations/registration_requests.html:6
 msgid "Register requests"
-msgstr ""
+msgstr "Aanvragen registreren"
 
 #: templates/admin/organizations/registration_requests.html:17
 #: templates/components/forms/text_field.html:7
 msgid "search"
-msgstr ""
+msgstr "zoeken"
 
 #: templates/admin/organizations/registration_requests.html:20
 msgid "Type to search"
-msgstr ""
+msgstr "Typ om te zoeken"
 
 #: templates/admin/organizations/registration_requests.html:45
 msgid "Requested methods"
-msgstr ""
+msgstr "Aangevraagde methoden"
 
 #: templates/admin/organizations/registration_requests.html:55
 msgid "Aplication date"
-msgstr ""
+msgstr "Aanvraagdatum"
 
 #: templates/admin/syh_change_list.html:44
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: templates/admin/syh_delete_confirmation.html:9
 #, python-format
 msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
-"related objects, but your account doesn't have permission to delete the "
+"related objects, but your account does not have permission to delete the "
 "following types of objects:"
 msgstr ""
+"Het verwijderen van %(object_name)s '%(escaped_object)s' zou ertoe leiden "
+"dat gerelateerde objecten worden verwijderd, maar uw account heeft geen "
+"rechten om de volgende soorten objecten te verwijderen:"
 
 #: templates/admin/syh_delete_confirmation.html:25
 #, python-format
@@ -965,6 +1081,8 @@ msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
 "following protected related objects:"
 msgstr ""
+"Het verwijderen van %(object_name)s '%(escaped_object)s' vereist het "
+"verwijderen van de volgende beschermde gerelateerde objecten:"
 
 #: templates/admin/syh_delete_confirmation.html:41
 #, python-format
@@ -972,109 +1090,119 @@ msgid ""
 "Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
 "All of the following related items will be deleted:"
 msgstr ""
+"Weet u zeker dat u %(object_name)s \"%(escaped_object)s\" wilt verwijderen? "
+"Alle onderstaande gerelateerde items zullen worden verwijderd:"
 
 #: templates/admin/syh_delete_confirmation.html:48
 msgid "Objects"
-msgstr ""
+msgstr "Objecten"
 
 #: templates/admin/syh_index.html:6
 msgid "Hi"
-msgstr ""
+msgstr "Hallo"
 
 #: templates/admin/syh_index.html:8
 msgid ""
 "Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
 "tareas por completar."
 msgstr ""
+"Dit is uw welkomstpagina. <br> Hier vindt u een korte herinnering aan taken "
+"die nog moeten worden voltooid."
 
 #: templates/admin/syh_index.html:13
 msgid "ENTITIES"
-msgstr ""
+msgstr "ORGANISATIES"
 
 #: templates/admin/syh_index.html:15
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
 msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
-msgstr ""
+msgstr "U heeft %(pending_registrations_requests) nieuwe aanmeldingsverzoeken."
 
 #: templates/admin/syh_index.html:17
 msgid "Gestionar altas"
-msgstr ""
+msgstr "Aanmeldingen beheren"
 
 #: templates/admin/syh_index.html:24
 msgid "FEATURES"
-msgstr ""
+msgstr "KENMERKEN"
 
 #: templates/admin/syh_index.html:26
-msgid "82 entidades han finalizado su balance."
-msgstr ""
+msgid "82 entities have finished their balance."
+msgstr "82 organisaties hebben hun impactmeting voltooid."
 
 #: templates/admin/syh_index.html:28
 msgid "Revisar balances"
-msgstr ""
+msgstr "Impactmeting controleren"
 
-#: templates/base.html:82 templates/base.html:130
+#: templates/base.html:81 templates/base.html:129
 #: templates/components/header.html:77 templates/components/sidebar.html:18
 #: templates/home.html:3
 msgid "Home"
-msgstr ""
+msgstr "Startpagina"
 
-#: templates/base.html:87 templates/base.html:191
+#: templates/base.html:86 templates/base.html:190
 #: templates/components/header.html:82 templates/components/sidebar.html:79
 #: templates/profile/details.html:4
 msgid "Profile"
-msgstr ""
+msgstr "Profiel"
 
-#: templates/base.html:93 templates/base.html:206
+#: templates/base.html:92 templates/base.html:205
 #: templates/components/header.html:88 templates/components/sidebar.html:94
 msgid "Administration panel"
-msgstr ""
+msgstr "Beheerpaneel"
 
-#: templates/base.html:144 templates/components/sidebar.html:32
+#: templates/base.html:100 templates/components/header.html:95
+msgid "Log out"
+msgstr "Uitloggen"
+
+#: templates/base.html:143 templates/components/sidebar.html:32
 #: templates/registration/login.html:24
 msgid "Log in"
-msgstr ""
+msgstr "Inloggen"
 
-#: templates/base.html:160 templates/base_success.html:6
+#: templates/base.html:159 templates/base_success.html:6
 #: templates/components/sidebar.html:48 templates/registration/login.html:46
 msgid "Create an account"
-msgstr ""
+msgstr "Account aanmaken"
 
-#: templates/base.html:177 templates/components/sidebar.html:64
+#: templates/base.html:176 templates/components/sidebar.html:64
 msgid "Register an organization"
-msgstr ""
+msgstr "Een organisatie registreren"
 
-#: templates/base.html:333 templates/components/cookies_banner.html:17
+#: templates/base.html:332 templates/components/cookies_banner.html:17
 #: templates/components/organizations/registration_request_row.html:34
 msgid "Accept"
-msgstr ""
+msgstr "Accepteren"
 
-#: templates/base.html:343 templates/components/cookies_banner.html:26
+#: templates/base.html:342 templates/components/cookies_banner.html:26
 msgid "Deny"
-msgstr ""
+msgstr "Weigeren"
 
 #: templates/base_success.html:25 templates/standard_success.html:6
 msgid "Done!"
-msgstr ""
+msgstr "Klaar!"
 
 #: templates/base_success.html:28
 msgid "Registry successfully updated."
-msgstr ""
+msgstr "Registratie succesvol bijgewerkt."
 
 #: templates/base_success.html:35
 #: templates/organizations/signup_success.html:10
 #: templates/projects/create_project_success.html:11
 #: templates/standard_success.html:9
 msgid "Back to home"
-msgstr ""
+msgstr "Terug naar startpagina"
 
 #: templates/components/admin/button_add.html:13
 #, python-format
 msgid "Add new %(name)s"
-msgstr ""
+msgstr "Nieuwe %(name)s toevoegen"
 
 #: templates/components/admin/button_import_export.html:4
 msgid "Import"
-msgstr ""
+msgstr "Importeren"
 
 #: templates/components/admin/button_import_export.html:19
 msgid "Export"
@@ -1090,30 +1218,37 @@ msgid ""
 " Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
 "con los datos aportados, mejoramos todas. "
 msgstr ""
+"Jullie hebben %(value)s%% van de Sociale Audit voltooid.<br> Vergeet niet "
+"dat we met de verstrekte gegevens ons allemaal verbeteren."
 
 #: templates/components/card/survey_stats.html:14
 msgid "Resumen por sección"
-msgstr ""
+msgstr "Overzicht per sectie"
 
 #: templates/components/card/survey_stats.html:21
 msgid "Completadas"
-msgstr ""
+msgstr "Voltooid"
 
 #: templates/components/card/survey_stats.html:27
 msgid "En progreso"
-msgstr ""
+msgstr "In uitvoering"
 
 #: templates/components/card/survey_stats.html:33
 msgid "Por hacer"
-msgstr ""
+msgstr "Te doen"
 
 #: templates/components/card/survey_stats.html:62
 msgid "Choose project"
 msgstr ""
 
-#: templates/components/card/survey_stats.html:68
-#: templates/components/drawers/choose_project.html:20
+#: templates/components/card/survey_stats.html:69
+#: templates/components/drawers/choose_project.html:24
 msgid "Ir al balance"
+msgstr "Naar de balans gaan"
+
+#: templates/components/card/survey_stats.html:75
+#: templates/components/drawers/choose_project.html:30
+msgid "Send external surveys"
 msgstr ""
 
 #: templates/components/cookies_banner.html:6
@@ -1122,19 +1257,31 @@ msgid ""
 "We don't sell data to third parties. If you continue navigating, we'll "
 "understand that you are ok with that."
 msgstr ""
+"Wij gebruiken cookies om uw ervaring te optimaliseren en het webverkeer te "
+"analyseren. Wij verkopen geen gegevens aan derde partijen. Als u blijft "
+"navigeren, gaan we ervan uit dat u hiermee akkoord gaat."
 
 #: templates/components/drawers/base.html:12
 #: templates/components/help_drawer.html:14
 msgid "Close drawer"
-msgstr ""
+msgstr "Paneel sluiten"
 
 #: templates/components/drawers/choose_project.html:4
 msgid "Project selection"
 msgstr ""
 
-#: templates/components/drawers/choose_project.html:25
+#: templates/components/drawers/choose_project.html:34
 #: templates/components/drawers/create_project.html:4
 msgid "Create project"
+msgstr ""
+
+#: templates/components/drawers/create_invitation.html:3
+#: templates/methods/external_surveys_view.html:74
+msgid "Add new contact"
+msgstr ""
+
+#: templates/components/drawers/create_invitation.html:18
+msgid "Create invitation"
 msgstr ""
 
 #: templates/components/drawers/create_project.html:21
@@ -1143,15 +1290,15 @@ msgstr ""
 
 #: templates/components/form_errors.html:10
 msgid "There has been an error!"
-msgstr ""
+msgstr "Er is een fout opgetreden!"
 
 #: templates/components/form_errors.html:33
 msgid "There's an error in the form."
-msgstr ""
+msgstr "Er zit een fout in het formulier."
 
 #: templates/components/form_errors.html:36
 msgid "Please, check the fields marked in red."
-msgstr ""
+msgstr "Controleer de rood gemarkeerde velden."
 
 #: templates/components/forms/raw_file_dropzone.html:19
 msgid "Drag and drop or click to browse your files"
@@ -1161,131 +1308,162 @@ msgstr ""
 msgid "Allowed formats:"
 msgstr ""
 
-#: templates/components/header.html:95
-msgid "Log out"
-msgstr ""
-
 #: templates/components/help_drawer.html:10
 msgid "Aclaración"
-msgstr ""
+msgstr "Toelichting"
 
 #: templates/components/methods/base_field.html:23
 msgid "Not applicable"
-msgstr ""
+msgstr "Niet van toepassing"
+
+#: templates/components/methods/boolean.html:14
+msgid "Yes"
+msgstr "Ja"
+
+#: templates/components/methods/boolean.html:25
+msgid "No"
+msgstr "Nee"
 
 #: templates/components/navbar.html:9
 msgid "What is social balance?"
 msgstr ""
 
-#: templates/components/navbar.html:14 templates/info/good_practices.html:5
+#: templates/components/navbar.html:14 templates/info/good_practices.html:8
 msgid "Good Practices"
 msgstr ""
 
-#: templates/components/navbar.html:19 templates/info/documents.html:5
+#: templates/components/navbar.html:19 templates/info/documents.html:8
 msgid "Documents"
 msgstr ""
 
-#: templates/components/navbar.html:24 templates/info/resources.html:5
+#: templates/components/navbar.html:24 templates/info/resources.html:8
 msgid "Resources"
 msgstr ""
 
 #: templates/components/organizations/registration_request_row.html:39
 msgid "Reject"
-msgstr ""
+msgstr "Afwijzen"
 
 #: templates/helpers/delete_submit_line.html:5
 msgid "No, take me back"
-msgstr ""
+msgstr "Nee, teruggaan"
 
 #: templates/helpers/delete_submit_line.html:9
-msgid "Yes, I’m sure"
-msgstr ""
+msgid "Yes, I am sure"
+msgstr "Ja, ik weet het zeker"
 
 #: templates/home.html:11
 msgid "Hola"
-msgstr ""
+msgstr "Hallo"
 
 #: templates/home.html:17
-msgid "Organization logo"
-msgstr ""
+msgid "Organisation logo"
+msgstr "Logo van de organisatie"
 
 #: templates/home.html:29
 msgid "Modificar datos entidad"
-msgstr ""
+msgstr "Gegevens van de entiteit bewerken"
 
 #: templates/home.html:38
 msgid "Balances pendientes"
-msgstr ""
+msgstr "Openstaande balansen"
 
-#: templates/home.html:49
+#: templates/home.html:45
+msgid ""
+"Your organization has not yet been accepted. You must wait until it is "
+"accepted before you can answer the surveys."
+msgstr ""
+"Uw organisatie is nog niet geaccepteerd. U moet wachten tot deze is "
+"goedgekeurd voordat u de vragenlijsten kunt invullen."
+
+#: templates/home.html:48
 msgid "You are not assigned to any organization. Please contact an admin"
 msgstr ""
+"U bent niet aan een organisatie gekoppeld. Neem contact op met een beheerder."
 
-#: templates/info/documents.html:14
+#: templates/info/documents.html:17
 msgid "Campaigns"
 msgstr ""
 
-#: templates/info/documents.html:24
+#: templates/info/documents.html:27
 msgid "Infographics"
 msgstr ""
 
-#: templates/info/documents.html:27
+#: templates/info/documents.html:30
 msgid "Stamps"
 msgstr ""
 
-#: templates/info/what_is_social_balance.html:5
+#: templates/info/what_is_social_balance.html:8
 msgid "What is Social Balance?"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:6
+msgid "There are not external surveys configured for this method"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:59
+msgid "No invitations found."
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:80
+msgid "Import contacts"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:87
+msgid "Send surveys"
 msgstr ""
 
 #: templates/methods/method_fill.html:5
 msgid "Form"
-msgstr ""
+msgstr "Formulier"
 
 #: templates/organizations/components/file.html:15
 msgid "Current file:"
-msgstr ""
+msgstr "Huidig bestand:"
 
 #: templates/organizations/signup.html:10
 msgid "Organization update"
-msgstr ""
+msgstr "Organisatie bijwerken"
 
 #: templates/organizations/signup.html:11
 msgid "Registration request"
-msgstr ""
+msgstr "Registratieaanvraag"
 
 #: templates/organizations/signup.html:14
 msgid "Transparent, social and solidarity based economy"
-msgstr ""
+msgstr "Transparante, sociale en solidaire economie"
 
 #: templates/organizations/signup.html:31
 msgid "Submit changes"
-msgstr ""
+msgstr "Wijzigingen verzenden"
 
 #: templates/organizations/signup.html:31
 msgid "Submit registration request"
-msgstr ""
+msgstr "Registratieaanvraag verzenden"
 
 #: templates/organizations/signup_success.html:6
 msgid "Solicitud enviada"
-msgstr ""
+msgstr "Aanvraag verzonden"
 
 #: templates/organizations/signup_success.html:7
 msgid ""
 "¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
 "pronto nos pondremos en contacto contigo."
 msgstr ""
+"Hartelijk dank dat je je bij Show your Heart hebt aangesloten! We verwerken "
+"je aanvraag en nemen binnenkort contact met je op."
 
 #: templates/profile/details.html:11
 msgid "Your profile"
-msgstr ""
+msgstr "Uw profiel"
 
 #: templates/profile/details.html:13
 msgid "Here you can see and edit all your data."
-msgstr ""
+msgstr "Hier kunt u al uw gegevens bekijken en bewerken."
 
 #: templates/profile/details.html:30 templates/profile/details.html:69
 msgid "Warning!"
-msgstr ""
+msgstr "Waarschuwing!"
 
 #: templates/profile/details.html:31 templates/profile/details.html:70
 msgid "Your email is not verified. Before anything else, you must verify it."
@@ -1293,25 +1471,21 @@ msgstr ""
 
 #: templates/profile/details.html:33 templates/profile/details.html:72
 msgid "Verify email here."
-msgstr ""
+msgstr "Verifieer uw e-mailadres hier."
 
 #: templates/profile/details.html:58
 #: templates/registration/password_change_form.html:3
 #: templates/registration/password_change_form.html:6
 msgid "Password change"
-msgstr ""
+msgstr "Wachtwoord wijzigen"
 
 #: templates/profile/details.html:60
 msgid "Here you can change your password."
-msgstr ""
+msgstr "Hier kunt u uw wachtwoord wijzigen."
 
 #: templates/profile/details.html:82
 msgid "Change password"
-msgstr ""
-
-#: templates/projects/create_project.html:9
-msgid "Create Project"
-msgstr ""
+msgstr "Wachtwoord wijzigen"
 
 #: templates/projects/create_project_success.html:8
 msgid "Tu proyecto se ha creado con exito."
@@ -1319,19 +1493,19 @@ msgstr ""
 
 #: templates/registration/login.html:9
 msgid "Impact measurement to show your heart with pride"
-msgstr ""
+msgstr "Impactmeting om uw hart met trots te tonen"
 
 #: templates/registration/login.html:11
 msgid "Impact measurement can help you manage your impact"
-msgstr ""
+msgstr "Impactmeting kan u helpen uw impact te beheren"
 
 #: templates/registration/login.html:12
 msgid "Main benefits of Show your Heart"
-msgstr ""
+msgstr "Belangrijkste voordelen van Show Your Heart"
 
 #: templates/registration/login.html:14
 msgid "Helps you measure your impact by calculating relevant indicators."
-msgstr ""
+msgstr "Helpt u uw impact te meten door relevante indicatoren te berekenen."
 
 #: templates/registration/login.html:15
 msgid ""
@@ -1352,57 +1526,94 @@ msgstr ""
 
 #: templates/registration/login.html:30
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Wachtwoord vergeten?"
 
 #: templates/registration/login.html:36
 msgid "Start"
-msgstr ""
+msgstr "Starten"
 
 #: templates/registration/login.html:43
-msgid "Don’t have an account yet?"
-msgstr ""
+msgid "You do not have an account yet?"
+msgstr "Heeft u nog geen account?"
 
 #: templates/registration/password_reset_confirm.html:3
 #: templates/registration/password_reset_confirm.html:6
 msgid "Password recovery"
-msgstr ""
+msgstr "Wachtwoordherstel"
 
 #: templates/registration/password_reset_confirm.html:9
 msgid ""
 "Introduce your email. A link will be sent to this address so you can reset "
 "your password."
 msgstr ""
+"Vul uw e-mailadres in. Er wordt een link naar dit adres gestuurd zodat u uw "
+"wachtwoord kunt resetten."
 
 #: templates/registration/password_reset_form.html:3
 #: templates/registration/password_reset_form.html:6
 msgid "Password reset"
-msgstr ""
+msgstr "Wachtwoord resetten"
 
 #: templates/registration/privacy_policy.html:6
 #: templates/registration/privacy_policy.html:15
 msgid "Privacy policy"
-msgstr ""
+msgstr "Privacybeleid"
 
 #: templates/registration/send_verification_code.html:3
 #: templates/registration/send_verification_code.html:6
 #: templates/registration/user_validation.html:3
 #: templates/registration/user_validation.html:6
 msgid "Mail validation"
-msgstr ""
+msgstr "E-mailvalidatie"
 
 #: templates/registration/send_verification_code.html:12
 #: templates/registration/user_validation.html:12
 msgid ""
 "By clicking the button a verification code will be send to your email "
-"address. Check your email to find it."
+"address. Check your inbox to find it."
 msgstr ""
+"Door op de knop te klikken wordt er een verificatiecode naar uw e-mailadres "
+"gestuurd. Controleer uw inbox om deze te vinden."
 
 #: templates/registration/send_verification_code.html:18
 #: templates/registration/user_validation.html:18
 msgid "Send"
-msgstr ""
+msgstr "Verzenden"
 
 #: templates/registration/user_validation_confirm.html:3
 #: templates/registration/user_validation_confirm.html:6
 msgid "New password"
-msgstr ""
+msgstr "Nieuw wachtwoord"
+
+#~ msgid "active"
+#~ msgstr "actief"
+
+#~ msgid ""
+#~ "It's not possible to have multiple active Campaigns. Please, close the "
+#~ "current one before opening this one."
+#~ msgstr ""
+#~ "Het is niet mogelijk om meerdere actieve campagnes te hebben. Sluit de "
+#~ "huidige eerst voordat u een nieuwe opent."
+
+#~ msgid "fill/<id>"
+#~ msgstr "invullen/<id>"
+
+#~ msgid "Region3"
+#~ msgstr "Regio3"
+
+#~ msgid ""
+#~ "We use cookies to optimize your experience and to analyze the web "
+#~ "traffic. We don't sell data to\n"
+#~ "      third parties. If you continue navigating, we'll understand that "
+#~ "you are ok with that."
+#~ msgstr ""
+#~ "Wij gebruiken cookies om uw ervaring te optimaliseren en het webverkeer "
+#~ "te analyseren. Wij verkopen geen gegevens aan derde partijen. Als u "
+#~ "blijft navigeren, gaan we ervan uit dat u hiermee akkoord gaat."
+
+#~ msgid ""
+#~ "Not\n"
+#~ "                    applicable"
+#~ msgstr ""
+#~ "Niet\n"
+#~ "                    van toepassing"
