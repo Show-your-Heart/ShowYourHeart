@@ -58,17 +58,6 @@ class Command(BaseCommand):
                 },
             ),
             dict(
-                id="network_assigned",
-                translated_templates={
-                    "en": {
-                        "subject": "Network assigned on {{project_name}}",
-                        "body": open(
-                            "./templates/emails/en/network_assigned.html"
-                        ).read(),
-                    },
-                },
-            ),
-            dict(
                 id="welcome",
                 translated_templates={
                     "en": {

@@ -1,27 +1,6 @@
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from apps.methods.models import Campaign, Survey
-from apps.settings.models import Network
-from apps.users.services import send_network_assigned_mail
-
-
-def admin_assigned_view(request, id):
-    network = Network.objects.get(pk=id)
-    send_network_assigned_mail(network)
-    messages.success(
-        request,
-        _(
-            "An email has been sent to the user to inform that he is now "
-            " administrator of the network."
-        ),
-    )
-    return HttpResponseRedirect(
-        reverse_lazy("admin:settings_network_change", args=(network.id,))
-    )
 
 
 class WhatIsSocialBalanceView(TemplateView):
