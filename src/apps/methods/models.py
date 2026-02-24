@@ -58,7 +58,7 @@ class List(BaseModel):
     enable_others = models.BooleanField(
         _("Enable others response"), blank=False, default=False
     )
-    items = models.ManyToManyField(ListItem, related_name="items")
+    items = models.ManyToManyField(ListItem, related_name="lists")
 
     def __str__(self):
         return self.title
@@ -87,7 +87,7 @@ class Group(BaseModel):
     # enable_others = models.BooleanField(
     #     _("Enable others response"), blank=False, default=False
     # )
-    items = models.ManyToManyField(GroupItem, related_name="items")
+    items = models.ManyToManyField(GroupItem, related_name="groups")
 
     def __str__(self):
         return self.title

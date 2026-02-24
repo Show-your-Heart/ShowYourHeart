@@ -10,7 +10,8 @@ from django.urls import path, reverse
 from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
-from import_export import resources
+from import_export import fields, resources
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 
@@ -54,11 +55,16 @@ from .models import (
 from .views import BalanceReviewView
 
 
+class TopicResource(resources.ModelResource):
+    class Meta:
+        model = Topic
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Topic)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Topic)
-class TopicAdmin(ModelAdmin, TabbedTranslationAdmin):
+class TopicAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
     search_fields = ["name"]
     autocomplete_fields = ["parent"]
 
@@ -67,6 +73,8 @@ class TopicAdmin(ModelAdmin, TabbedTranslationAdmin):
         "description",
         "parent",
     )
+
+    resource_classes = [TopicResource]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -77,6 +85,30 @@ class TopicAdmin(ModelAdmin, TabbedTranslationAdmin):
 
 
 class IndicatorResource(resources.ModelResource):
+    topic_names = fields.Field(
+        column_name="topic_names",
+        attribute="topics",
+        widget=ManyToManyWidget(Topic, field="name", separator="|"),
+    )
+
+    list_title = fields.Field(
+        column_name="list_title",
+        attribute="list_options",
+        widget=ForeignKeyWidget(List, field="title"),
+    )
+
+    group_title = fields.Field(
+        column_name="group_title",
+        attribute="group",
+        widget=ForeignKeyWidget(Group, field="title"),
+    )
+
+    group_2_title = fields.Field(
+        column_name="group_2_title",
+        attribute="group_2",
+        widget=ForeignKeyWidget(Group, field="title"),
+    )
+
     class Meta:
         model = Indicator
 
@@ -235,15 +267,22 @@ class MethodAdmin(
         )
 
 
+class GroupResource(resources.ModelResource):
+    class Meta:
+        model = Group
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Group)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Group)
-class GroupAdmin(ModelAdmin, TabbedTranslationAdmin):
+class GroupAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
 
     list_display = ("title",)
+
+    resource_classes = [GroupResource]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -253,14 +292,27 @@ class GroupAdmin(ModelAdmin, TabbedTranslationAdmin):
         )
 
 
+class GroupItemResource(resources.ModelResource):
+    group_titles = fields.Field(
+        column_name="group_titles",
+        attribute="groups",
+        widget=ManyToManyWidget(Group, field="title", separator="|"),
+    )
+
+    class Meta:
+        model = GroupItem
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=GroupItem)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=GroupItem)
-class GroupItemAdmin(ModelAdmin, TabbedTranslationAdmin):
+class GroupItemAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
     search_fields = ["title", "suffix"]
 
     list_display = ("title",)
+
+    resource_classes = [GroupItemResource]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -269,15 +321,22 @@ class GroupItemAdmin(ModelAdmin, TabbedTranslationAdmin):
         )
 
 
+class ListResource(resources.ModelResource):
+    class Meta:
+        model = List
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=List)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=List)
-class ListAdmin(ModelAdmin, TabbedTranslationAdmin):
+class ListAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
 
     list_display = ("title",)
+
+    resource_classes = [ListResource]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -286,14 +345,27 @@ class ListAdmin(ModelAdmin, TabbedTranslationAdmin):
         )
 
 
+class ListItemResource(resources.ModelResource):
+    list_titles = fields.Field(
+        column_name="list_titles",
+        attribute="lists",
+        widget=ManyToManyWidget(List, field="title", separator="|"),
+    )
+
+    class Meta:
+        model = ListItem
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=ListItem)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=ListItem)
-class ListItemAdmin(ModelAdmin, TabbedTranslationAdmin):
+class ListItemAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
     search_fields = ["title"]
 
     list_display = ("title",)
+
+    resource_classes = [ListItemResource]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(

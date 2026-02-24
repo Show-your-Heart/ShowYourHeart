@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import path
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
+from import_export import resources
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from apps.methods.models import Method
@@ -12,21 +13,34 @@ from apps.users.services import (
     send_rejected_mail,
     send_welcome_mail,
 )
-from project.admin import ModelAdmin, gov_admin_site
+from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 from project.mixins import NetworkFilterMixin
 
-from .forms import OrganizationAdminForm
+from .forms import OrganizationAdminExportForm, OrganizationAdminForm
 from .helpers import filter_methods_by_legal_structure
 from .models import Organization, Project
 from .views import RegistrationRequestView
+
+
+class OrganizationResource(resources.ModelResource):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.region1_id = kwargs.get("region1_id")
+
+    def filter_export(self, queryset, **kwargs):
+        return queryset.filter(region1_id=self.region1_id)
+
+    class Meta:
+        model = Organization
+        # fields = ('id', 'name', 'price',)
 
 
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Organization)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Organization)
-class OrganizationAdmin(NetworkFilterMixin, ModelAdmin):
+class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
     form = OrganizationAdminForm
     list_display = ("name", "status", "resolution_date")
     filter_horizontal = ("methods",)
@@ -34,6 +48,15 @@ class OrganizationAdmin(NetworkFilterMixin, ModelAdmin):
     list_filter = [("status", ChoicesDropdownFilter)]
     autocomplete_fields = ["country", "region1", "city"]
     search_fields = ["name"]
+
+    resource_classes = [OrganizationResource]
+    export_form_class = OrganizationAdminExportForm
+
+    def get_export_resource_kwargs(self, request, **kwargs):
+        export_form = kwargs.get("export_form")
+        if export_form:
+            kwargs.update(region1_id=export_form.cleaned_data["region1"].id)
+        return kwargs
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
