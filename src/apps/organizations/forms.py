@@ -25,6 +25,12 @@ class OrganizationSignUpForm(forms.ModelForm):
         label=_("Organisation name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
+    description = forms.CharField(
+        label=_("Organization description"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Description")}
+        ),
+    )
     vat_number = forms.CharField(
         label=_("VAT Number"),
         widget=forms.TextInput(
@@ -53,7 +59,6 @@ class OrganizationSignUpForm(forms.ModelForm):
     country = forms.ModelChoiceField(
         label=_("Country"),
         queryset=Country.objects.all(),
-        required=False,
         widget=forms.Select(
             attrs={
                 "hx-get": reverse_lazy("organizations:load_region1"),
@@ -75,13 +80,14 @@ class OrganizationSignUpForm(forms.ModelForm):
             }
         ),
     )
-    city = forms.ModelChoiceField(
-        label=_("City"), queryset=City.objects.all(), required=False
-    )
+    city = forms.ModelChoiceField(label=_("City"), queryset=City.objects.all())
     address = forms.CharField(
         label=_("Address"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Address")}),
-        required=False,
+    )
+    zip_code = forms.CharField(
+        label=_("Zip code"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Zip code")}),
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
@@ -118,6 +124,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         }
         fields = (
             "name",
+            "description",
             "logo",
             "vat_number",
             "contact_name",
@@ -127,6 +134,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "country",
             "region1",
             "city",
+            "zip_code",
             "address",
             "legal_structure",
             "methods",

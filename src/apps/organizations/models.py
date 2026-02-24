@@ -25,6 +25,7 @@ class Organization(BaseModel):
         )
 
     name = models.CharField(_("name"), max_length=150)
+    description = models.CharField(_("description"), max_length=400)
     logo = models.FileField(upload_to="logos/", null=True, blank=True)
     vat_number = models.CharField(_("vat number"), max_length=30)
     website = models.CharField(_("website"), max_length=300, blank=True, default="")
@@ -38,6 +39,11 @@ class Organization(BaseModel):
         "geodata.city", on_delete=models.CASCADE, blank=False, null=True
     )
     address = models.CharField(_("address"), max_length=200, blank=True)
+    zip_code = models.ForeignKey(
+        "geodata.zipcode", on_delete=models.CASCADE, blank=False, null=True
+    )
+    longitude = models.CharField(_("longitude"), max_length=300, blank=True)
+    latitude = models.CharField(_("latitude"), max_length=300, blank=True)
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )

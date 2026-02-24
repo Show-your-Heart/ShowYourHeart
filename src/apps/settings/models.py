@@ -22,6 +22,7 @@ class Network(BaseModel):
     parent_network = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.RESTRICT
     )
+    network_type = models.CharField(_("network type"), max_length=100)
     campaigns = models.ManyToManyField(Campaign, related_name="networks")
     methods = models.ManyToManyField(Method, related_name="networks")
     organizations = models.ManyToManyField(Organization, related_name="networks")
