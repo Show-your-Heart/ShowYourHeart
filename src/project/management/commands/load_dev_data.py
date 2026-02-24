@@ -8,11 +8,7 @@ from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from apps.geodata.models import (
-    City,
-    Country,
-    Region1,
-)
+from apps.geodata.models import City, Country, Region1, ZipCode
 from apps.methods.models import Campaign, Indicator, Method, Topic
 from apps.organizations.models import Organization
 from apps.settings.models import LegalStructure, Network
@@ -32,6 +28,8 @@ class Command(BaseCommand):
     COUNTRY_NAME = "Spain"
     REGION1_NAME = "Galicia"
     CITY_NAME = "Pontevedra"
+    ZIPCODE = "36002"
+    ADDRESS = "Michelena 11"
 
     def handle(self, *args, **options):
         if not settings.DEBUG:
@@ -44,14 +42,20 @@ class Command(BaseCommand):
         country = self.create_sample_country()
         region1 = self.create_sample_region1()
         city = self.create_sample_city()
+        address = self.ADDRESS
+        zip_code = self.create_sample_zipcode()
         network = self.create_sample_network()
         topics = self.create_sample_topics()
         indicators = self.create_sample_indicators(topics)
         methods = self.create_sample_methods(legal_structure, indicators, network)
         self.create_sample_campaign(methods)
-        self.create_sample_users(legal_structure, country, region1, city, methods)
+        self.create_sample_users(
+            legal_structure, country, region1, city, address, zip_code, methods
+        )
 
-    def create_sample_users(self, legal_structure, country, region1, city, methods):
+    def create_sample_users(
+        self, legal_structure, country, region1, city, address, zip_code, methods
+    ):
         self.stdout.write(_("Creating sample users..."))
 
         # Superuser
@@ -70,7 +74,7 @@ class Command(BaseCommand):
             self.stdout.write(_("Superuser already exists."))
 
         self.create_users_with_organization(
-            legal_structure, country, region1, city, methods
+            legal_structure, country, region1, city, address, zip_code, methods
         )
 
         return 0
@@ -111,7 +115,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def create_users_with_organization(
-        self, legal_structure, country, region1, city, methods
+        self, legal_structure, country, region1, city, address, zip_code, methods
     ):
         # Governance admin
         email = settings.USER_GOV_ADMIN_EMAIL
@@ -135,7 +139,14 @@ class Command(BaseCommand):
             )
 
             organizations = self.create_sample_organizations(
-                user, legal_structure, country, region1, city, methods
+                user,
+                legal_structure,
+                country,
+                region1,
+                city,
+                address,
+                zip_code,
+                methods,
             )
 
             user.user_profile = UserProfile.objects.create(
@@ -172,12 +183,12 @@ class Command(BaseCommand):
             self.stdout.write(_("User already exists."))
 
     def create_sample_organizations(
-        self, user, legal_structure, country, region1, city, methods
+        self, user, legal_structure, country, region1, city, address, zip_code, methods
     ):
         organizations = []
         self.stdout.write(_("Creating sample organizations..."))
-
         for org_name in self.ORGANIZATION_NAMES:
+            self.stdout.write(_(org_name))
             if not Organization.objects.filter(name=org_name).exists():
                 org = Organization.objects.create(
                     name=org_name,
@@ -187,6 +198,8 @@ class Command(BaseCommand):
                     country=country,
                     region1=region1,
                     city=city,
+                    zip_code=zip_code,
+                    address=address,
                     status=1,
                     legal_structure=legal_structure,
                     resolution_date=timezone.now(),
@@ -288,6 +301,20 @@ class Command(BaseCommand):
             city = city_qs.first()
 
         return city
+
+    def create_sample_zipcode(self):
+        self.stdout.write(_("Creating sample zipcode..."))
+        zipcode_qs = ZipCode.objects.filter(code=self.ZIPCODE)
+
+        if not zipcode_qs.exists():
+            zip_code = ZipCode.objects.create(
+                code=self.ZIPCODE,
+            )
+        else:
+            self.stdout.write(_("Zip code already exists."))
+            zip_code = zipcode_qs.first()
+
+        return zip_code
 
     def create_sample_region1(self):
         self.stdout.write(_("Creating sample Region1..."))
