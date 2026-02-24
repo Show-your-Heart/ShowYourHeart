@@ -7,13 +7,11 @@ from apps.settings.views import (
     GoodPracticesView,
     ResourcesView,
     WhatIsSocialBalanceView,
-    admin_assigned_view,
 )
 
 app_name = "settings"
 urlpatterns = [
     # Settings
-    path(_("admin-assigned/<id>"), admin_assigned_view, name="admin_assigned"),
     path(
         _("what-is-social-balance"),
         WhatIsSocialBalanceView.as_view(),
