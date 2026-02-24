@@ -12,6 +12,8 @@ from .views import (
     invitation_sent_view,
     invitations_sent_view,
     load_ext_surveys,
+    survey_reminder_view,
+    user_survey_reminder_view,
 )
 
 app_name = "methods"
@@ -55,5 +57,15 @@ urlpatterns = [
         _("preview/<uuid:method_id>/"),
         MethodPreviewView.as_view(),
         name="method_preview",
+    ),
+    path(
+        _("survey-reminder-send"),
+        survey_reminder_view,
+        name="survey_reminder_email",
+    ),
+    path(
+        _("user-survey-reminder-send/<uuid:survey_id>"),
+        user_survey_reminder_view,
+        name="user_survey_reminder_email",
     ),
 ]

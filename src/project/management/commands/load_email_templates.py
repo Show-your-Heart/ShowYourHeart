@@ -99,6 +99,28 @@ class Command(BaseCommand):
                     },
                 },
             ),
+            dict(
+                id="survey_reminder",
+                translated_templates={
+                    "en": {
+                        "subject": "Remainder to finish your current survey",
+                        "body": open(
+                            "./templates/emails/en/survey_reminder.html",
+                        ).read(),
+                    },
+                },
+            ),
+            dict(
+                id="user_survey_reminder",
+                translated_templates={
+                    "en": {
+                        "subject": "Remainder to finish your current survey",
+                        "body": open(
+                            "./templates/emails/en/user_survey_reminder.html",
+                        ).read(),
+                    },
+                },
+            ),
         ]
 
         for template in templates:
