@@ -77,3 +77,15 @@ tr.htmx-swapping td {
 div[drawer-backdrop=""] {
     z-index: 50;
 }
+
+.indicator label span a,
+.indicator .drawer-description a {
+    color: var(--color-blue-500);
+    text-decoration: underline;
+}
+
+.indicator label span a:hover,
+.indicator .drawer-description a:hover {
+    color: var(--color-blue-700);
+    text-decoration: none;
+}

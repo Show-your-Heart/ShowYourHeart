@@ -2,10 +2,10 @@ from django import forms
 from django.conf import settings
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
     UnfoldAdminSelectWidget,
-    UnfoldAdminTextareaWidget,
     UnfoldAdminTextInputWidget,
 )
 
@@ -225,5 +225,6 @@ class IndicatorForm(forms.ModelForm):
         fields = "__all__"  # noqa: DJ007
 
         widgets = {
-            "description": UnfoldAdminTextareaWidget,
+            "name": WysiwygWidget,
+            "description": WysiwygWidget,
         }
