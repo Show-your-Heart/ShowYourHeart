@@ -12,9 +12,7 @@
     <form id="changelist-search" method="get">
         <div class="mb-2 bg-white border border-base-200 flex flex-row items-center px-3 rounded-default relative shadow-xs w-full focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary-600 lg:w-96">
             <button type="submit" class="flex items-center focus:outline-hidden" id="searchbar-submit">
-                <span class="material-symbols-outlined md-18 text-base-400">
-                    {% trans 'search' %}
-                </span>
+                <span class="material-symbols-outlined md-18 text-base-400">search</span>
             </button>
             <input type="text" class="grow font-medium min-w-0 overflow-hidden p-2 placeholder-font-subtle-light truncate focus:outline-hidden" name="q" value="{{ query_filter }}" id="searchbar" placeholder="{% trans 'Type to search' %}">
         </div>

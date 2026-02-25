@@ -378,7 +378,7 @@ class ListItemAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
 @register_with_default_templates(admin.site, model=Campaign)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Campaign)
-class CampaignAdmin(NetworkFilterMixin, ModelAdmin):
+class CampaignAdmin(NetworkFilterMixin, ModelAdmin, TabbedTranslationAdmin):
     list_display = (
         "year",
         "name",

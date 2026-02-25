@@ -49,7 +49,13 @@ class OrganizationSignUpForm(forms.ModelForm):
     )
     contact_mail = forms.CharField(
         label=_("Email address of the contact person"),
-        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Email")}),
+        widget=forms.EmailInput(
+            attrs={
+                "autofocus": True,
+                "placeholder": _("Email"),
+                "autocomplete": "email",
+            }
+        ),
     )
     website = forms.CharField(
         label=_("Website"),

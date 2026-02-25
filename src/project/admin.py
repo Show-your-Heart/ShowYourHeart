@@ -489,13 +489,16 @@ class GovAdminSite(UnfoldAdminSite):
             # USERS INSIDE SETTINGS
             if "Users" in apps_dict:
                 users_app = apps_dict["Users"]
-                items.append(
-                    {
-                        "name": users_app.get("name", _("Users")),
-                        "url": users_app["app_url"],
-                        "is_active": self.is_app_active(users_app, request),
-                    }
-                )
+                models = users_app.get("models_dict", {})
+
+                if "User" in models:
+                    items.append(
+                        {
+                            "name": models["User"]["name"],
+                            "url": models["User"]["admin_url"],
+                            "is_active": self.is_model_active(models["User"], request),
+                        }
+                    )
 
             if items:
                 main_menu.append(
@@ -503,7 +506,8 @@ class GovAdminSite(UnfoldAdminSite):
                         "name": _("Settings"),
                         "icon": "cog",
                         "url": settings_app["app_url"],
-                        "is_active": self.is_app_active(settings_app, request),
+                        "is_active": self.is_app_active(settings_app, request)
+                        or relative_path in "users",
                         "items": items,
                     }
                 )
