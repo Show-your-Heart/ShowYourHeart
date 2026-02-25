@@ -222,11 +222,11 @@ msgstr "ºC"
 
 #: apps/methods/models.py:123
 msgid "days"
-msgstr "Días"
+msgstr "días"
 
 #: apps/methods/models.py:124
 msgid "points"
-msgstr "Ppuntos"
+msgstr "puntos"
 
 #: apps/methods/models.py:125
 msgid "KWh"

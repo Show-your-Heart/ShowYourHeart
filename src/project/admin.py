@@ -16,6 +16,7 @@ from unfold.admin import ModelAdmin as BaseModelAdmin
 from unfold.contrib.import_export.forms import ExportForm, ImportForm
 from unfold.sites import UnfoldAdminSite
 
+from apps.methods.models import Survey
 from apps.organizations.models import Organization
 from project.decorators import gov_admin_register
 
@@ -514,6 +515,9 @@ class GovAdminSite(UnfoldAdminSite):
         extra_context = extra_context or {}
         extra_context["pending_registrations_requests"] = Organization.objects.filter(
             status=Organization.Status.PENDING
+        ).count()
+        extra_context["pending_balance_reviews"] = Survey.objects.filter(
+            status=Survey.Status.CLOSED
         ).count()
         return super().index(request, extra_context)
 
