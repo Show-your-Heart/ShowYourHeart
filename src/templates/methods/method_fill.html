@@ -2,7 +2,7 @@
 {% load template_helpers %}
 
 
-<c-default-layout pageTitle={% translate 'Form' %} :fixedHeader="True">
+<c-default-layout pageTitle="{% translate 'Form' %}" :fixedHeader="True">
 
   <c-slot name="extra_js">
     {{ indicators|json_script:"indicators" }}
