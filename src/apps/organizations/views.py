@@ -155,8 +155,8 @@ class RegistrationRequestView(
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        organizations = Organization.objects.all().exclude(
-            status=Organization.Status.ACCEPTED
+        organizations = Organization.objects.all().filter(
+            status=Organization.Status.PENDING
         )
         if "q" in self.request.GET:
             query_filter = self.request.GET["q"]
