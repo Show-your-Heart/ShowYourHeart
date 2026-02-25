@@ -8,6 +8,8 @@ from apps.users.models import UserProfile
 from apps.users.services import send_welcome_mail
 from project.models import BaseModel
 
+from .helpers import get_coordinates_from_address
+
 
 class Organization(BaseModel):
     class Status(models.IntegerChoices):
@@ -25,6 +27,7 @@ class Organization(BaseModel):
         )
 
     name = models.CharField(_("name"), max_length=150)
+    description = models.CharField(_("description"), max_length=400)
     logo = models.FileField(upload_to="logos/", null=True, blank=True)
     vat_number = models.CharField(_("vat number"), max_length=30)
     website = models.CharField(_("website"), max_length=300, blank=True, default="")
@@ -37,7 +40,12 @@ class Organization(BaseModel):
     city = models.ForeignKey(
         "geodata.city", on_delete=models.CASCADE, blank=False, null=True
     )
-    address = models.CharField(_("address"), max_length=200, blank=True)
+    address = models.CharField(_("address"), max_length=200)
+    zip_code = models.ForeignKey(
+        "geodata.zipcode", on_delete=models.CASCADE, blank=False, null=True
+    )
+    longitude = models.CharField(_("longitude"), max_length=300, blank=True)
+    latitude = models.CharField(_("latitude"), max_length=300, blank=True)
     status = models.PositiveSmallIntegerField(
         choices=Status.choices, default=Status.PENDING
     )
@@ -57,6 +65,12 @@ class Organization(BaseModel):
     bs_allow_public = models.BooleanField(
         _("Allow infographics to be public"), blank=True, null=True
     )
+    sectors = models.ManyToManyField(
+        "settings.Sector",
+        verbose_name=_("Sectors"),
+        related_name="organization_sectors",
+        blank=True,
+    )
 
     def __str__(self):
         return self.name
@@ -70,6 +84,25 @@ class Organization(BaseModel):
             profile = UserProfile.objects.filter(organization=self).first()
             if profile and not profile.user.email_verified:
                 send_welcome_mail(profile.user)
+
+        full_address = ", ".join(
+            filter(
+                None,
+                [
+                    self.address,
+                    str(self.city),
+                    str(self.region1),
+                    str(self.zip_code),
+                ],
+            )
+        )
+
+        coords = get_coordinates_from_address(full_address)
+
+        if coords:
+            lat, lng = coords
+            self.latitude = lat
+            self.longitude = lng
 
 
 @receiver(pre_save, sender=Organization)
