@@ -52,7 +52,9 @@ const initFieldData = () => {
                 this.isValid = {}
             }
             this.value = this.loadInitialValue(indicatorResults?.value ?? null)
-            // this.placeholder = this.loadInitialPlaceholder(initialPlaceholder, indicator.data_type)
+            if (this.placeholder == null) {
+                this.placeholder = this.loadInitialValue(null)
+            }
             this.indicatorsStore.shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
