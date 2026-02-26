@@ -86,12 +86,16 @@ const initIndicatorsStore = () => {
                 Alpine.store("survey").setIndicatorValidation(field.id, true)
                 return result
             }
-            if (!field.validation && field.value != null && field.value != "" && !(field.value instanceof Object)) {
+            // Simple fields without validation expression are true when a value is assigned
+            if (
+                (!field.validation && field.value != null && field.value != "" && !(field.value instanceof Object)) ||
+                (!field.validation && field.value instanceof Object && !field.isGroupIndicator && field.value.value)
+            ) {
                 Alpine.store("survey").setIndicatorValidation(field.id, true)
                 return result
             }
             try {
-                if (typeof field.value === 'object' && !Array.isArray(field.value) && field.value !== null) {
+                if (field.isGroupIndicator && !Array.isArray(field.value) && field.value !== null) {
                     // Validate lists and tables
                     const indicator = this.indicators.find(i => i.id == field.id)
                     result.isValid = field.isValid

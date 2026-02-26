@@ -73,6 +73,7 @@ const initFieldData = () => {
                 validation: this.validation,
                 notApplicable: this.notApplicable,
                 isValid: this.isValid,
+                isGroupIndicator: this.isGroupIndicator,
             }
             const { isValid, isFieldValid } = this.indicatorsStore.validateField(field)
             this.isValid = isValid
@@ -162,8 +163,9 @@ const initFieldData = () => {
                     code: suffix == "" ? this.code : suffix2 == "" ? `${this.code}_${suffix}` : `${this.code}_${suffix}_${suffix2}`,
                     value: this.value,
                     validation: this.validation,
-                    isValid: this.isValid,
                     notApplicable: this.notApplicable,
+                    isValid: this.isValid,
+                    isGroupIndicator: this.isGroupIndicator,
                 }
                 const { isValid, isFieldValid } = this.indicatorsStore.validateField(field, this.isGroupIndicator)
                 this.isValid = isValid
