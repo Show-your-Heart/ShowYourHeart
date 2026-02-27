@@ -1542,7 +1542,7 @@ msgstr ""
 
 #: templates/registration/login.html:16
 msgid ""
-"Facilitates certification pr2ocesses with your network of social enterprises."
+"Facilitates certification processes with your network of social enterprises."
 msgstr ""
 
 #: templates/registration/login.html:17

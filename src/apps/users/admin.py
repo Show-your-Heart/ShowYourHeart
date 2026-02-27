@@ -8,9 +8,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
-from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin, StackedInline
 
-from apps.users.forms import UserModelInlineForm
 from apps.users.models import User, UserProfile
 from project.admin import ModelAdminMixin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
@@ -33,31 +32,15 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-class UserProfileInline(admin.StackedInline):
+class UserProfileInline(StackedInline):
     model = UserProfile
     verbose_name_plural = "User Profile"
     fk_name = "user"
     extra = 0
-    fields = (
-        "telephone",
-        "organization",
-    )
+    autocomplete_fields = ["organization"]
     can_delete = False
     tab = True  # Display the profile information on a new tab
     hide_title = True
-    form = UserModelInlineForm
-    ordering_field = "telephone"
-
-    def get_readonly_fields(self, request, obj=None):
-        # Don't allow editing until the User exists
-        readonly_fields = list(self.readonly_fields)
-        if not obj:
-            readonly_fields.extend(
-                [
-                    "telephone",
-                ]
-            )
-        return readonly_fields
 
 
 # Add superadmin views with default Unfold templates

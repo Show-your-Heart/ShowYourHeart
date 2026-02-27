@@ -20,10 +20,8 @@ from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from extra_settings.models import Setting
-from unfold.widgets import UnfoldAdminSelectWidget, UnfoldAdminTextInputWidget
 
-from apps.organizations.models import Organization
-from apps.users.models import User, UserProfile
+from apps.users.models import User
 from project.helpers import absolute_url
 from project.post_office import send
 
@@ -237,20 +235,3 @@ class EmailVerificationCodeForm(forms.Form):
 
 class SendVerificationCodeForm(forms.Form):
     pass
-
-
-class UserModelInlineForm(forms.ModelForm):
-    # Without this form the styles of the inputs are not applied
-    telephone = forms.CharField(widget=UnfoldAdminTextInputWidget, required=False)
-    organization = forms.ModelChoiceField(
-        widget=UnfoldAdminSelectWidget,
-        required=True,
-        queryset=Organization.objects.all(),
-    )
-
-    class Meta(UserCreationForm.Meta):
-        model = UserProfile
-        fields = (
-            "telephone",
-            "organization",
-        )

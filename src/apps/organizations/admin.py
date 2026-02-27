@@ -47,7 +47,7 @@ class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
     filter_horizontal = ("methods",)
     readonly_fields = ("contact", "resolution_date", "network")
     list_filter = [("status", ChoicesDropdownFilter)]
-    autocomplete_fields = ["country", "region1", "city", "sectors"]
+    autocomplete_fields = ["country", "region1", "city", "sectors", "zip_code"]
     search_fields = ["name"]
 
     resource_classes = [OrganizationResource]

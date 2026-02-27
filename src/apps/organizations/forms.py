@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from import_export.forms import ExportForm
-from unfold.widgets import UnfoldAdminSelectWidget
+from unfold.widgets import UnfoldAdminSelect2Widget
 
 from apps.geodata.models import City, Country, Region1, ZipCode
 from apps.methods.models import Method
@@ -217,8 +217,8 @@ class OrganizationAdminForm(forms.ModelForm):
         model = Organization
         fields = "__all__"  # noqa: DJ007
         widgets = {
-            "legal_structure": UnfoldAdminSelectWidget(attrs=htmx_attrs),
-            "region1": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+            "legal_structure": UnfoldAdminSelect2Widget(attrs=htmx_attrs),
+            "region1": UnfoldAdminSelect2Widget(attrs=htmx_attrs),
         }
 
 
