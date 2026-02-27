@@ -1,7 +1,8 @@
 <c-methods.base-field>
     <div class="flex gap-4">
         <select :id="`question_${id}`" :name="`question_${id}`"
-            class="bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:cursor-default"
+            class="bg-gray-50 cursor-pointer border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:cursor-default"
+            :class="hasErrors ? 'border-red-600' : 'border-gray-300'"
             {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable">
             {% for group, options, index in widget.optgroups %}
                 {% for option in options %}
@@ -13,5 +14,8 @@
                 {% endfor %}
             {% endfor %}
         </select> <span class="flex items-center" x-text="unit"></span>
+    </div>
+    <div class="text-red-600" x-show="hasErrors">
+        <p x-text="error"></p>
     </div>
 </c-methods.base-field>
