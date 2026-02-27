@@ -8,6 +8,7 @@ from import_export import resources
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
 from apps.methods.models import Method
+from apps.settings.models import Network
 from apps.users.models import UserProfile
 from apps.users.services import (
     send_rejected_mail,
@@ -44,7 +45,7 @@ class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
     form = OrganizationAdminForm
     list_display = ("name", "status", "resolution_date")
     filter_horizontal = ("methods",)
-    readonly_fields = ("contact", "resolution_date")
+    readonly_fields = ("contact", "resolution_date", "network")
     list_filter = [("status", ChoicesDropdownFilter)]
     autocomplete_fields = ["country", "region1", "city", "sectors"]
     search_fields = ["name"]
@@ -130,6 +131,13 @@ class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
                 + user_profile.first().user.name
                 + ")"
             )
+        else:
+            return "-"
+
+    def network(self, obj):
+        network = Network.objects.filter(organizations__id__contains=obj.id)
+        if network:
+            return network.first().name
         else:
             return "-"
 
