@@ -11,10 +11,10 @@
     <h1 class="mb-2 text-black font-bold text-2xl">{% trans 'Balance review'%}</h1>
     <div class="mb-4 flex justify-between items-center">
         <h2 class="text-black text-lg">{% trans 'Simple balance'%}</h2>
-        <c-button class="flex justify-center items-center gap-2" variant="outlined">
+        {% comment %} <c-button class="flex justify-center items-center gap-2" variant="outlined">
             <c-icon name="download"></c-icon>
             {% trans 'Download data' %}
-        </c-button>
+        </c-button> {% endcomment %}
     </div>
 
     <form id="balance-filter" method="GET" class="flex flex-col space-y-2">
@@ -64,63 +64,64 @@
             </div>
         </div>
     </form>
-        <div
-            class="lg:rounded-default -mx-1 px-1 overflow-x-auto lg:border lg:border-base-200 lg:mx-0 lg:px-0 lg:shadow-xs">
-            <table id="result_list" class="block border-base-200 border-spacing-none border-separate w-full lg:table">
-                <thead>
-                    <tr>
-                        <c-table.header>
-                            <input type="checkbox" name="action-toggle" id="action-toggle"
-                                aria-label="Seleccione todos los objetos de esta página para una acción"
-                                class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 checked:bg-primary-600 checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 ">
-                            <span class="block font-normal lg:hidden">
-                                {% trans 'Select all rows' %}
-                            </span>
-                        </c-table.header>
-                        {% comment %} Download btn {% endcomment %}
-                        <c-table.header></c-table.header>
-                        {% comment %} Edit btn {% endcomment %}
-                        <c-table.header></c-table.header>
-                        {% comment %} Info btn {% endcomment %}
-                        <c-table.header></c-table.header>
-                        <c-table.header>
-                            {% trans 'Status' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'Answers' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'NIF' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'Name' %} 
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'Project' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'Contact' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'External surveys' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'Start date' %}
-                        </c-table.header>
-                        <c-table.header>
-                            {% trans 'End date' %}
-                        </c-table.header>
+    <div
+        class="lg:rounded-default -mx-1 px-1 overflow-x-auto lg:border lg:border-base-200 lg:mx-0 lg:px-0 lg:shadow-xs">
+        <table id="result_list" class="block border-base-200 border-spacing-none border-separate w-full lg:table">
+            <thead>
+                <tr>
+                    <c-table.header>
+                        <input type="checkbox" name="action-toggle" id="action-toggle"
+                            aria-label="Seleccione todos los objetos de esta página para una acción"
+                            class="appearance-none bg-white block border border-base-300 cursor-pointer h-4 min-w-4 relative rounded-[4px] shadow-xs w-4 hover:border-base-400 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 after:absolute after:content-['done'] after:flex! after:h-4 after:items-center after:justify-center after:leading-none after:material-symbols-outlined after:-ml-px after:-mt-px after:text-sm! after:text-white after:transition-all after:w-4 checked:bg-primary-600 checked:border-primary-600 checked:transition-all checked:hover:border-primary-600 ">
+                        <span class="block font-normal lg:hidden">
+                            {% trans 'Select all rows' %}
+                        </span>
+                    </c-table.header>
+                    {% comment %} Download btn {% endcomment %}
+                    <c-table.header></c-table.header>
+                    {% comment %} Edit btn {% endcomment %}
+                    <c-table.header></c-table.header>
+                    {% comment %} Info btn {% endcomment %}
+                    <c-table.header></c-table.header>
+                    <c-table.header>
+                        {% trans 'Status' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'Answers' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'NIF' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'Name' %} 
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'Project' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'Contact' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'External surveys' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'Start date' %}
+                    </c-table.header>
+                    <c-table.header>
+                        {% trans 'End date' %}
+                    </c-table.header>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for survey in object_list %}
-                      <c-methods.survey-review-row :survey="survey" />
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                </tr>
+            </thead>
+            <tbody>
+                {% for survey in object_list %}
+                    <c-methods.survey-review-row :survey="survey" />
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+    {% comment %} Edit survey modal {% endcomment %}
     <c-modals.base-modal 
         x-data="{ titleDetails: '' }" id="edit-survey-modal" 
         @show-modal.window="if($event.detail.id == 'edit-survey-modal'){ FlowbiteInstances.getAllInstances().Modal['edit-survey-modal'].show(); titleDetails = $event.detail.titleDetails; }" 
@@ -134,6 +135,7 @@
         </c-slot>
     </c-modals.base-modal>
 
+    {% comment %} Info of pending errors in survey modal {% endcomment %}
     {% comment %} Add hidden button to trigger Flowbite init {% endcomment %}
     <button class="hidden" data-modal-target="survey-errors-modal"></button>
     <c-modals.base-modal 

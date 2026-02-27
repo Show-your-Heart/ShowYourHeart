@@ -25,7 +25,7 @@ urlpatterns = [
         name="method_fill",
     ),
     path(
-        _("external-survey/<id>"),  # invitation.token
+        _("external-survey/<token>"),  # invitation.token
         ExternalMethodFillView.as_view(),
         name="external_method_fill",
     ),
