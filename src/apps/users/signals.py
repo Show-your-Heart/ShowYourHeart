@@ -46,6 +46,8 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("method", "vacd")
         + get_permission_codenames("list", "vacd")
         + get_permission_codenames("listitem", "vacd")
+        + get_permission_codenames("group", "vacd")
+        + get_permission_codenames("groupitem", "vacd")
         + get_permission_codenames("campaign", "vacd")
         + get_permission_codenames("externalsurveyinvitation", "vacd")
         + get_permission_codenames("invitation", "vacd")
@@ -64,10 +66,15 @@ def update_user_groups(sender, **kwargs):
         "organizations": get_permission_codenames("organization", "v")
         + get_permission_codenames("project", "v"),
         "methods": get_permission_codenames("method", "v")
-        + get_permission_codenames("campaign", "v")
+        + get_permission_codenames("section", "v")
+        + get_permission_codenames("campaign", "vacd")
         + get_permission_codenames("indicator", "v")
+        + get_permission_codenames("list", "v")
+        + get_permission_codenames("listitem", "v")
+        + get_permission_codenames("group", "v")
+        + get_permission_codenames("groupitem", "v")
+        + get_permission_codenames("topic", "v")
         + get_permission_codenames("externalsurveyinvitation", "v"),
-        "settings": get_permission_codenames("network", "v"),
         "users": get_permission_codenames("user", "v"),
     }
     create_group(settings.GROUPS["network_admin"]["name"], permissions_network)
