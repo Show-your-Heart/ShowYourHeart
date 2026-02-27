@@ -249,9 +249,13 @@ const initIndicatorsStore = () => {
                 let indicator = this.indicators[index]
                 if (indicator.is_direct_indicator) {
                     const show = indicator.condition == "" || this.isVisible(indicator)
-                    const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                    Alpine.$data(fieldEl).show = show
-                    Alpine.$data(fieldEl).notApplicable = !show
+                    if (!show) {
+                        this.updateIndicatorResultNa(code, !show, true)
+                    } else {
+                        const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                        Alpine.$data(fieldEl).show = show
+                        Alpine.$data(fieldEl).notApplicable = !show
+                    }
                 } else {
                     const value = this.evaluateExpression(indicator.formula, indicator.code)
                     if (value != null) {
@@ -261,15 +265,23 @@ const initIndicatorsStore = () => {
                 }
             }
         },
-        updateIndicatorResultNa(code, value) {
+        updateIndicatorResultNa(code, value, hide = false) {
             const index = this.indicators.findIndex(i => i.code == code)
             if (index != -1) {
+                let indicator = this.indicators[index]
                 this.indicators[index].not_applicable = value
-                /*  if (indicators[index].dependant_indicators) {
-                     for (code of this.indicators[index].dependant_indicators) {
-                         this.updateIndicatorResultNa(code, value)
-                     }
-                 } */
+
+                const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                if (hide) {
+                    Alpine.$data(fieldEl).show = !value
+                }
+                Alpine.$data(fieldEl).notApplicable = value
+
+                if (indicator.dependant_indicators) {
+                    for (code of indicator.dependant_indicators) {
+                        this.updateIndicatorResultNa(code, value, true)
+                    }
+                }
             }
         },
         isGendered(type) {
