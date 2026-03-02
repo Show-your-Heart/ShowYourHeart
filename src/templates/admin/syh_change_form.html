@@ -56,24 +56,26 @@
                     {% include "unfold/helpers/messages/errornote.html" with errors=errors %}
                     {% include "unfold/helpers/messages/error.html" with errors=adminform.form.non_field_errors %}
 
-                    {% block field_sets %}
-                        {% with has_conditional_display=adminform.model_admin.conditional_fields %}
-                            {% for fieldset in adminform %}
-                                {% if "tab" not in fieldset.classes %}
-                                    {% include 'admin/includes/fieldset.html' %}
-                                {% endif %}
+                    {% block syh_field_sets %}
+                        {% block field_sets %}
+                            {% with has_conditional_display=adminform.model_admin.conditional_fields %}
+                                {% for fieldset in adminform %}
+                                    {% if "tab" not in fieldset.classes %}
+                                        {% include 'admin/includes/fieldset.html' %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% include "unfold/helpers/fieldsets_tabs.html" %}
+                            {% endwith %}
+                        {% endblock %}
+
+                        {% block after_field_sets %}{% endblock %}
+
+                        {% block inline_field_sets %}
+                            {% for inline_admin_formset in inline_admin_formsets %}
+                                {% include inline_admin_formset.opts.template %}
                             {% endfor %}
-
-                            {% include "unfold/helpers/fieldsets_tabs.html" %}
-                        {% endwith %}
-                    {% endblock %}
-
-                    {% block after_field_sets %}{% endblock %}
-
-                    {% block inline_field_sets %}
-                        {% for inline_admin_formset in inline_admin_formsets %}
-                            {% include inline_admin_formset.opts.template %}
-                        {% endfor %}
+                        {% endblock %}
                     {% endblock %}
 
                     {% block after_related_objects %}{% endblock %}

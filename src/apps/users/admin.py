@@ -8,10 +8,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
-from unfold.admin import ModelAdmin, StackedInline
+from unfold.admin import StackedInline
 
 from apps.users.models import User, UserProfile
-from project.admin import ModelAdminMixin, gov_admin_site
+from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 
 
@@ -39,15 +39,19 @@ class UserProfileInline(StackedInline):
     extra = 0
     autocomplete_fields = ["organization"]
     can_delete = False
-    tab = True  # Display the profile information on a new tab
+    # tab = True  # Display the profile information on a new tab
     hide_title = True
 
 
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=User)
 # Add admin views with custom templates
-@gov_admin_register(gov_admin_site, model=User)
-class UserAdmin(ModelAdminMixin, BaseUserAdmin, ModelAdmin):
+@gov_admin_register(
+    gov_admin_site,
+    model=User,
+    custom_change_form_template="admin/users/usercustom/change_form.html",
+)
+class UserAdmin(ModelAdmin, BaseUserAdmin):
     list_display = (
         "email",
         "full_name",

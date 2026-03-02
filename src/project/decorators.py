@@ -36,7 +36,7 @@ def register_with_default_templates(admin_site, model=None):
     return decorator
 
 
-def gov_admin_register(gov_admin_site, model=None):
+def gov_admin_register(gov_admin_site, model=None, custom_change_form_template=None):
     """
     Decorator that registers a model with the custom GovAdminSite using the decorated
     ModelAdmin class, injecting custom templates. Can be stacked.
@@ -44,10 +44,14 @@ def gov_admin_register(gov_admin_site, model=None):
 
     def decorator(admin_class):
         class WrappedAdmin(admin_class):
-            change_form_template = "admin/syh_change_form.html"
             change_list_template = "admin/syh_change_list.html"
             delete_confirmation_template = "admin/syh_delete_confirmation.html"
             pass
+
+        if custom_change_form_template:
+            WrappedAdmin.change_form_template = custom_change_form_template
+        else:
+            WrappedAdmin.change_form_template = "admin/syh_change_form.html"
 
         if model is None:
             raise ValueError("You must pass a model to register_gov_admin.")
