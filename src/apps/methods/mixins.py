@@ -92,7 +92,6 @@ class MethodFillMixin:
 def prepare_method_fill_context(
     survey_id=None, method=None, campaign_id=None, user=None, token=None, request=None
 ):
-
     # Get the current survey already started
     try:
         if survey_id is not None:
