@@ -135,9 +135,9 @@ class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
             return "-"
 
     def network(self, obj):
-        network = Network.objects.filter(organizations__id__contains=obj.id)
-        if network:
-            return network.first().name
+        networks = Network.objects.filter(organizations__id__contains=obj.id)
+        if networks:
+            return ", ".join([n.name for n in networks.all()])
         else:
             return "-"
 
