@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 10:35+0100\n"
+"POT-Creation-Date: 2026-02-26 12:36+0100\n"
 "PO-Revision-Date: 2024-10-21 15:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,88 +19,84 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: project/admin.py:88 project/admin.py:144
+#: project/admin.py:89 project/admin.py:145
 msgid "Add/Edit"
 msgstr ""
 
-#: project/admin.py:94 project/admin.py:150
+#: project/admin.py:95 project/admin.py:151
 msgid "Actions"
-msgstr ""
-
-#: project/admin.py:118
-msgctxt "logentry_admin:action_type"
-msgid "Addition"
 msgstr ""
 
 #: project/admin.py:119
 msgctxt "logentry_admin:action_type"
-msgid "Deletion"
+msgid "Addition"
 msgstr ""
 
 #: project/admin.py:120
 msgctxt "logentry_admin:action_type"
+msgid "Deletion"
+msgstr ""
+
+#: project/admin.py:121
+msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr ""
 
-#: project/admin.py:174 project/admin.py:314
+#: project/admin.py:175 project/admin.py:315
 msgid "action"
 msgstr ""
 
-#: project/admin.py:187
+#: project/admin.py:188
 msgid "staff user"
 msgstr ""
 
-#: project/admin.py:213
+#: project/admin.py:214
 msgid "Metadata"
 msgstr ""
 
-#: project/admin.py:224
+#: project/admin.py:225
 msgid "Details"
 msgstr ""
 
-#: project/admin.py:283
+#: project/admin.py:284
 msgid "object"
 msgstr ""
 
-#: project/admin.py:300
+#: project/admin.py:301
 msgid "user"
 msgstr ""
 
-#: project/admin.py:320
+#: project/admin.py:321
 msgid "change message"
 msgstr ""
 
-#: project/admin.py:401
+#: project/admin.py:402
 msgid "Entities"
 msgstr ""
 
-#: project/admin.py:439
+#: project/admin.py:440
 msgid "Methods management"
 msgstr ""
 
-#: project/admin.py:451
+#: project/admin.py:452
 msgid "Features"
 msgstr ""
 
-#: project/admin.py:457
+#: project/admin.py:458
 #, fuzzy
 #| msgid "registration/"
 msgid "Registration Requests"
 msgstr "compte/"
 
-#: project/admin.py:462
+#: project/admin.py:463
 msgid "Review Balances"
 msgstr ""
 
-#: project/admin.py:493
-msgid "Users"
-msgstr ""
-
-#: project/admin.py:502
+#: project/admin.py:506
 msgid "Settings"
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:24
+#: project/management/commands/load_dev_data.py:20
 msgid ""
 "Fills the database with all the necessary data to make it faster for "
 "developers to work with the project when they need to re-create the "
@@ -109,102 +105,110 @@ msgid ""
 "command."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:39
+#: project/management/commands/load_dev_data.py:37
 msgid "This command can only be run in debug mode."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:55
+#: project/management/commands/load_dev_data.py:59
 msgid "Creating sample users..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:65
+#: project/management/commands/load_dev_data.py:69
 #, python-brace-format
 msgid "Superuser created with email '{email}'."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:70
+#: project/management/commands/load_dev_data.py:74
 msgid "Superuser already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:79
+#: project/management/commands/load_dev_data.py:83
 msgid "Creating sample network..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:88
+#: project/management/commands/load_dev_data.py:94
 msgid "Network test already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:95
+#: project/management/commands/load_dev_data.py:101
 msgid "Creating sample legal structure..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:105
+#: project/management/commands/load_dev_data.py:111
 msgid "LegalStructure test already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:130
+#: project/management/commands/load_dev_data.py:136
 #, python-brace-format
 msgid "Governace admin user created with email '{email}'."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:144
+#: project/management/commands/load_dev_data.py:157
 msgid "Governace admin user already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:160
+#: project/management/commands/load_dev_data.py:173
 #, python-brace-format
 msgid "User created with email '{email}'."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:170
+#: project/management/commands/load_dev_data.py:183
 msgid "User already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:176
+#: project/management/commands/load_dev_data.py:189
 msgid "Creating sample organizations..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:198
+#: project/management/commands/load_dev_data.py:213
 msgid "Creating sample topics..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:218
+#: project/management/commands/load_dev_data.py:233
 msgid "Creating sample indicators..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:240
+#: project/management/commands/load_dev_data.py:255
 msgid "Creating sample methods..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:261
+#: project/management/commands/load_dev_data.py:276
 msgid "Creating sample country..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:269
+#: project/management/commands/load_dev_data.py:284
 msgid "Country already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:275
+#: project/management/commands/load_dev_data.py:290
 msgid "Creating sample city..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:285
+#: project/management/commands/load_dev_data.py:300
 msgid "City already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:291
+#: project/management/commands/load_dev_data.py:306
+msgid "Creating sample zipcode..."
+msgstr ""
+
+#: project/management/commands/load_dev_data.py:314
+msgid "Zip code already exists."
+msgstr ""
+
+#: project/management/commands/load_dev_data.py:320
 msgid "Creating sample Region1..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:300
+#: project/management/commands/load_dev_data.py:329
 msgid "Region1 already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:305
+#: project/management/commands/load_dev_data.py:334
 msgid "Creating sample Campaign..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:318
+#: project/management/commands/load_dev_data.py:347
 msgid "Campaign already exists."
 msgstr ""
 

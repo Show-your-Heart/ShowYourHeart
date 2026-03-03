@@ -5,7 +5,7 @@
 <div class="js-inline-admin-formset inline-group" id="{{ inline_admin_formset.formset.prefix }}-group" data-inline-type="stacked" data-inline-formset="{{ inline_admin_formset.inline_formset_data }}" {% if inline_admin_formset.opts.tab %}x-show="activeTab == '{{ inline_admin_formset.formset.prefix|slugify }}'"{% else %}x-show="activeTab == 'general'"{% endif %}>
     <fieldset class="module relative {{ inline_admin_formset.classes }}" aria-labelledby="{{ inline_admin_formset.formset.prefix }}-heading">
         <div class="mb-3 px-3 py-3 rounded-default text-sm last:mb-8 bg-blue-100 text-blue-700">
-            {% trans "After you've saved a section, you'll be able to edit all the section options." %} 
+            {% trans "After you have saved a section, you will be able to edit all the section options." %} 
         </div>
         
         {% if inline_admin_formset.is_collapsible %}<details><summary>{% endif %}

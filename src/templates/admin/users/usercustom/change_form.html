@@ -1,0 +1,30 @@
+{% extends  "admin/syh_change_form.html" %}
+
+{% load i18n admin_urls static admin_modify unfold %}
+
+
+{% block syh_field_sets %}      
+    {% block field_sets %}
+        {% with has_conditional_display=adminform.model_admin.conditional_fields %}
+            {% for fieldset in adminform %}
+                {% if "tab" not in fieldset.classes %}
+                    {% include 'admin/includes/fieldset.html' %}
+
+                    {# Display inlines after "Personal details" fieldset #}
+                    {% if "Personal details" in fieldset.name %}
+                        {% block inline_field_sets %}
+                            {% for inline_admin_formset in inline_admin_formsets %}
+                                {% include inline_admin_formset.opts.template %}
+                            {% endfor %}
+                        {% endblock %}
+                    {% endif %}
+
+                {% endif %}
+            {% endfor %}
+
+            {% include "unfold/helpers/fieldsets_tabs.html" %}
+        {% endwith %}
+    {% endblock %}
+
+    {% block after_field_sets %}{% endblock %}
+{% endblock %}

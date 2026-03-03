@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import (
     UnfoldAdminEmailInputWidget,
-    UnfoldAdminSelectWidget,
+    UnfoldAdminSelect2Widget,
     UnfoldAdminTextInputWidget,
 )
 
@@ -26,7 +26,7 @@ class MethodForm(forms.ModelForm):
             "hx-target": "#id_external_surveys",
         }
         widgets = {
-            "networks": UnfoldAdminSelectWidget(attrs=htmx_attrs),
+            "networks": UnfoldAdminSelect2Widget(attrs=htmx_attrs),
         }
 
     def clean_pdf_file(self):
@@ -182,7 +182,7 @@ class InvitationCreationForm(forms.ModelForm):
 
 class SectionInlineForm(forms.ModelForm):
     parent = forms.ModelChoiceField(
-        queryset=Section.objects.all(), widget=UnfoldAdminSelectWidget, required=False
+        queryset=Section.objects.all(), widget=UnfoldAdminSelect2Widget, required=False
     )
 
     class Meta:
