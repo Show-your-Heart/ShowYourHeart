@@ -22,6 +22,8 @@
   Alpine.store('indicators')["indicators"] = indicators
   var indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
   Alpine.store('indicators')["indicatorResults"] = indicatorResults
+  var placeholders = JSON.parse(document.getElementById('placeholders').textContent);
+  Alpine.store('indicators')["placeholders"] = placeholders
 
   {% if validate_survey %}
     setTimeout(() => Alpine.store('survey').validateSurvey(), 100)

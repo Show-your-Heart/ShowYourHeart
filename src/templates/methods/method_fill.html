@@ -139,7 +139,7 @@
                   @click="FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide(); $store.survey.setSection(section.title, true)"
                 >
                   <div class="p-4" x-text="invalidIndicator.code"></div>
-                  <div class="p-4 grow" x-text="invalidIndicator.name"></div>
+                  <div class="p-4 grow" x-html="invalidIndicator.name"></div>
                   <div class="p-4">
                     <c-icon name="close" class="text-red-600"></c-icon>
                   </div>

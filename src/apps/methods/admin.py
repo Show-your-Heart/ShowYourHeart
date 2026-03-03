@@ -2,7 +2,6 @@ import json
 
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -15,7 +14,9 @@ from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 
-from apps.methods.mixins import save_indicator_results
+from apps.geodata.models import Region1
+from apps.methods.mixins import prepare_method_fill_context, save_indicator_results
+from apps.settings.models import LegalStructure
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 from project.mixins import NetworkFilterMixin
@@ -24,18 +25,12 @@ from .forms import (
     IndicatorForm,
     InvitationInlineForm,
     MethodForm,
+    SectionForm,
     SectionInlineForm,
-    get_dynamic_form,
 )
 from .helpers import (
     get_form_sections,
     get_survey_stats,
-)
-from .mixins import (
-    get_initial_values,
-    get_previous_campaign_answers,
-    get_sections,
-    get_sections_data,
 )
 from .models import (
     Campaign,
@@ -184,6 +179,38 @@ class IndicatorAdmin(
         return form
 
 
+class SectionResource(resources.ModelResource):
+    indicators_code = fields.Field(
+        column_name="indicators_code",
+        attribute="indicators",
+        widget=ManyToManyWidget(Indicator, field="code", separator="|"),
+    )
+
+    class Meta:
+        model = Section
+        fields = ["title", "parent__title", "order", "method__name", "indicators_code"]
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Section)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=Section)
+class SectionAdmin(
+    ImportExportModelAdmin,
+):
+    search_fields = ["title"]
+    form = SectionForm
+
+    list_display = (
+        "title",
+        "parent",
+        "method",
+        "order",
+    )
+
+    resource_classes = [SectionResource]
+
+
 class SectionInline(TranslationStackedInline, SortableStackedInline):
     model = Section
     extra = 0
@@ -196,12 +223,38 @@ class SectionInline(TranslationStackedInline, SortableStackedInline):
     template = "admin/methods/section/stacked_inline.html"
 
 
+class MethodResource(resources.ModelResource):
+    indicators_code = fields.Field(
+        column_name="indicators_code",
+        attribute="indicators",
+        widget=ManyToManyWidget(Indicator, field="code", separator="|"),
+    )
+
+    region1s_name = fields.Field(
+        column_name="region1s_name",
+        attribute="region1",
+        widget=ManyToManyWidget(Region1, field="name", separator="|"),
+    )
+
+    legal_structures_name = fields.Field(
+        column_name="legal_structures_name",
+        attribute="legal_structures",
+        widget=ManyToManyWidget(LegalStructure, field="name", separator="|"),
+    )
+
+    class Meta:
+        model = Method
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=Method)
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Method)
 class MethodAdmin(
-    NetworkFilterMixin, SortableAdminBase, ModelAdmin, TabbedTranslationAdmin
+    NetworkFilterMixin,
+    SortableAdminBase,
+    ImportExportModelAdmin,
+    TabbedTranslationAdmin,
 ):
     autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
@@ -228,6 +281,8 @@ class MethodAdmin(
             "widget": WysiwygWidget,
         }
     }
+
+    resource_classes = [MethodResource]
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "external_surveys":
@@ -447,37 +502,18 @@ class SurveyAdmin(ModelAdmin):
     # @method_decorator(require_GET)
     def review_survey_action(self, request, pk, **kwargs):
         if request.method == "GET":
-            survey = get_object_or_404(Survey, pk=pk)
-
-            placeholder_dict = get_previous_campaign_answers(
-                survey.campaign.id, survey.method.id, survey.user
+            method_fill_context = prepare_method_fill_context(
+                pk, None, None, None, None, request
             )
-
-            readonly = False
-            # Get the current survey already started
-            try:
-                form = get_dynamic_form(
-                    survey.method,
-                    IndicatorResult.objects.filter(survey=survey),
-                    readonly,
-                    placeholder_dict,
-                )
-
-            except ObjectDoesNotExist:
-                # If there is none, get new survey
-                form = get_dynamic_form(survey.method, [], False, placeholder_dict)
-
-            sections = get_sections(survey.method, form(data=request.POST or None))
-
-            try:
-                indicators = list(
-                    Method.objects.get(id=survey.method.id).indicators.all().values()
-                )
-                for i in indicators:
-                    i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
-
-            except Method.DoesNotExist:
-                indicators = list([])
+            survey = get_object_or_404(Survey, pk=pk)
+            method_fill_context.update(
+                {
+                    "survey_id": survey.id,
+                    "validate_survey": True
+                    if request.GET.get("action") == "info"
+                    else False,
+                }
+            )
 
             if request.GET.get("action") == "edit":
                 # Display edit modal event
@@ -497,19 +533,7 @@ class SurveyAdmin(ModelAdmin):
                 render(
                     request,
                     "admin/methods/method_fill.html",
-                    {
-                        "method_name": survey.method.name,
-                        "initial_values": get_initial_values(survey),
-                        "readonly": readonly,
-                        "form": form,
-                        "sections": sections,
-                        "sections_data": get_sections_data(sections),
-                        "indicators": indicators,
-                        "survey_id": survey.id,
-                        "validate_survey": True
-                        if request.GET.get("action") == "info"
-                        else False,
-                    },
+                    method_fill_context,
                 ),
                 headers=headers,
             )

@@ -369,7 +369,7 @@ class GovAdminSite(UnfoldAdminSite):
 
         main_menu = []
 
-        # ENTITIES
+        # ORGANIZATIONS
         if "Organizations" in apps_dict:
             org_app = apps_dict["Organizations"]
             models = org_app.get("models_dict", {})
@@ -399,9 +399,8 @@ class GovAdminSite(UnfoldAdminSite):
                 main_menu.append(
                     {
                         "app_name": "organizations",
-                        "name": _("Entities"),
+                        "name": _("Organizations management"),
                         "icon": "group",
-                        "url": org_app["app_url"],
                         "is_active": self.is_app_active(org_app, request)
                         and relative_path != "registration-requests",
                         "items": items,
@@ -420,6 +419,8 @@ class GovAdminSite(UnfoldAdminSite):
                 "Indicator",
                 "List",
                 "ListItem",
+                "Group",
+                "GroupItem",
                 "Topic",
             ]:
                 if model_name in models:
@@ -439,7 +440,6 @@ class GovAdminSite(UnfoldAdminSite):
                         "app_name": "methods",
                         "name": _("Methods management"),
                         "icon": "adjustments-horizontal",
-                        "url": methods_app["app_url"],
                         "is_active": self.is_app_active(methods_app, request)
                         and relative_path != "review-balances",
                         "items": items,
@@ -469,22 +469,26 @@ class GovAdminSite(UnfoldAdminSite):
         )
 
         # SETTINGS
-        if "Settings" in apps_dict:
-            settings_app = apps_dict["Settings"]
-            models = settings_app.get("models_dict", {})
-
+        if "Settings" in apps_dict or "Users" in apps_dict:
             items = []
-            for model_name in ["Network", "LegalStructure"]:
-                if model_name in models:
-                    items.append(
-                        {
-                            "name": models[model_name]["name"],
-                            "url": models[model_name]["admin_url"],
-                            "is_active": self.is_model_active(
-                                models[model_name], request
-                            ),
-                        }
-                    )
+            is_active = False
+
+            if "Settings" in apps_dict:
+                settings_app = apps_dict["Settings"]
+                models = settings_app.get("models_dict", {})
+                is_active = self.is_app_active(settings_app, request)
+
+                for model_name in ["Network", "LegalStructure"]:
+                    if model_name in models:
+                        items.append(
+                            {
+                                "name": models[model_name]["name"],
+                                "url": models[model_name]["admin_url"],
+                                "is_active": self.is_model_active(
+                                    models[model_name], request
+                                ),
+                            }
+                        )
 
             # USERS INSIDE SETTINGS
             if "Users" in apps_dict:
@@ -499,15 +503,14 @@ class GovAdminSite(UnfoldAdminSite):
                             "is_active": self.is_model_active(models["User"], request),
                         }
                     )
+                    is_active = is_active or relative_path in "users"
 
             if items:
                 main_menu.append(
                     {
                         "name": _("Settings"),
                         "icon": "cog",
-                        "url": settings_app["app_url"],
-                        "is_active": self.is_app_active(settings_app, request)
-                        or relative_path in "users",
+                        "is_active": is_active,
                         "items": items,
                     }
                 )

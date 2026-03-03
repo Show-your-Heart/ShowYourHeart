@@ -27,89 +27,24 @@ from .models import (
 class MethodFillMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        campaign_id = kwargs.get("campaign_id")
-        current_method = kwargs.get("method")
 
-        placeholder_dict = get_previous_campaign_answers(
-            campaign_id, current_method.id, self.request.user
-        )
-        context["placeholders"] = placeholder_dict
-
-        readonly = False
-        # Get the current survey already started
-        try:
-            if not is_valid_uuid(self.request.user.id):
-                survey = Survey.objects.get(
-                    token=self.kwargs["id"],
-                    campaign__id=campaign_id,
-                    method=current_method,
-                )
-            else:
-                survey = Survey.objects.get(
-                    user=self.request.user,
-                    campaign__id=campaign_id,
-                    method=current_method,
-                )
-
-            readonly = survey.status == Survey.Status.CLOSED
-            form = get_dynamic_form(
-                current_method,
-                IndicatorResult.objects.filter(survey=survey),
-                readonly,
-                placeholder_dict,
+        # External survey
+        if not is_valid_uuid(self.request.user.id):
+            method_fill_context = prepare_method_fill_context(
+                None, None, None, None, kwargs.get("token"), self.request
+            )
+        # Method
+        else:
+            method_fill_context = prepare_method_fill_context(
+                None,
+                kwargs.get("method"),
+                kwargs.get("campaign_id"),
+                self.request.user,
+                None,
+                self.request,
             )
 
-            context["initial_values"] = get_initial_values(survey)
-
-        except ObjectDoesNotExist:
-            # If there is none, get new survey
-            form = get_dynamic_form(current_method, [], False, placeholder_dict)
-
-        context["campaign_id"] = campaign_id
-        context["form"] = form
-        context["method_name"] = current_method.name
-        context["readonly"] = readonly
-        context["sections"] = get_sections(
-            current_method, form(data=self.request.POST or None)
-        )
-
-        context["sections_data"] = get_sections_data(context["sections"])
-        try:
-            indicators = list(
-                Method.objects.get(id=current_method.id).indicators.all().values()
-            )
-            for i in indicators:
-                i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
-                # Add options value
-                if i["list_options_id"] is not None:
-                    list_options = List.objects.get(id=i["list_options_id"])
-                    options = list_options.items.all().values()
-                    i["options"] = []
-                    for o in options:
-                        i["options"].append({"id": o["id"], "value": o["value"]})
-                if i["group_id"] is not None:
-                    group = Group.objects.get(id=i["group_id"])
-                    group_items = group.items.all().values()
-                    i["group_title"] = group.title
-                    i["group_items"] = []
-                    for o in group_items:
-                        i["group_items"].append(
-                            {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
-                        )
-                if i["group_2_id"] is not None:
-                    group = Group.objects.get(id=i["group_2_id"])
-                    group_items = group.items.all().values()
-                    i["group_2_title"] = group.title
-                    i["group_2_items"] = []
-                    for o in group_items:
-                        i["group_2_items"].append(
-                            {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
-                        )
-
-        except Method.DoesNotExist:
-            indicators = list([])
-
-        context["indicators"] = indicators
+        context.update(method_fill_context)
         return context
 
     @transaction.atomic
@@ -152,6 +87,96 @@ class MethodFillMixin:
         save_indicator_results(method_id, request, survey)
 
         return HttpResponseRedirect(request.path_info)
+
+
+def prepare_method_fill_context(
+    survey_id=None, method=None, campaign_id=None, user=None, token=None, request=None
+):
+    # Get the current survey already started
+    try:
+        if survey_id is not None:
+            survey = Survey.objects.get(pk=survey_id)
+        elif token is not None:  # External survey
+            survey = Survey.objects.get(
+                token=token,
+                campaign__id=campaign_id,
+                method=method,
+            )
+        else:
+            survey = Survey.objects.get(
+                user=user,
+                campaign__id=campaign_id,
+                method=method,
+            )
+
+        readonly = survey.status == Survey.Status.CLOSED
+        placeholder_dict = get_previous_campaign_answers(
+            survey.campaign.id, survey.method.id, survey.user
+        )
+        campaign_id = survey.campaign.id
+        method = survey.method
+        user = survey.user
+        form = get_dynamic_form(
+            survey.method,
+            IndicatorResult.objects.filter(survey=survey),
+            readonly,
+            placeholder_dict,
+        )
+
+    except ObjectDoesNotExist:
+        # If there is none, get new survey
+        readonly = False
+        placeholder_dict = get_previous_campaign_answers(campaign_id, method.id, user)
+        form = get_dynamic_form(method, [], False, placeholder_dict)
+
+    sections = get_sections(method, form(data=request.POST or None))
+
+    try:
+        indicators = list(Method.objects.get(id=method.id).indicators.all().values())
+        for i in indicators:
+            i["unit"] = Indicator.Unit(i["unit"]).label if i["unit"] else ""
+            # Add options value
+            if i["list_options_id"] is not None:
+                list_options = List.objects.get(id=i["list_options_id"])
+                options = list_options.items.all().values()
+                i["options"] = []
+                for o in options:
+                    i["options"].append({"id": o["id"], "value": o["value"]})
+            # Add group data
+            if i["group_id"] is not None:
+                group = Group.objects.get(id=i["group_id"])
+                group_items = group.items.all().values()
+                i["group_title"] = group.title
+                i["group_items"] = []
+                for o in group_items:
+                    i["group_items"].append(
+                        {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
+                    )
+            # Add group_2 data
+            if i["group_2_id"] is not None:
+                group = Group.objects.get(id=i["group_2_id"])
+                group_items = group.items.all().values()
+                i["group_2_title"] = group.title
+                i["group_2_items"] = []
+                for o in group_items:
+                    i["group_2_items"].append(
+                        {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
+                    )
+
+    except Method.DoesNotExist:
+        indicators = list([])
+
+    return {
+        "method_name": method.name,
+        "campaign_id": campaign_id,
+        "readonly": readonly,
+        "form": form,
+        "sections": sections,
+        "sections_data": get_sections_data(sections),
+        "indicators": indicators,
+        "initial_values": get_initial_values(survey) if "survey" in locals() else {},
+        "placeholders": placeholder_dict,
+    }
 
 
 def save_indicator_results(method_id, request, survey):

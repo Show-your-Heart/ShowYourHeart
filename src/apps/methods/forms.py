@@ -228,3 +228,9 @@ class IndicatorForm(forms.ModelForm):
             "name": WysiwygWidget,
             "description": WysiwygWidget,
         }
+
+
+class SectionForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = "__all__"  # noqa

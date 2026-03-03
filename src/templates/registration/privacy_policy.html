@@ -1,26 +1,402 @@
-{% extends "../base.html" %}
 {% load i18n %}
 
-{# Blocks de base.html #}
-
-{% block page_title %}{% translate "Privacy policy" %}{% endblock %}
-{% block bodyclasses %}{% endblock %}
-{% block mainclasses %} privacy {% endblock %}
-{% block extra_js %}{% endblock %}
-
-{% block main %}
-  <div
-    class="p-4 bg-gray-100 rounded-lg shadow w-full md:p-6 xl:p-8">
-    <h1 class="pt-4 pb-8 text-5xl font-semibold text-gray-900">
-      {% translate "Privacy policy" %}
+<c-default-layout pageTitle="{% translate 'Privacy policy' %}">
+  <main class="grid grid-cols-1 gap-4 p-16 max-w-full m-auto">
+    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+      {% translate "TÉRMINOS DE USO DE LA PLATAFORMA “ENSENYA EL COR”" %}
     </h1>
-    <p class="mb-6 text-lg text-gray-700 md:text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto rem eveniet omnis. Id, praesentium natus, unde nihil earum obcaecati ipsa corporis labore, eligendi necessitatibus tempora suscipit quisquam. Harum, eveniet voluptatum?</p>
-    
-    <p class="mb-6 text-gray-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo accusantium culpa sequi ipsa ullam voluptate labore, dolorum eligendi alias. Explicabo voluptas ut ullam at enim esse quas quidem ab itaque.</p>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <p class="mb-3 text-gray-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi vero rem debitis hic atque ducimus ipsam ipsum, minima ab error quis soluta facere corrupti praesentium animi necessitatibus veniam provident obcaecati. Error quia possimus officia quibusdam odio exercitationem esse dolorum eum asperiores! Doloribus ea impedit quas rem animi natus, doloremque quidem similique, aliquam at sint veniam tenetur voluptas ad earum distinctio?</p>
-        <p class="mb-3 text-gray-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi vero rem debitis hic atque ducimus ipsam ipsum, minima ab error quis soluta facere corrupti praesentium animi necessitatibus veniam provident obcaecati. Error quia possimus officia quibusdam odio exercitationem esse dolorum eum asperiores! Doloribus ea impedit quas rem animi natus, doloremque quidem similique, aliquam at sint veniam tenetur voluptas ad earum distinctio?</p>
-    </div>
 
-  </div>
-{% endblock %}
+    <h2 class="font-bold text-xl">Información de la plataforma</h2>
+    <p>
+      Mediante las presentes condiciones de uso se pretende informar a todos los
+      usuarios de la plataforma de quien es el titular de la plataforma, y de cuáles son las
+      formas de usarla. <br>
+      El cumplimiento de las condiciones es totalmente necesario para una buena
+      convivencia y buen uso de la plataforma, y para obtener los resultados esperados
+      de la misma.<br>
+      La plataforma se denomina “Ensenya el cor” / “Enseña el corazón”<br>
+    </p>
+    <h2 class="font-bold text-xl">¿Quién es el propietario y responsable de la plataforma?</h2>
+    <h2 class="font-bold text-xl">1. Titular del Servicio</h2>
+    <p>
+      El titular del Servicio es Associació Xarxa d’Economia Solidària (en adelante XES)
+      con NIF: G63881031, y domicilio a C/Casp, 43 baixos 08010 de Barcelona. Correo
+      electrónico: info@bsxes.org
+    </p>
+    
+    <h2 class="font-bold text-xl">2. Roles de uso y acceso a la plataforma</h2>
+    <p>
+      La plataforma contempla la existencia de tres tipos de roles para el uso y acceso a
+      la plataforma, no puede haber ningún usuario que no encaje en alguno de los
+      siguientes tipos de figura.<br>
+      - Superadministrador: es el titular del servicio y, por lo tanto, el Responsable
+      del alojamiento de la plataforma web (hosting). Por lo tanto, solo hay una figura
+      con las funciones del superadministrador, y es quien tiene acceso a todas las
+      utilidades y funciones de la plataforma. La función principal del
+      superadministrador es dar asistencia a los administradores en todo aquello que
+      los administradores no puedan hacer por ellos mismos, por razón de su
+      limitación en funciones o incidencias que no pueden resolver por si mismos por
+      causas o causadas por temas de programación o desarrollo.<br>
+      Este rol viene ejercido por la Associació Xarxa d’Economia Solidària. Es la
+      Responsable del hosting de la plataforma, de los datos que hay en ella y todo
+      aquello que sea meramente programación del sistema.<br>
+      Resumidamente, sus funciones son:<br>
+      o Coordinación de los tiempos de trabajo de los diferentes agentes
+      sociales en relación con las diferentes fases de trabajo durante el
+      año: identificación de mejoras, implementación, salida a producción,
+      asistencia en la recogida de datos, asistencia al cierre y obtención de
+      informes individuales y agregados y evaluación y recogida de nuevas
+      mejoras.<br>
+      o Gestión de cambios relacionados con los datos y batería común de
+      indicadores.<br>
+      o Acompañamiento a la creación de indicadores y definición de
+      módulos.<br>
+      o Gestión y mejora de la plataforma tecnológica<br>
+      o Alojamiento y actualización del programa.<br>
+      o Elaboración de manuales de funcionamiento y documentación
+      relacionada.<br>
+      El Superadministrador también es quien tiene las facultades de decidir quién
+      puede ser administrador de la plataforma.
+      - Administrador: puede haber diversos y son los responsables territoriales o
+      sectoriales, identificados como “agente social” en la plataforma, que está
+      vinculada a un territorio y a uno o más módulos. Estos administradores
+      gestionan uno o más módulos en un territorio determinado.<br>
+      También hay administradores de módulos, no teniendo ningún tipo de relación
+      con el territorio, sino que su ámbito de actuación es sectorial.<br>
+      Los administradores sectoriales desarrollan un módulo determinado y aquellos
+      usuarios interesados en este módulo dependerán de este administrador.<br>
+      Cuando una entidad usuaria se registra, la plataforma identifica a que territorio
+      o sector corresponde y le muestra los módulos disponibles. En función del
+      módulo que haya escogido el usuario, se le asigna un administrador.<br>
+      El administrador asignado y el superadministrador tendrán acceso a la
+      información que el usuario ponga en la plataforma, ningún otro administrador
+      que no sea el asignado podrá tener acceso a nada del usuario, protegiendo así y
+      manteniendo la confidencialidad de la información.<br>
+      Generalmente los administradores tienen estas funciones, aunque pueden
+      variar:<br>
+      o Conceptualización y programación de módulos territoriales o
+      sectoriales<br>
+      o Campañas de comunicación especifica<br>
+      o Acompañamiento técnico a usuarios en el proceso de recogida de
+      datos<br>
+      o Validación de los datos recogidos en sus respectivos módulos.<br>
+      o Generar la matriz o base de datos de resultados agregada y
+      depurada.<br>
+      o Explotación de datos agregados y elaboración de informes
+      territoriales o sectoriales.<br>
+      o Análisis de informes individuales y certificaciones territoriales o
+      sectoriales.<br>
+      o Propuestas de mejoras de código sobre el programa base de la
+      plataforma.<br>
+      o Elaboración manual de funcionamiento y documentación<br>
+      o Talleres y formaciones para el conocimiento de módulos e itinerarios
+      específicos.<br>
+      Los administradores tienen un tutorial de backoffice donde se explica cómo
+      funciona la plataforma y todas las funciones que puede desarrollar.
+      Usuario: son las entidades que reportan los datos y que solo acceden a la interfaz
+      de usuario. Cada entidad escoge que módulo quiere completar y, por tanto, a que
+      administrador reporta los datos. Los usuarios tienen un tutorial genérico y pueden
+      tener tutoriales específicos y guías de preguntas e indicadores por módulo,
+      dependiendo de cada administrador.<br>
+    </p>
+    <h2 class="font-bold text-xl">3. ¿Qué objetivo y finalidad tiene la plataforma?</h2>
+    <p>
+      Esta webapp tiene como función principal la recogida de información de empresas y
+      entidades que de manera voluntaria usan la plataforma como herramienta para
+      poder obtener diferentes indicadores que se calculan en función de la información
+      que la entidad facilita, de manera directa o a través de sus trabajadores o
+      colaboradores.<br>
+      La webapp tiene distintos módulos o itinerarios que los usuarios pueden escoger en
+      el momento de registro. Desde estos itinerarios los usuarios y usuarias pueden
+      introducir diferentes datos relativos al funcionamiento de la organización de la que
+      forman parte y, a partir del cálculo de los indicadores asociados a cada itinerario,
+      obtener un informe generado de forma automática con la recogida de todos los
+      indicadores – cuantitativos y cualitativos – asociados a cada uno de los itinerarios.
+      Además de esta función principal, la plataforma dispone de otras funciones o
+      finalidades complementarias:<br>
+      a) Para empresas y entidades usuarias<br>
+      - Obtención de sellos o certificaciones<br>
+      - Adjuntar documentación para auditar los datos<br>
+      - Envío de cuestionarios de evaluación a distintos grupos de interés: personas
+      trabajadoras, personas u organizaciones clientes o usuarias, personas
+      voluntarias y personas socias, entre otros.<br>
+      - Creación de tantos cuestionarios como grupos de interés.<br>
+      b) Para las entidades administradoras de los módulos<br>
+      - Edición de todos los campos (módulos, indicadores, preguntas, etc) que
+      componen los itinerarios que gestiona cada respectivo administrador.<br>
+      - Posibilidad de crear todos los itinerarios nuevos que sean necesarios<br>
+      - Funciones de exportación de datos con distintas funciones de agregación y
+      subagregación.<br>
+      - Funciones de seguimiento a las empresas y entidades usuarias de cualquiera
+      de los itinerarios.<br>
+      En paralelo a las prestaciones de la plataforma, se han desarrollado otras funciones
+      que garantizan el buen funcionamiento e interacción de las entidades usuarias con
+      la plataforma (funciones no incluidas en el servicio directo prestado a través de la
+      plataforma):<br>
+      - Elaboración de manuales de funcionamiento y documentación de soporte.<br>
+      - Revisión y depuración de datos introducidos<br>
+      - Campañas de comunicación especificas por módulo<br>
+      - Talleres y formaciones para el conocimiento de módulos e itinerarios
+      específicos<br>
+      - Asistencia técnica, tanto a nivel de uso como de administración.<br>
+    </p>
+    <h2 class="font-bold text-xl">4. El Usuario se debe Registrar</h2>
+    <p>
+      Para poder utilizar el servicio es necesario que el Usuario realice una solicitud de
+      alta. En esta solicitud, el Usuario debe escoger los módulos o itinerarios para los
+      que quiere reportar datos. Para todos los módulos que haya solicitado acceso, cada
+      respectivo Administrador recibirá una solicitud de alta, y la aceptará o denegará. El
+      primer Administrador que acepte la solicitud, activará un envío de correo
+      electrónico hacia el Usuario, donde se especificará el nombre de Usuario (o lo que
+      es lo mismo, el NIF) y una contraseña generada por la plataforma de forma
+      aleatoria. En este proceso de registro, el Usuario deberá facilitar los datos
+      personales que se le pudieran requerir a fin de poder acceder a la plataforma. En el
+      mencionado proceso, algunos de los datos personales podrán ser de
+      cumplimentación voluntaria.<br>
+      El Usuario podrá modificar los datos de registro en cualquier momento, a excepción
+      del NIF.<br>
+      El Usuario registrado será responsable en todo momento de la custodia de su
+      contraseña, asumiendo en consecuencia cualesquiera daños y perjuicios que
+      pudieran derivarse de su uso indebido, así como de la cesión, revelación o extravío
+      de la misma, debiendo informar al Administrador en caso de que tenga motivos
+      para creer que su contraseña ha sido utilizada de manera no autorizada o es
+      susceptible de serlo. En cualquier caso, el acceso al perfil y/o el uso del Servicio
+      realizado bajo la contraseña de un Usuario registrado se reputarán realizados por
+      dicho Usuario, quien responderá en todo caso de dicho acceso y uso.
+      Con el alta como usuarios, los datos personales solicitados pasaran a ser tratados
+      conforme la normativa de Protección de Datos vigente en cada momento. Los datos
+      serán tratados con la finalidad de gestionar las altas al servicio de la aplicación. El
+      Usuario podrá ejercer los derechos que contempla la ley de oposición, limitación,
+      rectificación, portabilidad y cancelación ante el Administrador, siendo este el
+      Responsable de los Datos que se encuentran en el aplicativo.
+    </p>
+    
+    <h2 class="font-bold text-xl">5. ¿Tiene la plataforma criterios de admisión y exclusión de usuarios?</h2>
+    <p>
+      Derecho de admisión o exclusión de Usuarios y/o Administradores
+      En cuanto a los Usuarios, el criterio para aceptar o denegar el acceso de entidades
+      y empresas a la plataforma depende de cada administrador.
+      En lo referente a los Administradores:<br>
+      - Criterios de admisión<br>
+      Pueden solicitar ser administradores de uno o más módulos de la plataforma:<br>
+      - Las entidades privadas que cumplan los siguientes requisitos<br>
+      o Ser entidades de segundo nivel o superior y tener, por tanto, una
+      parte o toda la base social compuesta por empresas o entidades de
+      primer nivel.<br>
+      o No tener ánimo de lucro<br>
+      o Ser representativas de una parte del ámbito de la economía social y
+      solidaria y/o el mundo asociativo. Esta representatividad se ha de
+      traducir en que estas entidades cumplan un papel de representación
+      pública, delante la ciudadanía, administraciones públicas y agentes
+      sociales, para promover y defender los intereses de su base social.<br>
+      - Aquellas administraciones públicas y universidades vinculadas a la
+      promoción y creación de conocimiento en el ámbito de la economía social
+      y/o el mundo asociativo.<br>
+      - Motivos de exclusión<br>
+      Es considerará motivo de exclusión de carácter general el incumplimiento del
+      objetivo general de la plataforma.<br>
+      Los motivos de carácter específico que motivarían una expulsión, y por tanto una
+      resolución de la relación entre las partes serían:<br>
+      - La cesión de los datos a terceros para usos diferentes a los definidos en el
+      marco de la plataforma, y especialmente cuando las cesiones se hagan por
+      motivos comerciales o con pretensión de lucro a través de los datos.<br>
+      - La utilización de los datos con finalidades ilícitas, como la extorsión o el
+      tráfico de influencias, y todos aquellos usos que tengan carácter delictivo.<br>
+    </p>
+
+    <h2 class="font-bold text-xl">6. Normas de utilización del servicio</h2>
+    <p>
+      Las condiciones de acceso y uso de “Ensenya el Cor” se rigen estrictamente por la
+      ley, la moral, el orden público y los presentes Términos de Uso. Mediante la
+      aceptación, el Usuario y/o Administrador se compromete a realizar un buen uso del
+      mismo, por lo que quedan prohibidos todos aquellos actos que vulneren la Ley,
+      derechos o intereses de XES o de terceros.<br>
+      En caso de que XES, como titular de la plataforma, tuviere conocimiento bien sea
+      de forma directa o a través de notificaciones o requerimientos de terceros, de la
+      existencia de contenidos ilegales o que vulneren los presentes Términos de Uso, o
+      cualquiera de las leyes existentes, XES se reserva el derecho de suspender el
+      servicio, si fuera necesario, sin necesidad de notificación previa a los Usuarios, y así
+      como proceder a la eliminación del contenido no autorizado; de notificar a las
+      autoridades competentes o bien adoptar cualquier otra medida que sea necesaria
+      para evitar la continuidad de los hechos fraudulentos no autorizados.
+    </p>
+    
+    <h2 class="font-bold text-xl">7. Modelo de gobernanza</h2>
+
+    <p>
+      El sistema de gobernanza de la plataforma tiene que responder a las diferentes
+      capas de gestión e interacción entre usuarios, administradores y
+      superadministador, de forma que tendría estas capas o bloques sobre los que
+      decidir:
+    </p>
+    <p>
+      1. Hosting de la plataforma y rol de superadministador<br>
+      El hosting de la plataforma y, por lo tanto, el rol de superadministador hoy lo tiene
+      la XES. Por lo tanto, las decisiones que afectan las condiciones de hosting y el papel
+      del superadministrador se toman a las instancias de decisión de la XES: la comisión
+      de Balance Social, en primera instancia, y la Permanente y la Asamblea de la XES,
+      en segunda y última.<br>
+      2. Cambios sustanciales sobre el código fuente de la plataforma<br>
+      Tenemos que distinguir entre quién tiene capacidad de proponer cambios, y quien
+      decide cuáles se acaban implementando. En este sentido, toda la comunidad de
+      usuarios de la plataforma debe tener capacidad de proponer cambios (es decir,
+      cualquier entidad o proyecto que usa un módulo), y la manera de canalizar estas
+      propuestas es a través de los administradores que corresponda. La decisión final de
+      qué cambios se implementan para el nuevo ejercicio la tienen los administradores
+      junto con el superadministrador. El superadministrador recoge todas las
+      propuestas, dinamiza los encuentros de administradores donde se deciden los
+      cambios, trabaja con el proveedor tecnológico principal para resolver dudas
+      técnicas y hace seguimiento de la implementación de las mejoras que se hayan
+      decidido.<br>
+      3. Cambios sobre los datos maestros y el cuerpo común de indicadores, tanto de
+      entidad como de proyecto<br>
+      También se tiene que distinguir entre quién tiene capacidad de propuesta y quien
+      tiene capacidad de decisión. Como antes, toda la comunidad de usuarios de la
+      plataforma debe tener capacidad de proponer cambios (es decir, cualquier entidad
+      o proyecto que usa un módulo), y la manera de canalizar estas propuestas es a
+      través de los administradores que los corresponda. Los cambios propuestos que
+      afecten los indicadores básicos comunes se debatirán entre los diferentes
+      administradores. Ahora bien, dado que los indicadores básicos reflejan el contenido
+      social, ambiental y de buen gobierno mínimo por cualquier itinerario, la capacidad
+      de decisión está en la comisión de Balance Social de la XES.<br>
+      El superadministrador recoge todas las propuestas, dinamiza los encuentros de
+      administradores donde se deciden los cambios y crea o modifica los indicadores
+      afectados por los cambios (es el único que puede editar estos indicadores). Se
+      prevé una audiencia pública abierta a comentarios, para qué toda la comunidad de
+      usuarios pueda opinar sobre los cambios.<br>
+      4. Cambios sobre indicadores específicos de diferentes módulos que no están en el
+      cuerpo común de indicadores<br>
+      Cada administrador de un módulo en un territorio tiene soberanía para decidir los
+      cambios que quiere. El único caso en que se tiene que coordinar con otro
+      administrador es en el supuesto de que utilicen una misma pregunta por dos
+      módulos. En este caso, se puede trabajar bilateralmente, siempre contando con el
+      apoyo del superadministrador.<br>
+      A diferencia de los indicadores básicos comunes, los indicadores y preguntas de
+      cada módulo pueden ser editados y gestionados directamente por cada
+      administrador. Según las prestaciones de la plataforma, cada administrador puede,
+      además, introducir los cambios de identidad gráfica, de configuración de correos,
+      etc., que quiera, para que el usuario que utiliza su módulo sepa que se está
+      relacionando con aquel administrador (esta capacidad de adaptar la experiencia del
+      usuario está recogida al tutorial de backoffice).<br>
+      5. Cambios sobre las condiciones de uso y tratamiento de los datos de cada módulo
+      Como con el punto anterior, los administradores pueden definir su propio
+      documento de condiciones de uso y tratamiento de los datos, que los usuarios
+      aceptarán en la hora de empezar el módulo correspondiente. El superadministrador
+      pone a disposición un documento base de condiciones de uso y tratamiento de los
+      datos, además del documento de Términos de uso de la plataforma y del Contrato
+      de alojamiento de la plataforma, sobre el cual los administradores pueden
+      introducir los cambios que quieran. En estos tres documentos, se define la relación
+      con el tratamiento de los datos, donde el principal responsable del uso que se haga
+      es el administrador de cada módulo.<br>
+      El esquema que se muestra a continuación ilustra este modelo de gobernanza (solo
+      se representant algunos de los módulos y administradores activos a modo de
+      ejemplo).<br>
+    </p>
+    
+    <h2 class="font-bold text-xl">8. La plataforma cuenta con un mantenimiento</h2>
+    <p>
+      El Superadministrador es quien tiene acceso a todas las funciones de la plataforma,
+      para poder asistir a los administradores en cambios o incidencias que ellos solos no
+      puedan resolver. Este rol lo ostenta la comisión de Balance Social de la XES. Sus
+      funciones son:<br>
+      a) Coordinación del tiempo de trabajo de los diferentes agentes sociales en
+      relación con las diferentes fases de trabajo durante el año; identificación de
+      las mejoras, implementación, salida a producción, asistencia en la recogida
+      de datos, asistencia en el cierre y obtención de informes individuales y
+      agregados y evaluación y recogida de nuevas mejoras.<br>
+      b) Gestión de cambios relacionados con los datos y los indicadores comunes a
+      todos los módulos.<br>
+      c) Acompañamiento en la creación de indicadores y definición de módulos.<br>
+      d) Gestión y mejora de la plataforma tecnológica<br>
+      e) Alojamiento y actualizaciones del programario.<br>
+      f) Elaboración de manuales de funcionamiento y documentación relacionada.<br>
+      Este nivel de gestión es técnico y se encuentra vinculado solamente a las mejoras e
+      incidencias en la plataforma informática.
+    </p>
+    <h2 class="font-bold text-xl">9. Propiedad intelectual e industrial</h2>
+    <p>
+      Todos los contenidos del servicio que tienen un componente creativo están sujetos
+      a una licencia CreativeCommons de tipo Atribución-NoComercial-CompartirIgual 4.0
+      (CCCC BY-NC-SA 4.0).<br>
+      Para más información: https://creativecommons.org/licenses/by-
+      nc.sa/4.0/deed.es.<br>
+      Código legal: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es.
+      Son contenidos del Servicio, los textos, fotografías, gráficos, imágenes, iconos,
+      tecnología, software, bases de datos y demás contenidos audiovisuales o sonoros,
+      así como su diseño gráfico y códigos fuente utilizados en el Servicio. Esta
+      enumeración se realiza título enunciativo y en ningún caso limitativo.<br>
+      El código fuente, y por tanto el programa, está sujeto a una licenciaAffero General
+      PublicLicence v3 (APGLv3). Más información en: https://gitlab.com/xarxa-
+      economia-solidaria/plataforma-ensenya-el-cor
+    </p>
+    <h2 class="font-bold text-xl">10.Nulidad e ineficacia de las cláusulas</h2>
+    <p>
+      En el caso que cualquier cláusula incluida en los presentes Términos de Uso fuese
+      declarada total o parcialmente nula o ineficaz, tal nulidad o ineficacia tan solo
+      afectará a dicha disposición o a la parte de la misma que resulte nula o ineficaz,
+      subsistiendo los presentes Términos de Uso en todo lo demás, considerándose tal
+      disposición total o parcialmente por no incluida.
+    </p>    
+    <h2 class="font-bold text-xl">11.¿Qué permite la Plataforma?</h2>
+    <p>
+      Los presentes Términos de Uso (en adelante, “los Términos de Uso”) establecen las
+      condiciones bajo las cuales se ofrece a los usuarios el servicio de la plataforma
+      “Ensenya el Cor” (en adelante “el Servicio”), que consiste en un aplicativo cuyo
+      objetivo es desarrollar un espacio de trabajo conjunto alrededor de una
+      infraestructura tecnológica y de una base de datos común a diferentes agentes o
+      aliados estratégicos en el ámbito de la economía social y solidaria (ESS) para
+      favorecer el registro, la rendición de cuentas sociales y ambientales y la medida del
+      impacto de las organizaciones sobre la base de criterios de la ESS. La finalidad es
+      que la plataforma permita trabajar y analizar los datos que les intereses a los
+      diferentes organismos y entidades representativas implicadas en la plataforma para
+      sus finalidades (nunca de uso comercial), enfocando a la intervención sociopolítica y
+      la generación y transferencia de conocimiento en favor de la ESS y el mundo
+      asociativo.<br>
+      La plataforma permite diseñar diferentes itinerarios de recogida de datos (módulos)
+      de forma similar a un programa de encuestas, pero ofreciendo otras prestaciones
+      complementarias: generación de informes automáticos, repositorio de datos anual
+      consultable tanto por los administradores como por los usuarios finales, auditoría
+      de los datos, etc. En definitiva, la plataforma permite establecer una relación entre
+      los usuarios de la herramienta que reportan los datos y los administradores
+      territoriales y sectoriales que hacen el seguimiento y el tratamiento de datos
+      agregados e individuales.<br>
+      Existen dos tipos de módulos: módulo por entidad y módulo por proyecto.
+      El módulo por entidad está pensado para las recogidas de datos sobre
+      organizaciones, de manera que la unidad de evaluación o reporting es una forma
+      jurídica.<br>
+      El módulo de proyecto está pensado para que, si una entidad gestiona diferentes
+      proyectos, los pueda evaluar de forma separada. Para cada uno de los módulos,
+      hay una serie de indicadores que ha de contener cualquier otro módulo que se
+      quiera realizar para evaluar entidades o proyectos.
+      Por medio de la aceptación de los presentes Términos de Uso, el Usuario y/o el
+      Administrador manifiesta:<br>
+      - Que ha leído, entiende y comprende lo aquí expuesto.<br>
+      - Que asume todas las obligaciones aquí dispuestas.<br>
+      - Que es mayor de edad y tiene la capacidad legal suficiente para utilizar el
+      Servicio.<br>
+      La aceptación por parte de los Usuarios y/o Administradores será un paso previo e
+      indispensable a la utilización del Servicio. El titular del Servicio se reserva la
+      facultad de realizar en cualquier momento cualquier modificación o actualización de
+      los Términos de Uso que deberá ser aceptada por el Usuario para continuar
+      utilizando el Servicio.<br>
+      Cualquier modificación sustancial de los Términos de Uso, o que afecte a los
+      derechos de los usuarios, serán comunicados para que los pueda aceptar o
+      rechazar, en su caso, antes de usar la aplicación.
+    </p>
+
+    <h2 class="font-bold text-xl"> 12.Legislación aplicable y jurisdicción competente </h2>
+    <p>
+      Estos Términos de Uso se regirán e interpretarán conforme a la legislación
+      española. En caso de controversia entre la Xarxa d’Economia Solidària (XES) y el
+      Usuario/administrador, éste podrá solicitar previamente a dirigirse a los Tribunales
+      una mediación o arbitraje que permita resolver la controversia o discrepancia en la
+      interpretación de cualquiera de los textos sujetos al uso de la Plataforma.<br>
+      Si agotada la vía extrajudicial las partes no han llegado a un acuerdo la propiedad
+      de la plataforma se reserva la facultad de dirigirse a los tribunales de la ciudad de
+      Barcelona.
+    </p>
+
+
+
+  </main>
+</c-default-layout>
