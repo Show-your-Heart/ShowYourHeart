@@ -40,7 +40,7 @@ class NetworkFilterMixin:
             return qs.filter(**{f"{self.organization_field}__networks": user_network})
 
         # Model has related method and method_field defined
-        if self.organization_field:
+        if self.method_field:
             return qs.filter(**{f"{self.method_field}__networks": user_network})
 
         return qs.none()
