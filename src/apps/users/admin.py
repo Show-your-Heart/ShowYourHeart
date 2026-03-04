@@ -58,7 +58,6 @@ class UserAdmin(ModelAdmin, BaseUserAdmin):
         "is_staff",
         "is_superuser",
         "email_verified",
-        "network",
     )
     list_filter = ("is_superuser",)
     search_fields = ("email", "name", "surnames")

@@ -19,7 +19,7 @@ from apps.methods.mixins import prepare_method_fill_context, save_indicator_resu
 from apps.settings.models import LegalStructure
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
-from project.mixins import NetworkFilterMixin
+from project.utils.mixins import NetworkFilterMixin
 
 from .forms import (
     IndicatorForm,

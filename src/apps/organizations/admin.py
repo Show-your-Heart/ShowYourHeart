@@ -16,7 +16,7 @@ from apps.users.services import (
 )
 from project.admin import ImportExportModelAdmin, ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
-from project.mixins import NetworkFilterMixin
+from project.utils.mixins import NetworkFilterMixin
 
 from .forms import OrganizationAdminExportForm, OrganizationAdminForm
 from .helpers import filter_methods_by_legal_structure
@@ -190,7 +190,6 @@ class ProjectAdmin(NetworkFilterMixin, ModelAdmin):
     filter_horizontal = ("methods",)
     autocomplete_fields = ["region1", "city"]
     search_fields = ["name", "organization"]
-    organization_field = "organization"
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
