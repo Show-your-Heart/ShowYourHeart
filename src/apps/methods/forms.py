@@ -159,11 +159,12 @@ class InvitationCreationForm(forms.ModelForm):
         label=_("Surnames"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Surnames")}),
     )
-    language = forms.ChoiceField(
-        choices=settings.LANGUAGES,
-        label=_("Language"),
-        widget=forms.Select(attrs={"class": "form-select"}),
-    )
+#   TODO: Choose the language of the external survey
+#   language = forms.ChoiceField(
+#       choices=settings.LANGUAGES,
+#       label=_("Language"),
+#       widget=forms.Select(attrs={"class": "form-select"}),
+#   )
     gender = forms.ChoiceField(
         label=_("Gender"),
         choices=Invitation.Gender.choices,
@@ -177,7 +178,7 @@ class InvitationCreationForm(forms.ModelForm):
 
     class Meta:
         model = Invitation
-        fields = ("name", "surnames", "email", "language", "gender")
+        fields = ("name", "surnames", "email", "gender")
 
 
 class SectionInlineForm(forms.ModelForm):
