@@ -605,7 +605,7 @@ class Section(BaseModel):
     parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
     method = models.ForeignKey(Method, on_delete=models.PROTECT)
     order = models.PositiveIntegerField(_("order"), default=0, db_index=True)
-    indicators = SortedManyToManyField(Indicator, null=True, blank=True)
+    indicators = SortedManyToManyField(Indicator, blank=True)
 
     class Meta:
         ordering = ["order"]
