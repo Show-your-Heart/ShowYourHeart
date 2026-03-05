@@ -309,6 +309,7 @@ class Command(BaseCommand):
         if not zipcode_qs.exists():
             zip_code = ZipCode.objects.create(
                 code=self.ZIPCODE,
+                city=self.CITY_NAME,
             )
         else:
             self.stdout.write(_("Zip code already exists."))
