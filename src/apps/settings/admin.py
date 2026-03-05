@@ -5,7 +5,6 @@ from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 from project.utils.mixins import NetworkFilterMixin
 
-from .forms import NetworkForm
 from .models import LegalStructure, Network, Sector, SMTPServer
 
 
@@ -30,7 +29,6 @@ class LegalStructureAdmin(ModelAdmin, TabbedTranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Network)
 class NetworkAdmin(ModelAdmin):
-    form = NetworkForm
     search_fields = ["name"]
     list_display = ("name", "parent_network")
     filter_horizontal = ("organizations", "methods", "campaigns")
