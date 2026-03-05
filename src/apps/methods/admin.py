@@ -188,7 +188,6 @@ class SectionResource(resources.ModelResource):
 
     class Meta:
         model = Section
-        fields = ["title", "parent__title", "order", "method__name", "indicators_code"]
 
 
 # Add superadmin views with default Unfold templates
