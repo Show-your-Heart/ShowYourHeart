@@ -111,7 +111,7 @@ class SendVerificationCodeView(FormView):
     success_url = reverse_lazy("registration:user_validation")
 
     def form_valid(self, form):
-        send_confirmation_mail(self.request.user)
+        send_confirmation_mail(self.request.user, self.request.user)
         return super().form_valid(form)
 
 
@@ -246,7 +246,7 @@ def privacy_policy_view(request):
 
 def welcome_email_view(request, id):
     user = User.objects.get(pk=id)
-    send_welcome_mail(user)
+    send_welcome_mail(user, request.user)
     messages.success(
         request,
         _(

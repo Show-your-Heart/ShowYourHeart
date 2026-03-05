@@ -1,9 +1,13 @@
 import re
 
 from django.apps import apps
+from django.core.mail import EmailMessage, get_connection
+from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
 from post_office import mail as base_mail
+
+from project.utils.smtp_utils import get_smtp_for_user
 
 
 def send(
@@ -26,6 +30,7 @@ def send(
     bcc=None,
     language="",
     backend="",
+    network=None,
 ):
     if not language:
         language = get_language()
@@ -39,6 +44,42 @@ def send(
         # Set English as the template language
         language = "en"
 
+    if network:
+        smtp = get_smtp_for_user(user=None, network=network)
+
+        connection = get_connection(
+            backend="django.core.mail.backends.smtp.EmailBackend",
+            host=smtp.host,
+            port=smtp.port,
+            username=smtp.username,
+            password=smtp.password,
+            use_tls=(smtp.protocol == "TLS"),
+            use_ssl=(smtp.protocol == "SSL"),
+        )
+
+        if sender is None:
+            sender = getattr(smtp, "email_sender", None)
+
+        body = render_to_string(template, context) if template else message
+
+        email = EmailMessage(
+            subject=subject,
+            body=body,
+            from_email=sender,
+            to=recipients,
+            cc=cc,
+            bcc=bcc,
+            headers=headers,
+            connection=connection,
+        )
+
+        if attachments:
+            for attachment in attachments:
+                email.attach(*attachment)
+
+        return email.send()
+
+    # Otherwise use Post Office as before
     return base_mail.send(
         recipients=recipients,
         sender=sender,

@@ -169,11 +169,11 @@ class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
         if action == "accept":
             organization.status = Organization.Status.ACCEPTED
             organization.save()
-            send_welcome_mail(profile.user)
+            send_welcome_mail(profile.user, sender_user=request.user)
         elif action == "reject":
             organization.status = Organization.Status.REJECTED
             organization.save()
-            send_rejected_mail(profile.user)
+            send_rejected_mail(profile.user, sender_user=request.user)
 
         return HttpResponse("")
 

@@ -9,15 +9,21 @@ from extra_settings.models import Setting
 from apps.users.utils import email_verification_code_regeneration
 from project.helpers import absolute_url
 from project.post_office import send
+from project.utils.smtp_utils import get_smtp_for_user
 
 
-def send_confirmation_mail(user_instance):
+def send_confirmation_mail(user_instance, sender_user):
     email_verification_code = email_verification_code_regeneration(user_instance)
     email_verification_url = absolute_url(
         reverse(
             "registration:user_validation",
         )
     )
+
+    network = get_smtp_for_user(
+        user=sender_user, network=getattr(sender_user, "profile", None)
+    )
+
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
         "user_name": user_instance.name,
@@ -40,10 +46,11 @@ def send_confirmation_mail(user_instance):
         ],
         template="email_verification",
         context=context,
+        network=network,
     )
 
 
-def send_welcome_mail(user_instance):
+def send_welcome_mail(user_instance, sender_user):
     password_reset_url = absolute_url(
         reverse(
             "registration:password_reset_confirm",
@@ -53,6 +60,11 @@ def send_welcome_mail(user_instance):
             },
         )
     )
+
+    network = get_smtp_for_user(
+        user=sender_user, network=getattr(sender_user, "profile", None)
+    )
+
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
         "user_name": user_instance.name,
@@ -74,10 +86,15 @@ def send_welcome_mail(user_instance):
         ],
         template="welcome",
         context=context,
+        network=network,
     )
 
 
-def send_rejected_mail(user_instance):
+def send_rejected_mail(user_instance, sender_user):
+    network = get_smtp_for_user(
+        user=sender_user, network=getattr(sender_user, "profile", None)
+    )
+
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
         "user_name": user_instance.name,
@@ -97,4 +114,5 @@ def send_rejected_mail(user_instance):
         ],
         template="rejected_registration_request",
         context=context,
+        network=network,
     )

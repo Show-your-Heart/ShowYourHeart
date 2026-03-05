@@ -24,6 +24,7 @@ from extra_settings.models import Setting
 from apps.users.models import User
 from project.helpers import absolute_url
 from project.post_office import send
+from project.utils.smtp_utils import get_smtp_for_user
 
 
 class AuthenticationForm(BaseAuthenticationForm):
@@ -163,6 +164,9 @@ class PasswordResetForm(BasePasswordResetForm):
                 },
             )
         )
+        network = get_smtp_for_user(
+            user=context["user"], network=getattr(context["user"], "profile", None)
+        )
         context = {
             "project_name": Setting.get("PROJECT_NAME"),
             "user_name": context["user"].full_name,
@@ -184,6 +188,7 @@ class PasswordResetForm(BasePasswordResetForm):
             ],
             template="password_reset",
             context=context,
+            network=network,
         )
 
 
