@@ -7,6 +7,8 @@ from django.utils.html import strip_tags
 from django.utils.translation import get_language
 from post_office import mail as base_mail
 
+from project.utils.smtp_utils import get_smtp_for_user
+
 
 def send(
     recipients=None,
@@ -43,8 +45,10 @@ def send(
         language = "en"
 
     # If network provided → use dynamic SMTP via Django
-    if network and hasattr(network, "smtp_server"):
-        smtp = network.smtp_server
+    if network:
+        smtp = get_smtp_for_user(
+            user=None, network=network
+        )  # user not needed here, network is explicit
 
         connection = get_connection(
             backend="django.core.mail.backends.smtp.EmailBackend",
