@@ -478,7 +478,7 @@ class GovAdminSite(UnfoldAdminSite):
                 models = settings_app.get("models_dict", {})
                 is_active = self.is_app_active(settings_app, request)
 
-                for model_name in ["Network", "LegalStructure"]:
+                for model_name in ["Network", "SMTPServer", "LegalStructure"]:
                     if model_name in models:
                         items.append(
                             {
