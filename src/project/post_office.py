@@ -44,11 +44,10 @@ def send(
         # Set English as the template language
         language = "en"
 
-    # If network provided → use dynamic SMTP via Django
     if network:
         smtp = get_smtp_for_user(
             user=None, network=network
-        )  # user not needed here, network is explicit
+        )
 
         connection = get_connection(
             backend="django.core.mail.backends.smtp.EmailBackend",

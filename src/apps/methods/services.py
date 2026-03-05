@@ -1,11 +1,12 @@
 from django.conf import settings
 
 from project.post_office import send
+from project.utils.smtp_utils import get_smtp_for_user
 
 from .models import Survey
 
 
-def send_invitation(invitation, sender_user):
+def send_invitation(invitation):
     context = {
         "method_name": invitation.external_survey_invitation.name,
         "user_name": invitation.name,
@@ -13,13 +14,19 @@ def send_invitation(invitation, sender_user):
         + "/methods/external-survey/"
         + invitation.token,
     }
+
+    network = get_smtp_for_user(
+        user=context["user"],
+        network=getattr(context["user"], "profile", None)
+    )
+
     send(
         recipients=[
             invitation.email,
         ],
         template="external_survey_invitation",
         context=context,
-        network=getattr(sender_user, "network", None),
+        network=network,
     )
 
 
