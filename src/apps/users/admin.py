@@ -79,7 +79,7 @@ class UserAdmin(ModelAdmin, BaseUserAdmin):
     common_fieldsets = (
         (
             _("Personal details"),
-            {"fields": ("name", "surnames", "network")},
+            {"fields": ("name", "surnames")},
         ),
         (
             _("Permissions and authorizations"),
