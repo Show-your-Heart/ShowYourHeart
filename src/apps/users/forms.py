@@ -165,8 +165,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         network = get_smtp_for_user(
-            user=context["user"],
-            network=getattr(context["user"], "profile", None)
+            user=context["user"], network=getattr(context["user"], "profile", None)
         )
         context = {
             "project_name": Setting.get("PROJECT_NAME"),

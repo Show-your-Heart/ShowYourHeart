@@ -45,9 +45,7 @@ def send(
         language = "en"
 
     if network:
-        smtp = get_smtp_for_user(
-            user=None, network=network
-        )
+        smtp = get_smtp_for_user(user=None, network=network)
 
         connection = get_connection(
             backend="django.core.mail.backends.smtp.EmailBackend",

@@ -16,8 +16,7 @@ def send_invitation(invitation):
     }
 
     network = get_smtp_for_user(
-        user=context["user"],
-        network=getattr(context["user"], "profile", None)
+        user=context["user"], network=getattr(context["user"], "profile", None)
     )
 
     send(
