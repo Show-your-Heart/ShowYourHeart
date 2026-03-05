@@ -8,6 +8,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from project.models import BaseModel
+from project.utils.mixins import NetworkFilterMixin
 
 
 class UserManager(BaseUserManager):
@@ -46,7 +47,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class UserProfile(BaseModel):
+class UserProfile(NetworkFilterMixin, BaseModel):
     user = models.OneToOneField(
         "users.User",
         null=False,
@@ -76,7 +77,7 @@ class UserProfile(BaseModel):
         return self.user.full_name
 
 
-class User(BaseModel, AbstractBaseUser, PermissionsMixin):
+class User(NetworkFilterMixin, BaseModel, AbstractBaseUser, PermissionsMixin):
     name = models.CharField(_("name"), max_length=100)
     surnames = models.CharField(
         _("surname"),
@@ -93,12 +94,6 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     email_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    network = models.ForeignKey(
-        "settings.Network",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
 
     objects = UserManager()
 

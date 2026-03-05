@@ -3,7 +3,7 @@ from modeltranslation.admin import TabbedTranslationAdmin
 
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
-from project.mixins import NetworkFilterMixin
+from project.utils.mixins import NetworkFilterMixin
 
 from .forms import NetworkForm
 from .models import LegalStructure, Network, Sector, SMTPServer

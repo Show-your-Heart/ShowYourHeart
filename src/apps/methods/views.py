@@ -16,7 +16,7 @@ from unfold.views import UnfoldModelAdminViewMixin
 from apps.geodata.models import Region1
 from apps.methods.forms import InvitationCreationForm
 from apps.methods.mixins import MethodFillMixin
-from project.mixins import NetworkFilterMixin
+from project.utils.mixins import NetworkFilterMixin
 
 from .helpers import (
     ParseExternalInvitations,
@@ -226,8 +226,6 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
     permission_required = ()
     template_name = "admin/methods/survey_review.html"
     paginate_by = 20
-    organization_field = "organization"
-    method_field = "method"
 
     def get_queryset(self):
         all_surveys = Survey.objects.filter(

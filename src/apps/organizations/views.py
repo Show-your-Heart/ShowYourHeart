@@ -15,7 +15,7 @@ from apps.organizations.forms import (
     OrganizationSignUpForm,
     OrganizationUpdateForm,
 )
-from project.mixins import NetworkFilterMixin
+from project.utils.mixins import NetworkFilterMixin
 
 from .helpers import filter_methods_by_legal_structure, get_methods_for_region1
 from .models import Organization, Project
