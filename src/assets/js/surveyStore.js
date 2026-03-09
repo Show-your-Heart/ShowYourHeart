@@ -6,6 +6,13 @@ const initSurveyStore = () => {
         prevSectionId: "",
         validatedSections: [],
         initSections(sections) {
+            // Clear
+            this.sections = []
+            this.currentSection = ""
+            this.prevSection = ""
+            this.prevIdSection = ""
+            this.validatedSections = []
+            // Init
             sections.forEach(s =>
                 this.sections.push({
                     id: s.id,
