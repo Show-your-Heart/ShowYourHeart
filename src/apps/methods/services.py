@@ -15,9 +15,7 @@ def send_invitation(invitation):
         + invitation.token,
     }
 
-    network = get_smtp_for_user(
-        user=context["user"], network=getattr(context["user"], "profile", None)
-    )
+    smtp = get_smtp_for_user(user=context["user"])
 
     send(
         recipients=[
@@ -25,7 +23,7 @@ def send_invitation(invitation):
         ],
         template="external_survey_invitation",
         context=context,
-        network=network,
+        smtp=smtp,
     )
 
 

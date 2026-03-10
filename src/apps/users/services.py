@@ -20,9 +20,7 @@ def send_confirmation_mail(user_instance, sender_user):
         )
     )
 
-    network = get_smtp_for_user(
-        user=sender_user, network=getattr(sender_user, "profile", None)
-    )
+    smtp = get_smtp_for_user(user=sender_user)
 
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
@@ -46,7 +44,7 @@ def send_confirmation_mail(user_instance, sender_user):
         ],
         template="email_verification",
         context=context,
-        network=network,
+        smtp=smtp,
     )
 
 
@@ -61,9 +59,7 @@ def send_welcome_mail(user_instance, sender_user):
         )
     )
 
-    network = get_smtp_for_user(
-        user=sender_user, network=getattr(sender_user, "profile", None)
-    )
+    smtp = get_smtp_for_user(user=sender_user)
 
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
@@ -86,14 +82,12 @@ def send_welcome_mail(user_instance, sender_user):
         ],
         template="welcome",
         context=context,
-        network=network,
+        smtp=smtp,
     )
 
 
 def send_rejected_mail(user_instance, sender_user):
-    network = get_smtp_for_user(
-        user=sender_user, network=getattr(sender_user, "profile", None)
-    )
+    smtp = get_smtp_for_user(user=sender_user)
 
     context = {
         "project_name": Setting.get("PROJECT_NAME"),
@@ -114,5 +108,5 @@ def send_rejected_mail(user_instance, sender_user):
         ],
         template="rejected_registration_request",
         context=context,
-        network=network,
+        smtp=smtp,
     )
