@@ -40,7 +40,7 @@ def send(
 
     if not translated_template:
         # Set English as the template language
-        language="en"
+        language = "en"
         translated_template = template_mail_model.objects.filter(
             name=template, language="en"
         )
