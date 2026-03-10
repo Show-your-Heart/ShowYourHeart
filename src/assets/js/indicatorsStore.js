@@ -135,7 +135,7 @@ const initIndicatorsStore = () => {
                     Alpine.store("survey").setIndicatorValidation(field.id, result.isFieldValid)
                 } else {
                     // Validate simple indicators
-                    result.isValid = this.evaluateExpression(field.validation, field.code)
+                    result.isValid = !!this.evaluateExpression(field.validation, field.code)
                     result.isFieldValid = result.isValid
                     Alpine.store("survey").setIndicatorValidation(field.id, result.isValid)
                 }
