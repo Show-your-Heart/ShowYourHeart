@@ -559,7 +559,7 @@ class SurveyAdmin(ModelAdmin):
             return HttpResponse(
                 "",
                 headers={
-                    "HX-Trigger": '{ "hide-modal": {}, '
+                    "HX-Trigger": '{ "hide-modal": { "id": "edit-survey-modal" }, '
                     + '"notification": { "type": "success", "text": "'
                     + msg
                     + '" } }',
