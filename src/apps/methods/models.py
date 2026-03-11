@@ -179,12 +179,16 @@ class Indicator(BaseModel):
         on_delete=models.PROTECT,
         related_name="group",
     )
+    group_total = models.BooleanField(_("Add group total?"), blank=False, default=False)
     group_2 = models.ForeignKey(
         Group,
         null=True,
         blank=True,
         on_delete=models.PROTECT,
         related_name="group_2",
+    )
+    group_2_total = models.BooleanField(
+        _("Add group totals?"), blank=False, default=False
     )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
@@ -508,6 +512,7 @@ class IndicatorResult(BaseModel):
     gender = models.PositiveSmallIntegerField(
         choices=Gender.choices, default=None, blank=True, null=True
     )
+    is_total = models.BooleanField(_("Is total?"), blank=False, default=False)
     value = models.CharField(blank=True)
     not_applicable = models.BooleanField(
         _("not applicable"), blank=True, null=True, default=None

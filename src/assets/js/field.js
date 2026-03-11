@@ -13,8 +13,10 @@ const initFieldData = () => {
         isGroupIndicator: false,
         groupTitle: "",
         groupItems: [],
+        groupTotal: false,
         group2Title: "",
         group2Items: [],
+        group2Total: false,
         required: true,
         condition: "",
         formula: "",
@@ -47,8 +49,10 @@ const initFieldData = () => {
             if (indicator.is_group_indicator) {
                 this.groupTitle = indicator.group_title
                 this.groupItems = indicator.group_items
+                this.groupTotal = indicator.group_total
                 this.group2Title = indicator.group_2_title || ""
                 this.group2Items = indicator.group_2_items || []
+                this.group2Total = indicator.group_2_total
                 this.isValid = {}
             }
             this.value = this.loadInitialValue(indicatorResults?.value ?? null)
@@ -127,6 +131,9 @@ const initFieldData = () => {
             if (initialValue && Object.keys(initialValue).length > 0) {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = initialValue[item.suffix]
+                    if (this.indicatorsStore.isNumeric(this.type)) {
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix]), 0)
+                    }
                 })
             } else {
                 this.groupItems.forEach(item => {
@@ -142,16 +149,31 @@ const initFieldData = () => {
                     value[item.suffix] = {}
                     this.group2Items.forEach(group2Item => {
                         value[item.suffix][group2Item.suffix] = initialValue[item.suffix][group2Item.suffix]
-
                     })
+                    if (this.indicatorsStore.isNumeric(this.type)) {
+                        value[item.suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + Number(initialValue[item.suffix][curr.suffix] ?? 0), 0)
+                    }
                 })
+                this.group2Items.forEach(group2Item => {
+                    value[group2Item.suffix] = {}
+                    value[group2Item.suffix]['total'] = this.groupItems.reduce((acc, curr) => acc + Number(initialValue[curr.suffix][group2Item.suffix] ?? 0), 0)
+                })
+                value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix].total), 0)
             } else {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = {}
                     this.group2Items.forEach(group2Item => {
                         value[item.suffix][group2Item.suffix] = null
                     })
+                    if (this.indicatorsStore.isNumeric(this.type)) {
+                        value[item.suffix]['total'] = null
+                    }
                 })
+                this.group2Items.forEach(group2Item => {
+                    value[group2Item.suffix] = {}
+                    value[group2Item.suffix]['total'] = null
+                })
+                value['total'] = null
             }
             return value
         },
@@ -210,8 +232,16 @@ const initFieldData = () => {
                 value = current
                 if (suffix2 == '') {
                     value[suffix] = input
+                    if (this.indicatorsStore.isNumeric(type)) {
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix]), 0)
+                    }
                 } else {
                     value[suffix][suffix2] = input
+                    if (this.indicatorsStore.isNumeric(this.type)) {
+                        value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix]) ?? 0), 0)
+                        value[suffix2]['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix][suffix2]) ?? 0), 0)
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix].total || 0) ?? 0), 0)
+                    }
                 }
             } else {
                 value = input

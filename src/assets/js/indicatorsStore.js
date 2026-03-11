@@ -298,6 +298,26 @@ const initIndicatorsStore = () => {
                     return false
             }
         },
+        isNumeric(type) {
+            switch (type) {
+                case this.fieldTypes.STRING:
+                case this.fieldTypes.TEXT:
+                case this.fieldTypes.BOOLEAN:
+                case this.fieldTypes.DATE:
+                case this.fieldTypes.DROPDOWN:
+                case this.fieldTypes.CHECKBOX:
+                case this.fieldTypes.RADIOBUTTON:
+                    return false
+                case this.fieldTypes.INTEGER:
+                case this.fieldTypes.DECIMAL:
+                case this.fieldTypes.INTEGERGENDER:
+                case this.fieldTypes.DECIMALGENDER:
+                    return true
+                default:
+                    console.log(type, "No matching type found")
+                    return false
+            }
+        },
         hasOptions(type) {
             switch (type) {
                 case this.fieldTypes.STRING:

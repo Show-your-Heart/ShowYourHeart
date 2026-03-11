@@ -260,6 +260,50 @@ def save_indicator_results(method_id, request, survey):
                                 group_item=group_item,
                                 group_2_item=group_2_item,
                             ).delete()
+                    # Save group totals
+                    value = request.POST.get(f"{field_name}_{group_item.suffix}_total")
+                    IndicatorResult.objects.update_or_create(
+                        survey=survey,
+                        indicator=indicator,
+                        group_item=group_item,
+                        group_2_item=None,
+                        is_total=True,
+                        defaults={
+                            "value": "" if value is None else value,
+                            "not_applicable": na,
+                        },
+                    )
+            if indicator_is_numeric(indicator.data_type):
+                # Save group2 totals
+                if indicator.group_2 is not None:
+                    for group_2_item in indicator.group_2.items.all():
+                        value = request.POST.get(
+                            f"{field_name}_{group_2_item.suffix}_total"
+                        )
+                        IndicatorResult.objects.update_or_create(
+                            survey=survey,
+                            indicator=indicator,
+                            group_item=None,
+                            group_2_item=group_2_item,
+                            is_total=True,
+                            defaults={
+                                "value": "" if value is None else value,
+                                "not_applicable": na,
+                            },
+                        )
+                # Save total
+                value = request.POST.get(f"{field_name}_total")
+                IndicatorResult.objects.update_or_create(
+                    survey=survey,
+                    indicator=indicator,
+                    group_item=None,
+                    group_2_item=None,
+                    is_total=True,
+                    defaults={
+                        "value": "" if value is None else value,
+                        "not_applicable": na,
+                    },
+                )
         # Handle standard indicators
         else:
             values = request.POST.getlist(field_name)
@@ -336,6 +380,8 @@ def get_initial_values(survey):
     ).all()
     initial_values = {}
     for i in indicator_results:
+        if i.is_total:
+            continue
         if is_gendered(i.indicator.data_type):
             initial_values[i.indicator.code] = {
                 "value": {
@@ -427,3 +473,10 @@ def get_sections_data(context_sections):
         )
 
     return sections_data
+
+
+def indicator_is_numeric(data_type):
+    return (
+        data_type == Indicator.DataType.INTEGER
+        or data_type == Indicator.DataType.DECIMAL
+    )

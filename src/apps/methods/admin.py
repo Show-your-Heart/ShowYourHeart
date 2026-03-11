@@ -141,8 +141,10 @@ class IndicatorAdmin(
         "formula": "is_direct_indicator == false",
         "list_options": f"{list_types_js}.includes(data_type)",
         "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true",
+        "group_total": "is_group_indicator == true",
         "group_2": f"""{group_types_js}.includes(data_type)
                         && is_group_indicator == true""",
+        "group_2_total": "is_group_indicator == true",
     }
 
     exclude = ("dependant_indicators",)
@@ -166,7 +168,9 @@ class IndicatorAdmin(
                 "unit",
                 "list_options",
                 "group",
+                "group_total",
                 "group_2",
+                "group_2_total",
                 "condition",
                 "formula",
                 "validation",

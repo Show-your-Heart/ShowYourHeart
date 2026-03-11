@@ -6,9 +6,12 @@
             <template x-if="group2Title != ''">
                 <thead>
                     <tr>
-                        <th class="h-full p-2" x-text="groupTitle"></th>
+                        <th class="h-full p-2" x-text="''"></th>
                         <template x-for="group2Item in group2Items">
-                            <th class="h-full p-2" x-text="group2Item.title"></th>
+                            <th class="h-full p-2 font-normal" x-text="group2Item.title"></th>
+                        </template>
+                        <template x-if="group2Title != '' && (groupTotal || group2Total)" >
+                            <th class="h-full p-2 font-normal border-l border-gray-300">{% translate 'Total' %}</th>
                         </template>
                     </tr>
                 </thead>
@@ -44,6 +47,80 @@
                                     </div>
                                 </td>
                             </template>
+                        </template>
+                        {% comment %} Render empty cells {% endcomment %}
+                        <template x-if="!groupTotal && group2Total" >
+                            <td class="p-2 border-l border-gray-300">
+                            </td>
+                        </template>
+                        {% comment %} Render group totals {% endcomment %}
+                        <template x-if="group2Title != '' && groupTotal" >
+                            <td class="p-2 border-l border-gray-300">
+                                <div class="flex gap-2 justify-center">
+                                    <input :id="`question_${id}_${item.suffix}_total`"
+                                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+                                        :name="`question_${id}_${item.suffix}_total`" :value="value[item.suffix].total" type="text" placeholder="0" 
+                                        {% include "django/forms/widgets/attrs.html" %}
+                                        readonly x-model="value[item.suffix].total" />
+                                    <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
+                                </div>
+                            </td>
+                        </template>
+                    </tr>
+                </template>
+                {% comment %} Add group total row {% endcomment %}
+                <template x-if="groupTotal || group2Total">
+                    <tr class="border-t border-gray-300">
+                        <td class="p-2">
+                            <label :for="`question_${id}_total`">{% translate 'Total' %}</label>
+                        </td>
+                        {% comment %} Render list total {% endcomment %}
+                        <template x-if="group2Title == ''">
+                            <td class="p-2">
+                                <div class="flex gap-2 justify-center">
+                                    <input :id="`question_${id}_total`"
+                                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+                                        :name="`question_${id}_total`" :value="value.total" type="text" placeholder="0" 
+                                        {% include "django/forms/widgets/attrs.html" %}
+                                        readonly x-model="value.total" />
+                                    <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
+                                </div>
+                            </td>
+                        </template>
+                        {% comment %} Render group2 totals {% endcomment %}
+                        <template x-if="group2Title != '' && group2Total" >
+                            <template x-for="group2Item in group2Items" :key="group2Item.suffix">
+                                <td class="p-2">
+                                    <div class="flex gap-2 justify-center">
+                                        <input :id="`question_${id}_${group2Item.suffix}_total`"
+                                            class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+                                            :name="`question_${id}_${group2Item.suffix}_total`" :value="value[group2Item.suffix].total" type="text" placeholder="0" 
+                                            {% include "django/forms/widgets/attrs.html" %}
+                                            readonly x-model="value[group2Item.suffix].total" />
+                                        <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
+                                    </div>
+                                </td>
+                            </template>
+                        </template>
+                        {% comment %} Render empty cells {% endcomment %}
+                        <template x-if="!group2Total" >
+                            <template x-for="group2Item in group2Items" :key="group2Item.suffix">
+                                <td class="p-2">
+                                </td>
+                            </template>
+                        </template>
+                        {% comment %} Render table total {% endcomment %}
+                        <template x-if="group2Title != '' && (groupTotal || group2Total)" >
+                            <td class="p-2 border-l border-gray-300">
+                                <div class="flex gap-2 justify-center">
+                                    <input :id="`question_${id}_total`"
+                                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+                                        :name="`question_${id}_total`" :value="value.total" type="text" placeholder="0" 
+                                        {% include "django/forms/widgets/attrs.html" %}
+                                        readonly x-model="value.total" />
+                                    <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
+                                </div>
+                            </td>
                         </template>
                     </tr>
                 </template>
