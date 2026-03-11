@@ -28,10 +28,6 @@ class CreateOrganizationView(CreateView):
     form_class = OrganizationSignUpForm
     success_url = reverse_lazy("organizations:signup_success")
 
-    def form_valid(self, form):
-        form.save(commit=True, sender_user=self.request.user)
-        return super().form_valid(form)
-
 
 @method_decorator(login_not_required, name="dispatch")
 class CreateOrganizationSuccessView(TemplateView):
