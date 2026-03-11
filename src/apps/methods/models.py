@@ -610,6 +610,9 @@ class Invitation(BaseModel):
 
 class Section(BaseModel):
     title = models.CharField(_("Title"), max_length=60)
+    description = models.CharField(
+        _("Description"), max_length=500, blank=True, default=""
+    )
     parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
     method = models.ForeignKey(Method, on_delete=models.PROTECT)
     order = models.PositiveIntegerField(_("order"), default=0, db_index=True)

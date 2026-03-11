@@ -189,12 +189,14 @@ class SectionInlineForm(forms.ModelForm):
         model = Section
         fields = (
             "title",
+            "description",
             "parent",
             "indicators",
         )
 
         widgets = {
             "title": UnfoldAdminTextInputWidget,
+            "description": WysiwygWidget,
         }
 
     def __init__(self, *args, **kwargs):
@@ -234,3 +236,7 @@ class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = "__all__"  # noqa
+
+        widgets = {
+            "description": WysiwygWidget,
+        }

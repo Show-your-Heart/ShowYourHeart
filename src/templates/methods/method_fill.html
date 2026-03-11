@@ -80,14 +80,20 @@
         <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8" id="section-{{ section.id }}" role="tabpanel"
         aria-labelledby="{{ section.id }}{{ forloop.counter }}-tab">
           <h2 class="text-3xl font-bold">{{ section.title }}</h2>
+          <div class="-mt-6">
+            {{ section.description | safe }}
+          </div>
 
           {% for field in fields.indicators %}
           {{ field.field }}
           {% endfor %}
 
-          {% for subsection in fields.subsections %}
-          {% for subsectionName, subsectionIndicators in subsection.items %}
-          <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
+          {% for subsectionObj in fields.subsections %}
+          {% for subsection, subsectionIndicators in subsectionObj.items %}
+          <h4 class="text-2xl font-bold">{{ subsection.title }}</h4>
+          <div class="-mt-6">
+            {{ subsection.description | safe }}
+          </div>
           {% for field in subsectionIndicators %}
           {{ field.field }}
           {% endfor %}

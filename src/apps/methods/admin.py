@@ -211,6 +211,7 @@ class SectionAdmin(
 
     list_display = (
         "title",
+        "description",
         "parent",
         "method",
         "order",

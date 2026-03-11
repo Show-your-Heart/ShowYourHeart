@@ -179,7 +179,7 @@ def get_form_sections(method):
         subsections = []
         for child in children:
             child_indicators = get_indicators_list(child.indicators.all())
-            subsections.append({child.title: child_indicators})
+            subsections.append({child: child_indicators})
 
         result[section] = {
             "indicators": indicators,
