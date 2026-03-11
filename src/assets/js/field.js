@@ -64,7 +64,7 @@ const initFieldData = () => {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
-            this.show = indicator.is_direct_indicator && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator))
+            this.show = (indicator.is_direct_indicator || indicator.display_indirect) && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator))
             this.notApplicable = (indicatorResults?.not_applicable || !this.show) ?? false
             const field = {
                 id: this.id,

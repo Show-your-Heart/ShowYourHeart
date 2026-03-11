@@ -147,6 +147,9 @@ class Indicator(BaseModel):
     is_direct_indicator = models.BooleanField(
         _("Is it a direct indicator?"), blank=True
     )
+    display_indirect = models.BooleanField(
+        _("Display indirect indicator?"), blank=False, default=False
+    )
     is_group_indicator = models.BooleanField(
         _("Is it a group indicator? (e.g. lists or tables)"), blank=False, default=False
     )

@@ -15,12 +15,14 @@
                 {% endif %}
             </label>
 
-            <div x-show="mandatory" class="ps-4 flex items-center">
-                <input type="checkbox" id="{{ widget.name }}_na" name="{{ widget.name }}_na" value="True" class="cursor-pointer h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
-                        focus:ring-blue-500" x-model="notApplicable" {% include "django/forms/widgets/attrs.html" %}
+            <template x-if="mandatory && isDirectIndicator">
+                <div class="ps-4 flex items-center">
+                    <input type="checkbox" id="{{ widget.name }}_na" name="{{ widget.name }}_na" value="True" class="cursor-pointer h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                    focus:ring-blue-500" x-model="notApplicable" {% include "django/forms/widgets/attrs.html" %}
                     @click="updateNotApplicable($event.target.checked)">
-                <label for="{{ widget.name }}_na" class="cursor-pointer ml-2 text-sm text-gray-700"> {% translate 'Not applicable' %}</label>
-            </div>
+                    <label for="{{ widget.name }}_na" class="cursor-pointer ml-2 text-sm text-gray-700"> {% translate 'Not applicable' %}</label>
+                </div>
+            </template>
         </div>
     </div>
 

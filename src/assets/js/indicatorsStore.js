@@ -262,6 +262,11 @@ const initIndicatorsStore = () => {
                         const fieldEl = document.querySelector(`#question_${indicator.id}`);
                         fieldEl && (Alpine.$data(fieldEl).value = String(value))
                     }
+                    if (indicator.display_indirect) {
+                        const show = indicator.condition == "" || this.isVisible(indicator)
+                        const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                        Alpine.$data(fieldEl).show = show
+                    }
                 }
             }
         },

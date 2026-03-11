@@ -133,7 +133,11 @@ class IndicatorAdmin(
 
     conditional_fields = {
         "category": "is_direct_indicator == true",
-        "condition": "is_direct_indicator == true",
+        "display_indirect": "is_direct_indicator == false",
+        "condition": """
+                is_direct_indicator == true ||
+                (is_direct_indicator == false && display_indirect == true)
+            """,
         "formula": "is_direct_indicator == false",
         "list_options": f"{list_types_js}.includes(data_type)",
         "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true",
@@ -153,6 +157,7 @@ class IndicatorAdmin(
                 "name_en",
                 "description_en",
                 "is_direct_indicator",
+                "display_indirect",
                 "is_group_indicator",
                 "mandatory",
                 "topics",
