@@ -2,12 +2,10 @@ import re
 
 from django.apps import apps
 from django.core.mail import EmailMessage, get_connection
-from django.template.loader import render_to_string
+from django.template import Context, Template
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
 from post_office import mail as base_mail
-
-from project.utils.smtp_utils import get_smtp_for_user
 
 
 def send(
@@ -30,23 +28,24 @@ def send(
     bcc=None,
     language="",
     backend="",
-    network=None,
+    smtp=None,
 ):
     if not language:
         language = get_language()
 
     template_mail_model = apps.get_model("post_office", "EmailTemplate")
-    template_exists = template_mail_model.objects.filter(
+    translated_template = template_mail_model.objects.filter(
         name=template, language=language
-    ).exists()
+    )
 
-    if not template_exists:
+    if not translated_template:
         # Set English as the template language
         language = "en"
+        translated_template = template_mail_model.objects.filter(
+            name=template, language="en"
+        )
 
-    if network:
-        smtp = get_smtp_for_user(user=None, network=network)
-
+    if smtp:
         connection = get_connection(
             backend="django.core.mail.backends.smtp.EmailBackend",
             host=smtp.host,
@@ -57,10 +56,8 @@ def send(
             use_ssl=(smtp.protocol == "SSL"),
         )
 
-        if sender is None:
-            sender = getattr(smtp, "email_sender", None)
-
-        body = render_to_string(template, context) if template else message
+        subject = Template(translated_template[0].subject).render(Context(context))
+        body = Template(translated_template[0].content).render(Context(context))
 
         email = EmailMessage(
             subject=subject,
@@ -72,11 +69,6 @@ def send(
             headers=headers,
             connection=connection,
         )
-
-        if attachments:
-            for attachment in attachments:
-                email.attach(*attachment)
-
         return email.send()
 
     # Otherwise use Post Office as before
