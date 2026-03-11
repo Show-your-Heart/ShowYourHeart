@@ -50,6 +50,7 @@ def get_survey_stats(survey, method, campaign):
         "method": method,
         "sectionsWithStatus": [],
         "campaign": campaign,
+        "hasExternalSurveys": len(method.external_surveys.all()) > 0,
     }
 
     if survey:
