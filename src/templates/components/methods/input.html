@@ -4,9 +4,10 @@
     <div class="flex gap-4">
         <input :id="`question_${id}`"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
+            :class="!isDirectIndicator ? 'bg-gray-100' : ''"
             :name="`question_${id}`" :value="value" :type="isDirectIndicator ? '{{ widget.type}}' : 'text'" placeholder="{{ widget.attrs.placeholder }}"  
             {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value)"
-            x-bind:disabled="notApplicable || !isDirectIndicator" x-model="value" />
+            x-bind:disabled="notApplicable" :readonly="!isDirectIndicator" x-model="value" />
         <span class="flex items-center" x-text="unit"></span>
     </div>
     <div class="text-red-600" x-show="hasErrors">
