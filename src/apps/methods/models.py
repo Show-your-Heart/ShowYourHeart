@@ -139,6 +139,11 @@ class Indicator(BaseModel):
         DataType.DECIMAL,
     ]
 
+    numeric_types = [
+        DataType.INTEGER,
+        DataType.DECIMAL,
+    ]
+
     code = models.CharField(_("ID"), max_length=50, unique=True)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=1000, blank=True)

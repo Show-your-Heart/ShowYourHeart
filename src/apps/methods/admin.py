@@ -130,6 +130,7 @@ class IndicatorAdmin(
 
     list_types_js = json.dumps(Indicator.list_types)
     group_types_js = json.dumps(Indicator.group_types)
+    numeric_types_js = json.dumps(Indicator.numeric_types)
 
     conditional_fields = {
         "category": "is_direct_indicator == true",
@@ -141,10 +142,12 @@ class IndicatorAdmin(
         "formula": "is_direct_indicator == false",
         "list_options": f"{list_types_js}.includes(data_type)",
         "group": f"{group_types_js}.includes(data_type) && is_group_indicator == true",
-        "group_total": "is_group_indicator == true",
+        "group_total": f"""{numeric_types_js}.includes(data_type)
+                        && is_group_indicator == true""",
         "group_2": f"""{group_types_js}.includes(data_type)
                         && is_group_indicator == true""",
-        "group_2_total": "is_group_indicator == true",
+        "group_2_total": f"""{numeric_types_js}.includes(data_type)
+                        && is_group_indicator == true""",
     }
 
     exclude = ("dependant_indicators",)
