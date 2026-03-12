@@ -4,7 +4,7 @@
     <button type="button" data-drawer-target="drawer-{{id}}" data-drawer-show="drawer-{{id}}" data-drawer-placement="right" aria-controls="drawer-{{id}}">
         <c-icon name="info-circle" class="rounded-full text-white bg-pink-600 hover:text-pink-600 hover:bg-white hover:cursor-pointer focus:ring-4 focus:outline-none focus:ring-pink-300"></c-icon>
     </button>
-    <div id="drawer-{{id}}" tabindex="-1" aria-labelledby="help-drawer" class="fixed top-0 right-0 z-60 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80">
+    <div id="drawer-{{id}}" tabindex="-1" aria-labelledby="help-drawer" class="fixed top-0 right-0 z-60 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white" style="width: clamp(25rem,35vw,60rem)">
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200"> 
             <h3 class="text-xl font-semibold text-gray-900">
                 {% translate "Aclaración" %}
