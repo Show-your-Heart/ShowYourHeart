@@ -461,6 +461,9 @@
   .-mt-2 {
     margin-top: calc(var(--spacing) * -2);
   }
+  .-mt-6 {
+    margin-top: calc(var(--spacing) * -6);
+  }
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
   }
@@ -766,6 +769,9 @@
   }
   .min-w-\[80px\] {
     min-width: 80px;
+  }
+  .min-w-\[100px\] {
+    min-width: 100px;
   }
   .min-w-\[150px\] {
     min-width: 150px;
@@ -1098,6 +1104,10 @@
   .border-b {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
+  }
+  .border-l {
+    border-left-style: var(--tw-border-style);
+    border-left-width: 1px;
   }
   .border-dashed {
     --tw-border-style: dashed;

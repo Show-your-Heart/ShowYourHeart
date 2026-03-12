@@ -139,6 +139,11 @@ class Indicator(BaseModel):
         DataType.DECIMAL,
     ]
 
+    numeric_types = [
+        DataType.INTEGER,
+        DataType.DECIMAL,
+    ]
+
     code = models.CharField(_("ID"), max_length=50, unique=True)
     version = models.CharField(_("version"), max_length=4)
     name = models.CharField(_("name"), max_length=1000, blank=True)
@@ -146,6 +151,9 @@ class Indicator(BaseModel):
     topics = models.ManyToManyField(Topic, related_name="topics")
     is_direct_indicator = models.BooleanField(
         _("Is it a direct indicator?"), blank=True
+    )
+    display_indirect = models.BooleanField(
+        _("Display indirect indicator?"), blank=False, default=False
     )
     is_group_indicator = models.BooleanField(
         _("Is it a group indicator? (e.g. lists or tables)"), blank=False, default=False
@@ -176,12 +184,16 @@ class Indicator(BaseModel):
         on_delete=models.PROTECT,
         related_name="group",
     )
+    group_total = models.BooleanField(_("Add group total?"), blank=False, default=False)
     group_2 = models.ForeignKey(
         Group,
         null=True,
         blank=True,
         on_delete=models.PROTECT,
         related_name="group_2",
+    )
+    group_2_total = models.BooleanField(
+        _("Add group totals?"), blank=False, default=False
     )
     condition = models.CharField(_("condition"), max_length=400, blank=True)
     formula = models.CharField(_("formula"), max_length=400, blank=True)
@@ -505,6 +517,7 @@ class IndicatorResult(BaseModel):
     gender = models.PositiveSmallIntegerField(
         choices=Gender.choices, default=None, blank=True, null=True
     )
+    is_total = models.BooleanField(_("Is total?"), blank=False, default=False)
     value = models.CharField(blank=True)
     not_applicable = models.BooleanField(
         _("not applicable"), blank=True, null=True, default=None
@@ -602,6 +615,9 @@ class Invitation(BaseModel):
 
 class Section(BaseModel):
     title = models.CharField(_("Title"), max_length=60)
+    description = models.CharField(
+        _("Description"), max_length=500, blank=True, default=""
+    )
     parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
     method = models.ForeignKey(Method, on_delete=models.PROTECT)
     order = models.PositiveIntegerField(_("order"), default=0, db_index=True)

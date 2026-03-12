@@ -50,6 +50,7 @@ def get_survey_stats(survey, method, campaign):
         "method": method,
         "sectionsWithStatus": [],
         "campaign": campaign,
+        "hasExternalSurveys": len(method.external_surveys.all()) > 0,
     }
 
     if survey:
@@ -178,7 +179,7 @@ def get_form_sections(method):
         subsections = []
         for child in children:
             child_indicators = get_indicators_list(child.indicators.all())
-            subsections.append({child.title: child_indicators})
+            subsections.append({child: child_indicators})
 
         result[section] = {
             "indicators": indicators,

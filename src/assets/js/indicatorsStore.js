@@ -208,19 +208,14 @@ const initIndicatorsStore = () => {
         loadTotalIndicatorResult(subtokens) {
             let result = null
             const indicator = this.indicators.find(i => i.code == subtokens[0])
+            const fieldEl = document.querySelector(`#field-${indicator.id}`)
 
-            if (indicator.group_2_id == null) {
-                // List total
-                result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k]), 0)
-            } else if (indicator.group_2_items.length > 0) {
-                const columnIndex = indicator.group_2_items.findIndex(i => i.suffix == subtokens[1])
-                if (columnIndex == -1) {
-                    // Table row total
-                    result = indicator.group_2_items.reduce((prev, i) => prev + Number(indicator.value[subtokens[1]][i.suffix]), 0)
-                } else {
-                    // Table column total
-                    result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k][subtokens[1]]), 0)
-                }
+            if (subtokens.length == 2) {
+                // List or table total
+                result = Alpine.$data(fieldEl).value.total
+            } else if (subtokens.length == 3) {
+                // Table row or column total
+                result = Alpine.$data(fieldEl).value[subtokens[1]].total
             } else {
                 console.log("Invalid total token ")
                 result = 0
@@ -262,6 +257,11 @@ const initIndicatorsStore = () => {
                         const fieldEl = document.querySelector(`#question_${indicator.id}`);
                         fieldEl && (Alpine.$data(fieldEl).value = String(value))
                     }
+                    if (indicator.display_indirect) {
+                        const show = indicator.condition == "" || this.isVisible(indicator)
+                        const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                        Alpine.$data(fieldEl).show = show
+                    }
                 }
             }
         },
@@ -290,6 +290,26 @@ const initIndicatorsStore = () => {
                 case this.fieldTypes.DECIMALGENDER:
                     return true
                 default:
+                    return false
+            }
+        },
+        isNumeric(type) {
+            switch (type) {
+                case this.fieldTypes.STRING:
+                case this.fieldTypes.TEXT:
+                case this.fieldTypes.BOOLEAN:
+                case this.fieldTypes.DATE:
+                case this.fieldTypes.DROPDOWN:
+                case this.fieldTypes.CHECKBOX:
+                case this.fieldTypes.RADIOBUTTON:
+                    return false
+                case this.fieldTypes.INTEGER:
+                case this.fieldTypes.DECIMAL:
+                case this.fieldTypes.INTEGERGENDER:
+                case this.fieldTypes.DECIMALGENDER:
+                    return true
+                default:
+                    console.log(type, "No matching type found")
                     return false
             }
         },
