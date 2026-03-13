@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-26 12:36+0100\n"
+"POT-Creation-Date: 2026-03-13 13:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,10 +71,10 @@ msgid "change message"
 msgstr ""
 
 #: project/admin.py:402
-msgid "Entities"
-msgstr "Entidades"
+msgid "Organizations management"
+msgstr ""
 
-#: project/admin.py:440
+#: project/admin.py:441
 msgid "Methods management"
 msgstr ""
 
@@ -87,12 +87,10 @@ msgid "Registration Requests"
 msgstr "Solitudes de alta"
 
 #: project/admin.py:463
-#, fuzzy
-#| msgid "Review Projects Balances"
 msgid "Review Balances"
-msgstr "Revisar balance de proyectos"
+msgstr "Revisar balances"
 
-#: project/admin.py:506
+#: project/admin.py:511
 msgid "Settings"
 msgstr ""
 
@@ -192,23 +190,23 @@ msgstr ""
 msgid "Creating sample zipcode..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:314
+#: project/management/commands/load_dev_data.py:315
 msgid "Zip code already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:320
+#: project/management/commands/load_dev_data.py:321
 msgid "Creating sample Region1..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:329
+#: project/management/commands/load_dev_data.py:330
 msgid "Region1 already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:334
+#: project/management/commands/load_dev_data.py:335
 msgid "Creating sample Campaign..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:347
+#: project/management/commands/load_dev_data.py:348
 msgid "Campaign already exists."
 msgstr ""
 
@@ -332,10 +330,8 @@ msgid "organizations/"
 msgstr ""
 
 #: project/urls.py:42
-#, fuzzy
-#| msgid "Methods"
 msgid "methods/"
-msgstr "Métodos"
+msgstr "metodos/"
 
 #: project/views.py:99
 msgid "Back"
@@ -352,12 +348,3 @@ msgstr ""
 #: project/views.py:103
 msgid "The registry was updated correctly."
 msgstr ""
-
-#~ msgid "Review Etitities Balances"
-#~ msgstr "Revisar balances de entidades"
-
-#~ msgid "Documents"
-#~ msgstr "Documentos"
-
-#~ msgid "Methods"
-#~ msgstr "Métodos"

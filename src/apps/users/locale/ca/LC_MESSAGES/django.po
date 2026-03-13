@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 11:37+0100\n"
+"POT-Creation-Date: 2026-03-13 13:40+0100\n"
 "PO-Revision-Date: 2024-10-21 16:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,99 +19,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: apps/users/admin.py:84
+#: apps/users/admin.py:70
 msgid "Authentication"
 msgstr ""
 
-#: apps/users/admin.py:95
-#, fuzzy
-#| msgid "profile/details/"
+#: apps/users/admin.py:81
 msgid "Personal details"
-msgstr "perfil/fitxa/"
+msgstr ""
 
-#: apps/users/admin.py:99
+#: apps/users/admin.py:85
 msgid "Permissions and authorizations"
 msgstr ""
 
-#: apps/users/admin.py:113
-#, fuzzy
-#| msgid "Login"
+#: apps/users/admin.py:99
 msgid "Log"
 msgstr "Accés"
 
-#: apps/users/admin.py:137
-#, fuzzy
-#| msgid "Password confirmation"
+#: apps/users/admin.py:123
 msgid "User roles information"
-msgstr "Confirmació de contrasenya"
+msgstr ""
 
-#: apps/users/admin.py:145
+#: apps/users/admin.py:131
 msgid "Actions"
 msgstr ""
 
-#: apps/users/admin.py:150
+#: apps/users/admin.py:136
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 
-#: apps/users/admin.py:156
+#: apps/users/admin.py:142
 msgid "Send email to the user to set the password"
 msgstr ""
 
-#: apps/users/forms.py:33 apps/users/forms.py:69 apps/users/forms.py:118
-#: apps/users/forms.py:139
+#: apps/users/forms.py:32 apps/users/forms.py:68 apps/users/forms.py:117
+#: apps/users/forms.py:138
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: apps/users/forms.py:38
+#: apps/users/forms.py:37
 msgid "Email adress"
 msgstr "Adreça de correu electrònic"
 
-#: apps/users/forms.py:43 apps/users/forms.py:44 apps/users/forms.py:61
-#: apps/users/forms.py:62
+#: apps/users/forms.py:42 apps/users/forms.py:43 apps/users/forms.py:60
+#: apps/users/forms.py:61
 msgid "Password"
 msgstr "Contrasenya"
 
-#: apps/users/forms.py:47
+#: apps/users/forms.py:46
 msgid "Remember me"
 msgstr "Recorda't de mi"
 
-#: apps/users/forms.py:53 apps/users/forms.py:54 apps/users/forms.py:110
-#: apps/users/forms.py:111
+#: apps/users/forms.py:52 apps/users/forms.py:53 apps/users/forms.py:109
+#: apps/users/forms.py:110
 msgid "Name"
 msgstr "Nom"
 
-#: apps/users/forms.py:57 apps/users/forms.py:58 apps/users/forms.py:114
-#: apps/users/forms.py:115
+#: apps/users/forms.py:56 apps/users/forms.py:57 apps/users/forms.py:113
+#: apps/users/forms.py:114
 msgid "Surnames"
 msgstr "Cognoms"
 
-#: apps/users/forms.py:65 apps/users/forms.py:66
+#: apps/users/forms.py:64 apps/users/forms.py:65
 msgid "Password confirmation"
 msgstr "Confirmació de contrasenya"
 
-#: apps/users/forms.py:72 apps/users/forms.py:123 apps/users/forms.py:145
+#: apps/users/forms.py:71 apps/users/forms.py:122 apps/users/forms.py:144
 msgid "Email address"
 msgstr "Adreça de correu electrònic"
 
-#: apps/users/forms.py:92
+#: apps/users/forms.py:91
 msgid "I have read and agree with the {}"
 msgstr "He llegit i accepto el {}"
 
-#: apps/users/forms.py:195 apps/users/forms.py:197 apps/users/forms.py:218
-#: apps/users/forms.py:219
+#: apps/users/forms.py:196 apps/users/forms.py:198 apps/users/forms.py:219
+#: apps/users/forms.py:220
 msgid "New password"
 msgstr "Nova contrasenya"
 
-#: apps/users/forms.py:201 apps/users/forms.py:203 apps/users/forms.py:223
-#: apps/users/forms.py:225
+#: apps/users/forms.py:202 apps/users/forms.py:204 apps/users/forms.py:224
+#: apps/users/forms.py:226
 msgid "New password confirmation"
 msgstr "Confirmació de nova contrasenya"
 
-#: apps/users/forms.py:212 apps/users/forms.py:215
+#: apps/users/forms.py:213 apps/users/forms.py:216
 msgid "Old password"
 msgstr "Contrasenya anterior"
 
-#: apps/users/forms.py:232 apps/users/forms.py:234
+#: apps/users/forms.py:233 apps/users/forms.py:235
 msgid "Verification code"
 msgstr "Codi de verificació"
 
@@ -121,44 +115,44 @@ msgid ""
 "SUPERUSER_PASSWORD environment variables to enable it."
 msgstr ""
 
-#: apps/users/models.py:22
+#: apps/users/models.py:23
 msgid "Users must have an email address"
 msgstr "Els usuaris han de tenir una adreça de correu electrònic"
 
-#: apps/users/models.py:40
+#: apps/users/models.py:41
 msgid "Superusers must have a password"
 msgstr "Els superusuaris han de tenir una contrasenya"
 
-#: apps/users/models.py:58
+#: apps/users/models.py:59
 msgid "telephone"
 msgstr ""
 
-#: apps/users/models.py:80 apps/users/models.py:114
+#: apps/users/models.py:81 apps/users/models.py:109
 msgid "name"
 msgstr "nom"
 
-#: apps/users/models.py:82
+#: apps/users/models.py:83
 msgid "surname"
 msgstr "cognom"
 
-#: apps/users/models.py:88
+#: apps/users/models.py:89
 msgid "email address"
 msgstr "adreça de correu electrònic"
 
-#: apps/users/models.py:123
+#: apps/users/models.py:118
 msgid "user"
 msgstr "usuari"
 
-#: apps/users/models.py:124
+#: apps/users/models.py:119
 msgid "users"
 msgstr "usuaris"
 
-#: apps/users/signals.py:95
+#: apps/users/signals.py:102
 #, python-brace-format
 msgid "Group {name} created."
 msgstr ""
 
-#: apps/users/signals.py:98
+#: apps/users/signals.py:105
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr ""
@@ -293,26 +287,8 @@ msgid "Password change successful."
 msgstr "Contrasenya modificada correctament."
 
 #: apps/users/views.py:253
-#, fuzzy
-#| msgid ""
-#| "An email has been sent to your inbox. Please check it and follow the "
-#| "instructions to change your password."
 msgid ""
 "An email has been sent to the user to inform that the account is active and "
 "he can set the password."
 msgstr ""
-"S'ha enviat un correu a la teva bústia d'entrada. Si us plau revisa-ho i "
-"segueix les instruccions per canviar la teva contrasenya."
-
-#~ msgid "Change password"
-#~ msgstr "Canviar la contrasenya"
-
-#~ msgid ""
-#~ "The current password is not displayed for security reasons. Use this "
-#~ "field and save the changes to set a new password. While writing the new "
-#~ "password will be visible to make it easier for you to copy and send it to "
-#~ "the user."
-#~ msgstr ""
-#~ "La contrasenya actual no es mostra per raons de seguretat. Fes servir "
-#~ "aquest camp i desa els canvis per establir una nova contrasenya. Mentre "
-#~ "l'escriguis serà visible per tal que la puguis copiar i enviar a l'usuari."
+""
