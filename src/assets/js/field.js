@@ -290,7 +290,29 @@ const initFieldData = () => {
                 const el = document.querySelector(`#question_${this.id}_${suffix}_${suffix2}`)
                 el.classList.toggle('border-red-600', !this.isValid[suffix][suffix2])
             }
-        }
+        },
+        fillWithZeros() {
+            if (this.groupItems.length > 0) {
+                if (this.group2Items.length > 0) {
+                    this.groupItems.forEach(i => {
+                        value[i.suffix] = this.value[i.suffix]
+                        this.group2Items.forEach(ii => {
+                            if (this.value[i.suffix][ii.suffix] == null) {
+                                this.update(0, i.suffix, ii.suffix)
+                                this.setGroupItemValid(i.suffix, ii.suffix)
+                            }
+                        })
+                    })
+                } else {
+                    this.groupItems.forEach(i => {
+                        if (this.value[i.suffix] == null) {
+                            this.update(0, i.suffix)
+                            this.setGroupItemValid(i.suffix)
+                        }
+                    })
+                }
+            }
+        },
     }))
 }
 
