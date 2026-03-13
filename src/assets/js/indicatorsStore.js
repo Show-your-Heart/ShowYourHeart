@@ -232,36 +232,48 @@ const initIndicatorsStore = () => {
             if (index != -1) {
                 this.indicators[index].value = value
                 if (this.indicators[index].dependant_indicators) {
-                    for (code of this.indicators[index].dependant_indicators) {
-                        this.updateDependantIndicator(code)
+                    for (dependantIndicatorCode of this.indicators[index].dependant_indicators) {
+                        this.updateDependantIndicator(dependantIndicatorCode, code)
                     }
                 }
             }
         },
-        updateDependantIndicator(code) {
-            const index = this.indicators.findIndex(i => i.code == code)
+        updateDependantIndicator(dependantIndicatorCode, code) {
+            const index = this.indicators.findIndex(i => i.code == dependantIndicatorCode)
             if (index != -1) {
                 let indicator = this.indicators[index]
-                if (indicator.is_direct_indicator) {
-                    const show = indicator.condition == "" || this.isVisible(indicator)
-                    if (!show) {
-                        this.updateIndicatorResultNa(code, !show, true)
+
+                // Check which expressions are dependent of this indicator
+                // Check if condition is dependant
+                if (indicator.condition.includes(code)) {
+
+                    if (indicator.is_direct_indicator) {
+                        if (!this.isVisible(indicator)) { // Hide direct indicator and set NA 
+                            this.updateIndicatorResultNa(indicator.code, true, true)
+                        } else { // Show direct indicator and unset NA
+                            const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                            Alpine.$data(fieldEl).show = true
+                            Alpine.$data(fieldEl).notApplicable = false
+                        }
                     } else {
-                        const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                        Alpine.$data(fieldEl).show = show
-                        Alpine.$data(fieldEl).notApplicable = !show
+                        // Show/hide indirect indicator
+                        if (indicator.display_indirect) {
+                            const fieldEl = document.querySelector(`#field-${indicator.id}`);
+                            Alpine.$data(fieldEl).show = this.isVisible(indicator)
+                        }
                     }
-                } else {
+                }
+                // Check if formula is dependant
+                if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
                     const value = this.evaluateExpression(indicator.formula, indicator.code)
                     if (value != null) {
                         const fieldEl = document.querySelector(`#question_${indicator.id}`);
                         fieldEl && (Alpine.$data(fieldEl).value = String(value))
                     }
-                    if (indicator.display_indirect) {
-                        const show = indicator.condition == "" || this.isVisible(indicator)
-                        const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                        Alpine.$data(fieldEl).show = show
-                    }
+                }
+                // TODO: Check if validation is dependant
+                if (indicator.validation.includes(code)) {
+                    console.log("TODO: Run dependant validation")
                 }
             }
         },
