@@ -36,7 +36,7 @@ class UserProfileInline(StackedInline):
     model = UserProfile
     verbose_name_plural = "User Profile"
     fk_name = "user"
-    extra = 0
+    extra = 1
     autocomplete_fields = ["organization"]
     can_delete = False
     # tab = True  # Display the profile information on a new tab
@@ -55,6 +55,7 @@ class UserAdmin(ModelAdmin, BaseUserAdmin):
     list_display = (
         "email",
         "full_name",
+        "organization",
         "is_staff",
         "is_superuser",
         "email_verified",
@@ -119,6 +120,10 @@ class UserAdmin(ModelAdmin, BaseUserAdmin):
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
+
+    @admin.display(description=_("Organization"))
+    def organization(self, obj):
+        return obj.profile.organization
 
     @admin.display(description=_("User roles information"))
     def roles_explanation_field(self, obj):
