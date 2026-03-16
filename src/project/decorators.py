@@ -25,6 +25,8 @@ def register_with_default_templates(admin_site, model=None):
         class WrappedAdmin(admin_class):
             change_form_template = None
             change_list_template = None
+            delete_confirmation_template = None
+            delete_selected_confirmation_template = None
             pass
 
         if model is None:
@@ -46,6 +48,10 @@ def gov_admin_register(gov_admin_site, model=None, custom_change_form_template=N
         class WrappedAdmin(admin_class):
             change_list_template = "admin/syh_change_list.html"
             delete_confirmation_template = "admin/syh_delete_confirmation.html"
+            delete_selected_confirmation_template = (
+                "admin/syh_delete_selected_confirmation.html"
+            )
+            change_form_template = "admin/syh_change_form.html"
             pass
 
         if custom_change_form_template:
