@@ -19,7 +19,7 @@
   Alpine.store('survey').initSections(sections)
 
   var indicators = JSON.parse(document.getElementById('indicators').textContent);
-  Alpine.store('indicators')["indicators"] = indicators
+  Alpine.store('indicators')["indicatorsData"] = indicators
   var indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
   Alpine.store('indicators')["indicatorResults"] = indicatorResults
   var placeholders = JSON.parse(document.getElementById('placeholders').textContent);

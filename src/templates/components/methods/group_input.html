@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <c-methods.group-base-field>
-    <div class="flex w-fit p-2 border border-gray-300 rounded-lg bg-gray-100 overflow-x-scroll max-w-full" :class="hasErrors ? 'border-red-600' : 'border-gray-300'">
+    <div class="flex w-fit p-2 border border-gray-300 rounded-lg bg-gray-100 overflow-x-scroll max-w-full" :class="state.hasErrors ? 'border-red-600' : 'border-gray-300'">
         <table>
             <template x-if="group2Title != ''">
                 <thead>
@@ -27,9 +27,9 @@
                                 <div class="flex gap-2 justify-center">
                                     <input :id="`question_${id}_${item.suffix}`"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_${item.suffix}`" :value="value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" 
+                                        :name="`question_${id}_${item.suffix}`" :value="state.value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" 
                                         {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix); setGroupItemValid(item.suffix)"
-                                        x-bind:disabled="notApplicable" x-model="value[item.suffix]" />
+                                        x-bind:disabled="state.notApplicable" x-model="state.value[item.suffix]" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                 </div>
                             </td>
@@ -40,9 +40,9 @@
                                     <div class="flex gap-2 justify-center">
                                         <input :id="`question_${id}_${item.suffix}_${group2Item.suffix}`"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                            :name="`question_${id}_${item.suffix}_${group2Item.suffix}`" :value="value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" 
+                                            :name="`question_${id}_${item.suffix}_${group2Item.suffix}`" :value="state.value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" 
                                             {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix, group2Item.suffix); setGroupItemValid(item.suffix,group2Item.suffix)"
-                                            x-bind:disabled="notApplicable" x-model="value[item.suffix][group2Item.suffix]" />
+                                            x-bind:disabled="state.notApplicable" x-model="state.value[item.suffix][group2Item.suffix]" />
                                         <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                     </div>
                                 </td>
@@ -59,9 +59,9 @@
                                 <div class="flex gap-2 justify-center">
                                     <input :id="`question_${id}_${item.suffix}_total`"
                                         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_${item.suffix}_total`" :value="value[item.suffix].total" type="text" placeholder="0" 
+                                        :name="`question_${id}_${item.suffix}_total`" :value="state.value[item.suffix].total" type="text" placeholder="0" 
                                         {% include "django/forms/widgets/attrs.html" %}
-                                        readonly x-model="value[item.suffix].total" />
+                                        readonly x-model="state.value[item.suffix].total" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                 </div>
                             </td>
@@ -80,9 +80,9 @@
                                 <div class="flex gap-2 justify-center">
                                     <input :id="`question_${id}_total`"
                                         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_total`" :value="value.total" type="text" placeholder="0" 
+                                        :name="`question_${id}_total`" :value="state.value.total" type="text" placeholder="0" 
                                         {% include "django/forms/widgets/attrs.html" %}
-                                        readonly x-model="value.total" />
+                                        readonly x-model="state.value.total" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                 </div>
                             </td>
@@ -94,9 +94,9 @@
                                     <div class="flex gap-2 justify-center">
                                         <input :id="`question_${id}_${group2Item.suffix}_total`"
                                             class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                            :name="`question_${id}_${group2Item.suffix}_total`" :value="value[group2Item.suffix].total" type="text" placeholder="0" 
+                                            :name="`question_${id}_${group2Item.suffix}_total`" :value="state.value[group2Item.suffix].total" type="text" placeholder="0" 
                                             {% include "django/forms/widgets/attrs.html" %}
-                                            readonly x-model="value[group2Item.suffix].total" />
+                                            readonly x-model="state.value[group2Item.suffix].total" />
                                         <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                     </div>
                                 </td>
@@ -115,9 +115,9 @@
                                 <div class="flex gap-2 justify-center">
                                     <input :id="`question_${id}_total`"
                                         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_total`" :value="value.total" type="text" placeholder="0" 
+                                        :name="`question_${id}_total`" :value="state.value.total" type="text" placeholder="0" 
                                         {% include "django/forms/widgets/attrs.html" %}
-                                        readonly x-model="value.total" />
+                                        readonly x-model="state.value.total" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
                                 </div>
                             </td>
@@ -127,11 +127,11 @@
             </tbody>
         </table>
     </div>
-    <div class="text-red-600" x-show="hasErrors">
-        <p x-text="error"></p>
+    <div class="text-red-600" x-show="state.hasErrors">
+        <p x-text="state.error"></p>
     </div>
     <template x-if="indicatorsStore.isNumeric(type)">
-        <c-button class="mt-2 !w-fit bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
+        <c-button class="mt-2 !w-fit !bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
             @click="fillWithZeros()"
         >{% trans "Fill with 0's" %}</c-button>
     </template>

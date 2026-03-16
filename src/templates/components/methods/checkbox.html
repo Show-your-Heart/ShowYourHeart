@@ -13,7 +13,7 @@
                 value="{{ option.value.id }}" class="pointer-events-none h-4 w-4 text-pink-600 bg-gray-100 border-gray-300 rounded cursor-pointer
                         focus:ring-blue-500 disabled:cursor-default peer"
                 :checked="checkedOptions[{{index}}]" :x-model="checkedOptions[{{index}}]" 
-                {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="notApplicable"
+                {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="state.notApplicable"
             >
             <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">
                 {{ option.label }} <span class="items-center" x-text="unit"></span>

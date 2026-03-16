@@ -4,7 +4,7 @@
     <textarea :id="id"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100"
         :name="`question_${id}`" placeholder="{{ widget.attrs.placeholder }}" 
-        {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value)" x-text="value" x-model="value"
-        x-bind:disabled="notApplicable"></textarea>
+        {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value)" x-text="state.value" x-model="state.value"
+        x-bind:disabled="state.notApplicable"></textarea>
     </textarea>
 </c-methods.base-field>
