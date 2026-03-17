@@ -300,10 +300,10 @@ const initFieldData = () => {
             }
         },
         isOptionSelected(optionId) {
-            return this.state.id == optionId
+            return this.state.value.id == optionId
         },
         getOption(id) {
-            return this.options.find(o => o.id == id) || { value: "", id: "" }
+            return this.options.find(o => o.id == id) || { value: null, id: "" }
         },
         setGroupItemValid(suffix, suffix2 = "") {
             if (suffix2 == "") {

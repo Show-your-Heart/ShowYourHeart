@@ -4,7 +4,7 @@
             class="bg-gray-50 cursor-pointer border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:cursor-default"
             :class="state.hasErrors ? 'border-red-600' : 'border-gray-300'"
             {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="state.notApplicable">
-            <template x-if="$store.indicators.indicators[code].value.value == ''">
+            <template x-if="$store.indicators.indicators[code].value.value === null">
                 <option disabled selected value> -- </option>
             </template>
             {% for group, options, index in widget.optgroups %}

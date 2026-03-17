@@ -101,7 +101,7 @@ const initIndicatorsStore = () => {
         },
         validateField(code, suffix = '', suffix2 = '', validateGroupItem = false, setGroupItems = false) {
 
-            console.log("validating...", code)
+            console.log("validating...", code, this.indicators[code].value)
 
             const indicator = this.indicatorsData.find(i => i.code == code)
 
@@ -124,8 +124,8 @@ const initIndicatorsStore = () => {
 
             // Simple fields without validation expression are true when a value is assigned
             if (
-                (indicator.validation == '' && this.indicators[code].value != null && this.indicators[code].value != "" && !(this.indicators[code].value instanceof Object)) ||
-                (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value || this.indicators[code].value.female))
+                (indicator.validation == '' && this.indicators[code].value !== null && this.indicators[code].value !== "" && !(this.indicators[code].value instanceof Object)) ||
+                (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value !== undefined || this.indicators[code].value.female !== undefined))
             ) {
                 console.log("simple field filled without validation ")
                 return result
@@ -267,7 +267,7 @@ const initIndicatorsStore = () => {
                     result = 0
             }
 
-            if (result == null || (indicator.data_type != this.fieldTypes.STRING && result == "")) {
+            if (result === null || (indicator.data_type != this.fieldTypes.STRING && result === "")) {
                 result = 'null'
             }
 
