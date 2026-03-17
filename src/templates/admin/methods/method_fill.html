@@ -36,24 +36,24 @@
       <ul
         class="min-w-[6rem] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
         id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist" x-data="{
-          getLiClass(title) {
-              if ($store.survey.currentSection == title) {
+          getLiClass(id) {
+              if ($store.survey.currentSection == id) {
                   return '!border-blue-600'
               }
           },
-          getBtnClass(title) {
-              if ($store.survey.currentSection == title) {
+          getBtnClass(id) {
+              if ($store.survey.currentSection == id) {
                   return '!bg-blue-50 !text-blue-600'
               }
           },
         }">
         {% for section, fields in sections.items %}
-        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" :class="getLiClass('{{section.title}}')"
+        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" :class="getLiClass('{{section.id}}')"
           role="presentation">
           <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center"
-            id="tab-{{ section.id }}" :class="getBtnClass('{{section.title}}')"
+            id="tab-{{ section.id }}" :class="getBtnClass('{{section.id}}')"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
-            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}'); window.scrollTo(0,0)">
+            aria-selected="false" x-data @click="$store.survey.setSection('{{section.id}}')">
             {{ section.title }}
           </button>
         </li>
@@ -70,27 +70,8 @@
       x-data
     >
       <div id="tab-content">
-        {% for section, fields in sections.items %}
-        
-        <div class="hidden py-4 flex flex-col gap-8" id="section-{{ section.id }}" role="tabpanel"
-        aria-labelledby="{{ section.id }}{{ forloop.counter }}-tab">
-          <h2 class="text-3xl font-bold">{{ section.title }}</h2>
-
-          {% for field in fields.indicators %}
-          {{ field.field }}
-          {% endfor %}
-
-          {% for subsection in fields.subsections %}
-          {% for subsectionName, subsectionIndicators in subsection.items %}
-          <h4 class="text-2xl font-bold">{{ subsectionName }}</h4>
-          {% for field in subsectionIndicators %}
-          {{ field.field }}
-          {% endfor %}
-          {% endfor %}
-
-          {% endfor %}
-
-        </div>
+        {% for section, items in sections.items %}
+        <c-methods.section :section="section" :items="items"></c-methods.section>
         {% endfor %}
       </div>
 

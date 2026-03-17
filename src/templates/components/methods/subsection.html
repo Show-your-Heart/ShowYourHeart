@@ -1,0 +1,14 @@
+<div class="flex flex-col gap-8" id="section-{{ subsection.id }}" 
+    x-data="section('{{ subsection.title }}')" x-show="state.show"
+    @indicator-visible="updateVisibility()"
+    @indicator-valid="$event.stopPropagation(); validateSection()"
+>
+    <h4 class="text-2xl font-bold -mb-4" x-text="title"></h4>
+    <template x-if="description != ''">
+        <div class="-mt-2 -mb-4" x-html="description"></div>
+    </template>
+    {% for indicator in indicators %}
+    {{ indicator.field }}
+    {% endfor %}
+</div>
+

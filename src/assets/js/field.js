@@ -78,6 +78,16 @@ const initFieldData = () => {
                 error: ''
             }
             this.state = this.indicatorsStore['indicators'][this.code]
+            console.log(" Field --> ", this.code)
+            console.log("  value --> ", value)
+            // console.log("  visibility --> ", show)
+            this.$dispatch('indicator-visible', { id: this.id, show })
+            const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.code)
+            this.state.isValid = isValid
+            this.state.isFieldValid = isFieldValid
+            console.log("  validation --> ", isFieldValid)
+            this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
+
         },
         loadInitialValue(initialValue) {
             let value = ""
@@ -176,6 +186,8 @@ const initFieldData = () => {
         },
         update(newValue, suffix = "", suffix2 = "") {
             try {
+                console.log("----------------------")
+                console.log("Updating: ", this.code, newValue)
                 this.state.value = this.updateValue(newValue, this.state.value, this.type, suffix, suffix2)
                 const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.code, suffix, suffix2, this.isGroupIndicator)
                 this.state.isValid = isValid
@@ -187,6 +199,8 @@ const initFieldData = () => {
                 } else {
                     this.updateErrors(isFieldValid || isValid[suffix][suffix2])
                 }
+                console.log("  Validation --> ", isFieldValid)
+                this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
             } catch (e) {
                 console.log('Invalido')
                 console.log(e)
@@ -264,7 +278,7 @@ const initFieldData = () => {
                 }
             }
         },
-updateShow(show) {
+        updateShow(show) {
             // Only if it has changed
             if (this.state.show == show) {
                 return

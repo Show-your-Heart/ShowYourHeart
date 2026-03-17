@@ -20,6 +20,7 @@ from .models import (
     IndicatorResult,
     List,
     Method,
+    Section,
     Survey,
 )
 
@@ -172,7 +173,7 @@ def prepare_method_fill_context(
         "readonly": readonly,
         "form": form,
         "sections": sections,
-        "sections_data": get_sections_data(sections),
+        "sections_data": get_sections_data(method),
         "indicators": indicators,
         "initial_values": get_initial_values(survey) if "survey" in locals() else {},
         "placeholders": placeholder_dict,
@@ -455,20 +456,19 @@ def get_sections(current_method, form_instance):
     return sections
 
 
-def get_sections_data(context_sections):
+def get_sections_data(method):
+    sections = Section.objects.filter(method=method).order_by("order")
     sections_data = []
-    for section in context_sections:
-        indicators_ids = [i["id"] for i in list(section.indicators.all().values())]
-
-        for subsection in context_sections[section]["subsections"]:
-            for _, fields in subsection.items():
-                indicators_ids.extend([field["indicator"].id for field in fields])
+    for section in sections:
+        indicators_codes = [i["code"] for i in list(section.indicators.all().values())]
 
         sections_data.append(
             {
                 "id": section.id,
                 "title": section.title,
-                "indicators_ids": indicators_ids,
+                "description": section.description,
+                "indicators_codes": indicators_codes,
+                "parent_id": section.parent_id,
             }
         )
 

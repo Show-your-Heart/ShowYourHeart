@@ -85,6 +85,10 @@ const initIndicatorsStore = () => {
                 }
             }
             const jsExpr = loadedTokens.join(" ")
+            console.log("Parsed expression: ")
+            console.log("  expression --> ", expr)
+            console.log(" js parsed expression --> ", jsExpr)
+
             return jsExpr
         },
         evaluateExpression(expr, val = '') {
@@ -96,6 +100,9 @@ const initIndicatorsStore = () => {
             }
         },
         validateField(code, suffix = '', suffix2 = '', validateGroupItem = false, setGroupItems = false) {
+
+            console.log("validating...", code)
+
             const indicator = this.indicatorsData.find(i => i.code == code)
 
             let result = {
@@ -111,21 +118,36 @@ const initIndicatorsStore = () => {
             }
 
             if (this.indicators[code].notApplicable) {
-                Alpine.store("survey").setIndicatorValidation(field.id, true)
+                console.log("not applicable")
                 return result
             }
+
             // Simple fields without validation expression are true when a value is assigned
             if (
                 (indicator.validation == '' && this.indicators[code].value != null && this.indicators[code].value != "" && !(this.indicators[code].value instanceof Object)) ||
                 (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value || this.indicators[code].value.female))
             ) {
-                Alpine.store("survey").setIndicatorValidation(field.id, true)
+                console.log("simple field filled without validation ")
                 return result
             }
+
+            // Empty non mandatory fields
+            if (
+                !indicator.mandatory && // Non mandatory
+                (this.indicators[code].value == null || this.indicators[code].value == "" || // Empty string or number
+                    (this.indicators[code].value instanceof Object && !indicator.is_group_indicator &&  // Object value butno group indicator
+                        (this.indicators[code].value.value == null || this.indicators[code].value.female == null) // Dropdown/checkbock or gendered field
+                    )
+                )
+            ) {
+                console.log("Empty non mandatory simple field filled")
+                return result
+            }
+
             try {
                 if (indicator.is_group_indicator && !Array.isArray(this.indicators[code].value) && this.indicators[code].value !== null) {
                     // Validate lists and tables
-                    result.isValid = !(this.indicators[code].isValid instanceof Object) ? {} : this.indicators[code].isValid
+                    result.isValid = this.indicators[code].isValid instanceof Object ? this.indicators[code].isValid : {}
 
                     if (indicator.group_2_items) {
                         indicator.group_items.forEach(({ suffix: k }) => {
@@ -135,7 +157,18 @@ const initIndicatorsStore = () => {
                             indicator.group_2_items.forEach(({ suffix: k2 }) => {
                                 // Only validate for the current groupItem or if the whole field has to be validated
                                 if (!validateGroupItem || (validateGroupItem && `${code}_${k}_${k2}` == `${code}_${suffix}_${suffix2}`)) {
-                                    result.isValid[k][k2] = indicator.validation == '' && this.indicators[code].value[k][k2] != null ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}_${k2}`)
+                                    if (!indicator.mandatory && (this.indicators[code].value[k][k2] === null || this.indicators[code].value[k][k2] === '')) {
+                                        // Empty non mandatory is valid
+                                        result.isValid[k][k2] = true
+                                    } else if (indicator.mandatory && (this.indicators[code].value[k][k2] === null || this.indicators[code].value[k][k2] === '')) {
+                                        // Empty mandatory is not valid
+                                        result.isValid[k][k2] = false
+                                        console.log("Empty mandatory is not valid", this.indicators[code].value[k][k2])
+
+                                    } else {
+                                        result.isValid[k][k2] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}_${k2}`)
+                                        console.log("got to else", result.isValid[k][k2])
+                                    }
                                 }
                                 if (!result.isValid[k][k2]) {
                                     result.isFieldValid = false
@@ -149,7 +182,16 @@ const initIndicatorsStore = () => {
                         indicator.group_items.forEach(({ suffix: k }) => {
                             // Only validate for the current groupItem or if the whole field has to be validated
                             if (!validateGroupItem || (validateGroupItem && `${code}_${k}` == `${code}_${suffix}`)) {
-                                result.isValid[k] = indicator.validation == '' && this.indicators[code].value[k] != null ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}`)
+                                if (!indicator.mandatory && (this.indicators[code].value[k] === null || this.indicators[code].value[k] === '')) {
+                                    // Empty non mandatory is valid
+                                    result.isValid[k] = true
+                                } else if (indicator.mandatory && (this.indicators[code].value[k] === null || this.indicators[code].value[k] === '')) {
+                                    // Empty mandatory is not valid
+                                    result.isValid[k] = false
+                                } else {
+                                    result.isValid[k] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}`)
+                                    // console.log("sechk it out!", result.isValid)
+                                }
                             }
                             if (!result.isValid[k]) {
                                 result.isFieldValid = false
@@ -159,15 +201,17 @@ const initIndicatorsStore = () => {
                             }
                         })
                     }
-                    Alpine.store("survey").setIndicatorValidation(field.id, result.isFieldValid)
+                    console.log("is group", result.isValid)
                 } else {
+                    console.log("validate simple field expression", indicator.validation)
                     // Validate simple indicators
                     result.isValid = !!this.evaluateExpression(indicator.validation, code)
                     result.isFieldValid = result.isValid
                 }
                 return result
             } catch (e) {
-                Alpine.store("survey").setIndicatorValidation(field.id, false)
+                console.log("error in validation", e, indicator)
+
                 return {
                     isValid: false,
                     isFieldValid: false
@@ -233,9 +277,11 @@ const initIndicatorsStore = () => {
             let result = null
             if (subtokens.length == 2) {
                 // List or table total
+                console.log("Loading total:", this.indicators[subtokens[0]].value)
                 result = this.indicators[subtokens[0]].value.total
             } else if (subtokens.length == 3) {
                 // Table row or column total
+                console.log("Loading total:", subtokens, this.indicators[subtokens[0]].value)
                 result = this.indicators[subtokens[0]].value[subtokens[1]].total
             } else {
                 console.log("Invalid total token ")
@@ -247,7 +293,7 @@ const initIndicatorsStore = () => {
             const index = this.indicatorsData.findIndex(i => i.code == code)
             if (index != -1 && this.indicatorsData[index].dependant_indicators) {
                 for (dependantIndicatorCode of this.indicatorsData[index].dependant_indicators) {
-                        this.updateDependantIndicator(dependantIndicatorCode, code)
+                    this.updateDependantIndicator(dependantIndicatorCode, code)
                 }
             }
         },
@@ -265,7 +311,7 @@ const initIndicatorsStore = () => {
 
                     // Hide direct indicator and set NA 
                     if (indicator.is_direct_indicator && !show) {
-                            this.updateIndicatorResultNa(indicator.code, true, true)
+                        this.updateIndicatorResultNa(indicator.code, true, true)
                     }
 
                     // Update validation
@@ -292,14 +338,14 @@ const initIndicatorsStore = () => {
         updateIndicatorResultNa(code, value, hide = false) {
             this.indicators[code].notApplicable = value
 
-                if (hide) {
-                    this.indicators[code].show = !value
-                }
+            if (hide) {
+                this.indicators[code].show = !value
+            }
 
             const indicator = this.indicatorsData.find(i => i.code == code)
-                if (indicator.dependant_indicators) {
-                    for (code of indicator.dependant_indicators) {
-                        this.updateIndicatorResultNa(code, value, true)
+            if (indicator.dependant_indicators) {
+                for (code of indicator.dependant_indicators) {
+                    this.updateIndicatorResultNa(code, value, true)
                 }
             }
         },
