@@ -69,7 +69,7 @@
   </c-slot>
 
   <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
-    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" 
+    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}"
     {% block form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
       {% csrf_token %}
       <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
@@ -94,7 +94,7 @@
           type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>
-        <c-button name="action" value="submit" type="submit" data-modal-target="survey-errors-modal" @click="$store.survey.onSubmit($event)">
+        <c-button name="action" value="submit" type="submit" data-modal-target="survey-errors-modal" x-data @click="$store.survey.onSubmit($event)">
           {% translate 'Submit' %}
         </c-button>
       </div>
