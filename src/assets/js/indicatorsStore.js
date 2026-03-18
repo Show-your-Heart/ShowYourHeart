@@ -235,6 +235,8 @@ const initIndicatorsStore = () => {
                 } else {
                     result = this.indicators[code].value.value
                 }
+            } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
+                result = this.indicators[code].value == 'True' ? 'true' : 'false'
             } else if (suffix != "") {
                 if (suffix2 == "") {
                     switch (suffix) {
