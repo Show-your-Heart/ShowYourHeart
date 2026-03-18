@@ -15,15 +15,8 @@
   })
 
   // Initialize stores
-  var sections = JSON.parse(document.getElementById('sections').textContent);
-  Alpine.store('survey').initSections(sections)
-
-  var indicators = JSON.parse(document.getElementById('indicators').textContent);
-  Alpine.store('indicators')["indicatorsData"] = indicators
-  var indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
-  Alpine.store('indicators')["indicatorResults"] = indicatorResults
-  var placeholders = JSON.parse(document.getElementById('placeholders').textContent);
-  Alpine.store('indicators')["placeholders"] = placeholders
+  initIndicatorsStore()
+  initSurveyStore()
 
   {% if validate_survey %}
     setTimeout(() => Alpine.store('survey').validateSurvey(), 100)

@@ -38,7 +38,7 @@ const initSectionData = () => {
         },
         validateSection() {
             const prevIsValid = this.state.isValid
-            this.state.isValid = this.indicatorsCodes.reduce((prev, code) => prev && this.indicators[code].isFieldValid, true)
+            this.state.isValid = this.indicatorsCodes.reduce((prev, code) => this.indicators[code] !== undefined ? prev && this.indicators[code].isFieldValid : false, true)
                 && this.subsectionsIds.reduce((prev, id) => prev && this.sections[id].isValid, true)
             if (prevIsValid != this.state.isValid && this.parentId != '') {
                 // console.log("dispatch validation event", this.title, this.state.isValid)
@@ -50,7 +50,7 @@ const initSectionData = () => {
                 ".o.o.o. validate section",
                 // this.title,
                 this.state.isValid,
-                this.indicatorsCodes.map(code => this.indicators[code].isFieldValid),
+                this.indicatorsCodes.map(code => this.indicators[code] !== undefined ? this.indicators[code].isFieldValid : false),
                 this.subsectionsIds.map(id => this.sections[id].isValid)
             )
 
