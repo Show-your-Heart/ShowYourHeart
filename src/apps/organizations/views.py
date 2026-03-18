@@ -40,6 +40,13 @@ class UpdateOrganizationView(UpdateView):
     success_url = "/"
     form_class = OrganizationUpdateForm
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # To differenciate from the organization creation which uses the same template
+        # The url path cannot be used as it changes for each language
+        context["organization_update"] = True
+        return context
+
 
 @method_decorator(login_not_required, name="dispatch")
 @require_http_methods("GET")

@@ -227,6 +227,22 @@ class OrganizationAdminExportForm(ExportForm):
 
 
 class OrganizationUpdateForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Organisation name"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
+    )
+    description = forms.CharField(
+        label=_("Organization description"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("Description")}
+        ),
+    )
+    vat_number = forms.CharField(
+        label=_("VAT Number"),
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "placeholder": _("VAT Number")}
+        ),
+    )
     contact_name = forms.CharField(
         label=_("Name of the contact person"), max_length=100
     )
@@ -236,6 +252,58 @@ class OrganizationUpdateForm(forms.ModelForm):
     )
     contact_telephone = forms.CharField(
         label=_("Phone number of the contact person"), max_length=20
+    )
+    website = forms.CharField(
+        label=_("Website"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Website")}),
+        required=False,
+    )
+    country = forms.ModelChoiceField(
+        label=_("Country"),
+        queryset=Country.objects.all(),
+        widget=forms.Select(
+            attrs={
+                "hx-get": reverse_lazy("organizations:load_region1"),
+                "hx-target": "#id_region1, #id_city",
+                "hx-trigger": "change, load",
+                "hx-include": "#id_country",
+            }
+        ),
+    )
+    region1 = forms.ModelChoiceField(
+        label=_("Region1"),
+        queryset=Region1.objects.all(),
+        widget=forms.Select(
+            attrs={
+                "hx-get": reverse_lazy("organizations:load_city"),
+                "hx-target": "#id_city",
+                "hx-trigger": "change, load",
+                "autocomplete": "off",
+            }
+        ),
+    )
+    city = forms.ModelChoiceField(
+        label=_("City"),
+        queryset=City.objects.all(),
+        widget=forms.Select(
+            attrs={
+                "hx-get": reverse_lazy("organizations:load_zip_code"),
+                "hx-target": "#id_zip_code",
+                "hx-trigger": "change, load",
+                "autocomplete": "off",
+            }
+        ),
+    )
+    address = forms.CharField(
+        label=_("Address"),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Address")}),
+    )
+    zip_code = forms.ModelChoiceField(
+        label=_("Zip Code"), queryset=ZipCode.objects.all()
+    )
+    legal_structure = forms.ModelChoiceField(
+        label=_("Legal entity type"),
+        queryset=LegalStructure.objects.all(),
     )
     bs_allow_public = forms.BooleanField(
         label=_("Allow infographics to be public"),
@@ -249,6 +317,7 @@ class OrganizationUpdateForm(forms.ModelForm):
         }
         fields = [
             "name",
+            "description",
             "logo",
             "vat_number",
             "contact_name",
@@ -258,6 +327,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "country",
             "region1",
             "city",
+            "zip_code",
             "address",
             "legal_structure",
         ]

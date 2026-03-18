@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-26 12:36+0100\n"
+"POT-Creation-Date: 2026-03-13 13:40+0100\n"
 "PO-Revision-Date: 2024-10-21 15:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -71,10 +71,10 @@ msgid "change message"
 msgstr ""
 
 #: project/admin.py:402
-msgid "Entities"
+msgid "Organizations management"
 msgstr ""
 
-#: project/admin.py:440
+#: project/admin.py:441
 msgid "Methods management"
 msgstr ""
 
@@ -83,16 +83,14 @@ msgid "Features"
 msgstr ""
 
 #: project/admin.py:458
-#, fuzzy
-#| msgid "registration/"
 msgid "Registration Requests"
-msgstr "compte/"
+msgstr ""
 
 #: project/admin.py:463
 msgid "Review Balances"
 msgstr ""
 
-#: project/admin.py:506
+#: project/admin.py:511
 msgid "Settings"
 msgstr ""
 
@@ -192,23 +190,23 @@ msgstr ""
 msgid "Creating sample zipcode..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:314
+#: project/management/commands/load_dev_data.py:315
 msgid "Zip code already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:320
+#: project/management/commands/load_dev_data.py:321
 msgid "Creating sample Region1..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:329
+#: project/management/commands/load_dev_data.py:330
 msgid "Region1 already exists."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:334
+#: project/management/commands/load_dev_data.py:335
 msgid "Creating sample Campaign..."
 msgstr ""
 
-#: project/management/commands/load_dev_data.py:347
+#: project/management/commands/load_dev_data.py:348
 msgid "Campaign already exists."
 msgstr ""
 
@@ -288,10 +286,8 @@ msgid "Administration panel"
 msgstr "Panell d'administració"
 
 #: project/tests/test_selenium.py:56
-#, fuzzy
-#| msgid "Administration panel"
 msgid "Site administration"
-msgstr "Panell d'administració"
+msgstr ""
 
 #: project/tests/test_selenium.py:57
 msgid "Log out"
@@ -306,26 +302,20 @@ msgid "Create an account"
 msgstr ""
 
 #: project/tests/test_selenium.py:60
-#, fuzzy
-#| msgid "%s | Profile details"
 msgid "Profile details"
-msgstr "%s | Fitxa del perfil"
+msgstr "Fitxa del perfil"
 
 #: project/tests/test_selenium.py:61 project/views.py:100
 msgid "Registry updated"
 msgstr "Registre actualitzat"
 
 #: project/tests/test_selenium.py:62
-#, fuzzy
-#| msgid "%s | Password change"
 msgid "Password change"
-msgstr "%s | Canvi de contrasenya"
+msgstr "Canvi de contrasenya"
 
 #: project/tests/test_selenium.py:63
-#, fuzzy
-#| msgid "%s | Mail validation"
 msgid "Mail validation"
-msgstr "%s | Verificació del correu electrònic"
+msgstr "Verificació del correu electrònic"
 
 #: project/urls.py:32
 msgid "registration/"
@@ -336,10 +326,8 @@ msgid "settings/"
 msgstr ""
 
 #: project/urls.py:39
-#, fuzzy
-#| msgid "registration/"
 msgid "organizations/"
-msgstr "compte/"
+msgstr ""
 
 #: project/urls.py:42
 msgid "methods/"
@@ -360,53 +348,3 @@ msgstr "Fet!"
 #: project/views.py:103
 msgid "The registry was updated correctly."
 msgstr "El registre s'ha actualitzat correctament."
-
-#, fuzzy
-#~| msgid "registration/"
-#~ msgid "Translations"
-#~ msgstr "compte/"
-
-#~ msgid "Project name"
-#~ msgstr "Nom del projecte"
-
-#~ msgid "Site administration | Django site administration"
-#~ msgstr "Administració del lloc | Lloc administratiu de Django"
-
-#, python-format
-#~ msgid "%s | Sign up"
-#~ msgstr "%s | Donar-se d'alta"
-
-#, python-format
-#~ msgid "%s | Registry updated"
-#~ msgstr "%s | Registre actualitzat"
-
-#, python-format
-#~ msgid "%s | Demo"
-#~ msgstr "%s | Demo"
-
-#, python-format
-#~ msgid "%s | Demo Create"
-#~ msgstr "%s | Demo: crear"
-
-#, python-format
-#~ msgid "%s | Demo Details"
-#~ msgstr "%s | Demo: fitxa"
-
-#, python-format
-#~ msgid "%s | Demo Update"
-#~ msgstr "%s | Demo: actualitzar"
-
-#~ msgid "demo/list/"
-#~ msgstr "demo/llista/"
-
-#~ msgid "demo/details/<int:id>"
-#~ msgstr "demo/fitxa/<int:id>"
-
-#~ msgid "demo/update/<int:id>"
-#~ msgstr "demo/actualitzar/<int:id>"
-
-#~ msgid "demo/"
-#~ msgstr "demo/"
-
-#~ msgid "%s | Detalls del perfil"
-#~ msgstr " "
