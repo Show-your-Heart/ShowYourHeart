@@ -14,17 +14,17 @@
   <h6 class="text-lg font-bold">{% translate 'Resumen por sección' %}</h6>
 
   <div class="flex gap-4">
-    <div class="flex flex-col block w-full p-6 bg-blue-50 rounded-lg">
-      <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-blue-100 text-bold text-blue-600">
-        {{surveyStats.totalCompleted}}
-      </p>
-      <p class="text-blue-600 text-xs text-center">{% translate 'Completadas' %}</p>
-    </div>
     <div class="flex flex-col block w-full p-6 bg-teal-50 rounded-lg">
       <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-teal-100 text-bold text-teal-600">
+        {{surveyStats.totalCompleted}}
+      </p>
+      <p class="text-teal-600 text-xs text-center">{% translate 'Completadas' %}</p>
+    </div>
+    <div class="flex flex-col block w-full p-6 bg-blue-50 rounded-lg">
+      <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-blue-100 text-bold text-blue-600">
         {{surveyStats.totalInProgress}}
       </p>
-      <p class="text-teal-600 text-xs text-center">{% translate 'En progreso' %}</p>
+      <p class="text-blue-600 text-xs text-center">{% translate 'En progreso' %}</p>
     </div>
     <div class="flex flex-col block w-full p-6 bg-orange-50 rounded-lg">
       <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-orange-100 text-bold text-orange-600">
@@ -39,9 +39,9 @@
     {% for sectionWithStatus in surveyStats.sectionsWithStatus %}
     <p class="flex gap-1 items-center">
       {% if sectionWithStatus.status == 'completed' %}
-      <c-icon name="check" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
+      <c-icon name="check" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
       {% elif sectionWithStatus.status == 'inProgress' %}
-      <c-icon name="minus" class="w-4 h-4 inline text-white bg-teal-700 rounded-full"></c-icon>
+      <c-icon name="minus" class="w-4 h-4 inline text-white bg-blue-700 rounded-full"></c-icon>
       {% else %}
       <c-icon name="close" class="w-4 h-4 inline text-white bg-red-700 rounded-full"></c-icon>
       {% endif %}
