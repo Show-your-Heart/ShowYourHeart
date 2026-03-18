@@ -125,7 +125,7 @@ const initIndicatorsStore = () => {
             // Simple fields without validation expression are true when a value is assigned
             if (
                 (indicator.validation == '' && this.indicators[code].value !== null && this.indicators[code].value !== "" && !(this.indicators[code].value instanceof Object)) ||
-                (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value !== undefined || this.indicators[code].value.female !== undefined)) ||
+                (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value !== null || this.indicators[code].value.female !== undefined)) ||
                 (indicator.validation == '' && this.indicators[code].value instanceof Array && !indicator.is_group_indicator && this.indicators[code].value.length > 0)
             ) {
                 console.log("simple field filled without validation ")
