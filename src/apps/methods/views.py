@@ -345,12 +345,11 @@ def create_invitation_action(request):
         return HttpResponse(
             "",
             headers={
-                "HX-Redirect": "/methods/external-surveys/"
-                + organization_id
-                + "/"
-                + method_id
-                + "/?ext_survey="
-                + ext_survey_id
+                "HX-Redirect": reverse(
+                    "methods:external_surveys_view",
+                    args=[organization_id, method_id],
+                )
+                + f"?ext_survey={ext_survey_id}"
             },
         )
 
