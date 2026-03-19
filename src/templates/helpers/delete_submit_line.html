@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="flex flex-col gap-3 items-center w-full lg:flex-row">
-    <a href="/es/admin/organizations/organization/registration-requests" class="border border-base-200 cancel-link flex items-center justify-center font-medium px-3 py-2 rounded-default w-full hover:bg-base-50 lg:block lg:mb-0 lg:w-auto">
+    <a href="{{request.META.HTTP_REFERER}}" class="border border-base-200 cancel-link flex items-center justify-center font-medium px-3 py-2 rounded-default w-full hover:bg-base-50 lg:block lg:mb-0 lg:w-auto">
         {% translate "No, take me back" %}
     </a>
 
