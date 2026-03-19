@@ -288,7 +288,10 @@ class Indicator(BaseModel):
                         indicator.save()
 
             for code in deps_to_remove:
-                indicator = self.get_indicator(code)
+                try:
+                    indicator = self.get_indicator(code)
+                except ValidationError:
+                    pass
 
                 if indicator:
                     if (
