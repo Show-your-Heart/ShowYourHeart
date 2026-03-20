@@ -46,7 +46,7 @@ const initIndicatorsStore = () => {
             const tokens = expr.split(" ")
 
             // If expression is only a reference to another indicator return '__copy__' to copy its value
-            if(tokens.length == 1 && this.indicatorsData.findIndex(i => i.code == tokens[0]) != -1){
+            if (tokens.length == 1 && this.indicatorsData.findIndex(i => i.code == tokens[0]) != -1) {
                 return '__copy__'
             }
 
@@ -74,6 +74,8 @@ const initIndicatorsStore = () => {
                         value = '&&'
                     } else if (token == 'OR' || token == 'or') {
                         value = '||'
+                    } else if (token == 'true' || token == 'false') {
+                        value = token
                     } else {
                         // Reference to current indicator
                         value = this.loadIndicatorResult(token)
@@ -99,7 +101,7 @@ const initIndicatorsStore = () => {
         evaluateExpression(expr, val = '') {
             try {
                 const parsedExpression = this.parseExpression(expr, val)
-                if(parsedExpression == '__copy__'){
+                if (parsedExpression == '__copy__') {
                     return '__copy__'
                 }
                 return eval(parsedExpression)
@@ -336,13 +338,19 @@ const initIndicatorsStore = () => {
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
                     const value = this.evaluateExpression(indicator.formula, indicator.code)
                     if (value != null) {
-                        if(value == '__copy__'){
+                        if (value == '__copy__') {
                             this.indicators[dependantIndicatorCode].value = this.indicators[code].value
                             const indicatorToCopy = this.indicatorsData.find(i => i.code == code)
                             // If the field to copy has options copy them
-                            if(this.hasOptions(indicatorToCopy.data_type)){
+                            if (this.hasOptions(indicatorToCopy.data_type)) {
                                 const fieldEl = document.getElementById(`question_${indicator.id}`)
                                 Alpine.$data(fieldEl).copyFieldOptions(indicatorToCopy.id)
+                            }
+                        } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
+                            if (value === true) {
+                                this.indicators[dependantIndicatorCode].value = 'True'
+                            } else if (value === false) {
+                                this.indicators[dependantIndicatorCode].value = 'False'
                             }
                         } else {
                             this.indicators[dependantIndicatorCode].value = String(value)
