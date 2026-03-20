@@ -3,7 +3,7 @@
 <div x-data="field('{{widget.attrs.code}}')" :id="`field-${id}`" class="indicator flex flex-col" x-show="state.show" x-transition
     x-transition.delay.200ms>
 
-    <div class="px-2 py-1 mb-1 w-fit h-fit text-xs font-bold rounded-sm bg-pink-100" x-text="code"></div>
+    <div class="px-2 py-1 mb-1 w-fit h-fit text-xs font-bold rounded-sm" :class="isDirectIndicator?  'bg-pink-100' : 'bg-blue-100'" x-text="code"></div>
     <div class="flex gap-4 mb-1">
         <div class="w-full grid grid-cols-[80%_20%] gap-4">
             <label :for="`question_${id}`" class="block flex align-items-start space-x-4 mb-2 text-md font-medium text-gray-900">
