@@ -45,6 +45,11 @@ const initIndicatorsStore = () => {
         parseExpression(expr, val) {
             const tokens = expr.split(" ")
 
+            // If expression is only a reference to another indicator return '__copy__' to copy its value
+            if(tokens.length == 1 && this.indicatorsData.findIndex(i => i.code == tokens[0]) != -1){
+                return '__copy__'
+            }
+
             let loadedTokens = []
             for (let token of tokens) {
                 let value = null
@@ -94,6 +99,9 @@ const initIndicatorsStore = () => {
         evaluateExpression(expr, val = '') {
             try {
                 const parsedExpression = this.parseExpression(expr, val)
+                if(parsedExpression == '__copy__'){
+                    return '__copy__'
+                }
                 return eval(parsedExpression)
             } catch (e) {
                 throw e
@@ -164,11 +172,8 @@ const initIndicatorsStore = () => {
                                     } else if (indicator.mandatory && (this.indicators[code].value[k][k2] === null || this.indicators[code].value[k][k2] === '')) {
                                         // Empty mandatory is not valid
                                         result.isValid[k][k2] = false
-                                        console.log("Empty mandatory is not valid", this.indicators[code].value[k][k2])
-
                                     } else {
                                         result.isValid[k][k2] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}_${k2}`)
-                                        console.log("got to else", result.isValid[k][k2])
                                     }
                                 }
                                 if (!result.isValid[k][k2]) {
@@ -191,7 +196,6 @@ const initIndicatorsStore = () => {
                                     result.isValid[k] = false
                                 } else {
                                     result.isValid[k] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}`)
-                                    // console.log("sechk it out!", result.isValid)
                                 }
                             }
                             if (!result.isValid[k]) {
@@ -294,13 +298,17 @@ const initIndicatorsStore = () => {
         },
         updateIndicatorDependencies(code) {
             const index = this.indicatorsData.findIndex(i => i.code == code)
+            console.group("Checking dependant:", this.indicatorsData[index].dependant_indicators)
             if (index != -1 && this.indicatorsData[index].dependant_indicators) {
                 for (dependantIndicatorCode of this.indicatorsData[index].dependant_indicators) {
                     this.updateDependantIndicator(dependantIndicatorCode, code)
                 }
             }
+            console.groupEnd()
         },
         updateDependantIndicator(dependantIndicatorCode, code) {
+            console.log("Updating dependant:", dependantIndicatorCode)
+
             const index = this.indicatorsData.findIndex(i => i.code == dependantIndicatorCode)
             if (index != -1) {
                 let indicator = this.indicatorsData[index]
@@ -328,8 +336,18 @@ const initIndicatorsStore = () => {
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
                     const value = this.evaluateExpression(indicator.formula, indicator.code)
                     if (value != null) {
-                        const fieldEl = document.querySelector(`#question_${indicator.id}`);
-                        fieldEl && (this.indicators[dependantIndicatorCode].value = String(value))
+                        if(value == '__copy__'){
+                            this.indicators[dependantIndicatorCode].value = this.indicators[code].value
+                            const indicatorToCopy = this.indicatorsData.find(i => i.code == code)
+                            // If the field to copy has options copy them
+                            if(this.hasOptions(indicatorToCopy.data_type)){
+                                const fieldEl = document.getElementById(`question_${indicator.id}`)
+                                Alpine.$data(fieldEl).copyFieldOptions(indicatorToCopy.id)
+                            }
+                        } else {
+                            this.indicators[dependantIndicatorCode].value = String(value)
+                        }
+                        console.log("Values", this.indicators[code].value, this.indicators[dependantIndicatorCode].value)
                     }
                 }
                 // TODO: Check if validation is dependant

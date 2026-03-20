@@ -305,6 +305,11 @@ const initFieldData = () => {
         getOption(id) {
             return this.options.find(o => o.id == id) || { value: null, id: "" }
         },
+        copyFieldOptions(id){
+            const fieldEl = document.getElementById(`question_${id}`)
+            this.options = Alpine.$data(fieldEl).options
+            this.checkedOptions = Alpine.$data(fieldEl).checkedOptions
+        },
         setGroupItemValid(suffix, suffix2 = "") {
             if (suffix2 == "") {
                 const el = document.querySelector(`#question_${this.id}_${suffix}`)
