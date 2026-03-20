@@ -148,7 +148,7 @@ def invitations_sent_view(request, id):
     )
     if invitations:
         for invitation in invitations:
-            send_invitation(invitation)
+            send_invitation(request, invitation)
             invitation.status = Invitation.Status.SENT
             invitation.send_date = timezone.now()
             invitation.save()
@@ -168,7 +168,7 @@ def invitations_sent_view(request, id):
 
 def invitation_sent_view(request, id):
     invitation = Invitation.objects.get(pk=id)
-    send_invitation(invitation)
+    send_invitation(request, invitation)
     invitation.status = Invitation.Status.SENT
     invitation.send_date = timezone.now()
     invitation.save()

@@ -6,7 +6,7 @@ from project.utils.smtp_utils import get_smtp_for_user
 from .models import Survey
 
 
-def send_invitation(invitation):
+def send_invitation(request, invitation):
     context = {
         "method_name": invitation.external_survey_invitation.name,
         "user_name": invitation.name,
@@ -15,7 +15,7 @@ def send_invitation(invitation):
         + invitation.token,
     }
 
-    smtp = get_smtp_for_user(user=context["user"])
+    smtp = get_smtp_for_user(user=request.user)
 
     send(
         recipients=[
