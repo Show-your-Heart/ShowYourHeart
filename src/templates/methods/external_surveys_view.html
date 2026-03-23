@@ -2,9 +2,6 @@
 
 <c-default-layout>
     <h4 class="text-2xl font-bold">{{ method.name }}</h4>  
-    {% if not ext_surveys %} 
-        {% trans 'There are not external surveys configured for this method' %}
-    {% endif %}
     <div class="flex flex-col gap-8 items-center max-w-[1000px] mx-auto pt-16">
         <c-slot name="sidebar">
             <div class="sticky overflow-y-auto mt-8 pl-4" style="height: calc(100vh - 80px - 2rem); top: calc(80px + 2rem);">
