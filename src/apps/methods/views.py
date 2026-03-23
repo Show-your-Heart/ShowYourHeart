@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic import ListView, TemplateView
 from unfold.views import UnfoldModelAdminViewMixin
 
@@ -117,6 +117,13 @@ class ExternalSurveysView(TemplateView):
         return context
 
 
+@require_POST
+def delete_invitation(request, invitation_id):
+    invitation = get_object_or_404(Invitation, id=invitation_id)
+    invitation.delete()
+    return HttpResponse("")
+
+
 @method_decorator(login_not_required, name="dispatch")
 class ExternalMethodFillView(MethodFillMixin, TemplateView):
     template_name = "methods/method_fill.html"
@@ -148,7 +155,7 @@ def invitations_sent_view(request, id):
     )
     if invitations:
         for invitation in invitations:
-            send_invitation(invitation)
+            send_invitation(request, invitation)
             invitation.status = Invitation.Status.SENT
             invitation.send_date = timezone.now()
             invitation.save()
@@ -168,7 +175,7 @@ def invitations_sent_view(request, id):
 
 def invitation_sent_view(request, id):
     invitation = Invitation.objects.get(pk=id)
-    send_invitation(invitation)
+    send_invitation(request, invitation)
     invitation.status = Invitation.Status.SENT
     invitation.send_date = timezone.now()
     invitation.save()
@@ -178,7 +185,11 @@ def invitation_sent_view(request, id):
         _("The invitation has been sent."),
     )
 
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+    return render(
+        request,
+        "methods/invitation_row.html",
+        {"invitation": invitation},
+    )
 
 
 def import_csv2(request, organization_id, method_id):
@@ -345,12 +356,11 @@ def create_invitation_action(request):
         return HttpResponse(
             "",
             headers={
-                "HX-Redirect": "/methods/external-surveys/"
-                + organization_id
-                + "/"
-                + method_id
-                + "/?ext_survey="
-                + ext_survey_id
+                "HX-Redirect": reverse(
+                    "methods:external_surveys_view",
+                    args=[organization_id, method_id],
+                )
+                + f"?ext_survey={ext_survey_id}"
             },
         )
 

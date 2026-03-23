@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<td class="border border-gray-300 px-4 py-2">{{ invitation.name }}</td>
+<td class="border border-gray-300 px-4 py-2">{{ invitation.email }}</td>
+<td class="border border-gray-300 px-4 py-2">{{ invitation.send_date }}</td>
+<td class="border border-gray-300 px-4 py-2">{{ invitation.get_status_display }}</td>
+<td class="border border-gray-300 px-4 py-2 text-center">
+    <button
+        hx-post="{% url 'methods:send_invitation' invitation.id %}"
+        hx-target="#invitation-row-{{ invitation.id }}"
+        hx-confirm="{% translate 'Are you sure you want to send this invitation?' %}"
+    >
+        <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
+    </button>
+</td>
+<td class="border border-gray-300 px-4 py-2 text-center">
+    <button
+        hx-post="{% url 'methods:delete_invitation' invitation.id %}"
+        hx-target="#invitation-row-{{ invitation.id }}"
+        hx-confirm="{% translate 'Are you sure you want to delete this invitation?' %}"
+    >
+        <c-icon name="trash-bin" class="text-gray-500"></c-icon>
+    </button>
+</td>
