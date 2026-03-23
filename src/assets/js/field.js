@@ -52,6 +52,15 @@ const initFieldData = () => {
                 this.group2Items = indicator.group_2_items || []
                 this.group2Total = indicator.group_2_total
             }
+            if (this.indicatorsStore.isGendered(this.type)) {
+                this.groupItems = ['men', 'women', 'nonBinary']
+                if (this.placeholder !== null) {
+                    this.placeholder = {}
+                    this.placeholder.women = this.indicatorsStore["placeholders"][code].female || null
+                    this.placeholder.men = this.indicatorsStore["placeholders"][code].male || null
+                    this.placeholder.nonBinary = this.indicatorsStore["placeholders"][code].non_binary || null
+                }
+            }
             const value = this.loadInitialValue(indicatorResults?.value ?? null)
             if (this.placeholder == null) {
                 this.placeholder = this.loadInitialValue(null)
@@ -110,15 +119,15 @@ const initFieldData = () => {
             } else if (this.indicatorsStore.isGendered(this.type)) {
                 if (initialValue && initialValue.female) {
                     value = {
-                        female: initialValue.female,
-                        male: initialValue.male,
+                        women: initialValue.female,
+                        men: initialValue.male,
                         nonBinary: initialValue.non_binary,
                     }
                 } else {
                     // Do not set initial values to display the placeholder
                     value = {
-                        female: null,
-                        male: null,
+                        women: null,
+                        men: null,
                         nonBinary: null,
                     }
                 }
@@ -235,7 +244,7 @@ const initFieldData = () => {
                 if (suffix2 == '') {
                     value[suffix] = input
                     if (this.indicatorsStore.isNumeric(type)) {
-                        value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix]), 0)
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr]) ?? 0), 0)
                     }
                 } else {
                     value[suffix][suffix2] = input
@@ -256,8 +265,8 @@ const initFieldData = () => {
             if (this.indicatorsStore.isMultiAnswer(this.type)) {
                 this.update([])
             } else if (this.indicatorsStore.isGendered(this.type)) {
-                this.update(0, "male")
-                this.update(0, "female")
+                this.update(0, "women")
+                this.update(0, "men")
                 this.update(0, "nonBinary")
             } else {
                 this.update("")
@@ -305,7 +314,7 @@ const initFieldData = () => {
         getOption(id) {
             return this.options.find(o => o.id == id) || { value: null, id: "" }
         },
-        copyFieldOptions(id){
+        copyFieldOptions(id) {
             const fieldEl = document.getElementById(`question_${id}`)
             this.options = Alpine.$data(fieldEl).options
             this.checkedOptions = Alpine.$data(fieldEl).checkedOptions

@@ -58,7 +58,7 @@ const initIndicatorsStore = () => {
                         // Reference to other group indicator
                         const subtokens = token.split("_")
                         if (subtokens.includes('total')) {
-                            // Load list or table column total
+                            // Load gendered field, list or table column total
                             value = this.loadTotalIndicatorResult(subtokens)
                         } else {
                             value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
@@ -246,22 +246,7 @@ const initIndicatorsStore = () => {
                 result = this.indicators[code].value == 'True' ? 'true' : 'false'
             } else if (suffix != "") {
                 if (suffix2 == "") {
-                    switch (suffix) {
-                        case 'men':
-                            result = Number(indicator.value.male)
-                            break;
-                        case 'women':
-                            result = Number(indicator.value.female)
-                            break;
-                        case 'nb':
-                            result = Number(indicator.value.nonBinary)
-                            break;
-                        case 'total':
-                            result = Object.keys(indicator.value).reduce((prev, k) => prev + Number(indicator.value[k]), 0)
-                            break;
-                        default:
-                            result = this.indicators[code].value[suffix]
-                    }
+                    result = Number(this.indicators[code].value[suffix])
                 } else {
                     result = this.indicators[code].value[suffix][suffix2]
                 }
