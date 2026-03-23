@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.urls import reverse
 
 from project.post_office import send
 from project.utils.smtp_utils import get_smtp_for_user
@@ -7,20 +7,20 @@ from .models import Survey
 
 
 def send_invitation(request, invitation):
+    method_url = request.build_absolute_uri(
+        reverse("methods:external_method_fill", args=[invitation.token])
+    )
+
     context = {
         "method_name": invitation.external_survey_invitation.name,
         "user_name": invitation.name,
-        "method_url": settings.ABSOLUTE_URL
-        + "/methods/external-survey/"
-        + invitation.token,
+        "method_url": method_url,
     }
 
     smtp = get_smtp_for_user(user=request.user)
 
     send(
-        recipients=[
-            invitation.email,
-        ],
+        recipients=[invitation.email],
         template="external_survey_invitation",
         context=context,
         smtp=smtp,
