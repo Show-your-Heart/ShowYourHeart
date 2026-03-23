@@ -41,7 +41,7 @@ urlpatterns = [
         name="create_invitation",
     ),
     path(
-        _("invitations/<uuid:invitation_id>/delete/"),
+        "invitations/<uuid:invitation_id>/delete/",
         delete_invitation,
         name="delete_invitation",
     ),
