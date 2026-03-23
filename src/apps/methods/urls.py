@@ -47,13 +47,13 @@ urlpatterns = [
     ),
     path(_("send-invitations/<id>"), invitations_sent_view, name="send_invitations"),
     path(_("send-invitation/<id>"), invitation_sent_view, name="send_invitation"),
-    path(_("import-csv/<id>"), import_csv, name="import_csv"),
+    path("import-csv/<id>", import_csv, name="import_csv"),
     path(
-        _("import-csv2/<uuid:organization_id>/<uuid:method_id>"),
+        "import-csv2/<uuid:organization_id>/<uuid:method_id>",
         import_csv2,
         name="import_csv2",
     ),
-    path(_("load_ext_surveys/"), load_ext_surveys, name="load_ext_surveys"),
+    path("load_ext_surveys/", load_ext_surveys, name="load_ext_surveys"),
     path(
         _("fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"),
         MethodFillView.as_view(),
@@ -65,12 +65,12 @@ urlpatterns = [
         name="method_preview",
     ),
     path(
-        _("survey-reminder-send"),
+        "survey-reminder-send",
         survey_reminder_view,
         name="survey_reminder_email",
     ),
     path(
-        _("user-survey-reminder-send/<uuid:survey_id>"),
+        "user-survey-reminder-send/<uuid:survey_id>",
         user_survey_reminder_view,
         name="user_survey_reminder_email",
     ),
