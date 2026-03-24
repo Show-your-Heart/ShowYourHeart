@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-13 13:40+0100\n"
+"POT-Creation-Date: 2026-03-24 09:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgstr "Weet u zeker dat u de uitnodiging wilt versturen?"
 msgid "Send invitation"
 msgstr "Uitnodiging versturen"
 
-#: apps/methods/admin.py:713 templates/methods/external_surveys_view.html:85
+#: apps/methods/admin.py:713 templates/methods/external_surveys_view.html:102
 msgid "Are you sure you want to send the invitations?"
 msgstr "Weet u zeker dat u de uitnodigingen wilt versturen?"
 
@@ -71,17 +71,18 @@ msgid "Send invitations"
 msgstr "Uitnodigingen versturen"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
-#: apps/methods/models.py:405 apps/methods/models.py:535
-#: apps/methods/models.py:582 apps/organizations/forms.py:26
-#: apps/organizations/forms.py:42 templates/admin/methods/survey_review.html:32
-#: templates/admin/methods/survey_review.html:100
+#: apps/methods/models.py:408 apps/methods/models.py:538
+#: apps/methods/models.py:585 apps/organizations/forms.py:26
+#: apps/organizations/forms.py:42 apps/organizations/forms.py:232
+#: templates/admin/methods/survey_review.html:32
+#: templates/admin/methods/survey_review.html:116
 #: templates/admin/organizations/registration_requests.html:38
-#: templates/methods/external_surveys_view.html:42
+#: templates/methods/external_surveys_view.html:39
 msgid "Name"
 msgstr "Naam"
 
 #: apps/methods/forms.py:158 apps/methods/forms.py:159
-#: apps/methods/models.py:583
+#: apps/methods/models.py:586
 msgid "Surnames"
 msgstr ""
 
@@ -90,14 +91,14 @@ msgid "Gender"
 msgstr ""
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
-#: apps/methods/models.py:341 apps/organizations/models.py:29
+#: apps/methods/models.py:344 apps/organizations/models.py:29
 #: apps/organizations/models.py:163 apps/settings/models.py:10
 #: apps/settings/models.py:21 apps/settings/models.py:38
 msgid "name"
 msgstr "naam"
 
 #: apps/methods/models.py:20 apps/methods/models.py:150
-#: apps/methods/models.py:342 apps/organizations/models.py:30
+#: apps/methods/models.py:345 apps/organizations/models.py:30
 #: apps/organizations/models.py:164
 msgid "description"
 msgstr "beschrijving"
@@ -171,7 +172,7 @@ msgstr "Decimaal"
 msgid "Boolean"
 msgstr "Booleaans"
 
-#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:44
+#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:41
 msgid "Date"
 msgstr "Datum"
 
@@ -311,223 +312,205 @@ msgstr "Dit veld is verplicht als de indicator indirect is."
 msgid "Circular dependencies"
 msgstr ""
 
-#: apps/methods/models.py:324
+#: apps/methods/models.py:327
 msgid "Indicator code can't contain the underscore character '_'"
 msgstr ""
 
-#: apps/methods/models.py:331
+#: apps/methods/models.py:334
 msgid "Organisation"
 msgstr "Organisatie"
 
-#: apps/methods/models.py:332 templates/admin/methods/survey_review.html:103
+#: apps/methods/models.py:335 templates/admin/methods/survey_review.html:119
 msgid "Project"
 msgstr "Project"
 
-#: apps/methods/models.py:333
+#: apps/methods/models.py:336
 msgid "External Survey"
 msgstr "Externe vragenlijst"
 
-#: apps/methods/models.py:336
+#: apps/methods/models.py:339
 msgid "Work"
 msgstr ""
 
-#: apps/methods/models.py:337
+#: apps/methods/models.py:340
 msgid "Professional"
 msgstr ""
 
-#: apps/methods/models.py:338
+#: apps/methods/models.py:341
 msgid "Associative"
 msgstr ""
 
-#: apps/methods/models.py:339
+#: apps/methods/models.py:342
 msgid "Volunteering"
 msgstr ""
 
-#: apps/methods/models.py:344
+#: apps/methods/models.py:347
 msgid "unit of analysis"
 msgstr "analyse-eenheid"
 
-#: apps/methods/models.py:353
+#: apps/methods/models.py:356
 msgid "Which entity does this method applies to?"
 msgstr "Op welke entiteit is deze methode van toepassing?"
 
-#: apps/methods/models.py:359 apps/organizations/models.py:70
+#: apps/methods/models.py:362 apps/organizations/models.py:70
 msgid "Sectors"
 msgstr "Sectoren"
 
-#: apps/methods/models.py:365 templates/admin/methods/survey_review.html:109
+#: apps/methods/models.py:368 templates/admin/methods/survey_review.html:125
 msgid "External surveys"
 msgstr "Externe vragenlijsten"
 
-#: apps/methods/models.py:369
+#: apps/methods/models.py:372
 msgid "Version"
 msgstr "Versie"
 
-#: apps/methods/models.py:372 apps/organizations/forms.py:78
+#: apps/methods/models.py:375 apps/organizations/forms.py:78
+#: apps/organizations/forms.py:274
 msgid "Region1"
 msgstr "Regio1"
 
-#: apps/methods/models.py:377
+#: apps/methods/models.py:380
 msgid "external survey category"
 msgstr ""
 
-#: apps/methods/models.py:399
+#: apps/methods/models.py:402
 msgid "This method has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:406
+#: apps/methods/models.py:409
 msgid "Year"
 msgstr "Jaar"
 
-#: apps/methods/models.py:407
+#: apps/methods/models.py:410
 msgid "Active"
 msgstr "Actief"
 
-#: apps/methods/models.py:413 apps/organizations/models.py:60
+#: apps/methods/models.py:416 apps/organizations/models.py:60
 #: apps/organizations/models.py:202
 msgid "Methods"
 msgstr "Methoden"
 
-#: apps/methods/models.py:417 apps/methods/models.py:477
-#: apps/organizations/forms.py:307 apps/organizations/models.py:206
-#: templates/admin/methods/survey_review.html:112
+#: apps/methods/models.py:420 apps/methods/models.py:480
+#: apps/organizations/forms.py:377 apps/organizations/models.py:206
+#: templates/admin/methods/survey_review.html:128
 msgid "Start date"
 msgstr "Startdatum"
 
-#: apps/methods/models.py:418 apps/organizations/models.py:207
-#: templates/admin/methods/survey_review.html:115
+#: apps/methods/models.py:421 apps/organizations/models.py:207
+#: templates/admin/methods/survey_review.html:131
 msgid "End date"
 msgstr "Einddatum"
 
-#: apps/methods/models.py:430
+#: apps/methods/models.py:433
 msgid "This campaign has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:458
+#: apps/methods/models.py:461
 msgid "Token"
 msgstr "Token"
 
-#: apps/methods/models.py:478
+#: apps/methods/models.py:481
 msgid "Closed date"
 msgstr ""
 
-#: apps/methods/models.py:479
+#: apps/methods/models.py:482
 msgid "Modified date"
 msgstr ""
 
-#: apps/methods/models.py:480
+#: apps/methods/models.py:483
 msgid "Validated date"
 msgstr ""
 
-#: apps/methods/models.py:481
+#: apps/methods/models.py:484
 msgid "Evaluated date"
 msgstr ""
 
-#: apps/methods/models.py:520
+#: apps/methods/models.py:523
 msgid "Is total?"
 msgstr ""
 
-#: apps/methods/models.py:523
+#: apps/methods/models.py:526
 msgid "not applicable"
 msgstr "niet van toepassing"
 
-#: apps/methods/models.py:585
+#: apps/methods/models.py:588
 msgid "email address"
 msgstr "e-mailadres"
 
-#: apps/methods/models.py:594
+#: apps/methods/models.py:597
 msgid "Send date"
 msgstr ""
 
-#: apps/methods/models.py:617
+#: apps/methods/models.py:620
 msgid "Title"
 msgstr "Titel"
 
-#: apps/methods/models.py:619 apps/organizations/forms.py:31
+#: apps/methods/models.py:622 apps/organizations/forms.py:31
+#: apps/organizations/forms.py:237
 msgid "Description"
 msgstr "Beschrijving"
 
-#: apps/methods/models.py:623
+#: apps/methods/models.py:626
 msgid "order"
 msgstr "volgorde"
 
-#: apps/methods/urls.py:23
+#: apps/methods/urls.py:24
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:28
+#: apps/methods/urls.py:29
 msgid "external-survey/<token>"
 msgstr "externe-vragenlijst/<token>"
 
-#: apps/methods/urls.py:33
+#: apps/methods/urls.py:34
 msgid "external-surveys/<uuid:organization_id>/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:38
+#: apps/methods/urls.py:39
 msgid "invitation"
 msgstr ""
 
-#: apps/methods/urls.py:42
+#: apps/methods/urls.py:48
 msgid "send-invitations/<id>"
 msgstr "uitnodigingen-versturen/<id>"
 
-#: apps/methods/urls.py:43
+#: apps/methods/urls.py:49
 msgid "send-invitation/<id>"
 msgstr "uitnodiging-versturen/<id>"
 
-#: apps/methods/urls.py:44
-msgid "import-csv/<id>"
-msgstr "csv-importeren/<id>"
-
-#: apps/methods/urls.py:46
-msgid "import-csv2/<uuid:organization_id>/<uuid:method_id>"
-msgstr ""
-
-#: apps/methods/urls.py:50
-msgid "load_ext_surveys/"
-msgstr "externe-vragenlijsten-laden/"
-
-#: apps/methods/urls.py:52
+#: apps/methods/urls.py:58
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:57
+#: apps/methods/urls.py:63
 msgid "preview/<uuid:method_id>/"
 msgstr ""
 
-#: apps/methods/urls.py:62
-msgid "survey-reminder-send"
-msgstr ""
-
-#: apps/methods/urls.py:67
-msgid "user-survey-reminder-send/<uuid:survey_id>"
-msgstr ""
-
-#: apps/methods/views.py:158
+#: apps/methods/views.py:164
 msgid "The invitations have been sent."
 msgstr "De uitnodigingen zijn verstuurd."
 
-#: apps/methods/views.py:163
+#: apps/methods/views.py:169
 msgid "There are no invitations to send."
 msgstr "Er zijn geen uitnodigingen om te versturen."
 
-#: apps/methods/views.py:178
+#: apps/methods/views.py:184
 msgid "The invitation has been sent."
 msgstr "De uitnodiging is verstuurd."
 
-#: apps/methods/views.py:207
+#: apps/methods/views.py:217
 msgid "The CSV has been imported correctly."
 msgstr "De CSV is correct geïmporteerd."
 
-#: apps/methods/views.py:357
+#: apps/methods/views.py:366
 msgid "Error creating contact. Contact your network admin."
 msgstr ""
 
-#: apps/methods/views.py:370
+#: apps/methods/views.py:379
 msgid "An email to all the involved contacts has been sent."
 msgstr ""
 
-#: apps/methods/views.py:379
+#: apps/methods/views.py:388
 msgid "An email to the contact has been sent."
 msgstr ""
 
@@ -535,26 +518,27 @@ msgstr ""
 msgid "Invalid signup, check that you don't have an account."
 msgstr "Ongeldige aanmelding, controleer of u geen account heeft."
 
-#: apps/organizations/forms.py:25
+#: apps/organizations/forms.py:25 apps/organizations/forms.py:231
 msgid "Organisation name"
 msgstr "Naam van de organisatie"
 
-#: apps/organizations/forms.py:29
+#: apps/organizations/forms.py:29 apps/organizations/forms.py:235
 msgid "Organization description"
 msgstr ""
 
 #: apps/organizations/forms.py:35 apps/organizations/forms.py:37
+#: apps/organizations/forms.py:241 apps/organizations/forms.py:243
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
 msgstr "Btw-nummer"
 
-#: apps/organizations/forms.py:41 apps/organizations/forms.py:231
-#: apps/organizations/forms.py:330
+#: apps/organizations/forms.py:41 apps/organizations/forms.py:247
+#: apps/organizations/forms.py:400
 msgid "Name of the contact person"
 msgstr "Naam van de contactpersoon"
 
-#: apps/organizations/forms.py:45 apps/organizations/forms.py:238
-#: apps/organizations/forms.py:336
+#: apps/organizations/forms.py:45 apps/organizations/forms.py:254
+#: apps/organizations/forms.py:406
 msgid "Phone number of the contact person"
 msgstr "Telefoonnummer van de contactpersoon"
 
@@ -562,38 +546,40 @@ msgstr "Telefoonnummer van de contactpersoon"
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: apps/organizations/forms.py:51 apps/organizations/forms.py:234
-#: apps/organizations/forms.py:342
+#: apps/organizations/forms.py:51 apps/organizations/forms.py:250
+#: apps/organizations/forms.py:412
 msgid "Email address of the contact person"
 msgstr "E-mailadres van de contactpersoon"
 
 #: apps/organizations/forms.py:55 templates/home.html:21
-#: templates/methods/external_surveys_view.html:43
+#: templates/methods/external_surveys_view.html:40
 msgid "Email"
 msgstr "E-mail"
 
 #: apps/organizations/forms.py:61 apps/organizations/forms.py:62
+#: apps/organizations/forms.py:257 apps/organizations/forms.py:258
 msgid "Website"
 msgstr "Website"
 
-#: apps/organizations/forms.py:66
+#: apps/organizations/forms.py:66 apps/organizations/forms.py:262
 msgid "Country"
 msgstr "Land"
 
-#: apps/organizations/forms.py:90
+#: apps/organizations/forms.py:90 apps/organizations/forms.py:286
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
 msgstr "Stad"
 
 #: apps/organizations/forms.py:102 apps/organizations/forms.py:103
+#: apps/organizations/forms.py:298 apps/organizations/forms.py:299
 msgid "Address"
 msgstr "Adres"
 
-#: apps/organizations/forms.py:106
+#: apps/organizations/forms.py:106 apps/organizations/forms.py:302
 msgid "Zip Code"
 msgstr ""
 
-#: apps/organizations/forms.py:109
+#: apps/organizations/forms.py:109 apps/organizations/forms.py:305
 msgid "Legal entity type"
 msgstr "Rechtsvorm"
 
@@ -601,7 +587,7 @@ msgstr "Rechtsvorm"
 msgid "Method of impact mesurement"
 msgstr "Methode voor impactmeting"
 
-#: apps/organizations/forms.py:132 apps/organizations/forms.py:241
+#: apps/organizations/forms.py:132 apps/organizations/forms.py:309
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
 msgstr ""
@@ -610,43 +596,43 @@ msgstr ""
 msgid "I have read and accept the {}"
 msgstr "Ik heb de {} gelezen en accepteer deze"
 
-#: apps/organizations/forms.py:295 apps/organizations/forms.py:297
+#: apps/organizations/forms.py:365 apps/organizations/forms.py:367
 msgid "Project name"
 msgstr ""
 
-#: apps/organizations/forms.py:301 apps/organizations/forms.py:303
+#: apps/organizations/forms.py:371 apps/organizations/forms.py:373
 msgid "Brief description"
 msgstr ""
 
-#: apps/organizations/forms.py:314
+#: apps/organizations/forms.py:384
 msgid "Main action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:319
+#: apps/organizations/forms.py:389
 msgid "Secondary action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:332
+#: apps/organizations/forms.py:402
 msgid "Contact name"
 msgstr ""
 
-#: apps/organizations/forms.py:338
+#: apps/organizations/forms.py:408
 msgid "Contact phone number"
 msgstr ""
 
-#: apps/organizations/forms.py:344
+#: apps/organizations/forms.py:414
 msgid "Contact email"
 msgstr ""
 
-#: apps/organizations/forms.py:348 apps/organizations/models.py:209
+#: apps/organizations/forms.py:418 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Ik wil de resultaten openbaar maken"
 
-#: apps/organizations/forms.py:351 apps/organizations/models.py:212
+#: apps/organizations/forms.py:421 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Ik geef toestemming om mijn gegevens op te nemen in het eindrapport"
 
-#: apps/organizations/forms.py:395
+#: apps/organizations/forms.py:465
 msgid "Choose Existing Project"
 msgstr ""
 
@@ -830,7 +816,7 @@ msgstr "bewerken/<pk>"
 msgid "<uuid:organization_id>/project/"
 msgstr ""
 
-#: apps/organizations/views.py:130
+#: apps/organizations/views.py:137
 msgid "Error creating project. Contact your network admin."
 msgstr ""
 
@@ -941,6 +927,7 @@ msgid "Skipped"
 msgstr ""
 
 #: templates/admin/import_export/import_preview.html:27
+#: templates/methods/external_surveys_view.html:44
 msgid "Delete"
 msgstr ""
 
@@ -1007,8 +994,8 @@ msgid "Method"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:27
-#: templates/admin/methods/survey_review.html:91
-#: templates/methods/external_surveys_view.html:45
+#: templates/admin/methods/survey_review.html:107
+#: templates/methods/external_surveys_view.html:42
 msgid "Status"
 msgstr ""
 
@@ -1017,7 +1004,7 @@ msgid "Unit of analysis"
 msgstr "Analyse-eenheid"
 
 #: templates/admin/methods/survey_review.html:31
-#: templates/admin/methods/survey_review.html:97 templates/home.html:20
+#: templates/admin/methods/survey_review.html:113 templates/home.html:20
 msgid "NIF"
 msgstr "NIF"
 
@@ -1025,43 +1012,73 @@ msgstr "NIF"
 msgid "Filter"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:41
+#: templates/admin/methods/survey_review.html:55
 msgid "Send email to all with open balances"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:51
+#: templates/admin/methods/survey_review.html:67
 msgid "Previous"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:55
+#: templates/admin/methods/survey_review.html:71
 msgid "Page"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:62
+#: templates/admin/methods/survey_review.html:78
 msgid "Next"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:78
+#: templates/admin/methods/survey_review.html:94
 #: templates/admin/organizations/registration_requests.html:28
 msgid "Select all rows"
 msgstr "Alle rijen selecteren"
 
-#: templates/admin/methods/survey_review.html:94
+#: templates/admin/methods/survey_review.html:110
 msgid "Answers"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:106
+#: templates/admin/methods/survey_review.html:122
 #: templates/components/navbar.html:29 templates/info/contact.html:8
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/admin/methods/survey_review.html:138
+#: templates/admin/methods/survey_review.html:154
 msgid "Edit balance"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:156
+#: templates/admin/methods/survey_review.html:172
 #: templates/methods/method_fill.html:137
 msgid "Balance errors"
+msgstr ""
+
+#: templates/admin/methods/survey_review.html:208
+#, fuzzy
+#| msgid "main scope of action"
+msgid "Email sending confirmation"
+msgstr "belangrijkste werkgebied"
+
+#: templates/admin/methods/survey_review.html:211
+msgid "You are going to send an email to"
+msgstr ""
+
+#: templates/admin/methods/survey_review.html:211
+msgid "are you sure?"
+msgstr ""
+
+#: templates/admin/methods/survey_review.html:215
+msgid ""
+"You are going to send an email to all the organisations who have an open "
+"method, are you sure?"
+msgstr ""
+
+#: templates/admin/methods/survey_review.html:220
+#: templates/admin/methods/survey_review.html:224
+#: templates/helpers/delete_submit_line.html:9
+msgid "Yes, I am sure"
+msgstr "Ja, ik weet het zeker"
+
+#: templates/admin/methods/survey_review.html:228
+msgid "No, cancel"
 msgstr ""
 
 #: templates/admin/organizations/registration_requests.html:4
@@ -1118,8 +1135,49 @@ msgstr ""
 "Alle onderstaande gerelateerde items zullen worden verwijderd:"
 
 #: templates/admin/syh_delete_confirmation.html:48
+#: templates/admin/syh_delete_selected_confirmation.html:42
 msgid "Objects"
 msgstr "Objecten"
+
+#: templates/admin/syh_delete_selected_confirmation.html:8
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#| "deleting related objects, but your account does not have permission to "
+#| "delete the following types of objects:"
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+"Het verwijderen van %(object_name)s '%(escaped_object)s' zou ertoe leiden "
+"dat gerelateerde objecten worden verwijderd, maar uw account heeft geen "
+"rechten om de volgende soorten objecten te verwijderen:"
+
+#: templates/admin/syh_delete_selected_confirmation.html:21
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would require deleting "
+#| "the following protected related objects:"
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+"Het verwijderen van %(object_name)s '%(escaped_object)s' vereist het "
+"verwijderen van de volgende beschermde gerelateerde objecten:"
+
+#: templates/admin/syh_delete_selected_confirmation.html:35
+#, fuzzy, python-format
+#| msgid ""
+#| "Are you sure you want to delete the %(object_name)s "
+#| "\"%(escaped_object)s\"? All of the following related items will be "
+#| "deleted:"
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+"Weet u zeker dat u %(object_name)s \"%(escaped_object)s\" wilt verwijderen? "
+"Alle onderstaande gerelateerde items zullen worden verwijderd:"
 
 #: templates/admin/syh_index.html:6
 msgid "Hi"
@@ -1273,7 +1331,7 @@ msgid "Ir al balance"
 msgstr "Naar de balans gaan"
 
 #: templates/components/card/survey_stats.html:76
-#: templates/components/drawers/choose_project.html:30
+#: templates/components/drawers/choose_project.html:31
 msgid "Send external surveys"
 msgstr ""
 
@@ -1296,13 +1354,13 @@ msgstr "Paneel sluiten"
 msgid "Project selection"
 msgstr ""
 
-#: templates/components/drawers/choose_project.html:34
+#: templates/components/drawers/choose_project.html:36
 #: templates/components/drawers/create_project.html:4
 msgid "Create project"
 msgstr ""
 
 #: templates/components/drawers/create_invitation.html:3
-#: templates/methods/external_surveys_view.html:74
+#: templates/methods/external_surveys_view.html:91
 msgid "Add new contact"
 msgstr ""
 
@@ -1380,10 +1438,6 @@ msgstr "Afwijzen"
 msgid "No, take me back"
 msgstr "Nee, teruggaan"
 
-#: templates/helpers/delete_submit_line.html:9
-msgid "Yes, I am sure"
-msgstr "Ja, ik weet het zeker"
-
 #: templates/home.html:11
 msgid "Hola"
 msgstr "Hallo"
@@ -1429,19 +1483,35 @@ msgstr ""
 msgid "What is Social Balance?"
 msgstr ""
 
-#: templates/methods/external_surveys_view.html:6
-msgid "There are not external surveys configured for this method"
-msgstr ""
+#: templates/methods/external_surveys_view.html:43
+#: templates/registration/send_verification_code.html:18
+#: templates/registration/user_validation.html:18
+msgid "Send"
+msgstr "Verzenden"
 
-#: templates/methods/external_surveys_view.html:59
+#: templates/methods/external_surveys_view.html:58
+#: templates/methods/invitation_row.html:11
+#, fuzzy
+#| msgid "Are you sure you want to send the invitation?"
+msgid "Are you sure you want to send this invitation?"
+msgstr "Weet u zeker dat u de uitnodiging wilt versturen?"
+
+#: templates/methods/external_surveys_view.html:67
+#: templates/methods/invitation_row.html:20
+#, fuzzy
+#| msgid "Are you sure you want to send the invitation?"
+msgid "Are you sure you want to delete this invitation?"
+msgstr "Weet u zeker dat u de uitnodiging wilt versturen?"
+
+#: templates/methods/external_surveys_view.html:76
 msgid "No invitations found."
 msgstr ""
 
-#: templates/methods/external_surveys_view.html:80
+#: templates/methods/external_surveys_view.html:97
 msgid "Import contacts"
 msgstr ""
 
-#: templates/methods/external_surveys_view.html:87
+#: templates/methods/external_surveys_view.html:104
 msgid "Send surveys"
 msgstr ""
 
@@ -1610,12 +1680,12 @@ msgstr ""
 "Door op de knop te klikken wordt er een verificatiecode naar uw e-mailadres "
 "gestuurd. Controleer uw inbox om deze te vinden."
 
-#: templates/registration/send_verification_code.html:18
-#: templates/registration/user_validation.html:18
-msgid "Send"
-msgstr "Verzenden"
-
 #: templates/registration/user_validation_confirm.html:3
 #: templates/registration/user_validation_confirm.html:6
 msgid "New password"
 msgstr "Nieuw wachtwoord"
+
+#, fuzzy
+#~| msgid "Yes, I am sure"
+#~ msgid "Yes, I am sure2"
+#~ msgstr "Ja, ik weet het zeker"

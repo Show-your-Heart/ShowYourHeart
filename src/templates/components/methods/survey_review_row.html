@@ -93,37 +93,25 @@
     </c-table.data>
     <c-table.data class="field-contact">
         <c-button 
-            data-modal-target="email-contact-modal-{{survey.id}}" data-modal-toggle="email-contact-modal-{{survey.id}}" 
-            aria-controls="email-contact-modal-{{survey.id}}"
+            data-modal-target="email-contact-modal" 
+            data-modal-toggle="email-contact-modal" 
+            aria-controls="email-contact-modal"
             class="!p-0 bg-transparent flex justify-center hover:!bg-transparent border-none"
+            x-data="
+            {
+                setUserName(surveyId, userName){
+                    const fieldEl = document.getElementById('email-contact-modal');
+                    const fieldData = Alpine.$data(fieldEl);
+
+                    fieldData.userName = userName;
+                    fieldData.setSendEmailUrl(surveyId, userName);
+                },
+            }"
+            @click="setUserName('{{survey.id}}', '{{survey.user|escapejs}}');"
         >
             <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
             <span class="text-blue-600">{{survey.user}}</span>
         </c-button>
- 
-        <c-modals.base-modal 
-            id="email-contact-modal-{{survey.id}}" 
-            height="50vh"
-            x-data="{ estoesuntest: '{{ survey.user }}' }" 
-            @show-modal.window="if($event.detail.id == 'email-contact-modal-{{survey.id}}'){ FlowbiteInstances.getAllInstances().Modal['email-contact-modal-{{survey.id}}'].show(); estoesuntest = $event.detail.estoesuntest; }"  
-            @hide-modal.window="if($event.detail.id == 'email-contact-modal-{{survey.id}}'){ FlowbiteInstances.getAllInstances().Modal['email-contact-modal-{{survey.id}}'].show(); estoesuntest = none }"  
-        >
-            <c-slot name="title">
-                <span class="font-bold"> {% translate "Email sending confirmation" %}</span>
-            </c-slot> 
-            <h3 class="mb-6 ">
-                 {% translate "You are going to send an email to" %} <span x-text="estoesuntest"></span>, {% translate "are you sure?" %}    
-            </h3>
-            <div class="flex items-center justify-center">
-                <c-button data-modal-hide="email-contact-modal-{{survey.id}}" >
-                    <a href="{% url 'methods:user_survey_reminder_email' survey.id %}" > {% translate "Yes, I am sure" %}</a>
-                </c-button>
-
-                <c-button data-modal-hide="email-contact-modal-{{survey.id}}" class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white">
-                    {% translate "No, cancel" %}
-                </c-button>
-            </div>
-        </c-modals.base-modal>
  
     </c-table.data>
     <c-table.data class="field-external-surveys">
