@@ -4,12 +4,12 @@ const initFieldData = () => {
         name: "",
         description: "",
         code: "",
-        value: "",
         options: [],
         checkedOptions: [],
         placeholder: "",
         type: "",
         isDirectIndicator: true,
+        displayIndirect: false,
         isGroupIndicator: false,
         groupTitle: "",
         groupItems: [],
@@ -21,17 +21,14 @@ const initFieldData = () => {
         condition: "",
         formula: "",
         validation: "",
-        isValid: false,
         msg: "",
-        hasErrors: false,
-        error: "",
-        show: true,
         unit: "",
         mandatory: false,
-        notApplicable: false,
+        state: {},
         indicatorsStore: Alpine.store('indicators'),
         init() {
-            const indicator = this.indicatorsStore["indicators"].find(i => i.code == code)
+            // Init field data
+            const indicator = this.indicatorsStore["indicatorsData"].find(i => i.code == code)
             const indicatorResults = this.indicatorsStore["indicatorResults"][code] || null
             this.placeholder = this.indicatorsStore["placeholders"][code] || null
             this.id = indicator.id
@@ -42,6 +39,7 @@ const initFieldData = () => {
             this.unit = indicator.unit
             this.mandatory = indicator.mandatory
             this.isDirectIndicator = indicator.is_direct_indicator
+            this.displayIndirect = indicator.display_indirect
             this.isGroupIndicator = indicator.is_group_indicator
             if (indicator.options) {
                 this.options = indicator.options
@@ -53,13 +51,20 @@ const initFieldData = () => {
                 this.group2Title = indicator.group_2_title || ""
                 this.group2Items = indicator.group_2_items || []
                 this.group2Total = indicator.group_2_total
-                this.isValid = {}
             }
-            this.value = this.loadInitialValue(indicatorResults?.value ?? null)
+            if (this.indicatorsStore.isGendered(this.type)) {
+                this.groupItems = ['men', 'women', 'nonBinary']
+                if (this.placeholder !== null) {
+                    this.placeholder = {}
+                    this.placeholder.women = this.indicatorsStore["placeholders"][code].female || null
+                    this.placeholder.men = this.indicatorsStore["placeholders"][code].male || null
+                    this.placeholder.nonBinary = this.indicatorsStore["placeholders"][code].non_binary || null
+                }
+            }
+            const value = this.loadInitialValue(indicatorResults?.value ?? null)
             if (this.placeholder == null) {
                 this.placeholder = this.loadInitialValue(null)
             }
-            this.indicatorsStore.shallowIndicatorResultUpdate(this.code, this.value, this.notApplicable)
             this.required = indicator.required
             if (indicator.is_direct_indicator) {
                 this.condition = indicator.condition
@@ -68,19 +73,26 @@ const initFieldData = () => {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
-            this.show = (indicator.is_direct_indicator || indicator.display_indirect) && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator))
-            this.notApplicable = (indicatorResults?.not_applicable || !this.show) ?? false
-            const field = {
-                id: this.id,
-                code: this.code,
-                value: this.value,
-                validation: this.validation,
-                notApplicable: this.notApplicable,
-                isValid: this.isValid,
-                isGroupIndicator: this.isGroupIndicator,
+            const show = (indicator.is_direct_indicator || indicator.display_indirect) && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator.code, indicator.condition))
+            const notApplicable = (indicatorResults?.not_applicable || !show) ?? false
+
+            // Init field state in store
+            this.indicatorsStore['indicators'][this.code] = {
+                value: value,
+                show,
+                notApplicable: notApplicable,
+                isValid: false,
+                isFieldValid: false,
+                hasErrors: false,
+                error: ''
             }
-            const { isValid, isFieldValid } = this.indicatorsStore.validateField(field)
-            this.isValid = isValid
+            this.state = this.indicatorsStore['indicators'][this.code]
+            this.$dispatch('indicator-visible', { id: this.id, show })
+            const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.code)
+            this.state.isValid = isValid
+            this.state.isFieldValid = isFieldValid
+            this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
+
         },
         loadInitialValue(initialValue) {
             let value = ""
@@ -103,15 +115,15 @@ const initFieldData = () => {
             } else if (this.indicatorsStore.isGendered(this.type)) {
                 if (initialValue && initialValue.female) {
                     value = {
-                        female: initialValue.female,
-                        male: initialValue.male,
+                        women: initialValue.female,
+                        men: initialValue.male,
                         nonBinary: initialValue.non_binary,
                     }
                 } else {
                     // Do not set initial values to display the placeholder
                     value = {
-                        female: null,
-                        male: null,
+                        women: null,
+                        men: null,
                         nonBinary: null,
                     }
                 }
@@ -179,18 +191,10 @@ const initFieldData = () => {
         },
         update(newValue, suffix = "", suffix2 = "") {
             try {
-                this.value = this.updateValue(newValue, this.value, this.type, suffix, suffix2)
-                const field = {
-                    id: this.id,
-                    code: suffix == "" ? this.code : suffix2 == "" ? `${this.code}_${suffix}` : `${this.code}_${suffix}_${suffix2}`,
-                    value: this.value,
-                    validation: this.validation,
-                    notApplicable: this.notApplicable,
-                    isValid: this.isValid,
-                    isGroupIndicator: this.isGroupIndicator,
-                }
-                const { isValid, isFieldValid } = this.indicatorsStore.validateField(field, this.isGroupIndicator)
-                this.isValid = isValid
+                this.state.value = this.updateValue(newValue, this.state.value, this.type, suffix, suffix2)
+                const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.code, suffix, suffix2, this.isGroupIndicator)
+                this.state.isValid = isValid
+                this.state.isFieldValid = isFieldValid
                 if (suffix == '') {
                     this.updateErrors(isFieldValid)
                 } else if (suffix2 == '') {
@@ -198,15 +202,15 @@ const initFieldData = () => {
                 } else {
                     this.updateErrors(isFieldValid || isValid[suffix][suffix2])
                 }
+                this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
             } catch (e) {
                 console.log('Invalido')
                 console.log(e)
-                this.hasErrors = true
-                this.error = e.message
+                this.state.hasErrors = true
+                this.state.error = e.message
             }
         },
         updateValue(input, current, type, suffix = "", suffix2 = "") {
-            // if (!current) return ""
             let value = ""
             if (this.indicatorsStore.hasOptions(type) && !this.indicatorsStore.isMultiAnswer(type)) {
                 value = this.getOption(input)
@@ -233,7 +237,7 @@ const initFieldData = () => {
                 if (suffix2 == '') {
                     value[suffix] = input
                     if (this.indicatorsStore.isNumeric(type)) {
-                        value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix]), 0)
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr]) ?? 0), 0)
                     }
                 } else {
                     value[suffix][suffix2] = input
@@ -249,13 +253,13 @@ const initFieldData = () => {
             return value
         },
         updateNotApplicable(checked) {
-            this.notApplicable = checked
-            this.indicatorsStore.updateIndicatorResultNa(this.code, this.notApplicable)
+            this.state.notApplicable = checked
+            this.indicatorsStore.updateIndicatorResultNa(this.code, this.state.notApplicable)
             if (this.indicatorsStore.isMultiAnswer(this.type)) {
                 this.update([])
             } else if (this.indicatorsStore.isGendered(this.type)) {
-                this.update(0, "male")
-                this.update(0, "female")
+                this.update(0, "women")
+                this.update(0, "men")
                 this.update(0, "nonBinary")
             } else {
                 this.update("")
@@ -263,32 +267,80 @@ const initFieldData = () => {
         },
         updateErrors(isFieldValid) {
             if (isFieldValid) {
-                this.hasErrors = false
-                this.indicatorsStore.updateIndicatorResult(this.code, this.value)
+                this.state.hasErrors = false
+                this.indicatorsStore.updateIndicatorDependencies(this.code, this.state.value)
             } else {
-                this.hasErrors = true
+                this.state.hasErrors = true
                 if (this.msg) {
-                    this.error = this.msg
+                    this.state.error = this.msg
                 } else if (this.validation == "") {
-                    this.error = "Required field."
+                    this.state.error = "Required field."
                 } else {
-                    this.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                    this.state.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                }
+            }
+        },
+        updateShow(show) {
+            // Only if it has changed
+            if (this.state.show == show) {
+                return
+            } else {
+                if (this.isDirectIndicator) {
+                    // Show direct indicator and unset NA
+                    if (show) {
+                        this.state.show = true
+                        this.state.notApplicable = false
+                    }
+                    this.$dispatch('indicator-visible', { id: this.id, show })
+                } else {
+                    // Show/hide indirect indicator
+                    if (this.displayIndirect) {
+                        this.state.show = show
+                        this.$dispatch('indicator-visible', { id: this.id, show })
+                    }
                 }
             }
         },
         isOptionSelected(optionId) {
-            return this.value.id == optionId
+            return this.state.value.id == optionId
         },
         getOption(id) {
-            return this.options.find(o => o.id == id) || { value: "", id: "" }
+            return this.options.find(o => o.id == id) || { value: null, id: "" }
+        },
+        copyFieldOptions(id) {
+            const fieldEl = document.getElementById(`question_${id}`)
+            this.options = Alpine.$data(fieldEl).options
+            this.checkedOptions = Alpine.$data(fieldEl).checkedOptions
         },
         setGroupItemValid(suffix, suffix2 = "") {
             if (suffix2 == "") {
                 const el = document.querySelector(`#question_${this.id}_${suffix}`)
-                el.classList.toggle('border-red-600', !this.isValid[suffix])
+                el.classList.toggle('border-red-600', !this.state.isValid[suffix])
             } else {
                 const el = document.querySelector(`#question_${this.id}_${suffix}_${suffix2}`)
-                el.classList.toggle('border-red-600', !this.isValid[suffix][suffix2])
+                el.classList.toggle('border-red-600', !this.state.isValid[suffix][suffix2])
+            }
+        },
+        fillWithZeros() {
+            if (this.groupItems.length > 0) {
+                if (this.group2Items.length > 0) {
+                    this.groupItems.forEach(i => {
+                        // value[i.suffix] = this.state.value[i.suffix]
+                        this.group2Items.forEach(ii => {
+                            if (this.state.value[i.suffix][ii.suffix] == null) {
+                                this.update(0, i.suffix, ii.suffix)
+                                this.setGroupItemValid(i.suffix, ii.suffix)
+                            }
+                        })
+                    })
+                } else {
+                    this.groupItems.forEach(i => {
+                        if (this.state.value[i.suffix] == null) {
+                            this.update(0, i.suffix)
+                            this.setGroupItemValid(i.suffix)
+                        }
+                    })
+                }
             }
         }
     }))

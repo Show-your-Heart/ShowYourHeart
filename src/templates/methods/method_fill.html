@@ -10,8 +10,9 @@
     {{ placeholders|json_script:"placeholders" }}
     {{ sections_data|json_script:"sections" }}
     <script src="{% static 'js/field.js' %}"></script>
-    <script src="{% static 'js/surveyStore.js' %}"></script>
+    <script src="{% static 'js/section.js' %}"></script>
     <script src="{% static 'js/indicatorsStore.js' %}"></script>
+    <script src="{% static 'js/surveyStore.js' %}"></script>
   </c-slot>
 
   <c-slot name="sidebar">
@@ -19,46 +20,46 @@
       <ul
         class="w-[clamp(10rem,18rem,25vw)] flex flex-col flex-no-wrap gap-4 overflow-x-scroll -mb-px text-sm font-medium text-center mx-auto"
         id="survey-tabs" data-tabs-toggle="#tab-content" role="tablist" x-data="{
-          getLiClass(title) {
-              if ($store.survey.currentSection == title) {
+          getLiClass(id) {
+              if ($store.survey.currentSection == id) {
                   return '!border-blue-600'
-              } else if ($store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)) {
+              } else if ($store.survey.sections[id].touched && $store.survey.sections[id].isValid) {
                   return '!border-green-600'
-              } else if ($store.survey.isSectionTouched(title) && !$store.survey.isSectionCompleted(title)) {
+              } else if ($store.survey.sections[id].touched && !$store.survey.sections[id].isValid) {
                   return '!border-orange-600'
               }
           },
-          getBtnClass(title) {
-              if ($store.survey.currentSection == title) {
+          getBtnClass(id) {
+              if ($store.survey.currentSection == id) {
                   return '!bg-blue-50 !text-blue-600'
-              } else if ($store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)) {
+              } else if ($store.survey.sections[id].touched && $store.survey.sections[id].isValid) {
                   return '!bg-green-50 !text-green-800'
-              } else if ($store.survey.isSectionTouched(title) && !$store.survey.isSectionCompleted(title)) {
+              } else if ($store.survey.sections[id].touched && !$store.survey.sections[id].isValid) {
                   return '!bg-orange-50 !text-orange-800'
               }
           },
-          showCurrent(title) {
-            return $store.survey.currentSection == title
+          showCurrent(id) {
+            return $store.survey.currentSection == id
           },
-          showCheck(title) {
-            return !($store.survey.currentSection == title) && $store.survey.isSectionTouched(title) && $store.survey.isSectionCompleted(title)
+          showCheck(id) {
+            return !($store.survey.currentSection == id) && $store.survey.sections[id].touched && $store.survey.sections[id].isValid
           },
-          showPending(title) {
-            return $store.survey.isSectionTouched(title) && !($store.survey.currentSection == title) && !$store.survey.isSectionCompleted(title)
+          showPending(id) {
+            return $store.survey.sections[id].touched && !($store.survey.currentSection == id) && !$store.survey.sections[id].isValid
           },
         }">
         {% for section, fields in sections.items %}
-        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" :class="getLiClass('{{section.title}}')"
+        <li class="w-full border border-gray-300 rounded-lg overflow-hidden" :class="getLiClass('{{section.id}}')"
           role="presentation">
           <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center"
-            id="tab-{{ section.id }}" :class="getBtnClass('{{section.title}}')"
+            id="tab-{{ section.id }}" :class="getBtnClass('{{section.id}}')"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title }}"
-            aria-selected="false" x-data @click="$store.survey.setSection('{{section.title}}'); window.scrollTo(0,0)">
+            aria-selected="false" x-data @click="$store.survey.setSection('{{section.id}}')">
             {{ section.title }}
-            <c-icon x-show="showCurrent('{{section.title}}')" name="arrow-right"
+            <c-icon x-show="showCurrent('{{section.id}}')" name="arrow-right"
               class="w-6 h-6 inline text-blue-600"></c-icon>
-            <c-icon x-show="showCheck('{{section.title}}')" name="check" class="w-6 h-6 inline text-green-800"></c-icon>
-            <c-icon x-show="showPending('{{section.title}}')" name="close"
+            <c-icon x-show="showCheck('{{section.id}}')" name="check" class="w-6 h-6 inline text-green-800"></c-icon>
+            <c-icon x-show="showPending('{{section.id}}')" name="close"
               class="w-6 h-6 inline text-orange-800"></c-icon>
           </button>
         </li>
@@ -68,40 +69,14 @@
   </c-slot>
 
   <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
-    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" 
-    {% block form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6" x-data
-      @submit="$store.survey.onSumbit($event)">
+    <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}"
+    {% block form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
       {% csrf_token %}
       <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
 
       <div id="tab-content">
-        {% for section, fields in sections.items %}
-        
-        <div class="hidden py-4 rounded-lg bg-gray-50 flex flex-col gap-8" id="section-{{ section.id }}" role="tabpanel"
-        aria-labelledby="{{ section.id }}{{ forloop.counter }}-tab">
-          <h2 class="text-3xl font-bold">{{ section.title }}</h2>
-          <div class="-mt-6">
-            {{ section.description | safe }}
-          </div>
-
-          {% for field in fields.indicators %}
-          {{ field.field }}
-          {% endfor %}
-
-          {% for subsectionObj in fields.subsections %}
-          {% for subsection, subsectionIndicators in subsectionObj.items %}
-          <h4 class="text-2xl font-bold">{{ subsection.title }}</h4>
-          <div class="-mt-6">
-            {{ subsection.description | safe }}
-          </div>
-          {% for field in subsectionIndicators %}
-          {{ field.field }}
-          {% endfor %}
-          {% endfor %}
-
-          {% endfor %}
-
-        </div>
+        {% for section, items in sections.items %}
+        <c-methods.section :section="section" :items="items"></c-methods.section>
         {% endfor %}
       </div>
 
@@ -119,7 +94,7 @@
           type="submit" name="action" value="save">
           {% translate 'Save' %}
         </c-button>
-        <c-button name="action" value="submit" type="submit" data-modal-target="survey-errors-modal" @click="$store.survey.onSubmit($event)">
+        <c-button name="action" value="submit" type="submit" data-modal-target="survey-errors-modal" x-data @click="$store.survey.onSubmit($event)">
           {% translate 'Submit' %}
         </c-button>
       </div>
@@ -144,7 +119,7 @@
             <ul class="rounded-lg  border border-gray-200 shadow-sm">
               <template x-for="invalidIndicator in section.invalidIndicators">
                 <li class="flex space-x-2 even:bg-gray-100 odd:bg-white cursor-pointer"
-                  @click="FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide(); $store.survey.setSection(section.title, true)"
+                  @click="$store.survey.goToField(invalidIndicator.code,section.id)"
                 >
                   <div class="p-4" x-text="invalidIndicator.code"></div>
                   <div class="p-4 grow" x-html="invalidIndicator.name"></div>

@@ -1,104 +1,91 @@
+/* 
+    Section state
+    {
+        show
+        touched
+        isValid
+    }
+*/
+
 const initSurveyStore = () => {
     Alpine.store('survey', {
-        sections: [],
+        sections: {},
+        sectionsData: [],
+        topSectionsData: [],
         currentSection: "",
         prevSection: "",
         prevSectionId: "",
         validatedSections: [],
+        indicators: Alpine.store('indicators')['indicators'],
+        indicatorsData: Alpine.store('indicators')['indicatorsData'],
+        indicatorsStore: Alpine.store('indicators'),
         initSections(sections) {
             // Clear
-            this.sections = []
+            sections.forEach(s => this.sections[s.id] = {
+                show: false,
+                touched: false,
+                isValid: false,
+            })
+            this.sectionsData = sections
             this.currentSection = ""
             this.prevSection = ""
             this.prevIdSection = ""
             this.validatedSections = []
+            this.topSectionsData = sections.filter(s => s.parent_id == null)
             // Init
-            sections.forEach(s =>
-                this.sections.push({
-                    id: s.id,
-                    title: s.title,
-                    indicatorsStats: s.indicators_ids.map(i => ({ id: i, isValid: false })),
-                    touched: false,
-                })
-            );
-            this.sections[0].touched = true
-            this.currentSection = this.sections[0].title
+            setTimeout(() => {
+                this.sections[this.sectionsData[0].id].touched = true
+                this.currentSection = this.sectionsData[0].id
+            }, 200)
         },
-        setSection(title, triggerTab) {
-            const index = this.sections.findIndex(s => s.title == title)
+        setSection(id, triggerTab) {
+            const index = this.topSectionsData.findIndex(s => s.id == id)
             if (index != null && index != -1) {
-                this.currentSection = this.sections[index].title
-                this.sections[index].touched = true
+                this.currentSection = this.topSectionsData[index].id
+                this.sections[id].touched = true
                 if (index > 0) {
-                    this.prevSection = this.sections[index - 1].title
-                    this.prevSectionId = this.sections[index - 1].id
+                    this.prevSection = this.topSectionsData[index - 1].title
+                    this.prevSectionId = this.topSectionsData[index - 1].id
                 } else {
                     this.prevSection = ""
                     this.prevSectionId = ""
                 }
                 if (triggerTab) {
-                    FlowbiteInstances.getAllInstances().Tabs["survey-tabs"].show(`#section-${this.sections[index].id}`)
+                    FlowbiteInstances.getAllInstances().Tabs["survey-tabs"].show(`#section-${id}`)
                 }
             } else {
-                console.log("section doesn't exist", title)
+                console.log("section doesn't exist", id)
             }
+            window.scrollTo(0, 0)
         },
         gotToPrevSection() {
-            const index = this.sections.findIndex(s => s.id == this.prevSectionId)
-            this.prevSection = this.sections[index].title
-            if (index == 0) {
-                this.prevSectionId = ""
-                this.prevSection = ""
-            } else {
-                this.prevSectionId = this.sections[index - 1].id
-            }
-            FlowbiteInstances.getAllInstances().Tabs["survey-tabs"].show(`#section-${this.sections[index].id}`)
+            const index = this.topSectionsData.findIndex(s => s.id == this.prevSectionId)
+            this.setSection(this.topSectionsData[index].id, true)
         },
-        isSectionCompleted(title) {
-            const section = this.sections.find(s => s.title == title)
-            if (section) {
-                return section.indicatorsStats.reduce((acc, curr) => acc && curr.isValid, true)
-            }
-            return false
+        goToField(code, sectionId) {
+            // Change tab
+            FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide()
+            const section = this.sectionsData.find(s => s.id == sectionId)
+            const topSectionId = section.parent_id == null ? sectionId : section.parent_id
+            this.setSection(topSectionId, true)
+
+            // Scroll to field
+            const fieldEl = document.getElementById(`field-${this.indicatorsData.find(i => i.code == code).id}`)
+            const headerOffset = 110
+            const elementPosition = fieldEl.getBoundingClientRect().top
+            const offsetPosition = elementPosition + window.scrollY - headerOffset
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" })
         },
-        isSectionTouched(title) {
-            const section = this.sections.find(s => s.title == title)
-            if (section) {
-                return section.touched
-            } else {
-                console.log("section doesn't exist", title)
-            }
-            return false
-        },
-        setIndicatorValidation(id, value) {
-            this.sections.forEach(s => {
-                const index = s.indicatorsStats.findIndex(i => i.id == id)
-                if (index > -1) {
-                    s.indicatorsStats[index].isValid = value
-                }
-            })
-        },
-        getInvalidIndicatos() {
+        setInvalidIndicators() {
             let validatedSections = []
-            this.sections.forEach(s => {
+            this.sectionsData.forEach(s => {
                 let invalidIndicators = []
-                s.indicatorsStats.forEach(i => {
-                    if (!i.isValid) {
-                        const indicator = Alpine.store('indicators')['indicators'].find(ind => i.id == ind.id)
+                s.indicators_codes.forEach(code => {
+                    if (!this.indicators[code].isFieldValid) {
+                        const indicator = this.indicatorsData.find(i => i.code == code)
                         if (!!indicator) {
-                            const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                            const fieldData = Alpine.$data(fieldEl)
-                            const { isValid, isFieldValid } = Alpine.store('indicators').validateField({
-                                id: fieldData.id,
-                                code: fieldData.code,
-                                value: fieldData.value,
-                                validation: fieldData.validation,
-                                isValid: fieldData.isValid,
-                                notApplicable: fieldData.notApplicable,
-                            }, false, true)
-                            Alpine.$data(fieldEl).updateErrors(isFieldValid)
                             invalidIndicators.push({
-                                code: indicator.code,
+                                code: code,
                                 name: indicator.name
                             })
                         }
@@ -117,16 +104,19 @@ const initSurveyStore = () => {
         validateSurvey() {
             let isValid = true
             //check isValid. if not valid, the value remains empty
-            this.sections.forEach(s => {
-                const index = s.indicatorsStats.findIndex(i => i.isValid == false)
+            for (let i = 0; i < this.sectionsData.length; i++) {
+                let s = this.sectionsData[i]
+                const index = s.indicators_codes.findIndex(code => this.indicators[code].isFieldValid == false)
+
                 if (index > -1) {
-                    this.getInvalidIndicatos()
+                    this.setInvalidIndicators()
                     let showModalEvent = new Event('show-modal')
                     showModalEvent.detail = { 'id': 'survey-errors-modal' }
                     window.dispatchEvent(showModalEvent)
                     isValid = false
+                    break
                 }
-            })
+            }
             return isValid
         },
         onSubmit(e) {

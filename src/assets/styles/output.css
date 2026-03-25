@@ -468,9 +468,6 @@
   .-mt-2 {
     margin-top: calc(var(--spacing) * -2);
   }
-  .-mt-6 {
-    margin-top: calc(var(--spacing) * -6);
-  }
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
   }
@@ -500,6 +497,12 @@
   }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
+  }
+  .-mb-2 {
+    margin-bottom: calc(var(--spacing) * -2);
+  }
+  .-mb-4 {
+    margin-bottom: calc(var(--spacing) * -4);
   }
   .-mb-px {
     margin-bottom: -1px;
@@ -635,6 +638,9 @@
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .\!w-fit {
+    width: fit-content !important;
   }
   .w-0 {
     width: calc(var(--spacing) * 0);
@@ -1196,6 +1202,9 @@
   .\!bg-blue-50 {
     background-color: var(--color-blue-50) !important;
   }
+  .\!bg-gray-100 {
+    background-color: var(--color-gray-100) !important;
+  }
   .\!bg-green-50 {
     background-color: var(--color-green-50) !important;
   }
@@ -1518,6 +1527,9 @@
   }
   .whitespace-nowrap {
     white-space: nowrap;
+  }
+  .\!text-black {
+    color: var(--color-black) !important;
   }
   .\!text-blue-600 {
     color: var(--color-blue-600) !important;
@@ -2745,6 +2757,12 @@ div[drawer-backdrop=""] {
 .indicator label span a:hover, .indicator .drawer-description a:hover {
   color: var(--color-blue-700);
   text-decoration: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 @property --tw-translate-x {
   syntax: "*";

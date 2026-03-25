@@ -1,9 +1,9 @@
 {% load i18n static%}
 
-<div x-data="field('{{widget.attrs.code}}')" :id="`field-${id}`" class="indicator flex flex-col" x-show="show" x-transition
+<div x-data="field('{{widget.attrs.code}}')" :id="`field-${id}`" class="indicator flex flex-col" x-show="state.show" x-transition
     x-transition.delay.200ms>
 
-    <div class="px-2 py-1 mb-1 w-fit h-fit text-xs font-bold rounded-sm bg-pink-100" x-text="code"></div>
+    <div class="px-2 py-1 mb-1 w-fit h-fit text-xs font-bold rounded-sm" :class="isDirectIndicator?  'bg-pink-100' : 'bg-blue-100'" x-text="code"></div>
     <div class="flex gap-4 mb-1">
         <div class="w-full grid grid-cols-[80%_20%] gap-4">
             <label :for="`question_${id}`" class="block flex align-items-start space-x-4 mb-2 text-md font-medium text-gray-900">
@@ -18,7 +18,7 @@
             <template x-if="mandatory && isDirectIndicator">
                 <div class="ps-4 flex items-center">
                     <input type="checkbox" id="{{ widget.name }}_na" name="{{ widget.name }}_na" value="True" class="cursor-pointer h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded
-                    focus:ring-blue-500" x-model="notApplicable" {% include "django/forms/widgets/attrs.html" %}
+                    focus:ring-blue-500" x-model="state.notApplicable" {% include "django/forms/widgets/attrs.html" %}
                     @click="updateNotApplicable($event.target.checked)">
                     <label for="{{ widget.name }}_na" class="cursor-pointer ml-2 text-sm text-gray-700"> {% translate 'Not applicable' %}</label>
                 </div>
