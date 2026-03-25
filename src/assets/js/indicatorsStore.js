@@ -1,16 +1,3 @@
-/* 
-    Indicator state
-    {
-        value
-        show
-        notApplicable
-        isValid
-        isFieldValid
-        hasErrors
-        error
-    }
-*/
-
 const initIndicatorsStore = () => {
     Alpine.store('indicators', {
         indicators: {},
@@ -92,9 +79,6 @@ const initIndicatorsStore = () => {
                 }
             }
             const jsExpr = loadedTokens.join(" ")
-            console.log("Parsed expression: ")
-            console.log("  expression --> ", expr)
-            console.log(" js parsed expression --> ", jsExpr)
 
             return jsExpr
         },
@@ -110,8 +94,6 @@ const initIndicatorsStore = () => {
             }
         },
         validateField(code, suffix = '', suffix2 = '', validateGroupItem = false, setGroupItems = false) {
-
-            console.log("validating...", code, this.indicators[code].value)
 
             const indicator = this.indicatorsData.find(i => i.code == code)
 
@@ -138,7 +120,6 @@ const initIndicatorsStore = () => {
                 (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value !== null || this.indicators[code].value.female !== undefined)) ||
                 (indicator.validation == '' && this.indicators[code].value instanceof Array && !indicator.is_group_indicator && this.indicators[code].value.length > 0)
             ) {
-                console.log("simple field filled without validation ")
                 return result
             }
 
@@ -151,7 +132,6 @@ const initIndicatorsStore = () => {
                     )
                 )
             ) {
-                console.log("Empty non mandatory simple field filled")
                 return result
             }
 
@@ -208,9 +188,7 @@ const initIndicatorsStore = () => {
                             }
                         })
                     }
-                    console.log("is group", result.isValid)
                 } else {
-                    console.log("validate simple field expression", indicator.validation)
                     // Validate simple indicators
                     result.isValid = !!this.evaluateExpression(indicator.validation, code)
                     result.isFieldValid = result.isValid
@@ -271,11 +249,9 @@ const initIndicatorsStore = () => {
             let result = null
             if (subtokens.length == 2) {
                 // List or table total
-                console.log("Loading total:", this.indicators[subtokens[0]].value)
                 result = this.indicators[subtokens[0]].value.total
             } else if (subtokens.length == 3) {
                 // Table row or column total
-                console.log("Loading total:", subtokens, this.indicators[subtokens[0]].value)
                 result = this.indicators[subtokens[0]].value[subtokens[1]].total
             } else {
                 console.log("Invalid total token ")
@@ -294,7 +270,6 @@ const initIndicatorsStore = () => {
             console.groupEnd()
         },
         updateDependantIndicator(dependantIndicatorCode, code) {
-            console.log("Updating dependant:", dependantIndicatorCode)
 
             const index = this.indicatorsData.findIndex(i => i.code == dependantIndicatorCode)
             if (index != -1) {
@@ -342,7 +317,6 @@ const initIndicatorsStore = () => {
                         } else {
                             this.indicators[dependantIndicatorCode].value = String(value)
                         }
-                        console.log("Values", this.indicators[code].value, this.indicators[dependantIndicatorCode].value)
                     }
                 }
                 // TODO: Check if validation is dependant

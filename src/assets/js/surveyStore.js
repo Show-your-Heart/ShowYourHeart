@@ -100,7 +100,6 @@ const initSurveyStore = () => {
                 }
             })
             this.validatedSections = validatedSections
-            console.log("Validated sections", this.validatedSections)
         },
         validateSurvey() {
             let isValid = true
