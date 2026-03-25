@@ -96,7 +96,7 @@
             data-modal-target="email-contact-modal" 
             data-modal-toggle="email-contact-modal" 
             aria-controls="email-contact-modal"
-            class="!p-0 bg-transparent flex justify-center hover:!bg-transparent border-none"
+            class="bg-transparent hover:!bg-transparent border-none"
             x-data="
             {
                 setUserName(surveyId, userName){
@@ -109,8 +109,8 @@
             }"
             @click="setUserName('{{survey.id}}', '{{survey.user|escapejs}}');"
         >
-            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
-            <span class="text-blue-600">{{survey.user}}</span>
+            <c-icon name="envelope" class="text-blue-600 inline min-w-[24px]"></c-icon>
+            <span class="ms-2 text-blue-600">{{survey.user}}</span>
         </c-button>
  
     </c-table.data>

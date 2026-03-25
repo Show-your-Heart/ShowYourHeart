@@ -35,10 +35,11 @@
         </div>
 
         <c-button 
+            variant="outlined"
+            class="max-w-fit"
             data-modal-target="email-contact-modal" 
             data-modal-toggle="email-contact-modal" 
             aria-controls="email-contact-modal"
-            class="!p-0 bg-transparent flex justify-center max-w-[280px] hover:!bg-transparent border-none"
             x-data="
             {
                 removeUserName(){
@@ -50,8 +51,8 @@
             }"
             @click="removeUserName();"
         >
-            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
-            <span class="text-blue-600">{% trans 'Send email to all with open balances' %}</span>
+            <c-icon name="envelope" class="inline"></c-icon>
+            <span class="ms-2">{% trans 'Send email to all with open balances' %}</span>
         </c-button>
 
     
@@ -187,7 +188,8 @@
     {% comment %} Email sending confirmation modal {% endcomment %}
     <c-modals.base-modal 
         id="email-contact-modal" 
-        height="50vh"
+        height="270px"
+        width="600px"
         x-data="{
             userName: '', 
             sendEmailUrl: '' ,
@@ -197,28 +199,30 @@
         }"
     >
         <c-slot name="title">
-            <span class="font-bold"> {% translate "Email sending confirmation" %}</span>
+            <h3 class="font-bold"> {% translate "Email sending confirmation" %}</h3>
         </c-slot> 
-            <h3 x-show='userName' class="mb-6 ">
+        <div class="flex flex-col justify-between h-full">
+            <p x-show='userName' class="mb-6 ">
                 {% translate "You are going to send an email to" %} <span x-text="userName"></span>, {% translate "are you sure?" %}    
-            </h3>
-           
-            <h3 x-show='!userName' class="mb-6 ">
-                {% translate "You are going to send an email to all the organisations who have an open method, are you sure?" %}  
-            </h3>
-        <div class="flex items-center justify-center">
-           
-            <c-button x-show='sendEmailUrl' data-modal-hide="email-contact-modal" >
-                <a :href="sendEmailUrl" > {% translate "Yes, I am sure" %}</a>
-            </c-button>
+            </p>
             
-            <c-button x-show='!userName' data-modal-hide="email-contact-modal" >
-                <a href="{% url 'methods:survey_reminder_email' %}" > {% translate "Yes, I am sure" %}</a>
-            </c-button>
-
-            <c-button data-modal-hide="email-contact-modal" class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white">
-                {% translate "No, cancel" %}
-            </c-button>
+            <p x-show='!userName' class="mb-6 ">
+                {% translate "You are going to send an email to all the organisations who have an open method, are you sure?" %}  
+            </p>
+            <div class="flex items-center justify-center gap-4">
+               
+                <c-button x-show='userName' data-modal-hide="email-contact-modal" >
+                    <a :href="sendEmailUrl" > {% translate "Yes, I am sure" %}</a>
+                </c-button>
+                
+                <c-button x-show='!userName' data-modal-hide="email-contact-modal" >
+                    <a href="{% url 'methods:survey_reminder_email' %}" > {% translate "Yes, I am sure" %}</a>
+                </c-button>
+    
+                <c-button data-modal-hide="email-contact-modal" class="bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white">
+                    {% translate "No, cancel" %}
+                </c-button>
+            </div>
         </div>
     </c-modals.base-modal>
 </c-admin.default-layout>
