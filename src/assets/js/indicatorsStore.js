@@ -337,6 +337,8 @@ const initIndicatorsStore = () => {
                             } else if (value === false) {
                                 this.indicators[dependantIndicatorCode].value = 'False'
                             }
+                        } else if (indicator.data_type == this.fieldTypes.DECIMAL) {
+                            this.indicators[dependantIndicatorCode].value = String((Math.round(value * 100) / 100).toFixed(2))
                         } else {
                             this.indicators[dependantIndicatorCode].value = String(value)
                         }
