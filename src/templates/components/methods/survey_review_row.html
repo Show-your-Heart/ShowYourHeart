@@ -1,3 +1,5 @@
+{% load i18n  %}
+
 <tr id="survey-{{ survey.id }}" status={{status}}
     class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none">
     <c-table.data class="action-checkbox">
@@ -90,10 +92,27 @@
     {% endif %}
     </c-table.data>
     <c-table.data class="field-contact">
-        <a href="{% url 'methods:user_survey_reminder_email' survey.id %}" class="text-blue-600">
-            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
-            {{survey.user}}
-        </a>
+        <c-button 
+            data-modal-target="email-contact-modal" 
+            data-modal-toggle="email-contact-modal" 
+            aria-controls="email-contact-modal"
+            class="bg-transparent hover:!bg-transparent border-none"
+            x-data="
+            {
+                setUserName(surveyId, userName){
+                    const fieldEl = document.getElementById('email-contact-modal');
+                    const fieldData = Alpine.$data(fieldEl);
+
+                    fieldData.userName = userName;
+                    fieldData.setSendEmailUrl(surveyId, userName);
+                },
+            }"
+            @click="setUserName('{{survey.id}}', '{{survey.user|escapejs}}');"
+        >
+            <c-icon name="envelope" class="text-blue-600 inline min-w-[24px]"></c-icon>
+            <span class="ms-2 text-blue-600">{{survey.user}}</span>
+        </c-button>
+ 
     </c-table.data>
     <c-table.data class="field-external-surveys">
 

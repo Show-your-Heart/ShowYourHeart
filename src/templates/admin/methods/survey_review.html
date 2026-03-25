@@ -34,11 +34,28 @@
             </c-button>
         </div>
 
+        <c-button 
+            variant="outlined"
+            class="max-w-fit"
+            data-modal-target="email-contact-modal" 
+            data-modal-toggle="email-contact-modal" 
+            aria-controls="email-contact-modal"
+            x-data="
+            {
+                removeUserName(){
+                    const fieldEl = document.getElementById('email-contact-modal');
+                    const fieldData = Alpine.$data(fieldEl);
 
-         <a href="{% url 'methods:survey_reminder_email' %}" class="text-blue-600">
-            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
-            {% trans 'Send email to all with open balances' %}
-        </a>
+                    fieldData.userName = '';
+                },
+            }"
+            @click="removeUserName();"
+        >
+            <c-icon name="envelope" class="inline"></c-icon>
+            <span class="ms-2">{% trans 'Send email to all with open balances' %}</span>
+        </c-button>
+
+    
   
         <div class="pagination mt-4 mb-2">
             <div class="page-links flex space-x-2">
@@ -166,5 +183,46 @@
                 </ul>
             </div>
         </template>
+    </c-modals.base-modal>
+
+    {% comment %} Email sending confirmation modal {% endcomment %}
+    <c-modals.base-modal 
+        id="email-contact-modal" 
+        height="270px"
+        width="600px"
+        x-data="{
+            userName: '', 
+            sendEmailUrl: '' ,
+            setSendEmailUrl(surveyId) {
+                this.sendEmailUrl = '/en/methods/user-survey-reminder-send/' + surveyId;
+            },   
+        }"
+    >
+        <c-slot name="title">
+            <h3 class="font-bold"> {% translate "Email sending confirmation" %}</h3>
+        </c-slot> 
+        <div class="flex flex-col justify-between h-full">
+            <p x-show='userName' class="mb-6 ">
+                {% translate "You are going to send an email to" %} <span x-text="userName"></span>, {% translate "are you sure?" %}    
+            </p>
+            
+            <p x-show='!userName' class="mb-6 ">
+                {% translate "You are going to send an email to all the organisations who have an open method, are you sure?" %}  
+            </p>
+            <div class="flex items-center justify-center gap-4">
+               
+                <c-button x-show='userName' data-modal-hide="email-contact-modal" >
+                    <a :href="sendEmailUrl" > {% translate "Yes, I am sure" %}</a>
+                </c-button>
+                
+                <c-button x-show='!userName' data-modal-hide="email-contact-modal" >
+                    <a href="{% url 'methods:survey_reminder_email' %}" > {% translate "Yes, I am sure" %}</a>
+                </c-button>
+    
+                <c-button data-modal-hide="email-contact-modal" class="bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white">
+                    {% translate "No, cancel" %}
+                </c-button>
+            </div>
+        </div>
     </c-modals.base-modal>
 </c-admin.default-layout>

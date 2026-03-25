@@ -97,7 +97,7 @@ urlpatterns = [
         name="email_verification_complete",
     ),
     path(
-        _("welcome-email-send/<id>"),
+        "welcome-email-send/<id>",
         welcome_email_view,
         name="welcome_email",
     ),
