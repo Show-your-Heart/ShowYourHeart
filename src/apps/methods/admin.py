@@ -398,7 +398,6 @@ class ListResource(resources.ModelResource):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=List)
 class ListAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
-    autocomplete_fields = ["items"]
     search_fields = ["title"]
 
     list_display = ("title",)
