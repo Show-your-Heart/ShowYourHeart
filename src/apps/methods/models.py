@@ -125,7 +125,7 @@ class Indicator(BaseModel):
         ENERGY = "E", _("KWh")
         EURO_HOUR = "EH", _("€/h")
         NUMBER = "N", _("number")
-        PERCENTAGE = "PER", _("percentage")
+        PERCENTAGE = "PER", "%"
 
     list_types = [
         DataType.DROPDOWN,
