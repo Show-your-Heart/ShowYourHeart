@@ -58,10 +58,6 @@ const initSurveyStore = () => {
             }
             window.scrollTo(0, 0)
         },
-        gotToPrevSection() {
-            const index = this.topSectionsData.findIndex(s => s.id == this.prevSectionId)
-            this.setSection(this.topSectionsData[index].id, true)
-        },
         goToField(code, sectionId) {
             // Change tab
             FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide()
