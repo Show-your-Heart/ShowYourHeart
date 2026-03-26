@@ -1,5 +1,5 @@
 <div class="hidden py-4 rounded-lg flex flex-col gap-8" 
-    x-data="section('{{ section.title }}')" id="section-{{ section.id }}" 
+    x-data="section('{{ section.title|escapejs }}')" id="section-{{ section.id }}" 
     @section-valid="$event.stopPropagation(); validateSection()"
     @indicator-valid="validateSection()"
     role="tabpanel" aria-labelledby="{{ section.id }}-tab"

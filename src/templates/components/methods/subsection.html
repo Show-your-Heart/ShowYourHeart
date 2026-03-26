@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-8" id="section-{{ subsection.id }}" 
-    x-data="section('{{ subsection.title }}')" x-show="state.show"
+    x-data="section('{{ subsection.title|escapejs }}')" x-show="state.show"
     @indicator-visible="updateVisibility()"
     @indicator-valid="$event.stopPropagation(); validateSection()"
 >

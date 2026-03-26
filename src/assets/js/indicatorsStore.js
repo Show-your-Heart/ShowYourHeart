@@ -110,7 +110,6 @@ const initIndicatorsStore = () => {
             }
 
             if (this.indicators[code].notApplicable) {
-                console.log("not applicable")
                 return result
             }
 

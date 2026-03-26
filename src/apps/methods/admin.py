@@ -624,6 +624,7 @@ class IndicatorResultAdmin(ModelAdmin):
     list_display = (
         "survey",
         "indicator",
+        "updated_at",
     )
     ordering = ["survey"]
     search_fields = ["survey__method__name"]
