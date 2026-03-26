@@ -134,9 +134,9 @@ class ExternalMethodFillView(MethodFillMixin, TemplateView):
         kwargs["method"] = invitation.external_survey_invitation.external_survey
         return super().get_context_data(**kwargs)
 
-    def post(self, request, id):
+    def post(self, request, token):
         action = request.POST.get("action")
-        invitation = Invitation.objects.get(token=id)
+        invitation = Invitation.objects.get(token=token)
         if action == "submit":
             invitation.status = Invitation.Status.FILLED
             invitation.save()

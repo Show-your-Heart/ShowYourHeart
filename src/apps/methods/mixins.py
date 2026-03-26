@@ -32,7 +32,12 @@ class MethodFillMixin:
         # External survey
         if not is_valid_uuid(self.request.user.id):
             method_fill_context = prepare_method_fill_context(
-                None, None, None, None, kwargs.get("token"), self.request
+                None,
+                kwargs.get("method"),
+                None,
+                None,
+                kwargs.get("token"),
+                self.request,
             )
         # Method
         else:
