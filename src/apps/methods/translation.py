@@ -55,4 +55,7 @@ class CampaignTranslationOptions(TranslationOptions):
 
 @register(Section)
 class SectionTranslationOptions(TranslationOptions):
-    fields = ("title",)
+    fields = (
+        "title",
+        "description",
+    )

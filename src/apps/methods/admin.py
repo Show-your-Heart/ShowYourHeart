@@ -208,6 +208,7 @@ class SectionResource(resources.ModelResource):
 @gov_admin_register(gov_admin_site, model=Section)
 class SectionAdmin(
     ImportExportModelAdmin,
+    TabbedTranslationAdmin,
 ):
     search_fields = ["title"]
     form = SectionForm
