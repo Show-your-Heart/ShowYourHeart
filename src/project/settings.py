@@ -51,6 +51,10 @@ WSGI_APPLICATION = "project.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#data-upload-max-number-fields
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
+# Forward hosts when django is using proxy
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ################################################################################
 #                Internationalization and localization                         #
 ################################################################################
