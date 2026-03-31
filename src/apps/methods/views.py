@@ -131,6 +131,7 @@ class ExternalMethodFillView(MethodFillMixin, TemplateView):
     def get_context_data(self, **kwargs):
         invitation = Invitation.objects.get(token=self.kwargs["token"])
 
+        kwargs["campaign_id"] = invitation.external_survey_invitation.campaign.id
         kwargs["method"] = invitation.external_survey_invitation.external_survey
         return super().get_context_data(**kwargs)
 

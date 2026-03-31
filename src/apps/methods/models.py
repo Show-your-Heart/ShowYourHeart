@@ -547,6 +547,7 @@ class ExternalSurveyInvitation(BaseModel):
         blank=False,
         null=False,
     )
+    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
