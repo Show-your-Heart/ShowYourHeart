@@ -345,7 +345,6 @@ class GroupResource(resources.ModelResource):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=Group)
 class GroupAdmin(ImportExportModelAdmin, TabbedTranslationAdmin):
-    autocomplete_fields = ["items"]
     search_fields = ["title"]
 
     list_display = ("title",)
