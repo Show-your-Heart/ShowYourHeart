@@ -115,7 +115,17 @@
  
     </c-table.data>
     <c-table.data class="field-external-surveys">
-
+        <div class="grid grid-cols-2 gap-4 w-full">
+            
+            <div>
+                <div>{% translate 'Labor' %} {{survey.method.external_surveys_c.W}}</div>
+                <div>{% translate 'Pro' %} {{survey.method.external_surveys_c.PR}}</div>
+            </div>
+            <div>
+                <div>{% translate 'Volunteer' %} {{survey.method.external_surveys_c.V}}</div>
+                <div>{% translate 'Associative' %} {{survey.method.external_surveys_c.AS}}</div>
+            </div>
+        </div>
     </c-table.data>
     <c-table.data class="field-start-date">
         {{survey.start_date}}

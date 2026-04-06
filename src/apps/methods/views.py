@@ -2,7 +2,7 @@ import csv
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
-from django.db.models import Q
+from django.db.models import Prefetch, Q
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -257,8 +257,9 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         ).order_by("-start_date")
 
         all_surveys = self.filter_queryset_by_network(self.request, all_surveys)
-
-        return all_surveys
+        return all_surveys.select_related("method").prefetch_related(
+            Prefetch("method__external_surveys")
+        )
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -268,6 +269,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         for s in page.object_list:
             s.status = Survey.Status(s.status).value
             s.method.sections = get_form_sections(s.method)
+            s.method.external_surveys_c = get_external_surveys(s.method)
 
             stats = get_survey_stats(s, s.method, s.campaign)
             s.totalProgress = stats["totalProgress"]
@@ -406,3 +408,16 @@ def user_survey_reminder_view(request, survey_id):
         _("An email to the contact has been sent."),
     )
     return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+def get_external_surveys(method):
+    ext_surveys_type = {
+        Method.ExternalSurveyCategory.ASSOCIATIVE: 0,
+        Method.ExternalSurveyCategory.PROFESSIONAL: 0,
+        Method.ExternalSurveyCategory.VOLUNTEERING: 0,
+        Method.ExternalSurveyCategory.WORK: 0,
+    }
+    for ext_survey in method.external_surveys.all():
+        ext_surveys_type[ext_survey.external_survey_category] += 1
+
+    return ext_surveys_type
