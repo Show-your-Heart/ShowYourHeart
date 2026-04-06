@@ -31,7 +31,9 @@ urlpatterns = [
         name="external_method_fill",
     ),
     path(
-        _("external-surveys/<uuid:organization_id>/<uuid:method_id>/"),
+        _(
+            "external-surveys/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/"
+        ),
         ExternalSurveysView.as_view(),
         name="external_surveys_view",
     ),
@@ -49,7 +51,7 @@ urlpatterns = [
     path(_("send-invitation/<id>"), invitation_sent_view, name="send_invitation"),
     path("import-csv/<id>", import_csv, name="import_csv"),
     path(
-        "import-csv2/<uuid:organization_id>/<uuid:method_id>",
+        "import-csv2/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/",
         import_csv2,
         name="import_csv2",
     ),

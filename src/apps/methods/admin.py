@@ -693,7 +693,7 @@ class ExternalSurveyInvitationAdmin(ModelAdmin):
     inlines = (InvitationInline,)
     readonly_fields = ("actions_field",)
     autocomplete_fields = ["campaign", "external_survey"]
-    search_fields = ["name"]
+    search_fields = ["name", "external_survey__name", "organization__name"]
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(

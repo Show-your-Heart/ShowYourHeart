@@ -1,26 +1,34 @@
 import re
 
+from django.utils.translation import gettext as _
+
 from .models import IndicatorResult, Invitation, Method, Section
 
 
 class ParseExternalInvitations:
     def parse_csv(self, csv_reader, id):
         error_messages = []
-        # TODO validate csv format
-        for row in csv_reader:
-            if row[1]:
-                if self.is_valid_email(row[1]):
-                    Invitation.objects.update_or_create(
-                        email=row[1],
-                        external_survey_invitation_id=id,
-                        defaults={
-                            "name": row[0],
-                        },
-                    )
+        # Check the headers of the first row
+        headers = next(csv_reader)
+        if headers[0].lower() == "name" and headers[1].lower() == "email":
+            for row in csv_reader:
+                if row[1]:
+                    if self.is_valid_email(row[1]):
+                        Invitation.objects.update_or_create(
+                            email=row[1],
+                            external_survey_invitation_id=id,
+                            defaults={
+                                "name": row[0],
+                            },
+                        )
+                    else:
+                        error_messages.append(_(f"The email {row[1]} is not valid"))
                 else:
-                    error_messages.append(f"The email {row[1]} is not valid")
-            else:
-                error_messages.append(f"The email for {row[0]} is empty")
+                    error_messages.append(_(f"The email for {row[0]} is empty"))
+        else:
+            error_messages.append(
+                _("The csv file must contain the headers 'name' and 'email'")
+            )
 
         return error_messages
 

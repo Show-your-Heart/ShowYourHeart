@@ -71,7 +71,7 @@
               </c-button>
             </a>
             {% if surveyStats.hasExternalSurveys %}
-            <a class="h-fit-content" href="{% url 'methods:external_surveys_view' organization.id surveyStats.method.id %}">
+            <a class="h-fit-content" href="{% url 'methods:external_surveys_view' organization.id surveyStats.method.id surveyStats.campaign.id %}">
               <c-button name="action" value="send_external_surveys">
                 {% translate 'Send external surveys' %}
               </c-button>

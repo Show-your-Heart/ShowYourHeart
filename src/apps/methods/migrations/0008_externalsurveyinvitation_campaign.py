@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='externalsurveyinvitation',
             name='campaign',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='methods.campaign'),
+            field=models.ForeignKey(default='8a285f7d-798c-4260-b541-5f0512c962dc',on_delete=django.db.models.deletion.PROTECT, to='methods.campaign'),
             preserve_default=False,
         ),
     ]

@@ -91,7 +91,7 @@
                     style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000;">
                     <div style="background:#fff; max-width:500px; margin:80px auto; padding:20px; position:relative;">
                         <button id="closeModal" style="position:absolute; top:10px; right:10px; cursor: pointer;">&times;</button>
-                        <form id="importCsvForm" action="{% url 'methods:import_csv2' organization_id selected_ext_survey.id %}" method="POST"
+                        <form id="importCsvForm" action="{% url 'methods:import_csv2' organization_id selected_ext_survey.id campaign_id %}" method="POST"
                             enctype="multipart/form-data">
                             {% csrf_token %}
                             <div
