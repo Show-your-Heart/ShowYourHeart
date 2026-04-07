@@ -70,14 +70,6 @@
 
       {% if not readonly %}
       <div class="flex gap-4 space-between min-w-[60%]">
-        <div x-data x-show="$store.survey.prevSection != ''">
-          <c-button class="overflow-ellipsis bg-transparent !text-blue-600 hover:!border-blue-700 hover:!text-white"
-            id="prev-section-btn" @click="$store.survey.gotToPrevSection()">
-            <c-icon name="arrow-right" class="w-6 h-6 inline rotate-z-180 me-1"></c-icon>
-            <span x-text="$store.survey.prevSection"></span>
-          </c-button>
-        </div>
-      
         <c-button
           class="ms-auto bg-white !text-blue-600 !border-blue-600 border hover:!border-blue-700 hover:!text-white"
           type="submit" name="action" value="save">
