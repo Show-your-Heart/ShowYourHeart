@@ -329,6 +329,18 @@ class Indicator(BaseModel):
         return super(Indicator, self).save(*args, **kwargs)
 
 
+class IndicatorsSet(BaseModel):
+    code = models.CharField(_("ID"), max_length=50, unique=True)
+    version = models.CharField(_("version"), max_length=4)
+    name = models.CharField(_("set name"), max_length=1000, blank=True)
+    description = models.CharField(_("description"), max_length=2500, blank=True)
+    instance_name = models.CharField(_("item name"), max_length=1000, blank=True)
+    indicators = SortedManyToManyField(Indicator, related_name="sets")
+
+    def __str__(self):
+        return f"{self.code} - {self.name}"
+
+
 class Method(BaseModel):
     class UnitAnalysis(models.TextChoices):
         ORGANIZATION = "ORG", _("Organisation")
@@ -350,7 +362,8 @@ class Method(BaseModel):
         max_length=3,
         blank=False,
     )
-    indicators = models.ManyToManyField(Indicator, related_name="indicators")
+    indicators = models.ManyToManyField(Indicator, related_name="methods")
+    indicators_sets = models.ManyToManyField(IndicatorsSet, related_name="methods")
     legal_structures = models.ManyToManyField(
         "settings.LegalStructure",
         verbose_name=_("Which entity does this method applies to?"),
@@ -521,6 +534,9 @@ class IndicatorResult(BaseModel):
         choices=Gender.choices, default=None, blank=True, null=True
     )
     is_total = models.BooleanField(_("Is total?"), blank=False, default=False)
+    instance_number = models.PositiveSmallIntegerField(
+        _("Set instance number"), default=0, blank=False, null=False
+    )
     value = models.CharField(blank=True)
     not_applicable = models.BooleanField(
         _("not applicable"), blank=True, null=True, default=None
@@ -626,6 +642,9 @@ class Section(BaseModel):
     method = models.ForeignKey(Method, on_delete=models.PROTECT)
     order = models.PositiveIntegerField(_("order"), default=0, db_index=True)
     indicators = SortedManyToManyField(Indicator, blank=True)
+    indicators_sets = SortedManyToManyField(
+        IndicatorsSet, related_name="sections", blank=True
+    )
 
     class Meta:
         ordering = ["order"]

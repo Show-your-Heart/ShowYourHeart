@@ -2,10 +2,10 @@
 
 <c-methods.base-field>
     <div class="flex flex-col space-y-2 pl-4">
-        <label :for="`question_${id}_yes`"
+        <label :for="`question_${instanceId}_yes`"
             class="inline-flex items-center cursor-pointer mr-4 has-disabled:cursor-default has-disabled:pointer-events-none"
             @click="$event.target.value && update($event.target.value)" :class="!isDirectIndicator ? 'cursor-default pointer-events-none' : ''">
-            <input type="radio" :id="`question_${id}_yes`" :name="`question_${id}`" value="True"
+            <input type="radio" :id="`question_${instanceId}_yes`" :name="`question_${instanceId}`" value="True"
                 :checked="state.value == 'True'"
                 class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:cursor-default peer"
                 {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="state.notApplicable" :readonly="!isDirectIndicator" x-model="state.value"
@@ -13,10 +13,10 @@
             <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">
                 {% translate 'Yes' %}</span>
         </label>
-        <label :for="`question_${id}_no`"
+        <label :for="`question_${instanceId}_no`"
             class="inline-flex items-center cursor-pointer mr-4 has-disabled:cursor-default has-disabled:pointer-events-none"
             @click="$event.target.value && update($event.target.value)" :class="!isDirectIndicator ? 'cursor-default pointer-events-none' : ''">
-            <input type="radio" :id="`question_${id}_no`" :name="`question_${id}`" value="False"
+            <input type="radio" :id="`question_${instanceId}_no`" :name="`question_${instanceId}`" value="False"
                 :checked="state.value == 'False'"
                 class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 disabled:cursor-default peer"
                 {% include "django/forms/widgets/attrs.html" %} x-bind:disabled="state.notApplicable" :readonly="!isDirectIndicator" x-model="state.value"

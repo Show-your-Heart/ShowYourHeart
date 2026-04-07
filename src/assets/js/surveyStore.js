@@ -1,12 +1,3 @@
-/* 
-    Section state
-    {
-        show
-        touched
-        isValid
-    }
-*/
-
 const initSurveyStore = () => {
     Alpine.store('survey', {
         sections: {},
@@ -58,15 +49,23 @@ const initSurveyStore = () => {
             }
             window.scrollTo(0, 0)
         },
-        goToField(code, sectionId) {
+        goToField(instanceId, sectionId) {
             // Change tab
             FlowbiteInstances.getAllInstances().Modal['survey-errors-modal'].hide()
             const section = this.sectionsData.find(s => s.id == sectionId)
             const topSectionId = section.parent_id == null ? sectionId : section.parent_id
             this.setSection(topSectionId, true)
 
+            // If set element open it
+            if (instanceId.split("_").length == 2) {
+                const headingEl = document.getElementById(`field_${instanceId}`).parentNode.previousElementSibling
+                if (headingEl.getAttribute('aria-expanded') === 'false') {
+                    headingEl.click()
+                }
+            }
+
             // Scroll to field
-            const fieldEl = document.getElementById(`field-${this.indicatorsData.find(i => i.code == code).id}`)
+            const fieldEl = document.getElementById(`field_${instanceId}`)
             const headerOffset = 110
             const elementPosition = fieldEl.getBoundingClientRect().top
             const offsetPosition = elementPosition + window.scrollY - headerOffset
@@ -74,18 +73,43 @@ const initSurveyStore = () => {
         },
         setInvalidIndicators() {
             let validatedSections = []
+            let indicatorsInSets = []
+            this.indicatorsStore["indicatorsSets"].forEach(s => indicatorsInSets = [...indicatorsInSets, ...s.indicators_ids])
+
             this.sectionsData.forEach(s => {
                 let invalidIndicators = []
-                s.indicators_codes.forEach(code => {
-                    if (!this.indicators[code].isFieldValid) {
-                        const indicator = this.indicatorsData.find(i => i.code == code)
+                s.indicators_ids.forEach(id => {
+                    // Validate regular fields
+                    if (!this.indicators[id].isFieldValid) {
+                        const indicator = this.indicatorsData.find(i => i.id == id)
                         if (!!indicator) {
                             invalidIndicators.push({
-                                code: code,
+                                code: indicator.code,
+                                instanceId: indicator.id,
                                 name: indicator.name
                             })
                         }
                     }
+                })
+                // Validate section setcs
+                s.indicators_sets_ids.forEach(sectionId => {
+                    const indicatorsSet = this.indicatorsStore["indicatorsSets"].find(s => s.id == sectionId)
+                    const keys = Object.keys(this.indicators)
+                    indicatorsSet.indicators_ids.forEach(id => {
+                        const instancesIds = keys.filter(k => k.includes(id))
+                        instancesIds.forEach(instanceId => {
+                            if (!this.indicators[instanceId].isFieldValid) {
+                                const indicator = this.indicatorsData.find(i => i.id == id)
+                                if (!!indicator) {
+                                    invalidIndicators.push({
+                                        code: `${indicator.code} - #${instanceId.split('_')[1]}`,
+                                        instanceId: instanceId,
+                                        name: indicator.name
+                                    })
+                                }
+                            }
+                        })
+                    })
                 })
                 if (invalidIndicators.length > 0) {
                     validatedSections.push({
@@ -99,20 +123,17 @@ const initSurveyStore = () => {
         },
         validateSurvey() {
             let isValid = true
-            //check isValid. if not valid, the value remains empty
-            for (let i = 0; i < this.sectionsData.length; i++) {
-                let s = this.sectionsData[i]
-                const index = s.indicators_codes.findIndex(code => this.indicators[code].isFieldValid == false)
 
-                if (index > -1) {
-                    this.setInvalidIndicators()
-                    let showModalEvent = new Event('show-modal')
-                    showModalEvent.detail = { 'id': 'survey-errors-modal' }
-                    window.dispatchEvent(showModalEvent)
-                    isValid = false
-                    break
-                }
+            // Check all fields are valid.
+            const index = Object.keys(this.indicators).findIndex(instanceId => this.indicators[instanceId].isFieldValid == false)
+            if (index > -1) {
+                this.setInvalidIndicators()
+                let showModalEvent = new Event('show-modal')
+                showModalEvent.detail = { 'id': 'survey-errors-modal' }
+                window.dispatchEvent(showModalEvent)
+                isValid = false
             }
+
             return isValid
         },
         onSubmit(e) {

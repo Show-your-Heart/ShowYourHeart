@@ -20,14 +20,14 @@
                 <template x-for="item in groupItems" :key="item.suffix">
                     <tr>
                         <td class="p-2">
-                            <label :for="`question_${id}_${item.suffix}`" x-text="item.title"></label>
+                            <label :for="`question_${instanceId}_${item.suffix}`" x-text="item.title"></label>
                         </td>
                         <template x-if="group2Title == ''">
                             <td class="p-2">
                                 <div class="flex gap-2 justify-center">
-                                    <input :id="`question_${id}_${item.suffix}`"
+                                    <input :id="`question_${instanceId}_${item.suffix}`"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_${item.suffix}`" :value="state.value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" 
+                                        :name="`question_${instanceId}_${item.suffix}`" :value="state.value[item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix]" 
                                         {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix); setGroupItemValid(item.suffix)"
                                         x-bind:disabled="state.notApplicable" x-model="state.value[item.suffix]" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
@@ -38,9 +38,9 @@
                             <template x-for="group2Item in group2Items" :key="group2Item.suffix">
                                 <td class="p-2">
                                     <div class="flex gap-2 justify-center">
-                                        <input :id="`question_${id}_${item.suffix}_${group2Item.suffix}`"
+                                        <input :id="`question_${instanceId}_${item.suffix}_${group2Item.suffix}`"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                            :name="`question_${id}_${item.suffix}_${group2Item.suffix}`" :value="state.value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" 
+                                            :name="`question_${instanceId}_${item.suffix}_${group2Item.suffix}`" :value="state.value[item.suffix][group2Item.suffix]" type="{{ widget.type}}" :placeholder="placeholder[item.suffix][group2Item.suffix]" 
                                             {% include "django/forms/widgets/attrs.html" %} @blur="update($event.target.value, item.suffix, group2Item.suffix); setGroupItemValid(item.suffix,group2Item.suffix)"
                                             x-bind:disabled="state.notApplicable" x-model="state.value[item.suffix][group2Item.suffix]" />
                                         <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
@@ -57,9 +57,9 @@
                         <template x-if="group2Title != '' && groupTotal" >
                             <td class="p-2 border-l border-gray-300">
                                 <div class="flex gap-2 justify-center">
-                                    <input :id="`question_${id}_${item.suffix}_total`"
+                                    <input :id="`question_${instanceId}_${item.suffix}_total`"
                                         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_${item.suffix}_total`" :value="state.value[item.suffix].total" type="text" placeholder="0" 
+                                        :name="`question_${instanceId}_${item.suffix}_total`" :value="state.value[item.suffix].total" type="text" placeholder="0" 
                                         {% include "django/forms/widgets/attrs.html" %}
                                         readonly x-model="state.value[item.suffix].total" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
@@ -72,15 +72,15 @@
                 <template x-if="groupTotal || group2Total">
                     <tr class="border-t border-gray-300">
                         <td class="p-2">
-                            <label :for="`question_${id}_total`">{% translate 'Total' %}</label>
+                            <label :for="`question_${instanceId}_total`">{% translate 'Total' %}</label>
                         </td>
                         {% comment %} Render list total {% endcomment %}
                         <template x-if="group2Title == ''">
                             <td class="p-2">
                                 <div class="flex gap-2 justify-center">
-                                    <input :id="`question_${id}_total`"
+                                    <input :id="`question_${instanceId}_total`"
                                         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_total`" :value="state.value.total" type="text" placeholder="0" 
+                                        :name="`question_${instanceId}_total`" :value="state.value.total" type="text" placeholder="0" 
                                         {% include "django/forms/widgets/attrs.html" %}
                                         readonly x-model="state.value.total" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
@@ -92,9 +92,9 @@
                             <template x-for="group2Item in group2Items" :key="group2Item.suffix">
                                 <td class="p-2">
                                     <div class="flex gap-2 justify-center">
-                                        <input :id="`question_${id}_${group2Item.suffix}_total`"
+                                        <input :id="`question_${instanceId}_${group2Item.suffix}_total`"
                                             class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                            :name="`question_${id}_${group2Item.suffix}_total`" :value="state.value[group2Item.suffix].total" type="text" placeholder="0" 
+                                            :name="`question_${instanceId}_${group2Item.suffix}_total`" :value="state.value[group2Item.suffix].total" type="text" placeholder="0" 
                                             {% include "django/forms/widgets/attrs.html" %}
                                             readonly x-model="state.value[group2Item.suffix].total" />
                                         <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>
@@ -113,9 +113,9 @@
                         <template x-if="group2Title != '' && (groupTotal || group2Total)" >
                             <td class="p-2 border-l border-gray-300">
                                 <div class="flex gap-2 justify-center">
-                                    <input :id="`question_${id}_total`"
+                                    <input :id="`question_${instanceId}_total`"
                                         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 min-w-[100px] p-2.5 pointer-events-auto disabled:bg-gray-100 disabled:pointer-events-none"
-                                        :name="`question_${id}_total`" :value="state.value.total" type="text" placeholder="0" 
+                                        :name="`question_${instanceId}_total`" :value="state.value.total" type="text" placeholder="0" 
                                         {% include "django/forms/widgets/attrs.html" %}
                                         readonly x-model="state.value.total" />
                                     <span class="flex items-center" x-show="unit != ''" x-text="unit"></span>

@@ -169,6 +169,24 @@ def prepare_method_fill_context(
                         {"id": o["id"], "title": o["title"], "suffix": o["suffix"]}
                     )
 
+        indicators_sets = list(
+            Method.objects.get(id=method.id).indicators_sets.all().values()
+        )
+
+        for indicators_set in indicators_sets:
+            indicators_set.update(
+                {
+                    "indicators_ids": [
+                        str(indicator["id"])
+                        for indicator in list(
+                            Indicator.objects.filter(sets__code=indicators_set["code"])
+                            .all()
+                            .values()
+                        )
+                    ]
+                }
+            )
+
     except Method.DoesNotExist:
         indicators = list([])
 
@@ -182,6 +200,7 @@ def prepare_method_fill_context(
         "indicators": indicators,
         "initial_values": get_initial_values(survey) if "survey" in locals() else {},
         "placeholders": placeholder_dict,
+        "indicators_sets": indicators_sets,
     }
 
 
@@ -190,140 +209,178 @@ def save_indicator_results(method_id, request, survey):
 
     for indicator in method.indicators.all():
         field_name = f"question_{indicator.id}"
-        na = (
-            None
-            if not indicator.mandatory
-            else request.POST.get(f"{field_name}_na", False)
-        )
-        # Handle gendered indicators
-        if indicator.data_type in [
-            Indicator.DataType.INTEGERGENDER,
-            Indicator.DataType.DECIMALGENDER,
-        ]:
-            for suffix, gender in {
-                "male": IndicatorResult.Gender.MALE,
-                "female": IndicatorResult.Gender.FEMALE,
-                "non_binary": IndicatorResult.Gender.NON_BINARY,
-            }.items():
-                value = request.POST.get(f"{field_name}_{suffix}")
+        save_indicator_result(request, survey, indicator, field_name)
+
+    for indicators_set in method.indicators_sets.all():
+        for indicator in indicators_set.indicators.all():
+            field_base_name = f"question_{indicator.id}"
+            for name, _ in request.POST.items():
+                if field_base_name in name:
+                    instance_number = name.split("_")[2]
+                    save_indicator_result(
+                        request, survey, indicator, name, instance_number
+                    )
+            # Delete removed indicators sets intances
+            for indicator_result in IndicatorResult.objects.filter(
+                survey=survey, indicator=indicator
+            ):
+                full_name = (
+                    f"question_{indicator.id}_{indicator_result.instance_number}"
+                )
+                pending_delete = True
+                for name, _ in request.POST.items():
+                    if full_name == name:
+                        pending_delete = False
+                if pending_delete:
+                    indicator_result.delete()
+
+
+def save_indicator_result(request, survey, indicator, field_name, instance_number=0):
+    na = (
+        None if not indicator.mandatory else request.POST.get(f"{field_name}_na", False)
+    )
+
+    # Handle gendered indicators
+    if indicator.data_type in [
+        Indicator.DataType.INTEGERGENDER,
+        Indicator.DataType.DECIMALGENDER,
+    ]:
+        for suffix, gender in {
+            "male": IndicatorResult.Gender.MALE,
+            "female": IndicatorResult.Gender.FEMALE,
+            "non_binary": IndicatorResult.Gender.NON_BINARY,
+        }.items():
+            value = request.POST.get(f"{field_name}_{suffix}")
+            if value or na:
+                IndicatorResult.objects.update_or_create(
+                    survey=survey,
+                    indicator=indicator,
+                    gender=gender,
+                    defaults={
+                        "value": "" if value is None else value,
+                        "not_applicable": na,
+                    },
+                    instance_number=instance_number,
+                )
+            else:
+                IndicatorResult.objects.filter(
+                    survey=survey,
+                    indicator=indicator,
+                    gender=gender,
+                    instance_number=instance_number,
+                ).delete()
+    # Handle group indicators
+    elif indicator.is_group_indicator:
+        for group_item in indicator.group.items.all():
+            # Handle lists
+            if indicator.group_2 is None:
+                value = request.POST.get(f"{field_name}_{group_item.suffix}")
                 if value or na:
                     IndicatorResult.objects.update_or_create(
                         survey=survey,
                         indicator=indicator,
-                        gender=gender,
+                        group_item=group_item,
                         defaults={
                             "value": "" if value is None else value,
                             "not_applicable": na,
                         },
+                        instance_number=instance_number,
                     )
                 else:
                     IndicatorResult.objects.filter(
-                        survey=survey, indicator=indicator, gender=gender
+                        survey=survey,
+                        indicator=indicator,
+                        group_item=group_item,
+                        instance_number=instance_number,
                     ).delete()
-        # Handle group indicators
-        elif indicator.is_group_indicator:
-            for group_item in indicator.group.items.all():
-                # Handle lists
-                if indicator.group_2 is None:
-                    value = request.POST.get(f"{field_name}_{group_item.suffix}")
+            # Handle tables
+            else:
+                for group_2_item in indicator.group_2.items.all():
+                    value = request.POST.get(
+                        f"{field_name}_{group_item.suffix}_{group_2_item.suffix}"
+                    )
                     if value or na:
                         IndicatorResult.objects.update_or_create(
                             survey=survey,
                             indicator=indicator,
                             group_item=group_item,
+                            group_2_item=group_2_item,
                             defaults={
                                 "value": "" if value is None else value,
                                 "not_applicable": na,
                             },
+                            instance_number=instance_number,
                         )
                     else:
                         IndicatorResult.objects.filter(
                             survey=survey,
                             indicator=indicator,
                             group_item=group_item,
-                        ).delete()
-                # Handle tables
-                else:
-                    for group_2_item in indicator.group_2.items.all():
-                        value = request.POST.get(
-                            f"{field_name}_{group_item.suffix}_{group_2_item.suffix}"
-                        )
-                        if value or na:
-                            IndicatorResult.objects.update_or_create(
-                                survey=survey,
-                                indicator=indicator,
-                                group_item=group_item,
-                                group_2_item=group_2_item,
-                                defaults={
-                                    "value": "" if value is None else value,
-                                    "not_applicable": na,
-                                },
-                            )
-                        else:
-                            IndicatorResult.objects.filter(
-                                survey=survey,
-                                indicator=indicator,
-                                group_item=group_item,
-                                group_2_item=group_2_item,
-                            ).delete()
-                    # Save group totals
-                    value = request.POST.get(f"{field_name}_{group_item.suffix}_total")
-                    IndicatorResult.objects.update_or_create(
-                        survey=survey,
-                        indicator=indicator,
-                        group_item=group_item,
-                        group_2_item=None,
-                        is_total=True,
-                        defaults={
-                            "value": "" if value is None else value,
-                            "not_applicable": na,
-                        },
-                    )
-            if indicator_is_numeric(indicator.data_type):
-                # Save group2 totals
-                if indicator.group_2 is not None:
-                    for group_2_item in indicator.group_2.items.all():
-                        value = request.POST.get(
-                            f"{field_name}_{group_2_item.suffix}_total"
-                        )
-                        IndicatorResult.objects.update_or_create(
-                            survey=survey,
-                            indicator=indicator,
-                            group_item=None,
                             group_2_item=group_2_item,
-                            is_total=True,
-                            defaults={
-                                "value": "" if value is None else value,
-                                "not_applicable": na,
-                            },
-                        )
-                # Save total
-                value = request.POST.get(f"{field_name}_total")
+                            instance_number=instance_number,
+                        ).delete()
+                # Save group totals
+                value = request.POST.get(f"{field_name}_{group_item.suffix}_total")
                 IndicatorResult.objects.update_or_create(
                     survey=survey,
                     indicator=indicator,
-                    group_item=None,
+                    group_item=group_item,
                     group_2_item=None,
                     is_total=True,
                     defaults={
                         "value": "" if value is None else value,
                         "not_applicable": na,
                     },
+                    instance_number=instance_number,
                 )
-        # Handle standard indicators
+        if indicator_is_numeric(indicator.data_type):
+            # Save group2 totals
+            if indicator.group_2 is not None:
+                for group_2_item in indicator.group_2.items.all():
+                    value = request.POST.get(
+                        f"{field_name}_{group_2_item.suffix}_total"
+                    )
+                    IndicatorResult.objects.update_or_create(
+                        survey=survey,
+                        indicator=indicator,
+                        group_item=None,
+                        group_2_item=group_2_item,
+                        is_total=True,
+                        defaults={
+                            "value": "" if value is None else value,
+                            "not_applicable": na,
+                        },
+                        instance_number=instance_number,
+                    )
+            # Save total
+            value = request.POST.get(f"{field_name}_total")
+            IndicatorResult.objects.update_or_create(
+                survey=survey,
+                indicator=indicator,
+                group_item=None,
+                group_2_item=None,
+                is_total=True,
+                defaults={
+                    "value": "" if value is None else value,
+                    "not_applicable": na,
+                },
+                instance_number=instance_number,
+            )
+    # Handle standard indicators
+    else:
+        values = request.POST.getlist(field_name)
+        formatted_values = "|".join(values)
+        if formatted_values or na:
+            IndicatorResult.objects.update_or_create(
+                survey=survey,
+                indicator=indicator,
+                defaults={"value": formatted_values, "not_applicable": na},
+                instance_number=instance_number,
+            )
         else:
-            values = request.POST.getlist(field_name)
-            formatted_values = "|".join(values)
-            if formatted_values or na:
-                IndicatorResult.objects.update_or_create(
-                    survey=survey,
-                    indicator=indicator,
-                    defaults={"value": formatted_values, "not_applicable": na},
-                )
-            else:
-                IndicatorResult.objects.filter(
-                    survey=survey, indicator=indicator
-                ).delete()
+            IndicatorResult.objects.filter(
+                survey=survey, indicator=indicator, instance_number=instance_number
+            ).delete()
 
 
 def is_valid_uuid(value):
@@ -386,10 +443,15 @@ def get_initial_values(survey):
     ).all()
     initial_values = {}
     for i in indicator_results:
+        instance_id = (
+            f"{i.indicator.id}_{i.instance_number}"
+            if i.instance_number > 0
+            else str(i.indicator.id)
+        )
         if i.is_total:
             continue
         if is_gendered(i.indicator.data_type):
-            initial_values[i.indicator.code] = {
+            initial_values[instance_id] = {
                 "value": {
                     "non_binary": get_gender_field_value(
                         indicator_results, i.indicator, "non_binary"
@@ -402,41 +464,46 @@ def get_initial_values(survey):
                     ),
                 },
                 "not_applicable": i.not_applicable,
+                "instance_number": -1 if i.instance_number == 0 else i.instance_number,
             }
         elif i.indicator.is_group_indicator:
             if i.indicator.group_2 is None:
                 if i.indicator.code not in initial_values:
-                    initial_values[i.indicator.code] = {
+                    initial_values[instance_id] = {
                         "value": {},
                         "not_applicable": i.not_applicable,
+                        "instance_number": -1
+                        if i.instance_number == 0
+                        else i.instance_number,
                     }
-                    initial_values[i.indicator.code]["value"][i.group_item.suffix] = (
-                        i.value
-                    )
+                    initial_values[instance_id]["value"][i.group_item.suffix] = i.value
                 else:
-                    initial_values[i.indicator.code]["value"][i.group_item.suffix] = (
-                        i.value
-                    )
+                    initial_values[instance_id]["value"][i.group_item.suffix] = i.value
             else:
                 if i.indicator.code not in initial_values:
-                    initial_values[i.indicator.code] = {
+                    initial_values[instance_id] = {
                         "value": {},
                         "not_applicable": i.not_applicable,
+                        "instance_number": -1
+                        if i.instance_number == 0
+                        else i.instance_number,
                     }
                     for item in i.indicator.group.items.all():
-                        initial_values[i.indicator.code]["value"][item.suffix] = {}
-                    initial_values[i.indicator.code]["value"][i.group_item.suffix][
+                        initial_values[instance_id]["value"][item.suffix] = {}
+                    initial_values[instance_id]["value"][i.group_item.suffix][
                         i.group_2_item.suffix
                     ] = i.value
                 else:
-                    initial_values[i.indicator.code]["value"][i.group_item.suffix][
+                    initial_values[instance_id]["value"][i.group_item.suffix][
                         i.group_2_item.suffix
                     ] = i.value
         else:
-            initial_values[i.indicator.code] = {
+            initial_values[instance_id] = {
                 "value": i.value,
                 "not_applicable": i.not_applicable,
+                "instance_number": -1 if i.instance_number == 0 else i.instance_number,
             }
+
     return initial_values
 
 
@@ -450,6 +517,11 @@ def get_sections(current_method, form_instance):
         for indicator in section["indicators"]:
             field_obj = field_lookup[indicator["field_name"]]
             indicator["field"] = field_obj  # or str(field_obj) for raw HTML
+
+        for i_set_dict in section["indicators_sets"]:
+            for indicator in i_set_dict["indicators_set"]["indicators"]:
+                field_obj = field_lookup[indicator["field_name"]]
+                indicator["field"] = field_obj  # or str(field_obj) for raw HTML
 
         # Subsection indicators
         for subsection in section["subsections"]:
@@ -465,14 +537,18 @@ def get_sections_data(method):
     sections = Section.objects.filter(method=method).order_by("order")
     sections_data = []
     for section in sections:
-        indicators_codes = [i["code"] for i in list(section.indicators.all().values())]
+        indicators_ids = [i["id"] for i in list(section.indicators.all().values())]
+        indicators_sets_ids = [
+            s["id"] for s in list(section.indicators_sets.all().values())
+        ]
 
         sections_data.append(
             {
                 "id": section.id,
                 "title": section.title,
                 "description": section.description,
-                "indicators_codes": indicators_codes,
+                "indicators_ids": indicators_ids,
+                "indicators_sets_ids": indicators_sets_ids,
                 "parent_id": section.parent_id,
             }
         )

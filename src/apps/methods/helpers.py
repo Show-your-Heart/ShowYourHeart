@@ -182,6 +182,7 @@ def get_form_sections(method):
 
     for section in top_level_sections:
         indicators = get_indicators_list(section.indicators.all())
+        indicators_sets = get_indicators_sets_list(section.indicators_sets.all())
 
         children = sections.filter(parent=section)
         subsections = []
@@ -191,6 +192,7 @@ def get_form_sections(method):
 
         result[section] = {
             "indicators": indicators,
+            "indicators_sets": indicators_sets,
             "subsections": subsections,
         }
 
@@ -202,3 +204,20 @@ def get_indicators_list(indicators_list):
     for i in indicators_list:
         indicators.append({"field_name": "question_" + str(i.id), "indicator": i})
     return indicators
+
+
+def get_indicators_sets_list(indicators_sets_list):
+    indicators_sets = []
+    for s in indicators_sets_list:
+        i_set = {
+            "id": s.id,
+            "name": s.name,
+            "code": s.code,
+            "description": s.description,
+            "instance_name": "Item" if s.instance_name == "" else s.instance_name,
+            "indicators": get_indicators_list(s.indicators.all()),
+        }
+        indicators_sets.append(
+            {"set_name": "set_" + str(s.id), "indicators_set": i_set}
+        )
+    return indicators_sets

@@ -4,10 +4,10 @@
     <div class="flex space-x-4">
         <div class="flex flex-col space-y-2">
             <p>Mujeres</p>
-            <input :id="`question_${id}_women`"
+            <input :id="`question_${instanceId}_women`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:pointer-events-none"
                 :class="!isDirectIndicator ? 'pointer-events-none' : ''"
-                :name="`question_${id}_women`" :value="state.value.women" type="number" 
+                :name="`question_${instanceId}_women`" :value="state.value.women" type="number" 
                 placeholder="{{ widget.attrs.placeholder.women }}" {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'women')" :step="type == 'DG' ? 0.1 : 1"
                 x-bind:disabled="state.notApplicable" x-model="state.value.women" :min="type === 'DG' ? 0.0 : 0"
@@ -15,10 +15,10 @@
         </div>
         <div class="flex flex-col space-y-2">
             <p>Hombres</p>
-            <input :id="`question_${id}_men`"
+            <input :id="`question_${instanceId}_men`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:pointer-events-none"
                 :class="!isDirectIndicator ? 'pointer-events-none' : ''"
-                :name="`question_${id}_men`" :value="state.value.men" type="number" placeholder="{{ widget.attrs.placeholder.men }}" 
+                :name="`question_${instanceId}_men`" :value="state.value.men" type="number" placeholder="{{ widget.attrs.placeholder.men }}" 
                 {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'men')" :step="type == 'DG' ? 0.1 : 1"
                 x-bind:disabled="state.notApplicable" x-model="state.value.men" :min="type === 'DG' ? 0.0 : 0"
@@ -28,10 +28,10 @@
 
         <div class="flex flex-col space-y-2">
             <p>No binarias</p>
-            <input :id="`question_${id}_nonBinary`"
+            <input :id="`question_${instanceId}_nonBinary`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-100 p-2.5 disabled:bg-gray-100 disabled:pointer-events-none"
                 :class="!isDirectIndicator ? 'pointer-events-none' : ''"
-                :name="`question_${id}_non_binary`" :value="state.value.nonBinary" type="number"  
+                :name="`question_${instanceId}_non_binary`" :value="state.value.nonBinary" type="number"  
                 placeholder="{{ widget.attrs.placeholder.non_binary }}" 
                 {% include "django/forms/widgets/attrs.html" %}
                 @blur="update($event.target.value,'nonBinary')" :step="type == 'DG' ? 0.1 : 1"

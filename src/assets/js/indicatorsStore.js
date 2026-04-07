@@ -1,8 +1,9 @@
 const initIndicatorsStore = () => {
     Alpine.store('indicators', {
         indicators: {},
-        indicatorsResults: [],
+        indicatorResults: [],
         indicatorsData: [],
+        indicatorsSets: [],
         fieldTypes: {
             STRING: "S",
             TEXT: "T",
@@ -18,18 +19,24 @@ const initIndicatorsStore = () => {
             DECIMALGENDER: "DG",
         },
         initIndicators(indicators) {
-            indicators.forEach(i => this.indicators[i.code] = {
-                value: '',
-                show: false,
-                notApplicable: false,
-                isValid: false,
-                isFieldValid: false,
-                hasErrors: false,
-                error: '',
-            })
             this.indicatorsData = indicators
+
+            let indicatorsInSets = []
+            this.indicatorsSets.forEach(s => indicatorsInSets = [...indicatorsInSets, ...s.indicators_ids])
+            indicators.forEach(i => {
+                const instanceId = indicatorsInSets.findIndex(iIS => iIS == i.id) != -1 ? `${i.id}_1` : i.id
+                this.indicators[instanceId] = {
+                    value: '',
+                    show: false,
+                    notApplicable: false,
+                    isValid: false,
+                    isFieldValid: false,
+                    hasErrors: false,
+                    error: '',
+                }
+            })
         },
-        parseExpression(expr, val) {
+        parseExpression(expr, instanceId, val) {
             const tokens = expr.split(" ")
 
             // If expression is only a reference to another indicator return '__copy__' to copy its value
@@ -48,15 +55,15 @@ const initIndicatorsStore = () => {
                             // Load gendered field, list or table column total
                             value = this.loadTotalIndicatorResult(subtokens)
                         } else {
-                            value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
+                            value = subtokens.length == 2 ? this.loadIndicatorResult(instanceId, subtokens[1]) : this.loadIndicatorResult(instanceId, subtokens[1], subtokens[2])
                         }
                     } else if (token == 'val' && val.match(/(_)/)) {
                         // Reference to current group indicator
                         const subtokens = val.split("_")
-                        value = subtokens.length == 2 ? this.loadIndicatorResult(subtokens[0], subtokens[1]) : this.loadIndicatorResult(subtokens[0], subtokens[1], subtokens[2])
+                        value = subtokens.length == 2 ? this.loadIndicatorResult(instanceId, subtokens[1]) : this.loadIndicatorResult(instanceId, subtokens[1], subtokens[2])
                     } else if (token == 'val') {
                         // Reference to other indicator 
-                        value = this.loadIndicatorResult(val)
+                        value = this.loadIndicatorResult(instanceId)
                     } else if (token == 'AND' || token == 'and') {
                         value = '&&'
                     } else if (token == 'OR' || token == 'or') {
@@ -65,7 +72,7 @@ const initIndicatorsStore = () => {
                         value = token
                     } else {
                         // Reference to current indicator
-                        value = this.loadIndicatorResult(token)
+                        value = this.loadIndicatorResult(instanceId)
                     }
                     if (value == undefined) {
                         throw new Error(`Missing value, please fill question ${token} before.`)
@@ -82,9 +89,9 @@ const initIndicatorsStore = () => {
 
             return jsExpr
         },
-        evaluateExpression(expr, val = '') {
+        evaluateExpression(expr, instanceId, val = '') {
             try {
-                const parsedExpression = this.parseExpression(expr, val)
+                const parsedExpression = this.parseExpression(expr, instanceId, val)
                 if (parsedExpression == '__copy__') {
                     return '__copy__'
                 }
@@ -93,9 +100,11 @@ const initIndicatorsStore = () => {
                 throw e
             }
         },
-        validateField(code, suffix = '', suffix2 = '', validateGroupItem = false, setGroupItems = false) {
+        validateField(instanceId, suffix = '', suffix2 = '', validateGroupItem = false, setGroupItems = false) {
 
-            const indicator = this.indicatorsData.find(i => i.code == code)
+            const id = instanceId.split('_')[0]
+            const indicator = this.indicatorsData.find(i => i.id == id)
+            const code = indicator.code
 
             let result = {
                 isValid: true,
@@ -105,19 +114,20 @@ const initIndicatorsStore = () => {
             let fieldEl = null
             let fieldData = null
             if (setGroupItems) {
-                fieldEl = document.querySelector(`#field-${indicator.id}`)
+                fieldEl = document.querySelector(`#field_${instanceId}`)
                 fieldData = Alpine.$data(fieldEl)
             }
 
-            if (this.indicators[code].notApplicable) {
+            if (this.indicators[instanceId].notApplicable) {
+                console.log("not applicable")
                 return result
             }
 
             // Simple fields without validation expression are true when a value is assigned
             if (
-                (indicator.validation == '' && this.indicators[code].value !== null && this.indicators[code].value !== "" && !(this.indicators[code].value instanceof Object)) ||
-                (indicator.validation == '' && this.indicators[code].value instanceof Object && !indicator.is_group_indicator && (this.indicators[code].value.value !== null || this.indicators[code].value.female !== undefined)) ||
-                (indicator.validation == '' && this.indicators[code].value instanceof Array && !indicator.is_group_indicator && this.indicators[code].value.length > 0)
+                (indicator.validation == '' && this.indicators[instanceId].value !== null && this.indicators[instanceId].value !== "" && !(this.indicators[instanceId].value instanceof Object)) ||
+                (indicator.validation == '' && this.indicators[instanceId].value instanceof Object && !indicator.is_group_indicator && (this.indicators[instanceId].value.value !== null || this.indicators[instanceId].value.female !== undefined)) ||
+                (indicator.validation == '' && this.indicators[instanceId].value instanceof Array && !indicator.is_group_indicator && this.indicators[instanceId].value.length > 0)
             ) {
                 return result
             }
@@ -125,9 +135,9 @@ const initIndicatorsStore = () => {
             // Empty non mandatory fields
             if (
                 !indicator.mandatory && // Non mandatory
-                (this.indicators[code].value == null || this.indicators[code].value == "" || // Empty string or number
-                    (this.indicators[code].value instanceof Object && !indicator.is_group_indicator &&  // Object value butno group indicator
-                        (this.indicators[code].value.value == null || this.indicators[code].value.female == null) // Dropdown/checkbock or gendered field
+                (this.indicators[instanceId].value == null || this.indicators[instanceId].value == "" || // Empty string or number
+                    (this.indicators[instanceId].value instanceof Object && !indicator.is_group_indicator &&  // Object value butno group indicator
+                        (this.indicators[instanceId].value.value == null || this.indicators[instanceId].value.female == null) // Dropdown/checkbock or gendered field
                     )
                 )
             ) {
@@ -135,9 +145,9 @@ const initIndicatorsStore = () => {
             }
 
             try {
-                if (indicator.is_group_indicator && !Array.isArray(this.indicators[code].value) && this.indicators[code].value !== null) {
+                if (indicator.is_group_indicator && !Array.isArray(this.indicators[instanceId].value) && this.indicators[instanceId].value !== null) {
                     // Validate lists and tables
-                    result.isValid = this.indicators[code].isValid instanceof Object ? this.indicators[code].isValid : {}
+                    result.isValid = this.indicators[instanceId].isValid instanceof Object ? this.indicators[instanceId].isValid : {}
 
                     if (indicator.group_2_items) {
                         indicator.group_items.forEach(({ suffix: k }) => {
@@ -147,14 +157,14 @@ const initIndicatorsStore = () => {
                             indicator.group_2_items.forEach(({ suffix: k2 }) => {
                                 // Only validate for the current groupItem or if the whole field has to be validated
                                 if (!validateGroupItem || (validateGroupItem && `${code}_${k}_${k2}` == `${code}_${suffix}_${suffix2}`)) {
-                                    if (!indicator.mandatory && (this.indicators[code].value[k][k2] === null || this.indicators[code].value[k][k2] === '')) {
+                                    if (!indicator.mandatory && (this.indicators[instanceId].value[k][k2] === null || this.indicators[instanceId].value[k][k2] === '')) {
                                         // Empty non mandatory is valid
                                         result.isValid[k][k2] = true
-                                    } else if (indicator.mandatory && (this.indicators[code].value[k][k2] === null || this.indicators[code].value[k][k2] === '')) {
+                                    } else if (indicator.mandatory && (this.indicators[instanceId].value[k][k2] === null || this.indicators[instanceId].value[k][k2] === '')) {
                                         // Empty mandatory is not valid
                                         result.isValid[k][k2] = false
                                     } else {
-                                        result.isValid[k][k2] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}_${k2}`)
+                                        result.isValid[k][k2] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, instanceId, `${code}_${k}_${k2}`)
                                     }
                                 }
                                 if (!result.isValid[k][k2]) {
@@ -169,14 +179,14 @@ const initIndicatorsStore = () => {
                         indicator.group_items.forEach(({ suffix: k }) => {
                             // Only validate for the current groupItem or if the whole field has to be validated
                             if (!validateGroupItem || (validateGroupItem && `${code}_${k}` == `${code}_${suffix}`)) {
-                                if (!indicator.mandatory && (this.indicators[code].value[k] === null || this.indicators[code].value[k] === '')) {
+                                if (!indicator.mandatory && (this.indicators[instanceId].value[k] === null || this.indicators[instanceId].value[k] === '')) {
                                     // Empty non mandatory is valid
                                     result.isValid[k] = true
-                                } else if (indicator.mandatory && (this.indicators[code].value[k] === null || this.indicators[code].value[k] === '')) {
+                                } else if (indicator.mandatory && (this.indicators[instanceId].value[k] === null || this.indicators[instanceId].value[k] === '')) {
                                     // Empty mandatory is not valid
                                     result.isValid[k] = false
                                 } else {
-                                    result.isValid[k] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, `${code}_${k}`)
+                                    result.isValid[k] = indicator.validation == '' ? true : !!this.evaluateExpression(indicator.validation, instanceId, `${code}_${k}`)
                                 }
                             }
                             if (!result.isValid[k]) {
@@ -189,7 +199,7 @@ const initIndicatorsStore = () => {
                     }
                 } else {
                     // Validate simple indicators
-                    result.isValid = !!this.evaluateExpression(indicator.validation, code)
+                    result.isValid = !!this.evaluateExpression(indicator.validation, instanceId, code)
                     result.isFieldValid = result.isValid
                 }
                 return result
@@ -202,34 +212,37 @@ const initIndicatorsStore = () => {
                 }
             }
         },
-        isVisible(code, condition) {
+        isVisible(instanceId, condition) {
             try {
-                return this.evaluateExpression(condition, code)
+                return this.evaluateExpression(condition, instanceId)
             } catch (e) {
                 return false
             }
         },
-        loadIndicatorResult(code, suffix = "", suffix2 = "") {
+        loadIndicatorResult(instanceId, suffix = "", suffix2 = "") {
+            const instanceIdTokens = instanceId.split('_')
+            const id = instanceIdTokens[0]
+            const indicator = this.indicatorsData.find(i => i.id == id)
+
             let result = null
-            const indicator = this.indicatorsData.find(i => i.code == code)
 
             if (this.hasOptions(indicator.data_type)) {
                 if (this.isMultiAnswer(indicator.data_type)) {
-                    result = this.indicators[code].value.reduce((prev, curr) => prev + curr.value, 0)
+                    result = this.indicators[instanceId].value.reduce((prev, curr) => prev + curr.value, 0)
                 } else {
-                    result = this.indicators[code].value.value
+                    result = this.indicators[instanceId].value.value
                 }
             } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
-                result = this.indicators[code].value == 'True' ? 'true' : 'false'
+                result = this.indicators[instanceId].value == 'True' ? 'true' : 'false'
             } else if (suffix != "") {
                 if (suffix2 == "") {
-                    result = Number(this.indicators[code].value[suffix])
+                    result = Number(this.indicators[instanceId].value[suffix])
                 } else {
-                    result = this.indicators[code].value[suffix][suffix2]
+                    result = this.indicators[instanceId].value[suffix][suffix2]
                 }
 
             } else {
-                result = this.indicators[code].value || null
+                result = this.indicators[instanceId].value || null
             }
 
             if (indicator.mandatory) {
@@ -258,47 +271,49 @@ const initIndicatorsStore = () => {
             }
             return result
         },
-        updateIndicatorDependencies(code) {
-            const index = this.indicatorsData.findIndex(i => i.code == code)
-            console.group("Checking dependant:", this.indicatorsData[index].dependant_indicators)
-            if (index != -1 && this.indicatorsData[index].dependant_indicators) {
-                for (dependantIndicatorCode of this.indicatorsData[index].dependant_indicators) {
-                    this.updateDependantIndicator(dependantIndicatorCode, code)
+        updateIndicatorDependencies(instanceId) {
+            const instanceIdTokens = instanceId.split('_')
+            const id = instanceIdTokens[0]
+            const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
+            const indicator = this.indicatorsData.find(i => i.id == id)
+            if (indicator && indicator.dependant_indicators) {
+                for (dependantIndicatorCode of indicator.dependant_indicators) {
+                    this.updateDependantIndicator(instanceNumber, dependantIndicatorCode, indicator.code)
                 }
             }
-            console.groupEnd()
         },
-        updateDependantIndicator(dependantIndicatorCode, code) {
+        updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
 
             const index = this.indicatorsData.findIndex(i => i.code == dependantIndicatorCode)
             if (index != -1) {
-                let indicator = this.indicatorsData[index]
+                const indicator = this.indicatorsData[index]
+                const instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
                 if (indicator.condition.includes(code)) {
-                    const fieldEl = document.querySelector(`#field-${indicator.id}`);
-                    const show = this.isVisible(indicator.code, indicator.condition)
+                    const fieldEl = document.querySelector(`#field_${instanceId}`);
+                    const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
 
                     // Hide direct indicator and set NA 
                     if (indicator.is_direct_indicator && !show) {
-                        this.updateIndicatorResultNa(indicator.code, true, true)
+                        this.updateIndicatorResultNa(instanceId, true, true)
                     }
 
                     // Update validation
-                    const { isValid, isFieldValid } = this.validateField(dependantIndicatorCode)
-                    this.indicators[dependantIndicatorCode].isValid = isValid
-                    this.indicators[dependantIndicatorCode].isFieldValid = isFieldValid
+                    const { isValid, isFieldValid } = this.validateField(instanceId)
+                    this.indicators[instanceId].isValid = isValid
+                    this.indicators[instanceId].isFieldValid = isFieldValid
                     Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
 
                 }
                 // Check if formula is dependant
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
-                    const value = this.evaluateExpression(indicator.formula, indicator.code)
+                    const value = this.evaluateExpression(indicator.formula, instanceId, indicator.code)
                     if (value != null) {
                         if (value == '__copy__') {
-                            this.indicators[dependantIndicatorCode].value = this.indicators[code].value
+                            this.indicators[instanceId].value = this.indicators[instanceId].value
                             const indicatorToCopy = this.indicatorsData.find(i => i.code == code)
                             // If the field to copy has options copy them
                             if (this.hasOptions(indicatorToCopy.data_type)) {
@@ -307,14 +322,14 @@ const initIndicatorsStore = () => {
                             }
                         } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
                             if (value === true) {
-                                this.indicators[dependantIndicatorCode].value = 'True'
+                                this.indicators[instanceId].value = 'True'
                             } else if (value === false) {
-                                this.indicators[dependantIndicatorCode].value = 'False'
+                                this.indicators[instanceId].value = 'False'
                             }
                         } else if (indicator.data_type == this.fieldTypes.DECIMAL) {
-                            this.indicators[dependantIndicatorCode].value = String((Math.round(value * 100) / 100).toFixed(2))
+                            this.indicators[instanceId].value = String((Math.round(value * 100) / 100).toFixed(2))
                         } else {
-                            this.indicators[dependantIndicatorCode].value = String(value)
+                            this.indicators[instanceId].value = String(value)
                         }
                     }
                 }
@@ -324,17 +339,21 @@ const initIndicatorsStore = () => {
                 }
             }
         },
-        updateIndicatorResultNa(code, value, hide = false) {
-            this.indicators[code].notApplicable = value
+        updateIndicatorResultNa(instanceId, value, hide = false) {
+            this.indicators[instanceId].notApplicable = value
 
             if (hide) {
-                this.indicators[code].show = !value
+                this.indicators[instanceId].show = !value
             }
 
-            const indicator = this.indicatorsData.find(i => i.code == code)
+            const instanceIdTokens = instanceId.split('_')
+            const id = instanceIdTokens[0]
+            const indicator = this.indicatorsData.find(i => i.id == id)
             if (indicator.dependant_indicators) {
                 for (code of indicator.dependant_indicators) {
-                    this.updateIndicatorResultNa(code, value, true)
+                    const dependantIndicator = this.indicatorsData.find(i => i.code == code)
+                    const instanceId = instanceIdTokens.length == 2 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
+                    this.updateIndicatorResultNa(instanceId, value, true)
                 }
             }
         },
@@ -409,10 +428,7 @@ const initIndicatorsStore = () => {
         },
     })
 
-    if (document.getElementById('indicators')) {
-        const indicators = JSON.parse(document.getElementById('indicators').textContent);
-        Alpine.store('indicators').initIndicators(indicators)
-    }
+
     if (document.getElementById('indicatorResults')) {
         const indicatorResults = JSON.parse(document.getElementById('indicatorResults').textContent);
         Alpine.store('indicators')["indicatorResults"] = indicatorResults
@@ -420,6 +436,14 @@ const initIndicatorsStore = () => {
     if (document.getElementById('placeholders')) {
         const placeholders = JSON.parse(document.getElementById('placeholders').textContent);
         Alpine.store('indicators')["placeholders"] = placeholders
+    }
+    if (document.getElementById('indicatorsSets')) {
+        const indicatorsSets = JSON.parse(document.getElementById('indicatorsSets').textContent);
+        Alpine.store('indicators')["indicatorsSets"] = indicatorsSets
+    }
+    if (document.getElementById('indicators')) {
+        const indicators = JSON.parse(document.getElementById('indicators').textContent);
+        Alpine.store('indicators').initIndicators(indicators)
     }
 
 }
