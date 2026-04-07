@@ -9,16 +9,20 @@
         hx-post="{% url 'methods:send_invitation' invitation.id %}"
         hx-target="#invitation-row-{{ invitation.id }}"
         hx-confirm="{% translate 'Are you sure you want to send this invitation?' %}"
+        class="cursor-pointer"
     >
         <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
     </button>
 </td>
 <td class="border border-gray-300 px-4 py-2 text-center">
+    {% if not invitation.send_date %}
     <button
         hx-post="{% url 'methods:delete_invitation' invitation.id %}"
         hx-target="#invitation-row-{{ invitation.id }}"
         hx-confirm="{% translate 'Are you sure you want to delete this invitation?' %}"
+        class="cursor-pointer"
     >
         <c-icon name="trash-bin" class="text-gray-500"></c-icon>
     </button>
+    {% endif %}
 </td>

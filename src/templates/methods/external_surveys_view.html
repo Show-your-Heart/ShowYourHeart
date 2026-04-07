@@ -47,28 +47,7 @@
                         <tbody id="invitation-table-body">
                             {% for invitation in invitations %}
                                 <tr id="invitation-row-{{ invitation.id }}" class="odd:bg-white even:bg-gray-50">
-                                    <td class="border border-gray-300 px-4 py-2">{{ invitation.name }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ invitation.email }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ invitation.send_date }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ invitation.get_status_display }}</td>
-                                    <td class="border border-gray-300 px-4 py-2 text-center">
-                                        <button
-                                            hx-post="{% url 'methods:send_invitation' invitation.id %}"
-                                            hx-target="#invitation-row-{{ invitation.id }}"
-                                            hx-confirm="{% translate 'Are you sure you want to send this invitation?' %}"
-                                        >
-                                            <c-icon name="envelope" class="text-blue-600 inline"></c-icon>
-                                        </button>
-                                    </td>
-                                    <td class="border border-gray-300 px-4 py-2 text-center">
-                                        <button
-                                            hx-post="{% url 'methods:delete_invitation' invitation.id %}"
-                                            hx-target="#invitation-row-{{ invitation.id }}"
-                                            hx-confirm="{% translate 'Are you sure you want to delete this invitation?' %}"
-                                        >
-                                            <c-icon name="trash-bin" class="text-gray-500"></c-icon>
-                                        </button>
-                                    </td>
+                                    <c-methods.invitation-row :invitation="invitation"> </c-methods.invitation-row >
                                 </tr>
                             {% empty %}
                                 <tr id="empty-row">
@@ -112,7 +91,7 @@
                     style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000;">
                     <div style="background:#fff; max-width:500px; margin:80px auto; padding:20px; position:relative;">
                         <button id="closeModal" style="position:absolute; top:10px; right:10px; cursor: pointer;">&times;</button>
-                        <form id="importCsvForm" action="{% url 'methods:import_csv2' organization_id selected_ext_survey.id %}" method="POST"
+                        <form id="importCsvForm" action="{% url 'methods:import_csv2' organization_id selected_ext_survey.id campaign_id %}" method="POST"
                             enctype="multipart/form-data">
                             {% csrf_token %}
                             <div
