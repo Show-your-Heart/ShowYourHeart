@@ -10,7 +10,7 @@ from unfold.widgets import (
 
 from apps.methods.widgets import syh_forms
 
-from .models import Indicator, Invitation, Method, Section
+from .models import Indicator, IndicatorsSet, Invitation, Method, Section
 
 
 class MethodForm(forms.ModelForm):
@@ -192,6 +192,7 @@ class SectionInlineForm(forms.ModelForm):
             "description",
             "parent",
             "indicators",
+            "indicators_sets",
         )
 
         widgets = {
@@ -213,11 +214,24 @@ class SectionInlineForm(forms.ModelForm):
             self.fields["indicators"].queryset = method_indicators.exclude(
                 pk__in=assigned_indicators
             )
+            method_indicators_sets = self.instance.method.indicators_sets.all()
+            assigned_indicators_sets = (
+                Section.objects.filter(method=self.instance.method)
+                .exclude(pk=self.instance.pk)
+                .values_list("indicators_sets__id", flat=True)
+            )
+            assigned_indicators_sets = [
+                pk for pk in assigned_indicators_sets if pk is not None
+            ]
+            self.fields["indicators_sets"].queryset = method_indicators_sets.exclude(
+                pk__in=assigned_indicators_sets
+            )
             self.fields["parent"].queryset = Section.objects.filter(
                 method=self.instance.method, parent__isnull=True
             ).exclude(pk=self.instance.id)
         else:
             self.fields["indicators"].queryset = Indicator.objects.none()
+            self.fields["indicators_sets"].queryset = IndicatorsSet.objects.none()
             self.fields["parent"].queryset = Section.objects.none()
 
 
@@ -228,6 +242,16 @@ class IndicatorForm(forms.ModelForm):
 
         widgets = {
             "name": WysiwygWidget,
+            "description": WysiwygWidget,
+        }
+
+
+class IndicatorsSetForm(forms.ModelForm):
+    class Meta:
+        model = Indicator
+        fields = "__all__"  # noqa: DJ007
+
+        widgets = {
             "description": WysiwygWidget,
         }
 

@@ -5,6 +5,7 @@ from .models import (
     Group,
     GroupItem,
     Indicator,
+    IndicatorsSet,
     List,
     ListItem,
     Method,
@@ -21,6 +22,11 @@ class TopicTranslationOptions(TranslationOptions):
 @register(Indicator)
 class IndicatorTranslationOptions(TranslationOptions):
     fields = ("name", "description", "message")
+
+
+@register(IndicatorsSet)
+class IndicatorsSetTranslationOptions(TranslationOptions):
+    fields = ("name", "description", "instance_name")
 
 
 @register(Method)

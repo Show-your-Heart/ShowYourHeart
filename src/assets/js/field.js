@@ -1,6 +1,7 @@
 const initFieldData = () => {
-    Alpine.data('field', (code = "") => ({
+    Alpine.data('field', (code = "", instanceNumber = -1) => ({
         id: "",
+        instanceId: "",
         name: "",
         description: "",
         code: "",
@@ -27,11 +28,15 @@ const initFieldData = () => {
         state: {},
         indicatorsStore: Alpine.store('indicators'),
         init() {
+            this.initIndicator(code, instanceNumber)
+        },
+        initIndicator(code, instanceNumber) {
             // Init field data
             const indicator = this.indicatorsStore["indicatorsData"].find(i => i.code == code)
-            const indicatorResults = this.indicatorsStore["indicatorResults"][code] || null
-            this.placeholder = this.indicatorsStore["placeholders"][code] || null
             this.id = indicator.id
+            this.instanceId = instanceNumber == -1 ? this.id : `${this.id}_${instanceNumber}`
+            const indicatorResults = this.indicatorsStore["indicatorResults"][this.instanceId] || null
+            this.placeholder = this.indicatorsStore["placeholders"][code] || null
             this.name = indicator.name
             this.description = indicator.description
             this.code = indicator.code
@@ -73,11 +78,12 @@ const initFieldData = () => {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
-            const show = (indicator.is_direct_indicator || indicator.display_indirect) && (indicator.condition == "" || this.indicatorsStore.isVisible(indicator.code, indicator.condition))
+            const show = (indicator.is_direct_indicator || indicator.display_indirect) && (indicator.condition == "" || this.indicatorsStore.isVisible(this.instanceId, indicator.condition))
             const notApplicable = (indicatorResults?.not_applicable || !show) ?? false
 
             // Init field state in store
-            this.indicatorsStore['indicators'][this.code] = {
+            this.indicatorsStore['indicators'][this.instanceId] = {
+                code,
                 value: value,
                 show,
                 notApplicable: notApplicable,
@@ -86,9 +92,9 @@ const initFieldData = () => {
                 hasErrors: false,
                 error: ''
             }
-            this.state = this.indicatorsStore['indicators'][this.code]
+            this.state = this.indicatorsStore['indicators'][this.instanceId]
             this.$dispatch('indicator-visible', { id: this.id, show })
-            const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.code)
+            const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.instanceId)
             this.state.isValid = isValid
             this.state.isFieldValid = isFieldValid
             this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
@@ -191,8 +197,10 @@ const initFieldData = () => {
         },
         update(newValue, suffix = "", suffix2 = "") {
             try {
+                this.state = this.indicatorsStore['indicators'][this.instanceId]
                 this.state.value = this.updateValue(newValue, this.state.value, this.type, suffix, suffix2)
-                const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.code, suffix, suffix2, this.isGroupIndicator)
+
+                const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.instanceId, suffix, suffix2, this.isGroupIndicator)
                 this.state.isValid = isValid
                 this.state.isFieldValid = isFieldValid
                 if (suffix == '') {
@@ -254,7 +262,7 @@ const initFieldData = () => {
         },
         updateNotApplicable(checked) {
             this.state.notApplicable = checked
-            this.indicatorsStore.updateIndicatorResultNa(this.code, this.state.notApplicable)
+            this.indicatorsStore.updateIndicatorResultNa(this.instanceId, this.state.notApplicable)
             if (this.indicatorsStore.isMultiAnswer(this.type)) {
                 this.update([])
             } else if (this.indicatorsStore.isGendered(this.type)) {
@@ -268,7 +276,7 @@ const initFieldData = () => {
         updateErrors(isFieldValid) {
             if (isFieldValid) {
                 this.state.hasErrors = false
-                this.indicatorsStore.updateIndicatorDependencies(this.code, this.state.value)
+                this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
             } else {
                 this.state.hasErrors = true
                 if (this.msg) {

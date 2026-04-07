@@ -1,16 +1,16 @@
 {% load i18n %}
 
 <c-methods.base-field>
-    <div class="flex flex-col space-y-2 pl-4"  :id="`question_${id}`">
+    <div class="flex flex-col space-y-2 pl-4"  :id="`question_${instanceId}`">
         {# Django renders each option as a tuple (value, label) inside optgroups #}
         {% for group_name, options, index in widget.optgroups %}
         {% for option in options %}
 
-        <label :for="`question_${id}_option_{{index}}`"
+        <label :for="`question_${instanceId}_option_{{index}}`"
             :class="!isDirectIndicator ? 'cursor-default pointer-events-none' : ''"
             class="inline-flex items-center cursor-pointer has-disabled:cursor-default has-disabled:pointer-events-none"
             @click="$event.preventDefault(); update('{{ option.value.id }}')">
-            <input type="checkbox" :id="`question_${id}_option_{{index}}`" :name="`question_${id}`"
+            <input type="checkbox" :id="`question_${instanceId}_option_{{index}}`" :name="`question_${instanceId}`"
                 value="{{ option.value.id }}" class="pointer-events-none h-4 w-4 text-pink-600 bg-gray-100 border-gray-300 rounded cursor-pointer
                         focus:ring-blue-500 disabled:cursor-default peer"
                 :checked="checkedOptions[{{index}}]" :x-model="checkedOptions[{{index}}]" 

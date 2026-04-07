@@ -23,6 +23,7 @@ from project.utils.mixins import NetworkFilterMixin
 
 from .forms import (
     IndicatorForm,
+    IndicatorsSetForm,
     InvitationInlineForm,
     MethodForm,
     SectionForm,
@@ -39,6 +40,7 @@ from .models import (
     GroupItem,
     Indicator,
     IndicatorResult,
+    IndicatorsSet,
     Invitation,
     List,
     ListItem,
@@ -191,6 +193,25 @@ class IndicatorAdmin(
         return form
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=IndicatorsSet)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=IndicatorsSet)
+class IndicatorsSetAdmin(
+    NetworkFilterMixin, ImportExportModelAdmin, TabbedTranslationAdmin
+):
+    autocomplete_fields = []
+    form = IndicatorsSetForm
+    search_fields = ["code", "name"]
+
+    list_display = (
+        "code",
+        "version",
+        "name",
+        "description",
+    )
+
+
 class SectionResource(resources.ModelResource):
     indicators_code = fields.Field(
         column_name="indicators_code",
@@ -271,7 +292,7 @@ class MethodAdmin(
 ):
     autocomplete_fields = ["sectors", "legal_structures", "networks", "region1"]
     search_fields = ["name"]
-    filter_horizontal = ("indicators", "external_surveys")
+    filter_horizontal = ("indicators", "indicators_sets", "external_surveys")
     form = MethodForm
     inlines = (SectionInline,)
 
@@ -313,6 +334,7 @@ class MethodAdmin(
                 "unit_of_analysis",
                 "external_survey_category",
                 "indicators",
+                "indicators_sets",
                 "legal_structures",
                 "sectors",
                 "region1",

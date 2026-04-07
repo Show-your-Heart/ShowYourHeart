@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div x-data="fieldsSet({code: '{{indicators_set_obj.indicators_set.code}}', name: '{{indicators_set_obj.set_name}}'})">
+  <h5 class="text-xl font-bold mb-2" x-text="title"></h5>
+    <template x-if="description != ''">
+        <div class="mb-4" x-html="description"></div>
+    </template>
+  <div id="set_{{indicators_set_obj.indicators_set.code}}" data-accordion="collapse">
+    <template x-for="instance in instances" :key="instance">
+      <div>
+        <div 
+          :id="`${name}-heading-${instance}`" 
+          class="flex justify-between items-center w-full h-fit p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 hover:cursor-pointer"
+          :data-accordion-target="`#${name}-body-${instance}`" aria-expanded="false" :aria-controls="`${name}-body-${instance}`"
+        >
+
+          <p>{{indicators_set_obj.indicators_set.instance_name}} #<span x-text="instance"></span></p>
+          <c-button variant="icon" @click.prevent="remove(instance)" class="hover:bg-red-500 hover:text-white">
+            <c-icon name="trash-bin"></c-icon>
+          </c-button>
+        </div>
+        <div :id="`${name}-body-${instance}`" :aria-labelledby="`${name}-heading-${instance}`"
+          class="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow-sm"
+        > 
+          {{slot}}
+        </div>
+      </div>
+    </template>
+  </div>
+  <c-button @click="add()" class="mt-4">Add</c-button>
+</div>

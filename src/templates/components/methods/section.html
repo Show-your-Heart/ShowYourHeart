@@ -2,6 +2,8 @@
     x-data="section('{{ section.title|escapejs }}')" id="section-{{ section.id }}" 
     @section-valid="$event.stopPropagation(); validateSection()"
     @indicator-valid="validateSection()"
+    @add-instance="addInstanceIds($event.detail.setId, $event.detail.instanceNumber)"
+    @remove-instance="removeInstanceIds($event.detail.setId, $event.detail.instanceNumber); validateSection()"
     role="tabpanel" aria-labelledby="{{ section.id }}-tab"
 >
     <h2 class="text-3xl font-bold -mb-2" x-text="title"></h2>
@@ -11,6 +13,16 @@
 
     {% for indicator in items.indicators %}
     {{ indicator.field }}
+    {% endfor %}
+
+    {% for indicators_set_obj in items.indicators_sets %}
+    <c-card.indicators-set>
+        {% for set_name, indicators_set in indicators_set_obj.items %}
+        {% for indicator in indicators_set.indicators %}
+        {{ indicator.field }}
+        {% endfor %}
+        {% endfor %}
+    </c-card.indicators-set>
     {% endfor %}
 
     {% for subsectionObj in items.subsections %}

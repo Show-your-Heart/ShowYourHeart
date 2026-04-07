@@ -8,8 +8,10 @@
     {{ indicators|json_script:"indicators" }}
     {{ initial_values|json_script:"indicatorResults" }}
     {{ placeholders|json_script:"placeholders" }}
+    {{ indicators_sets|json_script:"indicatorsSets" }}
     {{ sections_data|json_script:"sections" }}
     <script src="{% static 'js/field.js' %}"></script>
+    <script src="{% static 'js/fieldsSet.js' %}"></script>
     <script src="{% static 'js/section.js' %}"></script>
     <script src="{% static 'js/indicatorsStore.js' %}"></script>
     <script src="{% static 'js/surveyStore.js' %}"></script>
@@ -54,7 +56,7 @@
           <button class="w-full py-4 px-8 white-space-no-wrap overflow-ellipsis flex justify-between items-center"
             id="tab-{{ section.id }}" :class="getBtnClass('{{section.id}}')"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title|escapejs }}"
-            aria-selected="false" x-data @click="$store.survey.setSection('{{section.id}}')">
+            aria-selected="false" x-data @click="$store.survey.setSection('{{section.id}}')"  x-cloak >
             {{ section.title|escapejs }}
             <c-icon x-show="showCurrent('{{section.id}}')" name="arrow-right"
               class="w-6 h-6 inline text-blue-600"></c-icon>
@@ -75,8 +77,12 @@
       <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
 
       <div id="tab-content">
-        {% for section, items in sections.items %}
-        <c-methods.section :section="section" :items="items"></c-methods.section>
+        {% for section, fields in sections.items %}
+        <div id="tab-content">
+          {% for section, items in sections.items %}
+          <c-methods.section :section="section" :items="items"></c-methods.section>
+          {% endfor %}
+        </div>
         {% endfor %}
       </div>
 
@@ -112,7 +118,7 @@
             <ul class="rounded-lg  border border-gray-200 shadow-sm">
               <template x-for="invalidIndicator in section.invalidIndicators">
                 <li class="flex space-x-2 even:bg-gray-100 odd:bg-white cursor-pointer"
-                  @click="$store.survey.goToField(invalidIndicator.code,section.id)"
+                  @click="$store.survey.goToField(invalidIndicator.instanceId,section.id)"
                 >
                   <div class="p-4" x-text="invalidIndicator.code"></div>
                   <div class="p-4 grow" x-html="invalidIndicator.name"></div>

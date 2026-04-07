@@ -5,10 +5,10 @@
 {{ indicators|json_script:"indicators" }}
 {{ initial_values|json_script:"indicatorResults" }}
 {{ placeholders|json_script:"placeholders" }}
+{{ indicators_sets|json_script:"indicatorsSets" }}
 {{ sections_data|json_script:"sections" }}
 
 <script>
-
   // Initialize all dynamically loaded components: https://stackoverflow.com/questions/76051980/flowbite-component-not-working-when-loaded-via-htmx-django-project
   htmx.onLoad(function(content) {
     initTabs()
