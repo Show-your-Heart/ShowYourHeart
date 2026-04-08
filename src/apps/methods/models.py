@@ -58,7 +58,7 @@ class List(BaseModel):
     enable_others = models.BooleanField(
         _("Enable others response"), blank=False, default=False
     )
-    items = SortedManyToManyField(ListItem, blank=True)
+    items = SortedManyToManyField(ListItem, blank=True, related_name="lists")
 
     def __str__(self):
         return self.title
