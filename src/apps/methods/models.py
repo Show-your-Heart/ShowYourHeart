@@ -364,7 +364,7 @@ class Method(BaseModel):
     )
     indicators = models.ManyToManyField(Indicator, related_name="methods")
     indicators_sets = models.ManyToManyField(
-        IndicatorsSet, related_name="methods", null=True
+        IndicatorsSet, related_name="methods", blank=True
     )
     legal_structures = models.ManyToManyField(
         "settings.LegalStructure",
