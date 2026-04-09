@@ -193,6 +193,17 @@ class IndicatorAdmin(
         return form
 
 
+class IndicatorsSetResource(resources.ModelResource):
+    indicators_code = fields.Field(
+        column_name="indicators_code",
+        attribute="indicators",
+        widget=ManyToManyWidget(Indicator, field="code", separator="|"),
+    )
+
+    class Meta:
+        model = IndicatorsSet
+
+
 # Add superadmin views with default Unfold templates
 @register_with_default_templates(admin.site, model=IndicatorsSet)
 # Add admin views with custom templates
@@ -211,12 +222,19 @@ class IndicatorsSetAdmin(
         "description",
     )
 
+    resource_classes = [IndicatorsSetResource]
+
 
 class SectionResource(resources.ModelResource):
     indicators_code = fields.Field(
         column_name="indicators_code",
         attribute="indicators",
         widget=ManyToManyWidget(Indicator, field="code", separator="|"),
+    )
+    indicators_sets_code = fields.Field(
+        column_name="indicators_sets_code",
+        attribute="indicators_sets",
+        widget=ManyToManyWidget(IndicatorsSet, field="code", separator="|"),
     )
 
     class Meta:
@@ -262,6 +280,12 @@ class MethodResource(resources.ModelResource):
         column_name="indicators_code",
         attribute="indicators",
         widget=ManyToManyWidget(Indicator, field="code", separator="|"),
+    )
+
+    indicators_sets_code = fields.Field(
+        column_name="indicators_sets_code",
+        attribute="indicators_sets",
+        widget=ManyToManyWidget(IndicatorsSet, field="code", separator="|"),
     )
 
     region1s_name = fields.Field(
