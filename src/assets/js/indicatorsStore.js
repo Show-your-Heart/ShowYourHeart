@@ -352,7 +352,7 @@ const initIndicatorsStore = () => {
             if (indicator.dependant_indicators) {
                 for (code of indicator.dependant_indicators) {
                     const dependantIndicator = this.indicatorsData.find(i => i.code == code)
-                    const instanceId = instanceIdTokens.length == 2 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
+                    const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
                     this.updateIndicatorResultNa(instanceId, value, true)
                 }
             }
