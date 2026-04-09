@@ -119,7 +119,6 @@ const initIndicatorsStore = () => {
             }
 
             if (this.indicators[instanceId].notApplicable) {
-                console.log("not applicable")
                 return result
             }
 
