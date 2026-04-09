@@ -7,8 +7,20 @@
     <template x-if="description != ''">
         <div class="-mt-2 -mb-4" x-html="description"></div>
     </template>
+
     {% for indicator in indicators %}
     {{ indicator.field }}
     {% endfor %}
+    
+    {% for indicators_set_dict in indicators_sets %}
+    <c-card.indicators-set>
+        {% for set_name, indicators_set in indicators_set_dict.items %}
+        {% for indicator in indicators_set.indicators %}
+        {{ indicator.field }}
+        {% endfor %}
+        {% endfor %}
+    </c-card.indicators-set>
+    {% endfor %}
+
 </div>
 
