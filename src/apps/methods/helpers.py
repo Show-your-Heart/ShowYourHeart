@@ -74,14 +74,13 @@ def get_survey_stats(survey, method, campaign):
                 indicators_list = list(section.indicators.all())
                 answered_indicators = 0
 
-                for subsection in section_data["subsections"]:
-                    for _, subsection_indicators in subsection.items():
-                        indicators = [
-                            item["indicator"] for item in subsection_indicators
-                        ]
-                        total_indicators += len(indicators)
-                        total_section_indicators += len(indicators)
-                        indicators_list += indicators
+                for _, subsection_data in section_data["subsections"].items():
+                    indicators = [
+                        item["indicator"] for item in subsection_data["indicators"]
+                    ]
+                    total_indicators += len(indicators)
+                    total_section_indicators += len(indicators)
+                    indicators_list += indicators
 
                 for i in indicators_list:
                     indicator_result = next(
