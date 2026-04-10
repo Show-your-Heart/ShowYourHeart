@@ -3,6 +3,8 @@ const initIndicatorsStore = () => {
         indicators: {},
         indicatorResults: [],
         indicatorsData: [],
+        indicatorDataIndexById: {},
+        indicatorDataIndexByCode: {},
         indicatorsSets: [],
         fieldTypes: {
             STRING: "S",
@@ -35,12 +37,14 @@ const initIndicatorsStore = () => {
                     error: '',
                 }
             })
+
+            this.storeMaps()
         },
         parseExpression(expr, instanceId, val) {
             const tokens = expr.split(" ")
 
             // If expression is only a reference to another indicator return '__copy__' to copy its value
-            if (tokens.length == 1 && this.indicatorsData.findIndex(i => i.code == tokens[0]) != -1) {
+            if (tokens.length == 1 && this.indicatorDataIndexById[tokens[0]]) {
                 return '__copy__'
             }
 
@@ -103,7 +107,7 @@ const initIndicatorsStore = () => {
         validateField(instanceId, suffix = '', suffix2 = '', validateGroupItem = false, setGroupItems = false) {
 
             const id = instanceId.split('_')[0]
-            const indicator = this.indicatorsData.find(i => i.id == id)
+            const indicator = this.getIndicatorDataById(id)
             const code = indicator.code
 
             let result = {
@@ -221,7 +225,7 @@ const initIndicatorsStore = () => {
         loadIndicatorResult(instanceId, suffix = "", suffix2 = "") {
             const instanceIdTokens = instanceId.split('_')
             const id = instanceIdTokens[0]
-            const indicator = this.indicatorsData.find(i => i.id == id)
+            const indicator = this.getIndicatorDataById(id)
 
             let result = null
 
@@ -274,7 +278,7 @@ const initIndicatorsStore = () => {
             const instanceIdTokens = instanceId.split('_')
             const id = instanceIdTokens[0]
             const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
-            const indicator = this.indicatorsData.find(i => i.id == id)
+            const indicator = this.getIndicatorDataById(id)
             if (indicator && indicator.dependant_indicators) {
                 for (dependantIndicatorCode of indicator.dependant_indicators) {
                     this.updateDependantIndicator(instanceNumber, dependantIndicatorCode, indicator.code)
@@ -283,7 +287,7 @@ const initIndicatorsStore = () => {
         },
         updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
 
-            const index = this.indicatorsData.findIndex(i => i.code == dependantIndicatorCode)
+            const index = this.indicatorDataIndexById[dependantIndicatorCode]
             if (index != -1) {
                 const indicator = this.indicatorsData[index]
                 const instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
@@ -314,7 +318,7 @@ const initIndicatorsStore = () => {
                     if (value != null) {
                         if (value == '__copy__') {
                             this.indicators[instanceId].value = this.indicators[instanceId].value
-                            const indicatorToCopy = this.indicatorsData.find(i => i.code == code)
+                            const indicatorToCopy = this.getIndicatorDataByCode(code)
                             // If the field to copy has options copy them
                             if (this.hasOptions(indicatorToCopy.data_type)) {
                                 const fieldEl = document.getElementById(`question_${indicator.id}`)
@@ -348,10 +352,10 @@ const initIndicatorsStore = () => {
 
             const instanceIdTokens = instanceId.split('_')
             const id = instanceIdTokens[0]
-            const indicator = this.indicatorsData.find(i => i.id == id)
+            const indicator = this.getIndicatorDataById(id)
             if (indicator.dependant_indicators) {
                 for (code of indicator.dependant_indicators) {
-                    const dependantIndicator = this.indicatorsData.find(i => i.code == code)
+                    const dependantIndicator = this.getIndicatorDataByCode(code)
                     const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
                     this.updateIndicatorResultNa(instanceId, value, true)
                 }
@@ -427,13 +431,33 @@ const initIndicatorsStore = () => {
             }
         },
         getInstanceId(code, referenceInstanceId = '') {
-            let instanceId = this.indicatorsData.find(i => i.code == code).id
+            let instanceId = this.getIndicatorDataByCode(code).id
             if (referenceInstanceId.includes("_")) {
                 const instanceIdTokens = referenceInstanceId.split("_")
                 const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
                 instanceId = instanceId + "_" + instanceNumber
             }
             return instanceId
+        },
+        storeMaps() {
+            this.indicatorsData.forEach((i, index) => {
+                this.indicatorDataIndexById[i.id] = index
+                this.indicatorDataIndexByCode[i.code] = index
+            })
+        },
+        getIndicatorDataById(id) {
+            try {
+                return this.indicatorsData[this.indicatorDataIndexById[id]]
+            } catch {
+                return null
+            }
+        },
+        getIndicatorDataByCode(code) {
+            try {
+                return this.indicatorsData[this.indicatorDataIndexByCode[code]]
+            } catch {
+                return null
+            }
         }
     })
 

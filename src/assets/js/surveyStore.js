@@ -81,7 +81,7 @@ const initSurveyStore = () => {
                 s.indicators_ids.forEach(id => {
                     // Validate regular fields
                     if (!this.indicators[id].isFieldValid) {
-                        const indicator = this.indicatorsData.find(i => i.id == id)
+                        const indicator = this.indicatorsStore.getIndicatorDataById(id)
                         if (!!indicator) {
                             invalidIndicators.push({
                                 code: indicator.code,
@@ -99,7 +99,7 @@ const initSurveyStore = () => {
                         const instancesIds = keys.filter(k => k.includes(id))
                         instancesIds.forEach(instanceId => {
                             if (!this.indicators[instanceId].isFieldValid) {
-                                const indicator = this.indicatorsData.find(i => i.id == id)
+                                const indicator = this.indicatorsStore.getIndicatorDataById(id)
                                 if (!!indicator) {
                                     invalidIndicators.push({
                                         code: `${indicator.code} - #${instanceId.split('_')[1]}`,
