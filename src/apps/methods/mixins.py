@@ -516,13 +516,13 @@ def get_sections(current_method, form_instance):
         # Top‑level indicators
         for indicator in section["indicators"]:
             field_obj = field_lookup[indicator["field_name"]]
-            indicator["field"] = field_obj  # or str(field_obj) for raw HTML
+            indicator["field"] = field_obj
 
         # Top‑level indicators_sets
         for i_set_dict in section["indicators_sets"]:
             for indicator in i_set_dict["indicators_set"]["indicators"]:
                 field_obj = field_lookup[indicator["field_name"]]
-                indicator["field"] = field_obj  # or str(field_obj) for raw HTML
+                indicator["field"] = field_obj
 
         for _, subsection_items in section["subsections"].items():
             # Subsection indicators
@@ -534,7 +534,7 @@ def get_sections(current_method, form_instance):
             for i_set_dict in subsection_items["indicators_sets"]:
                 for indicator in i_set_dict["indicators_set"]["indicators"]:
                     field_obj = field_lookup[indicator["field_name"]]
-                    indicator["field"] = field_obj  # or str(field_obj) for raw HTML
+                    indicator["field"] = field_obj
 
     return sections
 
