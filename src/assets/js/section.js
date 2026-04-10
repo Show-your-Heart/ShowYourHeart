@@ -43,34 +43,24 @@ const initSectionData = () => {
             return this.surveyStore['sectionsData'].filter(s => s.parent_id == this.id)
         },
         setIndicatorsInstanceIds() {
-            const instanceIds = Object.keys(Alpine.store('indicators')['indicatorResults'])
-            if (instanceIds.length > 0) {
-                this.indicatorsIds.forEach(id => {
-                    const instanceId = instanceIds.find(k => k.includes(id))
-                    if (!!instanceId && !this.indicatorsInstanceIds.includes(instanceId)) {
-                        this.indicatorsInstanceIds.push(instanceId)
-                    }
-                })
-                this.indicatorsSetsIds.forEach(sectionId => {
-                    const indicatorsSet = Alpine.store('indicators')["indicatorsSets"].find(s => s.id == sectionId)
-                    indicatorsSet.indicators_ids.forEach(id => {
-                        const setInstanceIds = instanceIds.filter(k => k.includes(id))
-                        setInstanceIds.forEach(instanceId => {
+            this.indicatorsInstanceIds = this.indicatorsIds
+            const resultsInstanceIds = Object.keys(Alpine.store('indicators')['indicatorResults'])
+
+            this.indicatorsSetsIds.forEach(setId => {
+                const indicatorsSet = Alpine.store('indicators')["indicatorsSets"].find(s => s.id == setId)
+                indicatorsSet.indicators_ids.forEach(id => {
+                    const setResultsInstanceIds = resultsInstanceIds.filter(k => k.includes(id))
+                    if (setResultsInstanceIds.length > 0) {
+                        setResultsInstanceIds.forEach(instanceId => {
                             if (!!instanceId && !this.indicatorsInstanceIds.includes(instanceId)) {
                                 this.indicatorsInstanceIds.push(instanceId)
                             }
                         })
-                    })
-                })
-            } else {
-                this.indicatorsInstanceIds = this.indicatorsIds
-                this.indicatorsSetsIds.forEach(setId => {
-                    const indicatorsSet = Alpine.store('indicators')["indicatorsSets"].find(s => s.id == setId)
-                    indicatorsSet.indicators_ids.forEach(id => {
+                    } else {
                         this.indicatorsInstanceIds.push(`${id}_1`)
-                    })
+                    }
                 })
-            }
+            })
         },
         addInstanceIds(setId, instanceNumber) {
             const indicatorsSet = Alpine.store('indicators')["indicatorsSets"].find(s => s.id == setId)
