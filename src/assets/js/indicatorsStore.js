@@ -53,16 +53,16 @@ const initIndicatorsStore = () => {
                         const subtokens = token.split("_")
                         if (subtokens.includes('total')) {
                             // Load gendered field, list or table column total
-                            value = this.loadTotalIndicatorResult(subtokens)
+                            value = this.loadTotalIndicatorResult(this.getInstanceId(subtokens[0], instanceId), subtokens)
                         } else {
-                            value = subtokens.length == 2 ? this.loadIndicatorResult(instanceId, subtokens[1]) : this.loadIndicatorResult(instanceId, subtokens[1], subtokens[2])
+                            value = subtokens.length == 2 ? this.loadIndicatorResult(this.getInstanceId(subtokens[0], instanceId), subtokens[1]) : this.loadIndicatorResult(this.getInstanceId(subtokens[0], instanceId), subtokens[1], subtokens[2])
                         }
                     } else if (token == 'val' && val.match(/(_)/)) {
                         // Reference to current group indicator
                         const subtokens = val.split("_")
                         value = subtokens.length == 2 ? this.loadIndicatorResult(instanceId, subtokens[1]) : this.loadIndicatorResult(instanceId, subtokens[1], subtokens[2])
                     } else if (token == 'val') {
-                        // Reference to other indicator 
+                        // Reference to current indicator 
                         value = this.loadIndicatorResult(instanceId)
                     } else if (token == 'AND' || token == 'and') {
                         value = '&&'
@@ -71,8 +71,8 @@ const initIndicatorsStore = () => {
                     } else if (token == 'true' || token == 'false') {
                         value = token
                     } else {
-                        // Reference to current indicator
-                        value = this.loadIndicatorResult(instanceId)
+                        // Reference to other indicator
+                        value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
                     }
                     if (value == undefined) {
                         throw new Error(`Missing value, please fill question ${token} before.`)
@@ -256,14 +256,14 @@ const initIndicatorsStore = () => {
 
             return result
         },
-        loadTotalIndicatorResult(subtokens) {
+        loadTotalIndicatorResult(instanceId, subtokens) {
             let result = null
             if (subtokens.length == 2) {
                 // List or table total
-                result = this.indicators[subtokens[0]].value.total
+                result = this.indicators[instanceId].value.total
             } else if (subtokens.length == 3) {
                 // Table row or column total
-                result = this.indicators[subtokens[0]].value[subtokens[1]].total
+                result = this.indicators[instanceId].value[subtokens[1]].total
             } else {
                 console.log("Invalid total token ")
                 result = 0
@@ -291,6 +291,7 @@ const initIndicatorsStore = () => {
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
                 if (indicator.condition.includes(code)) {
+
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
@@ -425,6 +426,15 @@ const initIndicatorsStore = () => {
                     return false
             }
         },
+        getInstanceId(code, referenceInstanceId = '') {
+            let instanceId = this.indicatorsData.find(i => i.code == code).id
+            if (referenceInstanceId.includes("_")) {
+                const instanceIdTokens = referenceInstanceId.split("_")
+                const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
+                instanceId = instanceId + "_" + instanceNumber
+            }
+            return instanceId
+        }
     })
 
 
