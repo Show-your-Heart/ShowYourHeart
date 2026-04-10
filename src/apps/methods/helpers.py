@@ -184,16 +184,23 @@ def get_form_sections(method):
         indicators = get_indicators_list(section.indicators.all())
         indicators_sets = get_indicators_sets_list(section.indicators_sets.all())
 
-        children = sections.filter(parent=section)
-        subsections = []
-        for child in children:
-            child_indicators = get_indicators_list(child.indicators.all())
-            subsections.append({child: child_indicators})
+        subsections = sections.filter(parent=section)
+        subsections_dict = {}
+        for subsection in subsections:
+            child_indicators = get_indicators_list(subsection.indicators.all())
+            child_indicators_sets = get_indicators_sets_list(
+                subsection.indicators_sets.all()
+            )
+
+            subsections_dict[subsection] = {
+                "indicators": child_indicators,
+                "indicators_sets": child_indicators_sets,
+            }
 
         result[section] = {
             "indicators": indicators,
             "indicators_sets": indicators_sets,
-            "subsections": subsections,
+            "subsections": subsections_dict,
         }
 
     return result

@@ -15,9 +15,9 @@
     {{ indicator.field }}
     {% endfor %}
 
-    {% for indicators_set_obj in items.indicators_sets %}
+    {% for indicators_set_dict in items.indicators_sets %}
     <c-card.indicators-set>
-        {% for set_name, indicators_set in indicators_set_obj.items %}
+        {% for set_name, indicators_set in indicators_set_dict.items %}
         {% for indicator in indicators_set.indicators %}
         {{ indicator.field }}
         {% endfor %}
@@ -25,10 +25,8 @@
     </c-card.indicators-set>
     {% endfor %}
 
-    {% for subsectionObj in items.subsections %}
-    {% for subsection, subsectionIndicators in subsectionObj.items %}
-    <c-methods.subsection :subsection=subsection :indicators="subsectionIndicators"></c-methods.subsection>
-    {% endfor %}
+    {% for subsection, subsection_data in items.subsections.items %}
+    <c-methods.subsection :subsection=subsection :indicators='subsection_data.indicators' :indicators-sets='subsection_data.indicators_sets'></c-methods.subsection>
     {% endfor %}
 </div>
 

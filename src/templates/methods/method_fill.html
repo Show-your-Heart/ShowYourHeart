@@ -77,12 +77,8 @@
       <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
 
       <div id="tab-content">
-        {% for section, fields in sections.items %}
-        <div id="tab-content">
-          {% for section, items in sections.items %}
-          <c-methods.section :section="section" :items="items"></c-methods.section>
-          {% endfor %}
-        </div>
+        {% for section, items in sections.items %}
+        <c-methods.section :section="section" :items="items"></c-methods.section>
         {% endfor %}
       </div>
 
