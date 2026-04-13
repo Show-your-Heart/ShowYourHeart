@@ -30,11 +30,11 @@ class MethodFillMixin:
         context = super().get_context_data(**kwargs)
 
         # External survey
-        if not is_valid_uuid(self.request.user.id):
+        if "token" in kwargs:
             method_fill_context = prepare_method_fill_context(
                 None,
                 kwargs.get("method"),
-                None,
+                kwargs.get("campaign_id"),
                 None,
                 kwargs.get("token"),
                 self.request,
@@ -56,11 +56,10 @@ class MethodFillMixin:
     @transaction.atomic
     def post(self, request, method_id, campaign_id, project_id=None):
         action = request.POST.get("action")
-
-        if not is_valid_uuid(request.user.id):
+        if "token" in self.kwargs:
             survey, created = Survey.objects.get_or_create(
                 method_id=method_id,
-                token=self.kwargs["id"],
+                token=self.kwargs["token"],
                 campaign_id=campaign_id,
             )
         else:
@@ -119,9 +118,6 @@ def prepare_method_fill_context(
         placeholder_dict = get_previous_campaign_answers(
             survey.campaign.id, survey.method.id, survey.user
         )
-        campaign_id = survey.campaign.id
-        method = survey.method
-        user = survey.user
         form = get_dynamic_form(
             survey.method,
             IndicatorResult.objects.filter(survey=survey),
