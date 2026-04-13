@@ -333,9 +333,8 @@ const initFieldData = () => {
             if (this.groupItems.length > 0) {
                 if (this.group2Items.length > 0) {
                     this.groupItems.forEach(i => {
-                        // value[i.suffix] = this.state.value[i.suffix]
                         this.group2Items.forEach(ii => {
-                            if (this.state.value[i.suffix][ii.suffix] == null) {
+                            if (this.state.value[i.suffix][ii.suffix] == null || this.state.value[i.suffix][ii.suffix] == "") {
                                 this.update(0, i.suffix, ii.suffix)
                                 this.setGroupItemValid(i.suffix, ii.suffix)
                             }
@@ -343,12 +342,26 @@ const initFieldData = () => {
                     })
                 } else {
                     this.groupItems.forEach(i => {
-                        if (this.state.value[i.suffix] == null) {
+                        if (this.state.value[i.suffix] == null || this.state.value[i.suffix][ii.suffix] == "") {
                             this.update(0, i.suffix)
                             this.setGroupItemValid(i.suffix)
                         }
                     })
                 }
+            }
+        },
+        validateGroup() {
+            try {
+                const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.instanceId, '', '', false, true)
+                this.state.isValid = isValid
+                this.state.isFieldValid = isFieldValid
+                this.updateErrors(isFieldValid)
+                this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
+            } catch (e) {
+                console.log('Invalido')
+                console.log(e)
+                this.state.hasErrors = true
+                this.state.error = e.message
             }
         }
     }))

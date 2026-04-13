@@ -131,9 +131,14 @@
         <p x-text="state.error"></p>
     </div>
     <template x-if="indicatorsStore.isNumeric(type)">
-        <c-button class="mt-2 !w-fit !bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
+        <div class="flex gap-2">
+            <c-button class="mt-2 !w-fit !bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
             @click="fillWithZeros()"
-        >{% trans "Fill with 0's" %}</c-button>
+            >{% trans "Fill with 0's" %}</c-button>
+            <c-button class="mt-2 !w-fit !bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
+            @click="validateGroup()"
+            >{% trans "Validate" %}</c-button>
+        </div>
     </template>
         
        
