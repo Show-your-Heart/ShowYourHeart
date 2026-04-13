@@ -32,7 +32,7 @@ const initFieldData = () => {
         },
         initIndicator(code, instanceNumber) {
             // Init field data
-            const indicator = this.indicatorsStore["indicatorsData"].find(i => i.code == code)
+            const indicator = this.indicatorsStore.getIndicatorDataByCode(code)
             this.id = indicator.id
             this.instanceId = instanceNumber == -1 ? this.id : `${this.id}_${instanceNumber}`
             const indicatorResults = this.indicatorsStore["indicatorResults"][this.instanceId] || null
