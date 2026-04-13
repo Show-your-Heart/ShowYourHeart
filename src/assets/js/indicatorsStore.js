@@ -79,7 +79,10 @@ const initIndicatorsStore = () => {
                         value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
                     }
                     if (value == undefined) {
-                        throw new Error(`Missing value, please fill question ${token} before.`)
+                        this.indicators[instanceId].hasErrors = true
+                        this.indicators[instanceId].error = `Missing value, please fill question ${token} before.`
+                        console.log(`Missing value, please fill question ${token} before.`)
+                        return "false"
                     }
                     loadedTokens.push(value)
                 } else if (token == "=") {
@@ -153,6 +156,7 @@ const initIndicatorsStore = () => {
                     result.isValid = this.indicators[instanceId].isValid instanceof Object ? this.indicators[instanceId].isValid : {}
 
                     if (indicator.group_2_items) {
+                        console.log("Validate dependant table")
                         indicator.group_items.forEach(({ suffix: k }) => {
                             if (result.isValid[k] == undefined) {
                                 result.isValid[k] = {}
@@ -286,16 +290,13 @@ const initIndicatorsStore = () => {
             }
         },
         updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
-
-            const index = this.indicatorDataIndexById[dependantIndicatorCode]
-            if (index != -1) {
-                const indicator = this.indicatorsData[index]
+            const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+            if (indicator) {
                 const instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
                 if (indicator.condition.includes(code)) {
-
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
@@ -337,9 +338,12 @@ const initIndicatorsStore = () => {
                         }
                     }
                 }
-                // TODO: Check if validation is dependant
                 if (indicator.validation.includes(code)) {
-                    console.log("TODO: Run dependant validation")
+                    if (indicator.is_group_indicator) {
+                        this.validateField(instanceId, '', '', false, true)
+                    } else {
+                        this.validateField(instanceId)
+                    }
                 }
             }
         },
