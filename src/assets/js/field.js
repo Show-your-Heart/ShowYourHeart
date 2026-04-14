@@ -150,13 +150,14 @@ const initFieldData = () => {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = initialValue[item.suffix]
                     if (this.indicatorsStore.isNumeric(this.type)) {
-                        value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix]), 0)
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
                     }
                 })
             } else {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = null
                 })
+                value['total'] = 0
             }
             return value
         },
@@ -245,7 +246,7 @@ const initFieldData = () => {
                 if (suffix2 == '') {
                     value[suffix] = input
                     if (this.indicatorsStore.isNumeric(type)) {
-                        value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr]) ?? 0), 0)
+                        value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
                     }
                 } else {
                     value[suffix][suffix2] = input
