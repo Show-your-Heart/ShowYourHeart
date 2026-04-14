@@ -24,5 +24,8 @@
             <span class="ml-2 text-sm text-gray-700 peer-disabled:text-gray-400 peer-disabled:cursor-default">
                 {% translate 'No' %}</span>
         </label>
+        <div class="text-red-600" x-show="state.hasErrors">
+            <p x-text="state.error"></p>
+        </div>
     </div>
 </c-methods.base-field>
