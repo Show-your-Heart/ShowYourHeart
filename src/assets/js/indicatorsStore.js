@@ -156,7 +156,6 @@ const initIndicatorsStore = () => {
                     result.isValid = this.indicators[instanceId].isValid instanceof Object ? this.indicators[instanceId].isValid : {}
 
                     if (indicator.group_2_items) {
-                        console.log("Validate dependant table")
                         indicator.group_items.forEach(({ suffix: k }) => {
                             if (result.isValid[k] == undefined) {
                                 result.isValid[k] = {}
