@@ -8,7 +8,6 @@ from .views import (
     MethodPreviewView,
     create_invitation_action,
     delete_invitation,
-    import_csv,
     import_csv2,
     invitation_sent_view,
     invitations_sent_view,
@@ -49,7 +48,6 @@ urlpatterns = [
     ),
     path(_("send-invitations/<id>"), invitations_sent_view, name="send_invitations"),
     path(_("send-invitation/<id>"), invitation_sent_view, name="send_invitation"),
-    path("import-csv/<id>", import_csv, name="import_csv"),
     path(
         "import-csv2/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/",
         import_csv2,
