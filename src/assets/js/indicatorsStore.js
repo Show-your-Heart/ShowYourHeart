@@ -347,6 +347,7 @@ const initIndicatorsStore = () => {
             }
         },
         updateIndicatorResultNa(instanceId, value, hide = false) {
+            try {
             this.indicators[instanceId].notApplicable = value
 
             if (hide) {
@@ -361,6 +362,13 @@ const initIndicatorsStore = () => {
                     const dependantIndicator = this.getIndicatorDataByCode(code)
                     const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
                     this.updateIndicatorResultNa(instanceId, value, true)
+                    }
+                }
+            } catch {
+                this.indicators[`${instanceId}_1`].notApplicable = value
+
+                if (hide) {
+                    this.indicators[`${instanceId}_1`].show = !value
                 }
             }
         },
