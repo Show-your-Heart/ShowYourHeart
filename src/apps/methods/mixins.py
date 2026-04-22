@@ -464,7 +464,7 @@ def get_initial_values(survey):
             }
         elif i.indicator.is_group_indicator:
             if i.indicator.group_2 is None:
-                if i.indicator.code not in initial_values:
+                if instance_id not in initial_values:
                     initial_values[instance_id] = {
                         "value": {},
                         "not_applicable": i.not_applicable,
@@ -476,7 +476,7 @@ def get_initial_values(survey):
                 else:
                     initial_values[instance_id]["value"][i.group_item.suffix] = i.value
             else:
-                if i.indicator.code not in initial_values:
+                if instance_id not in initial_values:
                     initial_values[instance_id] = {
                         "value": {},
                         "not_applicable": i.not_applicable,
