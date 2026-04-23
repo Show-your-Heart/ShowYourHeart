@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div x-data="fieldsSet({code: '{{indicators_set_dict.indicators_set.code}}', name: '{{indicators_set_dict.set_name}}'})">
+<div x-data="fieldsSet({code: '{{indicators_set_dict.indicators_set.code}}', name: '{{indicators_set_dict.set_name}}'})" :id="`set_${id}`" x-show="show">
   <h5 class="text-xl font-bold mb-2" x-text="title"></h5>
     <template x-if="description != ''">
         <div class="mb-4" x-html="description"></div>
@@ -13,7 +13,6 @@
           class="flex justify-between items-center w-full h-fit p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 hover:cursor-pointer"
           :data-accordion-target="`#${name}-body-${instance}`" aria-expanded="false" :aria-controls="`${name}-body-${instance}`"
         >
-
           <p>{{indicators_set_dict.indicators_set.instance_name}} #<span x-text="instance"></span></p>
           <c-button variant="icon" @click.prevent="remove(instance)" class="hover:bg-red-500 hover:text-white">
             <c-icon name="trash-bin"></c-icon>

@@ -5,6 +5,9 @@ const initFielsSetdData = () => {
         name: "",
         title: "",
         description: "",
+        condition: "",
+        show: true,
+        indicatorsIds: [],
         totalInstances: 1,
         idsCounter: 1,
         instances: [1],
@@ -16,7 +19,9 @@ const initFielsSetdData = () => {
             this.id = indicatorsSet.id
             this.title = indicatorsSet.name
             this.description = indicatorsSet.description
+            this.indicatorsIds = indicatorsSet.indicators_ids
             const firstIndicatorId = indicatorsSet.indicators_ids[0]
+            this.show = indicatorsSet.condition != "" ? this.indicatorsStore.isVisible("", indicatorsSet.condition) : true
 
             // Init set instances
             const indicatorResults = this.indicatorsStore["indicatorResults"]
@@ -33,6 +38,9 @@ const initFielsSetdData = () => {
             })
             setTimeout(() => {
                 this.initAccordion()
+                if (!this.show) {
+                    this.updateSetIndicatorsShow(this.show)
+                }
             }, 100)
         },
         add() {
@@ -67,8 +75,32 @@ const initFielsSetdData = () => {
             if (collapse) {
                 accordion.open(`${this.name}-heading-${this.instances[this.instances.length - 1]}`)
             }
-        }
+        },
+        updateShow(show) {
+            // Only if it has changed
+            if (this.show != show) {
+                this.show = show
+                this.updateSetIndicatorsShow(show)
+            }
+        },
+        updateSetIndicatorsShow(show) {
+            this.instances.forEach(instanceNumber => {
+                this.indicatorsIds.forEach(id => {
+                    const instanceId = `${id}_${instanceNumber}`
+                    const fieldEl = document.querySelector(`#field_${instanceId}`);
+                    const showField = show
+                    Alpine.$data(fieldEl).updateShow(showField)
 
+                    this.indicatorsStore.updateIndicatorResultNa(instanceId, !show, !show)
+
+                    // Update validation
+                    const { isValid, isFieldValid } = this.indicatorsStore.validateField(instanceId)
+                    this.indicatorsStore.indicators[instanceId].isValid = isValid
+                    this.indicatorsStore.indicators[instanceId].isFieldValid = isFieldValid
+                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id, isValid: isFieldValid })
+                })
+            })
+        }
     }))
 }
 

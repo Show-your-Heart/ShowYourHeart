@@ -336,9 +336,75 @@ class IndicatorsSet(BaseModel):
     description = models.CharField(_("description"), max_length=2500, blank=True)
     instance_name = models.CharField(_("item name"), max_length=1000, blank=True)
     indicators = SortedManyToManyField(Indicator, related_name="sets")
+    condition = models.CharField(_("condition"), max_length=400, blank=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_condition = self.condition
 
     def __str__(self):
         return f"{self.code} - {self.name}"
+
+    def update_dependencies(self):
+        # Get dependencies to add and dependencies to remove
+        if self.condition != self.__original_condition:
+            old_deps = set(parse_expression_dependencies(self.__original_condition))
+            # remove self code
+            old_deps = old_deps.difference([self.code])
+
+            deps = set(parse_expression_dependencies(self.condition))
+            # remove self code
+            deps = deps.difference([self.code])
+
+            deps_to_remove = list(old_deps.difference(deps))
+            deps_to_add = list(deps.difference(old_deps))
+
+            for code in deps_to_add:
+                indicator = self.get_indicator(code)
+                if indicator:
+                    if indicator.dependant_indicators:
+                        indicator.dependant_indicators.append(self.code)
+                        indicator.save()
+                    else:
+                        indicator.dependant_indicators = [self.code]
+                        indicator.save()
+
+            for code in deps_to_remove:
+                try:
+                    indicator = self.get_indicator(code)
+                except ValidationError:
+                    pass
+
+                if indicator:
+                    if (
+                        indicator.dependant_indicators
+                        and self.code in indicator.dependant_indicators
+                    ):
+                        indicator.dependant_indicators.remove(self.code)
+                        indicator.save()
+
+    def get_indicator(self, code):
+        indicator = None
+        try:
+            if "_" in code:
+                subtoken = re.split(r"[_]", code)
+                indicator = Indicator.objects.get(code=subtoken[0])
+            else:
+                indicator = Indicator.objects.get(code=code)
+        except ObjectDoesNotExist:
+            raise ValidationError(
+                {_(f"Indicator with code {code} does not exist")}
+            ) from ObjectDoesNotExist
+        except MultipleObjectsReturned:
+            raise ValidationError(
+                {_(f"There are multiple indicators with code {code}")}
+            ) from MultipleObjectsReturned
+
+        return indicator
+
+    def save(self, *args, **kwargs):
+        self.update_dependencies()
+        return super(IndicatorsSet, self).save(*args, **kwargs)
 
 
 class Method(BaseModel):

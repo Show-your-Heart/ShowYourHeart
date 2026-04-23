@@ -72,6 +72,7 @@ const initSurveyStore = () => {
             window.scrollTo({ top: offsetPosition, behavior: "smooth" })
         },
         setInvalidIndicators() {
+            let hasInvalidIndicators = false
             let validatedSections = []
             let indicatorsInSets = []
             this.indicatorsStore["indicatorsSets"].forEach(s => indicatorsInSets = [...indicatorsInSets, ...s.indicators_ids])
@@ -83,6 +84,7 @@ const initSurveyStore = () => {
                     if (!this.indicators[id].isFieldValid) {
                         const indicator = this.indicatorsStore.getIndicatorDataById(id)
                         if (!!indicator) {
+                            hasInvalidIndicators = true
                             invalidIndicators.push({
                                 code: indicator.code,
                                 instanceId: indicator.id,
@@ -101,6 +103,7 @@ const initSurveyStore = () => {
                             if (!this.indicators[instanceId].isFieldValid) {
                                 const indicator = this.indicatorsStore.getIndicatorDataById(id)
                                 if (!!indicator) {
+                                    hasInvalidIndicators = true
                                     invalidIndicators.push({
                                         code: `${indicator.code} - #${instanceId.split('_')[1]}`,
                                         instanceId: instanceId,
@@ -120,14 +123,14 @@ const initSurveyStore = () => {
                 }
             })
             this.validatedSections = validatedSections
+            return hasInvalidIndicators
         },
         validateSurvey() {
             let isValid = true
 
             // Check all fields are valid.
-            const index = Object.keys(this.indicators).findIndex(instanceId => this.indicators[instanceId].isFieldValid == false)
-            if (index > -1) {
-                this.setInvalidIndicators()
+            const hasInvalidIndicators = this.setInvalidIndicators()
+            if (hasInvalidIndicators) {
                 let showModalEvent = new Event('show-modal')
                 showModalEvent.detail = { 'id': 'survey-errors-modal' }
                 window.dispatchEvent(showModalEvent)
