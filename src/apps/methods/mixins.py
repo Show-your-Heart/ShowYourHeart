@@ -242,8 +242,8 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
         Indicator.DataType.DECIMALGENDER,
     ]:
         for suffix, gender in {
-            "male": IndicatorResult.Gender.MALE,
-            "female": IndicatorResult.Gender.FEMALE,
+            "men": IndicatorResult.Gender.MALE,
+            "women": IndicatorResult.Gender.FEMALE,
             "non_binary": IndicatorResult.Gender.NON_BINARY,
         }.items():
             value = request.POST.get(f"{field_name}_{suffix}")
