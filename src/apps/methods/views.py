@@ -64,12 +64,11 @@ class ExternalSurveysView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         invitations = Invitation.objects.none()
-        send_invitations_url = None
-        import_csv_url = None
         selected_method_id = kwargs["method_id"]
         organization_id = kwargs["organization_id"]
         campaign_id = kwargs["campaign_id"]
         selected_ext_survey_id = self.request.GET.get("ext_survey")
+        external_survey_invitation_id = None
 
         # Get all the external surveys of the current method
         method = Method.objects.get(
@@ -93,15 +92,7 @@ class ExternalSurveysView(TemplateView):
                 invitations = Invitation.objects.filter(
                     external_survey_invitation=external_survey_invitation
                 )
-
-                send_invitations_url = reverse(
-                    "methods:send_invitations",
-                    args=[external_survey_invitation.id],
-                )
-                import_csv_url = reverse(
-                    "methods:import_csv",
-                    args=[external_survey_invitation.id],
-                )
+                external_survey_invitation_id = external_survey_invitation.id
 
         context.update(
             {
@@ -110,10 +101,9 @@ class ExternalSurveysView(TemplateView):
                 "selected_ext_survey": selected_ext_survey,
                 "invitations": invitations,
                 "create_invitation_form": InvitationCreationForm,
-                "send_invitations_url": send_invitations_url,
-                "import_csv_url": import_csv_url,
                 "organization_id": organization_id,
                 "campaign_id": campaign_id,
+                "external_survey_invitation_id": external_survey_invitation_id,
             }
         )
 
@@ -163,17 +153,34 @@ def invitations_sent_view(request, id):
             invitation.send_date = timezone.now()
             invitation.save()
 
-        messages.success(
-            request,
-            _("The invitations have been sent."),
-        )
+        msg = _("The invitations have been sent.")
     else:
+        msg = _("There are no invitations to send.")
+
+    if "superadmin" in request.META.get("HTTP_REFERER", "/"):
         messages.success(
             request,
-            _("There are no invitations to send."),
+            msg,
         )
 
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+    else:
+        return HttpResponse(
+            render(
+                request,
+                "components/methods/invitations_table.html",
+                {
+                    "invitations": Invitation.objects.filter(
+                        external_survey_invitation_id=id
+                    )
+                },
+            ),
+            headers={
+                "HX-Trigger": '{"notification": {"type": "success","text": "'
+                + msg
+                + '"}}',
+            },
+        )
 
 
 def invitation_sent_view(request, id):
@@ -183,16 +190,28 @@ def invitation_sent_view(request, id):
     invitation.send_date = timezone.now()
     invitation.save()
 
-    messages.success(
-        request,
-        _("The invitation has been sent."),
-    )
+    if "superadmin" in request.META.get("HTTP_REFERER", "/"):
+        messages.success(
+            request,
+            _("The invitation has been sent."),
+        )
 
-    return render(
-        request,
-        "components/methods/invitation_row.html",
-        {"invitation": invitation},
-    )
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+    else:
+        msg = _("The invitation has been sent.")
+
+        return HttpResponse(
+            render(
+                request,
+                "components/methods/invitation_row.html",
+                {"invitation": invitation},
+            ),
+            headers={
+                "HX-Trigger": '{"notification": {"type": "success","text": "'
+                + msg
+                + '"}}',
+            },
+        )
 
 
 def import_csv2(request, organization_id, method_id, campaign_id):

@@ -33,31 +33,7 @@
                 </p>
 
                 <div class="mb-6 overflow-x-auto">
-                    <table class="w-full border border-gray-300 border-collapse text-sm">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="border border-gray-300 px-4 py-2 text-left">{% translate "Name" %}</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">{% translate "Email" %}</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">{% translate "Date" %}</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">{% translate "Status" %}</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">{% translate "Send" %}</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">{% translate "Delete" %}</th>
-                            </tr>
-                        </thead>
-                        <tbody id="invitation-table-body">
-                            {% for invitation in invitations %}
-                                <tr id="invitation-row-{{ invitation.id }}" class="odd:bg-white even:bg-gray-50">
-                                    <c-methods.invitation-row :invitation="invitation"> </c-methods.invitation-row >
-                                </tr>
-                            {% empty %}
-                                <tr id="empty-row">
-                                    <td colspan="6" class="border border-gray-300 px-4 py-4 text-center text-gray-500">
-                                        {% translate "No invitations found." %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <c-methods.invitations-table :invitations="invitations"> </c-methods.invitations-table >
                 </div>
 
                 <div class="flex gap-4">
@@ -78,7 +54,9 @@
 
                     {% if invitations.exists %}
                         <c-button
-                            onclick="if(confirm('{% translate 'Are you sure you want to send the invitations?' %}')) window.location.href='{{ send_invitations_url }}';"
+                         hx-post="{% url 'methods:send_invitations' external_survey_invitation_id %}"
+                         hx-target="#invitations-table"
+                         hx-confirm="{% translate 'Are you sure you want to send the invitations?' %}"
                         >
                             <span>{% translate 'Send surveys' %}</span>
                             <c-icon name="arrow-right" class="inline text-white"></c-icon>
