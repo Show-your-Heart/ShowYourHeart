@@ -359,7 +359,8 @@ const initIndicatorsStore = () => {
                 this.indicators[instanceId].notApplicable = value
 
                 if (hide) {
-                    this.indicators[instanceId].show = !value
+                    const fieldEl = document.querySelector(`#field_${instanceId}`);
+                    Alpine.$data(fieldEl).updateShow(!value)
                 }
 
                 const instanceIdTokens = instanceId.split('_')
