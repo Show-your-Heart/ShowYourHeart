@@ -110,7 +110,7 @@
 
         <template x-for="section in $store.survey.validatedSections">
           <div>
-            <h3 class="font-bold text-md mb-4" x-text="section.title|escapejs"></h3>
+            <h3 class="font-bold text-md mb-4" x-text="section.title"></h3>
             <ul class="rounded-lg  border border-gray-200 shadow-sm">
               <template x-for="invalidIndicator in section.invalidIndicators">
                 <li class="flex space-x-2 even:bg-gray-100 odd:bg-white cursor-pointer"
