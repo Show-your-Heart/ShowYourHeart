@@ -344,24 +344,32 @@ const initIndicatorsStore = () => {
                         this.validateField(instanceId)
                     }
                 }
+            } else {
+                const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
+                // Update conditional set
+                if (indicatorsSet.condition.includes(code)) {
+                    const setEl = document.querySelector(`#set_${indicatorsSet.id}`);
+                    const show = this.isVisible("", indicatorsSet.condition)
+                    Alpine.$data(setEl).updateShow(show)
+                }
             }
         },
         updateIndicatorResultNa(instanceId, value, hide = false) {
             try {
-            this.indicators[instanceId].notApplicable = value
+                this.indicators[instanceId].notApplicable = value
 
-            if (hide) {
-                this.indicators[instanceId].show = !value
-            }
+                if (hide) {
+                    this.indicators[instanceId].show = !value
+                }
 
-            const instanceIdTokens = instanceId.split('_')
-            const id = instanceIdTokens[0]
-            const indicator = this.getIndicatorDataById(id)
-            if (indicator.dependant_indicators) {
-                for (code of indicator.dependant_indicators) {
-                    const dependantIndicator = this.getIndicatorDataByCode(code)
-                    const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
-                    this.updateIndicatorResultNa(instanceId, value, true)
+                const instanceIdTokens = instanceId.split('_')
+                const id = instanceIdTokens[0]
+                const indicator = this.getIndicatorDataById(id)
+                if (indicator.dependant_indicators) {
+                    for (code of indicator.dependant_indicators) {
+                        const dependantIndicator = this.getIndicatorDataByCode(code)
+                        const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
+                        this.updateIndicatorResultNa(instanceId, value, true)
                     }
                 }
             } catch {
