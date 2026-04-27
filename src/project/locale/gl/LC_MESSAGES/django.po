@@ -6,344 +6,233 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-13 13:40+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-04-27 16:14+0200\n"
+"PO-Revision-Date: 2026-04-21 15:31+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 
 #: project/admin.py:89 project/admin.py:145
 msgid "Add/Edit"
-msgstr ""
+msgstr "Engadir/Editar"
 
 #: project/admin.py:95 project/admin.py:151
 msgid "Actions"
-msgstr ""
+msgstr "Accións"
 
 #: project/admin.py:119
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
-msgstr ""
+msgstr "Adición"
 
 #: project/admin.py:120
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
-msgstr ""
+msgstr "Eliminación"
 
 #: project/admin.py:121
 msgctxt "logentry_admin:action_type"
 msgid "Change"
-msgstr ""
+msgstr "Cambiar"
 
 #: project/admin.py:175 project/admin.py:315
 msgid "action"
-msgstr ""
+msgstr "acción"
 
 #: project/admin.py:188
 msgid "staff user"
-msgstr ""
+msgstr "persoal usuario"
 
 #: project/admin.py:214
 msgid "Metadata"
-msgstr ""
+msgstr "Metadata"
 
 #: project/admin.py:225
 msgid "Details"
-msgstr ""
+msgstr "Detalles"
 
 #: project/admin.py:284
 msgid "object"
-msgstr ""
+msgstr "obxecto"
 
 #: project/admin.py:301
 msgid "user"
-msgstr ""
+msgstr "usuaria"
 
 #: project/admin.py:321
 msgid "change message"
-msgstr ""
+msgstr "cambiar a mensaxe"
 
 #: project/admin.py:402
 msgid "Organizations management"
-msgstr ""
+msgstr "Xestión de organizacións"
 
 #: project/admin.py:441
 msgid "Methods management"
-msgstr ""
+msgstr "Xestión de métodos"
 
 #: project/admin.py:452
 msgid "Features"
-msgstr ""
+msgstr "Características"
 
 #: project/admin.py:458
 msgid "Registration Requests"
-msgstr ""
+msgstr "Solicitudes de rexistro"
 
 #: project/admin.py:463
 msgid "Review Balances"
-msgstr ""
+msgstr "Revisión balances"
 
 #: project/admin.py:511
 msgid "Settings"
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:20
-msgid ""
-"Fills the database with all the necessary data to make it faster for "
-"developers to work with the project when they need to re-create the "
-"database. Debug mode needs to be enabled to run this command. Make sure to "
-"set the 'Initial superuser and dev data' settings before running this "
-"command."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:37
-msgid "This command can only be run in debug mode."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:59
-msgid "Creating sample users..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:69
-#, python-brace-format
-msgid "Superuser created with email '{email}'."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:74
-msgid "Superuser already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:83
-msgid "Creating sample network..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:94
-msgid "Network test already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:101
-msgid "Creating sample legal structure..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:111
-msgid "LegalStructure test already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:136
-#, python-brace-format
-msgid "Governace admin user created with email '{email}'."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:157
-msgid "Governace admin user already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:173
-#, python-brace-format
-msgid "User created with email '{email}'."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:183
-msgid "User already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:189
-msgid "Creating sample organizations..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:213
-msgid "Creating sample topics..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:233
-msgid "Creating sample indicators..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:255
-msgid "Creating sample methods..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:276
-msgid "Creating sample country..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:284
-msgid "Country already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:290
-msgid "Creating sample city..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:300
-msgid "City already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:306
-msgid "Creating sample zipcode..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:315
-msgid "Zip code already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:321
-msgid "Creating sample Region1..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:330
-msgid "Region1 already exists."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:335
-msgid "Creating sample Campaign..."
-msgstr ""
-
-#: project/management/commands/load_dev_data.py:348
-msgid "Campaign already exists."
-msgstr ""
-
-#: project/management/commands/load_email_templates.py:11
-msgid "Fills the database with all the default email templates. "
-msgstr ""
+msgstr "Configuración"
 
 #: project/models.py:24
 msgid "created at"
-msgstr ""
+msgstr "creado en"
 
 #: project/models.py:35
 msgid "created by"
-msgstr ""
+msgstr "creado por"
 
 #: project/models.py:39
 msgid "updated at"
-msgstr ""
-
-#: project/settings.py:69
-msgid "English"
-msgstr ""
-
-#: project/settings.py:70
-msgid "Catalan"
-msgstr ""
-
-#: project/settings.py:71
-msgid "Galician"
-msgstr ""
-
-#: project/settings.py:72
-msgid "Basque"
-msgstr ""
+msgstr "actualizado en"
 
 #: project/settings.py:73
-msgid "Spanish"
-msgstr ""
+msgid "English"
+msgstr "English"
 
 #: project/settings.py:74
-msgid "Dutch"
-msgstr ""
+msgid "Catalan"
+msgstr "Català"
 
 #: project/settings.py:75
-msgid "French"
-msgstr ""
+msgid "Galician"
+msgstr "Galego"
 
-#: project/settings.py:376
+#: project/settings.py:76
+msgid "Basque"
+msgstr "Euskera"
+
+#: project/settings.py:77
+msgid "Spanish"
+msgstr "Español"
+
+#: project/settings.py:78
+msgid "Dutch"
+msgstr "Neerlandés"
+
+#: project/settings.py:79
+msgid "French"
+msgstr "Francés"
+
+#: project/settings.py:380
 msgid ""
 "This name will be used for the HTML title of the public app, logo alt text "
 "and other places."
 msgstr ""
+"Este nome usarase para o título HTML da aplicación pública, o texto "
+"alternativo do logotipo e outros lugares."
 
-#: project/settings.py:385
+#: project/settings.py:389
 msgid ""
 "Logo image that will be used to customize the public app, e-mail templates "
 "and other."
 msgstr ""
+"Imaxe do logotipo que se empregará para personalizar a aplicación pública, "
+"os modelos de correo electrónico e outras cousas."
 
-#: project/settings.py:392
+#: project/settings.py:396
 msgid "Dynamic settings"
-msgstr ""
+msgstr "Configuración dinámica"
 
-#: project/settings.py:479
+#: project/settings.py:483
 msgid ""
 "Access to: configuration and customization settings, the log of emails sent "
 "by the system, email templates, users management. Gives permission to edit "
 "the fields 'Is staff', 'Is active' and 'Groups'."
 msgstr ""
+"Acceso a: axustes de configuración e personalización, rexistro de correos "
+"electrónicos enviados polo sistema, modelos de correo electrónico, xestión "
+"de usuarias. Dá permiso para editar os campos \"É persoal\", \"É activo\" e "
+"\"Grupos\"."
 
-#: project/settings.py:487
+#: project/settings.py:491
 msgid "Access to: all basic models read-only mode."
-msgstr ""
+msgstr "Acceso a: todos os modelos básicos en modo de só lectura."
 
 #: project/tests/test_selenium.py:55
 msgid "Administration panel"
-msgstr ""
+msgstr "Panel de administración"
 
 #: project/tests/test_selenium.py:56
 msgid "Site administration"
-msgstr ""
+msgstr "Administración do sitio"
 
 #: project/tests/test_selenium.py:57
 msgid "Log out"
-msgstr ""
+msgstr "Pechar sesión"
 
 #: project/tests/test_selenium.py:58
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: project/tests/test_selenium.py:59
 msgid "Create an account"
-msgstr ""
+msgstr "Crear unha conta"
 
 #: project/tests/test_selenium.py:60
 msgid "Profile details"
-msgstr ""
+msgstr "Detalles do perfil"
 
 #: project/tests/test_selenium.py:61 project/views.py:100
 msgid "Registry updated"
-msgstr ""
+msgstr "Rexistro actualizado"
 
 #: project/tests/test_selenium.py:62
 msgid "Password change"
-msgstr ""
+msgstr "Cambio de contrasinal"
 
 #: project/tests/test_selenium.py:63
 msgid "Mail validation"
-msgstr ""
+msgstr "Validación de correo"
 
 #: project/urls.py:32
 msgid "registration/"
-msgstr ""
+msgstr "rexistro/"
 
 #: project/urls.py:37
 msgid "settings/"
-msgstr ""
+msgstr "configuración/"
 
 #: project/urls.py:39
 msgid "organizations/"
-msgstr ""
+msgstr "organizacións/"
 
 #: project/urls.py:42
 msgid "methods/"
-msgstr ""
+msgstr "métodos/"
 
 #: project/views.py:99
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 #: project/views.py:101
 msgid "Registry successfully updated"
-msgstr ""
+msgstr "Rexistro actualizado correctamente"
 
 #: project/views.py:102
 msgid "Done!"
-msgstr ""
+msgstr "Feito!"
 
 #: project/views.py:103
 msgid "The registry was updated correctly."
-msgstr ""
+msgstr "O rexistro actualizouse correctamente."

@@ -6,1096 +6,1111 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-24 09:48+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-04-27 16:36+0200\n"
+"PO-Revision-Date: 2026-04-27 16:20+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 
 #: apps/geodata/models.py:11
 msgid "countries"
-msgstr ""
+msgstr "herrialdeak"
 
 #: apps/geodata/models.py:27
 msgid "regions (1)"
-msgstr ""
+msgstr "lurraldeak (1)"
 
 #: apps/geodata/models.py:52
 msgid "regions (2)"
-msgstr ""
+msgstr "lurraldeak (2)"
 
 #: apps/geodata/models.py:82
 msgid "regions (3)"
-msgstr ""
+msgstr "lurraldeak (3)"
 
 #: apps/geodata/models.py:121
 msgid "cities"
-msgstr ""
+msgstr "hiriak"
 
 #: apps/geodata/models.py:139
 msgid "zip codes"
-msgstr ""
+msgstr "posta Kodea"
 
-#: apps/methods/admin.py:570
+#: apps/methods/admin.py:615
 msgid "Balance successfuly updated."
-msgstr ""
+msgstr "Gonbidapena luzatu nahi duzula ziur al zaude."
 
-#: apps/methods/admin.py:604
+#: apps/methods/admin.py:649
 msgid "Balance status successfuly updated."
-msgstr ""
+msgstr "Balantze egoera arrakastaz eguneratua."
 
-#: apps/methods/admin.py:666 apps/methods/admin.py:709
+#: apps/methods/admin.py:712 apps/methods/admin.py:756
 msgid "Actions"
-msgstr ""
+msgstr "Ekintzak"
 
-#: apps/methods/admin.py:670
+#: apps/methods/admin.py:716
 msgid "Are you sure you want to send the invitation?"
-msgstr ""
+msgstr "Gonbidapenak luzatu nahi dituzula ziur al zaude?"
 
-#: apps/methods/admin.py:675
+#: apps/methods/admin.py:721
 msgid "Send invitation"
-msgstr ""
+msgstr "Gonbidapena luzatzea"
 
-#: apps/methods/admin.py:713 templates/methods/external_surveys_view.html:102
+#: apps/methods/admin.py:760 templates/methods/external_surveys_view.html:59
 msgid "Are you sure you want to send the invitations?"
-msgstr ""
+msgstr "Gonbidapenak luzatu nahi dituzula ziur al zaude?"
 
-#: apps/methods/admin.py:718
+#: apps/methods/admin.py:765
 msgid "Send invitations"
-msgstr ""
+msgstr "Gonbidapenak luzatu"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
-#: apps/methods/models.py:408 apps/methods/models.py:538
-#: apps/methods/models.py:585 apps/organizations/forms.py:26
+#: apps/methods/models.py:489 apps/methods/models.py:622
+#: apps/methods/models.py:670 apps/organizations/forms.py:26
 #: apps/organizations/forms.py:42 apps/organizations/forms.py:232
-#: templates/admin/methods/survey_review.html:32
-#: templates/admin/methods/survey_review.html:116
+#: templates/admin/methods/survey_review.html:34
+#: templates/admin/methods/survey_review.html:119
 #: templates/admin/organizations/registration_requests.html:38
-#: templates/methods/external_surveys_view.html:39
+#: templates/components/methods/invitations_table.html:8
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #: apps/methods/forms.py:158 apps/methods/forms.py:159
-#: apps/methods/models.py:586
+#: apps/methods/models.py:671
 msgid "Surnames"
-msgstr ""
+msgstr "Abizenak"
 
 #: apps/methods/forms.py:168
 msgid "Gender"
+msgstr "Generoa"
+
+#: apps/methods/helpers.py:30
+msgid "The csv file must contain the headers 'name' and 'email'"
 msgstr ""
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
-#: apps/methods/models.py:344 apps/organizations/models.py:29
+#: apps/methods/models.py:422 apps/organizations/models.py:29
 #: apps/organizations/models.py:163 apps/settings/models.py:10
 #: apps/settings/models.py:21 apps/settings/models.py:38
 msgid "name"
-msgstr ""
+msgstr "izena"
 
 #: apps/methods/models.py:20 apps/methods/models.py:150
-#: apps/methods/models.py:345 apps/organizations/models.py:30
-#: apps/organizations/models.py:164
+#: apps/methods/models.py:336 apps/methods/models.py:423
+#: apps/organizations/models.py:30 apps/organizations/models.py:164
 msgid "description"
-msgstr ""
+msgstr "deskribapena"
 
 #: apps/methods/models.py:32
 msgid "This topic is already used by indicators and cannot be deleted."
-msgstr ""
+msgstr "Gai hau jada erabiltzen dute adierazleek eta ezin da ezabatu."
 
 #: apps/methods/models.py:38 apps/methods/models.py:57
 #: apps/methods/models.py:68 apps/methods/models.py:86
 msgid "title"
-msgstr ""
+msgstr "izenburua"
 
 #: apps/methods/models.py:39 apps/methods/models.py:199
 msgid "formula"
-msgstr ""
+msgstr "formula"
 
 #: apps/methods/models.py:40
 msgid "value"
-msgstr ""
+msgstr "balioa"
 
 #: apps/methods/models.py:49
 msgid ""
 "This list item has already been used and cannot be deleted. Please create a "
 "new list item instead."
 msgstr ""
+"Elementu zerrenda hau erabili izan da jada eta ezin da ezabatu. Hori egin "
+"beharrean, sortu elementu zerrenda berri bat, mesedez."
 
 #: apps/methods/models.py:59
 msgid "Enable others response"
-msgstr ""
+msgstr "Besteen erantzunak gaitzea"
 
 #: apps/methods/models.py:69
 msgid "suffix"
-msgstr ""
+msgstr "sufijoa"
 
 #: apps/methods/models.py:78
 msgid ""
 "This group item has already been used and cannot be deleted. Please create a "
 "new group item instead."
 msgstr ""
+"Elementu talde hau erabili izan da jada eta ezin da ezabatu. Hori egin "
+"beharrean, sortu elementu talde berri bat, mesedez."
 
 #: apps/methods/models.py:98
 msgid "Performance"
-msgstr ""
+msgstr "Etekin"
 
 #: apps/methods/models.py:99
 msgid "Scoring"
-msgstr ""
+msgstr "Sailkapena"
 
 #: apps/methods/models.py:100
 msgid "Certification"
-msgstr ""
+msgstr "Ziurtagiria"
 
 #: apps/methods/models.py:103
 msgid "String"
-msgstr ""
+msgstr "Katea"
 
 #: apps/methods/models.py:104
 msgid "Text"
-msgstr ""
+msgstr "Testua"
 
 #: apps/methods/models.py:105
 msgid "Integer"
-msgstr ""
+msgstr "Osoa"
 
 #: apps/methods/models.py:106
 msgid "Decimal"
-msgstr ""
+msgstr "Dezimal"
 
 #: apps/methods/models.py:107
 msgid "Boolean"
-msgstr ""
+msgstr "Boolearra"
 
-#: apps/methods/models.py:108 templates/methods/external_surveys_view.html:41
+#: apps/methods/models.py:108
+#: templates/components/methods/invitations_table.html:10
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: apps/methods/models.py:109
 msgid "Attachment"
-msgstr ""
+msgstr "Eranskina"
 
 #: apps/methods/models.py:110
 msgid "Checkbox"
-msgstr ""
+msgstr "Aukeratzko gunea"
 
 #: apps/methods/models.py:111
 msgid "Radiobutton"
-msgstr ""
+msgstr "Aukeratzeko botoia"
 
 #: apps/methods/models.py:112
 msgid "Dropdown"
-msgstr ""
+msgstr "Zabalgarria"
 
 #: apps/methods/models.py:113
 msgid "Integer gendered value"
-msgstr ""
+msgstr "Genero osoko balioa"
 
 #: apps/methods/models.py:114
 msgid "Real gendered number"
-msgstr ""
+msgstr "Zenbaki erreala generorekin"
 
 #: apps/methods/models.py:117
 msgid "people"
-msgstr ""
+msgstr "gendea"
 
 #: apps/methods/models.py:120
 msgid "kg"
-msgstr ""
+msgstr "kg"
 
 #: apps/methods/models.py:121
 msgid "m2"
-msgstr ""
+msgstr "m2"
 
 #: apps/methods/models.py:122
 msgid "°C"
-msgstr ""
+msgstr "°C"
 
 #: apps/methods/models.py:123
 msgid "days"
-msgstr ""
+msgstr "egunak"
 
 #: apps/methods/models.py:124
 msgid "points"
-msgstr ""
+msgstr "puntuak"
 
 #: apps/methods/models.py:125
 msgid "KWh"
-msgstr ""
+msgstr "KWh"
 
 #: apps/methods/models.py:126
 msgid "€/h"
-msgstr ""
+msgstr "€/h"
 
 #: apps/methods/models.py:127
 msgid "number"
-msgstr ""
+msgstr "zenbakia"
 
-#: apps/methods/models.py:128
-msgid "percentage"
-msgstr ""
-
-#: apps/methods/models.py:147
+#: apps/methods/models.py:147 apps/methods/models.py:333
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
-#: apps/methods/models.py:148
+#: apps/methods/models.py:148 apps/methods/models.py:334
 msgid "version"
-msgstr ""
+msgstr "bertsio"
 
 #: apps/methods/models.py:153
 msgid "Is it a direct indicator?"
-msgstr ""
+msgstr "Adierazle zuzena ba al da?"
 
 #: apps/methods/models.py:156
 msgid "Display indirect indicator?"
-msgstr ""
+msgstr "Zeharkako adierazlea ba al da?"
 
 #: apps/methods/models.py:159
 msgid "Is it a group indicator? (e.g. lists or tables)"
-msgstr ""
+msgstr "Ba al da talde-adierazle? (adib. zerrendak edo taulak)"
 
 #: apps/methods/models.py:162
 msgid "category"
-msgstr ""
+msgstr "kategoria"
 
 #: apps/methods/models.py:168
 msgid "data type"
-msgstr ""
+msgstr "datu-motak"
 
 #: apps/methods/models.py:171
 msgid "unit"
-msgstr ""
+msgstr "unitatea"
 
 #: apps/methods/models.py:187
 msgid "Add group total?"
-msgstr ""
+msgstr "Talde osoarena gehitu?"
 
 #: apps/methods/models.py:196
 msgid "Add group totals?"
-msgstr ""
+msgstr "Talde osoarenak gehitu?"
 
-#: apps/methods/models.py:198
+#: apps/methods/models.py:198 apps/methods/models.py:339
 msgid "condition"
-msgstr ""
+msgstr "baldintza"
 
 #: apps/methods/models.py:200
 msgid "validation"
-msgstr ""
+msgstr "baliozkotzea"
 
 #: apps/methods/models.py:204
 msgid "Is it mandatory?"
-msgstr ""
+msgstr "Derrigorrezkoa ba al da?"
 
 #: apps/methods/models.py:205
 msgid "message"
-msgstr ""
+msgstr "mezua"
 
 #: apps/methods/models.py:224
 msgid "This indicator has already been used and cannot be deleted."
-msgstr ""
+msgstr "Adierazle hau erabili izan da jada eta ezin da ezabatu."
 
 #: apps/methods/models.py:235
 msgid "This field is required when data type "
-msgstr ""
+msgstr "Eremu hau derrigorrezkoa da datu-mota hau denean "
 
 #: apps/methods/models.py:242
 msgid "This field is required if the indicator is indirect."
-msgstr ""
+msgstr "Eremu hau derrigorrezkoa da zeharkako adierazle bada."
 
 #: apps/methods/models.py:278
 msgid "Circular dependencies"
-msgstr ""
+msgstr "Dependentzia zirkularrak"
 
 #: apps/methods/models.py:327
 msgid "Indicator code can't contain the underscore character '_'"
+msgstr "Adierazlearen kodeak ezin du '_' azpimarra"
+
+#: apps/methods/models.py:335
+msgid "set name"
 msgstr ""
 
-#: apps/methods/models.py:334
+#: apps/methods/models.py:337
+msgid "item name"
+msgstr ""
+
+#: apps/methods/models.py:412
 msgid "Organisation"
-msgstr ""
+msgstr "Antolakundea"
 
-#: apps/methods/models.py:335 templates/admin/methods/survey_review.html:119
+#: apps/methods/models.py:413 templates/admin/methods/survey_review.html:122
 msgid "Project"
-msgstr ""
+msgstr "Egitasmoa"
 
-#: apps/methods/models.py:336
+#: apps/methods/models.py:414
 msgid "External Survey"
-msgstr ""
+msgstr "Kanpoko galdetegia"
 
-#: apps/methods/models.py:339
+#: apps/methods/models.py:417
 msgid "Work"
-msgstr ""
+msgstr "Lana"
 
-#: apps/methods/models.py:340
+#: apps/methods/models.py:418
 msgid "Professional"
-msgstr ""
+msgstr "Profesionala"
 
-#: apps/methods/models.py:341
+#: apps/methods/models.py:419
+#: templates/components/methods/survey_review_row.html:126
 msgid "Associative"
-msgstr ""
+msgstr "Asoziatiboa"
 
-#: apps/methods/models.py:342
+#: apps/methods/models.py:420
 msgid "Volunteering"
-msgstr ""
+msgstr "Bolondresa"
 
-#: apps/methods/models.py:347
+#: apps/methods/models.py:425
 msgid "unit of analysis"
-msgstr ""
+msgstr "azterketa unitatea"
 
-#: apps/methods/models.py:356
+#: apps/methods/models.py:437
 msgid "Which entity does this method applies to?"
-msgstr ""
+msgstr "Metodo hau zein entitateari egokitzen zaio?"
 
-#: apps/methods/models.py:362 apps/organizations/models.py:70
+#: apps/methods/models.py:443 apps/organizations/models.py:70
 msgid "Sectors"
-msgstr ""
+msgstr "Sektorak"
 
-#: apps/methods/models.py:368 templates/admin/methods/survey_review.html:125
+#: apps/methods/models.py:449 templates/admin/methods/survey_review.html:128
 msgid "External surveys"
-msgstr ""
+msgstr "Kanpoko galdetegiak"
 
-#: apps/methods/models.py:372
+#: apps/methods/models.py:453
 msgid "Version"
-msgstr ""
+msgstr "Bertsio"
 
-#: apps/methods/models.py:375 apps/organizations/forms.py:78
+#: apps/methods/models.py:456 apps/organizations/forms.py:78
 #: apps/organizations/forms.py:274
 msgid "Region1"
-msgstr ""
-
-#: apps/methods/models.py:380
-msgid "external survey category"
-msgstr ""
-
-#: apps/methods/models.py:402
-msgid "This method has already been used and cannot be deleted."
-msgstr ""
-
-#: apps/methods/models.py:409
-msgid "Year"
-msgstr ""
-
-#: apps/methods/models.py:410
-msgid "Active"
-msgstr ""
-
-#: apps/methods/models.py:416 apps/organizations/models.py:60
-#: apps/organizations/models.py:202
-msgid "Methods"
-msgstr ""
-
-#: apps/methods/models.py:420 apps/methods/models.py:480
-#: apps/organizations/forms.py:377 apps/organizations/models.py:206
-#: templates/admin/methods/survey_review.html:128
-msgid "Start date"
-msgstr ""
-
-#: apps/methods/models.py:421 apps/organizations/models.py:207
-#: templates/admin/methods/survey_review.html:131
-msgid "End date"
-msgstr ""
-
-#: apps/methods/models.py:433
-msgid "This campaign has already been used and cannot be deleted."
-msgstr ""
+msgstr "Lurraldea1"
 
 #: apps/methods/models.py:461
-msgid "Token"
-msgstr ""
-
-#: apps/methods/models.py:481
-msgid "Closed date"
-msgstr ""
-
-#: apps/methods/models.py:482
-msgid "Modified date"
-msgstr ""
+msgid "external survey category"
+msgstr "kanpoko galdetegi maila"
 
 #: apps/methods/models.py:483
+msgid "This method has already been used and cannot be deleted."
+msgstr "Metodo hau erabili izan da jada eta ezin da ezabatu."
+
+#: apps/methods/models.py:490
+msgid "Year"
+msgstr "Urtea"
+
+#: apps/methods/models.py:491
+msgid "Active"
+msgstr "Aktiboa"
+
+#: apps/methods/models.py:497 apps/organizations/models.py:60
+#: apps/organizations/models.py:202
+msgid "Methods"
+msgstr "Metodos"
+
+#: apps/methods/models.py:501 apps/methods/models.py:561
+#: apps/organizations/forms.py:377 apps/organizations/models.py:206
+#: templates/admin/methods/survey_review.html:131
+msgid "Start date"
+msgstr "Hasiera data"
+
+#: apps/methods/models.py:502 apps/organizations/models.py:207
+#: templates/admin/methods/survey_review.html:134
+msgid "End date"
+msgstr "Amaiera data"
+
+#: apps/methods/models.py:514
+msgid "This campaign has already been used and cannot be deleted."
+msgstr "Kanpaina hau erabili izan da jada eta ezin da ezabatu."
+
+#: apps/methods/models.py:542
+msgid "Token"
+msgstr "Fitxa"
+
+#: apps/methods/models.py:562
+msgid "Closed date"
+msgstr "Itxiera-data"
+
+#: apps/methods/models.py:563
+msgid "Modified date"
+msgstr "Aldatutako data"
+
+#: apps/methods/models.py:564
 msgid "Validated date"
-msgstr ""
+msgstr "Data baliozkotua"
 
-#: apps/methods/models.py:484
+#: apps/methods/models.py:565
 msgid "Evaluated date"
-msgstr ""
+msgstr "Ebaluatutako data"
 
-#: apps/methods/models.py:523
+#: apps/methods/models.py:604
 msgid "Is total?"
+msgstr "Osoa al da?"
+
+#: apps/methods/models.py:606
+msgid "Set instance number"
 msgstr ""
 
-#: apps/methods/models.py:526
+#: apps/methods/models.py:610
 msgid "not applicable"
-msgstr ""
+msgstr "ez da aplikagarria"
 
-#: apps/methods/models.py:588
+#: apps/methods/models.py:673
 msgid "email address"
-msgstr ""
+msgstr "helbide elektronikoa"
 
-#: apps/methods/models.py:597
+#: apps/methods/models.py:682
 msgid "Send date"
-msgstr ""
+msgstr "Bidali data"
 
-#: apps/methods/models.py:620
+#: apps/methods/models.py:705
 msgid "Title"
-msgstr ""
+msgstr "Izenburua"
 
-#: apps/methods/models.py:622 apps/organizations/forms.py:31
+#: apps/methods/models.py:707 apps/organizations/forms.py:31
 #: apps/organizations/forms.py:237
 msgid "Description"
-msgstr ""
+msgstr "Deskribapena"
 
-#: apps/methods/models.py:626
+#: apps/methods/models.py:711
 msgid "order"
-msgstr ""
+msgstr "ordena"
 
-#: apps/methods/urls.py:24
+#: apps/methods/urls.py:23
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
-msgstr ""
+msgstr "bete/<uuid:campaign_id>/<uuid:method_id>/"
 
-#: apps/methods/urls.py:29
+#: apps/methods/urls.py:28
 msgid "external-survey/<token>"
-msgstr ""
+msgstr "kanpoko-galdetegia/<token>"
 
 #: apps/methods/urls.py:34
-msgid "external-surveys/<uuid:organization_id>/<uuid:method_id>/"
+msgid ""
+"external-surveys/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/"
 msgstr ""
+"kanpoko-galdetegia/<uuid:organization_id>/<uuid:method_id>/"
+"<uuid:campaign_id>/"
 
-#: apps/methods/urls.py:39
+#: apps/methods/urls.py:40
 msgid "invitation"
-msgstr ""
-
-#: apps/methods/urls.py:48
-msgid "send-invitations/<id>"
-msgstr ""
+msgstr "gonbidapena"
 
 #: apps/methods/urls.py:49
+msgid "send-invitations/<id>"
+msgstr "gonbidapenak-luzatzea/<id>"
+
+#: apps/methods/urls.py:50
 msgid "send-invitation/<id>"
-msgstr ""
+msgstr "gonbidapenak-luzatu/<id>"
 
 #: apps/methods/urls.py:58
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
-msgstr ""
+msgstr "bete/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
 
 #: apps/methods/urls.py:63
 msgid "preview/<uuid:method_id>/"
-msgstr ""
+msgstr "aurrebista/<uuid:method_id>/"
 
-#: apps/methods/views.py:164
+#: apps/methods/views.py:156
 msgid "The invitations have been sent."
-msgstr ""
+msgstr "Gonbidapenak bidali izan dira."
 
-#: apps/methods/views.py:169
+#: apps/methods/views.py:158
 msgid "There are no invitations to send."
-msgstr ""
+msgstr "Bidaltzeko gonbidapenik ez dago."
 
-#: apps/methods/views.py:184
+#: apps/methods/views.py:196 apps/methods/views.py:201
 msgid "The invitation has been sent."
-msgstr ""
+msgstr "Gonbidapena bidali izan da."
 
-#: apps/methods/views.py:217
+#: apps/methods/views.py:245
 msgid "The CSV has been imported correctly."
+msgstr "CSVa behar bezala inportatua izan da."
+
+#: apps/methods/views.py:250
+msgid "There is no CSV file selected to import."
 msgstr ""
 
-#: apps/methods/views.py:366
+#: apps/methods/views.py:407
 msgid "Error creating contact. Contact your network admin."
 msgstr ""
+"Errorea kontaktua sortzean. Jar zaitez harremanetan zure sareko "
+"administratzailearekin."
 
-#: apps/methods/views.py:379
+#: apps/methods/views.py:420
 msgid "An email to all the involved contacts has been sent."
-msgstr ""
+msgstr "Inplikatutako kontaktu guztiei mezu elektroniko bat bidali izan zaie."
 
-#: apps/methods/views.py:388
+#: apps/methods/views.py:429
 msgid "An email to the contact has been sent."
-msgstr ""
+msgstr "Mezu elektroniko bat bidali egin da kontaktuari."
 
 #: apps/organizations/forms.py:21
 msgid "Invalid signup, check that you don't have an account."
-msgstr ""
+msgstr "Eregistroa ez da zuzena, baieztatu kontua ez duzula."
 
 #: apps/organizations/forms.py:25 apps/organizations/forms.py:231
 msgid "Organisation name"
-msgstr ""
+msgstr "Antolakundearen izena"
 
 #: apps/organizations/forms.py:29 apps/organizations/forms.py:235
 msgid "Organization description"
-msgstr ""
+msgstr "Antolakundearen deskribapena"
 
 #: apps/organizations/forms.py:35 apps/organizations/forms.py:37
 #: apps/organizations/forms.py:241 apps/organizations/forms.py:243
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
-msgstr ""
+msgstr "IFK zenbakia"
 
 #: apps/organizations/forms.py:41 apps/organizations/forms.py:247
 #: apps/organizations/forms.py:400
 msgid "Name of the contact person"
-msgstr ""
+msgstr "Kontakturako pertsonaren izena"
 
 #: apps/organizations/forms.py:45 apps/organizations/forms.py:254
 #: apps/organizations/forms.py:406
 msgid "Phone number of the contact person"
-msgstr ""
+msgstr "Kontakturako pertsonaren telefono zenbakia"
 
 #: apps/organizations/forms.py:47
 msgid "Phone number"
-msgstr ""
+msgstr "Telefono zenbakia"
 
 #: apps/organizations/forms.py:51 apps/organizations/forms.py:250
 #: apps/organizations/forms.py:412
 msgid "Email address of the contact person"
-msgstr ""
+msgstr "Kontakturako pertsonaren helbide elektronikoa"
 
-#: apps/organizations/forms.py:55 templates/home.html:21
-#: templates/methods/external_surveys_view.html:40
+#: apps/organizations/forms.py:55
+#: templates/components/methods/invitations_table.html:9 templates/home.html:21
 msgid "Email"
-msgstr ""
+msgstr "Posta elektronikoa"
 
 #: apps/organizations/forms.py:61 apps/organizations/forms.py:62
 #: apps/organizations/forms.py:257 apps/organizations/forms.py:258
 msgid "Website"
-msgstr ""
+msgstr "Web gunea"
 
 #: apps/organizations/forms.py:66 apps/organizations/forms.py:262
 msgid "Country"
-msgstr ""
+msgstr "Herrialdea"
 
 #: apps/organizations/forms.py:90 apps/organizations/forms.py:286
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
-msgstr ""
+msgstr "Hiria"
 
 #: apps/organizations/forms.py:102 apps/organizations/forms.py:103
 #: apps/organizations/forms.py:298 apps/organizations/forms.py:299
 msgid "Address"
-msgstr ""
+msgstr "Helbidea"
 
 #: apps/organizations/forms.py:106 apps/organizations/forms.py:302
 msgid "Zip Code"
-msgstr ""
+msgstr "Posta Kodea"
 
 #: apps/organizations/forms.py:109 apps/organizations/forms.py:305
 msgid "Legal entity type"
-msgstr ""
+msgstr "Izaera juridiko mota"
 
 #: apps/organizations/forms.py:122
 msgid "Method of impact mesurement"
-msgstr ""
+msgstr "Inpaktua neurtzeko metodoa"
 
 #: apps/organizations/forms.py:132 apps/organizations/forms.py:309
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
-msgstr ""
+msgstr "Infografiak argitaratzea onartu"
 
 #: apps/organizations/forms.py:165
 msgid "I have read and accept the {}"
-msgstr ""
+msgstr "Irakurri dut eta {} onartzen dut"
 
+# He traducido proyecto como "egitasmo" en el sentido de "algo que se quiere hacer" por no poner "proiektua" pero serían practicamente sinónimos
 #: apps/organizations/forms.py:365 apps/organizations/forms.py:367
 msgid "Project name"
-msgstr ""
+msgstr "Egitasmoaren izena"
 
 #: apps/organizations/forms.py:371 apps/organizations/forms.py:373
 msgid "Brief description"
-msgstr ""
+msgstr "Deskribapen laburra"
 
 #: apps/organizations/forms.py:384
 msgid "Main action scope"
-msgstr ""
+msgstr "Jarduera-eremu nagusia"
 
 #: apps/organizations/forms.py:389
 msgid "Secondary action scope"
-msgstr ""
+msgstr "Bigarren mailako jarduera-eremua"
 
 #: apps/organizations/forms.py:402
 msgid "Contact name"
-msgstr ""
+msgstr "Kontaktuaren izena"
 
 #: apps/organizations/forms.py:408
 msgid "Contact phone number"
-msgstr ""
+msgstr "Kontaktuaren telefono zenbakia"
 
 #: apps/organizations/forms.py:414
 msgid "Contact email"
-msgstr ""
+msgstr "Kontakturako helbide elektronikoa"
 
 #: apps/organizations/forms.py:418 apps/organizations/models.py:209
 msgid "I want to make the results public"
-msgstr ""
+msgstr "Emaitza argitaratu nahi dut"
 
 #: apps/organizations/forms.py:421 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr ""
+"Behin betiko dokumentuan sartu ahal izateko nire datuen erabilera onartzen "
+"dut"
 
 #: apps/organizations/forms.py:465
 msgid "Choose Existing Project"
-msgstr ""
+msgstr "Existitzen den egitasmoa aukeratu"
 
 #: apps/organizations/models.py:32 apps/organizations/models.py:162
 msgid "vat number"
-msgstr ""
+msgstr "ifk zenbakia"
 
 #: apps/organizations/models.py:33
 msgid "website"
-msgstr ""
+msgstr "web gunea"
 
 #: apps/organizations/models.py:43
 msgid "address"
-msgstr ""
+msgstr "helbidea"
 
 #: apps/organizations/models.py:47
 msgid "longitude"
-msgstr ""
+msgstr "longitudea"
 
 #: apps/organizations/models.py:48
 msgid "latitude"
-msgstr ""
+msgstr "latitudea"
 
 #: apps/organizations/models.py:129
 msgid "Community action"
-msgstr ""
+msgstr "Gizarte-ekintza"
 
 #: apps/organizations/models.py:130
 msgid "Social cohesion"
-msgstr ""
+msgstr "Gizarte-kohesioa"
 
 #: apps/organizations/models.py:131
 msgid "Culture"
-msgstr ""
+msgstr "Kultura"
 
 #: apps/organizations/models.py:132
 msgid "Sports"
-msgstr ""
+msgstr "Kirolak"
 
 #: apps/organizations/models.py:133
 msgid "Childhood"
-msgstr ""
+msgstr "Haurtzaroa"
 
 #: apps/organizations/models.py:134
 msgid "Youth"
-msgstr ""
+msgstr "Gazteak"
 
 #: apps/organizations/models.py:135
 msgid "Elderly"
-msgstr ""
+msgstr "Adinduak"
 
 #: apps/organizations/models.py:136
 msgid "Women - Feminism"
-msgstr ""
+msgstr "Emakume-Feminismoa"
 
 #: apps/organizations/models.py:137
 msgid "LGTBI"
-msgstr ""
+msgstr "LGTBI"
 
 #: apps/organizations/models.py:138
 msgid "Health"
-msgstr ""
+msgstr "Osasungintza"
 
 #: apps/organizations/models.py:139
 msgid "Interculturality"
-msgstr ""
+msgstr "Kulturartekotasuna"
 
 #: apps/organizations/models.py:140
 msgid "Funcional diversity"
-msgstr ""
+msgstr "Dibertsitate funtzional"
 
 #: apps/organizations/models.py:141
 msgid "Environmental sustainability"
-msgstr ""
+msgstr "Ingurumen jasangarritasuna"
 
 #: apps/organizations/models.py:142
 msgid "Social and solidarity economy"
-msgstr ""
+msgstr "Ekonomia Soziala eta Solidarioa"
 
 #: apps/organizations/models.py:143
 msgid "Commerce"
-msgstr ""
+msgstr "Merkataritza"
 
 #: apps/organizations/models.py:144
 msgid "Urban planning"
-msgstr ""
+msgstr "Hirigintza"
 
 #: apps/organizations/models.py:145
 msgid "International cooperation"
-msgstr ""
+msgstr "Nazioarteko lankidetza"
 
 #: apps/organizations/models.py:146
 msgid "Leisure education and educational services"
-msgstr ""
+msgstr "Aisialdia eta hezkuntza zerbitzuak"
 
 #: apps/organizations/models.py:147
 msgid "Research and new technologies"
-msgstr ""
+msgstr "Ikerketa eta teknotogia berriak"
 
 #: apps/organizations/models.py:148
 msgid "Networks and support for entities"
-msgstr ""
+msgstr "Networks and support for entities"
 
 #: apps/organizations/models.py:149
 msgid "Other"
-msgstr ""
+msgstr "Besteak"
 
 #: apps/organizations/models.py:152
 msgid "Neighborhood"
-msgstr ""
+msgstr "Auzoak"
 
 #: apps/organizations/models.py:153
 msgid "District"
-msgstr ""
+msgstr "Barrutia"
 
 #: apps/organizations/models.py:154
 msgid "City/Municipality"
-msgstr ""
+msgstr "Hiria/udalerria"
 
 #: apps/organizations/models.py:155
 msgid "County"
-msgstr ""
+msgstr "Eskualdea"
 
 #: apps/organizations/models.py:165
 msgid "contact person"
-msgstr ""
+msgstr "kontakturako pertsona"
 
 #: apps/organizations/models.py:166
 msgid "contact email"
-msgstr ""
+msgstr "kontakturako helbide elektronikoa"
 
 #: apps/organizations/models.py:168
 msgid "contact telephone"
-msgstr ""
+msgstr "kontakturako telefonoa\""
 
 #: apps/organizations/models.py:177
 msgid "main scope of action"
-msgstr ""
+msgstr "jarduera-eremu nagusia"
 
 #: apps/organizations/models.py:183
 msgid "secondary fields of action"
-msgstr ""
+msgstr "bigarren mailako jarduera-eremua"
 
 #: apps/organizations/models.py:189
 msgid "Main legal entity type"
-msgstr ""
+msgstr "Izaera juridiko nagusia"
 
 #: apps/organizations/models.py:195
 msgid "Secondary legal entity type"
-msgstr ""
+msgstr "Bigarren mailako izaera juridikoa"
 
 #: apps/organizations/urls.py:18
 msgid "sign-up/"
-msgstr ""
+msgstr "izena eman"
 
 #: apps/organizations/urls.py:20
 msgid "sign-up/success"
-msgstr ""
-
-#: apps/organizations/urls.py:24
-msgid "sign-up/load_methods/"
-msgstr ""
-
-#: apps/organizations/urls.py:25
-msgid "sign-up/load_region1/"
-msgstr ""
-
-#: apps/organizations/urls.py:26
-msgid "sign-up/load_city/"
-msgstr ""
-
-#: apps/organizations/urls.py:27
-msgid "sign-up/load_zip_code/"
-msgstr ""
+msgstr "arrakastaz izena eman da"
 
 #: apps/organizations/urls.py:28
 msgid "update/<pk>"
-msgstr ""
+msgstr "eguneratua/<pk>"
 
 #: apps/organizations/urls.py:30
 msgid "<uuid:organization_id>/project/"
-msgstr ""
+msgstr "<uuid:antolakunde_id>/egitasmoa/"
 
 #: apps/organizations/views.py:137
 msgid "Error creating project. Contact your network admin."
 msgstr ""
+"Errorea egitasmoa sortzen. Jar zaitez harremanetan zure sareko "
+"aministratzailearekin."
 
 #: apps/settings/models.py:25
 msgid "network type"
-msgstr ""
+msgstr "sare mota"
 
 #: apps/settings/models.py:54
 msgid "Network"
-msgstr ""
+msgstr "Sarea"
 
 #: apps/settings/models.py:56
 msgid "Host"
-msgstr ""
+msgstr "Zerbitzaria"
 
 #: apps/settings/models.py:57
 msgid "Port"
-msgstr ""
+msgstr "Ataka"
 
 #: apps/settings/models.py:58
 msgid "Username"
-msgstr ""
+msgstr "Erabiltzaile izena"
 
 #: apps/settings/models.py:59
 msgid "Password"
-msgstr ""
+msgstr "Pasahitza"
 
 #: apps/settings/models.py:60
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoloa"
 
 #: apps/settings/urls.py:16
 msgid "what-is-social-balance"
-msgstr ""
+msgstr "zein-da-auditoretza-soziala"
 
 #: apps/settings/urls.py:20
 msgid "good-practices"
-msgstr ""
+msgstr "praktika-onak"
 
 #: apps/settings/urls.py:21
 msgid "documents"
-msgstr ""
+msgstr "dokumentuak"
 
 #: apps/settings/urls.py:22
 msgid "resources"
-msgstr ""
+msgstr "baliabideak"
 
 #: apps/settings/urls.py:23
 msgid "contact"
-msgstr ""
+msgstr "kontaktua"
 
 #: templates/404.html:13 templates/500.html:13 templates/503.html:13
 msgid "Go back"
-msgstr ""
+msgstr "Itzuli"
 
 #: templates/404.html:16
 msgid "Error 404: Page not found"
-msgstr ""
+msgstr "404 Errorea: orria ez da aurkitu"
 
 #: templates/404.html:20
 msgid ""
 "The page you were trying to access does not exist. Please check the spelling "
 "or go back to the beginning."
 msgstr ""
+"Bilatzen zenuen orria ez da existitzen. Ortografia aztertu edo hasierara "
+"itzuli."
 
 #: templates/500.html:16
 msgid "Error 500: Internal server error"
-msgstr ""
+msgstr "500 Errorea: Zerbitzariaren barne akatsa"
 
 #: templates/500.html:20
 msgid ""
 "The server encountered an unexpected condition that prevented it from "
 "fulfilling the request."
 msgstr ""
+"Eskabidea ezin izan da bete zerbitzariak ustegabeko baldintza aurkitu baitu."
 
 #: templates/503.html:16
 msgid "Error 503: Maintenance mode enabled"
-msgstr ""
+msgstr "503 Errorea: Mantentze-modua gaituta"
 
 #: templates/503.html:20
 msgid ""
 "The application is currently under maintenance, please try again in few "
 "minutes."
-msgstr ""
+msgstr "Aplikazioa mantentzen ari da, saiatu minutu gutxi barru."
 
 #: templates/admin/import_export/import_form.html:21
-#: templates/admin/methods/method_fill.html:113
-#: templates/methods/method_fill.html:123
+#: templates/admin/methods/method_fill.html:79
+#: templates/methods/method_fill.html:93
 #: templates/registration/password_change_form.html:17
 #: templates/registration/password_reset_confirm.html:19
 #: templates/registration/password_reset_form.html:17
 #: templates/registration/user_validation_confirm.html:28
 msgid "Submit"
-msgstr ""
+msgstr "Bidali"
 
 #: templates/admin/import_export/import_preview.html:23
 msgid "New"
-msgstr ""
+msgstr "Berria"
 
 #: templates/admin/import_export/import_preview.html:25
 msgid "Skipped"
-msgstr ""
+msgstr "Alde batera utzi"
 
 #: templates/admin/import_export/import_preview.html:27
-#: templates/methods/external_surveys_view.html:44
+#: templates/components/methods/invitations_table.html:13
 msgid "Delete"
-msgstr ""
+msgstr "Ezabatu"
 
 #: templates/admin/import_export/import_preview.html:29
 msgid "Update"
-msgstr ""
-
-#: templates/admin/methods/externalsurveyinvitation/change_form.html:14
-#: templates/components/admin/button_import_ext_invitations.html:3
-msgid "Import CSV"
-msgstr ""
+msgstr "Eguneratua"
 
 #: templates/admin/methods/method/change_form.html:14
 #: templates/components/admin/button_preview.html:3
 msgid "Preview"
-msgstr ""
+msgstr "Aurrebista"
 
-#: templates/admin/methods/method_fill.html:110 templates/base_form.html:47
-#: templates/methods/method_fill.html:120 templates/profile/details.html:44
+#: templates/admin/methods/method_fill.html:76 templates/base_form.html:47
+#: templates/methods/method_fill.html:90 templates/profile/details.html:44
 #: templates/registration/signup.html:26
 msgid "Save"
-msgstr ""
+msgstr "Gorde"
 
 #: templates/admin/methods/section/stacked_inline.html:8
 msgid ""
 "After you have saved a section, you will be able to edit all the section "
 "options."
-msgstr ""
+msgstr "Atal bat gorde ondoren, aukera guztiak editatu ahal izango duzu."
 
 #: templates/admin/methods/section/stacked_inline.html:63
 msgid "Change"
-msgstr ""
+msgstr "Aldatu"
 
 #: templates/admin/methods/section/stacked_inline.html:65
 msgid "View"
-msgstr ""
+msgstr "Ikusi"
 
 #: templates/admin/methods/section/stacked_inline.html:77
 msgid "View on site"
-msgstr ""
-
-#: templates/admin/methods/survey_review.html:11
-msgid "Balance review"
-msgstr ""
+msgstr "Web gunean ikusi"
 
 #: templates/admin/methods/survey_review.html:13
+msgid "Balance review"
+msgstr "Auditoretzaren berrikuspena"
+
+#: templates/admin/methods/survey_review.html:15
 msgid "Simple balance"
-msgstr ""
-
-#: templates/admin/methods/survey_review.html:23
-msgid "Filter by"
-msgstr ""
-
-#: templates/admin/methods/survey_review.html:24
-msgid "Campaign"
-msgstr ""
+msgstr "Auditoretza sinplea"
 
 #: templates/admin/methods/survey_review.html:25
-msgid "Region"
-msgstr ""
+msgid "Filter by"
+msgstr "Iragazi"
 
 #: templates/admin/methods/survey_review.html:26
-msgid "Method"
-msgstr ""
+msgid "Campaign"
+msgstr "Kanpaina"
 
 #: templates/admin/methods/survey_review.html:27
-#: templates/admin/methods/survey_review.html:107
-#: templates/methods/external_surveys_view.html:42
-msgid "Status"
-msgstr ""
+msgid "Region"
+msgstr "Lurraldea"
 
 #: templates/admin/methods/survey_review.html:28
+msgid "Method"
+msgstr "Metodoa"
+
+#: templates/admin/methods/survey_review.html:29
+#: templates/admin/methods/survey_review.html:110
+#: templates/components/methods/invitations_table.html:11
+msgid "Status"
+msgstr "Egoera"
+
+#: templates/admin/methods/survey_review.html:30
 msgid "Unit of analysis"
-msgstr ""
+msgstr "Azterketa unitatea"
 
-#: templates/admin/methods/survey_review.html:31
-#: templates/admin/methods/survey_review.html:113 templates/home.html:20
+#: templates/admin/methods/survey_review.html:33
+#: templates/admin/methods/survey_review.html:116 templates/home.html:20
 msgid "NIF"
-msgstr ""
+msgstr "NIF"
 
-#: templates/admin/methods/survey_review.html:34
+#: templates/admin/methods/survey_review.html:36
 msgid "Filter"
-msgstr ""
+msgstr "Filtroak"
 
-#: templates/admin/methods/survey_review.html:55
+#: templates/admin/methods/survey_review.html:58
 msgid "Send email to all with open balances"
-msgstr ""
+msgstr "Mezu elektronikoa bidali irekitako auditoretza guztiei"
 
-#: templates/admin/methods/survey_review.html:67
+#: templates/admin/methods/survey_review.html:70
 msgid "Previous"
-msgstr ""
+msgstr "Aurrekoa"
 
-#: templates/admin/methods/survey_review.html:71
+#: templates/admin/methods/survey_review.html:74
 msgid "Page"
-msgstr ""
+msgstr "Orria"
 
-#: templates/admin/methods/survey_review.html:78
+#: templates/admin/methods/survey_review.html:81
 msgid "Next"
-msgstr ""
+msgstr "Hurrengoa"
 
-#: templates/admin/methods/survey_review.html:94
+#: templates/admin/methods/survey_review.html:97
 #: templates/admin/organizations/registration_requests.html:28
 msgid "Select all rows"
-msgstr ""
+msgstr "Hautatu errenkada guztiak"
 
-#: templates/admin/methods/survey_review.html:110
+#: templates/admin/methods/survey_review.html:113
 msgid "Answers"
-msgstr ""
+msgstr "Erantzunak"
 
-#: templates/admin/methods/survey_review.html:122
+#: templates/admin/methods/survey_review.html:125
 #: templates/components/navbar.html:29 templates/info/contact.html:8
 msgid "Contact"
-msgstr ""
+msgstr "Kontaktua"
 
-#: templates/admin/methods/survey_review.html:154
+#: templates/admin/methods/survey_review.html:157
 msgid "Edit balance"
-msgstr ""
+msgstr "Auditoretza editatu"
 
-#: templates/admin/methods/survey_review.html:172
-#: templates/methods/method_fill.html:137
+#: templates/admin/methods/survey_review.html:175
+#: templates/methods/method_fill.html:107
 msgid "Balance errors"
-msgstr ""
+msgstr "Auditoretzaren akatsak"
 
-#: templates/admin/methods/survey_review.html:208
+#: templates/admin/methods/survey_review.html:212
 msgid "Email sending confirmation"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:211
+#: templates/admin/methods/survey_review.html:216
 msgid "You are going to send an email to"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:211
+#: templates/admin/methods/survey_review.html:216
 msgid "are you sure?"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:215
+#: templates/admin/methods/survey_review.html:220
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:220
-#: templates/admin/methods/survey_review.html:224
+#: templates/admin/methods/survey_review.html:225
+#: templates/admin/methods/survey_review.html:229
 #: templates/helpers/delete_submit_line.html:9
 msgid "Yes, I am sure"
-msgstr ""
+msgstr "Bai, ziur naiz"
 
-#: templates/admin/methods/survey_review.html:228
+#: templates/admin/methods/survey_review.html:233
 msgid "No, cancel"
 msgstr ""
 
 #: templates/admin/organizations/registration_requests.html:4
 msgid "Features"
-msgstr ""
+msgstr "Ezaugarriak"
 
 #: templates/admin/organizations/registration_requests.html:6
 msgid "Register requests"
-msgstr ""
+msgstr "Eskabideak erregistratzea"
 
 #: templates/admin/organizations/registration_requests.html:18
 msgid "Type to search"
-msgstr ""
+msgstr "Idatzi bilatzeko"
 
 #: templates/admin/organizations/registration_requests.html:43
 msgid "Requested methods"
-msgstr ""
+msgstr "Eskatutako metodoak"
 
 #: templates/admin/organizations/registration_requests.html:53
 msgid "Aplication date"
-msgstr ""
+msgstr "Eskabide-data"
 
 #: templates/admin/syh_change_list.html:44
 msgid "Filters"
-msgstr ""
+msgstr "Filtroak"
 
 #: templates/admin/syh_delete_confirmation.html:9
 #, python-format
@@ -1104,6 +1119,9 @@ msgid ""
 "related objects, but your account does not have permission to delete the "
 "following types of objects:"
 msgstr ""
+"Ezabatzen baduzu %(object_name)s '%(escaped_object)s' horrekin loturiko "
+"objektuak ezbatuko dituzu, baina zure kontuak ez du baimenik hurrengo "
+"objektu mota hauek ezabatzeko:"
 
 #: templates/admin/syh_delete_confirmation.html:25
 #, python-format
@@ -1111,6 +1129,8 @@ msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
 "following protected related objects:"
 msgstr ""
+"Ezabatzeko %(object_name)s '%(escaped_object)s' babestutako hurrengo objektu "
+"hauek ezabatzeko baimena beharko luke:"
 
 #: templates/admin/syh_delete_confirmation.html:41
 #, python-format
@@ -1118,11 +1138,13 @@ msgid ""
 "Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
 "All of the following related items will be deleted:"
 msgstr ""
+"Ziur al zaude ezabatu nahi duzula %(object_name)s \"%(escaped_object)s\"? "
+"aipatutako artikulu hauek guztiak ezabatuko dira:"
 
 #: templates/admin/syh_delete_confirmation.html:48
 #: templates/admin/syh_delete_selected_confirmation.html:42
 msgid "Objects"
-msgstr ""
+msgstr "Objektuak"
 
 #: templates/admin/syh_delete_selected_confirmation.html:8
 #, python-format
@@ -1131,6 +1153,9 @@ msgid ""
 "objects, but your account doesn't have permission to delete the following "
 "types of objects:"
 msgstr ""
+"Ezabatzen baduzu %(objects_name)s horrekin loturiko objektuak ezbatuko "
+"dituzu, baina zure kontuak ez du baimenik hurrengo objektu mota hauek "
+"ezabatzeko:"
 
 #: templates/admin/syh_delete_selected_confirmation.html:21
 #, python-format
@@ -1138,6 +1163,8 @@ msgid ""
 "Deleting the selected %(objects_name)s would require deleting the following "
 "protected related objects:"
 msgstr ""
+"Ezabatzeko %(objects_name)s babestutako hurrengo objektu hauek ezabatzeko "
+"baimena beharko luke:"
 
 #: templates/admin/syh_delete_selected_confirmation.html:35
 #, python-format
@@ -1145,155 +1172,157 @@ msgid ""
 "Are you sure you want to delete the selected %(objects_name)s? All of the "
 "following objects and their related items will be deleted:"
 msgstr ""
+"Ziur al zaude ezabatu nahi duzula %(objects_name)s ? aipatutako artikulu "
+"hauek guztiak ezabatuko dira:"
 
-#: templates/admin/syh_index.html:6
+#: templates/admin/syh_index.html:6 templates/home.html:11
 msgid "Hi"
-msgstr ""
+msgstr "Kaixo"
 
 #: templates/admin/syh_index.html:8
 msgid ""
 "Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
 "tareas por completar."
 msgstr ""
+"Hau da zure ongi etorriko eremua. <br> Hemen duzu betetzeke dauden lanetako "
+"oroigarri labur bat."
 
 #: templates/admin/syh_index.html:13
 msgid "ENTITIES"
-msgstr ""
+msgstr "ENTITATEAK"
 
 #: templates/admin/syh_index.html:15
 #, python-format
 msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
-msgstr ""
+msgstr " Badituzu %(pending_registrations_requests)s alta eskaera berriak."
 
 #: templates/admin/syh_index.html:17
 msgid "Gestionar altas"
-msgstr ""
+msgstr "Altak kudeatu"
 
 #: templates/admin/syh_index.html:24
 msgid "FEATURES"
-msgstr ""
+msgstr "EZAUGARRIAK"
 
 #: templates/admin/syh_index.html:26
 #, python-format
 msgid " %(pending_balance_reviews)s entities have finished their balance."
-msgstr ""
+msgstr " %(pending_balance_reviews)s entitateek amaitu dute euren auditoretza."
 
 #: templates/admin/syh_index.html:29
 msgid "Revisar balances"
-msgstr ""
+msgstr "Balantzeak berrikusi"
 
 #: templates/base.html:81 templates/base.html:129
 #: templates/components/header.html:77 templates/components/sidebar.html:18
 #: templates/home.html:3
 msgid "Home"
-msgstr ""
+msgstr "Hasiera"
 
 #: templates/base.html:86 templates/base.html:190
 #: templates/components/header.html:82 templates/components/sidebar.html:79
 #: templates/profile/details.html:4
 msgid "Profile"
-msgstr ""
+msgstr "Profila"
 
 #: templates/base.html:92 templates/base.html:205
 #: templates/components/header.html:88 templates/components/sidebar.html:94
 msgid "Administration panel"
-msgstr ""
+msgstr "Administrazi-panela"
 
 #: templates/base.html:100 templates/components/header.html:95
 msgid "Log out"
-msgstr ""
+msgstr "Saioa itxi"
 
 #: templates/base.html:143 templates/components/sidebar.html:32
 #: templates/registration/login.html:24
 msgid "Log in"
-msgstr ""
+msgstr "Saioa hasi"
 
 #: templates/base.html:159 templates/base_success.html:6
 #: templates/components/sidebar.html:48 templates/registration/login.html:46
 msgid "Create an account"
-msgstr ""
+msgstr "Kontua sortu"
 
 #: templates/base.html:176 templates/components/sidebar.html:64
 msgid "Register an organization"
-msgstr ""
+msgstr "Erakunde bat erregistratzea"
 
 #: templates/base.html:332 templates/components/cookies_banner.html:17
 #: templates/components/organizations/registration_request_row.html:34
 msgid "Accept"
-msgstr ""
+msgstr "Onartu"
 
 #: templates/base.html:342 templates/components/cookies_banner.html:26
 msgid "Deny"
-msgstr ""
+msgstr "Ukatu"
 
 #: templates/base_success.html:25 templates/standard_success.html:6
 msgid "Done!"
-msgstr ""
+msgstr "Egina!"
 
 #: templates/base_success.html:28
 msgid "Registry successfully updated."
-msgstr ""
+msgstr "Erregistroa behar bezala eguneratuta."
 
 #: templates/base_success.html:35
 #: templates/organizations/signup_success.html:10
 #: templates/projects/create_project_success.html:11
 #: templates/standard_success.html:9
 msgid "Back to home"
-msgstr ""
+msgstr "Hasierara itzuli"
 
 #: templates/components/admin/button_add.html:13
 #, python-format
 msgid "Add new %(name)s"
-msgstr ""
+msgstr "Berria gehitu %(name)s"
 
 #: templates/components/admin/button_import_export.html:4
 msgid "Import"
-msgstr ""
+msgstr "Inportatzea"
 
 #: templates/components/admin/button_import_export.html:19
 msgid "Export"
-msgstr ""
-
-#: templates/components/admin/button_import_ext_invitations.html:37
-msgid "Upload CSV"
-msgstr ""
+msgstr "Esportatu"
 
 #: templates/components/card/survey_stats.html:13
 #, python-format
 msgid ""
-" Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
+"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
 "con los datos aportados, mejoramos todas. "
 msgstr ""
+"Auditoritza Sozialaren %(value)s%% bete duzue. <br> Emandako datuekin denok "
+"hobetzen dugula gogoratu. "
 
 #: templates/components/card/survey_stats.html:14
 msgid "Resumen por sección"
-msgstr ""
+msgstr "Atalaren laburpena"
 
 #: templates/components/card/survey_stats.html:21
 msgid "Completadas"
-msgstr ""
+msgstr "Osatuak"
 
 #: templates/components/card/survey_stats.html:27
 msgid "En progreso"
-msgstr ""
+msgstr "Aurrera doa"
 
 #: templates/components/card/survey_stats.html:33
 msgid "Por hacer"
-msgstr ""
+msgstr "Egiteke"
 
 #: templates/components/card/survey_stats.html:62
 msgid "Choose project"
-msgstr ""
+msgstr "Egitasmoa aukeratu"
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
 msgid "Ir al balance"
-msgstr ""
+msgstr "Balantzera joan"
 
 #: templates/components/card/survey_stats.html:76
 #: templates/components/drawers/choose_project.html:31
 msgid "Send external surveys"
-msgstr ""
+msgstr "Kanpoko galdetegiak bidali"
 
 #: templates/components/cookies_banner.html:6
 msgid ""
@@ -1301,321 +1330,369 @@ msgid ""
 "We don't sell data to third parties. If you continue navigating, we'll "
 "understand that you are ok with that."
 msgstr ""
+"Cookieak erabiltzen ditugu zure esperientzia optimizatzeko eta sareko "
+"trafikoa aztertzeko. Ez dizkiegu datuak hirugarrenei saltzen. Nabigatzen "
+"jarraitzen baduzu, horrekin ados zaudela ulertuko dugu."
 
 #: templates/components/drawers/base.html:12
 #: templates/components/help_drawer.html:14
 msgid "Close drawer"
-msgstr ""
+msgstr "Kajoia itxi"
 
 #: templates/components/drawers/choose_project.html:4
 msgid "Project selection"
-msgstr ""
+msgstr "Egitasmoen hautaketa"
 
 #: templates/components/drawers/choose_project.html:36
 #: templates/components/drawers/create_project.html:4
 msgid "Create project"
-msgstr ""
+msgstr "Egitasmoa sortu"
 
 #: templates/components/drawers/create_invitation.html:3
-#: templates/methods/external_surveys_view.html:91
+#: templates/methods/external_surveys_view.html:46
 msgid "Add new contact"
-msgstr ""
+msgstr "Atxikitu kontaktu berri bat"
 
-#: templates/components/drawers/create_invitation.html:18
+#: templates/components/drawers/create_invitation.html:19
 msgid "Create invitation"
-msgstr ""
+msgstr "Gonbidapena sortu"
 
 #: templates/components/drawers/create_project.html:21
 msgid "Create project and start balance"
-msgstr ""
+msgstr "Egitasmoa sortu eta auditoretza hasi"
 
 #: templates/components/form_errors.html:10
 msgid "There has been an error!"
-msgstr ""
+msgstr "Errore bat gertatu da!"
 
 #: templates/components/form_errors.html:33
 msgid "There's an error in the form."
-msgstr ""
+msgstr "Galdetegian akatsa dago."
 
 #: templates/components/form_errors.html:36
 msgid "Please, check the fields marked in red."
-msgstr ""
+msgstr "Gorriz markatutako eremuak aztertu, mesedez."
 
 #: templates/components/forms/raw_file_dropzone.html:19
 msgid "Drag and drop or click to browse your files"
-msgstr ""
+msgstr "Arrastatu eta askatu edo klik egin zure artxiboak bilatzeko"
 
 #: templates/components/forms/raw_file_dropzone.html:20
 msgid "Allowed formats:"
-msgstr ""
+msgstr "Onartutako formatoak:"
 
 #: templates/components/help_drawer.html:10
-msgid "Aclaración"
+msgid "Clarification"
 msgstr ""
 
-#: templates/components/methods/base_field.html:24
+#: templates/components/methods/base_field.html:25
 #: templates/components/methods/group_base_field.html:23
 msgid "Not applicable"
-msgstr ""
+msgstr "Ez da aplikagarria"
 
 #: templates/components/methods/boolean.html:14
 msgid "Yes"
-msgstr ""
+msgstr "Bai"
 
 #: templates/components/methods/boolean.html:25
 msgid "No"
-msgstr ""
+msgstr "Ez"
+
+#: templates/components/methods/gender.html:6
+msgid "Women"
+msgstr "Emakumeak"
+
+#: templates/components/methods/gender.html:17
+msgid "Men"
+msgstr "Gizonak"
+
+#: templates/components/methods/gender.html:30
+msgid "Non binary"
+msgstr "Ez-binario"
 
 #: templates/components/methods/group_input.html:14
 #: templates/components/methods/group_input.html:78
 msgid "Total"
+msgstr "Osotara"
+
+#: templates/components/methods/group_input.html:144
+msgid "Fill with 0's"
 msgstr ""
+
+#: templates/components/methods/group_input.html:147
+msgid "Validate"
+msgstr ""
+
+#: templates/components/methods/invitation_row.html:11
+msgid "Are you sure you want to send this invitation?"
+msgstr "Gonbidapenak luzatu nahi dituzula ziur al zaude?"
+
+#: templates/components/methods/invitation_row.html:22
+msgid "Are you sure you want to delete this invitation?"
+msgstr ""
+
+#: templates/components/methods/invitations_table.html:12
+#: templates/registration/send_verification_code.html:18
+#: templates/registration/user_validation.html:18
+msgid "Send"
+msgstr "Bidali"
+
+#: templates/components/methods/invitations_table.html:24
+msgid "No invitations found."
+msgstr "Ez da gonbidapenik aurkitu."
+
+#: templates/components/methods/survey_review_row.html:121
+msgid "Labor"
+msgstr ""
+
+#: templates/components/methods/survey_review_row.html:122
+msgid "Pro"
+msgstr ""
+
+#: templates/components/methods/survey_review_row.html:125
+msgid "Volunteer"
+msgstr "Bolondresa"
 
 #: templates/components/navbar.html:9
 msgid "What is social balance?"
-msgstr ""
+msgstr "Zer da auditoretza soziala?"
 
 #: templates/components/navbar.html:14 templates/info/good_practices.html:8
 msgid "Good Practices"
-msgstr ""
+msgstr "Praktika onak"
 
 #: templates/components/navbar.html:19 templates/info/documents.html:8
 msgid "Documents"
-msgstr ""
+msgstr "Dokumentuak"
 
 #: templates/components/navbar.html:24 templates/info/resources.html:8
 msgid "Resources"
-msgstr ""
+msgstr "Baliabideak"
 
 #: templates/components/organizations/registration_request_row.html:39
 msgid "Reject"
-msgstr ""
+msgstr "Onartu"
 
 #: templates/helpers/delete_submit_line.html:5
 msgid "No, take me back"
-msgstr ""
-
-#: templates/home.html:11
-msgid "Hola"
-msgstr ""
+msgstr "Ez, atzera itzuli"
 
 #: templates/home.html:17
 msgid "Organisation logo"
-msgstr ""
+msgstr "Antolakundearen logoa"
 
 #: templates/home.html:29
 msgid "Modificar datos entidad"
-msgstr ""
+msgstr "Entitateko datuak aldatzea"
 
 #: templates/home.html:38
 msgid "Balances pendientes"
-msgstr ""
+msgstr "Egiteke dauden balantzeak"
 
 #: templates/home.html:45
 msgid ""
 "Your organization has not yet been accepted. You must wait until it is "
 "accepted before you can answer the surveys."
 msgstr ""
+"Zure entitatea oraindik ez da onartua izan. Erantzun ahal izateko, onartu "
+"izan arte itxaron behar duzu."
 
 #: templates/home.html:48
 msgid "You are not assigned to any organization. Please contact an admin"
 msgstr ""
+"Ez zaude inongo erakunderi esleituta. Jar zaitez harremanetan "
+"administratzaile batekin"
 
 #: templates/info/documents.html:17
 msgid "Campaigns"
-msgstr ""
+msgstr "Kanpainak"
 
 #: templates/info/documents.html:27
 msgid "Infographics"
-msgstr ""
+msgstr "Infografiak"
 
 #: templates/info/documents.html:30
 msgid "Stamps"
-msgstr ""
+msgstr "Sigiluak"
 
 #: templates/info/what_is_social_balance.html:8
 msgid "What is Social Balance?"
-msgstr ""
+msgstr "Zer da Auditoretza Soziala?"
 
-#: templates/methods/external_surveys_view.html:43
-#: templates/registration/send_verification_code.html:18
-#: templates/registration/user_validation.html:18
-msgid "Send"
-msgstr ""
-
-#: templates/methods/external_surveys_view.html:58
-#: templates/methods/invitation_row.html:11
-msgid "Are you sure you want to send this invitation?"
-msgstr ""
-
-#: templates/methods/external_surveys_view.html:67
-#: templates/methods/invitation_row.html:20
-msgid "Are you sure you want to delete this invitation?"
-msgstr ""
-
-#: templates/methods/external_surveys_view.html:76
-msgid "No invitations found."
-msgstr ""
-
-#: templates/methods/external_surveys_view.html:97
+#: templates/methods/external_surveys_view.html:52
 msgid "Import contacts"
-msgstr ""
+msgstr "Inportatu kontaktuak"
 
-#: templates/methods/external_surveys_view.html:104
+#: templates/methods/external_surveys_view.html:61
 msgid "Send surveys"
-msgstr ""
+msgstr "Galdetegiak bidali"
 
 #: templates/methods/method_fill.html:5
 msgid "Form"
-msgstr ""
+msgstr "Inprimaki"
 
 #: templates/organizations/components/file.html:15
 msgid "Current file:"
-msgstr ""
+msgstr "Oraingo artxiboa:"
 
 #: templates/organizations/signup.html:10
 msgid "Organization update"
-msgstr ""
+msgstr "Erakundearen eguneratzea"
 
 #: templates/organizations/signup.html:11
 msgid "Registration request"
-msgstr ""
+msgstr "Erregistratzeko eskaera"
 
 #: templates/organizations/signup.html:14
 msgid "Transparent, social and solidarity based economy"
-msgstr ""
+msgstr "Gardentasuna, Ekonomia sozial eta solidarioa"
 
 #: templates/organizations/signup.html:31
 msgid "Submit changes"
-msgstr ""
+msgstr "Aldaketak bidali"
 
 #: templates/organizations/signup.html:31
 msgid "Submit registration request"
-msgstr ""
+msgstr "Erregistratzeko eskaera bidali"
 
 #: templates/organizations/signup_success.html:6
 msgid "Solicitud enviada"
-msgstr ""
+msgstr "Eskaera bidalita"
 
 #: templates/organizations/signup_success.html:7
 msgid ""
 "¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
 "pronto nos pondremos en contacto contigo."
 msgstr ""
+"Eskerrik asko ShowYourHeartekin bat egiteagatik! Zure eskaera izapidetzen "
+"ari gara Berehala harremanetan jarriko gara zurekin."
 
 #: templates/profile/details.html:11
 msgid "Your profile"
-msgstr ""
+msgstr "Zure profila"
 
 #: templates/profile/details.html:13
 msgid "Here you can see and edit all your data."
-msgstr ""
+msgstr "Hemen ikusi eta editatu ahal dituzu zure datuak."
 
 #: templates/profile/details.html:30 templates/profile/details.html:69
 msgid "Warning!"
-msgstr ""
+msgstr "Adi!"
 
 #: templates/profile/details.html:31 templates/profile/details.html:70
 msgid "Your email is not verified. Before anything else, you must verify it."
 msgstr ""
+"Zure posta elektronikoa ez dago egiaztaturik. Ezer baino lehen, egiaztatu "
+"egin behar duzu."
 
 #: templates/profile/details.html:33 templates/profile/details.html:72
 msgid "Verify email here."
-msgstr ""
+msgstr "Egiaztatu zure posta elektronikoa hemen."
 
 #: templates/profile/details.html:58
 #: templates/registration/password_change_form.html:3
 #: templates/registration/password_change_form.html:6
 msgid "Password change"
-msgstr ""
+msgstr "Pasahitza aldaketa"
 
 #: templates/profile/details.html:60
 msgid "Here you can change your password."
-msgstr ""
+msgstr "Hemen alda dezakezu zure pasahitza."
 
 #: templates/profile/details.html:82
 msgid "Change password"
-msgstr ""
+msgstr "Pasahitza aldatzea"
 
 #: templates/projects/create_project_success.html:8
 msgid "Tu proyecto se ha creado con exito."
-msgstr ""
+msgstr "Zure egitasmoa arrakastaz sortu da."
 
 #: templates/registration/login.html:9
 msgid "Impact measurement to show your heart with pride"
-msgstr ""
+msgstr "Harrotasunez bihotza erakusteko inpaktu-neurketa"
 
 #: templates/registration/login.html:11
 msgid "Impact measurement can help you manage your impact"
-msgstr ""
+msgstr "Inpaktua neurtzeak zure inpaktua kudeatzen lagundu diezazuke"
 
 #: templates/registration/login.html:12
 msgid "Main benefits of Show your Heart"
-msgstr ""
+msgstr "Bihotza erakustearen onura nagusiak"
 
 #: templates/registration/login.html:14
 msgid "Helps you measure your impact by calculating relevant indicators."
-msgstr ""
+msgstr "Bihotza erakustearen onura nagusiak."
 
+# No se si se refiere a una característica de la herramienta "permite que  se guarden los datos de sus stakeholders relevantes" o si se está pidiendo permiso en cuyo caso debería ir como pregunta. Algo así como: "permite guardar los datos de sus personas interesadas relevantes?"
+# Al no tener interrogante lo he traducido como afirmación lo que puede interpretarse como ("estoy dando permiso" aunque también podría interpretarse como una enunciación de una característica de la herramienta "esta herramienta permite guardar los datos...")
 #: templates/registration/login.html:15
 msgid ""
 "Allows you to gather data from your relevant stakeholders (e.g. employees, "
 "suppliers, volunteers)."
 msgstr ""
+"Zure interesdunen datuak biltzeko aukera ematen duzu (adib. langileak, "
+"hornitzaileak, boluntarioak)."
 
+# Como en el caso anterior, parece que está informando sobre una ventaja de la herramienta: "facilita los procesos de certificación con tus redes de empresas sociales"
+# Ese es el sentido?
 #: templates/registration/login.html:16
 msgid ""
 "Facilitates certification processes with your network of social enterprises."
-msgstr ""
+msgstr "Ziurtapen-prozesuak errazten ditu zure gizarte-enpresen sarearekin."
 
 #: templates/registration/login.html:17
 msgid ""
 "Generates documents useful to report your impact (infographics, "
 "spreadsheets, labels)."
 msgstr ""
+"Zure inpaktuaren berri emateko dokumentuak sortzen ditu (infografiak, "
+"kalkulu-orriak, etiketak)."
 
 #: templates/registration/login.html:30
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Zure pasa hitza ahaztu duzu?"
 
 #: templates/registration/login.html:36
 msgid "Start"
-msgstr ""
+msgstr "Hasi"
 
 #: templates/registration/login.html:43
 msgid "You do not have an account yet?"
-msgstr ""
+msgstr "Oraindik ez al duzu konturik?"
 
 #: templates/registration/password_reset_confirm.html:3
 #: templates/registration/password_reset_confirm.html:6
 msgid "Password recovery"
-msgstr ""
+msgstr "Pasahitza berreskuratzeko"
 
 #: templates/registration/password_reset_confirm.html:9
 msgid ""
 "Introduce your email. A link will be sent to this address so you can reset "
 "your password."
 msgstr ""
+"Sar ezazu zure posta elektronikoa. Zure pasahitza berrezarri ahal izateko "
+"esteka bat bidaliko zaio helbide honetara."
 
 #: templates/registration/password_reset_form.html:3
 #: templates/registration/password_reset_form.html:6
 msgid "Password reset"
-msgstr ""
+msgstr "Pasahitza berrezarri"
 
 #: templates/registration/privacy_policy.html:3
 msgid "Privacy policy"
-msgstr ""
+msgstr "Pribatasun-politika"
 
+# He supuesto que como está entre comillas, "ensenya el cor" es el nombre genuino de la plataforma y no lo he traducido. Si hubiera que traducirlo, en euskera sería "bihotza erakutsi"
 #: templates/registration/privacy_policy.html:6
 msgid "TÉRMINOS DE USO DE LA PLATAFORMA “ENSENYA EL COR”"
-msgstr ""
+msgstr "\"ENSENYA EL COR\" PLATAFORMA ERABILTZEKO TERMINOAK"
 
 #: templates/registration/send_verification_code.html:3
 #: templates/registration/send_verification_code.html:6
 #: templates/registration/user_validation.html:3
 #: templates/registration/user_validation.html:6
 msgid "Mail validation"
-msgstr ""
+msgstr "Helbide elektronikoa baliozkotzea"
 
 #: templates/registration/send_verification_code.html:12
 #: templates/registration/user_validation.html:12
@@ -1623,8 +1700,9 @@ msgid ""
 "By clicking the button a verification code will be send to your email "
 "address. Check your inbox to find it."
 msgstr ""
+"Botoia sakatzean, egiaztapen-kode bat zure helbide elektronikora bidaliko da."
 
 #: templates/registration/user_validation_confirm.html:3
 #: templates/registration/user_validation_confirm.html:6
 msgid "New password"
-msgstr ""
+msgstr "Pasahitza berria"

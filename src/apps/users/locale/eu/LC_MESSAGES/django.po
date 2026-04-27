@@ -6,33 +6,34 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-24 09:06+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-04-27 16:23+0200\n"
+"PO-Revision-Date: 2026-04-27 16:22+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 
 #: apps/users/admin.py:71
 msgid "Authentication"
-msgstr ""
+msgstr "Autentifikazioa"
 
 #: apps/users/admin.py:82
 msgid "Personal details"
-msgstr ""
+msgstr "Detaile pertsonalak"
 
 #: apps/users/admin.py:86
 msgid "Permissions and authorizations"
-msgstr ""
+msgstr "Baimenak eta autorizazioak"
 
 #: apps/users/admin.py:100
 msgid "Log"
-msgstr ""
+msgstr "Erregistroa"
 
 #: apps/users/admin.py:124
 msgid "Organization"
@@ -40,249 +41,256 @@ msgstr ""
 
 #: apps/users/admin.py:128
 msgid "User roles information"
-msgstr ""
+msgstr "Erabiltzailearen rol-informazioa"
 
 #: apps/users/admin.py:136
 msgid "Actions"
-msgstr ""
+msgstr "Ekintzak"
 
 #: apps/users/admin.py:141
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
+"Ziur al zaude pasahitza ezartzeko erabiltzaileari posta elektroniko bat "
+"bidali nahi diozula?"
 
 #: apps/users/admin.py:147
 msgid "Send email to the user to set the password"
-msgstr ""
+msgstr "Bidali erabiltzaileari pasahitza ezartzeko posta elektronikoa"
 
 #: apps/users/forms.py:32 apps/users/forms.py:68 apps/users/forms.py:117
 #: apps/users/forms.py:138
 msgid "Email"
-msgstr ""
+msgstr "Posta elektronikoa"
 
-#: apps/users/forms.py:37
-msgid "Email adress"
-msgstr ""
+#: apps/users/forms.py:37 apps/users/forms.py:71 apps/users/forms.py:122
+#: apps/users/forms.py:144
+msgid "Email address"
+msgstr "Helbide elektronikoa"
 
 #: apps/users/forms.py:42 apps/users/forms.py:43 apps/users/forms.py:60
 #: apps/users/forms.py:61
 msgid "Password"
-msgstr ""
+msgstr "Pasahitza"
 
 #: apps/users/forms.py:46
 msgid "Remember me"
-msgstr ""
+msgstr "Gogoratu nazazu"
 
 #: apps/users/forms.py:52 apps/users/forms.py:53 apps/users/forms.py:109
 #: apps/users/forms.py:110
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #: apps/users/forms.py:56 apps/users/forms.py:57 apps/users/forms.py:113
 #: apps/users/forms.py:114
 msgid "Surnames"
-msgstr ""
+msgstr "Abizenak"
 
 #: apps/users/forms.py:64 apps/users/forms.py:65
 msgid "Password confirmation"
-msgstr ""
-
-#: apps/users/forms.py:71 apps/users/forms.py:122 apps/users/forms.py:144
-msgid "Email address"
-msgstr ""
+msgstr "Pasahitza aldatu"
 
 #: apps/users/forms.py:91
 msgid "I have read and agree with the {}"
-msgstr ""
+msgstr "Irakurri dut eta {}-rekin bat nator"
 
 #: apps/users/forms.py:196 apps/users/forms.py:198 apps/users/forms.py:219
 #: apps/users/forms.py:220
 msgid "New password"
-msgstr ""
+msgstr "Pasahitza berria"
 
 #: apps/users/forms.py:202 apps/users/forms.py:204 apps/users/forms.py:224
 #: apps/users/forms.py:226
 msgid "New password confirmation"
-msgstr ""
+msgstr "Pasahitza berriaren onarpena"
 
 #: apps/users/forms.py:213 apps/users/forms.py:216
 msgid "Old password"
-msgstr ""
+msgstr "Pasahitza zaharra"
 
 #: apps/users/forms.py:233 apps/users/forms.py:235
 msgid "Verification code"
-msgstr ""
+msgstr "Egiaztapen-kodea"
 
 #: apps/users/migrations/0002_data_superuser.py:24
 msgid ""
 "Skipping initial superuser creation. Set SUPERUSER_EMAIL and "
 "SUPERUSER_PASSWORD environment variables to enable it."
 msgstr ""
+"Supererabiltzailearen hasierako sorkuntza ez da egiten. Ezarri "
+"SUPERUSER_EMAIL eta SUPERUSER_PASSWORD ingurunean aldagaiak ahalbidetzeko."
 
 #: apps/users/models.py:23
 msgid "Users must have an email address"
-msgstr ""
+msgstr "Erabiltzaileek posta elektroniko bat izan behar dute"
 
 #: apps/users/models.py:41
 msgid "Superusers must have a password"
-msgstr ""
+msgstr "Erabiltzaileek pasahitza izan behar dute"
 
 #: apps/users/models.py:59
 msgid "telephone"
-msgstr ""
+msgstr "telefonoa"
 
 #: apps/users/models.py:81 apps/users/models.py:109
 msgid "name"
-msgstr ""
+msgstr "izena"
 
 #: apps/users/models.py:83
 msgid "surname"
-msgstr ""
+msgstr "abizena"
 
 #: apps/users/models.py:89
 msgid "email address"
-msgstr ""
+msgstr "helbide elektronikoa"
 
 #: apps/users/models.py:118
 msgid "user"
-msgstr ""
+msgstr "erabiltzailea"
 
 #: apps/users/models.py:119
 msgid "users"
-msgstr ""
+msgstr "erabiltzaileak"
 
 #: apps/users/signals.py:102
 #, python-brace-format
 msgid "Group {name} created."
-msgstr ""
+msgstr "Taldea {name} sorturik."
 
 #: apps/users/signals.py:105
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
-msgstr ""
+msgstr "Taldea {name} existitzen da jada, baimena eguneratua."
 
 #: apps/users/urls.py:27
 msgid "sign-up/"
-msgstr ""
+msgstr "erregistratu/"
 
 #: apps/users/urls.py:28
 msgid "sign-in/"
-msgstr ""
+msgstr "saioa hasi/"
 
 #: apps/users/urls.py:30
 msgid "log-out/"
-msgstr ""
+msgstr "saioa itxi/"
 
 #: apps/users/urls.py:37
 msgid "password-reset/"
-msgstr ""
+msgstr "pasahitza-berrezarri/"
 
 #: apps/users/urls.py:42
 msgid "password-reset/<uidb64>/<token>/"
-msgstr ""
+msgstr "pasahitza-berrezarri/<uidb64>/<token>/"
 
 #: apps/users/urls.py:47
 msgid "password-reset/invalid-link/"
-msgstr ""
+msgstr "pasahitza-berrezarri/esteka ez da baliozkoa/"
 
 #: apps/users/urls.py:52
 msgid "password-reset/done/"
-msgstr ""
+msgstr "pasahitza-berrezarri/egina/"
 
 #: apps/users/urls.py:57
 msgid "password-reset/complete/"
-msgstr ""
+msgstr "pasahitza-berrezarri/osatu/"
 
 #: apps/users/urls.py:62
 msgid "password-change/"
-msgstr ""
+msgstr "pasahitza-aldatu/"
 
 #: apps/users/urls.py:67
 msgid "password-change/done/"
-msgstr ""
+msgstr "pasahitza-aldatu/egina/"
 
 #: apps/users/urls.py:73
 msgid "profile/modified/"
-msgstr ""
+msgstr "profila/aldatu/"
 
 #: apps/users/urls.py:80
 msgid "profile/details/"
-msgstr ""
+msgstr "profila/detaileak/"
 
 #: apps/users/urls.py:85
 msgid "user-validation/"
-msgstr ""
+msgstr "erabiltzailearen egiaztapena/"
 
 #: apps/users/urls.py:90
 msgid "send-verification-code/"
-msgstr ""
+msgstr "egiaztapen-kodea-bidali/"
 
 #: apps/users/urls.py:95
 msgid "email-verification-complete/"
-msgstr ""
+msgstr "posta-elektronikoaren-egiaztapena-osatu/"
 
 #: apps/users/urls.py:105
 msgid "privacy-policy/"
-msgstr ""
+msgstr "pribatasun-politika/"
 
 #: apps/users/views.py:120 apps/users/views.py:235
 msgid "Done!"
-msgstr ""
+msgstr "Prest!"
 
 #: apps/users/views.py:121
 msgid "Account verified"
-msgstr ""
+msgstr "Kontua egiaztaturik"
 
 #: apps/users/views.py:122
 msgid "Account has been successfully verified."
-msgstr ""
+msgstr "Kontua behar bezala egiaztaturik izan da."
 
 #: apps/users/views.py:124 apps/users/views.py:195 apps/users/views.py:209
 #: apps/users/views.py:239
 msgid "Go back"
-msgstr ""
+msgstr "Atzera joan"
 
 #: apps/users/views.py:141
 msgid ""
 "This email address does not match any registered account, please check the "
 "spelling."
 msgstr ""
+"Helbide elektroniko hau ez dator bat erregistraturik dagoen inolako "
+"kontuarekin, ziurtatu ongi idatzi duzula."
 
 #: apps/users/views.py:190 apps/users/views.py:191 apps/users/views.py:192
 msgid "Invalid link"
-msgstr ""
+msgstr "Esteka ez da baliozkoa"
 
 #: apps/users/views.py:193
 msgid "The link is invalid. Please try again."
-msgstr ""
+msgstr "Estekak ez du balio. Mesedez, saiatu berriro. "
 
 #: apps/users/views.py:201 apps/users/views.py:202
 msgid "Password reset sent"
-msgstr ""
+msgstr "Pasahitza berrezartzeko esteka bidali da"
 
 #: apps/users/views.py:204
 msgid ""
 "An email has been sent to your inbox. Please check it and follow the "
 "instructions to change your password."
 msgstr ""
+"Posta elektroniko bat bidali da zure postontzira. Mesedez, begira ezazu "
+"jarraibideak eta aldatu zure pasahitza."
 
 #: apps/users/views.py:215 apps/users/views.py:216 apps/users/views.py:217
 msgid "Password reset complete"
-msgstr ""
+msgstr "Pasahitza berrezarrita"
 
 #: apps/users/views.py:219
 msgid "Login"
-msgstr ""
+msgstr "Saioa hasi"
 
 #: apps/users/views.py:236
 msgid "Password change"
-msgstr ""
+msgstr "Pasahitza aldatu"
 
 #: apps/users/views.py:237
 msgid "Password change successful."
-msgstr ""
+msgstr "Pasahitza-aldaketa behar bezala gauzatu da."
 
 #: apps/users/views.py:253
 msgid ""
 "An email has been sent to the user to inform that the account is active and "
 "he can set the password."
 msgstr ""
+"Posta elektroniko bat bidali zaio erabiltzaileari kontua aktibo dagoela eta "
+"pasahitza jar dezakeela jakinarazteko."

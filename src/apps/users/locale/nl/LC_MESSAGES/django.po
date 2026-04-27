@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-24 09:06+0100\n"
+"POT-Creation-Date: 2026-04-27 15:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,8 +59,9 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: apps/users/forms.py:37
-msgid "Email adress"
+#: apps/users/forms.py:37 apps/users/forms.py:71 apps/users/forms.py:122
+#: apps/users/forms.py:144
+msgid "Email address"
 msgstr ""
 
 #: apps/users/forms.py:42 apps/users/forms.py:43 apps/users/forms.py:60
@@ -84,10 +85,6 @@ msgstr ""
 
 #: apps/users/forms.py:64 apps/users/forms.py:65
 msgid "Password confirmation"
-msgstr ""
-
-#: apps/users/forms.py:71 apps/users/forms.py:122 apps/users/forms.py:144
-msgid "Email address"
 msgstr ""
 
 #: apps/users/forms.py:91

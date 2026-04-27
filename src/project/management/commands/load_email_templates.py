@@ -2,13 +2,12 @@ import logging
 
 from django.apps import apps
 from django.core.management.base import BaseCommand
-from django.utils.translation import gettext as _
 
 from project.post_office import textify
 
 
 class Command(BaseCommand):
-    help = _("Fills the database with all the default email templates. ")
+    help = "Fills the database with all the default email templates. "
 
     def handle(self, *args, **options):
         self.populate_mail_templates()

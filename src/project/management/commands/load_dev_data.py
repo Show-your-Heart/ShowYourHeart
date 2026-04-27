@@ -6,7 +6,6 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils import timezone
-from django.utils.translation import gettext as _
 
 from apps.geodata.models import City, Country, Region1, ZipCode
 from apps.methods.models import Campaign, Indicator, Method, Topic
@@ -16,13 +15,12 @@ from apps.users.models import User, UserProfile
 
 
 class Command(BaseCommand):
-    help = _(
-        "Fills the database with all the necessary data to make it faster "
-        "for developers to work with the project when they need to "
-        "re-create the database. Debug mode needs to be "
-        "enabled to run this command. Make sure to set the 'Initial "
-        "superuser and dev data' settings before running this command."
-    )
+    help = "Fills the database with all the necessary data to make it faster "
+    "for developers to work with the project when they need to "
+    "re-create the database. Debug mode needs to be "
+    "enabled to run this command. Make sure to set the 'Initial "
+    "superuser and dev data' settings before running this command."
+
     ORGANIZATION_NAMES = ["Organization TEST", "Organization TEST2"]
     LEGAL_STRUCTURE_NAME = "LegalStructure test"
     COUNTRY_NAME = "Spain"
@@ -34,7 +32,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if not settings.DEBUG:
             self.stdout.write(
-                self.style.ERROR(_("This command can only be run in debug mode."))
+                self.style.ERROR("This command can only be run in debug mode.")
             )
             return 0
 
@@ -56,7 +54,7 @@ class Command(BaseCommand):
     def create_sample_users(
         self, legal_structure, country, region1, city, address, zip_code, methods
     ):
-        self.stdout.write(_("Creating sample users..."))
+        self.stdout.write("Creating sample users...")
 
         # Superuser
         email = settings.SUPERUSER_EMAIL
@@ -66,12 +64,12 @@ class Command(BaseCommand):
                 email=email, password=password, name="Superuser"
             )
             self.stdout.write(
-                _("Superuser created with email '{email}'.").format(
+                "Superuser created with email '{email}'.".format(
                     email=email,
                 )
             )
         else:
-            self.stdout.write(_("Superuser already exists."))
+            self.stdout.write("Superuser already exists.")
 
         self.create_users_with_organization(
             legal_structure, country, region1, city, address, zip_code, methods
@@ -80,7 +78,7 @@ class Command(BaseCommand):
         return 0
 
     def create_sample_network(self):
-        self.stdout.write(_("Creating sample network..."))
+        self.stdout.write("Creating sample network...")
         network_name = "Network test"
         network_type = "Network type"
         network = Network.objects.filter(name=network_name)
@@ -91,14 +89,14 @@ class Command(BaseCommand):
                 network_type=network_type,
             )
         else:
-            self.stdout.write(_("Network test already exists."))
+            self.stdout.write("Network test already exists.")
             network = network[0]
 
         return network
 
     def create_legal_structure(self):
         legal_structure = {}
-        self.stdout.write(_("Creating sample legal structure..."))
+        self.stdout.write("Creating sample legal structure...")
         legal_structure_filter = LegalStructure.objects.filter(
             name=self.LEGAL_STRUCTURE_NAME
         )
@@ -108,7 +106,7 @@ class Command(BaseCommand):
                 name=self.LEGAL_STRUCTURE_NAME,
             )
         else:
-            self.stdout.write(_("LegalStructure test already exists."))
+            self.stdout.write("LegalStructure test already exists.")
             legal_structure = legal_structure_filter[0]
 
         return legal_structure
@@ -133,7 +131,7 @@ class Command(BaseCommand):
             groups = Group.objects.filter(name="Governance admins")
             user.groups.set(groups)
             self.stdout.write(
-                _("Governace admin user created with email '{email}'.").format(
+                "Governace admin user created with email '{email}'.".format(
                     email=email,
                 )
             )
@@ -154,7 +152,7 @@ class Command(BaseCommand):
             )
             user.save()
         else:
-            self.stdout.write(_("Governace admin user already exists."))
+            self.stdout.write("Governace admin user already exists.")
 
         # Test user
         email = settings.USER_EMAIL
@@ -169,10 +167,8 @@ class Command(BaseCommand):
                 is_active=True,
                 email_verified=True,
             )
-            self.stdout.write(
-                _("User created with email '{email}'.").format(
-                    email=email,
-                )
+            self.stdout.write("User created with email '{email}'.").format(
+                email=email,
             )
 
             user.user_profile = UserProfile.objects.create(
@@ -180,15 +176,15 @@ class Command(BaseCommand):
             )
             user.save()
         else:
-            self.stdout.write(_("User already exists."))
+            self.stdout.write("User already exists.")
 
     def create_sample_organizations(
         self, user, legal_structure, country, region1, city, address, zip_code, methods
     ):
         organizations = []
-        self.stdout.write(_("Creating sample organizations..."))
+        self.stdout.write("Creating sample organizations...")
         for org_name in self.ORGANIZATION_NAMES:
-            self.stdout.write(_(org_name))
+            self.stdout.write(org_name)
             if not Organization.objects.filter(name=org_name).exists():
                 org = Organization.objects.create(
                     name=org_name,
@@ -210,7 +206,7 @@ class Command(BaseCommand):
         return organizations
 
     def create_sample_topics(self):
-        self.stdout.write(_("Creating sample topics..."))
+        self.stdout.write("Creating sample topics...")
         topic_list = []
 
         for x in range(1, 4):
@@ -222,7 +218,7 @@ class Command(BaseCommand):
                 )
                 topic_list.append(topic)
             else:
-                self.stdout.write(_(f"{topic_name} already exists."))
+                self.stdout.write(f"{topic_name} already exists.")
                 for queryset in topic_filter:
                     topic_list.append(queryset)
 
@@ -230,7 +226,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def create_sample_indicators(self, topics):
-        self.stdout.write(_("Creating sample indicators..."))
+        self.stdout.write("Creating sample indicators...")
         indicators = []
 
         for x in range(1, 4):
@@ -246,13 +242,13 @@ class Command(BaseCommand):
                 )
                 indicator.topics.set(topics)
             else:
-                self.stdout.write(_(f"{indicator_name} already exists."))
+                self.stdout.write(f"{indicator_name} already exists.")
                 indicator = indicator[0]
             indicators.append(indicator)
         return indicators
 
     def create_sample_methods(self, legal_structures, indicators, network):
-        self.stdout.write(_("Creating sample methods..."))
+        self.stdout.write("Creating sample methods...")
         methods = []
 
         for x in range(1, 4):
@@ -268,12 +264,12 @@ class Command(BaseCommand):
                 (method.networks.set([network]),)
             else:
                 method = method_qs.first()
-                self.stdout.write(_(f"{method_name} already exists."))
+                self.stdout.write(f"{method_name} already exists.")
             methods.append(method)
         return methods
 
     def create_sample_country(self):
-        self.stdout.write(_("Creating sample country..."))
+        self.stdout.write("Creating sample country...")
         country_qs = Country.objects.filter(name=self.COUNTRY_NAME)
 
         if not country_qs.exists():
@@ -281,13 +277,13 @@ class Command(BaseCommand):
                 name=self.COUNTRY_NAME,
             )
         else:
-            self.stdout.write(_("Country already exists."))
+            self.stdout.write("Country already exists.")
             country = country_qs.first()
 
         return country
 
     def create_sample_city(self):
-        self.stdout.write(_("Creating sample city..."))
+        self.stdout.write("Creating sample city...")
         city_qs = City.objects.filter(name=self.CITY_NAME)
 
         if not city_qs.exists():
@@ -297,13 +293,13 @@ class Command(BaseCommand):
                 region1=self.create_sample_region1(),
             )
         else:
-            self.stdout.write(_("City already exists."))
+            self.stdout.write("City already exists.")
             city = city_qs.first()
 
         return city
 
     def create_sample_zipcode(self, city):
-        self.stdout.write(_("Creating sample zipcode..."))
+        self.stdout.write("Creating sample zipcode...")
         zipcode_qs = ZipCode.objects.filter(code=self.ZIPCODE)
 
         if not zipcode_qs.exists():
@@ -312,13 +308,13 @@ class Command(BaseCommand):
                 city=city,
             )
         else:
-            self.stdout.write(_("Zip code already exists."))
+            self.stdout.write("Zip code already exists.")
             zip_code = zipcode_qs.first()
 
         return zip_code
 
     def create_sample_region1(self):
-        self.stdout.write(_("Creating sample Region1..."))
+        self.stdout.write("Creating sample Region1...")
         region1_qs = Region1.objects.filter(name=self.REGION1_NAME)
 
         if not region1_qs.exists():
@@ -327,12 +323,12 @@ class Command(BaseCommand):
                 country=self.create_sample_country(),
             )
         else:
-            self.stdout.write(_("Region1 already exists."))
+            self.stdout.write("Region1 already exists.")
             region1 = region1_qs.first()
         return region1
 
     def create_sample_campaign(self, methods):
-        self.stdout.write(_("Creating sample Campaign..."))
+        self.stdout.write("Creating sample Campaign...")
         campaigns = []
         campaign_name = "2025"
         campaign_qs = Campaign.objects.filter(name=campaign_name)
@@ -345,7 +341,7 @@ class Command(BaseCommand):
             )
             campaign.methods.set(methods)
         else:
-            self.stdout.write(_("Campaign already exists."))
+            self.stdout.write("Campaign already exists.")
             campaign = campaign_qs.first()
 
         campaigns.append(campaign)

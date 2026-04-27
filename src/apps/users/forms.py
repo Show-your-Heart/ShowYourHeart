@@ -34,7 +34,7 @@ class AuthenticationForm(BaseAuthenticationForm):
             attrs={
                 "autofocus": True,
                 "autocomplete": "email",
-                "placeholder": _("Email adress"),
+                "placeholder": _("Email address"),
             }
         ),
     )

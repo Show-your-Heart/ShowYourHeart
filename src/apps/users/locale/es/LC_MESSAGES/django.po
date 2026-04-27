@@ -6,34 +6,34 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-24 09:06+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-04-27 15:11+0200\n"
+"PO-Revision-Date: 2026-04-27 14:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 
 #: apps/users/admin.py:71
 msgid "Authentication"
-msgstr ""
+msgstr "Autenticación"
 
 #: apps/users/admin.py:82
 msgid "Personal details"
-msgstr ""
+msgstr "Datos personales"
 
 #: apps/users/admin.py:86
 msgid "Permissions and authorizations"
-msgstr ""
+msgstr "Permisos y autorizaciones"
 
 #: apps/users/admin.py:100
 msgid "Log"
-msgstr ""
+msgstr "Registro"
 
 #: apps/users/admin.py:124
 msgid "Organization"
@@ -41,249 +41,257 @@ msgstr ""
 
 #: apps/users/admin.py:128
 msgid "User roles information"
-msgstr ""
+msgstr "Información sobre los roles de usuario"
 
 #: apps/users/admin.py:136
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #: apps/users/admin.py:141
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
+"¿Estás seguro de que quieres enviar un correo electrónico al usuario para "
+"que establezca la contraseña?"
 
 #: apps/users/admin.py:147
 msgid "Send email to the user to set the password"
 msgstr ""
+"Envía un correo electrónico al usuario para que establezca la contraseña"
 
 #: apps/users/forms.py:32 apps/users/forms.py:68 apps/users/forms.py:117
 #: apps/users/forms.py:138
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
-#: apps/users/forms.py:37
-msgid "Email adress"
-msgstr ""
+#: apps/users/forms.py:37 apps/users/forms.py:71 apps/users/forms.py:122
+#: apps/users/forms.py:144
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
 
 #: apps/users/forms.py:42 apps/users/forms.py:43 apps/users/forms.py:60
 #: apps/users/forms.py:61
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: apps/users/forms.py:46
 msgid "Remember me"
-msgstr ""
+msgstr "Recordarme"
 
 #: apps/users/forms.py:52 apps/users/forms.py:53 apps/users/forms.py:109
 #: apps/users/forms.py:110
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: apps/users/forms.py:56 apps/users/forms.py:57 apps/users/forms.py:113
 #: apps/users/forms.py:114
 msgid "Surnames"
-msgstr ""
+msgstr "Apellidos"
 
 #: apps/users/forms.py:64 apps/users/forms.py:65
 msgid "Password confirmation"
-msgstr ""
-
-#: apps/users/forms.py:71 apps/users/forms.py:122 apps/users/forms.py:144
-msgid "Email address"
-msgstr ""
+msgstr "Confirmación de contraseña"
 
 #: apps/users/forms.py:91
 msgid "I have read and agree with the {}"
-msgstr ""
+msgstr "He leído y acepto lo que figura en {}"
 
 #: apps/users/forms.py:196 apps/users/forms.py:198 apps/users/forms.py:219
 #: apps/users/forms.py:220
 msgid "New password"
-msgstr ""
+msgstr "Nueva contraseña"
 
 #: apps/users/forms.py:202 apps/users/forms.py:204 apps/users/forms.py:224
 #: apps/users/forms.py:226
 msgid "New password confirmation"
-msgstr ""
+msgstr "Confirmación de la nueva contraseña"
 
 #: apps/users/forms.py:213 apps/users/forms.py:216
 msgid "Old password"
-msgstr ""
+msgstr "Contraseña anterior"
 
 #: apps/users/forms.py:233 apps/users/forms.py:235
 msgid "Verification code"
-msgstr ""
+msgstr "Código de verificación"
 
 #: apps/users/migrations/0002_data_superuser.py:24
 msgid ""
 "Skipping initial superuser creation. Set SUPERUSER_EMAIL and "
 "SUPERUSER_PASSWORD environment variables to enable it."
 msgstr ""
+"Se omite la creación inicial del superusuario. Para habilitarla, configura "
+"las variables de entorno SUPERUSER_EMAIL y SUPERUSER_PASSWORD."
 
 #: apps/users/models.py:23
 msgid "Users must have an email address"
-msgstr ""
+msgstr "Los usuarios deben tener una dirección de correo electrónico"
 
 #: apps/users/models.py:41
 msgid "Superusers must have a password"
-msgstr ""
+msgstr "Los superusuarios deben tener una contraseña"
 
 #: apps/users/models.py:59
 msgid "telephone"
-msgstr ""
+msgstr "teléfono"
 
 #: apps/users/models.py:81 apps/users/models.py:109
 msgid "name"
-msgstr ""
+msgstr "nombre"
 
 #: apps/users/models.py:83
 msgid "surname"
-msgstr ""
+msgstr "apellidos"
 
 #: apps/users/models.py:89
 msgid "email address"
-msgstr ""
+msgstr "dirección de correo electrónico"
 
 #: apps/users/models.py:118
 msgid "user"
-msgstr ""
+msgstr "usuario"
 
 #: apps/users/models.py:119
 msgid "users"
-msgstr ""
+msgstr "usuarios"
 
 #: apps/users/signals.py:102
 #, python-brace-format
 msgid "Group {name} created."
-msgstr ""
+msgstr "Se ha creado el grupo {name}"
 
 #: apps/users/signals.py:105
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
-msgstr ""
+msgstr "El grupo {name} ya existe; se han actualizado los permisos."
 
 #: apps/users/urls.py:27
 msgid "sign-up/"
-msgstr ""
+msgstr "registrarse/"
 
 #: apps/users/urls.py:28
 msgid "sign-in/"
-msgstr ""
+msgstr "iniciar-sesion/"
 
 #: apps/users/urls.py:30
 msgid "log-out/"
-msgstr ""
+msgstr "cerrar-sesion/"
 
 #: apps/users/urls.py:37
 msgid "password-reset/"
-msgstr ""
+msgstr "restablecimiento-de-contraseña/"
 
 #: apps/users/urls.py:42
 msgid "password-reset/<uidb64>/<token>/"
-msgstr ""
+msgstr "restablecimiento-de-contraseña/<uidb64>/<token>/"
 
 #: apps/users/urls.py:47
 msgid "password-reset/invalid-link/"
-msgstr ""
+msgstr "restablecimiento-de-contraseña/enlace-no-válido/"
 
 #: apps/users/urls.py:52
 msgid "password-reset/done/"
-msgstr ""
+msgstr "restablecimiento-de-contraseña/hecho/"
 
 #: apps/users/urls.py:57
 msgid "password-reset/complete/"
-msgstr ""
+msgstr "restablecimiento-de-contraseña/finalizar/"
 
 #: apps/users/urls.py:62
 msgid "password-change/"
-msgstr ""
+msgstr "cambio-de-contraseña/"
 
 #: apps/users/urls.py:67
 msgid "password-change/done/"
-msgstr ""
+msgstr "cambio-de-contraseña/hecho/"
 
 #: apps/users/urls.py:73
 msgid "profile/modified/"
-msgstr ""
+msgstr "perfil/modificado/"
 
 #: apps/users/urls.py:80
 msgid "profile/details/"
-msgstr ""
+msgstr "perfil/detalles/"
 
 #: apps/users/urls.py:85
 msgid "user-validation/"
-msgstr ""
+msgstr "validacion-de-usuarios/"
 
 #: apps/users/urls.py:90
 msgid "send-verification-code/"
-msgstr ""
+msgstr "enviar-codigo-de-verificación/"
 
 #: apps/users/urls.py:95
 msgid "email-verification-complete/"
-msgstr ""
+msgstr "verificación-del-correo-electronico-completada/"
 
 #: apps/users/urls.py:105
 msgid "privacy-policy/"
-msgstr ""
+msgstr "política-de-privacidad/"
 
 #: apps/users/views.py:120 apps/users/views.py:235
 msgid "Done!"
-msgstr ""
+msgstr "¡Hecho!"
 
 #: apps/users/views.py:121
 msgid "Account verified"
-msgstr ""
+msgstr "Cuenta verificada"
 
 #: apps/users/views.py:122
 msgid "Account has been successfully verified."
-msgstr ""
+msgstr "La cuenta se ha verificado correctamente."
 
 #: apps/users/views.py:124 apps/users/views.py:195 apps/users/views.py:209
 #: apps/users/views.py:239
 msgid "Go back"
-msgstr ""
+msgstr "Volver"
 
 #: apps/users/views.py:141
 msgid ""
 "This email address does not match any registered account, please check the "
 "spelling."
 msgstr ""
+"Esta dirección de correo electrónico no coincide con ninguna cuenta "
+"registrada; comprueba que la hayas escrito correctamente."
 
 #: apps/users/views.py:190 apps/users/views.py:191 apps/users/views.py:192
 msgid "Invalid link"
-msgstr ""
+msgstr "Enlace no válido"
 
 #: apps/users/views.py:193
 msgid "The link is invalid. Please try again."
-msgstr ""
+msgstr "El enlace no es válido. Inténtalo de nuevo."
 
 #: apps/users/views.py:201 apps/users/views.py:202
 msgid "Password reset sent"
-msgstr ""
+msgstr "Se ha enviado el enlace para restablecer la contraseña"
 
 #: apps/users/views.py:204
 msgid ""
 "An email has been sent to your inbox. Please check it and follow the "
 "instructions to change your password."
 msgstr ""
+"Se ha enviado un correo electrónico a tu bandeja de entrada. Compruébalo y "
+"sigue las instrucciones para cambiar tu contraseña."
 
 #: apps/users/views.py:215 apps/users/views.py:216 apps/users/views.py:217
 msgid "Password reset complete"
-msgstr ""
+msgstr "Restablecimiento de contraseña completado"
 
 #: apps/users/views.py:219
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: apps/users/views.py:236
 msgid "Password change"
-msgstr ""
+msgstr "Cambio de contraseña"
 
 #: apps/users/views.py:237
 msgid "Password change successful."
-msgstr ""
+msgstr "El cambio de contraseña se ha realizado correctamente."
 
 #: apps/users/views.py:253
 msgid ""
 "An email has been sent to the user to inform that the account is active and "
 "he can set the password."
 msgstr ""
+"Se ha enviado un correo electrónico al usuario para informarle de que la "
+"cuenta está activa y de que puede establecer la contraseña."
