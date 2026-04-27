@@ -301,13 +301,15 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
 
-        campaigns = Campaign.objects.all()
+        campaigns = Campaign.objects.filter(status=True)
         for c in campaigns:
             c.name = f"{c.name} | {c.year}"
 
+        methods = Method.objects.filter(campaign_methods__status=True).distinct()
+
         context["campaigns"] = campaigns
         context["regions"] = Region1.objects.all()
-        context["methods"] = Method.objects.all()
+        context["methods"] = methods
         context["unitanalysis"] = unit_of_analysis
         context["status"] = all_status
 

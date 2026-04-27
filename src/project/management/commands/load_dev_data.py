@@ -43,7 +43,7 @@ class Command(BaseCommand):
         region1 = self.create_sample_region1()
         city = self.create_sample_city()
         address = self.ADDRESS
-        zip_code = self.create_sample_zipcode()
+        zip_code = self.create_sample_zipcode(city)
         network = self.create_sample_network()
         topics = self.create_sample_topics()
         indicators = self.create_sample_indicators(topics)
@@ -302,14 +302,14 @@ class Command(BaseCommand):
 
         return city
 
-    def create_sample_zipcode(self):
+    def create_sample_zipcode(self, city):
         self.stdout.write(_("Creating sample zipcode..."))
         zipcode_qs = ZipCode.objects.filter(code=self.ZIPCODE)
 
         if not zipcode_qs.exists():
             zip_code = ZipCode.objects.create(
                 code=self.ZIPCODE,
-                city=self.CITY_NAME,
+                city=city,
             )
         else:
             self.stdout.write(_("Zip code already exists."))
