@@ -291,13 +291,11 @@ const initFieldData = () => {
         },
         updateShow(show) {
             // Only if it has changed
-            if (this.state.show == show) {
-                return
-            } else {
+            if (this.state.show != show) {
                 if (this.isDirectIndicator) {
+                    this.state.show = show
                     // Show direct indicator and unset NA
                     if (show) {
-                        this.state.show = true
                         this.state.notApplicable = false
                     }
                     this.$dispatch('indicator-visible', { id: this.id, show })
