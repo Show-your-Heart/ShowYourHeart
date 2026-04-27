@@ -4,7 +4,7 @@
         {% for option in options %}
         <label :for="`question_${instanceId}_option_{{index}}`"
             class="inline-flex items-center cursor-pointer mr-4 has-disabled:cursor-default has-disabled:pointer-events-none"
-            @click="update('{{ option.value.id }}')" :class="!isDirectIndicator ? 'cursor-default pointer-events-none' : ''">
+            @change="update('{{ option.value.id }}')" :class="!isDirectIndicator ? 'cursor-default pointer-events-none' : ''">
             <input type="radio" :id="`question_${instanceId}_option_{{index}}`" :name="`question_${instanceId}`"
                 value="{{ option.value.id }}"
                 class="pointer-events-none h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer focus:ring-blue-500 disabled:cursor-default peer"
