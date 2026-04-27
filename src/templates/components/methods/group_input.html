@@ -2,7 +2,7 @@
 
 <c-methods.group-base-field>
     <div class="flex w-fit p-2 border border-gray-300 rounded-lg bg-gray-100 overflow-x-scroll max-w-full" :class="state.hasErrors ? 'border-red-600' : 'border-gray-300'">
-        <table>
+        <table id="question_${instanceId}">
             <template x-if="group2Title != ''">
                 <thead>
                     <tr>
