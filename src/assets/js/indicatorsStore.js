@@ -336,6 +336,8 @@ const initIndicatorsStore = () => {
                             this.indicators[instanceId].value = String(value)
                         }
                     }
+                    // Dependant indirect indicators
+                    this.updateIndicatorDependencies(instanceId)
                 }
                 if (indicator.validation.includes(code)) {
                     if (indicator.is_group_indicator) {
