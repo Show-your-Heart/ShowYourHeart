@@ -101,6 +101,7 @@ def prepare_method_fill_context(
     try:
         if survey_id is not None:
             survey = Survey.objects.get(pk=survey_id)
+            method = survey.method
         elif token is not None:  # External survey
             survey = Survey.objects.get(
                 token=token,
