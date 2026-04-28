@@ -1,14 +1,15 @@
 {% load post_office %}
 
-<p>Hello {{user_name}}!</p>
-<p>We're sending you this e-mail because today {{date}} at {{time}}
-your account have been activated on the SYH project with your email {{user_email}}
-for {{absolute_url}} and you need to set your password.</p>
+<p>Congratulations {{user_name}},</p>
 
-<p> If it weren't you who requested it,
-ignore this message.</p>
+<p>Your application to join the Show your heart platform has been accepted.</p>
+<p>In order to access the platform and be able to fill any of the methods, here you have your login details:</p>
+<p>User: {{user_email}}</p>
+<p>Password: it must be set in the following link <a href="{{password_reset_url}}">{{password_reset_url}}</a></p>
 
-<h3>Password setting instructions</h3>
-<p>To set a new password open this link:
-<a href="{{password_reset_url}}">{{password_reset_url}}</a>
-</p>
+
+<p>Be sure to use a secure password including capital letters, lowecase letters, numbers and special characters.</p>
+
+<p>You can then login to the platform here: <a href="{{absolute_url}}">{{absolute_url}}</a></p>
+
+ 

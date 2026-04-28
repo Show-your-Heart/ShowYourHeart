@@ -49,6 +49,7 @@ from .models import (
     Survey,
     Topic,
 )
+from .services import send_survey_status_update_email
 from .views import BalanceReviewView
 
 
@@ -638,6 +639,16 @@ class SurveyAdmin(ModelAdmin):
 
         survey.save()
 
+        email_log = None
+        notification_type = "success"
+        try:
+            result = send_survey_status_update_email(request, pk, survey.status)
+            if result:
+                email_log = _("An email to the contact has been sent.") + f"[{result}]"
+        except Exception as error:
+            email_log = str(error)
+            notification_type = "error"
+
         survey.method.sections = get_form_sections(survey.method)
         stats = get_survey_stats(survey, survey.method, survey.campaign)
         survey.totalProgress = stats["totalProgress"]
@@ -647,6 +658,9 @@ class SurveyAdmin(ModelAdmin):
             status.append({"id": s.value, "name": s.label})
 
         msg = _("Balance status successfuly updated.")
+        if email_log:
+            msg = "".join([msg, email_log])
+
         return HttpResponse(
             render(
                 request,
@@ -655,7 +669,9 @@ class SurveyAdmin(ModelAdmin):
             ),
             headers={
                 "HX-Trigger": "{ "
-                + '"notification": { "type": "success", "text": "'
+                + '"notification": { "type": "'
+                + notification_type
+                + '", "text": "'
                 + msg
                 + '" } }',
             },

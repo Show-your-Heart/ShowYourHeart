@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 14:37+0200\n"
+"POT-Creation-Date: 2026-04-30 12:22+0200\n"
 "PO-Revision-Date: 2026-04-27 14:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -43,38 +43,42 @@ msgstr "ciudades"
 msgid "zip codes"
 msgstr "código postal"
 
-#: apps/methods/admin.py:615
+#: apps/methods/admin.py:616
 msgid "Balance successfuly updated."
 msgstr "Balance correctamente actualizado."
 
-#: apps/methods/admin.py:653
+#: apps/methods/admin.py:647 apps/methods/views.py:429
+msgid "An email to the contact has been sent."
+msgstr "Se ha enviado un correo electrónico al contacto."
+
+#: apps/methods/admin.py:660
 msgid "Balance status successfuly updated."
 msgstr "Estado del balance correctamente actualizado."
 
-#: apps/methods/admin.py:716 apps/methods/admin.py:760
+#: apps/methods/admin.py:728 apps/methods/admin.py:772
 msgid "Actions"
 msgstr "Acciones"
 
-#: apps/methods/admin.py:720
+#: apps/methods/admin.py:732
 msgid "Are you sure you want to send the invitation?"
 msgstr "¿Estás seguro de que quieres enviar la invitación?"
 
-#: apps/methods/admin.py:725
+#: apps/methods/admin.py:737
 msgid "Send invitation"
 msgstr "Enviar invitación"
 
-#: apps/methods/admin.py:764 templates/methods/external_surveys_view.html:59
+#: apps/methods/admin.py:776 templates/methods/external_surveys_view.html:59
 msgid "Are you sure you want to send the invitations?"
 msgstr "¿Estás seguro de que quieres enviar las invitaciones?"
 
-#: apps/methods/admin.py:769
+#: apps/methods/admin.py:781
 msgid "Send invitations"
 msgstr "Mandar invitaciones"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
 #: apps/methods/models.py:489 apps/methods/models.py:622
-#: apps/methods/models.py:670 apps/organizations/forms.py:26
-#: apps/organizations/forms.py:42 apps/organizations/forms.py:232
+#: apps/methods/models.py:670 apps/organizations/forms.py:27
+#: apps/organizations/forms.py:43 apps/organizations/forms.py:235
 #: templates/admin/methods/survey_review.html:34
 #: templates/admin/methods/survey_review.html:119
 #: templates/admin/organizations/registration_requests.html:38
@@ -380,8 +384,8 @@ msgstr "Cuestionarios Externos"
 msgid "Version"
 msgstr "Versión"
 
-#: apps/methods/models.py:456 apps/organizations/forms.py:78
-#: apps/organizations/forms.py:274
+#: apps/methods/models.py:456 apps/organizations/forms.py:79
+#: apps/organizations/forms.py:277
 msgid "Region1"
 msgstr "Región1"
 
@@ -407,7 +411,7 @@ msgid "Methods"
 msgstr "Métodos"
 
 #: apps/methods/models.py:501 apps/methods/models.py:561
-#: apps/organizations/forms.py:377 apps/organizations/models.py:206
+#: apps/organizations/forms.py:380 apps/organizations/models.py:206
 #: templates/admin/methods/survey_review.html:131
 msgid "Start date"
 msgstr "Fecha de inicio"
@@ -481,8 +485,8 @@ msgstr "Fecha de envío"
 msgid "Title"
 msgstr "Titulo"
 
-#: apps/methods/models.py:707 apps/organizations/forms.py:31
-#: apps/organizations/forms.py:237
+#: apps/methods/models.py:707 apps/organizations/forms.py:32
+#: apps/organizations/forms.py:240
 msgid "Description"
 msgstr "Descripción"
 
@@ -547,129 +551,125 @@ msgstr ""
 msgid "An email to all the involved contacts has been sent."
 msgstr "Se ha enviado un correo electrónico a todos los contactos implicados."
 
-#: apps/methods/views.py:429
-msgid "An email to the contact has been sent."
-msgstr "Se ha enviado un correo electrónico al contacto."
-
-#: apps/organizations/forms.py:21
+#: apps/organizations/forms.py:22
 msgid "Invalid signup, check that you don't have an account."
 msgstr "Registro no válido, comprueba que no tienes una cuenta."
 
-#: apps/organizations/forms.py:25 apps/organizations/forms.py:231
+#: apps/organizations/forms.py:26 apps/organizations/forms.py:234
 msgid "Organisation name"
 msgstr "Nombre de la organización"
 
-#: apps/organizations/forms.py:29 apps/organizations/forms.py:235
-msgid "Organization description"
+#: apps/organizations/forms.py:30 apps/organizations/forms.py:238
+msgid "Organisation description"
 msgstr "Descripción de la organización"
 
-#: apps/organizations/forms.py:35 apps/organizations/forms.py:37
-#: apps/organizations/forms.py:241 apps/organizations/forms.py:243
+#: apps/organizations/forms.py:36 apps/organizations/forms.py:38
+#: apps/organizations/forms.py:244 apps/organizations/forms.py:246
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
 msgstr "Numero de CIF"
 
-#: apps/organizations/forms.py:41 apps/organizations/forms.py:247
-#: apps/organizations/forms.py:400
+#: apps/organizations/forms.py:42 apps/organizations/forms.py:250
+#: apps/organizations/forms.py:403
 msgid "Name of the contact person"
 msgstr "Nombre de la persona de contacto"
 
-#: apps/organizations/forms.py:45 apps/organizations/forms.py:254
-#: apps/organizations/forms.py:406
+#: apps/organizations/forms.py:46 apps/organizations/forms.py:257
+#: apps/organizations/forms.py:409
 msgid "Phone number of the contact person"
 msgstr "Numero de teléfono de la persona de contacto"
 
-#: apps/organizations/forms.py:47
+#: apps/organizations/forms.py:48
 msgid "Phone number"
 msgstr "Número de teléfono"
 
-#: apps/organizations/forms.py:51 apps/organizations/forms.py:250
-#: apps/organizations/forms.py:412
+#: apps/organizations/forms.py:52 apps/organizations/forms.py:253
+#: apps/organizations/forms.py:415
 msgid "Email address of the contact person"
 msgstr "Correo electrónico de la persona de contacto"
 
-#: apps/organizations/forms.py:55
+#: apps/organizations/forms.py:56
 #: templates/components/methods/invitations_table.html:9 templates/home.html:21
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: apps/organizations/forms.py:61 apps/organizations/forms.py:62
-#: apps/organizations/forms.py:257 apps/organizations/forms.py:258
+#: apps/organizations/forms.py:62 apps/organizations/forms.py:63
+#: apps/organizations/forms.py:260 apps/organizations/forms.py:261
 msgid "Website"
 msgstr "Página web"
 
-#: apps/organizations/forms.py:66 apps/organizations/forms.py:262
+#: apps/organizations/forms.py:67 apps/organizations/forms.py:265
 msgid "Country"
 msgstr "País"
 
-#: apps/organizations/forms.py:90 apps/organizations/forms.py:286
+#: apps/organizations/forms.py:91 apps/organizations/forms.py:289
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
 msgstr "Ciudad"
 
-#: apps/organizations/forms.py:102 apps/organizations/forms.py:103
-#: apps/organizations/forms.py:298 apps/organizations/forms.py:299
+#: apps/organizations/forms.py:103 apps/organizations/forms.py:104
+#: apps/organizations/forms.py:301 apps/organizations/forms.py:302
 msgid "Address"
 msgstr "Dirección"
 
-#: apps/organizations/forms.py:106 apps/organizations/forms.py:302
+#: apps/organizations/forms.py:107 apps/organizations/forms.py:305
 msgid "Zip Code"
 msgstr "Código Postal"
 
-#: apps/organizations/forms.py:109 apps/organizations/forms.py:305
+#: apps/organizations/forms.py:110 apps/organizations/forms.py:308
 msgid "Legal entity type"
 msgstr "Tipo de identidad jurídica"
 
-#: apps/organizations/forms.py:122
+#: apps/organizations/forms.py:123
 msgid "Method of impact mesurement"
 msgstr "Método de medición de impacto"
 
-#: apps/organizations/forms.py:132 apps/organizations/forms.py:309
+#: apps/organizations/forms.py:133 apps/organizations/forms.py:312
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
 msgstr "Permitir que las infografías sean públicas"
 
-#: apps/organizations/forms.py:165
+#: apps/organizations/forms.py:166
 msgid "I have read and accept the {}"
 msgstr "He leído y acepto el {}"
 
-#: apps/organizations/forms.py:365 apps/organizations/forms.py:367
+#: apps/organizations/forms.py:368 apps/organizations/forms.py:370
 msgid "Project name"
 msgstr "Nombre del proyecto"
 
-#: apps/organizations/forms.py:371 apps/organizations/forms.py:373
+#: apps/organizations/forms.py:374 apps/organizations/forms.py:376
 msgid "Brief description"
 msgstr "Descripción breve"
 
-#: apps/organizations/forms.py:384
+#: apps/organizations/forms.py:387
 msgid "Main action scope"
 msgstr "Ámbito de actuación principal"
 
-#: apps/organizations/forms.py:389
+#: apps/organizations/forms.py:392
 msgid "Secondary action scope"
 msgstr "Ámbito de aplicación secundario"
 
-#: apps/organizations/forms.py:402
+#: apps/organizations/forms.py:405
 msgid "Contact name"
 msgstr "Persona de contacto"
 
-#: apps/organizations/forms.py:408
+#: apps/organizations/forms.py:411
 msgid "Contact phone number"
 msgstr "Número de teléfono de contacto"
 
-#: apps/organizations/forms.py:414
+#: apps/organizations/forms.py:417
 msgid "Contact email"
 msgstr "Correo electrónico de contacto"
 
-#: apps/organizations/forms.py:418 apps/organizations/models.py:209
+#: apps/organizations/forms.py:421 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Quiero hacer públicos los resultados"
 
-#: apps/organizations/forms.py:421 apps/organizations/models.py:212
+#: apps/organizations/forms.py:424 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autorizo el uso de los datos para la inclusión en el informe final"
 
-#: apps/organizations/forms.py:465
+#: apps/organizations/forms.py:468
 msgid "Choose Existing Project"
 msgstr "Seleccionar un proyecto existente"
 
@@ -1034,7 +1034,8 @@ msgstr "Filtro"
 
 #: templates/admin/methods/survey_review.html:58
 msgid "Send email to all with open balances"
-msgstr "Enviar un correo electrónico a todos los que tengan saldos pendientes"
+msgstr ""
+"Enviar un correo electrónico a todos los que tengan balances pendientes"
 
 #: templates/admin/methods/survey_review.html:70
 msgid "Previous"
@@ -1559,7 +1560,7 @@ msgstr "Solicitud de registro"
 
 #: templates/organizations/signup.html:14
 msgid "Transparent, social and solidarity based economy"
-msgstr "Transparencia, Economía socialy solidaría"
+msgstr "Transparencia, Economía social y solidaria"
 
 #: templates/organizations/signup.html:31
 msgid "Submit changes"
@@ -1570,16 +1571,16 @@ msgid "Submit registration request"
 msgstr "Enviar solicitud de registro"
 
 #: templates/organizations/signup_success.html:6
-msgid "Solicitud enviada"
+msgid "Request sent"
 msgstr "Solicitud enviada"
 
 #: templates/organizations/signup_success.html:7
 msgid ""
-"¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
-"pronto nos pondremos en contacto contigo."
+"Thank you for joining ShowYourHeart! We are processing your request and will "
+"contact you shortly."
 msgstr ""
-"¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
-"pronto nos pondremos en contacto contigo."
+"¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu "
+"solicitud, pronto nos pondremos en contacto contigo."
 
 #: templates/profile/details.html:11
 msgid "Your profile"

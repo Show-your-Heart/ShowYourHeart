@@ -63,6 +63,18 @@ class Command(BaseCommand):
                         "subject": "Activated account on {{project_name}}",
                         "body": open("./templates/emails/en/welcome.html").read(),
                     },
+                    "es": {
+                        "subject": "Cuenta activada en {{project_name}}",
+                        "body": open("./templates/emails/es/welcome.html").read(),
+                    },
+                    "eu": {
+                        "subject": "Cuenta activada en {{project_name}}",
+                        "body": open("./templates/emails/eu/welcome.html").read(),
+                    },
+                    "ca": {
+                        "subject": "Cuenta activada en {{project_name}}",
+                        "body": open("./templates/emails/ca/welcome.html").read(),
+                    },
                 },
             ),
             dict(
@@ -73,7 +85,13 @@ class Command(BaseCommand):
                         "body": open(
                             "./templates/emails/en/rejected_registration_request.html",
                         ).read(),
-                    }
+                    },
+                    "es": {
+                        "subject": "Solicitud de acceso rechazada en {{project_name}}",
+                        "body": open(
+                            "./templates/emails/es/rejected_registration_request.html",
+                        ).read(),
+                    },
                 },
             ),
             dict(
@@ -83,6 +101,12 @@ class Command(BaseCommand):
                         "subject": "Invitation to {{method_name}}",
                         "body": open(
                             "./templates/emails/en/external_survey_invitation.html",
+                        ).read(),
+                    },
+                    "es": {
+                        "subject": "Invitación a {{method_name}}",
+                        "body": open(
+                            "./templates/emails/es/external_survey_invitation.html",
                         ).read(),
                     },
                 },
@@ -109,25 +133,75 @@ class Command(BaseCommand):
                     },
                 },
             ),
+            dict(
+                id="survey_tech_validated",
+                translated_templates={
+                    "en": {
+                        "subject": "Survey status updated to tech validated",
+                        "body": open(
+                            "./templates/emails/en/survey_tech_validated.html",
+                        ).read(),
+                    },
+                },
+            ),
+            dict(
+                id="survey_quality_checked",
+                translated_templates={
+                    "en": {
+                        "subject": "Survey status updated to quality checked",
+                        "body": open(
+                            "./templates/emails/en/survey_quality_checked.html",
+                        ).read(),
+                    },
+                },
+            ),
+            dict(
+                id="registration",
+                translated_templates={
+                    "en": {
+                        "subject": "Register request",
+                        "body": open(
+                            "./templates/emails/en/registration.html",
+                        ).read(),
+                    },
+                    "es": {
+                        "subject": "Solicitud de registro",
+                        "body": open(
+                            "./templates/emails/es/registration.html",
+                        ).read(),
+                    },
+                },
+            ),
         ]
 
         for template in templates:
-            obj, created = mail_model.objects.update_or_create(
-                name=template.get("id"),
-                defaults={
-                    "name": template.get("id"),
-                },
-            )
+            existing_templates = mail_model.objects.filter(
+                name=template.get("id")
+            ).all()
+
+            if not existing_templates:
+                obj, created = mail_model.objects.update_or_create(
+                    name=template.get("id"),
+                    language="",
+                    defaults={
+                        "name": template.get("id"),
+                    },
+                )
+            else:
+                obj = existing_templates.first()
+
             for lang, translated_template in template.get(
                 "translated_templates"
             ).items():
-                obj.translated_templates.create(
-                    language=lang,
-                    subject=translated_template.get("subject"),
-                    html_content=translated_template.get("body"),
-                    content=textify(translated_template.get("body")),
+                obj.translated_templates.update_or_create(
                     # name field included due this bug:
                     # https://github.com/ui/django-post_office/issues/214
                     name=template.get("id"),
+                    language=lang,
+                    defaults={
+                        "subject": translated_template.get("subject"),
+                        "html_content": translated_template.get("body"),
+                        "content": textify(translated_template.get("body")),
+                    },
                 )
-                logging.info(f"E-mail template '{template.get('id')}' created.")
+                logging.info(f"E-mail template '{template.get('id')}-{lang}' created.")

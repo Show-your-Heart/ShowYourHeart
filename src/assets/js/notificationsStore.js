@@ -27,9 +27,6 @@ document.addEventListener('alpine:init', () => {
             const transitionTime = 800
             return (7000 * delta) - (transitionTime * delta)
         },
-        getBgColor(type, shade) {
-            return `bg-${this.getThemeColor(type)}-${shade}`
-        },
         getThemeColor(type) {
             switch (type) {
                 case 'success': return 'green'
@@ -42,7 +39,7 @@ document.addEventListener('alpine:init', () => {
             switch (type) {
                 case 'success': return 'check'
                 case 'warning': return 'info-circle'
-                case 'error': return 'info-circle'
+                case 'error': return 'close'
                 default: return 'info-circle'
             }
         },

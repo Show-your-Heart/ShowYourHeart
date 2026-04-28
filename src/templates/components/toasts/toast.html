@@ -1,5 +1,3 @@
-<c-vars type="success" color="green" icon="check" />
-
 <div
     class="relative"
     x-show="$store.notifications.visible.includes(notification)"
@@ -12,21 +10,32 @@
     @click="$store.notifications.remove(notification.id)"
     style="pointer-events:all"
 >
-    <div class="flex items-start space-x-2 max-w-[500px] sm:items-center p-4 text-sm rounded-lg border {% if  color == 'green' %} text-green-700 bg-green-200 border-green-700 {% elif  color == 'yellow' %} text-yellow-700 bg-yellow-200 border-yellow-700 {% else %} text-red-700 bg-red-200 border-red-700 {% endif %}" 
+    <div class="flex items-start space-x-2 max-w-[500px] sm:items-center p-4 text-sm rounded-lg border " 
         role="alert"
+        :class="notification.type == 'success' ? 'text-green-700 bg-green-200 border-green-700' : notification.type == 'warning' ? 'text-yellow-700 bg-yellow-200 border-yellow-700' : 'text-red-700 bg-red-200 border-red-700'"
     >
         <div class="self-start">
-            <c-icon name="{{icon}}"></c-icon>
+            <template x-if="notification.type == 'warning'">
+                <c-icon  name="info-circle"></c-icon>
+            </template>
+
+            <template x-if="notification.type == 'success'">
+                <c-icon name="check"></c-icon>
+            </template>
+            
+            <template x-if="notification.type == 'error'">
+                <c-icon name="close"></c-icon>
+            </template>
         </div>
-        <p id="{{type}}-msg" x-text="notification.text"></p>
+        <p x-text="notification.text"></p>
     </div>
     <div
         x-cloak
-        :class="$store.notifications.getBgColor(notification.type, 300)"
+        :class="notification.type == 'success' ? 'bg-green-300' : notification.type == 'warning' ? 'bg-yellow-300' : 'bg-red-300'"
         class="absolute bottom-0 left-0 right-0 w-full rounded-b-lg">
         <div
             class="h-2 w-0 progress rounded-b-lg opacity-[20%]"
-            :class="$store.notifications.getBgColor(notification.type, 400)"
+            :class="notification.type == 'success' ? 'bg-green-400' : notification.type == 'warning' ? 'bg-yellow-400' : 'bg-red-400'"
             :style="`animation-duration:${notification.animationTime}ms`">
         </div>
     </div>
