@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 16:23+0200\n"
+"POT-Creation-Date: 2026-04-28 14:28+0200\n"
 "PO-Revision-Date: 2026-04-07 16:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -218,10 +218,6 @@ msgstr "ezarpenak/"
 #: project/urls.py:39
 msgid "organizations/"
 msgstr "antolakundeak/"
-
-#: project/urls.py:42
-msgid "methods/"
-msgstr "metodoak/"
 
 #: project/views.py:99
 msgid "Back"

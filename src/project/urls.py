@@ -39,5 +39,6 @@ urlpatterns += i18n_patterns(
         _("organizations/"),
         include("apps.organizations.urls", namespace="organizations"),
     ),
-    path(_("methods/"), include("apps.methods.urls", namespace="methods")),
+    # Do not translate the methods url because is used on the html templates
+    path("methods/", include("apps.methods.urls", namespace="methods")),
 )

@@ -520,19 +520,19 @@ class Survey(BaseModel):
     class Status(models.IntegerChoices):
         OPEN = (
             0,
-            "Open",
+            _("Open"),
         )
         CLOSED = (
             1,
-            "Closed",
+            _("Closed"),
         )
         TECH_VALIDATED = (
             2,
-            "Tech validated",
+            _("Tech validated"),
         )
         QUALITY_CHECKED = (
             3,
-            "Quality checked",
+            _("Quality checked"),
         )
 
     method = models.ForeignKey("methods.method", on_delete=models.PROTECT)

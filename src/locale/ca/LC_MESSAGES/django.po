@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 16:36+0200\n"
+"POT-Creation-Date: 2026-04-28 14:37+0200\n"
 "PO-Revision-Date: 2026-04-27 15:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,27 +47,27 @@ msgstr "codis postals"
 msgid "Balance successfuly updated."
 msgstr "Balanç actualitzat amb èxit."
 
-#: apps/methods/admin.py:649
+#: apps/methods/admin.py:653
 msgid "Balance status successfuly updated."
 msgstr "Estat del balanç actualitzat amb èxit."
 
-#: apps/methods/admin.py:712 apps/methods/admin.py:756
+#: apps/methods/admin.py:716 apps/methods/admin.py:760
 msgid "Actions"
 msgstr "Accions"
 
-#: apps/methods/admin.py:716
+#: apps/methods/admin.py:720
 msgid "Are you sure you want to send the invitation?"
 msgstr "Esteu segur que voleu enviar la invitació?"
 
-#: apps/methods/admin.py:721
+#: apps/methods/admin.py:725
 msgid "Send invitation"
 msgstr "Enviar invitació"
 
-#: apps/methods/admin.py:760 templates/methods/external_surveys_view.html:59
+#: apps/methods/admin.py:764 templates/methods/external_surveys_view.html:59
 msgid "Are you sure you want to send the invitations?"
 msgstr "Esteu segur que voleu enviar les invitacions?"
 
-#: apps/methods/admin.py:765
+#: apps/methods/admin.py:769
 msgid "Send invitations"
 msgstr "Enviar invitacions"
 
@@ -420,6 +420,22 @@ msgstr "Data de finalització"
 msgid "This campaign has already been used and cannot be deleted."
 msgstr "Aquest campanya ja s'ha utilitzat i no pot ser suprimida."
 
+#: apps/methods/models.py:523
+msgid "Open"
+msgstr "Obert"
+
+#: apps/methods/models.py:527
+msgid "Closed"
+msgstr "Tancat"
+
+#: apps/methods/models.py:531
+msgid "Tech validated"
+msgstr ""
+
+#: apps/methods/models.py:535
+msgid "Quality checked"
+msgstr ""
+
 #: apps/methods/models.py:542
 msgid "Token"
 msgstr "Testimoni"
@@ -489,14 +505,6 @@ msgstr ""
 #: apps/methods/urls.py:40
 msgid "invitation"
 msgstr "invitació"
-
-#: apps/methods/urls.py:49
-msgid "send-invitations/<id>"
-msgstr "enviar-invitacions/<id>"
-
-#: apps/methods/urls.py:50
-msgid "send-invitation/<id>"
-msgstr "enviar-invitacio/<id>"
 
 #: apps/methods/urls.py:58
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"

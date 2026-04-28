@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 16:36+0200\n"
+"POT-Creation-Date: 2026-04-28 14:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,27 +46,27 @@ msgstr "postcodes"
 msgid "Balance successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:649
+#: apps/methods/admin.py:653
 msgid "Balance status successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:712 apps/methods/admin.py:756
+#: apps/methods/admin.py:716 apps/methods/admin.py:760
 msgid "Actions"
 msgstr "Acties"
 
-#: apps/methods/admin.py:716
+#: apps/methods/admin.py:720
 msgid "Are you sure you want to send the invitation?"
 msgstr "Weet u zeker dat u de uitnodiging wilt versturen?"
 
-#: apps/methods/admin.py:721
+#: apps/methods/admin.py:725
 msgid "Send invitation"
 msgstr "Uitnodiging versturen"
 
-#: apps/methods/admin.py:760 templates/methods/external_surveys_view.html:59
+#: apps/methods/admin.py:764 templates/methods/external_surveys_view.html:59
 msgid "Are you sure you want to send the invitations?"
 msgstr "Weet u zeker dat u de uitnodigingen wilt versturen?"
 
-#: apps/methods/admin.py:765
+#: apps/methods/admin.py:769
 msgid "Send invitations"
 msgstr "Uitnodigingen versturen"
 
@@ -419,6 +419,22 @@ msgstr "Einddatum"
 msgid "This campaign has already been used and cannot be deleted."
 msgstr ""
 
+#: apps/methods/models.py:523
+msgid "Open"
+msgstr ""
+
+#: apps/methods/models.py:527
+msgid "Closed"
+msgstr ""
+
+#: apps/methods/models.py:531
+msgid "Tech validated"
+msgstr ""
+
+#: apps/methods/models.py:535
+msgid "Quality checked"
+msgstr ""
+
 #: apps/methods/models.py:542
 msgid "Token"
 msgstr "Token"
@@ -488,14 +504,6 @@ msgstr ""
 #: apps/methods/urls.py:40
 msgid "invitation"
 msgstr ""
-
-#: apps/methods/urls.py:49
-msgid "send-invitations/<id>"
-msgstr "uitnodigingen-versturen/<id>"
-
-#: apps/methods/urls.py:50
-msgid "send-invitation/<id>"
-msgstr "uitnodiging-versturen/<id>"
 
 #: apps/methods/urls.py:58
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
