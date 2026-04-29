@@ -58,6 +58,9 @@ const initIndicatorsStore = () => {
                         if (subtokens.includes('total')) {
                             // Load gendered field, list or table column total
                             value = this.loadTotalIndicatorResult(this.getInstanceId(subtokens[0], instanceId), subtokens)
+                        } else if (subtokens.includes('set')) {
+                            // Add set instances total
+                            value = this.loadSetIndicatorTotal(subtokens[0])
                         } else {
                             value = subtokens.length == 2 ? this.loadIndicatorResult(this.getInstanceId(subtokens[0], instanceId), subtokens[1]) : this.loadIndicatorResult(this.getInstanceId(subtokens[0], instanceId), subtokens[1], subtokens[2])
                         }
@@ -277,6 +280,11 @@ const initIndicatorsStore = () => {
             }
             return result
         },
+        loadSetIndicatorTotal(code) {
+            const indicator = this.getIndicatorDataByCode(code)
+            const instancesKeys = Object.keys(this.indicators).filter(k => k.includes(indicator.id))
+            return instancesKeys.reduce((acc, k) => acc + Number(this.indicators[k].value), 0)
+        },
         updateIndicatorDependencies(instanceId) {
             const instanceIdTokens = instanceId.split('_')
             const id = instanceIdTokens[0]
@@ -291,7 +299,7 @@ const initIndicatorsStore = () => {
         updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
             const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
             if (indicator) {
-                const instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
+                let instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
@@ -314,6 +322,10 @@ const initIndicatorsStore = () => {
                 }
                 // Check if formula is dependant
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
+                    // If calculating set total, remove instance number
+                    if (indicator.formula.includes("set")) {
+                        instanceId = indicator.id
+                    }
                     const value = this.evaluateExpression(indicator.formula, instanceId, indicator.code)
                     if (value != null) {
                         if (value == '__copy__') {
