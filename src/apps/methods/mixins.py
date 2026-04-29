@@ -212,7 +212,7 @@ def save_indicator_results(method_id, request, survey):
         for indicator in indicators_set.indicators.all():
             field_base_name = f"question_{indicator.id}"
             for name, _ in request.POST.items():
-                if field_base_name in name:
+                if field_base_name in name and len(name.split("_")) == 3:
                     instance_number = name.split("_")[2]
                     save_indicator_result(
                         request, survey, indicator, name, instance_number
