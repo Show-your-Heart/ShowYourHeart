@@ -368,19 +368,27 @@ const initIndicatorsStore = () => {
                 const instanceIdTokens = instanceId.split('_')
                 const id = instanceIdTokens[0]
                 const indicator = this.getIndicatorDataById(id)
+
                 if (indicator.dependant_indicators) {
-                    for (code of indicator.dependant_indicators) {
+                    for (var code of indicator.dependant_indicators) {
                         const dependantIndicator = this.getIndicatorDataByCode(code)
                         const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
                         this.updateIndicatorResultNa(instanceId, value, true)
                     }
                 }
-            } catch {
-                this.indicators[`${instanceId}_1`].notApplicable = value
+            } catch (e) {
+                // Check if it belongs to a set
+                if (this.indicators[`${instanceId}_1`] != undefined) {
+                    this.indicators[`${instanceId}_1`].notApplicable = value
 
-                if (hide) {
-                    this.indicators[`${instanceId}_1`].show = !value
+                    if (hide) {
+                        this.indicators[`${instanceId}_1`].show = !value
+                    }
+                } else if (e instanceof TypeError) {
+                    console.log(`Dependency ${code} of indicator ${this.indicators[instanceId].code} not found in the current method`)
+                    console.log(e)
                 }
+
             }
         },
         isGendered(type) {
