@@ -42,7 +42,7 @@
         style="pointer-events:none"
     >
         <template x-for="notification of $store.notifications.notifications" :key="notification.id">
-            <c-toasts.toast ::type="notification.type" ::color="notification.color" ::icon="notification.icon"></c-toast>
+            <c-toasts.toast></c-toast>
         </template>
     </div>
 

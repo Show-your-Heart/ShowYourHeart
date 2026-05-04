@@ -1,0 +1,12 @@
+{% load post_office %}
+
+<p>Enhorabona {{user_name}},</p>
+<p>La vostra sol·licitud d'alta al registre de la plataforma Ensenya el Cor ha estat acceptada.</p>
+
+<p>Per accedir a l'aplicació i poder realitzar qualsevol dels mòduls, us facilitem les vostres credencials d'accés:</p>
+<p>Usuari: {{user_email}}</p>
+<p>Contrasenya: s’ha de crear a l’enllaç següent <a href="{{password_reset_url}}">{{password_reset_url}}</a></p>
+
+<p>Recordeu utilitzar una contrassenya segura i que inclogui una combinació de lletres majúscules, minúscules, números i caràcters especials.</p>
+
+<p>A continuació, podeu iniciar la sessió amb les vostres credencials aquí: <a href="{{absolute_url}}">{{absolute_url}}</a></p>

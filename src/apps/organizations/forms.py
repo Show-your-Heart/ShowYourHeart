@@ -12,6 +12,7 @@ from apps.methods.models import Method
 from apps.organizations.widgets import syh_forms
 from apps.settings.models import LegalStructure
 from apps.users.models import User, UserProfile
+from apps.users.services import send_registration_mail
 
 from .models import Organization, Project
 
@@ -26,7 +27,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
     description = forms.CharField(
-        label=_("Organization description"),
+        label=_("Organisation description"),
         widget=forms.TextInput(
             attrs={"autofocus": True, "placeholder": _("Description")}
         ),
@@ -179,7 +180,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "privacy_policy_accepted", self.cleaned_data["accept_conditions"]
         )
 
-        User.objects.create_user(
+        user = User.objects.create_user(
             email=self.cleaned_data["contact_mail"],
             name=self.cleaned_data["contact_name"],
             user_profile_data={
@@ -193,6 +194,8 @@ class OrganizationSignUpForm(forms.ModelForm):
             # many relations as it needs the instance to be created before
             # setting their values
             self.save_m2m()
+
+            send_registration_mail(user, organization)
 
         return organization
 
@@ -232,7 +235,7 @@ class OrganizationUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
     description = forms.CharField(
-        label=_("Organization description"),
+        label=_("Organisation description"),
         widget=forms.TextInput(
             attrs={"autofocus": True, "placeholder": _("Description")}
         ),

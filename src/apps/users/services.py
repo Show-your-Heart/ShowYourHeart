@@ -110,3 +110,29 @@ def send_rejected_mail(user_instance, sender_user):
         context=context,
         smtp=smtp,
     )
+
+
+def send_registration_mail(user_instance, organization):
+    context = {
+        "project_name": Setting.get("PROJECT_NAME"),
+        "user": user_instance,
+        "date": str(
+            formats.date_format(
+                timezone.now().date(),
+                format="SHORT_DATE_FORMAT",
+                use_l10n=True,
+            )
+        ),
+        "time": str(formats.time_format(timezone.localtime(timezone.now()).time())),
+        "absolute_url": settings.ABSOLUTE_URL,
+        "organization": organization,
+    }
+
+    # as the user is not in a network, it can not have a smtp defined
+    send(
+        recipients=[
+            user_instance.email,
+        ],
+        template="registration",
+        context=context,
+    )

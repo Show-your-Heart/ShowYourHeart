@@ -1,0 +1,12 @@
+{% load post_office %}
+
+<p>Zorionak {{user_name}},</p>
+<p>Zure alta-eskaera Bihotza Erakutsi plataformako erregistroan onartua izan da.</p>
+
+<p>Aplikaziora sartu eta moduluak egin ahal izateko, hemen dituzu sarbide-datuak:</p>
+<p>Erabiltzailea: {{user_email}}</p>
+<p>Pasahitza: esteka honetan sortu behar da <a href="{{password_reset_url}}">{{password_reset_url}}</a></p>
+
+<p>Gogoratu pasahitz segurua erabiltzea: letra larriak eta xeheak, zenbakiak eta karaktere bereziak konbinatuz.</p>
+
+<p>Ondoren, zure kredentzialak erabilita hemen saioa hasi dezakezu: <a href="{{absolute_url}}">{{absolute_url}}</a></p>

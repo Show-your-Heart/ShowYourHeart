@@ -414,7 +414,7 @@ def create_invitation_action(request):
 
 
 def survey_reminder_view(request):
-    send_survey_reminder_email()
+    send_survey_reminder_email(request)
     messages.success(
         request,
         _("An email to all the involved contacts has been sent."),
@@ -423,7 +423,7 @@ def survey_reminder_view(request):
 
 
 def user_survey_reminder_view(request, survey_id):
-    send_user_survey_reminder_email(survey_id)
+    send_user_survey_reminder_email(request, survey_id)
     messages.success(
         request,
         _("An email to the contact has been sent."),

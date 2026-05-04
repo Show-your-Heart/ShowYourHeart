@@ -1,18 +1,12 @@
 {% load post_office %}
 
-<p>Hello {{user_name}}!</p>
-<p>We're sending you this e-mail because today {{date}} at {{time}}
-someone requested the reset of the {{user_email}}'s account password
-for {{absolute_url}}.</p>
+<p>Enhorabuena {{user_name}},</p>
+<p>Su solicitud de alta en el registro de la plataforma Enseña el corazón ha sido aceptada.</p>
 
-<p> If it weren't you who requested it,
-ignore this message. If you keep receiving this email multiple times,
-it could be that someone is trying to access your account. Make sure to
-set a long password.
-We will appreciate it if you could also warn us about the situation.
-</p>
+<p>Para acceder a la aplicación y poder realizar cualquiera de los módulos, le facilitamos sus credenciales de acceso:</p>
+<p>Usuario: {{user_email}}</p>
+<p>Contraseña: debe crearse en el siguiente enlace <a href="{{password_reset_url}}">{{password_reset_url}}</a></p>
 
-<h3>Password resetting instructions</h3>
-<p>To set a new password open this link:
-<a href="{{password_reset_url}}">{{password_reset_url}}</a>
-</p>
+<p>Recuerde utilizar una contraseña segura y que incluya una combinación de letras mayúsculas, minúsculas, números y caracteres especiales.</p>
+
+<p>A continuación, podrá entrar con sus credenciales aquí: <a href="{{absolute_url}}">{{absolute_url}}</a></p>
