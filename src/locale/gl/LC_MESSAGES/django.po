@@ -642,7 +642,7 @@ msgstr "Breve descrición"
 
 #: apps/organizations/forms.py:381
 msgid "If there is no start date, put first january"
-msgstr ""
+msgstr "Se non hai data de inicio, podes poñer o un de xaneiro"
 
 #: apps/organizations/forms.py:388
 msgid "Main action scope"

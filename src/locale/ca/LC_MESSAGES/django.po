@@ -638,7 +638,7 @@ msgstr "Descripció breu"
 
 #: apps/organizations/forms.py:381
 msgid "If there is no start date, put first january"
-msgstr ""
+msgstr "Si no hi ha data exacta, pots posar el primer de gener"
 
 #: apps/organizations/forms.py:388
 msgid "Main action scope"

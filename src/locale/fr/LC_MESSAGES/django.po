@@ -416,7 +416,7 @@ msgstr "Méthode"
 #: apps/organizations/forms.py:380 apps/organizations/models.py:206
 #: templates/admin/methods/survey_review.html:131
 msgid "Start date"
-msgstr "Data de début"
+msgstr "Date de début"
 
 #: apps/methods/models.py:502 apps/organizations/models.py:207
 #: templates/admin/methods/survey_review.html:134
@@ -644,7 +644,7 @@ msgstr "Description brève"
 
 #: apps/organizations/forms.py:381
 msgid "If there is no start date, put first january"
-msgstr ""
+msgstr "S'il n'y a pas de date de début, indiquez le premier janvier "
 
 #: apps/organizations/forms.py:388
 msgid "Main action scope"
