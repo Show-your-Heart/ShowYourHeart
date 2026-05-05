@@ -284,7 +284,7 @@ class OrganizationUpdateForm(forms.ModelForm):
                 "hx-target": "#id_city",
                 "hx-trigger": "change",
                 "autocomplete": "off",
-                "hx-sync": "closest form:abort"
+                "hx-sync": "closest form:abort",
             }
         ),
     )
@@ -297,7 +297,7 @@ class OrganizationUpdateForm(forms.ModelForm):
                 "hx-target": "#id_zip_code",
                 "hx-trigger": "change",
                 "autocomplete": "off",
-                "hx-sync": "closest form:abort"
+                "hx-sync": "closest form:abort",
             }
         ),
     )
