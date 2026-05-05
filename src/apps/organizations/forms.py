@@ -69,7 +69,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         widget=forms.Select(
             attrs={
                 "hx-get": reverse_lazy("organizations:load_region1"),
-                "hx-target": "#id_region1, #id_city",
+                "hx-target": "#id_region1",
                 "hx-trigger": "change",
                 "hx-include": "#id_country",
             }
@@ -83,18 +83,20 @@ class OrganizationSignUpForm(forms.ModelForm):
                 "hx-get": reverse_lazy("organizations:load_city"),
                 "hx-target": "#id_city",
                 "hx-trigger": "change",
+                "hx-sync": "closest form:abort",
                 "autocomplete": "off",
             }
         ),
     )
     city = forms.ModelChoiceField(
         label=_("City"),
-        queryset=City.objects.all(),
+        queryset=City.objects.none(),
         widget=forms.Select(
             attrs={
                 "hx-get": reverse_lazy("organizations:load_zip_code"),
                 "hx-target": "#id_zip_code",
                 "hx-trigger": "change",
+                "hx-sync": "closest form:abort",
                 "autocomplete": "off",
             }
         ),
@@ -104,7 +106,7 @@ class OrganizationSignUpForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Address")}),
     )
     zip_code = forms.ModelChoiceField(
-        label=_("Zip Code"), queryset=ZipCode.objects.all()
+        label=_("Zip Code"), queryset=ZipCode.objects.none()
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
@@ -267,8 +269,8 @@ class OrganizationUpdateForm(forms.ModelForm):
         widget=forms.Select(
             attrs={
                 "hx-get": reverse_lazy("organizations:load_region1"),
-                "hx-target": "#id_region1, #id_city",
-                "hx-trigger": "change, load",
+                "hx-target": "#id_region1",
+                "hx-trigger": "change",
                 "hx-include": "#id_country",
             }
         ),
@@ -280,20 +282,22 @@ class OrganizationUpdateForm(forms.ModelForm):
             attrs={
                 "hx-get": reverse_lazy("organizations:load_city"),
                 "hx-target": "#id_city",
-                "hx-trigger": "change, load",
+                "hx-trigger": "change",
                 "autocomplete": "off",
+                "hx-sync": "closest form:abort"
             }
         ),
     )
     city = forms.ModelChoiceField(
         label=_("City"),
-        queryset=City.objects.all(),
+        queryset=City.objects.none(),
         widget=forms.Select(
             attrs={
                 "hx-get": reverse_lazy("organizations:load_zip_code"),
                 "hx-target": "#id_zip_code",
-                "hx-trigger": "change, load",
+                "hx-trigger": "change",
                 "autocomplete": "off",
+                "hx-sync": "closest form:abort"
             }
         ),
     )
@@ -302,7 +306,7 @@ class OrganizationUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Address")}),
     )
     zip_code = forms.ModelChoiceField(
-        label=_("Zip Code"), queryset=ZipCode.objects.all()
+        label=_("Zip Code"), queryset=ZipCode.objects.none()
     )
     legal_structure = forms.ModelChoiceField(
         label=_("Legal entity type"),
