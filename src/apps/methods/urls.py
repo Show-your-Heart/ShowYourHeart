@@ -54,8 +54,9 @@ urlpatterns = [
         name="import_csv2",
     ),
     path("load_ext_surveys/", load_ext_surveys, name="load_ext_surveys"),
+    # Do not translate the methods url because is used on the html templates
     path(
-        _("fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"),
+        "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/",
         MethodFillView.as_view(),
         name="method_fill_project",
     ),
