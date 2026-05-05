@@ -121,7 +121,7 @@ class UserAdmin(ModelAdmin, BaseUserAdmin):
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
 
-    @admin.display(description=_("Organization"))
+    @admin.display(description=_("Organisation"))
     def organization(self, obj):
         return obj.profile.organization
 

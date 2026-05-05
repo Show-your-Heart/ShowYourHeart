@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:22+0200\n"
-"PO-Revision-Date: 2026-04-27 14:41+0200\n"
+"POT-Creation-Date: 2026-05-05 15:03+0200\n"
+"PO-Revision-Date: 2026-05-05 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -98,6 +98,7 @@ msgstr "Género"
 #: apps/methods/helpers.py:30
 msgid "The csv file must contain the headers 'name' and 'email'"
 msgstr ""
+"El archivo CSV debe contener los encabezados 'nombre' y 'correo electrónico'."
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
 #: apps/methods/models.py:422 apps/organizations/models.py:29
@@ -467,7 +468,7 @@ msgstr "¿Es el total?"
 
 #: apps/methods/models.py:606
 msgid "Set instance number"
-msgstr ""
+msgstr "Establecer número de instancia"
 
 #: apps/methods/models.py:610
 msgid "not applicable"
@@ -795,15 +796,15 @@ msgstr "Comarca"
 
 #: apps/organizations/models.py:165
 msgid "contact person"
-msgstr "persona de contacto"
+msgstr "nombre de la persona de referencia del proyecto"
 
 #: apps/organizations/models.py:166
 msgid "contact email"
-msgstr "correo electrónico de contacto"
+msgstr "email de la persona de referencia del proyecto"
 
 #: apps/organizations/models.py:168
 msgid "contact telephone"
-msgstr "teléfono de contacto"
+msgstr "teléfono de la persona de referencia del proyecto"
 
 #: apps/organizations/models.py:177
 msgid "main scope of action"
@@ -1074,21 +1075,23 @@ msgstr "Errores del balance"
 
 #: templates/admin/methods/survey_review.html:212
 msgid "Email sending confirmation"
-msgstr ""
+msgstr "Confirmación de envío de correo electrónico"
 
 #: templates/admin/methods/survey_review.html:216
 msgid "You are going to send an email to"
-msgstr ""
+msgstr "Vas a enviar un correo electrónico a"
 
 #: templates/admin/methods/survey_review.html:216
 msgid "are you sure?"
-msgstr ""
+msgstr "¿estás seguro?"
 
 #: templates/admin/methods/survey_review.html:220
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
 msgstr ""
+"Vas a enviar un correo electrónico a todas las organizaciones que tienen un "
+"método abierto ¿Estás seguro?"
 
 #: templates/admin/methods/survey_review.html:225
 #: templates/admin/methods/survey_review.html:229
@@ -1098,7 +1101,7 @@ msgstr "Sí, estoy seguro"
 
 #: templates/admin/methods/survey_review.html:233
 msgid "No, cancel"
-msgstr ""
+msgstr "No, cancelar"
 
 #: templates/admin/organizations/registration_requests.html:4
 msgid "Features"
@@ -1170,15 +1173,12 @@ msgstr ""
 "objetos:"
 
 #: templates/admin/syh_delete_selected_confirmation.html:21
-#, fuzzy, python-format
-#| msgid ""
-#| "Deleting the selected %(objects_name)s would require deleting the "
-#| "following protected related objects:"
+#, python-format
 msgid ""
 "Deleting the selected %(objects_name)s would require deleting the following "
 "protected related objects:"
 msgstr ""
-"Eliminar el %(object_name)s requeriría eliminar los  siguientes objetos "
+"Eliminar el %(objects_name)s requeriría eliminar los  siguientes objetos "
 "relacionados protegidos:"
 
 #: templates/admin/syh_delete_selected_confirmation.html:35
@@ -1196,8 +1196,8 @@ msgstr "Hola"
 
 #: templates/admin/syh_index.html:8
 msgid ""
-"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
-"tareas por completar."
+"This is your welcome space. <br> Here's a quick reminder of tasks to "
+"complete."
 msgstr ""
 "Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
 "tareas por completar."
@@ -1208,11 +1208,11 @@ msgstr "ENTIDADES"
 
 #: templates/admin/syh_index.html:15
 #, python-format
-msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
+msgid " You have %(pending_registrations_requests)s new registration requests."
 msgstr " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
 
 #: templates/admin/syh_index.html:17
-msgid "Gestionar altas"
+msgid "Manage new registrations"
 msgstr "Gestionar altas"
 
 #: templates/admin/syh_index.html:24
@@ -1225,7 +1225,7 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr " %(pending_balance_reviews)s entidades han finalizado su balance."
 
 #: templates/admin/syh_index.html:29
-msgid "Revisar balances"
+msgid "Review balances"
 msgstr "Revisar balances"
 
 #: templates/base.html:81 templates/base.html:129
@@ -1303,26 +1303,26 @@ msgstr "Exportar"
 #: templates/components/card/survey_stats.html:13
 #, python-format
 msgid ""
-"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
-"con los datos aportados, mejoramos todas. "
+"You have completed %(value)s%% of the Social Audit.<br> Remember that with "
+"the data provided, we all improve. "
 msgstr ""
 "Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
 "con los datos aportados, mejoramos todas. "
 
 #: templates/components/card/survey_stats.html:14
-msgid "Resumen por sección"
+msgid "Summary by section"
 msgstr "Resumen por sección"
 
 #: templates/components/card/survey_stats.html:21
-msgid "Completadas"
+msgid "Completed"
 msgstr "Completadas"
 
 #: templates/components/card/survey_stats.html:27
-msgid "En progreso"
+msgid "In progress"
 msgstr "En progreso"
 
 #: templates/components/card/survey_stats.html:33
-msgid "Por hacer"
+msgid "To do"
 msgstr "Por hacer"
 
 #: templates/components/card/survey_stats.html:62
@@ -1331,7 +1331,7 @@ msgstr "Selecciona un proyecto"
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
-msgid "Ir al balance"
+msgid "Go to balance"
 msgstr "Ir al balance"
 
 #: templates/components/card/survey_stats.html:76
@@ -1432,7 +1432,7 @@ msgstr "Total"
 
 #: templates/components/methods/group_input.html:144
 msgid "Fill with 0's"
-msgstr ""
+msgstr "Rellenar con ceros"
 
 #: templates/components/methods/group_input.html:147
 msgid "Validate"
@@ -1458,7 +1458,7 @@ msgstr "No se han encontrado invitaciones."
 
 #: templates/components/methods/survey_review_row.html:121
 msgid "Labor"
-msgstr ""
+msgstr "Laboral"
 
 #: templates/components/methods/survey_review_row.html:122
 msgid "Pro"
@@ -1579,8 +1579,8 @@ msgid ""
 "Thank you for joining ShowYourHeart! We are processing your request and will "
 "contact you shortly."
 msgstr ""
-"¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu "
-"solicitud, pronto nos pondremos en contacto contigo."
+"¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
+"pronto nos pondremos en contacto contigo."
 
 #: templates/profile/details.html:11
 msgid "Your profile"
@@ -1631,11 +1631,11 @@ msgstr "La medición del impacto puede ayudarte a gestionar tu impacto"
 
 #: templates/registration/login.html:12
 msgid "Main benefits of Show your Heart"
-msgstr "Principales ventajas de Enseña el corazón."
+msgstr "Principales ventajas de Enseña el corazón"
 
 #: templates/registration/login.html:14
 msgid "Helps you measure your impact by calculating relevant indicators."
-msgstr "Te ayuda a medir tu impacto calculando indicadores relevantes"
+msgstr "Te ayuda a medir tu impacto calculando indicadores relevantes."
 
 #: templates/registration/login.html:15
 msgid ""

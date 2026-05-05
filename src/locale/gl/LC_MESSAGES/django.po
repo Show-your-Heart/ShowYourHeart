@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:22+0200\n"
+"POT-Creation-Date: 2026-05-05 15:03+0200\n"
 "PO-Revision-Date: 2026-04-27 16:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1189,8 +1189,8 @@ msgstr "Ola"
 
 #: templates/admin/syh_index.html:8
 msgid ""
-"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
-"tareas por completar."
+"This is your welcome space. <br> Here's a quick reminder of tasks to "
+"complete."
 msgstr ""
 "Este é o teu espazo de benvida. <br> Aquí tes un breve recordatorio das "
 "tarefas que debes completar."
@@ -1201,11 +1201,11 @@ msgstr "ENTIDADES"
 
 #: templates/admin/syh_index.html:15
 #, python-format
-msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
+msgid " You have %(pending_registrations_requests)s new registration requests."
 msgstr "Tes %(pending_registrations_requests)s novas solicitudes de alta."
 
 #: templates/admin/syh_index.html:17
-msgid "Gestionar altas"
+msgid "Manage new registrations"
 msgstr "Xestionar altas"
 
 #: templates/admin/syh_index.html:24
@@ -1218,7 +1218,9 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr "As entidades %(pending_balance_reviews)s remataron o seu balance."
 
 #: templates/admin/syh_index.html:29
-msgid "Revisar balances"
+#, fuzzy
+#| msgid "Revisar balances"
+msgid "Review balances"
 msgstr "Revisar balances"
 
 #: templates/base.html:81 templates/base.html:129
@@ -1296,26 +1298,26 @@ msgstr "Exportar"
 #: templates/components/card/survey_stats.html:13
 #, python-format
 msgid ""
-"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
-"con los datos aportados, mejoramos todas. "
+"You have completed %(value)s%% of the Social Audit.<br> Remember that with "
+"the data provided, we all improve. "
 msgstr ""
 "Completastes o %(value)s%% da Auditoría Social. Lembra que cos datos "
 "proporcionados, melloramos todas."
 
 #: templates/components/card/survey_stats.html:14
-msgid "Resumen por sección"
-msgstr "Resume por sección"
+msgid "Summary by section"
+msgstr "Resumo por sección"
 
 #: templates/components/card/survey_stats.html:21
-msgid "Completadas"
+msgid "Completed"
 msgstr "Completadas"
 
 #: templates/components/card/survey_stats.html:27
-msgid "En progreso"
+msgid "In progress"
 msgstr "En progreso"
 
 #: templates/components/card/survey_stats.html:33
-msgid "Por hacer"
+msgid "To do"
 msgstr "Por facer"
 
 #: templates/components/card/survey_stats.html:62
@@ -1324,7 +1326,7 @@ msgstr "Escolla proxecto"
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
-msgid "Ir al balance"
+msgid "Go to balance"
 msgstr "Ir ao balance"
 
 #: templates/components/card/survey_stats.html:76
@@ -1574,7 +1576,6 @@ msgid ""
 msgstr ""
 "Moitas grazas por unirte a ShowYourHeart! Estamos a procesar a túa "
 "solicitude e poñerémonos en contacto contigo en breve."
-
 
 #: templates/profile/details.html:11
 msgid "Your profile"

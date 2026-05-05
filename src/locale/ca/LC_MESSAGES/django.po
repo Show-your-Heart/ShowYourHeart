@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:22+0200\n"
-"PO-Revision-Date: 2026-04-27 15:10+0200\n"
+"POT-Creation-Date: 2026-05-05 15:03+0200\n"
+"PO-Revision-Date: 2026-05-05 13:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -98,6 +98,7 @@ msgstr "Gènere"
 #: apps/methods/helpers.py:30
 msgid "The csv file must contain the headers 'name' and 'email'"
 msgstr ""
+"El fitxer csv ha de contenir les capçaleres 'nom' i 'correu electrònic'"
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
 #: apps/methods/models.py:422 apps/organizations/models.py:29
@@ -328,11 +329,11 @@ msgstr "El codi de l'indicador no pot contenir el caràcter de subratllat '_'"
 
 #: apps/methods/models.py:335
 msgid "set name"
-msgstr ""
+msgstr "definir nom"
 
 #: apps/methods/models.py:337
 msgid "item name"
-msgstr ""
+msgstr "nom de l'element"
 
 #: apps/methods/models.py:412
 msgid "Organisation"
@@ -386,7 +387,7 @@ msgstr "Versió"
 #: apps/methods/models.py:456 apps/organizations/forms.py:79
 #: apps/organizations/forms.py:277
 msgid "Region1"
-msgstr "Regió1"
+msgstr "Comunitat autònoma"
 
 #: apps/methods/models.py:461
 msgid "external survey category"
@@ -434,11 +435,11 @@ msgstr "Tancat"
 
 #: apps/methods/models.py:531
 msgid "Tech validated"
-msgstr ""
+msgstr "Validat tècnic"
 
 #: apps/methods/models.py:535
 msgid "Quality checked"
-msgstr ""
+msgstr "Validat criteri"
 
 #: apps/methods/models.py:542
 msgid "Token"
@@ -466,7 +467,7 @@ msgstr "És un total?"
 
 #: apps/methods/models.py:606
 msgid "Set instance number"
-msgstr ""
+msgstr "Estableix el número d'instància"
 
 #: apps/methods/models.py:610
 msgid "not applicable"
@@ -495,7 +496,7 @@ msgstr "ordre"
 
 #: apps/methods/urls.py:23
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
-msgstr ""
+msgstr "ompleix/<uuid:campaign_id>/<uuid:method_id>/"
 
 #: apps/methods/urls.py:28
 msgid "external-survey/<token>"
@@ -505,6 +506,8 @@ msgstr "questionari-extern/<token>"
 msgid ""
 "external-surveys/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/"
 msgstr ""
+"questionari-extern/<uuid:organization_id>/<uuid:method_id>/"
+"<uuid:campaign_id>/"
 
 #: apps/methods/urls.py:40
 msgid "invitation"
@@ -512,11 +515,11 @@ msgstr "invitació"
 
 #: apps/methods/urls.py:58
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
-msgstr ""
+msgstr "ompleix/<uuid:campaign_id>/<uuid:method_id>/<uuid:project_id>/"
 
 #: apps/methods/urls.py:63
 msgid "preview/<uuid:method_id>/"
-msgstr ""
+msgstr "previsualització/<uuid:method_id>/"
 
 #: apps/methods/views.py:156
 msgid "The invitations have been sent."
@@ -536,7 +539,7 @@ msgstr "El CSV s'ha importat correctament."
 
 #: apps/methods/views.py:250
 msgid "There is no CSV file selected to import."
-msgstr ""
+msgstr "No hi ha cap fitxer CSV seleccionat per importar."
 
 #: apps/methods/views.py:407
 msgid "Error creating contact. Contact your network admin."
@@ -556,7 +559,7 @@ msgstr "Nom de l'organització"
 
 #: apps/organizations/forms.py:30 apps/organizations/forms.py:238
 msgid "Organisation description"
-msgstr "Descripció de l'organització."
+msgstr "Descripció de l'organització"
 
 #: apps/organizations/forms.py:36 apps/organizations/forms.py:38
 #: apps/organizations/forms.py:244 apps/organizations/forms.py:246
@@ -622,7 +625,7 @@ msgstr "Mètode de mesura de l’impacte"
 #: apps/organizations/forms.py:133 apps/organizations/forms.py:312
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
-msgstr "Accepto fer pública la infografia"
+msgstr "Vull fer públic els resultats"
 
 #: apps/organizations/forms.py:166
 msgid "I have read and accept the {}"
@@ -790,15 +793,15 @@ msgstr "Comarca"
 
 #: apps/organizations/models.py:165
 msgid "contact person"
-msgstr "persona de contacte"
+msgstr "nom de la persona de referència del projecte"
 
 #: apps/organizations/models.py:166
 msgid "contact email"
-msgstr "correu electrònic de contacte"
+msgstr "email de la persona de contacte del projecte"
 
 #: apps/organizations/models.py:168
 msgid "contact telephone"
-msgstr "telèfon de contacte"
+msgstr "telèfon de la persona de referència del projecte"
 
 #: apps/organizations/models.py:177
 msgid "main scope of action"
@@ -830,7 +833,7 @@ msgstr "actualitzat/<pk>"
 
 #: apps/organizations/urls.py:30
 msgid "<uuid:organization_id>/project/"
-msgstr ""
+msgstr "<uuid:organization_id>/projecte/"
 
 #: apps/organizations/views.py:137
 msgid "Error creating project. Contact your network admin."
@@ -1065,21 +1068,23 @@ msgstr "Errors del balanç"
 
 #: templates/admin/methods/survey_review.html:212
 msgid "Email sending confirmation"
-msgstr ""
+msgstr "Confirmació d'enviament de correu electrònic"
 
 #: templates/admin/methods/survey_review.html:216
 msgid "You are going to send an email to"
-msgstr ""
+msgstr "Enviaràs un correu electrònic a"
 
 #: templates/admin/methods/survey_review.html:216
 msgid "are you sure?"
-msgstr ""
+msgstr "n'estàs segur?"
 
 #: templates/admin/methods/survey_review.html:220
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
 msgstr ""
+"Enviaràs un correu electrònic a totes les organitzacions que tenen un mètode "
+"obert, està segur?"
 
 #: templates/admin/methods/survey_review.html:225
 #: templates/admin/methods/survey_review.html:229
@@ -1089,7 +1094,7 @@ msgstr "Si, estic segur"
 
 #: templates/admin/methods/survey_review.html:233
 msgid "No, cancel"
-msgstr ""
+msgstr "No, cancel·la"
 
 #: templates/admin/organizations/registration_requests.html:4
 msgid "Features"
@@ -1160,27 +1165,21 @@ msgstr ""
 "però el vostre usuari no té accès per suprimir els següents tipus d’elements:"
 
 #: templates/admin/syh_delete_selected_confirmation.html:21
-#, fuzzy, python-format
-#| msgid ""
-#| "Deleting the selected %(objects_name)s would require deleting the "
-#| "following protected related objects:"
+#, python-format
 msgid ""
 "Deleting the selected %(objects_name)s would require deleting the following "
 "protected related objects:"
 msgstr ""
-"Suprimir el %(objects_name)s '%(escaped_object)s' requereix suprimir també "
-"els elements relacionats següents:"
+"Suprimir el %(objects_name)s requereix suprimir també els elements "
+"relacionats següents:"
 
 #: templates/admin/syh_delete_selected_confirmation.html:35
-#, fuzzy, python-format
-#| msgid ""
-#| "Are you sure you want to delete the selected %(objects_name)s? All of the "
-#| "following objects and their related items will be deleted:"
+#, python-format
 msgid ""
 "Are you sure you want to delete the selected %(objects_name)s? All of the "
 "following objects and their related items will be deleted:"
 msgstr ""
-"Està segur que vol suprimir el %(object_name)s ? Tots els elements següents "
+"Està segur que vol suprimir el %(objects_name)s? Tots els elements següents "
 "seran suprimits:"
 
 #: templates/admin/syh_index.html:6 templates/home.html:11
@@ -1189,8 +1188,8 @@ msgstr "Hola"
 
 #: templates/admin/syh_index.html:8
 msgid ""
-"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
-"tareas por completar."
+"This is your welcome space. <br> Here's a quick reminder of tasks to "
+"complete."
 msgstr ""
 "Aquest és el teu espai de benvinguda. <br> Aquí tens un breu recordatori de "
 "tasques per completar."
@@ -1201,11 +1200,11 @@ msgstr "ENTITATS"
 
 #: templates/admin/syh_index.html:15
 #, python-format
-msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
+msgid " You have %(pending_registrations_requests)s new registration requests."
 msgstr " Tens %(pending_registrations_requests)s noves peticions d’altes."
 
 #: templates/admin/syh_index.html:17
-msgid "Gestionar altas"
+msgid "Manage new registrations"
 msgstr "Gestionar altes"
 
 #: templates/admin/syh_index.html:24
@@ -1218,7 +1217,7 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr " %(pending_balance_reviews)s  entitats han finalitzat el seu balanç."
 
 #: templates/admin/syh_index.html:29
-msgid "Revisar balances"
+msgid "Review balances"
 msgstr "Revisar balanços"
 
 #: templates/base.html:81 templates/base.html:129
@@ -1296,26 +1295,26 @@ msgstr "Exportar"
 #: templates/components/card/survey_stats.html:13
 #, python-format
 msgid ""
-"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
-"con los datos aportados, mejoramos todas. "
+"You have completed %(value)s%% of the Social Audit.<br> Remember that with "
+"the data provided, we all improve. "
 msgstr ""
 "Heu completat el %(value)s%% del Balanç Social. <br> Recordi que amb les "
 "dades aportades, millorem totes. "
 
 #: templates/components/card/survey_stats.html:14
-msgid "Resumen por sección"
+msgid "Summary by section"
 msgstr "Resum per secció"
 
 #: templates/components/card/survey_stats.html:21
-msgid "Completadas"
+msgid "Completed"
 msgstr "Completades"
 
 #: templates/components/card/survey_stats.html:27
-msgid "En progreso"
+msgid "In progress"
 msgstr "En progrès"
 
 #: templates/components/card/survey_stats.html:33
-msgid "Por hacer"
+msgid "To do"
 msgstr "Per fer"
 
 #: templates/components/card/survey_stats.html:62
@@ -1324,7 +1323,7 @@ msgstr "Triar projecte"
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
-msgid "Ir al balance"
+msgid "Go to balance"
 msgstr "Anar al balanç"
 
 #: templates/components/card/survey_stats.html:76
@@ -1391,7 +1390,7 @@ msgstr "Formats autoritzats:"
 
 #: templates/components/help_drawer.html:10
 msgid "Clarification"
-msgstr ""
+msgstr "Informació"
 
 #: templates/components/methods/base_field.html:25
 #: templates/components/methods/group_base_field.html:23
@@ -1425,7 +1424,7 @@ msgstr "Total"
 
 #: templates/components/methods/group_input.html:144
 msgid "Fill with 0's"
-msgstr ""
+msgstr "Omplir amb 0s"
 
 #: templates/components/methods/group_input.html:147
 msgid "Validate"
@@ -1451,15 +1450,15 @@ msgstr "No hi ha invitacions."
 
 #: templates/components/methods/survey_review_row.html:121
 msgid "Labor"
-msgstr ""
+msgstr "Laboral"
 
 #: templates/components/methods/survey_review_row.html:122
 msgid "Pro"
-msgstr ""
+msgstr "Professional"
 
 #: templates/components/methods/survey_review_row.html:125
 msgid "Volunteer"
-msgstr ""
+msgstr "Voluntariat"
 
 #: templates/components/navbar.html:9
 msgid "What is social balance?"

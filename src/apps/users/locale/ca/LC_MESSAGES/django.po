@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 15:27+0200\n"
-"PO-Revision-Date: 2026-04-27 15:25+0200\n"
+"POT-Creation-Date: 2026-05-05 14:40+0200\n"
+"PO-Revision-Date: 2026-05-05 13:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -36,8 +36,8 @@ msgid "Log"
 msgstr "Registres"
 
 #: apps/users/admin.py:124
-msgid "Organization"
-msgstr ""
+msgid "Organisation"
+msgstr "Organització"
 
 #: apps/users/admin.py:128
 msgid "User roles information"
