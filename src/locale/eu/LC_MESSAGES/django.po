@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:22+0200\n"
+"POT-Creation-Date: 2026-05-05 13:06+0200\n"
 "PO-Revision-Date: 2026-04-27 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -569,12 +569,12 @@ msgid "VAT Number"
 msgstr "IFK zenbakia"
 
 #: apps/organizations/forms.py:42 apps/organizations/forms.py:250
-#: apps/organizations/forms.py:403
+#: apps/organizations/forms.py:404
 msgid "Name of the contact person"
 msgstr "Kontakturako pertsonaren izena"
 
 #: apps/organizations/forms.py:46 apps/organizations/forms.py:257
-#: apps/organizations/forms.py:409
+#: apps/organizations/forms.py:410
 msgid "Phone number of the contact person"
 msgstr "Kontakturako pertsonaren telefono zenbakia"
 
@@ -583,7 +583,7 @@ msgid "Phone number"
 msgstr "Telefono zenbakia"
 
 #: apps/organizations/forms.py:52 apps/organizations/forms.py:253
-#: apps/organizations/forms.py:415
+#: apps/organizations/forms.py:416
 msgid "Email address of the contact person"
 msgstr "Kontakturako pertsonaren helbide elektronikoa"
 
@@ -641,37 +641,41 @@ msgstr "Egitasmoaren izena"
 msgid "Brief description"
 msgstr "Deskribapen laburra"
 
-#: apps/organizations/forms.py:387
+#: apps/organizations/forms.py:381
+msgid "If there is no start date, put first january"
+msgstr ""
+
+#: apps/organizations/forms.py:388
 msgid "Main action scope"
 msgstr "Jarduera-eremu nagusia"
 
-#: apps/organizations/forms.py:392
+#: apps/organizations/forms.py:393
 msgid "Secondary action scope"
 msgstr "Bigarren mailako jarduera-eremua"
 
-#: apps/organizations/forms.py:405
+#: apps/organizations/forms.py:406
 msgid "Contact name"
 msgstr "Kontaktuaren izena"
 
-#: apps/organizations/forms.py:411
+#: apps/organizations/forms.py:412
 msgid "Contact phone number"
 msgstr "Kontaktuaren telefono zenbakia"
 
-#: apps/organizations/forms.py:417
+#: apps/organizations/forms.py:418
 msgid "Contact email"
 msgstr "Kontakturako helbide elektronikoa"
 
-#: apps/organizations/forms.py:421 apps/organizations/models.py:209
+#: apps/organizations/forms.py:422 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Emaitza argitaratu nahi dut"
 
-#: apps/organizations/forms.py:424 apps/organizations/models.py:212
+#: apps/organizations/forms.py:425 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr ""
 "Behin betiko dokumentuan sartu ahal izateko nire datuen erabilera onartzen "
 "dut"
 
-#: apps/organizations/forms.py:468
+#: apps/organizations/forms.py:469
 msgid "Choose Existing Project"
 msgstr "Existitzen den egitasmoa aukeratu"
 

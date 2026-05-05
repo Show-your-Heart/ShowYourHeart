@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:22+0200\n"
+"POT-Creation-Date: 2026-05-05 13:06+0200\n"
 "PO-Revision-Date: 2026-04-27 15:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -565,12 +565,12 @@ msgid "VAT Number"
 msgstr "Número CIF"
 
 #: apps/organizations/forms.py:42 apps/organizations/forms.py:250
-#: apps/organizations/forms.py:403
+#: apps/organizations/forms.py:404
 msgid "Name of the contact person"
 msgstr "Nom de la persona de contacte"
 
 #: apps/organizations/forms.py:46 apps/organizations/forms.py:257
-#: apps/organizations/forms.py:409
+#: apps/organizations/forms.py:410
 msgid "Phone number of the contact person"
 msgstr "Número de telèfon de la persona de contacte"
 
@@ -579,7 +579,7 @@ msgid "Phone number"
 msgstr "Telèfon"
 
 #: apps/organizations/forms.py:52 apps/organizations/forms.py:253
-#: apps/organizations/forms.py:415
+#: apps/organizations/forms.py:416
 msgid "Email address of the contact person"
 msgstr "Correu electrònic de la persona de contacte"
 
@@ -636,35 +636,39 @@ msgstr "Nom del projecte"
 msgid "Brief description"
 msgstr "Descripció breu"
 
-#: apps/organizations/forms.py:387
+#: apps/organizations/forms.py:381
+msgid "If there is no start date, put first january"
+msgstr ""
+
+#: apps/organizations/forms.py:388
 msgid "Main action scope"
 msgstr "Àmbit d'actuació principal"
 
-#: apps/organizations/forms.py:392
+#: apps/organizations/forms.py:393
 msgid "Secondary action scope"
 msgstr "Àmbit d'actuació secundari"
 
-#: apps/organizations/forms.py:405
+#: apps/organizations/forms.py:406
 msgid "Contact name"
 msgstr "Nom de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:411
+#: apps/organizations/forms.py:412
 msgid "Contact phone number"
 msgstr "Telèfon de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:417
+#: apps/organizations/forms.py:418
 msgid "Contact email"
 msgstr "Email de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:421 apps/organizations/models.py:209
+#: apps/organizations/forms.py:422 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Vull fer públic els resultats"
 
-#: apps/organizations/forms.py:424 apps/organizations/models.py:212
+#: apps/organizations/forms.py:425 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autoritzo l'ús de les meves dades per a l’informe agregat final"
 
-#: apps/organizations/forms.py:468
+#: apps/organizations/forms.py:469
 msgid "Choose Existing Project"
 msgstr "Tria Projecte Existent"
 

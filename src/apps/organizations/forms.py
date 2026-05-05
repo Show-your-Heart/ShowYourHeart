@@ -378,6 +378,7 @@ class ProjectCreationForm(forms.ModelForm):
     )
     start_date = forms.DateField(
         label=_("Start date"),
+        help_text=_("If there is no start date, put first january"),
         widget=syh_forms.DateInput(
             format="%Y-%m-%d", attrs={"autofocus": True, "type": "date"}
         ),

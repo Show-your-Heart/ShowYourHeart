@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:22+0200\n"
+"POT-Creation-Date: 2026-05-05 13:06+0200\n"
 "PO-Revision-Date: 2026-04-27 16:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -569,12 +569,12 @@ msgid "VAT Number"
 msgstr "Número de CIF"
 
 #: apps/organizations/forms.py:42 apps/organizations/forms.py:250
-#: apps/organizations/forms.py:403
+#: apps/organizations/forms.py:404
 msgid "Name of the contact person"
 msgstr "Nome da persoa de contacto"
 
 #: apps/organizations/forms.py:46 apps/organizations/forms.py:257
-#: apps/organizations/forms.py:409
+#: apps/organizations/forms.py:410
 msgid "Phone number of the contact person"
 msgstr "Número de teléfono da persoa de contacto"
 
@@ -583,7 +583,7 @@ msgid "Phone number"
 msgstr "Número de teléfono"
 
 #: apps/organizations/forms.py:52 apps/organizations/forms.py:253
-#: apps/organizations/forms.py:415
+#: apps/organizations/forms.py:416
 msgid "Email address of the contact person"
 msgstr "Correo electrónico da persoa de contacto"
 
@@ -640,35 +640,39 @@ msgstr "Nome do proxecto"
 msgid "Brief description"
 msgstr "Breve descrición"
 
-#: apps/organizations/forms.py:387
+#: apps/organizations/forms.py:381
+msgid "If there is no start date, put first january"
+msgstr ""
+
+#: apps/organizations/forms.py:388
 msgid "Main action scope"
 msgstr "Ámbito de actuación principal"
 
-#: apps/organizations/forms.py:392
+#: apps/organizations/forms.py:393
 msgid "Secondary action scope"
 msgstr "Ámbito de actuación secundario"
 
-#: apps/organizations/forms.py:405
+#: apps/organizations/forms.py:406
 msgid "Contact name"
 msgstr "Nome do contacto"
 
-#: apps/organizations/forms.py:411
+#: apps/organizations/forms.py:412
 msgid "Contact phone number"
 msgstr "Número de teléfono de contacto"
 
-#: apps/organizations/forms.py:417
+#: apps/organizations/forms.py:418
 msgid "Contact email"
 msgstr "Correo electrónico de contacto"
 
-#: apps/organizations/forms.py:421 apps/organizations/models.py:209
+#: apps/organizations/forms.py:422 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Quero facer públicos os resultados"
 
-#: apps/organizations/forms.py:424 apps/organizations/models.py:212
+#: apps/organizations/forms.py:425 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autorizo ​​o uso dos meus datos para a súa inclusión no informe final"
 
-#: apps/organizations/forms.py:468
+#: apps/organizations/forms.py:469
 msgid "Choose Existing Project"
 msgstr "Escolla Proxecto Existente"
 
@@ -1574,7 +1578,6 @@ msgid ""
 msgstr ""
 "Moitas grazas por unirte a ShowYourHeart! Estamos a procesar a túa "
 "solicitude e poñerémonos en contacto contigo en breve."
-
 
 #: templates/profile/details.html:11
 msgid "Your profile"
