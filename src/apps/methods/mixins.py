@@ -38,6 +38,7 @@ class MethodFillMixin:
                 None,
                 kwargs.get("token"),
                 self.request,
+                None,
             )
         # Method
         else:
@@ -48,6 +49,7 @@ class MethodFillMixin:
                 self.request.user,
                 None,
                 self.request,
+                kwargs.get("project_id"),
             )
 
         context.update(method_fill_context)
@@ -95,7 +97,13 @@ class MethodFillMixin:
 
 
 def prepare_method_fill_context(
-    survey_id=None, method=None, campaign_id=None, user=None, token=None, request=None
+    survey_id=None,
+    method=None,
+    campaign_id=None,
+    user=None,
+    token=None,
+    request=None,
+    project_id=None,
 ):
     # Get the current survey already started
     try:
@@ -113,6 +121,7 @@ def prepare_method_fill_context(
                 user=user,
                 campaign__id=campaign_id,
                 method=method,
+                project_id=project_id,
             )
 
         readonly = survey.status == Survey.Status.CLOSED

@@ -561,7 +561,7 @@ class SurveyAdmin(ModelAdmin):
     def review_survey_action(self, request, pk, **kwargs):
         if request.method == "GET":
             method_fill_context = prepare_method_fill_context(
-                pk, None, None, None, None, request
+                pk, None, None, None, None, request, None
             )
             survey = get_object_or_404(Survey, pk=pk)
             method_fill_context.update(
