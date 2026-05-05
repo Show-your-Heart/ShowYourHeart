@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:06+0200\n"
+"POT-Creation-Date: 2026-05-05 15:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1201,8 +1201,8 @@ msgstr "Hallo"
 
 #: templates/admin/syh_index.html:8
 msgid ""
-"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
-"tareas por completar."
+"This is your welcome space. <br> Here's a quick reminder of tasks to "
+"complete."
 msgstr ""
 "Dit is uw welkomstpagina. <br> Hier vindt u een korte herinnering aan taken "
 "die nog moeten worden voltooid."
@@ -1214,12 +1214,12 @@ msgstr "ORGANISATIES"
 #: templates/admin/syh_index.html:15
 #, fuzzy, python-format
 #| msgid ""
-#| " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
-msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
+#| " You have %(pending_registrations_requests)s new registration requests."
+msgid " You have %(pending_registrations_requests)s new registration requests."
 msgstr "U heeft %(pending_registrations_requests) nieuwe aanmeldingsverzoeken."
 
 #: templates/admin/syh_index.html:17
-msgid "Gestionar altas"
+msgid "Manage new registrations"
 msgstr "Aanmeldingen beheren"
 
 #: templates/admin/syh_index.html:24
@@ -1233,7 +1233,7 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr "82 organisaties hebben hun impactmeting voltooid."
 
 #: templates/admin/syh_index.html:29
-msgid "Revisar balances"
+msgid "Review balances"
 msgstr "Impactmeting controleren"
 
 #: templates/base.html:81 templates/base.html:129
@@ -1309,31 +1309,28 @@ msgid "Export"
 msgstr ""
 
 #: templates/components/card/survey_stats.html:13
-#, fuzzy, python-format
-#| msgid ""
-#| " Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda "
-#| "que con los datos aportados, mejoramos todas. "
+#, python-format
 msgid ""
-"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
-"con los datos aportados, mejoramos todas. "
+"You have completed %(value)s%% of the Social Audit.<br> Remember that with "
+"the data provided, we all improve. "
 msgstr ""
 "Jullie hebben %(value)s%% van de Sociale Audit voltooid.<br> Vergeet niet "
 "dat we met de verstrekte gegevens ons allemaal verbeteren."
 
 #: templates/components/card/survey_stats.html:14
-msgid "Resumen por sección"
+msgid "Summary by section"
 msgstr "Overzicht per sectie"
 
 #: templates/components/card/survey_stats.html:21
-msgid "Completadas"
+msgid "Completed"
 msgstr "Voltooid"
 
 #: templates/components/card/survey_stats.html:27
-msgid "En progreso"
+msgid "In progress"
 msgstr "In uitvoering"
 
 #: templates/components/card/survey_stats.html:33
-msgid "Por hacer"
+msgid "To do"
 msgstr "Te doen"
 
 #: templates/components/card/survey_stats.html:62
@@ -1342,7 +1339,7 @@ msgstr ""
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
-msgid "Ir al balance"
+msgid "Go to balance"
 msgstr "Naar de balans gaan"
 
 #: templates/components/card/survey_stats.html:76

@@ -10,27 +10,27 @@
     <p class="text-sm text-gray-500">{{surveyStats.totalProgress}}%</p>
   </div>
 
-  <p class="text-sm text-gray-500">{% blocktrans with value=surveyStats.totalProgress %}Habéis completado el {{ value }}% de la Auditoria Social.<br> Recuerda que con los datos aportados, mejoramos todas. {% endblocktrans %}</p>
-  <h6 class="text-lg font-bold">{% translate 'Resumen por sección' %}</h6>
+  <p class="text-sm text-gray-500">{% blocktrans with value=surveyStats.totalProgress %}You have completed {{ value }}% of the Social Audit.<br> Remember that with the data provided, we all improve. {% endblocktrans %}</p>
+  <h6 class="text-lg font-bold">{% translate 'Summary by section' %}</h6>
 
   <div class="flex gap-4">
     <div class="flex flex-col block w-full p-6 bg-teal-50 rounded-lg">
       <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-teal-100 text-bold text-teal-600">
         {{surveyStats.totalCompleted}}
       </p>
-      <p class="text-teal-600 text-xs text-center">{% translate 'Completadas' %}</p>
+      <p class="text-teal-600 text-xs text-center">{% translate 'Completed' %}</p>
     </div>
     <div class="flex flex-col block w-full p-6 bg-blue-50 rounded-lg">
       <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-blue-100 text-bold text-blue-600">
         {{surveyStats.totalInProgress}}
       </p>
-      <p class="text-blue-600 text-xs text-center">{% translate 'En progreso' %}</p>
+      <p class="text-blue-600 text-xs text-center">{% translate 'In progress' %}</p>
     </div>
     <div class="flex flex-col block w-full p-6 bg-orange-50 rounded-lg">
       <p class="flex justify-center items-center mx-auto w-8 h-8 rounded-full bg-orange-100 text-bold text-orange-600">
         {{surveyStats.totalToDo}}
       </p>
-      <p class="text-orange-600 text-xs text-center">{% translate 'Por hacer' %}</p>
+      <p class="text-orange-600 text-xs text-center">{% translate 'To do' %}</p>
     </div>
 
   </div>
@@ -66,7 +66,7 @@
           <div class="flex gap-4 items-center">
             <a class="h-fit-content" href="{% url 'methods:method_fill' surveyStats.campaign.id surveyStats.method.id %}">
               <c-button>
-                <span>{% translate 'Ir al balance' %}</span>
+                <span>{% translate 'Go to balance' %}</span>
                 <c-icon name="arrow-right" class="inline text-white"></c-icon>
               </c-button>
             </a>

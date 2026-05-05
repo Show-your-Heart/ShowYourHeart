@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:06+0200\n"
+"POT-Creation-Date: 2026-05-05 15:03+0200\n"
 "PO-Revision-Date: 2026-04-27 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1193,8 +1193,8 @@ msgstr "Kaixo"
 
 #: templates/admin/syh_index.html:8
 msgid ""
-"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
-"tareas por completar."
+"This is your welcome space. <br> Here's a quick reminder of tasks to "
+"complete."
 msgstr ""
 "Hau da zure ongi etorriko eremua. <br> Hemen duzu betetzeke dauden lanetako "
 "oroigarri labur bat."
@@ -1205,11 +1205,11 @@ msgstr "ENTITATEAK"
 
 #: templates/admin/syh_index.html:15
 #, python-format
-msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
+msgid " You have %(pending_registrations_requests)s new registration requests."
 msgstr " Badituzu %(pending_registrations_requests)s alta eskaera berriak."
 
 #: templates/admin/syh_index.html:17
-msgid "Gestionar altas"
+msgid "Manage new registrations"
 msgstr "Altak kudeatu"
 
 #: templates/admin/syh_index.html:24
@@ -1222,7 +1222,7 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr " %(pending_balance_reviews)s entitateek amaitu dute euren auditoretza."
 
 #: templates/admin/syh_index.html:29
-msgid "Revisar balances"
+msgid "Review balances"
 msgstr "Balantzeak berrikusi"
 
 #: templates/base.html:81 templates/base.html:129
@@ -1300,26 +1300,26 @@ msgstr "Esportatu"
 #: templates/components/card/survey_stats.html:13
 #, python-format
 msgid ""
-"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
-"con los datos aportados, mejoramos todas. "
+"You have completed %(value)s%% of the Social Audit.<br> Remember that with "
+"the data provided, we all improve. "
 msgstr ""
 "Auditoritza Sozialaren %(value)s%% bete duzue. <br> Emandako datuekin denok "
 "hobetzen dugula gogoratu. "
 
 #: templates/components/card/survey_stats.html:14
-msgid "Resumen por sección"
+msgid "Summary by section"
 msgstr "Atalaren laburpena"
 
 #: templates/components/card/survey_stats.html:21
-msgid "Completadas"
+msgid "Completed"
 msgstr "Osatuak"
 
 #: templates/components/card/survey_stats.html:27
-msgid "En progreso"
+msgid "In progress"
 msgstr "Aurrera doa"
 
 #: templates/components/card/survey_stats.html:33
-msgid "Por hacer"
+msgid "To do"
 msgstr "Egiteke"
 
 #: templates/components/card/survey_stats.html:62
@@ -1328,8 +1328,10 @@ msgstr "Egitasmoa aukeratu"
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
-msgid "Ir al balance"
-msgstr "Balantzera joan"
+#, fuzzy
+#| msgid "Edit balance"
+msgid "Go to balance"
+msgstr "Auditoretza editatu"
 
 #: templates/components/card/survey_stats.html:76
 #: templates/components/drawers/choose_project.html:31

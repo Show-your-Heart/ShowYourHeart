@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:06+0200\n"
-"PO-Revision-Date: 2026-04-27 15:36+0200\n"
+"POT-Creation-Date: 2026-05-05 15:03+0200\n"
+"PO-Revision-Date: 2026-05-05 13:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: gur\n"
@@ -53,7 +53,7 @@ msgstr "Un courriel a été envoyé au contact."
 
 #: apps/methods/admin.py:660
 msgid "Balance status successfuly updated."
-msgstr ""
+msgstr "L'état de la Balance a été mis à jour avec succès."
 
 #: apps/methods/admin.py:728 apps/methods/admin.py:772
 msgid "Actions"
@@ -97,7 +97,7 @@ msgstr "Genre"
 
 #: apps/methods/helpers.py:30
 msgid "The csv file must contain the headers 'name' and 'email'"
-msgstr ""
+msgstr "Le fichier CSV doit contenir les en-têtes « name » et « email »"
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
 #: apps/methods/models.py:422 apps/organizations/models.py:29
@@ -331,7 +331,7 @@ msgstr ""
 
 #: apps/methods/models.py:335
 msgid "set name"
-msgstr ""
+msgstr "definir le nom"
 
 #: apps/methods/models.py:337
 msgid "item name"
@@ -437,11 +437,11 @@ msgstr "Fermé"
 
 #: apps/methods/models.py:531
 msgid "Tech validated"
-msgstr ""
+msgstr "Validation technique"
 
 #: apps/methods/models.py:535
 msgid "Quality checked"
-msgstr ""
+msgstr "Validation de critères"
 
 #: apps/methods/models.py:542
 msgid "Token"
@@ -469,7 +469,7 @@ msgstr "Est-ce un total?"
 
 #: apps/methods/models.py:606
 msgid "Set instance number"
-msgstr ""
+msgstr "Définir le numéro d'instance"
 
 #: apps/methods/models.py:610
 msgid "not applicable"
@@ -540,7 +540,7 @@ msgstr "Le CSV a été importé correctement."
 
 #: apps/methods/views.py:250
 msgid "There is no CSV file selected to import."
-msgstr ""
+msgstr "Aucun fichier CSV n'a été sélectionné pour l'importation."
 
 #: apps/methods/views.py:407
 msgid "Error creating contact. Contact your network admin."
@@ -1077,21 +1077,23 @@ msgstr "Erreurs de la balance"
 
 #: templates/admin/methods/survey_review.html:212
 msgid "Email sending confirmation"
-msgstr ""
+msgstr "Confirmation d'envoi d'e-mail"
 
 #: templates/admin/methods/survey_review.html:216
 msgid "You are going to send an email to"
-msgstr ""
+msgstr "Vous allez envoyer un courriel à"
 
 #: templates/admin/methods/survey_review.html:216
 msgid "are you sure?"
-msgstr ""
+msgstr "en êtes-vous sûr?"
 
 #: templates/admin/methods/survey_review.html:220
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
 msgstr ""
+"Vous allez envoyer un courriel à toutes les organisations qui utilisent une "
+"méthode ouverte, en êtes-vous sûr ?"
 
 #: templates/admin/methods/survey_review.html:225
 #: templates/admin/methods/survey_review.html:229
@@ -1101,7 +1103,7 @@ msgstr "Oui, j'en suis sûr"
 
 #: templates/admin/methods/survey_review.html:233
 msgid "No, cancel"
-msgstr ""
+msgstr "Non, annule"
 
 #: templates/admin/organizations/registration_requests.html:4
 msgid "Features"
@@ -1162,17 +1164,13 @@ msgid "Objects"
 msgstr "Eléments"
 
 #: templates/admin/syh_delete_selected_confirmation.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "Deleting the selected %(objects_name)s would result in deleting related "
-#| "objects, but your account doesn't have permission to delete the following "
-#| "types of objects:"
+#, python-format
 msgid ""
 "Deleting the selected %(objects_name)s would result in deleting related "
 "objects, but your account doesn't have permission to delete the following "
 "types of objects:"
 msgstr ""
-"Supprimer %(object_name)s  entraînerait la suppression de objets liés, mais "
+"Supprimer %(objects_name)s entraînerait la suppression de objets liés, mais "
 "votre compte n’a pas la permission de supprimer le types d'objets suivants :"
 
 #: templates/admin/syh_delete_selected_confirmation.html:21
@@ -1199,8 +1197,8 @@ msgstr "Bonjour"
 
 #: templates/admin/syh_index.html:8
 msgid ""
-"Este es tu espacio de bienvenida. <br> Aquí tienes un breve recordatorio de "
-"tareas por completar."
+"This is your welcome space. <br> Here's a quick reminder of tasks to "
+"complete."
 msgstr ""
 "Ceci est votre espace de bienvenue. <br> Voici un bref rappel de tâches à "
 "accomplir."
@@ -1211,12 +1209,12 @@ msgstr "ENTITÉS"
 
 #: templates/admin/syh_index.html:15
 #, python-format
-msgid " Tienes %(pending_registrations_requests)s nuevas peticiones de alta."
+msgid " You have %(pending_registrations_requests)s new registration requests."
 msgstr ""
 "Vous avez %(pending_registrations_requests)s nouvelles demandes de registre"
 
 #: templates/admin/syh_index.html:17
-msgid "Gestionar altas"
+msgid "Manage new registrations"
 msgstr "Gérer les demandes de registre"
 
 #: templates/admin/syh_index.html:24
@@ -1229,7 +1227,7 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr " %(pending_balance_reviews)s entités ont terminé leur balance."
 
 #: templates/admin/syh_index.html:29
-msgid "Revisar balances"
+msgid "Review balances"
 msgstr "Réviser les balances"
 
 #: templates/base.html:81 templates/base.html:129
@@ -1307,27 +1305,27 @@ msgstr "Exporter"
 #: templates/components/card/survey_stats.html:13
 #, python-format
 msgid ""
-"Habéis completado el %(value)s%% de la Auditoria Social.<br> Recuerda que "
-"con los datos aportados, mejoramos todas. "
+"You have completed %(value)s%% of the Social Audit.<br> Remember that with "
+"the data provided, we all improve. "
 msgstr ""
 "Vous avez complété le %(value)s%% de la Balance sociale.<br> Souvenez-vous "
 "qu'avec les données apportées, nous nous améliorons toutes. "
 
 #: templates/components/card/survey_stats.html:14
-msgid "Resumen por sección"
+msgid "Summary by section"
 msgstr "Résumé par section"
 
 #: templates/components/card/survey_stats.html:21
-msgid "Completadas"
+msgid "Completed"
 msgstr "Terminé"
 
 #: templates/components/card/survey_stats.html:27
-msgid "En progreso"
+msgid "In progress"
 msgstr "En cours"
 
 #: templates/components/card/survey_stats.html:33
-msgid "Por hacer"
-msgstr "Pour faire"
+msgid "To do"
+msgstr "À faire"
 
 #: templates/components/card/survey_stats.html:62
 msgid "Choose project"
@@ -1335,7 +1333,7 @@ msgstr "Choisir projet"
 
 #: templates/components/card/survey_stats.html:69
 #: templates/components/drawers/choose_project.html:24
-msgid "Ir al balance"
+msgid "Go to balance"
 msgstr "Aller à la balance"
 
 #: templates/components/card/survey_stats.html:76
@@ -1436,7 +1434,7 @@ msgstr "Total"
 
 #: templates/components/methods/group_input.html:144
 msgid "Fill with 0's"
-msgstr ""
+msgstr "Remplir avec des 0"
 
 #: templates/components/methods/group_input.html:147
 msgid "Validate"
@@ -1462,11 +1460,11 @@ msgstr "Il n'y a pas d'invitations."
 
 #: templates/components/methods/survey_review_row.html:121
 msgid "Labor"
-msgstr ""
+msgstr "de travail"
 
 #: templates/components/methods/survey_review_row.html:122
 msgid "Pro"
-msgstr "Pro"
+msgstr "Professionel"
 
 #: templates/components/methods/survey_review_row.html:125
 msgid "Volunteer"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-28 14:28+0200\n"
-"PO-Revision-Date: 2026-03-19 18:00+0100\n"
+"PO-Revision-Date: 2026-05-05 13:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -120,7 +120,7 @@ msgstr "Galleg"
 
 #: project/settings.py:76
 msgid "Basque"
-msgstr "Basc"
+msgstr "Euskera"
 
 #: project/settings.py:77
 msgid "Spanish"
