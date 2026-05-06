@@ -304,7 +304,12 @@ const initIndicatorsStore = () => {
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
                 if (indicator.condition.includes(code)) {
-                    const fieldEl = document.querySelector(`#field_${instanceId}`);
+                    let fieldEl = document.querySelector(`#field_${instanceId}`);
+                    // If no element found check set instance
+                    if(fieldEl == null){
+                        instanceId = instanceId + "_1"
+                        fieldEl = document.querySelector(`#field_${instanceId}`);
+                    }
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
 
