@@ -34,6 +34,7 @@ services:
       - "127.0.0.1:1601:8000"
     volumes:
       - ../src:/srv/src
+      - media_home:/srv/media
     depends_on:
       showyourheart-db:
         condition: service_healthy
@@ -48,4 +49,6 @@ services:
 
 volumes:
   db_home:
+    external: false
+  media_home:
     external: false
