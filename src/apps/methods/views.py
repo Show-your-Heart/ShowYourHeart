@@ -306,6 +306,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
             c.name = f"{c.name} | {c.year}"
 
         methods = Method.objects.filter(campaign_methods__status=True).distinct()
+        methods = self.filter_queryset_by_network(self.request, methods)
 
         context["campaigns"] = campaigns
         context["regions"] = Region1.objects.all()
