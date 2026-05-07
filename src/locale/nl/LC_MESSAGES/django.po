@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 15:50+0200\n"
+"POT-Creation-Date: 2026-05-07 11:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,7 +77,7 @@ msgstr "Uitnodigingen versturen"
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
 #: apps/methods/models.py:489 apps/methods/models.py:622
 #: apps/methods/models.py:670 apps/organizations/forms.py:27
-#: apps/organizations/forms.py:43 apps/organizations/forms.py:235
+#: apps/organizations/forms.py:43 apps/organizations/forms.py:237
 #: templates/admin/methods/survey_review.html:34
 #: templates/admin/methods/survey_review.html:119
 #: templates/admin/organizations/registration_requests.html:38
@@ -383,7 +383,7 @@ msgid "Version"
 msgstr "Versie"
 
 #: apps/methods/models.py:456 apps/organizations/forms.py:79
-#: apps/organizations/forms.py:277
+#: apps/organizations/forms.py:279
 msgid "Region1"
 msgstr "Regio1"
 
@@ -409,7 +409,7 @@ msgid "Methods"
 msgstr "Methoden"
 
 #: apps/methods/models.py:501 apps/methods/models.py:561
-#: apps/organizations/forms.py:380 apps/organizations/models.py:206
+#: apps/organizations/forms.py:384 apps/organizations/models.py:206
 #: templates/admin/methods/survey_review.html:131
 msgid "Start date"
 msgstr "Startdatum"
@@ -484,7 +484,7 @@ msgid "Title"
 msgstr "Titel"
 
 #: apps/methods/models.py:707 apps/organizations/forms.py:32
-#: apps/organizations/forms.py:240
+#: apps/organizations/forms.py:242
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -509,7 +509,7 @@ msgstr ""
 msgid "invitation"
 msgstr ""
 
-#: apps/methods/urls.py:63
+#: apps/methods/urls.py:64
 msgid "preview/<uuid:method_id>/"
 msgstr ""
 
@@ -545,29 +545,29 @@ msgstr ""
 msgid "Invalid signup, check that you don't have an account."
 msgstr "Ongeldige aanmelding, controleer of u geen account heeft."
 
-#: apps/organizations/forms.py:26 apps/organizations/forms.py:234
+#: apps/organizations/forms.py:26 apps/organizations/forms.py:236
 msgid "Organisation name"
 msgstr "Naam van de organisatie"
 
-#: apps/organizations/forms.py:30 apps/organizations/forms.py:238
+#: apps/organizations/forms.py:30 apps/organizations/forms.py:240
 #, fuzzy
 #| msgid "Organisation name"
 msgid "Organisation description"
 msgstr "Naam van de organisatie"
 
 #: apps/organizations/forms.py:36 apps/organizations/forms.py:38
-#: apps/organizations/forms.py:244 apps/organizations/forms.py:246
+#: apps/organizations/forms.py:246 apps/organizations/forms.py:248
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
 msgstr "Btw-nummer"
 
-#: apps/organizations/forms.py:42 apps/organizations/forms.py:250
-#: apps/organizations/forms.py:403
+#: apps/organizations/forms.py:42 apps/organizations/forms.py:252
+#: apps/organizations/forms.py:407
 msgid "Name of the contact person"
 msgstr "Naam van de contactpersoon"
 
-#: apps/organizations/forms.py:46 apps/organizations/forms.py:257
-#: apps/organizations/forms.py:409
+#: apps/organizations/forms.py:46 apps/organizations/forms.py:259
+#: apps/organizations/forms.py:413
 msgid "Phone number of the contact person"
 msgstr "Telefoonnummer van de contactpersoon"
 
@@ -575,8 +575,8 @@ msgstr "Telefoonnummer van de contactpersoon"
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: apps/organizations/forms.py:52 apps/organizations/forms.py:253
-#: apps/organizations/forms.py:415
+#: apps/organizations/forms.py:52 apps/organizations/forms.py:255
+#: apps/organizations/forms.py:419
 msgid "Email address of the contact person"
 msgstr "E-mailadres van de contactpersoon"
 
@@ -586,82 +586,82 @@ msgid "Email"
 msgstr "E-mail"
 
 #: apps/organizations/forms.py:62 apps/organizations/forms.py:63
-#: apps/organizations/forms.py:260 apps/organizations/forms.py:261
+#: apps/organizations/forms.py:262 apps/organizations/forms.py:263
 msgid "Website"
 msgstr "Website"
 
-#: apps/organizations/forms.py:67 apps/organizations/forms.py:265
+#: apps/organizations/forms.py:67 apps/organizations/forms.py:267
 msgid "Country"
 msgstr "Land"
 
-#: apps/organizations/forms.py:91 apps/organizations/forms.py:289
+#: apps/organizations/forms.py:92 apps/organizations/forms.py:292
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
 msgstr "Stad"
 
-#: apps/organizations/forms.py:103 apps/organizations/forms.py:104
-#: apps/organizations/forms.py:301 apps/organizations/forms.py:302
+#: apps/organizations/forms.py:105 apps/organizations/forms.py:106
+#: apps/organizations/forms.py:305 apps/organizations/forms.py:306
 msgid "Address"
 msgstr "Adres"
 
-#: apps/organizations/forms.py:107 apps/organizations/forms.py:305
+#: apps/organizations/forms.py:109 apps/organizations/forms.py:309
 msgid "Zip Code"
 msgstr ""
 
-#: apps/organizations/forms.py:110 apps/organizations/forms.py:308
+#: apps/organizations/forms.py:112 apps/organizations/forms.py:312
 msgid "Legal entity type"
 msgstr "Rechtsvorm"
 
-#: apps/organizations/forms.py:123
+#: apps/organizations/forms.py:125
 msgid "Method of impact mesurement"
 msgstr "Methode voor impactmeting"
 
-#: apps/organizations/forms.py:133 apps/organizations/forms.py:312
+#: apps/organizations/forms.py:135 apps/organizations/forms.py:316
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
 msgstr ""
 
-#: apps/organizations/forms.py:166
+#: apps/organizations/forms.py:168
 msgid "I have read and accept the {}"
 msgstr "Ik heb de {} gelezen en accepteer deze"
 
-#: apps/organizations/forms.py:368 apps/organizations/forms.py:370
+#: apps/organizations/forms.py:372 apps/organizations/forms.py:374
 msgid "Project name"
 msgstr ""
 
-#: apps/organizations/forms.py:374 apps/organizations/forms.py:376
+#: apps/organizations/forms.py:378 apps/organizations/forms.py:380
 msgid "Brief description"
 msgstr ""
 
-#: apps/organizations/forms.py:387
+#: apps/organizations/forms.py:391
 msgid "Main action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:392
+#: apps/organizations/forms.py:396
 msgid "Secondary action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:405
+#: apps/organizations/forms.py:409
 msgid "Contact name"
 msgstr ""
 
-#: apps/organizations/forms.py:411
+#: apps/organizations/forms.py:415
 msgid "Contact phone number"
 msgstr ""
 
-#: apps/organizations/forms.py:417
+#: apps/organizations/forms.py:421
 msgid "Contact email"
 msgstr ""
 
-#: apps/organizations/forms.py:421 apps/organizations/models.py:209
+#: apps/organizations/forms.py:425 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Ik wil de resultaten openbaar maken"
 
-#: apps/organizations/forms.py:424 apps/organizations/models.py:212
+#: apps/organizations/forms.py:428 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Ik geef toestemming om mijn gegevens op te nemen in het eindrapport"
 
-#: apps/organizations/forms.py:468
+#: apps/organizations/forms.py:472
 msgid "Choose Existing Project"
 msgstr ""
 
@@ -1477,7 +1477,8 @@ msgid "Volunteer"
 msgstr ""
 
 #: templates/components/navbar.html:9
-msgid "What is social balance?"
+#: templates/info/what_is_social_balance.html:8
+msgid "What is Social Balance?"
 msgstr ""
 
 #: templates/components/navbar.html:14 templates/info/good_practices.html:8
@@ -1525,6 +1526,13 @@ msgid "You are not assigned to any organization. Please contact an admin"
 msgstr ""
 "U bent niet aan een organisatie gekoppeld. Neem contact op met een beheerder."
 
+#: templates/info/contact.html:11
+msgid ""
+"If you have any questions about the Ensenya el Cor platform or would like to "
+"receive more information, you can contact the Social Balance Commission of "
+"the Solidarity Economy Network via email info@bsxes.org."
+msgstr ""
+
 #: templates/info/documents.html:17
 msgid "Campaigns"
 msgstr ""
@@ -1537,8 +1545,42 @@ msgstr ""
 msgid "Stamps"
 msgstr ""
 
-#: templates/info/what_is_social_balance.html:8
-msgid "What is Social Balance?"
+#: templates/info/good_practices.html:11
+msgid ""
+"<p>This section is under construction. </p> <p>The long-term aim is to share "
+"best practices from organisations, to promote the Social Balance as a tool "
+"for self-improvement.</p> <p>If you have any suggestions or would like to "
+"get involved, please write to bsocial@xes.cat or with the following link: "
+"https://xes.cat/la-xes/contacte?contacte=bs</p>"
+msgstr ""
+
+#: templates/info/resources.html:11
+msgid ""
+"<p>This section is under construction.</p> <p>We would like to share "
+"guidelines, sample protocols and all the documentation that can help you "
+"complete and use the Social Balance.</p> <p>If you have any suggestions or "
+"would like to get involved, please write to bsocial@xes.cat or with the "
+"following link: https://xes.cat/la-xes/contacte?contacte=bs</p>"
+msgstr ""
+
+#: templates/info/what_is_social_balance.html:9
+msgid ""
+"<p>The Social Balance is a tool for accountability and for measuring social, "
+"environmental and governance impact, aimed at any economic initiative that "
+"considers itself socially responsible or that forms part of the Social and "
+"Solidarity Economy. Organisations that takes this assessment can use the "
+"results to improve internally and to promote the quality and well-being of "
+"the Solidarity Economy and the Social Market. It is supported by the "
+"Ministerio de Trabajo y Economía Social of Spain.</p> <p>The Social Balance "
+"audits and assesses six key characteristics of any company or organisation "
+"wishing to be socially responsible, in a rigorous, systematic, objective and "
+"periodic manner: economic performance and profit policy; gender perspective; "
+"internal equity and democracy; environmental sustainability; social "
+"commitment and cooperation; and quality of work.</p> <p>If you are a "
+"solidarity economy network and want to participate and intercooperate to "
+"measure, improve and evaluate the impact of the solidarity economy, do not "
+"hesitate to contact us by writing to bsocial@xes.cat or with the following "
+"link: https://xes.cat/la-xes/contacte?contacte=bs</p>"
 msgstr ""
 
 #: templates/methods/external_surveys_view.html:52

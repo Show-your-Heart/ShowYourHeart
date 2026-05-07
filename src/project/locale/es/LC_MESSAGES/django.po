@@ -120,7 +120,7 @@ msgstr "Galego"
 
 #: project/settings.py:76
 msgid "Basque"
-msgstr "Vasco"
+msgstr "Euskera"
 
 #: project/settings.py:77
 msgid "Spanish"
