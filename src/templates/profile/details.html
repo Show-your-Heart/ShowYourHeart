@@ -2,7 +2,9 @@
 
 
 <c-default-layout pageTitle="{% translate 'Profile' %}">
-
+    <c-slot name="extra_header"> 
+        <c-navbar/>
+    </c-slot>
     <main class="grid grid-cols-1 gap-[48px] p-16 max-w-[40rem] m-auto">
 
         <div class="flex flex-col gap-4">
