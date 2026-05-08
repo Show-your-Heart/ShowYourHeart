@@ -161,6 +161,12 @@ class OrganizationSignUpForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        region1_id = self.data.get("region1")
+        self.fields["city"].queryset = City.objects.filter(region1_id=region1_id)
+
+        city_id = self.data.get("city")
+        self.fields["zip_code"].queryset = ZipCode.objects.filter(city_id=city_id)
+
         privacy_policy_url = self.get_privacy_policy_url()
         privacy_policy_link = '<a href="{}" class="text-primary-500 font-bold hover:underline" target="_blank">terms and conditions</a>'.format(  # noqa: E501
             privacy_policy_url
@@ -342,6 +348,12 @@ class OrganizationUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
+            region1_id = self.data.get("region1") or self.instance.region1_id
+            self.fields["city"].queryset = City.objects.filter(region1_id=region1_id)
+
+            city_id = self.data.get("city") or self.instance.city_id
+            self.fields["zip_code"].queryset = ZipCode.objects.filter(city_id=city_id)
+
             user_profile = UserProfile.objects.filter(organization__id=self.instance.id)
             if user_profile:
                 user_profile = user_profile.first()
