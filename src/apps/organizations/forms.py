@@ -134,6 +134,7 @@ class OrganizationSignUpForm(forms.ModelForm):
     bs_allow_public = forms.BooleanField(
         label=_("Allow infographics to be public"),
         widget=forms.CheckboxInput(),
+        required=False,
     )
 
     class Meta:
@@ -321,6 +322,7 @@ class OrganizationUpdateForm(forms.ModelForm):
     bs_allow_public = forms.BooleanField(
         label=_("Allow infographics to be public"),
         widget=forms.CheckboxInput(),
+        required=False,
     )
 
     class Meta:
