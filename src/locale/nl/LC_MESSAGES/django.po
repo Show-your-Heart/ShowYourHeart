@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-07 11:16+0200\n"
+"POT-Creation-Date: 2026-05-12 11:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -562,12 +562,12 @@ msgid "VAT Number"
 msgstr "Btw-nummer"
 
 #: apps/organizations/forms.py:42 apps/organizations/forms.py:252
-#: apps/organizations/forms.py:407
+#: apps/organizations/forms.py:408
 msgid "Name of the contact person"
 msgstr "Naam van de contactpersoon"
 
 #: apps/organizations/forms.py:46 apps/organizations/forms.py:259
-#: apps/organizations/forms.py:413
+#: apps/organizations/forms.py:414
 msgid "Phone number of the contact person"
 msgstr "Telefoonnummer van de contactpersoon"
 
@@ -576,7 +576,7 @@ msgid "Phone number"
 msgstr "Telefoonnummer"
 
 #: apps/organizations/forms.py:52 apps/organizations/forms.py:255
-#: apps/organizations/forms.py:419
+#: apps/organizations/forms.py:420
 msgid "Email address of the contact person"
 msgstr "E-mailadres van de contactpersoon"
 
@@ -633,35 +633,39 @@ msgstr ""
 msgid "Brief description"
 msgstr ""
 
-#: apps/organizations/forms.py:391
+#: apps/organizations/forms.py:385
+msgid "If there is no start date, put first january"
+msgstr ""
+
+#: apps/organizations/forms.py:392
 msgid "Main action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:396
+#: apps/organizations/forms.py:397
 msgid "Secondary action scope"
 msgstr ""
 
-#: apps/organizations/forms.py:409
+#: apps/organizations/forms.py:410
 msgid "Contact name"
 msgstr ""
 
-#: apps/organizations/forms.py:415
+#: apps/organizations/forms.py:416
 msgid "Contact phone number"
 msgstr ""
 
-#: apps/organizations/forms.py:421
+#: apps/organizations/forms.py:422
 msgid "Contact email"
 msgstr ""
 
-#: apps/organizations/forms.py:425 apps/organizations/models.py:209
+#: apps/organizations/forms.py:426 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Ik wil de resultaten openbaar maken"
 
-#: apps/organizations/forms.py:428 apps/organizations/models.py:212
+#: apps/organizations/forms.py:429 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Ik geef toestemming om mijn gegevens op te nemen in het eindrapport"
 
-#: apps/organizations/forms.py:472
+#: apps/organizations/forms.py:473
 msgid "Choose Existing Project"
 msgstr ""
 
