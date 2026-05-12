@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-07 11:16+0200\n"
+"POT-Creation-Date: 2026-05-12 11:31+0200\n"
 "PO-Revision-Date: 2026-05-05 13:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -564,12 +564,12 @@ msgid "VAT Number"
 msgstr "Número CIF"
 
 #: apps/organizations/forms.py:42 apps/organizations/forms.py:252
-#: apps/organizations/forms.py:407
+#: apps/organizations/forms.py:408
 msgid "Name of the contact person"
 msgstr "Nom de la persona de contacte"
 
 #: apps/organizations/forms.py:46 apps/organizations/forms.py:259
-#: apps/organizations/forms.py:413
+#: apps/organizations/forms.py:414
 msgid "Phone number of the contact person"
 msgstr "Número de telèfon de la persona de contacte"
 
@@ -578,7 +578,7 @@ msgid "Phone number"
 msgstr "Telèfon"
 
 #: apps/organizations/forms.py:52 apps/organizations/forms.py:255
-#: apps/organizations/forms.py:419
+#: apps/organizations/forms.py:420
 msgid "Email address of the contact person"
 msgstr "Correu electrònic de la persona de contacte"
 
@@ -635,35 +635,39 @@ msgstr "Nom del projecte"
 msgid "Brief description"
 msgstr "Descripció breu"
 
-#: apps/organizations/forms.py:391
+#: apps/organizations/forms.py:385
+msgid "If there is no start date, put first january"
+msgstr "Si no hi ha data exacta, pots posar el primer de gener"
+
+#: apps/organizations/forms.py:392
 msgid "Main action scope"
 msgstr "Àmbit d'actuació principal"
 
-#: apps/organizations/forms.py:396
+#: apps/organizations/forms.py:397
 msgid "Secondary action scope"
 msgstr "Àmbit d'actuació secundari"
 
-#: apps/organizations/forms.py:409
+#: apps/organizations/forms.py:410
 msgid "Contact name"
 msgstr "Nom de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:415
+#: apps/organizations/forms.py:416
 msgid "Contact phone number"
 msgstr "Telèfon de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:421
+#: apps/organizations/forms.py:422
 msgid "Contact email"
 msgstr "Email de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:425 apps/organizations/models.py:209
+#: apps/organizations/forms.py:426 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Vull fer públic els resultats"
 
-#: apps/organizations/forms.py:428 apps/organizations/models.py:212
+#: apps/organizations/forms.py:429 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autoritzo l'ús de les meves dades per a l’informe agregat final"
 
-#: apps/organizations/forms.py:472
+#: apps/organizations/forms.py:473
 msgid "Choose Existing Project"
 msgstr "Tria Projecte Existent"
 
@@ -1512,8 +1516,12 @@ msgid ""
 "If you have any questions about the Ensenya el Cor platform or would like to "
 "receive more information, you can contact the Social Balance Commission of "
 "the Solidarity Economy Network via email info@bsxes.org."
-msgstr "Si tens qualsevol dubte sobre la plataforma Ensenya el Cor o vols rebre més informació sobre les nostres eines d’auditoria social, "
-"pots contactar amb la Comissió del Balanç Social de la Xarxa d'Economia Solidària de Catalunya a través el formulari de contacte següent: https://xes.cat/la-xes/contacte?contacte=bs"
+msgstr ""
+"Si tens qualsevol dubte sobre la plataforma Ensenya el Cor o vols rebre més "
+"informació sobre les nostres eines d’auditoria social, pots contactar amb la "
+"Comissió del Balanç Social de la Xarxa d'Economia Solidària de Catalunya a "
+"través el formulari de contacte següent: https://xes.cat/la-xes/contacte?"
+"contacte=bs"
 
 #: templates/info/documents.html:17
 msgid "Campaigns"
@@ -1549,10 +1557,10 @@ msgid ""
 "would like to get involved, please write to bsocial@xes.cat or with the "
 "following link: https://xes.cat/la-xes/contacte?contacte=bs</p>"
 msgstr ""
-"<p>Aquest apartat està en construcció.</p><p>Hi volem compartir guies, exemples de "
-"protocols, i tota la documentació que pot ajudar a omplir i utilitzar el "
-"Balanç Social.</p><p>Si teniu propostes o voleu participar en el procés de "
-"creació podeu escriure a bsocial@xes.cat.</p>"
+"<p>Aquest apartat està en construcció.</p><p>Hi volem compartir guies, "
+"exemples de protocols, i tota la documentació que pot ajudar a omplir i "
+"utilitzar el Balanç Social.</p><p>Si teniu propostes o voleu participar en "
+"el procés de creació podeu escriure a bsocial@xes.cat.</p>"
 
 #: templates/info/what_is_social_balance.html:9
 msgid ""
@@ -1589,9 +1597,9 @@ msgstr ""
 "comissió de Balanç Social de la XES és la responsable de conceptualitzar i "
 "desenvolupar el Balanç Social. És oberta a totes les sòcies de la XES que hi "
 "vulguin participar.</p><p>Trobareu més informació a l’espai web del Balanç "
-"Social de la XES.</p><p><strong>El Balanç Comunitari</strong></p><p>El Balanç "
-"comunitari és una eina adreçada a projectes comunitaris, i compta amb una "
-"sèrie de característiques específiques que responen a les necessitats "
+"Social de la XES.</p><p><strong>El Balanç Comunitari</strong></p><p>El "
+"Balanç comunitari és una eina adreçada a projectes comunitaris, i compta amb "
+"una sèrie de característiques específiques que responen a les necessitats "
 "detectades pels agents de l’àmbit de la gestió comunitària.</p><p>El Balanç "
 "comunitari s’impulsa, de forma conjunta, entre la Xarxa d’Espais Comunitaris "
 "de la XES, un equip de dinamització de persones vinculades a la gestió "

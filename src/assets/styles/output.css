@@ -2767,6 +2767,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .selector-filter>img {
   display: none;
 }
+#id_start_date_helptext {
+  background-color: var(--color-gray-900);
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
