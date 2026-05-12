@@ -5,6 +5,7 @@ const initIndicatorsStore = () => {
         indicatorsData: [],
         indicatorDataIndexById: {},
         indicatorDataIndexByCode: {},
+        indicatorIdByCode: {},
         indicatorsSets: [],
         fieldTypes: {
             STRING: "S",
@@ -50,6 +51,7 @@ const initIndicatorsStore = () => {
 
             let loadedTokens = []
             for (let token of tokens) {
+                // console.log("Parsing token:", token)
                 let value = null
                 if (token.match(/^[a-zA-Z]\w*/)) {
                     if (token.match(/(_)/)) {
@@ -79,7 +81,11 @@ const initIndicatorsStore = () => {
                         value = token
                     } else {
                         // Reference to other indicator
-                        value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
+                        if(this.belongsToSet(token)){
+                            value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
+                        } else {
+                            value = this.loadIndicatorResult(this.getInstanceId(token   ))
+                        }
                     }
                     if (value == undefined) {
                         this.indicators[instanceId].hasErrors = true
@@ -101,10 +107,12 @@ const initIndicatorsStore = () => {
         },
         evaluateExpression(expr, instanceId, val = '') {
             try {
+                // console.log("Parsing...", expr, instanceId, val)
                 const parsedExpression = this.parseExpression(expr, instanceId, val)
                 if (parsedExpression == '__copy__') {
                     return '__copy__'
                 }
+                // console.log("Parsed expr:", parsedExpression)
                 return eval(parsedExpression)
             } catch (e) {
                 throw e
@@ -298,17 +306,20 @@ const initIndicatorsStore = () => {
         },
         updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
             const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+            // console.log("Update dependant", dependantIndicatorCode, code)
             if (indicator) {
                 let instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
                 if (indicator.condition.includes(code)) {
+                    // console.log("Dependent conditional")
                     let fieldEl = document.querySelector(`#field_${instanceId}`);
                     // If no element found check set instance
                     if(fieldEl == null){
                         instanceId = instanceId + "_1"
                         fieldEl = document.querySelector(`#field_${instanceId}`);
+                        // console.log("Dependent set indicator", fieldEl)
                     }
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
@@ -486,10 +497,20 @@ const initIndicatorsStore = () => {
             }
             return instanceId
         },
+        belongsToSet(code){
+            // console.log("Sets:", this.indicatorsSets)
+            let index
+            for(let i = 0; i < this.indicatorsSets.length; i++){
+                index = this.indicatorsSets[i].indicators_ids.findIndex(id => id == this.indicatorIdByCode[code])
+                if(index != -1){ break }
+            }
+            return index != -1
+        },
         storeMaps() {
             this.indicatorsData.forEach((i, index) => {
                 this.indicatorDataIndexById[i.id] = index
                 this.indicatorDataIndexByCode[i.code] = index
+                this.indicatorIdByCode[i.code] = i.id
             })
         },
         getIndicatorDataById(id) {
