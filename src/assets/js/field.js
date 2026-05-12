@@ -307,6 +307,7 @@ const initFieldData = () => {
                     }
                 }
             }
+            // console.log("Show?", this.code, this.state.show)
         },
         isOptionSelected(optionId) {
             return this.state.value.id == optionId
