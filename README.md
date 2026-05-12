@@ -10,6 +10,7 @@ Show your Heart application
 * [Testing](#testing)
 * [Linter and formatter](#linter-and-formatter)
 * [Commands](#commands)
+* [Version management](#versions)
 
 ## General information
 
@@ -352,6 +353,24 @@ Which will create it as well as populate the database with initial data for
 development.
 
 Alternatively, you can also use the Django built-in `createsuperuser` command.
+
+## Versions
+
+### Auto-generate CHANGELOG
+
+The changelog is auto-generated using Git Cliff. To incorporate new changes, you must have [git cliff installed](https://git-cliff.org/docs/installation/crates-io) and then run:
+
+```
+git cliff -o CHANGELOG.md 
+```
+
+If you want to generate a changelog for the next release
+
+```
+git cliff -o CHANGELOG.md --bump 
+```
+
+If you want it to be incorporated in the last commit you must amend that commit after generating the new changelog
 
 # Warning about python packages and tests
 
