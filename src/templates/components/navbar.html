@@ -3,6 +3,11 @@
 <div class="px-2 -mt-2 mb-2">
     <div class="border-b border-b-gray-300">
         <ul class="flex" role="none">
+            <li class="{% active_link 'home' %}">
+                <a href="{% url 'home' %}"
+                class="block px-4 py-2 text-sm hover:bg-gray-200"
+                role="menuitem">{% translate "Home" %}</a>
+            </li>
             <li class="{% active_link 'what_is_social_balance' %}">
                 <a href="{% url 'settings:what_is_social_balance' %}"
                 class="block px-4 py-2 text-sm hover:bg-gray-200"
