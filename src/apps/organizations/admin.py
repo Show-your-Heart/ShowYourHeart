@@ -189,7 +189,7 @@ class ProjectAdmin(NetworkFilterMixin, ModelAdmin):
     )
     filter_horizontal = ("methods",)
     autocomplete_fields = ["region1", "city"]
-    search_fields = ["name", "organization"]
+    search_fields = ["name", "organization__name"]
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
