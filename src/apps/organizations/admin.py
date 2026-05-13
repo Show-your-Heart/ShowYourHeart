@@ -4,11 +4,13 @@ from django.shortcuts import get_object_or_404
 from django.urls import path
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
-from import_export import resources
+from import_export import fields, resources
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from unfold.contrib.filters.admin import ChoicesDropdownFilter
 
+from apps.geodata.models import City, Country, Region1, ZipCode
 from apps.methods.models import Method
-from apps.settings.models import Network
+from apps.settings.models import LegalStructure, Network, Sector
 from apps.users.models import UserProfile
 from apps.users.services import (
     send_rejected_mail,
@@ -29,12 +31,47 @@ class OrganizationResource(resources.ModelResource):
         super().__init__()
         self.region1_id = kwargs.get("region1_id")
 
+    country = fields.Field(
+        column_name="country",
+        attribute="country",
+        widget=ForeignKeyWidget(Country, field="name"),
+    )
+    region1 = fields.Field(
+        column_name="region1",
+        attribute="region1",
+        widget=ForeignKeyWidget(Region1, field="name"),
+    )
+    city = fields.Field(
+        column_name="city",
+        attribute="city",
+        widget=ForeignKeyWidget(City, field="name"),
+    )
+    zip_code = fields.Field(
+        column_name="zip_code",
+        attribute="zip_code",
+        widget=ForeignKeyWidget(ZipCode, field="code"),
+    )
+    legal_structure = fields.Field(
+        column_name="legal_structure",
+        attribute="legal_structure",
+        widget=ForeignKeyWidget(LegalStructure, field="name"),
+    )
+    methods = fields.Field(
+        column_name="methods",
+        attribute="methods",
+        widget=ManyToManyWidget(Method, field="name", separator=", "),
+    )
+    sectors = fields.Field(
+        column_name="sectors",
+        attribute="sectors",
+        widget=ManyToManyWidget(Sector, field="name", separator=", "),
+    )
+
     def filter_export(self, queryset, **kwargs):
         return queryset.filter(region1_id=self.region1_id)
 
     class Meta:
         model = Organization
-        # fields = ('id', 'name', 'price',)
 
 
 # Add superadmin views with default Unfold templates
