@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-12 11:31+0200\n"
+"POT-Creation-Date: 2026-05-22 13:53+0200\n"
 "PO-Revision-Date: 2026-05-05 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,7 +47,7 @@ msgstr "código postal"
 msgid "Balance successfuly updated."
 msgstr "Balance correctamente actualizado."
 
-#: apps/methods/admin.py:647 apps/methods/views.py:429
+#: apps/methods/admin.py:647 apps/methods/views.py:430
 msgid "An email to the contact has been sent."
 msgstr "Se ha enviado un correo electrónico al contacto."
 
@@ -78,7 +78,7 @@ msgstr "Mandar invitaciones"
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
 #: apps/methods/models.py:489 apps/methods/models.py:622
 #: apps/methods/models.py:670 apps/organizations/forms.py:27
-#: apps/organizations/forms.py:43 apps/organizations/forms.py:237
+#: apps/organizations/forms.py:43 apps/organizations/forms.py:244
 #: templates/admin/methods/survey_review.html:34
 #: templates/admin/methods/survey_review.html:119
 #: templates/admin/organizations/registration_requests.html:38
@@ -386,7 +386,7 @@ msgid "Version"
 msgstr "Versión"
 
 #: apps/methods/models.py:456 apps/organizations/forms.py:79
-#: apps/organizations/forms.py:279
+#: apps/organizations/forms.py:286
 msgid "Region1"
 msgstr "Región1"
 
@@ -412,7 +412,7 @@ msgid "Methods"
 msgstr "Métodos"
 
 #: apps/methods/models.py:501 apps/methods/models.py:561
-#: apps/organizations/forms.py:384 apps/organizations/models.py:206
+#: apps/organizations/forms.py:398 apps/organizations/models.py:206
 #: templates/admin/methods/survey_review.html:131
 msgid "Start date"
 msgstr "Fecha de inicio"
@@ -487,7 +487,7 @@ msgid "Title"
 msgstr "Titulo"
 
 #: apps/methods/models.py:707 apps/organizations/forms.py:32
-#: apps/organizations/forms.py:242
+#: apps/organizations/forms.py:249
 msgid "Description"
 msgstr "Descripción"
 
@@ -495,26 +495,30 @@ msgstr "Descripción"
 msgid "order"
 msgstr "orden"
 
-#: apps/methods/urls.py:23
+#: apps/methods/urls.py:24
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
 msgstr "fill/<uuid:campaign_id>/<uuid:method_id>/"
 
-#: apps/methods/urls.py:28
+#: apps/methods/urls.py:29
+msgid "fill/success"
+msgstr "fill/exito"
+
+#: apps/methods/urls.py:34
 msgid "external-survey/<token>"
 msgstr "cuestionario-externo/<token>"
 
-#: apps/methods/urls.py:34
+#: apps/methods/urls.py:40
 msgid ""
 "external-surveys/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/"
 msgstr ""
 "cuestionarios-externos/<uuid:organization_id>/<uuid:method_id>/"
 "<uuid:campaign_id>/"
 
-#: apps/methods/urls.py:40
+#: apps/methods/urls.py:46
 msgid "invitation"
 msgstr "invitación"
 
-#: apps/methods/urls.py:64
+#: apps/methods/urls.py:70
 msgid "preview/<uuid:method_id>/"
 msgstr "vista-previa/<uuid:method_id>/"
 
@@ -538,13 +542,13 @@ msgstr "El CSV ha sido importado correctamente."
 msgid "There is no CSV file selected to import."
 msgstr ""
 
-#: apps/methods/views.py:407
+#: apps/methods/views.py:408
 msgid "Error creating contact. Contact your network admin."
 msgstr ""
 "Se ha producido un error al crear el contacto. Ponte en contacto con el "
 "administrador de la red."
 
-#: apps/methods/views.py:420
+#: apps/methods/views.py:421
 msgid "An email to all the involved contacts has been sent."
 msgstr "Se ha enviado un correo electrónico a todos los contactos implicados."
 
@@ -552,27 +556,27 @@ msgstr "Se ha enviado un correo electrónico a todos los contactos implicados."
 msgid "Invalid signup, check that you don't have an account."
 msgstr "Registro no válido, comprueba que no tienes una cuenta."
 
-#: apps/organizations/forms.py:26 apps/organizations/forms.py:236
+#: apps/organizations/forms.py:26 apps/organizations/forms.py:243
 msgid "Organisation name"
 msgstr "Nombre de la organización"
 
-#: apps/organizations/forms.py:30 apps/organizations/forms.py:240
+#: apps/organizations/forms.py:30 apps/organizations/forms.py:247
 msgid "Organisation description"
 msgstr "Descripción de la organización"
 
 #: apps/organizations/forms.py:36 apps/organizations/forms.py:38
-#: apps/organizations/forms.py:246 apps/organizations/forms.py:248
+#: apps/organizations/forms.py:253 apps/organizations/forms.py:255
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
 msgstr "Numero de CIF"
 
-#: apps/organizations/forms.py:42 apps/organizations/forms.py:252
-#: apps/organizations/forms.py:408
+#: apps/organizations/forms.py:42 apps/organizations/forms.py:259
+#: apps/organizations/forms.py:422
 msgid "Name of the contact person"
 msgstr "Nombre de la persona de contacto"
 
-#: apps/organizations/forms.py:46 apps/organizations/forms.py:259
-#: apps/organizations/forms.py:414
+#: apps/organizations/forms.py:46 apps/organizations/forms.py:266
+#: apps/organizations/forms.py:428
 msgid "Phone number of the contact person"
 msgstr "Numero de teléfono de la persona de contacto"
 
@@ -580,8 +584,8 @@ msgstr "Numero de teléfono de la persona de contacto"
 msgid "Phone number"
 msgstr "Número de teléfono"
 
-#: apps/organizations/forms.py:52 apps/organizations/forms.py:255
-#: apps/organizations/forms.py:420
+#: apps/organizations/forms.py:52 apps/organizations/forms.py:262
+#: apps/organizations/forms.py:434
 msgid "Email address of the contact person"
 msgstr "Correo electrónico de la persona de contacto"
 
@@ -591,29 +595,29 @@ msgid "Email"
 msgstr "Correo electrónico"
 
 #: apps/organizations/forms.py:62 apps/organizations/forms.py:63
-#: apps/organizations/forms.py:262 apps/organizations/forms.py:263
+#: apps/organizations/forms.py:269 apps/organizations/forms.py:270
 msgid "Website"
 msgstr "Página web"
 
-#: apps/organizations/forms.py:67 apps/organizations/forms.py:267
+#: apps/organizations/forms.py:67 apps/organizations/forms.py:274
 msgid "Country"
 msgstr "País"
 
-#: apps/organizations/forms.py:92 apps/organizations/forms.py:292
+#: apps/organizations/forms.py:92 apps/organizations/forms.py:299
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
 msgstr "Ciudad"
 
 #: apps/organizations/forms.py:105 apps/organizations/forms.py:106
-#: apps/organizations/forms.py:305 apps/organizations/forms.py:306
+#: apps/organizations/forms.py:312 apps/organizations/forms.py:313
 msgid "Address"
 msgstr "Dirección"
 
-#: apps/organizations/forms.py:109 apps/organizations/forms.py:309
+#: apps/organizations/forms.py:109 apps/organizations/forms.py:316
 msgid "Zip Code"
 msgstr "Código Postal"
 
-#: apps/organizations/forms.py:112 apps/organizations/forms.py:312
+#: apps/organizations/forms.py:112 apps/organizations/forms.py:319
 msgid "Legal entity type"
 msgstr "Tipo de identidad jurídica"
 
@@ -621,56 +625,56 @@ msgstr "Tipo de identidad jurídica"
 msgid "Method of impact mesurement"
 msgstr "Método de medición de impacto"
 
-#: apps/organizations/forms.py:135 apps/organizations/forms.py:316
+#: apps/organizations/forms.py:135 apps/organizations/forms.py:323
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
 msgstr "Permitir que las infografías sean públicas"
 
-#: apps/organizations/forms.py:168
+#: apps/organizations/forms.py:175
 msgid "I have read and accept the {}"
 msgstr "He leído y acepto el {}"
 
-#: apps/organizations/forms.py:372 apps/organizations/forms.py:374
+#: apps/organizations/forms.py:386 apps/organizations/forms.py:388
 msgid "Project name"
 msgstr "Nombre del proyecto"
 
-#: apps/organizations/forms.py:378 apps/organizations/forms.py:380
+#: apps/organizations/forms.py:392 apps/organizations/forms.py:394
 msgid "Brief description"
 msgstr "Descripción breve"
 
-#: apps/organizations/forms.py:385
+#: apps/organizations/forms.py:399
 msgid "If there is no start date, put first january"
 msgstr "Si no hay fecha de inicio, pon 1 de enero"
 
-#: apps/organizations/forms.py:392
+#: apps/organizations/forms.py:406
 msgid "Main action scope"
 msgstr "Ámbito de actuación principal"
 
-#: apps/organizations/forms.py:397
+#: apps/organizations/forms.py:411
 msgid "Secondary action scope"
 msgstr "Ámbito de aplicación secundario"
 
-#: apps/organizations/forms.py:410
+#: apps/organizations/forms.py:424
 msgid "Contact name"
 msgstr "Persona de contacto"
 
-#: apps/organizations/forms.py:416
+#: apps/organizations/forms.py:430
 msgid "Contact phone number"
 msgstr "Número de teléfono de contacto"
 
-#: apps/organizations/forms.py:422
+#: apps/organizations/forms.py:436
 msgid "Contact email"
 msgstr "Correo electrónico de contacto"
 
-#: apps/organizations/forms.py:426 apps/organizations/models.py:209
+#: apps/organizations/forms.py:440 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Quiero hacer públicos los resultados"
 
-#: apps/organizations/forms.py:429 apps/organizations/models.py:212
+#: apps/organizations/forms.py:443 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autorizo el uso de los datos para la inclusión en el informe final"
 
-#: apps/organizations/forms.py:473
+#: apps/organizations/forms.py:487
 msgid "Choose Existing Project"
 msgstr "Seleccionar un proyecto existente"
 
@@ -965,7 +969,7 @@ msgid "Preview"
 msgstr "Vista previa"
 
 #: templates/admin/methods/method_fill.html:76 templates/base_form.html:47
-#: templates/methods/method_fill.html:90 templates/profile/details.html:44
+#: templates/methods/method_fill.html:90 templates/profile/details.html:46
 #: templates/registration/signup.html:26
 msgid "Save"
 msgstr "Guardar"
@@ -1060,7 +1064,7 @@ msgid "Answers"
 msgstr "Respuestas"
 
 #: templates/admin/methods/survey_review.html:125
-#: templates/components/navbar.html:29 templates/info/contact.html:8
+#: templates/components/navbar.html:34 templates/info/contact.html:8
 msgid "Contact"
 msgstr "Contacto"
 
@@ -1229,8 +1233,8 @@ msgid "Review balances"
 msgstr "Revisar balances"
 
 #: templates/base.html:81 templates/base.html:129
-#: templates/components/header.html:77 templates/components/sidebar.html:18
-#: templates/home.html:3
+#: templates/components/header.html:77 templates/components/navbar.html:9
+#: templates/components/sidebar.html:18 templates/home.html:3
 msgid "Home"
 msgstr "Inicio"
 
@@ -1280,7 +1284,7 @@ msgstr "¡Hecho!"
 msgid "Registry successfully updated."
 msgstr "Registro correctamente actualizado."
 
-#: templates/base_success.html:35
+#: templates/base_success.html:35 templates/methods/fill_success.html:18
 #: templates/organizations/signup_success.html:10
 #: templates/projects/create_project_success.html:11
 #: templates/standard_success.html:9
@@ -1468,20 +1472,20 @@ msgstr "Profesional"
 msgid "Volunteer"
 msgstr "Voluntario"
 
-#: templates/components/navbar.html:9
+#: templates/components/navbar.html:14
 #: templates/info/what_is_social_balance.html:8
 msgid "What is Social Balance?"
 msgstr "¿Qué es el Balance social?"
 
-#: templates/components/navbar.html:14 templates/info/good_practices.html:8
+#: templates/components/navbar.html:19 templates/info/good_practices.html:8
 msgid "Good Practices"
 msgstr "Buenas prácticas"
 
-#: templates/components/navbar.html:19 templates/info/documents.html:8
+#: templates/components/navbar.html:24 templates/info/documents.html:8
 msgid "Documents"
 msgstr "Documentos"
 
-#: templates/components/navbar.html:24 templates/info/resources.html:8
+#: templates/components/navbar.html:29 templates/info/resources.html:8
 msgid "Resources"
 msgstr "Recursos"
 
@@ -1615,6 +1619,27 @@ msgstr "Importar contactos"
 msgid "Send surveys"
 msgstr "Enviar encuestas"
 
+#: templates/methods/fill_success.html:6
+#: templates/organizations/signup_success.html:6
+msgid "Request sent"
+msgstr "Solicitud enviada"
+
+#: templates/methods/fill_success.html:9
+msgid ""
+"<p>Thank you so much for completing and submitting the Social Balance for "
+"this campaign.\n"
+"            We now need to validate your information; you will receive a "
+"message when it is ready.</p>\n"
+"            <p>The Social Balance Committee encourages you to join us and "
+"help other organizations complete their Social Balance.</p>\n"
+"            <p>Best regards and thank you.</p>"
+msgstr ""
+"<p>Muchas gracias por rellenar y cerrar el Balance/"
+"Auditoria Social de esta campaña.\n"
+"            Ahora nos toca validar vuestra información, recibirás un mensaje "
+"cuando esté listo para vuestra disposición.</p>\n"
+"            <p>Un abrazo y muchas gracias.</p>"
+
 #: templates/methods/method_fill.html:5
 msgid "Form"
 msgstr "Formulario"
@@ -1623,29 +1648,25 @@ msgstr "Formulario"
 msgid "Current file:"
 msgstr "Archivo actual:"
 
-#: templates/organizations/signup.html:10
+#: templates/organizations/signup.html:11
 msgid "Organization update"
 msgstr "Actualización de la organización"
 
-#: templates/organizations/signup.html:11
+#: templates/organizations/signup.html:12
 msgid "Registration request"
 msgstr "Solicitud de registro"
 
-#: templates/organizations/signup.html:14
+#: templates/organizations/signup.html:15
 msgid "Transparent, social and solidarity based economy"
 msgstr "Transparencia, Economía social y solidaria"
 
-#: templates/organizations/signup.html:31
+#: templates/organizations/signup.html:32
 msgid "Submit changes"
 msgstr "Enviar cambios"
 
-#: templates/organizations/signup.html:31
+#: templates/organizations/signup.html:32
 msgid "Submit registration request"
 msgstr "Enviar solicitud de registro"
-
-#: templates/organizations/signup_success.html:6
-msgid "Request sent"
-msgstr "Solicitud enviada"
 
 #: templates/organizations/signup_success.html:7
 msgid ""
@@ -1655,38 +1676,38 @@ msgstr ""
 "¡Muchas gracias por unirte a ShowYourHeart! Estamos procesando tu solicitud, "
 "pronto nos pondremos en contacto contigo."
 
-#: templates/profile/details.html:11
+#: templates/profile/details.html:13
 msgid "Your profile"
 msgstr "Tu perfil"
 
-#: templates/profile/details.html:13
+#: templates/profile/details.html:15
 msgid "Here you can see and edit all your data."
 msgstr "Aquí puedes ver y editar todos tus datos."
 
-#: templates/profile/details.html:30 templates/profile/details.html:69
+#: templates/profile/details.html:32 templates/profile/details.html:71
 msgid "Warning!"
 msgstr "¡Atención!"
 
-#: templates/profile/details.html:31 templates/profile/details.html:70
+#: templates/profile/details.html:33 templates/profile/details.html:72
 msgid "Your email is not verified. Before anything else, you must verify it."
 msgstr ""
 "Tu correo electrónico no está verificado. Antes de nada, debes verificarlo."
 
-#: templates/profile/details.html:33 templates/profile/details.html:72
+#: templates/profile/details.html:35 templates/profile/details.html:74
 msgid "Verify email here."
 msgstr "Verifica tu correo electrónico aquí."
 
-#: templates/profile/details.html:58
+#: templates/profile/details.html:60
 #: templates/registration/password_change_form.html:3
 #: templates/registration/password_change_form.html:6
 msgid "Password change"
 msgstr "Cambio de contraseña"
 
-#: templates/profile/details.html:60
+#: templates/profile/details.html:62
 msgid "Here you can change your password."
 msgstr "Aquí puedes cambiar tu contraseña."
 
-#: templates/profile/details.html:82
+#: templates/profile/details.html:84
 msgid "Change password"
 msgstr "Cambiar contraseña"
 

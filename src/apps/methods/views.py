@@ -443,3 +443,7 @@ def get_external_surveys(method):
         ext_surveys_type[ext_survey.external_survey_category] += 1
 
     return ext_surveys_type
+
+
+class MethodFillSuccessView(TemplateView):
+    template_name = "methods/fill_success.html"

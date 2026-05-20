@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 14:28+0200\n"
+"POT-Creation-Date: 2026-05-22 13:29+0200\n"
 "PO-Revision-Date: 2026-05-05 13:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -205,15 +205,15 @@ msgstr "Canvi de contrasenya"
 msgid "Mail validation"
 msgstr "Validació del mail"
 
-#: project/urls.py:32
+#: project/urls.py:34
 msgid "registration/"
 msgstr "registre/"
 
-#: project/urls.py:37
+#: project/urls.py:39
 msgid "settings/"
 msgstr "configuració/"
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "organizations/"
 msgstr "organitzacions/"
 

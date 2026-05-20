@@ -4,6 +4,7 @@ from collections import defaultdict
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.utils import timezone
 
 from .forms import get_dynamic_form
@@ -93,7 +94,7 @@ class MethodFillMixin:
 
         save_indicator_results(method_id, request, survey)
 
-        return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect(reverse_lazy("methods:method_fill_success"))
 
 
 def prepare_method_fill_context(
