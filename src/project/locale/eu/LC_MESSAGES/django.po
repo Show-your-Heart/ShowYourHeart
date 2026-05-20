@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 14:28+0200\n"
+"POT-Creation-Date: 2026-05-20 11:35+0200\n"
 "PO-Revision-Date: 2026-04-07 16:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -207,15 +207,15 @@ msgstr "Pasahitza aldatu"
 msgid "Mail validation"
 msgstr "Posta elektronikoaren balidatzea"
 
-#: project/urls.py:32
+#: project/urls.py:34
 msgid "registration/"
 msgstr "erregistratzea/"
 
-#: project/urls.py:37
+#: project/urls.py:39
 msgid "settings/"
 msgstr "ezarpenak/"
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "organizations/"
 msgstr "antolakundeak/"
 
