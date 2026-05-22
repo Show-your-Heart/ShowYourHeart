@@ -1,4 +1,5 @@
 {% load i18n static %}
+{% load template_helpers %}
 
 <c-admin.default-layout>
 
@@ -124,10 +125,26 @@
                         {% trans 'External surveys' %}
                     </c-table.header>
                     <c-table.header>
-                        {% trans 'Start date' %}
+                        <a href="?{{ request.GET|toggle_sort:"start_date" }}">
+                            {% trans 'Start date' %} 
+                            
+                            {% if request.GET.o == 'start_date' %}
+                                <c-icon name="caret-up" class="inline"></c-icon>
+                            {% else %}
+                                <c-icon name="caret-down" class="inline"></c-icon>
+                            {% endif %}
+                        </a>
                     </c-table.header>
                     <c-table.header>
-                        {% trans 'End date' %}
+                        <a href="?{{ request.GET|toggle_sort:"closed_date" }}">
+                            {% trans 'End date' %}
+
+                            {% if request.GET.o == 'closed_date' %}
+                                <c-icon name="caret-up" class="inline"></c-icon>
+                            {% else %}
+                                <c-icon name="caret-down" class="inline"></c-icon>
+                            {% endif %}
+                        </a>
                     </c-table.header>
 
                 </tr>
