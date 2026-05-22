@@ -1495,7 +1495,7 @@ msgstr "Rechazar"
 
 #: templates/helpers/delete_submit_line.html:5
 msgid "No, take me back"
-msgstr "No, llevamé de vuelta"
+msgstr "No, llévame de vuelta"
 
 #: templates/home.html:17
 msgid "Organisation logo"
