@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 13:53+0200\n"
+"POT-Creation-Date: 2026-05-22 14:31+0200\n"
 "PO-Revision-Date: 2026-05-05 13:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -78,7 +78,7 @@ msgstr "Enviar invitacions"
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
 #: apps/methods/models.py:489 apps/methods/models.py:622
 #: apps/methods/models.py:670 apps/organizations/forms.py:27
-#: apps/organizations/forms.py:43 apps/organizations/forms.py:244
+#: apps/organizations/forms.py:43 apps/organizations/forms.py:245
 #: templates/admin/methods/survey_review.html:34
 #: templates/admin/methods/survey_review.html:119
 #: templates/admin/organizations/registration_requests.html:38
@@ -385,7 +385,7 @@ msgid "Version"
 msgstr "Versió"
 
 #: apps/methods/models.py:456 apps/organizations/forms.py:79
-#: apps/organizations/forms.py:286
+#: apps/organizations/forms.py:287
 msgid "Region1"
 msgstr "Comunitat autònoma"
 
@@ -411,7 +411,7 @@ msgid "Methods"
 msgstr "Mètodes"
 
 #: apps/methods/models.py:501 apps/methods/models.py:561
-#: apps/organizations/forms.py:398 apps/organizations/models.py:206
+#: apps/organizations/forms.py:400 apps/organizations/models.py:206
 #: templates/admin/methods/survey_review.html:131
 msgid "Start date"
 msgstr "Data d'inici"
@@ -486,7 +486,7 @@ msgid "Title"
 msgstr "Títol"
 
 #: apps/methods/models.py:707 apps/organizations/forms.py:32
-#: apps/organizations/forms.py:249
+#: apps/organizations/forms.py:250
 msgid "Description"
 msgstr "Descripció"
 
@@ -553,27 +553,27 @@ msgstr "S'ha enviat un mail a tots els contactes seleccionats."
 msgid "Invalid signup, check that you don't have an account."
 msgstr "Registre no vàlid, comproveu que no teniu cap compte."
 
-#: apps/organizations/forms.py:26 apps/organizations/forms.py:243
+#: apps/organizations/forms.py:26 apps/organizations/forms.py:244
 msgid "Organisation name"
 msgstr "Nom de l'organització"
 
-#: apps/organizations/forms.py:30 apps/organizations/forms.py:247
+#: apps/organizations/forms.py:30 apps/organizations/forms.py:248
 msgid "Organisation description"
 msgstr "Descripció de l'organització"
 
 #: apps/organizations/forms.py:36 apps/organizations/forms.py:38
-#: apps/organizations/forms.py:253 apps/organizations/forms.py:255
+#: apps/organizations/forms.py:254 apps/organizations/forms.py:256
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
 msgstr "Número CIF"
 
-#: apps/organizations/forms.py:42 apps/organizations/forms.py:259
-#: apps/organizations/forms.py:422
+#: apps/organizations/forms.py:42 apps/organizations/forms.py:260
+#: apps/organizations/forms.py:424
 msgid "Name of the contact person"
 msgstr "Nom de la persona de contacte"
 
-#: apps/organizations/forms.py:46 apps/organizations/forms.py:266
-#: apps/organizations/forms.py:428
+#: apps/organizations/forms.py:46 apps/organizations/forms.py:267
+#: apps/organizations/forms.py:430
 msgid "Phone number of the contact person"
 msgstr "Número de telèfon de la persona de contacte"
 
@@ -581,8 +581,8 @@ msgstr "Número de telèfon de la persona de contacte"
 msgid "Phone number"
 msgstr "Telèfon"
 
-#: apps/organizations/forms.py:52 apps/organizations/forms.py:262
-#: apps/organizations/forms.py:434
+#: apps/organizations/forms.py:52 apps/organizations/forms.py:263
+#: apps/organizations/forms.py:436
 msgid "Email address of the contact person"
 msgstr "Correu electrònic de la persona de contacte"
 
@@ -592,29 +592,29 @@ msgid "Email"
 msgstr "Correo electrónico"
 
 #: apps/organizations/forms.py:62 apps/organizations/forms.py:63
-#: apps/organizations/forms.py:269 apps/organizations/forms.py:270
+#: apps/organizations/forms.py:270 apps/organizations/forms.py:271
 msgid "Website"
 msgstr "Pàgina web"
 
-#: apps/organizations/forms.py:67 apps/organizations/forms.py:274
+#: apps/organizations/forms.py:67 apps/organizations/forms.py:275
 msgid "Country"
 msgstr "País"
 
-#: apps/organizations/forms.py:92 apps/organizations/forms.py:299
+#: apps/organizations/forms.py:92 apps/organizations/forms.py:300
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
 msgstr "Ciutat"
 
 #: apps/organizations/forms.py:105 apps/organizations/forms.py:106
-#: apps/organizations/forms.py:312 apps/organizations/forms.py:313
+#: apps/organizations/forms.py:313 apps/organizations/forms.py:314
 msgid "Address"
 msgstr "Adreça"
 
-#: apps/organizations/forms.py:109 apps/organizations/forms.py:316
+#: apps/organizations/forms.py:109 apps/organizations/forms.py:317
 msgid "Zip Code"
 msgstr "Codi postal"
 
-#: apps/organizations/forms.py:112 apps/organizations/forms.py:319
+#: apps/organizations/forms.py:112 apps/organizations/forms.py:320
 msgid "Legal entity type"
 msgstr "Tipus d’entitat jurídica"
 
@@ -622,56 +622,56 @@ msgstr "Tipus d’entitat jurídica"
 msgid "Method of impact mesurement"
 msgstr "Mètode de mesura de l’impacte"
 
-#: apps/organizations/forms.py:135 apps/organizations/forms.py:323
+#: apps/organizations/forms.py:135 apps/organizations/forms.py:324
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
 msgstr "Vull fer públic els resultats"
 
-#: apps/organizations/forms.py:175
+#: apps/organizations/forms.py:176
 msgid "I have read and accept the {}"
 msgstr "He llegit i accepto les {}"
 
-#: apps/organizations/forms.py:386 apps/organizations/forms.py:388
+#: apps/organizations/forms.py:388 apps/organizations/forms.py:390
 msgid "Project name"
 msgstr "Nom del projecte"
 
-#: apps/organizations/forms.py:392 apps/organizations/forms.py:394
+#: apps/organizations/forms.py:394 apps/organizations/forms.py:396
 msgid "Brief description"
 msgstr "Descripció breu"
 
-#: apps/organizations/forms.py:399
+#: apps/organizations/forms.py:401
 msgid "If there is no start date, put first january"
 msgstr "Si no hi ha data exacta, pots posar el primer de gener"
 
-#: apps/organizations/forms.py:406
+#: apps/organizations/forms.py:408
 msgid "Main action scope"
 msgstr "Àmbit d'actuació principal"
 
-#: apps/organizations/forms.py:411
+#: apps/organizations/forms.py:413
 msgid "Secondary action scope"
 msgstr "Àmbit d'actuació secundari"
 
-#: apps/organizations/forms.py:424
+#: apps/organizations/forms.py:426
 msgid "Contact name"
 msgstr "Nom de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:430
+#: apps/organizations/forms.py:432
 msgid "Contact phone number"
 msgstr "Telèfon de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:436
+#: apps/organizations/forms.py:438
 msgid "Contact email"
 msgstr "Email de la persona de referència del projecte"
 
-#: apps/organizations/forms.py:440 apps/organizations/models.py:209
+#: apps/organizations/forms.py:442 apps/organizations/models.py:209
 msgid "I want to make the results public"
 msgstr "Vull fer públic els resultats"
 
-#: apps/organizations/forms.py:443 apps/organizations/models.py:212
+#: apps/organizations/forms.py:445 apps/organizations/models.py:212
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr "Autoritzo l'ús de les meves dades per a l’informe agregat final"
 
-#: apps/organizations/forms.py:487
+#: apps/organizations/forms.py:489
 msgid "Choose Existing Project"
 msgstr "Tria Projecte Existent"
 
@@ -1645,19 +1645,22 @@ msgid ""
 "help other organizations complete their Social Balance.</p>\n"
 "            <p>Best regards and thank you.</p>"
 msgstr ""
-"<p><strong>PATRIMONI CIUTADÀ</strong></p><p>Moltes gràcies per emplenar i tancar el Balanç Comunitari d'aquesta "
-"campanya.Ara verificarem que totes les preguntes s’han respost segons les "
-"especificacions.</p><p >En cas contrari us derivarem a "
-"l’oficina de suport de Torre Jussana que us ajudarà a tancar correctament el "
-"vostre Balanç.</p><p >Una vegada el Balanç estigui "
-"validat, en el termini màxim de 10 dies naturals us l’enviarem per correu en "
-"format PDF.</p><p >Per qualsevol dubte o comentari ens "
-"podeu escriure a patrimoniciutada@bcn.cat.</p><p>Moltes gràcies!.</p><p >----------------------"
-"</p><p><strong>BALANÇ SOCIAL</strong></p><p>Moltes gràcies per emplenar i tancar el Balanç Social d'aquesta "
-"campanya.</p>Ara ens toca validar la vostra informació, rebràs un missatge "
-"quan estigui llest per a la vostra disposició.</p><p>Des de la Comissió de Balanç Social t'animem a formar-ne part i "
-"així ajudar altres entitats a realitzar el Balanç Social.</p><p>Si tens qualsevol dubte, ens pots escriure a bsocial@xes.cat</p>"
-"<p>Una abraçada i moltes gràcies,</p><p>Comissió de Balanç Social de la XES</p>"
+"<p><strong>PATRIMONI CIUTADÀ</strong></p><p>Moltes gràcies per emplenar i "
+"tancar el Balanç Comunitari d'aquesta campanya.Ara verificarem que totes les "
+"preguntes s’han respost segons les especificacions.</p><p >En cas contrari "
+"us derivarem a l’oficina de suport de Torre Jussana que us ajudarà a tancar "
+"correctament el vostre Balanç.</p><p >Una vegada el Balanç estigui validat, "
+"en el termini màxim de 10 dies naturals us l’enviarem per correu en format "
+"PDF.</p><p >Per qualsevol dubte o comentari ens podeu escriure a "
+"patrimoniciutada@bcn.cat.</p><p>Moltes gràcies!.</p><p "
+">----------------------</p><p><strong>BALANÇ SOCIAL</strong></p><p>Moltes "
+"gràcies per emplenar i tancar el Balanç Social d'aquesta campanya.</p>Ara "
+"ens toca validar la vostra informació, rebràs un missatge quan estigui llest "
+"per a la vostra disposició.</p><p>Des de la Comissió de Balanç Social "
+"t'animem a formar-ne part i així ajudar altres entitats a realitzar el "
+"Balanç Social.</p><p>Si tens qualsevol dubte, ens pots escriure a "
+"bsocial@xes.cat</p><p>Una abraçada i moltes gràcies,</p><p>Comissió de "
+"Balanç Social de la XES</p>"
 
 #: templates/methods/method_fill.html:5
 msgid "Form"
