@@ -132,12 +132,14 @@
     </div>
     <template x-if="indicatorsStore.isNumeric(type)">
         <div class="flex gap-2">
-            <c-button class="mt-2 !w-fit !bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
+            <c-button class="mt-2 !w-fit"
             @click="fillWithZeros()"
             >{% trans "Fill with 0's" %}</c-button>
-            <c-button class="mt-2 !w-fit !bg-gray-100 border-gray-300 !text-black font-normal hover:bg-gray-200"
-            @click="validateGroup()"
-            >{% trans "Validate" %}</c-button>
+            <template x-if="validation != ''">
+                <c-button class="validate-group-btn mt-2 !w-fit"
+                @click="validateGroup()"
+                >{% trans "Validate" %}</c-button>
+            </template>
         </div>
     </template>
         
