@@ -280,7 +280,10 @@ class Indicator(BaseModel):
 
                 indicator = self.get_indicator(code)
                 if indicator:
-                    if indicator.dependant_indicators:
+                    if (
+                        indicator.dependant_indicators
+                        and self.code not in indicator.dependant_indicators
+                    ):
                         indicator.dependant_indicators.append(self.code)
                         indicator.save()
                     else:
@@ -362,7 +365,10 @@ class IndicatorsSet(BaseModel):
             for code in deps_to_add:
                 indicator = self.get_indicator(code)
                 if indicator:
-                    if indicator.dependant_indicators:
+                    if (
+                        indicator.dependant_indicators
+                        and self.code not in indicator.dependant_indicators
+                    ):
                         indicator.dependant_indicators.append(self.code)
                         indicator.save()
                     else:
