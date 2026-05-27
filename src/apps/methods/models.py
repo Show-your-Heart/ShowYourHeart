@@ -199,7 +199,7 @@ class Indicator(BaseModel):
     formula = models.CharField(_("formula"), max_length=400, blank=True)
     validation = models.CharField(_("validation"), max_length=400, blank=True)
     dependant_indicators = models.JSONField(
-        "dependant_indicators", blank=True, null=True
+        "dependant indicators", blank=True, null=True
     )
     mandatory = models.BooleanField(_("Is it mandatory?"), blank=False, default=True)
     message = models.CharField(_("message"), max_length=400, blank=True)

@@ -36,9 +36,9 @@ class ModelAdminMixin(object):
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
-        fields = tuple(set(fields + self.get_base_readonly_fields()))
+        fields = tuple(set(tuple(fields) + self.get_base_readonly_fields()))
         if not request.user.is_superuser:
-            return tuple(set(fields + self.get_superuser_fields()))
+            return tuple(set(tuple(fields) + self.get_superuser_fields()))
         return fields
 
     def save_model(self, request, obj, form, change):
