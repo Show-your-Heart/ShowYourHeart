@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .views import (
     ExternalMethodFillView,
     ExternalSurveysView,
+    MethodFillSuccessView,
     MethodFillView,
     MethodPreviewView,
     create_invitation_action,
@@ -23,6 +24,11 @@ urlpatterns = [
         _("fill/<uuid:campaign_id>/<uuid:method_id>/"),
         MethodFillView.as_view(),
         name="method_fill",
+    ),
+    path(
+        _("fill/success"),
+        MethodFillSuccessView.as_view(),
+        name="method_fill_success",
     ),
     path(
         _("external-survey/<token>"),  # invitation.token

@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<c-base>
+    <c-header></c-header>
+    <div class="flex flex-col gap-4 items-center max-w-[600px] mx-auto pt-16">
+        <h1 class="text-3xl font-bold">{% translate "Request sent" %}</h1>
+
+            <div class="text-center">
+            {% blocktranslate %}<p>Thank you so much for completing and submitting the Social Balance for this campaign.
+            We now need to validate your information; you will receive a message when it is ready.</p>
+            <p>The Social Balance Committee encourages you to join us and help other organizations complete their Social Balance.</p>
+            <p>Best regards and thank you.</p>{% endblocktranslate %}
+            </div>
+        
+      
+        <a href="{% url 'home' %}">
+            <c-button type="submit" name="action" value="submit">
+                {% translate "Back to home" %}
+            </c-button>
+        </a>
+    </div>
+</c-base>

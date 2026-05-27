@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 11:35+0200\n"
+"POT-Creation-Date: 2026-05-22 14:31+0200\n"
 "PO-Revision-Date: 2026-04-27 16:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -493,26 +493,30 @@ msgstr "Descrición"
 msgid "order"
 msgstr "orde"
 
-#: apps/methods/urls.py:23
+#: apps/methods/urls.py:24
 msgid "fill/<uuid:campaign_id>/<uuid:method_id>/"
 msgstr "encher/<uuid:campaign_id>/<uuid:method_id>/"
 
-#: apps/methods/urls.py:28
+#: apps/methods/urls.py:29
+msgid "fill/success"
+msgstr "encher/exito"
+
+#: apps/methods/urls.py:34
 msgid "external-survey/<token>"
 msgstr "cuestionario-externo/<token>"
 
-#: apps/methods/urls.py:34
+#: apps/methods/urls.py:40
 msgid ""
 "external-surveys/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/"
 msgstr ""
 "cuestionarios-externos/<uuid:organization_id>/<uuid:method_id>/"
 "<uuid:campaign_id>/"
 
-#: apps/methods/urls.py:40
+#: apps/methods/urls.py:46
 msgid "invitation"
 msgstr "convite"
 
-#: apps/methods/urls.py:64
+#: apps/methods/urls.py:70
 msgid "preview/<uuid:method_id>/"
 msgstr "vista previa/<uuid:method_id>/"
 
@@ -1218,8 +1222,6 @@ msgid " %(pending_balance_reviews)s entities have finished their balance."
 msgstr "As entidades %(pending_balance_reviews)s remataron o seu balance."
 
 #: templates/admin/syh_index.html:29
-#, fuzzy
-#| msgid "Revisar balances"
 msgid "Review balances"
 msgstr "Revisar balances"
 
@@ -1275,7 +1277,7 @@ msgstr "Feito!"
 msgid "Registry successfully updated."
 msgstr "Rexistro correctamente actualizado."
 
-#: templates/base_success.html:35
+#: templates/base_success.html:35 templates/methods/fill_success.html:18
 #: templates/organizations/signup_success.html:10
 #: templates/projects/create_project_success.html:11
 #: templates/standard_success.html:9
@@ -1579,6 +1581,25 @@ msgstr "Importar contactos"
 msgid "Send surveys"
 msgstr "Enviar cuestionarios"
 
+#: templates/methods/fill_success.html:6
+#: templates/organizations/signup_success.html:6
+msgid "Request sent"
+msgstr "Solicitude enviada"
+
+#: templates/methods/fill_success.html:9
+msgid ""
+"<p>Thank you so much for completing and submitting the Social Balance for "
+"this campaign.\n"
+"            We now need to validate your information; you will receive a "
+"message when it is ready.</p>\n"
+"            <p>The Social Balance Committee encourages you to join us and "
+"help other organizations complete their Social Balance.</p>\n"
+"            <p>Best regards and thank you.</p>"
+msgstr ""
+"<p>Moitas gracias por encher e pechar o Balance Social para esta campaña.</"
+"p><p>Agora temos que validar a vosa información, recibirás unha mensaxe "
+"cando estea listo.</p><p>Unha aperta e gracias.</p>"
+
 #: templates/methods/method_fill.html:5
 msgid "Form"
 msgstr "Formulario"
@@ -1606,10 +1627,6 @@ msgstr "Enviar cambios"
 #: templates/organizations/signup.html:32
 msgid "Submit registration request"
 msgstr "Enviar solicitude de rexistro"
-
-#: templates/organizations/signup_success.html:6
-msgid "Request sent"
-msgstr "Solicitude enviada"
 
 #: templates/organizations/signup_success.html:7
 msgid ""
