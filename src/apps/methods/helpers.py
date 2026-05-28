@@ -69,18 +69,46 @@ def get_survey_stats(survey, method, campaign):
         total_answered__indicators = 0
         if hasattr(method, "sections"):
             for section, section_data in method.sections.items():
-                total_indicators += section.indicators.count()
-                total_section_indicators = section.indicators.count()
-                indicators_list = list(section.indicators.all())
+                section_direct_indicators = [
+                    i for i in section.indicators.all() if i.is_direct_indicator
+                ]
+                total_indicators += len(section_direct_indicators)
+                total_section_indicators = len(section_direct_indicators)
+                indicators_list = section_direct_indicators
                 answered_indicators = 0
 
-                for _, subsection_data in section_data["subsections"].items():
+                # Indicators in sets in sections
+                for indicators_set in section.indicators_sets.all():
                     indicators = [
-                        item["indicator"] for item in subsection_data["indicators"]
+                        item
+                        for item in indicators_set.indicators.all()
+                        if item.is_direct_indicator
                     ]
                     total_indicators += len(indicators)
                     total_section_indicators += len(indicators)
                     indicators_list += indicators
+
+                # Indicators in subsections
+                for subsection, _ in section_data["subsections"].items():
+                    indicators = [
+                        item
+                        for item in subsection.indicators.all()
+                        if item.is_direct_indicator
+                    ]
+                    total_indicators += len(indicators)
+                    total_section_indicators += len(indicators)
+                    indicators_list += indicators
+
+                    # Indicators in sets in subsections
+                    for indicators_set in subsection.indicators_sets.all():
+                        indicators = [
+                            item
+                            for item in indicators_set.indicators.all()
+                            if item.is_direct_indicator
+                        ]
+                        total_indicators += len(indicators)
+                        total_section_indicators += len(indicators)
+                        indicators_list += indicators
 
                 for i in indicators_list:
                     indicator_result = next(
