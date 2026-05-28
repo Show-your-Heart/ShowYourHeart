@@ -248,6 +248,8 @@ const initIndicatorsStore = () => {
                 }
             } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
                 result = this.indicators[instanceId].value == 'True' ? 'true' : 'false'
+            } else if (indicator.data_type == this.fieldTypes.STRING) {
+                result = `'${this.indicators[instanceId].value}'`
             } else if (suffix != "") {
                 if (suffix2 == "") {
                     result = Number(this.indicators[instanceId].value[suffix])
