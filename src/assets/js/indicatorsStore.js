@@ -5,6 +5,7 @@ const initIndicatorsStore = () => {
         indicatorsData: [],
         indicatorDataIndexById: {},
         indicatorDataIndexByCode: {},
+        indicatorIdByCode: {},
         indicatorsSets: [],
         fieldTypes: {
             STRING: "S",
@@ -79,7 +80,11 @@ const initIndicatorsStore = () => {
                         value = token
                     } else {
                         // Reference to other indicator
-                        value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
+                        if (this.belongsToSet(token)) {
+                            value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
+                        } else {
+                            value = this.loadIndicatorResult(this.getInstanceId(token))
+                        }
                     }
                     if (value == undefined) {
                         this.indicators[instanceId].hasErrors = true
@@ -306,7 +311,7 @@ const initIndicatorsStore = () => {
                 if (indicator.condition.includes(code)) {
                     let fieldEl = document.querySelector(`#field_${instanceId}`);
                     // If no element found check set instance
-                    if(fieldEl == null){
+                    if (fieldEl == null) {
                         instanceId = instanceId + "_1"
                         fieldEl = document.querySelector(`#field_${instanceId}`);
                     }
@@ -366,7 +371,7 @@ const initIndicatorsStore = () => {
             } else {
                 const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
                 // Update conditional set
-                if (indicatorsSet.condition.includes(code)) {
+                if (indicatorsSet && indicatorsSet.condition.includes(code)) {
                     const setEl = document.querySelector(`#set_${indicatorsSet.id}`);
                     const show = this.isVisible("", indicatorsSet.condition)
                     Alpine.$data(setEl).updateShow(show)
@@ -486,10 +491,19 @@ const initIndicatorsStore = () => {
             }
             return instanceId
         },
+        belongsToSet(code) {
+            let index
+            for (let i = 0; i < this.indicatorsSets.length; i++) {
+                index = this.indicatorsSets[i].indicators_ids.findIndex(id => id == this.indicatorIdByCode[code])
+                if (index != -1) { break }
+            }
+            return index != -1
+        },
         storeMaps() {
             this.indicatorsData.forEach((i, index) => {
                 this.indicatorDataIndexById[i.id] = index
                 this.indicatorDataIndexByCode[i.code] = index
+                this.indicatorIdByCode[i.code] = i.id
             })
         },
         getIndicatorDataById(id) {

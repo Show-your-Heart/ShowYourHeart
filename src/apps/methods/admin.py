@@ -131,6 +131,8 @@ class IndicatorAdmin(
         "is_group_indicator",
     )
 
+    readonly_fields = ("dependant_indicators",)
+
     list_types_js = json.dumps(Indicator.list_types)
     group_types_js = json.dumps(Indicator.group_types)
     numeric_types_js = json.dumps(Indicator.numeric_types)
@@ -152,8 +154,6 @@ class IndicatorAdmin(
         "group_2_total": f"""{numeric_types_js}.includes(data_type)
                         && is_group_indicator == true""",
     }
-
-    exclude = ("dependant_indicators",)
 
     resource_classes = [IndicatorResource]
 
@@ -181,6 +181,7 @@ class IndicatorAdmin(
                 "formula",
                 "validation",
                 "message_en",
+                "dependant_indicators",
             ],
             translatable_fields=["name", "description", "message"],
             display_log=False,
