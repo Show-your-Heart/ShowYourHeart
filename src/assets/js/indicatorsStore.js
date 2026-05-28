@@ -360,8 +360,14 @@ const initIndicatorsStore = () => {
                             this.indicators[instanceId].value = String(value)
                         }
                     }
-                    // Dependant indirect indicators
-                    this.updateIndicatorDependencies(instanceId)
+
+                    // Update validation
+                    const { isValid, isFieldValid } = this.validateField(instanceId)
+                    this.indicators[instanceId].isValid = isValid
+                    this.indicators[instanceId].isFieldValid = isFieldValid
+                    let fieldEl = document.querySelector(`#field_${instanceId}`);
+                    Alpine.$data(fieldEl).updateErrors(isFieldValid)
+                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
                 }
                 if (indicator.validation.includes(code)) {
                     if (indicator.is_group_indicator) {
