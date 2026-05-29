@@ -112,7 +112,11 @@ def get_survey_stats(survey, method, campaign):
 
                 for i in indicators_list:
                     indicator_result = next(
-                        (ii for ii in indicator_results if i.id == ii.indicator.id),
+                        (
+                            ii
+                            for ii in indicator_results
+                            if i.code == ii.indicator.code and not ii.is_total
+                        ),
                         None,
                     )
                     if indicator_result and (
