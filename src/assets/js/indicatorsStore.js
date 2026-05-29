@@ -285,6 +285,9 @@ const initIndicatorsStore = () => {
                 console.log("Invalid total token ")
                 result = 0
             }
+            if (result === null) {
+                result = 'null'
+            }
             return result
         },
         loadSetIndicatorTotal(code) {
