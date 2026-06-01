@@ -98,7 +98,6 @@ const initFieldData = () => {
             this.state.isValid = isValid
             this.state.isFieldValid = isFieldValid
             this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
-
         },
         loadInitialValue(initialValue) {
             let value = ""

@@ -248,6 +248,8 @@ const initIndicatorsStore = () => {
                 }
             } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
                 result = this.indicators[instanceId].value == 'True' ? 'true' : 'false'
+            } else if (indicator.data_type == this.fieldTypes.STRING) {
+                result = `'${this.indicators[instanceId].value}'`
             } else if (suffix != "") {
                 if (suffix2 == "") {
                     result = Number(this.indicators[instanceId].value[suffix])
@@ -282,6 +284,9 @@ const initIndicatorsStore = () => {
             } else {
                 console.log("Invalid total token ")
                 result = 0
+            }
+            if (result === null) {
+                result = 'null'
             }
             return result
         },
@@ -358,8 +363,14 @@ const initIndicatorsStore = () => {
                             this.indicators[instanceId].value = String(value)
                         }
                     }
-                    // Dependant indirect indicators
-                    this.updateIndicatorDependencies(instanceId)
+
+                    // Update validation
+                    const { isValid, isFieldValid } = this.validateField(instanceId)
+                    this.indicators[instanceId].isValid = isValid
+                    this.indicators[instanceId].isFieldValid = isFieldValid
+                    let fieldEl = document.querySelector(`#field_${instanceId}`);
+                    Alpine.$data(fieldEl).updateErrors(isFieldValid)
+                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
                 }
                 if (indicator.validation.includes(code)) {
                     if (indicator.is_group_indicator) {
@@ -394,7 +405,11 @@ const initIndicatorsStore = () => {
                 if (indicator.dependant_indicators) {
                     for (var code of indicator.dependant_indicators) {
                         const dependantIndicator = this.getIndicatorDataByCode(code)
-                        const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
+                        // Make sure second subtoken is a number and not 'set', 'total' or similar
+                        const instanceId = instanceIdTokens.length == 2 && !(
+                            dependantIndicator.condition.includes('_set') || dependantIndicator.condition.includes('_total') ||
+                            dependantIndicator.formula.includes('_set') || dependantIndicator.formula.includes('_total')
+                        ) ? `${dependantIndicator.id}_${instanceIdTokens[1]}` : dependantIndicator.id
                         this.updateIndicatorResultNa(instanceId, value, true)
                     }
                 }

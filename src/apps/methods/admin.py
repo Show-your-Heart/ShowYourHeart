@@ -690,7 +690,7 @@ class IndicatorResultAdmin(ModelAdmin):
         "updated_at",
     )
     ordering = ["survey"]
-    search_fields = ["survey__method__name"]
+    search_fields = ["survey__method__name", "indicator__code"]
 
     def has_add_permission(self, request, obj=None):
         return request.user.is_superuser

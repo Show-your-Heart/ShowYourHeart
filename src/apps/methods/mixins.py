@@ -222,10 +222,14 @@ def save_indicator_results(method_id, request, survey):
         for indicator in indicators_set.indicators.all():
             field_base_name = f"question_{indicator.id}"
             for name, _ in request.POST.items():
-                if field_base_name in name and len(name.split("_")) == 3:
+                if field_base_name in name and len(name.split("_")) >= 3:
                     instance_number = name.split("_")[2]
                     save_indicator_result(
-                        request, survey, indicator, name, instance_number
+                        request,
+                        survey,
+                        indicator,
+                        field_base_name,
+                        instance_number,
                     )
             # Delete removed indicators sets intances
             for indicator_result in IndicatorResult.objects.filter(
@@ -236,7 +240,7 @@ def save_indicator_results(method_id, request, survey):
                 )
                 pending_delete = True
                 for name, _ in request.POST.items():
-                    if full_name == name:
+                    if full_name == name or f"{full_name}_na" == name:
                         pending_delete = False
                 if pending_delete:
                     indicator_result.delete()
@@ -244,7 +248,14 @@ def save_indicator_results(method_id, request, survey):
 
 def save_indicator_result(request, survey, indicator, field_name, instance_number=0):
     na = (
-        None if not indicator.mandatory else request.POST.get(f"{field_name}_na", False)
+        None
+        if not indicator.mandatory
+        else request.POST.get(
+            f"{field_name}_{instance_number}_na"
+            if int(instance_number) > 0
+            else f"{field_name}_na",
+            False,
+        )
     )
 
     # Handle gendered indicators
@@ -257,7 +268,12 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
             "women": IndicatorResult.Gender.FEMALE,
             "non_binary": IndicatorResult.Gender.NON_BINARY,
         }.items():
-            value = request.POST.get(f"{field_name}_{suffix}")
+            name = (
+                f"{field_name}_{suffix}_{instance_number}"
+                if int(instance_number) > 0
+                else f"{field_name}_{suffix}"
+            )
+            value = request.POST.get(name)
             if value or na:
                 IndicatorResult.objects.update_or_create(
                     survey=survey,
@@ -281,7 +297,12 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
         for group_item in indicator.group.items.all():
             # Handle lists
             if indicator.group_2 is None:
-                value = request.POST.get(f"{field_name}_{group_item.suffix}")
+                name = (
+                    f"{field_name}_{group_item.suffix}_{instance_number}"
+                    if int(instance_number) > 0
+                    else f"{field_name}_{group_item.suffix}"
+                )
+                value = request.POST.get(name)
                 if value or na:
                     IndicatorResult.objects.update_or_create(
                         survey=survey,
@@ -303,9 +324,12 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
             # Handle tables
             else:
                 for group_2_item in indicator.group_2.items.all():
-                    value = request.POST.get(
-                        f"{field_name}_{group_item.suffix}_{group_2_item.suffix}"
+                    name = (
+                        f"{field_name}_{group_item.suffix}_{group_2_item.suffix}_{instance_number}"
+                        if int(instance_number) > 0
+                        else f"{field_name}_{group_item.suffix}_{group_2_item.suffix}"
                     )
+                    value = request.POST.get(name)
                     if value or na:
                         IndicatorResult.objects.update_or_create(
                             survey=survey,
@@ -344,9 +368,12 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
             # Save group2 totals
             if indicator.group_2 is not None:
                 for group_2_item in indicator.group_2.items.all():
-                    value = request.POST.get(
-                        f"{field_name}_{group_2_item.suffix}_total"
+                    name = (
+                        f"{field_name}_{group_2_item.suffix}_total_{instance_number}"
+                        if int(instance_number) > 0
+                        else f"{field_name}_{group_2_item.suffix}_total"
                     )
+                    value = request.POST.get(name)
                     IndicatorResult.objects.update_or_create(
                         survey=survey,
                         indicator=indicator,
@@ -360,7 +387,12 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
                         instance_number=instance_number,
                     )
             # Save total
-            value = request.POST.get(f"{field_name}_total")
+            name = (
+                f"{field_name}_total_{instance_number}"
+                if int(instance_number) > 0
+                else f"{field_name}_total"
+            )
+            value = request.POST.get(name)
             IndicatorResult.objects.update_or_create(
                 survey=survey,
                 indicator=indicator,
@@ -375,7 +407,12 @@ def save_indicator_result(request, survey, indicator, field_name, instance_numbe
             )
     # Handle standard indicators
     else:
-        values = request.POST.getlist(field_name)
+        name = (
+            f"{field_name}_{instance_number}"
+            if int(instance_number) > 0
+            else f"{field_name}"
+        )
+        values = request.POST.getlist(name)
         formatted_values = "|".join(values)
         if formatted_values or na:
             IndicatorResult.objects.update_or_create(
