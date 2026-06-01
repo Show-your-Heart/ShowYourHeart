@@ -94,7 +94,10 @@ class MethodFillMixin:
 
         save_indicator_results(method_id, request, survey)
 
-        return HttpResponseRedirect(reverse_lazy("methods:method_fill_success"))
+        if action == "submit":
+            return HttpResponseRedirect(reverse_lazy("methods:method_fill_success"))
+        else:
+            return HttpResponseRedirect(request.path_info)
 
 
 def prepare_method_fill_context(
