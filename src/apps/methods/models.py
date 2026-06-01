@@ -709,6 +709,9 @@ class Invitation(BaseModel):
 
 class Section(BaseModel):
     title = models.CharField(_("Title"), max_length=60)
+    display_title = models.BooleanField(
+        _("Display section title?"), blank=True, default=True
+    )
     description = models.CharField(
         _("Description"), max_length=2000, blank=True, default=""
     )

@@ -596,6 +596,7 @@ def get_sections_data(method):
             {
                 "id": section.id,
                 "title": section.title,
+                "display_title": section.display_title,
                 "description": section.description,
                 "indicators_ids": indicators_ids,
                 "indicators_sets_ids": indicators_sets_ids,
