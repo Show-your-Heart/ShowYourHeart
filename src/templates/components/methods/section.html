@@ -6,9 +6,11 @@
     @remove-instance="removeInstanceIds($event.detail.setId, $event.detail.instanceNumber); validateSection()"
     role="tabpanel" aria-labelledby="{{ section.id }}-tab"
 >
-    <h2 class="text-3xl font-bold -mb-2" x-text="title"></h2>
+    <template x-if="displayTitle">
+        <h2 class="text-3xl font-bold -mb-2" x-text="title"></h2>
+    </template>
     <template x-if="description != ''">
-        <div class="-mt-2 -mb-4" x-html="description"></div>
+        <div class="-mt-2 -mb-4 section-description" x-html="description"></div>
     </template>
 
     {% for indicator in items.indicators %}

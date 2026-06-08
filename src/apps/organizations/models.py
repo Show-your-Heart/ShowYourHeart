@@ -63,7 +63,7 @@ class Organization(BaseModel):
     )
     privacy_policy_accepted = models.DateTimeField(blank=True, null=True)
     bs_allow_public = models.BooleanField(
-        _("Allow infographics to be public"), blank=True, null=True
+        _("Allow infographics to be public"), blank=False, null=False, default=False
     )
     sectors = models.ManyToManyField(
         "settings.Sector",

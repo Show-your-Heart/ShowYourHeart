@@ -199,7 +199,7 @@ class Indicator(BaseModel):
     formula = models.CharField(_("formula"), max_length=400, blank=True)
     validation = models.CharField(_("validation"), max_length=400, blank=True)
     dependant_indicators = models.JSONField(
-        "dependant_indicators", blank=True, null=True
+        "dependant indicators", blank=True, null=True
     )
     mandatory = models.BooleanField(_("Is it mandatory?"), blank=False, default=True)
     message = models.CharField(_("message"), max_length=400, blank=True)
@@ -280,7 +280,10 @@ class Indicator(BaseModel):
 
                 indicator = self.get_indicator(code)
                 if indicator:
-                    if indicator.dependant_indicators:
+                    if (
+                        indicator.dependant_indicators
+                        and self.code not in indicator.dependant_indicators
+                    ):
                         indicator.dependant_indicators.append(self.code)
                         indicator.save()
                     else:
@@ -362,7 +365,10 @@ class IndicatorsSet(BaseModel):
             for code in deps_to_add:
                 indicator = self.get_indicator(code)
                 if indicator:
-                    if indicator.dependant_indicators:
+                    if (
+                        indicator.dependant_indicators
+                        and self.code not in indicator.dependant_indicators
+                    ):
                         indicator.dependant_indicators.append(self.code)
                         indicator.save()
                     else:
@@ -703,6 +709,9 @@ class Invitation(BaseModel):
 
 class Section(BaseModel):
     title = models.CharField(_("Title"), max_length=60)
+    display_title = models.BooleanField(
+        _("Display section title?"), blank=True, default=True
+    )
     description = models.CharField(
         _("Description"), max_length=2000, blank=True, default=""
     )

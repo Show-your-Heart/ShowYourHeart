@@ -5,6 +5,7 @@ const initIndicatorsStore = () => {
         indicatorsData: [],
         indicatorDataIndexById: {},
         indicatorDataIndexByCode: {},
+        indicatorIdByCode: {},
         indicatorsSets: [],
         fieldTypes: {
             STRING: "S",
@@ -79,7 +80,11 @@ const initIndicatorsStore = () => {
                         value = token
                     } else {
                         // Reference to other indicator
-                        value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
+                        if (this.belongsToSet(token)) {
+                            value = this.loadIndicatorResult(this.getInstanceId(token, instanceId))
+                        } else {
+                            value = this.loadIndicatorResult(this.getInstanceId(token))
+                        }
                     }
                     if (value == undefined) {
                         this.indicators[instanceId].hasErrors = true
@@ -243,6 +248,8 @@ const initIndicatorsStore = () => {
                 }
             } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
                 result = this.indicators[instanceId].value == 'True' ? 'true' : 'false'
+            } else if (indicator.data_type == this.fieldTypes.STRING) {
+                result = `'${this.indicators[instanceId].value}'`
             } else if (suffix != "") {
                 if (suffix2 == "") {
                     result = Number(this.indicators[instanceId].value[suffix])
@@ -278,6 +285,9 @@ const initIndicatorsStore = () => {
                 console.log("Invalid total token ")
                 result = 0
             }
+            if (result === null) {
+                result = 'null'
+            }
             return result
         },
         loadSetIndicatorTotal(code) {
@@ -306,7 +316,7 @@ const initIndicatorsStore = () => {
                 if (indicator.condition.includes(code)) {
                     let fieldEl = document.querySelector(`#field_${instanceId}`);
                     // If no element found check set instance
-                    if(fieldEl == null){
+                    if (fieldEl == null) {
                         instanceId = instanceId + "_1"
                         fieldEl = document.querySelector(`#field_${instanceId}`);
                     }
@@ -353,8 +363,14 @@ const initIndicatorsStore = () => {
                             this.indicators[instanceId].value = String(value)
                         }
                     }
-                    // Dependant indirect indicators
-                    this.updateIndicatorDependencies(instanceId)
+
+                    // Update validation
+                    const { isValid, isFieldValid } = this.validateField(instanceId)
+                    this.indicators[instanceId].isValid = isValid
+                    this.indicators[instanceId].isFieldValid = isFieldValid
+                    let fieldEl = document.querySelector(`#field_${instanceId}`);
+                    Alpine.$data(fieldEl).updateErrors(isFieldValid)
+                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
                 }
                 if (indicator.validation.includes(code)) {
                     if (indicator.is_group_indicator) {
@@ -366,7 +382,7 @@ const initIndicatorsStore = () => {
             } else {
                 const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
                 // Update conditional set
-                if (indicatorsSet.condition.includes(code)) {
+                if (indicatorsSet && indicatorsSet.condition.includes(code)) {
                     const setEl = document.querySelector(`#set_${indicatorsSet.id}`);
                     const show = this.isVisible("", indicatorsSet.condition)
                     Alpine.$data(setEl).updateShow(show)
@@ -389,7 +405,11 @@ const initIndicatorsStore = () => {
                 if (indicator.dependant_indicators) {
                     for (var code of indicator.dependant_indicators) {
                         const dependantIndicator = this.getIndicatorDataByCode(code)
-                        const instanceId = instanceIdTokens.length == 1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceIdTokens[1]}`
+                        // Make sure second subtoken is a number and not 'set', 'total' or similar
+                        const instanceId = instanceIdTokens.length == 2 && !(
+                            dependantIndicator.condition.includes('_set') || dependantIndicator.condition.includes('_total') ||
+                            dependantIndicator.formula.includes('_set') || dependantIndicator.formula.includes('_total')
+                        ) ? `${dependantIndicator.id}_${instanceIdTokens[1]}` : dependantIndicator.id
                         this.updateIndicatorResultNa(instanceId, value, true)
                     }
                 }
@@ -486,10 +506,19 @@ const initIndicatorsStore = () => {
             }
             return instanceId
         },
+        belongsToSet(code) {
+            let index
+            for (let i = 0; i < this.indicatorsSets.length; i++) {
+                index = this.indicatorsSets[i].indicators_ids.findIndex(id => id == this.indicatorIdByCode[code])
+                if (index != -1) { break }
+            }
+            return index != -1
+        },
         storeMaps() {
             this.indicatorsData.forEach((i, index) => {
                 this.indicatorDataIndexById[i.id] = index
                 this.indicatorDataIndexByCode[i.code] = index
+                this.indicatorIdByCode[i.code] = i.id
             })
         },
         getIndicatorDataById(id) {

@@ -3,9 +3,11 @@
     @indicator-visible="updateVisibility()"
     @indicator-valid="$event.stopPropagation(); validateSection()"
 >
-    <h4 class="text-2xl font-bold -mb-4" x-text="title"></h4>
+    <template x-if="displayTitle">
+        <h4 class="text-2xl font-bold -mb-4" x-text="title"></h4>
+    </template>
     <template x-if="description != ''">
-        <div class="-mt-2 -mb-4" x-html="description"></div>
+        <div class="-mt-2 -mb-4 section-description" x-html="description"></div>
     </template>
 
     {% for indicator in indicators %}

@@ -2,6 +2,7 @@ const initSectionData = () => {
     Alpine.data('section', (title = "") => ({
         id: "",
         title: "",
+        displayTitle: "",
         description: "",
         indicatorsIds: [],
         indicatorsSetsIds: [],
@@ -17,6 +18,7 @@ const initSectionData = () => {
             const section = this.surveyStore["sectionsData"].find(i => i.title == title)
             this.id = section.id
             this.title = section.title
+            this.displayTitle = !!section.display_title 
             this.description = section.description
             this.indicatorsIds = section.indicators_ids
             this.indicatorsSetsIds = section.indicators_sets_ids

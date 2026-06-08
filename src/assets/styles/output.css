@@ -56,6 +56,7 @@
     --color-blue-800: oklch(42.4% 0.199 265.638);
     --color-pink-50: oklch(97.1% 0.014 343.198);
     --color-pink-100: oklch(94.8% 0.028 342.258);
+    --color-pink-200: oklch(89.9% 0.061 343.231);
     --color-pink-300: oklch(82.3% 0.12 346.018);
     --color-pink-500: oklch(65.6% 0.241 354.308);
     --color-pink-600: oklch(59.2% 0.249 0.584);
@@ -78,7 +79,6 @@
     --container-sm: 24rem;
     --container-md: 28rem;
     --container-lg: 32rem;
-    --container-xl: 36rem;
     --container-2xl: 42rem;
     --container-3xl: 48rem;
     --container-4xl: 56rem;
@@ -330,9 +330,6 @@
   }
   .start-0 {
     inset-inline-start: calc(var(--spacing) * 0);
-  }
-  .start-1 {
-    inset-inline-start: calc(var(--spacing) * 1);
   }
   .start-8 {
     inset-inline-start: calc(var(--spacing) * 8);
@@ -2750,13 +2747,17 @@ tr.htmx-swapping td {
 div[drawer-backdrop=""] {
   z-index: 50;
 }
-.indicator label span a, .indicator .drawer-description a {
+.section-description a, .indicator label span a, .indicator .drawer-description a {
   color: var(--color-blue-500);
   text-decoration: underline;
 }
-.indicator label span a:hover, .indicator .drawer-description a:hover {
+.section-description a:hover, .indicator label span a:hover, .indicator .drawer-description a:hover {
   color: var(--color-blue-700);
   text-decoration: none;
+}
+.indicator .drawer-description ol, .indicator .drawer-description ul {
+  list-style: inherit;
+  padding-inline: 1.5rem;
 }
 input[type='number'] {
   -moz-appearance: textfield;

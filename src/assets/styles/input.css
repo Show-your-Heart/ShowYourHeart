@@ -78,16 +78,24 @@ div[drawer-backdrop=""] {
     z-index: 50;
 }
 
+.section-description a,
 .indicator label span a,
 .indicator .drawer-description a {
     color: var(--color-blue-500);
     text-decoration: underline;
 }
 
+.section-description a:hover,
 .indicator label span a:hover,
 .indicator .drawer-description a:hover {
     color: var(--color-blue-700);
     text-decoration: none;
+}
+
+.indicator .drawer-description ol,
+.indicator .drawer-description ul {
+    list-style: inherit;
+    padding-inline: 1.5rem;
 }
 
 input[type='number'] {

@@ -98,7 +98,6 @@ const initFieldData = () => {
             this.state.isValid = isValid
             this.state.isFieldValid = isFieldValid
             this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
-
         },
         loadInitialValue(initialValue) {
             let value = ""
@@ -307,6 +306,7 @@ const initFieldData = () => {
                     }
                 }
             }
+            // console.log("Show?", this.code, this.state.show)
         },
         isOptionSelected(optionId) {
             return this.state.value.id == optionId
@@ -341,7 +341,7 @@ const initFieldData = () => {
                     })
                 } else {
                     this.groupItems.forEach(i => {
-                        if (this.state.value[i.suffix] == null || this.state.value[i.suffix][ii.suffix] == "") {
+                        if (this.state.value[i.suffix] == null || this.state.value[i.suffix] == "") {
                             this.update(0, i.suffix)
                             this.setGroupItemValid(i.suffix)
                         }
@@ -356,6 +356,16 @@ const initFieldData = () => {
                 this.state.isFieldValid = isFieldValid
                 this.updateErrors(isFieldValid)
                 this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
+                if (isFieldValid) {
+                    const btnEl = document.querySelector(`#field_${this.instanceId} .validate-group-btn `);
+                    btnEl.style.transition = "all .4s ease"
+                    btnEl.style.borderColor = "oklch(62.7% 0.194 149.214)" // green-600
+                    btnEl.style.backgroundColor = "oklch(62.7% 0.194 149.214)" // green-600
+                    setTimeout(() => {
+                        btnEl.style.backgroundColor = "oklch(54.6% 0.245 262.881)" // blue-600
+                        btnEl.style.borderColor = "oklch(54.6% 0.245 262.881)" // blue-600
+                    }, 1000)
+                }
             } catch (e) {
                 console.log('Invalido')
                 console.log(e)

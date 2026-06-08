@@ -271,13 +271,13 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
     paginate_by = 20
 
     def get_queryset(self):
-        all_surveys = Survey.objects.filter(
-            self.get_survey_query(self.request.GET)
-        ).order_by("-start_date")
+        all_surveys = Survey.objects.filter(self.get_survey_query(self.request.GET))
 
         all_surveys = self.filter_queryset_by_network(self.request, all_surveys)
-        return all_surveys.select_related("method").prefetch_related(
-            Prefetch("method__external_surveys")
+        return (
+            all_surveys.select_related("method")
+            .prefetch_related(Prefetch("method__external_surveys"))
+            .order_by(self.get_survey_order())
         )
 
     def get_context_data(self, *args, **kwargs):
@@ -352,6 +352,12 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
             query &= Q(method__unit_of_analysis=unit_analysis_filter)
 
         return query
+
+    def get_survey_order(self):
+        order = self.request.GET.get("o")
+        if not order:
+            order = "-start_date"
+        return order
 
 
 def create_external_survey_invitation(organization_id, method_id, campaign_id):
@@ -443,3 +449,7 @@ def get_external_surveys(method):
         ext_surveys_type[ext_survey.external_survey_category] += 1
 
     return ext_surveys_type
+
+
+class MethodFillSuccessView(TemplateView):
+    template_name = "methods/fill_success.html"

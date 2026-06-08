@@ -158,6 +158,7 @@ class OrganizationSignUpForm(forms.ModelForm):
             "address",
             "legal_structure",
             "methods",
+            "bs_allow_public",
         )
 
     def __init__(self, *args, **kwargs):
@@ -345,6 +346,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "zip_code",
             "address",
             "legal_structure",
+            "bs_allow_public",
         ]
 
     def __init__(self, *args, **kwargs):
