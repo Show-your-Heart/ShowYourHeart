@@ -357,6 +357,8 @@ Alternatively, you can also use the Django built-in `createsuperuser` command.
 ## Versions
 
 ### Auto-generate CHANGELOG
+Intall Rust to be able to install Git Cliff
+https://doc.rust-lang.org/cargo/getting-started/installation.html
 
 The changelog is auto-generated using Git Cliff. To incorporate new changes, you must have [git cliff installed](https://git-cliff.org/docs/installation/crates-io) and then run:
 

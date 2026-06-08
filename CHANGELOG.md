@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2026-06-08
+
+### 🚀 Features
+
+- Review balances add sorting by date
+- Add success screen when submitting a method
+- Fix fill group lists with zeros, add color button, hide validate button if no validation and add visual feedback to validate button click
+- Make indicator dependencies visible in admin panel
+- Search indicator result by indicator code
+- Allow to hide/show section title from admin settings
+
+### 🐛 Bug Fixes
+
+- On registration the Allow infographics to be public was mandatory when it shouldn't
+- Error loading values in expression, check if indicator to be loaded belongs to set
+- Indirect indicator description not clickable, remove pointer-event-none in label
+- Formated links in sections description and bullet points in indicators description
+- Add indicator dependencies only once
+- Ignore not found dependencies
+- Add quotes to strings inside indicators expressions
+- Set border red on input field error
+- Display indirect indicators errors
+- Fix suvey stats card info
+- Null value in string inputs
+- Assure well-formed instanceId when updating dependent indicators NA result
+- Properly store indicator results adding support for indicators sets and fix problem with tables in survey card stats function
+- When saving the survey do not redirect to the success message
+
 ## [0.1.0] - 2026-05-12
 
 ### 🚀 Features
@@ -73,6 +101,7 @@ All notable changes to this project will be documented in this file.
 - Add translations
 - Create set operator to calculate the total of all set indicator instances
 - Add texts on nav menu
+- On project creation add start date tooltip (#464)
 
 ### 🐛 Bug Fixes
 
@@ -209,6 +238,7 @@ All notable changes to this project will be documented in this file.
 - Remove unused log
 - Remove comments
 - Store maps of indicators to reduce the use of .find and .findIndex
+- Add changelog
 
 ### Fix
 
