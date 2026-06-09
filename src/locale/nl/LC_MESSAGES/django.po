@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 14:31+0200\n"
+"POT-Creation-Date: 2026-06-09 11:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,51 +42,51 @@ msgstr "steden"
 msgid "zip codes"
 msgstr "postcodes"
 
-#: apps/methods/admin.py:616
+#: apps/methods/admin.py:617
 msgid "Balance successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:647 apps/methods/views.py:430
+#: apps/methods/admin.py:648 apps/methods/views.py:436
 msgid "An email to the contact has been sent."
 msgstr ""
 
-#: apps/methods/admin.py:660
+#: apps/methods/admin.py:661
 msgid "Balance status successfuly updated."
 msgstr ""
 
-#: apps/methods/admin.py:728 apps/methods/admin.py:772
+#: apps/methods/admin.py:729 apps/methods/admin.py:773
 msgid "Actions"
 msgstr "Acties"
 
-#: apps/methods/admin.py:732
+#: apps/methods/admin.py:733
 msgid "Are you sure you want to send the invitation?"
 msgstr "Weet u zeker dat u de uitnodiging wilt versturen?"
 
-#: apps/methods/admin.py:737
+#: apps/methods/admin.py:738
 msgid "Send invitation"
 msgstr "Uitnodiging versturen"
 
-#: apps/methods/admin.py:776 templates/methods/external_surveys_view.html:59
+#: apps/methods/admin.py:777 templates/methods/external_surveys_view.html:59
 msgid "Are you sure you want to send the invitations?"
 msgstr "Weet u zeker dat u de uitnodigingen wilt versturen?"
 
-#: apps/methods/admin.py:781
+#: apps/methods/admin.py:782
 msgid "Send invitations"
 msgstr "Uitnodigingen versturen"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
-#: apps/methods/models.py:489 apps/methods/models.py:622
-#: apps/methods/models.py:670 apps/organizations/forms.py:27
+#: apps/methods/models.py:495 apps/methods/models.py:628
+#: apps/methods/models.py:676 apps/organizations/forms.py:27
 #: apps/organizations/forms.py:43 apps/organizations/forms.py:245
-#: templates/admin/methods/survey_review.html:34
-#: templates/admin/methods/survey_review.html:119
+#: templates/admin/methods/survey_review.html:35
+#: templates/admin/methods/survey_review.html:120
 #: templates/admin/organizations/registration_requests.html:38
 #: templates/components/methods/invitations_table.html:8
 msgid "Name"
 msgstr "Naam"
 
 #: apps/methods/forms.py:158 apps/methods/forms.py:159
-#: apps/methods/models.py:671
+#: apps/methods/models.py:677
 msgid "Surnames"
 msgstr ""
 
@@ -94,19 +94,21 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: apps/methods/helpers.py:30
-msgid "The csv file must contain the headers 'name' and 'email'"
+#. Translators: The symbol '{}' refer to the specific CSV column headers
+#. and should remain in English.
+#: apps/methods/helpers.py:35
+msgid "The csv file must contain the headers '{}' and '{}'"
 msgstr ""
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
-#: apps/methods/models.py:422 apps/organizations/models.py:29
+#: apps/methods/models.py:428 apps/organizations/models.py:29
 #: apps/organizations/models.py:163 apps/settings/models.py:10
 #: apps/settings/models.py:21 apps/settings/models.py:38
 msgid "name"
 msgstr "naam"
 
 #: apps/methods/models.py:20 apps/methods/models.py:150
-#: apps/methods/models.py:336 apps/methods/models.py:423
+#: apps/methods/models.py:339 apps/methods/models.py:429
 #: apps/organizations/models.py:30 apps/organizations/models.py:164
 msgid "description"
 msgstr "beschrijving"
@@ -245,11 +247,11 @@ msgstr "€/u"
 msgid "number"
 msgstr "nummer"
 
-#: apps/methods/models.py:147 apps/methods/models.py:333
+#: apps/methods/models.py:147 apps/methods/models.py:336
 msgid "ID"
 msgstr "ID"
 
-#: apps/methods/models.py:148 apps/methods/models.py:334
+#: apps/methods/models.py:148 apps/methods/models.py:337
 msgid "version"
 msgstr "versie"
 
@@ -285,7 +287,7 @@ msgstr ""
 msgid "Add group totals?"
 msgstr ""
 
-#: apps/methods/models.py:198 apps/methods/models.py:339
+#: apps/methods/models.py:198 apps/methods/models.py:342
 msgid "condition"
 msgstr "voorwaarde"
 
@@ -317,174 +319,178 @@ msgstr "Dit veld is verplicht als de indicator indirect is."
 msgid "Circular dependencies"
 msgstr ""
 
-#: apps/methods/models.py:327
+#: apps/methods/models.py:330
 msgid "Indicator code can't contain the underscore character '_'"
 msgstr ""
 
-#: apps/methods/models.py:335
+#: apps/methods/models.py:338
 msgid "set name"
 msgstr ""
 
-#: apps/methods/models.py:337
+#: apps/methods/models.py:340
 msgid "item name"
 msgstr ""
 
-#: apps/methods/models.py:412
+#: apps/methods/models.py:418
 msgid "Organisation"
 msgstr "Organisatie"
 
-#: apps/methods/models.py:413 templates/admin/methods/survey_review.html:122
+#: apps/methods/models.py:419 templates/admin/methods/survey_review.html:123
 msgid "Project"
 msgstr "Project"
 
-#: apps/methods/models.py:414
+#: apps/methods/models.py:420
 msgid "External Survey"
 msgstr "Externe vragenlijst"
 
-#: apps/methods/models.py:417
+#: apps/methods/models.py:423
 msgid "Work"
 msgstr ""
 
-#: apps/methods/models.py:418
+#: apps/methods/models.py:424
 msgid "Professional"
 msgstr ""
 
-#: apps/methods/models.py:419
+#: apps/methods/models.py:425
 #: templates/components/methods/survey_review_row.html:126
 msgid "Associative"
 msgstr ""
 
-#: apps/methods/models.py:420
+#: apps/methods/models.py:426
 msgid "Volunteering"
 msgstr ""
 
-#: apps/methods/models.py:425
+#: apps/methods/models.py:431
 msgid "unit of analysis"
 msgstr "analyse-eenheid"
 
-#: apps/methods/models.py:437
+#: apps/methods/models.py:443
 msgid "Which entity does this method applies to?"
 msgstr "Op welke entiteit is deze methode van toepassing?"
 
-#: apps/methods/models.py:443 apps/organizations/models.py:70
+#: apps/methods/models.py:449 apps/organizations/models.py:70
 msgid "Sectors"
 msgstr "Sectoren"
 
-#: apps/methods/models.py:449 templates/admin/methods/survey_review.html:128
+#: apps/methods/models.py:455 templates/admin/methods/survey_review.html:129
 msgid "External surveys"
 msgstr "Externe vragenlijsten"
 
-#: apps/methods/models.py:453
+#: apps/methods/models.py:459
 msgid "Version"
 msgstr "Versie"
 
-#: apps/methods/models.py:456 apps/organizations/forms.py:79
+#: apps/methods/models.py:462 apps/organizations/forms.py:79
 #: apps/organizations/forms.py:287
 msgid "Region1"
 msgstr "Regio1"
 
-#: apps/methods/models.py:461
+#: apps/methods/models.py:467
 msgid "external survey category"
 msgstr ""
 
-#: apps/methods/models.py:483
+#: apps/methods/models.py:489
 msgid "This method has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:490
+#: apps/methods/models.py:496
 msgid "Year"
 msgstr "Jaar"
 
-#: apps/methods/models.py:491
+#: apps/methods/models.py:497
 msgid "Active"
 msgstr "Actief"
 
-#: apps/methods/models.py:497 apps/organizations/models.py:60
+#: apps/methods/models.py:503 apps/organizations/models.py:60
 #: apps/organizations/models.py:202
 msgid "Methods"
 msgstr "Methoden"
 
-#: apps/methods/models.py:501 apps/methods/models.py:561
+#: apps/methods/models.py:507 apps/methods/models.py:567
 #: apps/organizations/forms.py:400 apps/organizations/models.py:206
-#: templates/admin/methods/survey_review.html:131
+#: templates/admin/methods/survey_review.html:133
 msgid "Start date"
 msgstr "Startdatum"
 
-#: apps/methods/models.py:502 apps/organizations/models.py:207
-#: templates/admin/methods/survey_review.html:134
+#: apps/methods/models.py:508 apps/organizations/models.py:207
+#: templates/admin/methods/survey_review.html:144
 msgid "End date"
 msgstr "Einddatum"
 
-#: apps/methods/models.py:514
+#: apps/methods/models.py:520
 msgid "This campaign has already been used and cannot be deleted."
 msgstr ""
 
-#: apps/methods/models.py:523
+#: apps/methods/models.py:529
 msgid "Open"
 msgstr ""
 
-#: apps/methods/models.py:527
+#: apps/methods/models.py:533
 msgid "Closed"
 msgstr ""
 
-#: apps/methods/models.py:531
+#: apps/methods/models.py:537
 msgid "Tech validated"
 msgstr ""
 
-#: apps/methods/models.py:535
+#: apps/methods/models.py:541
 msgid "Quality checked"
 msgstr ""
 
-#: apps/methods/models.py:542
+#: apps/methods/models.py:548
 msgid "Token"
 msgstr "Token"
 
-#: apps/methods/models.py:562
+#: apps/methods/models.py:568
 msgid "Closed date"
 msgstr ""
 
-#: apps/methods/models.py:563
+#: apps/methods/models.py:569
 msgid "Modified date"
 msgstr ""
 
-#: apps/methods/models.py:564
+#: apps/methods/models.py:570
 msgid "Validated date"
 msgstr ""
 
-#: apps/methods/models.py:565
+#: apps/methods/models.py:571
 msgid "Evaluated date"
 msgstr ""
 
-#: apps/methods/models.py:604
+#: apps/methods/models.py:610
 msgid "Is total?"
 msgstr ""
 
-#: apps/methods/models.py:606
+#: apps/methods/models.py:612
 msgid "Set instance number"
 msgstr ""
 
-#: apps/methods/models.py:610
+#: apps/methods/models.py:616
 msgid "not applicable"
 msgstr "niet van toepassing"
 
-#: apps/methods/models.py:673
+#: apps/methods/models.py:679
 msgid "email address"
 msgstr "e-mailadres"
 
-#: apps/methods/models.py:682
+#: apps/methods/models.py:688
 msgid "Send date"
 msgstr ""
 
-#: apps/methods/models.py:705
+#: apps/methods/models.py:711
 msgid "Title"
 msgstr "Titel"
 
-#: apps/methods/models.py:707 apps/organizations/forms.py:32
+#: apps/methods/models.py:713
+msgid "Display section title?"
+msgstr ""
+
+#: apps/methods/models.py:716 apps/organizations/forms.py:32
 #: apps/organizations/forms.py:250
 msgid "Description"
 msgstr "Beschrijving"
 
-#: apps/methods/models.py:711
+#: apps/methods/models.py:720
 msgid "order"
 msgstr "volgorde"
 
@@ -533,11 +539,11 @@ msgstr "De CSV is correct geïmporteerd."
 msgid "There is no CSV file selected to import."
 msgstr ""
 
-#: apps/methods/views.py:408
+#: apps/methods/views.py:414
 msgid "Error creating contact. Contact your network admin."
 msgstr ""
 
-#: apps/methods/views.py:421
+#: apps/methods/views.py:427
 msgid "An email to all the involved contacts has been sent."
 msgstr ""
 
@@ -979,113 +985,113 @@ msgstr "Bekijken"
 msgid "View on site"
 msgstr "Op de site bekijken"
 
-#: templates/admin/methods/survey_review.html:13
+#: templates/admin/methods/survey_review.html:14
 msgid "Balance review"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:15
+#: templates/admin/methods/survey_review.html:16
 msgid "Simple balance"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:25
+#: templates/admin/methods/survey_review.html:26
 msgid "Filter by"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:26
+#: templates/admin/methods/survey_review.html:27
 msgid "Campaign"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:27
+#: templates/admin/methods/survey_review.html:28
 msgid "Region"
 msgstr "Regio"
 
-#: templates/admin/methods/survey_review.html:28
+#: templates/admin/methods/survey_review.html:29
 msgid "Method"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:29
-#: templates/admin/methods/survey_review.html:110
+#: templates/admin/methods/survey_review.html:30
+#: templates/admin/methods/survey_review.html:111
 #: templates/components/methods/invitations_table.html:11
 msgid "Status"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:30
+#: templates/admin/methods/survey_review.html:31
 msgid "Unit of analysis"
 msgstr "Analyse-eenheid"
 
-#: templates/admin/methods/survey_review.html:33
-#: templates/admin/methods/survey_review.html:116 templates/home.html:20
+#: templates/admin/methods/survey_review.html:34
+#: templates/admin/methods/survey_review.html:117 templates/home.html:20
 msgid "NIF"
 msgstr "NIF"
 
-#: templates/admin/methods/survey_review.html:36
+#: templates/admin/methods/survey_review.html:37
 msgid "Filter"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:58
+#: templates/admin/methods/survey_review.html:59
 msgid "Send email to all with open balances"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:70
+#: templates/admin/methods/survey_review.html:71
 msgid "Previous"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:74
+#: templates/admin/methods/survey_review.html:75
 msgid "Page"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:81
+#: templates/admin/methods/survey_review.html:82
 msgid "Next"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:97
+#: templates/admin/methods/survey_review.html:98
 #: templates/admin/organizations/registration_requests.html:28
 msgid "Select all rows"
 msgstr "Alle rijen selecteren"
 
-#: templates/admin/methods/survey_review.html:113
+#: templates/admin/methods/survey_review.html:114
 msgid "Answers"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:125
+#: templates/admin/methods/survey_review.html:126
 #: templates/components/navbar.html:34 templates/info/contact.html:8
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/admin/methods/survey_review.html:157
+#: templates/admin/methods/survey_review.html:174
 msgid "Edit balance"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:175
+#: templates/admin/methods/survey_review.html:192
 #: templates/methods/method_fill.html:107
 msgid "Balance errors"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:212
+#: templates/admin/methods/survey_review.html:229
 msgid "Email sending confirmation"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:216
+#: templates/admin/methods/survey_review.html:233
 msgid "You are going to send an email to"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:216
+#: templates/admin/methods/survey_review.html:233
 msgid "are you sure?"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:220
+#: templates/admin/methods/survey_review.html:237
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
 msgstr ""
 
-#: templates/admin/methods/survey_review.html:225
-#: templates/admin/methods/survey_review.html:229
+#: templates/admin/methods/survey_review.html:242
+#: templates/admin/methods/survey_review.html:246
 #: templates/helpers/delete_submit_line.html:9
 msgid "Yes, I am sure"
 msgstr "Ja, ik weet het zeker"
 
-#: templates/admin/methods/survey_review.html:233
+#: templates/admin/methods/survey_review.html:250
 msgid "No, cancel"
 msgstr ""
 
@@ -1435,7 +1441,7 @@ msgstr ""
 msgid "Fill with 0's"
 msgstr ""
 
-#: templates/components/methods/group_input.html:147
+#: templates/components/methods/group_input.html:148
 msgid "Validate"
 msgstr ""
 

@@ -228,7 +228,7 @@ def import_csv(request, id):
         csv_file = request.FILES["csv_file"] if "csv_file" in request.FILES else False
 
         if csv_file:
-            decoded_file = csv_file.read().decode("utf-8").splitlines()
+            decoded_file = csv_file.read().decode("utf-8-sig").splitlines()
             reader = csv.reader(decoded_file)
             pei = ParseExternalInvitations()
             message = pei.parse_csv(reader, id)

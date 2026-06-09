@@ -6,6 +6,9 @@ from .models import IndicatorResult, Invitation, Method, Section
 
 
 class ParseExternalInvitations:
+    HEADER_NAME = "name"
+    HEADER_EMAIL = "email"
+
     def parse_csv(self, csv_reader, id):
         error_messages = []
         # Check the headers of the first row
@@ -27,7 +30,12 @@ class ParseExternalInvitations:
                     error_messages.append(_(f"The email for {row[0]} is empty"))
         else:
             error_messages.append(
-                _("The csv file must contain the headers 'name' and 'email'")
+                # Translators: The symbol '{}' refer to the specific CSV column headers
+                # and should remain in English.
+                _("The csv file must contain the headers '{}' and '{}'").format(
+                    ParseExternalInvitations.HEADER_NAME,
+                    ParseExternalInvitations.HEADER_EMAIL,
+                )
             )
 
         return error_messages

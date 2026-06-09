@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 14:31+0200\n"
+"POT-Creation-Date: 2026-06-09 11:46+0200\n"
 "PO-Revision-Date: 2026-05-05 13:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -43,51 +43,51 @@ msgstr "ciutats"
 msgid "zip codes"
 msgstr "codis postals"
 
-#: apps/methods/admin.py:616
+#: apps/methods/admin.py:617
 msgid "Balance successfuly updated."
 msgstr "Balanç actualitzat amb èxit."
 
-#: apps/methods/admin.py:647 apps/methods/views.py:430
+#: apps/methods/admin.py:648 apps/methods/views.py:436
 msgid "An email to the contact has been sent."
 msgstr "S'ha enviat un mail al contacte."
 
-#: apps/methods/admin.py:660
+#: apps/methods/admin.py:661
 msgid "Balance status successfuly updated."
 msgstr "Estat del balanç actualitzat amb èxit."
 
-#: apps/methods/admin.py:728 apps/methods/admin.py:772
+#: apps/methods/admin.py:729 apps/methods/admin.py:773
 msgid "Actions"
 msgstr "Accions"
 
-#: apps/methods/admin.py:732
+#: apps/methods/admin.py:733
 msgid "Are you sure you want to send the invitation?"
 msgstr "Esteu segur que voleu enviar la invitació?"
 
-#: apps/methods/admin.py:737
+#: apps/methods/admin.py:738
 msgid "Send invitation"
 msgstr "Enviar invitació"
 
-#: apps/methods/admin.py:776 templates/methods/external_surveys_view.html:59
+#: apps/methods/admin.py:777 templates/methods/external_surveys_view.html:59
 msgid "Are you sure you want to send the invitations?"
 msgstr "Esteu segur que voleu enviar les invitacions?"
 
-#: apps/methods/admin.py:781
+#: apps/methods/admin.py:782
 msgid "Send invitations"
 msgstr "Enviar invitacions"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
-#: apps/methods/models.py:489 apps/methods/models.py:622
-#: apps/methods/models.py:670 apps/organizations/forms.py:27
+#: apps/methods/models.py:495 apps/methods/models.py:628
+#: apps/methods/models.py:676 apps/organizations/forms.py:27
 #: apps/organizations/forms.py:43 apps/organizations/forms.py:245
-#: templates/admin/methods/survey_review.html:34
-#: templates/admin/methods/survey_review.html:119
+#: templates/admin/methods/survey_review.html:35
+#: templates/admin/methods/survey_review.html:120
 #: templates/admin/organizations/registration_requests.html:38
 #: templates/components/methods/invitations_table.html:8
 msgid "Name"
 msgstr "Nom"
 
 #: apps/methods/forms.py:158 apps/methods/forms.py:159
-#: apps/methods/models.py:671
+#: apps/methods/models.py:677
 msgid "Surnames"
 msgstr "Cognom"
 
@@ -95,20 +95,22 @@ msgstr "Cognom"
 msgid "Gender"
 msgstr "Gènere"
 
-#: apps/methods/helpers.py:30
-msgid "The csv file must contain the headers 'name' and 'email'"
+#. Translators: The symbol '{}' refer to the specific CSV column headers
+#. and should remain in English.
+#: apps/methods/helpers.py:35
+msgid "The csv file must contain the headers '{}' and '{}'"
 msgstr ""
-"El fitxer csv ha de contenir les capçaleres 'nom' i 'correu electrònic'"
+"El fitxer csv ha de contenir les capçaleres '{}' i '{}'"
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
-#: apps/methods/models.py:422 apps/organizations/models.py:29
+#: apps/methods/models.py:428 apps/organizations/models.py:29
 #: apps/organizations/models.py:163 apps/settings/models.py:10
 #: apps/settings/models.py:21 apps/settings/models.py:38
 msgid "name"
 msgstr "nom"
 
 #: apps/methods/models.py:20 apps/methods/models.py:150
-#: apps/methods/models.py:336 apps/methods/models.py:423
+#: apps/methods/models.py:339 apps/methods/models.py:429
 #: apps/organizations/models.py:30 apps/organizations/models.py:164
 msgid "description"
 msgstr "descripció"
@@ -251,11 +253,11 @@ msgstr "€/h"
 msgid "number"
 msgstr "número"
 
-#: apps/methods/models.py:147 apps/methods/models.py:333
+#: apps/methods/models.py:147 apps/methods/models.py:336
 msgid "ID"
 msgstr "ID"
 
-#: apps/methods/models.py:148 apps/methods/models.py:334
+#: apps/methods/models.py:148 apps/methods/models.py:337
 msgid "version"
 msgstr "versió"
 
@@ -291,7 +293,7 @@ msgstr "Sumar total del grup?"
 msgid "Add group totals?"
 msgstr "Sumar total dels grups?"
 
-#: apps/methods/models.py:198 apps/methods/models.py:339
+#: apps/methods/models.py:198 apps/methods/models.py:342
 msgid "condition"
 msgstr "condició"
 
@@ -323,174 +325,178 @@ msgstr "Aquest camp és obligatori si l'indicador és indirecte."
 msgid "Circular dependencies"
 msgstr "Dependències circulars"
 
-#: apps/methods/models.py:327
+#: apps/methods/models.py:330
 msgid "Indicator code can't contain the underscore character '_'"
 msgstr "El codi de l'indicador no pot contenir el caràcter de subratllat '_'"
 
-#: apps/methods/models.py:335
+#: apps/methods/models.py:338
 msgid "set name"
 msgstr "definir nom"
 
-#: apps/methods/models.py:337
+#: apps/methods/models.py:340
 msgid "item name"
 msgstr "nom de l'element"
 
-#: apps/methods/models.py:412
+#: apps/methods/models.py:418
 msgid "Organisation"
 msgstr "Organizació"
 
-#: apps/methods/models.py:413 templates/admin/methods/survey_review.html:122
+#: apps/methods/models.py:419 templates/admin/methods/survey_review.html:123
 msgid "Project"
 msgstr "Projecte"
 
-#: apps/methods/models.py:414
+#: apps/methods/models.py:420
 msgid "External Survey"
 msgstr "Qüestionari extern"
 
-#: apps/methods/models.py:417
+#: apps/methods/models.py:423
 msgid "Work"
 msgstr "Laboral"
 
-#: apps/methods/models.py:418
+#: apps/methods/models.py:424
 msgid "Professional"
 msgstr "Professional"
 
-#: apps/methods/models.py:419
+#: apps/methods/models.py:425
 #: templates/components/methods/survey_review_row.html:126
 msgid "Associative"
 msgstr "Associatiu"
 
-#: apps/methods/models.py:420
+#: apps/methods/models.py:426
 msgid "Volunteering"
 msgstr "Voluntariat"
 
-#: apps/methods/models.py:425
+#: apps/methods/models.py:431
 msgid "unit of analysis"
 msgstr "unitat d'anàlisi"
 
-#: apps/methods/models.py:437
+#: apps/methods/models.py:443
 msgid "Which entity does this method applies to?"
 msgstr "A quina entitat s'aplica aquest mètode?"
 
-#: apps/methods/models.py:443 apps/organizations/models.py:70
+#: apps/methods/models.py:449 apps/organizations/models.py:70
 msgid "Sectors"
 msgstr "Sectors"
 
-#: apps/methods/models.py:449 templates/admin/methods/survey_review.html:128
+#: apps/methods/models.py:455 templates/admin/methods/survey_review.html:129
 msgid "External surveys"
 msgstr "Qüestionaris externs"
 
-#: apps/methods/models.py:453
+#: apps/methods/models.py:459
 msgid "Version"
 msgstr "Versió"
 
-#: apps/methods/models.py:456 apps/organizations/forms.py:79
+#: apps/methods/models.py:462 apps/organizations/forms.py:79
 #: apps/organizations/forms.py:287
 msgid "Region1"
 msgstr "Comunitat autònoma"
 
-#: apps/methods/models.py:461
+#: apps/methods/models.py:467
 msgid "external survey category"
 msgstr "categoria d'enquesta externa"
 
-#: apps/methods/models.py:483
+#: apps/methods/models.py:489
 msgid "This method has already been used and cannot be deleted."
 msgstr "Aquest mètode ja s'ha utilitzat i no pot ser suprimit."
 
-#: apps/methods/models.py:490
+#: apps/methods/models.py:496
 msgid "Year"
 msgstr "Any"
 
-#: apps/methods/models.py:491
+#: apps/methods/models.py:497
 msgid "Active"
 msgstr "Actiu"
 
-#: apps/methods/models.py:497 apps/organizations/models.py:60
+#: apps/methods/models.py:503 apps/organizations/models.py:60
 #: apps/organizations/models.py:202
 msgid "Methods"
 msgstr "Mètodes"
 
-#: apps/methods/models.py:501 apps/methods/models.py:561
+#: apps/methods/models.py:507 apps/methods/models.py:567
 #: apps/organizations/forms.py:400 apps/organizations/models.py:206
-#: templates/admin/methods/survey_review.html:131
+#: templates/admin/methods/survey_review.html:133
 msgid "Start date"
 msgstr "Data d'inici"
 
-#: apps/methods/models.py:502 apps/organizations/models.py:207
-#: templates/admin/methods/survey_review.html:134
+#: apps/methods/models.py:508 apps/organizations/models.py:207
+#: templates/admin/methods/survey_review.html:144
 msgid "End date"
 msgstr "Data de finalització"
 
-#: apps/methods/models.py:514
+#: apps/methods/models.py:520
 msgid "This campaign has already been used and cannot be deleted."
 msgstr "Aquest campanya ja s'ha utilitzat i no pot ser suprimida."
 
-#: apps/methods/models.py:523
+#: apps/methods/models.py:529
 msgid "Open"
 msgstr "Obert"
 
-#: apps/methods/models.py:527
+#: apps/methods/models.py:533
 msgid "Closed"
 msgstr "Tancat"
 
-#: apps/methods/models.py:531
+#: apps/methods/models.py:537
 msgid "Tech validated"
 msgstr "Validat tècnic"
 
-#: apps/methods/models.py:535
+#: apps/methods/models.py:541
 msgid "Quality checked"
 msgstr "Validat criteri"
 
-#: apps/methods/models.py:542
+#: apps/methods/models.py:548
 msgid "Token"
 msgstr "Testimoni"
 
-#: apps/methods/models.py:562
+#: apps/methods/models.py:568
 msgid "Closed date"
 msgstr "Data de tancament"
 
-#: apps/methods/models.py:563
+#: apps/methods/models.py:569
 msgid "Modified date"
 msgstr "Data de modificació"
 
-#: apps/methods/models.py:564
+#: apps/methods/models.py:570
 msgid "Validated date"
 msgstr "Data de validació"
 
-#: apps/methods/models.py:565
+#: apps/methods/models.py:571
 msgid "Evaluated date"
 msgstr "Data d'avaluació"
 
-#: apps/methods/models.py:604
+#: apps/methods/models.py:610
 msgid "Is total?"
 msgstr "És un total?"
 
-#: apps/methods/models.py:606
+#: apps/methods/models.py:612
 msgid "Set instance number"
 msgstr "Estableix el número d'instància"
 
-#: apps/methods/models.py:610
+#: apps/methods/models.py:616
 msgid "not applicable"
 msgstr "no aplicable"
 
-#: apps/methods/models.py:673
+#: apps/methods/models.py:679
 msgid "email address"
 msgstr "adreça de correu electrònic"
 
-#: apps/methods/models.py:682
+#: apps/methods/models.py:688
 msgid "Send date"
 msgstr "Data d'enviament"
 
-#: apps/methods/models.py:705
+#: apps/methods/models.py:711
 msgid "Title"
 msgstr "Títol"
 
-#: apps/methods/models.py:707 apps/organizations/forms.py:32
+#: apps/methods/models.py:713
+msgid "Display section title?"
+msgstr ""
+
+#: apps/methods/models.py:716 apps/organizations/forms.py:32
 #: apps/organizations/forms.py:250
 msgid "Description"
 msgstr "Descripció"
 
-#: apps/methods/models.py:711
+#: apps/methods/models.py:720
 msgid "order"
 msgstr "ordre"
 
@@ -541,11 +547,11 @@ msgstr "El CSV s'ha importat correctament."
 msgid "There is no CSV file selected to import."
 msgstr "No hi ha cap fitxer CSV seleccionat per importar."
 
-#: apps/methods/views.py:408
+#: apps/methods/views.py:414
 msgid "Error creating contact. Contact your network admin."
 msgstr "Error creant el contacte. Contacti amb el seu administrador de xarxa."
 
-#: apps/methods/views.py:421
+#: apps/methods/views.py:427
 msgid "An email to all the involved contacts has been sent."
 msgstr "S'ha enviat un mail a tots els contactes seleccionats."
 
@@ -988,101 +994,101 @@ msgstr "Veure"
 msgid "View on site"
 msgstr "Visualització al lloc"
 
-#: templates/admin/methods/survey_review.html:13
+#: templates/admin/methods/survey_review.html:14
 msgid "Balance review"
 msgstr "Revisar balanços"
 
-#: templates/admin/methods/survey_review.html:15
+#: templates/admin/methods/survey_review.html:16
 msgid "Simple balance"
 msgstr "Balanç bàsic"
 
-#: templates/admin/methods/survey_review.html:25
+#: templates/admin/methods/survey_review.html:26
 msgid "Filter by"
 msgstr "Filtrar per"
 
-#: templates/admin/methods/survey_review.html:26
+#: templates/admin/methods/survey_review.html:27
 msgid "Campaign"
 msgstr "Campanya"
 
-#: templates/admin/methods/survey_review.html:27
+#: templates/admin/methods/survey_review.html:28
 msgid "Region"
 msgstr "Regió"
 
-#: templates/admin/methods/survey_review.html:28
+#: templates/admin/methods/survey_review.html:29
 msgid "Method"
 msgstr "Mètode"
 
-#: templates/admin/methods/survey_review.html:29
-#: templates/admin/methods/survey_review.html:110
+#: templates/admin/methods/survey_review.html:30
+#: templates/admin/methods/survey_review.html:111
 #: templates/components/methods/invitations_table.html:11
 msgid "Status"
 msgstr "Estat"
 
-#: templates/admin/methods/survey_review.html:30
+#: templates/admin/methods/survey_review.html:31
 msgid "Unit of analysis"
 msgstr "Unitat d'anàlisi"
 
-#: templates/admin/methods/survey_review.html:33
-#: templates/admin/methods/survey_review.html:116 templates/home.html:20
+#: templates/admin/methods/survey_review.html:34
+#: templates/admin/methods/survey_review.html:117 templates/home.html:20
 msgid "NIF"
 msgstr "CIF"
 
-#: templates/admin/methods/survey_review.html:36
+#: templates/admin/methods/survey_review.html:37
 msgid "Filter"
 msgstr "Filtre"
 
-#: templates/admin/methods/survey_review.html:58
+#: templates/admin/methods/survey_review.html:59
 msgid "Send email to all with open balances"
 msgstr "Enviar mail a tothom amb balanços obert"
 
-#: templates/admin/methods/survey_review.html:70
+#: templates/admin/methods/survey_review.html:71
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/admin/methods/survey_review.html:74
+#: templates/admin/methods/survey_review.html:75
 msgid "Page"
 msgstr "Pàgina"
 
-#: templates/admin/methods/survey_review.html:81
+#: templates/admin/methods/survey_review.html:82
 msgid "Next"
 msgstr "Següent"
 
-#: templates/admin/methods/survey_review.html:97
+#: templates/admin/methods/survey_review.html:98
 #: templates/admin/organizations/registration_requests.html:28
 msgid "Select all rows"
 msgstr "Seleccionar totes les files"
 
-#: templates/admin/methods/survey_review.html:113
+#: templates/admin/methods/survey_review.html:114
 msgid "Answers"
 msgstr "Respotes"
 
-#: templates/admin/methods/survey_review.html:125
+#: templates/admin/methods/survey_review.html:126
 #: templates/components/navbar.html:34 templates/info/contact.html:8
 msgid "Contact"
 msgstr "Contacte"
 
-#: templates/admin/methods/survey_review.html:157
+#: templates/admin/methods/survey_review.html:174
 msgid "Edit balance"
 msgstr "Editar balanços"
 
-#: templates/admin/methods/survey_review.html:175
+#: templates/admin/methods/survey_review.html:192
 #: templates/methods/method_fill.html:107
 msgid "Balance errors"
 msgstr "Errors del balanç"
 
-#: templates/admin/methods/survey_review.html:212
+#: templates/admin/methods/survey_review.html:229
 msgid "Email sending confirmation"
 msgstr "Confirmació d'enviament de correu electrònic"
 
-#: templates/admin/methods/survey_review.html:216
+#: templates/admin/methods/survey_review.html:233
 msgid "You are going to send an email to"
 msgstr "Enviaràs un correu electrònic a"
 
-#: templates/admin/methods/survey_review.html:216
+#: templates/admin/methods/survey_review.html:233
 msgid "are you sure?"
 msgstr "n'estàs segur?"
 
-#: templates/admin/methods/survey_review.html:220
+#: templates/admin/methods/survey_review.html:237
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
@@ -1090,13 +1096,13 @@ msgstr ""
 "Enviaràs un correu electrònic a totes les organitzacions que tenen un mètode "
 "obert, està segur?"
 
-#: templates/admin/methods/survey_review.html:225
-#: templates/admin/methods/survey_review.html:229
+#: templates/admin/methods/survey_review.html:242
+#: templates/admin/methods/survey_review.html:246
 #: templates/helpers/delete_submit_line.html:9
 msgid "Yes, I am sure"
 msgstr "Si, estic segur"
 
-#: templates/admin/methods/survey_review.html:233
+#: templates/admin/methods/survey_review.html:250
 msgid "No, cancel"
 msgstr "No, cancel·la"
 
@@ -1430,7 +1436,7 @@ msgstr "Total"
 msgid "Fill with 0's"
 msgstr "Omplir amb 0s"
 
-#: templates/components/methods/group_input.html:147
+#: templates/components/methods/group_input.html:148
 msgid "Validate"
 msgstr "Validació"
 
