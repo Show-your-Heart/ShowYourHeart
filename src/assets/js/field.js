@@ -150,6 +150,9 @@ const initFieldData = () => {
                     value[item.suffix] = initialValue[item.suffix]
                     if (this.indicatorsStore.isNumeric(this.type)) {
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
+                        if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
                     }
                 })
             } else {
@@ -170,13 +173,22 @@ const initFieldData = () => {
                     })
                     if (this.indicatorsStore.isNumeric(this.type)) {
                         value[item.suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + Number(initialValue[item.suffix][curr.suffix] ?? 0), 0)
+                        if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value[item.suffix]['total'] = (Math.round(value[item.suffix]['total'] * 100) / 100).toFixed(2)
+                        }
                     }
                 })
                 this.group2Items.forEach(group2Item => {
                     value[group2Item.suffix] = {}
                     value[group2Item.suffix]['total'] = this.groupItems.reduce((acc, curr) => acc + Number(initialValue[curr.suffix][group2Item.suffix] ?? 0), 0)
+                    if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                        value[group2Item.suffix]['total'] = (Math.round(value[group2Item.suffix]['total'] * 100) / 100).toFixed(2)
+                    }
                 })
                 value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix].total), 0)
+                if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                    value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                }
             } else {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = {}
@@ -246,6 +258,9 @@ const initFieldData = () => {
                     value[suffix] = input
                     if (this.indicatorsStore.isNumeric(type)) {
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
+                        if (type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
                     }
                 } else {
                     value[suffix][suffix2] = input
@@ -253,6 +268,11 @@ const initFieldData = () => {
                         value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix]) ?? 0), 0)
                         value[suffix2]['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix][suffix2]) ?? 0), 0)
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix].total || 0) ?? 0), 0)
+                        if (type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value[suffix]['total'] = (Math.round(value[suffix]['total'] * 100) / 100).toFixed(2)
+                            value[suffix2]['total'] = (Math.round(value[suffix2]['total'] * 100) / 100).toFixed(2)
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
                     }
                 }
             } else {
