@@ -265,8 +265,8 @@ const initFieldData = () => {
                 } else {
                     value[suffix][suffix2] = input
                     if (this.indicatorsStore.isNumeric(this.type)) {
-                        value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix]) ?? 0), 0)
-                        value[suffix2]['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix][suffix2]) ?? 0), 0)
+                        value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix] || 0) ?? 0), 0)
+                        value[suffix2]['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix][suffix2] || 0) ?? 0), 0)
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix].total || 0) ?? 0), 0)
                         if (type == this.indicatorsStore.fieldTypes.DECIMAL) {
                             value[suffix]['total'] = (Math.round(value[suffix]['total'] * 100) / 100).toFixed(2)
