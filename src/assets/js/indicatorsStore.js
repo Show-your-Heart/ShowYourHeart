@@ -376,7 +376,11 @@ const initIndicatorsStore = () => {
                     if (indicator.is_group_indicator) {
                         this.validateField(instanceId, '', '', false, true)
                     } else {
-                        this.validateField(instanceId)
+                        const { isValid, isFieldValid } = this.validateField(instanceId)
+                        if (!indicator.is_direct_indicator) {
+                            let fieldEl = document.querySelector(`#field_${instanceId}`);
+                            Alpine.$data(fieldEl).updateErrors(isFieldValid)
+                        }
                     }
                 }
             } else {
