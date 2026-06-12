@@ -1,10 +1,11 @@
 {% load i18n %}
 
 <div x-data="fieldsSet({code: '{{indicators_set_dict.indicators_set.code}}', name: '{{indicators_set_dict.set_name}}'})" :id="`set_${id}`" x-show="show">
-  <h5 class="text-xl font-bold mb-2" x-text="title"></h5>
-    <template x-if="description != ''">
-        <div class="mb-4" x-html="description"></div>
-    </template>
+  <div class="px-2 py-1 mb-1 w-fit h-fit text-xs font-bold rounded-sm bg-pink-100" x-text="code"></div>
+  <p class="mb-2  font-medium" x-text="title"></p>
+  <template x-if="description != ''">
+      <div class="mb-4" x-html="description"></div>
+  </template>
   <div id="set_{{indicators_set_dict.indicators_set.code}}" data-accordion="collapse">
     <template x-for="instance in instances" :key="instance">
       <div>
