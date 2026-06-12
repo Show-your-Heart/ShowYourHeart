@@ -76,7 +76,7 @@ const initIndicatorsStore = () => {
                         value = '&&'
                     } else if (token == 'OR' || token == 'or') {
                         value = '||'
-                    } else if (token == 'true' || token == 'false') {
+                    } else if (token == 'true' || token == 'false' || token == 'null') {
                         value = token
                     } else {
                         // Reference to other indicator
