@@ -296,7 +296,7 @@ const initFieldData = () => {
         updateErrors(isFieldValid) {
             if (isFieldValid) {
                 this.state.hasErrors = false
-                this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
+                // this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
             } else {
                 this.state.hasErrors = true
                 if (this.msg) {
@@ -307,6 +307,8 @@ const initFieldData = () => {
                     this.state.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
                 }
             }
+            this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
+
         },
         updateShow(show) {
             // Only if it has changed
