@@ -426,6 +426,9 @@ const initIndicatorsStore = () => {
         updateIndicatorResultNa(instanceId, value, hide = false) {
             try {
                 this.indicators[instanceId].notApplicable = value
+                const { isValid, isFieldValid } = this.validateField(instanceId)
+                this.indicators[instanceId].isValid = isValid
+                this.indicators[instanceId].isFieldValid = isFieldValid
 
                 if (hide) {
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
@@ -457,7 +460,11 @@ const initIndicatorsStore = () => {
             } catch (e) {
                 // Check if it belongs to a set
                 if (this.indicators[`${instanceId}_1`] != undefined) {
-                    this.indicators[`${instanceId}_1`].notApplicable = value
+                    instanceId = `${instanceId}_1`
+                    this.indicators[instanceId].notApplicable = value
+                    const { isValid, isFieldValid } = this.validateField(instanceId)
+                    this.indicators[instanceId].isValid = isValid
+                    this.indicators[instanceId].isFieldValid = isFieldValid
 
                     if (hide) {
                         this.indicators[`${instanceId}_1`].show = !value
