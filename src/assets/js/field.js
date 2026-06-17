@@ -28,7 +28,7 @@ const initFieldData = () => {
         state: {},
         indicatorsStore: Alpine.store('indicators'),
         init() {
-            this.initIndicator(code, instanceNumber)
+            document.addEventListener('indicators-store:init', this.initIndicator(code, instanceNumber))
         },
         initIndicator(code, instanceNumber) {
             // Init field data

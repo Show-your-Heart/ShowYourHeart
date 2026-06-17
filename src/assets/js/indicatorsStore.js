@@ -40,6 +40,9 @@ const initIndicatorsStore = () => {
             })
 
             this.storeMaps()
+
+            const initEvent = new Event('indicators-store:init')
+            document.dispatchEvent(initEvent)
         },
         parseExpression(expr, instanceId, val) {
             const tokens = expr.split(" ")
