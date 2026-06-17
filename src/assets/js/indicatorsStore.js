@@ -354,9 +354,9 @@ const initIndicatorsStore = () => {
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
 
-                    // Hide direct indicator and set NA 
+                    // Set NA of direct indicator 
                     if (indicator.is_direct_indicator && !show) {
-                        this.updateIndicatorResultNa(instanceId, true, true)
+                        this.updateIndicatorResultNa(instanceId, true)
                     }
 
                     // Update validation
