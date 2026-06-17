@@ -27,15 +27,42 @@ const initIndicatorsStore = () => {
             let indicatorsInSets = []
             this.indicatorsSets.forEach(s => indicatorsInSets = [...indicatorsInSets, ...s.indicators_ids])
             indicators.forEach(i => {
-                const instanceId = indicatorsInSets.findIndex(iIS => iIS == i.id) != -1 ? `${i.id}_1` : i.id
-                this.indicators[instanceId] = {
-                    value: '',
-                    show: false,
-                    notApplicable: false,
-                    isValid: false,
-                    isFieldValid: false,
-                    hasErrors: false,
-                    error: '',
+                // If indicator belongs to set
+                if (indicatorsInSets.findIndex(iIS => iIS == i.id) != -1) {
+                    // Find all instances
+                    let instancesIds = Object.keys(indicatorResults).filter(instanceId => instanceId.includes(i.id))
+                    if (instancesIds.length != 0) {
+                        instancesIds.forEach(instanceId => this.indicators[instanceId] = {
+                            value: '',
+                            show: false,
+                            notApplicable: false,
+                            isValid: false,
+                            isFieldValid: false,
+                            hasErrors: false,
+                            error: '',
+                        })
+                    } else {
+                        // Or else, if no set indicator results have been saved yet, create empty entry for instance 1
+                        this.indicators[`${i.id}_1`] = {
+                            value: '',
+                            show: false,
+                            notApplicable: false,
+                            isValid: false,
+                            isFieldValid: false,
+                            hasErrors: false,
+                            error: '',
+                        }
+                    }
+                } else {
+                    this.indicators[i.id] = {
+                        value: '',
+                        show: false,
+                        notApplicable: false,
+                        isValid: false,
+                        isFieldValid: false,
+                        hasErrors: false,
+                        error: '',
+                    }
                 }
             })
 
