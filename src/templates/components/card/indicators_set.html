@@ -2,10 +2,13 @@
 
 <div x-data="fieldsSet({code: '{{indicators_set_dict.indicators_set.code}}', name: '{{indicators_set_dict.set_name}}'})" :id="`set_${id}`" x-show="show">
   <div class="px-2 py-1 mb-1 w-fit h-fit text-xs font-bold rounded-sm bg-pink-100" x-text="code"></div>
-  <p class="mb-2  font-medium" x-text="title"></p>
-  <template x-if="description != ''">
-      <div class="mb-4" x-html="description"></div>
-  </template>
+  <p class="flex align-items-start">
+    <span class="mb-3 me-2 font-medium" x-text="title"></span>
+    <template x-if="description != ''">
+      <c-help-drawer class="self-align-start" id="{{indicators_set_dict.id}}"></c-help-drawer>
+    </template>
+  </p>
+
   <div id="set_{{indicators_set_dict.indicators_set.code}}" data-accordion="collapse">
     <template x-for="instance in instances" :key="instance">
       <div>
