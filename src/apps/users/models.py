@@ -8,7 +8,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from project.models import BaseModel
-from project.utils.mixins import NetworkFilterMixin
 
 
 class UserManager(BaseUserManager):
@@ -47,7 +46,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class UserProfile(NetworkFilterMixin, BaseModel):
+class UserProfile(BaseModel):
     user = models.OneToOneField(
         "users.User",
         null=False,
@@ -77,7 +76,7 @@ class UserProfile(NetworkFilterMixin, BaseModel):
         return self.user.full_name
 
 
-class User(NetworkFilterMixin, BaseModel, AbstractBaseUser, PermissionsMixin):
+class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     name = models.CharField(_("name"), max_length=100)
     surnames = models.CharField(
         _("surname"),
