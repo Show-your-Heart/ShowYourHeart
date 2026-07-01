@@ -27,19 +27,49 @@ const initIndicatorsStore = () => {
             let indicatorsInSets = []
             this.indicatorsSets.forEach(s => indicatorsInSets = [...indicatorsInSets, ...s.indicators_ids])
             indicators.forEach(i => {
-                const instanceId = indicatorsInSets.findIndex(iIS => iIS == i.id) != -1 ? `${i.id}_1` : i.id
-                this.indicators[instanceId] = {
-                    value: '',
-                    show: false,
-                    notApplicable: false,
-                    isValid: false,
-                    isFieldValid: false,
-                    hasErrors: false,
-                    error: '',
+                // If indicator belongs to set
+                if (indicatorsInSets.findIndex(iIS => iIS == i.id) != -1) {
+                    // Find all instances
+                    let instancesIds = Object.keys(indicatorResults).filter(instanceId => instanceId.includes(i.id))
+                    if (instancesIds.length != 0) {
+                        instancesIds.forEach(instanceId => this.indicators[instanceId] = {
+                            value: '',
+                            show: false,
+                            notApplicable: false,
+                            isValid: false,
+                            isFieldValid: false,
+                            hasErrors: false,
+                            error: '',
+                        })
+                    } else {
+                        // Or else, if no set indicator results have been saved yet, create empty entry for instance 1
+                        this.indicators[`${i.id}_1`] = {
+                            value: '',
+                            show: false,
+                            notApplicable: false,
+                            isValid: false,
+                            isFieldValid: false,
+                            hasErrors: false,
+                            error: '',
+                        }
+                    }
+                } else {
+                    this.indicators[i.id] = {
+                        value: '',
+                        show: false,
+                        notApplicable: false,
+                        isValid: false,
+                        isFieldValid: false,
+                        hasErrors: false,
+                        error: '',
+                    }
                 }
             })
 
             this.storeMaps()
+
+            const initEvent = new Event('indicators-store:init')
+            document.dispatchEvent(initEvent)
         },
         parseExpression(expr, instanceId, val) {
             const tokens = expr.split(" ")
@@ -76,7 +106,7 @@ const initIndicatorsStore = () => {
                         value = '&&'
                     } else if (token == 'OR' || token == 'or') {
                         value = '||'
-                    } else if (token == 'true' || token == 'false') {
+                    } else if (token == 'true' || token == 'false' || token == 'null') {
                         value = token
                     } else {
                         // Reference to other indicator
@@ -128,6 +158,7 @@ const initIndicatorsStore = () => {
 
             let fieldEl = null
             let fieldData = null
+            // If errors have to be display in a table, get the element for later manipulation
             if (setGroupItems) {
                 fieldEl = document.querySelector(`#field_${instanceId}`)
                 fieldData = Alpine.$data(fieldEl)
@@ -323,9 +354,9 @@ const initIndicatorsStore = () => {
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
 
-                    // Hide direct indicator and set NA 
+                    // Set NA of direct indicator 
                     if (indicator.is_direct_indicator && !show) {
-                        this.updateIndicatorResultNa(instanceId, true, true)
+                        this.updateIndicatorResultNa(instanceId, true)
                     }
 
                     // Update validation
@@ -333,7 +364,6 @@ const initIndicatorsStore = () => {
                     this.indicators[instanceId].isValid = isValid
                     this.indicators[instanceId].isFieldValid = isFieldValid
                     Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
-
                 }
                 // Check if formula is dependant
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
@@ -376,7 +406,11 @@ const initIndicatorsStore = () => {
                     if (indicator.is_group_indicator) {
                         this.validateField(instanceId, '', '', false, true)
                     } else {
-                        this.validateField(instanceId)
+                        const { isValid, isFieldValid } = this.validateField(instanceId)
+                        if (!indicator.is_direct_indicator) {
+                            let fieldEl = document.querySelector(`#field_${instanceId}`);
+                            Alpine.$data(fieldEl).updateErrors(isFieldValid)
+                        }
                     }
                 }
             } else {
@@ -392,6 +426,9 @@ const initIndicatorsStore = () => {
         updateIndicatorResultNa(instanceId, value, hide = false) {
             try {
                 this.indicators[instanceId].notApplicable = value
+                const { isValid, isFieldValid } = this.validateField(instanceId)
+                this.indicators[instanceId].isValid = isValid
+                this.indicators[instanceId].isFieldValid = isFieldValid
 
                 if (hide) {
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
@@ -402,21 +439,32 @@ const initIndicatorsStore = () => {
                 const id = instanceIdTokens[0]
                 const indicator = this.getIndicatorDataById(id)
 
+                // Hide all dependent indicators that depend on it
                 if (indicator.dependant_indicators) {
                     for (var code of indicator.dependant_indicators) {
                         const dependantIndicator = this.getIndicatorDataByCode(code)
-                        // Make sure second subtoken is a number and not 'set', 'total' or similar
-                        const instanceId = instanceIdTokens.length == 2 && !(
-                            dependantIndicator.condition.includes('_set') || dependantIndicator.condition.includes('_total') ||
-                            dependantIndicator.formula.includes('_set') || dependantIndicator.formula.includes('_total')
-                        ) ? `${dependantIndicator.id}_${instanceIdTokens[1]}` : dependantIndicator.id
-                        this.updateIndicatorResultNa(instanceId, value, true)
+                        if (dependantIndicator == undefined) {
+                            const indicatorsSet = this.indicatorsSets.find(s => s.code == code)
+                            const setEl = document.querySelector(`#set_${indicatorsSet.id}`)
+                            Alpine.$data(setEl).updateShow(false)
+                        } else {
+                            // Make sure second subtoken is a number and not 'set', 'total' or similar
+                            const instanceId = instanceIdTokens.length == 2 && !(
+                                dependantIndicator.condition.includes('_set') || dependantIndicator.condition.includes('_total') ||
+                                dependantIndicator.formula.includes('_set') || dependantIndicator.formula.includes('_total')
+                            ) ? `${dependantIndicator.id}_${instanceIdTokens[1]}` : dependantIndicator.id
+                            this.updateIndicatorResultNa(instanceId, value, true)
+                        }
                     }
                 }
             } catch (e) {
                 // Check if it belongs to a set
                 if (this.indicators[`${instanceId}_1`] != undefined) {
-                    this.indicators[`${instanceId}_1`].notApplicable = value
+                    instanceId = `${instanceId}_1`
+                    this.indicators[instanceId].notApplicable = value
+                    const { isValid, isFieldValid } = this.validateField(instanceId)
+                    this.indicators[instanceId].isValid = isValid
+                    this.indicators[instanceId].isFieldValid = isFieldValid
 
                     if (hide) {
                         this.indicators[`${instanceId}_1`].show = !value

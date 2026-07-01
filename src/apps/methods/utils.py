@@ -2,7 +2,7 @@ import re
 
 
 def parse_expression_dependencies(expr: str):
-    keywords = ["val", "true", "false", "and", "AND", "&&", "or", "OR", "||"]
+    keywords = ["val", "true", "false", "and", "AND", "&&", "or", "OR", "||", "null"]
 
     tokens = expr.split()
 

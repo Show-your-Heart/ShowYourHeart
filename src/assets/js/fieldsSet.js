@@ -31,7 +31,7 @@ const initFielsSetdData = () => {
                 if (id == firstIndicatorId && instanceNumber > this.idsCounter) {
                     this.idsCounter = instanceNumber
                 }
-                if (instanceNumber !== undefined && !this.instances.includes(Number(instanceNumber))) {
+                if (instanceNumber !== undefined && !this.instances.includes(Number(instanceNumber)) && this.indicatorsIds.includes(id)) {
                     this.instances.push(Number(instanceNumber))
                     this.totalInstances++
                 }

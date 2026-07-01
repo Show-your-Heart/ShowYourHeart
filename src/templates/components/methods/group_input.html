@@ -127,7 +127,7 @@
             </tbody>
         </table>
     </div>
-    <div class="text-red-600" x-show="state.hasErrors">
+    <div class="text-red-600" x-show="state.hasErrors" x-transition.duration.500ms>
         <p x-text="state.error"></p>
     </div>
     <template x-if="indicatorsStore.isNumeric(type)">
