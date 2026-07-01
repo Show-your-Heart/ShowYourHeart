@@ -19,6 +19,7 @@ from unfold.sites import UnfoldAdminSite
 from apps.methods.models import Survey
 from apps.organizations.models import Organization
 from project.decorators import gov_admin_register
+from project.utils.mixins import NetworkFilterMixin
 
 from .helpers import available_apps_to_dict
 
@@ -322,7 +323,7 @@ class LogEntryAdmin(BaseModelAdmin):
 
 
 # Create a custom admin site for non-superuser admins like gov admin
-class GovAdminSite(UnfoldAdminSite):
+class GovAdminSite(NetworkFilterMixin, UnfoldAdminSite):
     index_template = "admin/syh_index.html"
     app_index_template = "admin/syh_app_index_template.html"
 
@@ -526,11 +527,13 @@ class GovAdminSite(UnfoldAdminSite):
 
     def index(self, request, extra_context=None):
         extra_context = extra_context or {}
-        extra_context["pending_registrations_requests"] = Organization.objects.filter(
-            status=Organization.Status.PENDING
-        ).count()
-        extra_context["pending_balance_reviews"] = Survey.objects.filter(
-            status=Survey.Status.CLOSED
+        extra_context["pending_registrations_requests"] = (
+            self.filter_queryset_by_network(
+                request, Organization.objects.filter(status=Organization.Status.PENDING)
+            ).count()
+        )
+        extra_context["pending_balance_reviews"] = self.filter_queryset_by_network(
+            request, Survey.objects.filter(status=Survey.Status.CLOSED)
         ).count()
         return super().index(request, extra_context)
 
