@@ -17,9 +17,9 @@
                             <p class="flex justify-center items-center">{% translate "Campaigns" %}</p>
                         </th>
 
-                        {% for method in methods %}
+                        {% for survey_name in survey_names %}
                         <th class="px-4 py-3 font-semibold whitespace-nowrap text-white">
-                            <p class="flex justify-center items-center">{{ method.method__name }}</p>
+                            <p class="flex justify-center items-center">{{ survey_name }}</p>
                         </th>
                         {% endfor %}
 
@@ -42,13 +42,9 @@
                     {% for survey in row.cells %}
                         <td class="px-4 py-3 text-gray-700">
                         {% if survey %}
-                            {% if survey.evaluated_date %}
-                                <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
-                                    <c-icon name="download" class="text-blue-600"></c-icon>
-                                </a>
-                            {% else %}
-                                <p class="flex justify-center items-center">-</p>
-                            {% endif %}
+                            <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
+                                <c-icon name="download" class="text-blue-600"></c-icon>
+                            </a>
                         {% else %}
                             <p class="flex justify-center items-center">-</p>
                         {% endif %}
@@ -65,7 +61,7 @@
                         {% endif %}
                         </td>
                         <td class="px-4 py-3">
-                        {% if row.has_evaluated %}
+                        {% if row.has_validated %}
                             <p class="flex justify-center items-center">Stamp WIP</p>
                         {% else %}
                             <p class="flex justify-center items-center">-</p>
