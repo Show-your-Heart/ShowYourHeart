@@ -516,6 +516,12 @@ class GovAdminSite(UnfoldAdminSite):
                 )
 
         context["main_menu"] = main_menu
+
+        request.user.is_syh_admin = request.user.groups.filter(
+            name__in=["Governance Admins", "Network Admins"]
+        ).exists()
+        context["user"] = request.user
+
         return context
 
     def index(self, request, extra_context=None):

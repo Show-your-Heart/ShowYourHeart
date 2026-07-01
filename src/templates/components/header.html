@@ -80,11 +80,11 @@ Input params:
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     role="menuitem">{% translate "Profile" %}</a>
                 </li>
-                {% if request.user.has_admin_role %}
+                {% if request.user.has_admin_role or request.user.is_syh_admin %}
                 <li>
-                  <a href="{% url 'admin:index' %}"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem">{% translate "Administration panel" %}</a>
+                  <a href="{% url 'gov_admin:index' %}"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  role="menuitem">{% translate "Administration panel" %}</a>
                 </li>
                 {% endif %}
                 <li>
