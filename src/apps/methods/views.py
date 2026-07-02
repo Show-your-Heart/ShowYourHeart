@@ -3,7 +3,7 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.db.models import Prefetch, Q
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -214,41 +214,46 @@ def invitation_sent_view(request, id):
         )
 
 
-def import_csv2(request, organization_id, method_id, campaign_id):
+def import_csv(request, organization_id, method_id, campaign_id):
     # The method_id comes from the method of type external invitation
     extsurvinv = create_external_survey_invitation(
         organization_id, method_id, campaign_id
     )
-    return import_csv(request, extsurvinv.id)
 
-
-def import_csv(request, id):
-    # The id comes from the ExternalSurveyInvitation
     if request.method == "POST":
         csv_file = request.FILES["csv_file"] if "csv_file" in request.FILES else False
 
+        message_type = "error"
+        result = {"error_messages": "", "invitations": []}
+        displayed_message = ""
         if csv_file:
             decoded_file = csv_file.read().decode("utf-8-sig").splitlines()
             reader = csv.reader(decoded_file)
             pei = ParseExternalInvitations()
-            message = pei.parse_csv(reader, id)
+            result = pei.parse_csv(reader, extsurvinv.id)
 
-            if len(message) > 0:
-                messages.warning(
-                    request,
-                    "\n".join(message),
-                )
-                return HttpResponseRedirect(request.path_info)
+            if len(result["error_messages"]) > 0:
+                displayed_message = "\n".join(result["error_messages"])
             else:
-                messages.success(
-                    request,
-                    _("The CSV has been imported correctly."),
-                )
+                displayed_message = _("The CSV has been imported correctly.")
+                message_type = "success"
         else:
-            messages.error(
+            displayed_message = _("There is no CSV file selected to import.")
+
+        return HttpResponse(
+            render(
                 request,
-                _("There is no CSV file selected to import."),
-            )
+                "components/methods/invitations_imported_rows.html",
+                {"invitationsImported": result["invitations"]},
+            ),
+            headers={
+                "HX-Trigger": '{"notification": {"type": "'
+                + message_type
+                + '","text": "'
+                + displayed_message
+                + '"}}',
+            },
+        )
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
 

@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<input
+    type="file"
+    {{attrs}}
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 focus:border-blue-500 block w-full max-w-200 p-2.5
+            cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0
+            file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+    {% include "django/forms/widgets/attrs.html" %}
+/>
