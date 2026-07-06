@@ -57,7 +57,7 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("country", "vacd")
         + get_permission_codenames("region2", "vacd")
         + get_permission_codenames("region3", "vacd")
-        + get_permission_codenames("zip_code", "vacd"),
+        + get_permission_codenames("zipcode", "vacd"),
     }
     create_group(settings.GROUPS["admins"]["name"], permissions_gov)
 
@@ -76,6 +76,12 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("topic", "v")
         + get_permission_codenames("externalsurveyinvitation", "v"),
         "users": get_permission_codenames("user", "v"),
+        "geodata": get_permission_codenames("region1", "v")
+        + get_permission_codenames("city", "v")
+        + get_permission_codenames("country", "v")
+        + get_permission_codenames("region2", "v")
+        + get_permission_codenames("region3", "v")
+        + get_permission_codenames("zipcode", "v"),
     }
     create_group(settings.GROUPS["network_admin"]["name"], permissions_network)
 
