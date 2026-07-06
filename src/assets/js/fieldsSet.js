@@ -77,7 +77,6 @@ const initFielsSetdData = () => {
             }
         },
         updateShow(show) {
-            console.log("update set show", show, this.show)
             // Only if it has changed
             if (this.show != show) {
                 this.show = show

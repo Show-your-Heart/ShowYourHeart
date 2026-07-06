@@ -434,29 +434,6 @@ const initIndicatorsStore = () => {
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
                     Alpine.$data(fieldEl).updateShow(!value)
                 }
-
-                const instanceIdTokens = instanceId.split('_')
-                const id = instanceIdTokens[0]
-                const indicator = this.getIndicatorDataById(id)
-
-                // Hide all dependent indicators that depend on it
-                if (indicator.dependant_indicators) {
-                    for (var code of indicator.dependant_indicators) {
-                        const dependantIndicator = this.getIndicatorDataByCode(code)
-                        if (dependantIndicator == undefined) {
-                            const indicatorsSet = this.indicatorsSets.find(s => s.code == code)
-                            const setEl = document.querySelector(`#set_${indicatorsSet.id}`)
-                            Alpine.$data(setEl).updateShow(false)
-                        } else {
-                            // Make sure second subtoken is a number and not 'set', 'total' or similar
-                            const instanceId = instanceIdTokens.length == 2 && !(
-                                dependantIndicator.condition.includes('_set') || dependantIndicator.condition.includes('_total') ||
-                                dependantIndicator.formula.includes('_set') || dependantIndicator.formula.includes('_total')
-                            ) ? `${dependantIndicator.id}_${instanceIdTokens[1]}` : dependantIndicator.id
-                            this.updateIndicatorResultNa(instanceId, value, true)
-                        }
-                    }
-                }
             } catch (e) {
                 // Check if it belongs to a set
                 if (this.indicators[`${instanceId}_1`] != undefined) {

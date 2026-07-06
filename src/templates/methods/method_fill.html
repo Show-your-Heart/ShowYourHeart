@@ -57,7 +57,9 @@
             id="tab-{{ section.id }}" :class="getBtnClass('{{section.id}}')"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title|escapejs }}"
             aria-selected="false" x-data @click="$store.survey.setSection('{{section.id}}')"  x-cloak >
-            {{ section.title|escapejs }}
+            <span class="text-start">
+              {{ section.title|escapejs }}
+            </span>
             <c-icon x-show="showCurrent('{{section.id}}')" name="arrow-right"
               class="w-6 h-6 inline text-blue-600"></c-icon>
             <c-icon x-show="showCheck('{{section.id}}')" name="check" class="w-6 h-6 inline text-green-800"></c-icon>
