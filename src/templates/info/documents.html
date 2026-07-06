@@ -17,15 +17,12 @@
                             <p class="flex justify-center items-center">{% translate "Campaigns" %}</p>
                         </th>
 
-                        {% for method in methods %}
+                        {% for survey_name in survey_names %}
                         <th class="px-4 py-3 font-semibold whitespace-nowrap text-white">
-                            <p class="flex justify-center items-center">{{ method.method__name }}</p>
+                            <p class="flex justify-center items-center">{{ survey_name }}</p>
                         </th>
                         {% endfor %}
 
-                        <th class="px-4 py-3 font-semibold text-white">
-                            <p class="flex justify-center items-center">{% translate "Infographics" %}</p>
-                        </th>
                         <th class="px-4 py-3 font-semibold text-white">
                             <p class="flex justify-center items-center">{% translate "Stamps" %}</p>
                         </th>
@@ -42,13 +39,16 @@
                     {% for survey in row.cells %}
                         <td class="px-4 py-3 text-gray-700">
                         {% if survey %}
-                            {% if survey.evaluated_date %}
-                                <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank" class="flex justify-center items-center">
+                            <div class="flex items-center justify-center">
+                                <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank">
                                     <c-icon name="download" class="text-blue-600"></c-icon>
                                 </a>
-                            {% else %}
-                                <p class="flex justify-center items-center">-</p>
-                            {% endif %}
+                                {% if row.has_evaluated %}
+                                <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}&method={{ survey.method.id }}" target="_blank">
+                                    <c-icon name="pdf" class="text-blue-600"></c-icon>
+                                </a>
+                                {% endif %}
+                            </div>
                         {% else %}
                             <p class="flex justify-center items-center">-</p>
                         {% endif %}
@@ -56,16 +56,7 @@
                     {% endfor %}
 
                         <td class="px-4 py-3">
-                        {% if row.has_evaluated %}
-                            <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}" target="_blank" class="flex items-center justify-center">
-                                <c-icon name="pdf" class="text-blue-600"></c-icon>
-                            </a>
-                        {% else %}
-                            <p class="flex justify-center items-center">-</p>
-                        {% endif %}
-                        </td>
-                        <td class="px-4 py-3">
-                        {% if row.has_evaluated %}
+                        {% if row.has_validated %}
                             <p class="flex justify-center items-center">Stamp WIP</p>
                         {% else %}
                             <p class="flex justify-center items-center">-</p>

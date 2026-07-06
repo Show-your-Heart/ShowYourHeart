@@ -23,12 +23,8 @@ class DocumentsView(TemplateView):
             "campaign", "method"
         )
 
-        methods = (
-            surveys.values("method__id", "method__name")
-            .distinct()
-            .order_by("method__name")
-        )
-        context["methods"] = methods
+        survey_names = sorted({s.method.name for s in surveys})
+        context["survey_names"] = survey_names
 
         campaigns = Campaign.objects.filter(
             survey__organization=organization
@@ -41,18 +37,15 @@ class DocumentsView(TemplateView):
                 "cells": [],
                 "has_evaluated": False,
             }
-            for method in methods:
-                survey = next(
-                    (
-                        s
-                        for s in surveys
-                        if s.campaign_id == campaign.id
-                        and s.method_id == method["method__id"]
-                    ),
-                    None,
-                )
-                if survey and survey.evaluated_date:
-                    row["has_evaluated"] = True
+            for name in survey_names:
+                survey = None
+                for s in surveys:
+                    if s.campaign_id == campaign.id and s.method.name == name:
+                        survey = s
+                        if survey.evaluated_date:
+                            row["has_evaluated"] = True
+                        if survey.validated_date:
+                            row["has_validated"] = True
 
                 row["cells"].append(survey)
             table_rows.append(row)

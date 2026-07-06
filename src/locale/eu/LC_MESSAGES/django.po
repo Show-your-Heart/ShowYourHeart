@@ -1533,10 +1533,6 @@ msgstr ""
 msgid "Campaigns"
 msgstr "Kanpainak"
 
-#: templates/info/documents.html:27
-msgid "Infographics"
-msgstr "Infografiak"
-
 #: templates/info/documents.html:30
 msgid "Stamps"
 msgstr "Sigiluak"

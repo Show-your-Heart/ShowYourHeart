@@ -1536,10 +1536,6 @@ msgstr ""
 msgid "Campaigns"
 msgstr "Campanya"
 
-#: templates/info/documents.html:27
-msgid "Infographics"
-msgstr "Infografia"
-
 #: templates/info/documents.html:30
 msgid "Stamps"
 msgstr "Segells"
