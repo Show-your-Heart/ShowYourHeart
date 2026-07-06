@@ -13,6 +13,7 @@ from unfold.admin import StackedInline
 from apps.users.models import User, UserProfile
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
+from project.utils.mixins import NetworkFilterMixin
 
 
 class UserCreationForm(forms.ModelForm):
@@ -51,7 +52,7 @@ class UserProfileInline(StackedInline):
     model=User,
     custom_change_form_template="admin/users/usercustom/change_form.html",
 )
-class UserAdmin(ModelAdmin, BaseUserAdmin):
+class UserAdmin(NetworkFilterMixin, ModelAdmin, BaseUserAdmin):
     list_display = (
         "email",
         "full_name",
