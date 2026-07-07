@@ -351,6 +351,11 @@ const initIndicatorsStore = () => {
                     if (fieldEl == null) {
                         instanceId = instanceId + "_1"
                         fieldEl = document.querySelector(`#field_${instanceId}`);
+                        // If no element found still, this dependency comes from a set indicator but its not a set indicator
+                        if (fieldEl == null) {
+                            instanceId = instanceId.split("_")[0]
+                            fieldEl = document.querySelector(`#field_${instanceId}`);
+                        }
                     }
                     const show = this.isVisible(instanceId, indicator.condition)
                     Alpine.$data(fieldEl).updateShow(show)
