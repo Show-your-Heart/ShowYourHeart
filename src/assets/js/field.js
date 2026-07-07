@@ -280,9 +280,11 @@ const initFieldData = () => {
             }
             return value
         },
-        updateNotApplicable(checked) {
+        updateNotApplicable(checked, hide = false) {
             this.state.notApplicable = checked
-            this.indicatorsStore.updateIndicatorResultNa(this.instanceId, this.state.notApplicable)
+            if (hide) {
+                this.updateShow(!checked)
+            }
             if (this.indicatorsStore.isMultiAnswer(this.type)) {
                 this.update([])
             } else if (this.indicatorsStore.isGendered(this.type)) {
@@ -328,7 +330,6 @@ const initFieldData = () => {
                     }
                 }
             }
-            // console.log("Show?", this.code, this.state.show)
         },
         isOptionSelected(optionId) {
             return this.state.value.id == optionId

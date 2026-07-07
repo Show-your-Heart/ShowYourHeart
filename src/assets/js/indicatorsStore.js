@@ -339,6 +339,7 @@ const initIndicatorsStore = () => {
         },
         updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
             const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+            let updated = false
             if (indicator) {
                 let instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
@@ -356,7 +357,7 @@ const initIndicatorsStore = () => {
 
                     // Set NA of direct indicator 
                     if (indicator.is_direct_indicator && !show) {
-                        this.updateIndicatorResultNa(instanceId, true)
+                        Alpine.$data(fieldEl).updateNotApplicable(true, true)
                     }
 
                     // Update validation
@@ -364,6 +365,8 @@ const initIndicatorsStore = () => {
                     this.indicators[instanceId].isValid = isValid
                     this.indicators[instanceId].isFieldValid = isFieldValid
                     Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+
+                    updated = true
                 }
                 // Check if formula is dependant
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
@@ -401,6 +404,8 @@ const initIndicatorsStore = () => {
                     let fieldEl = document.querySelector(`#field_${instanceId}`);
                     Alpine.$data(fieldEl).updateErrors(isFieldValid)
                     Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+
+                    updated = true
                 }
                 if (indicator.validation.includes(code)) {
                     if (indicator.is_group_indicator) {
@@ -412,6 +417,11 @@ const initIndicatorsStore = () => {
                             Alpine.$data(fieldEl).updateErrors(isFieldValid)
                         }
                     }
+
+                    updated = true
+                }
+                if (updated) {
+                    this.updateIndicatorDependencies(instanceId)
                 }
             } else {
                 const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
@@ -421,36 +431,6 @@ const initIndicatorsStore = () => {
                     const show = this.isVisible("", indicatorsSet.condition)
                     Alpine.$data(setEl).updateShow(show)
                 }
-            }
-        },
-        updateIndicatorResultNa(instanceId, value, hide = false) {
-            try {
-                this.indicators[instanceId].notApplicable = value
-                const { isValid, isFieldValid } = this.validateField(instanceId)
-                this.indicators[instanceId].isValid = isValid
-                this.indicators[instanceId].isFieldValid = isFieldValid
-
-                if (hide) {
-                    const fieldEl = document.querySelector(`#field_${instanceId}`);
-                    Alpine.$data(fieldEl).updateShow(!value)
-                }
-            } catch (e) {
-                // Check if it belongs to a set
-                if (this.indicators[`${instanceId}_1`] != undefined) {
-                    instanceId = `${instanceId}_1`
-                    this.indicators[instanceId].notApplicable = value
-                    const { isValid, isFieldValid } = this.validateField(instanceId)
-                    this.indicators[instanceId].isValid = isValid
-                    this.indicators[instanceId].isFieldValid = isFieldValid
-
-                    if (hide) {
-                        this.indicators[`${instanceId}_1`].show = !value
-                    }
-                } else if (e instanceof TypeError) {
-                    console.log(`Dependency ${code} of indicator ${this.indicators[instanceId].code} not found in the current method`)
-                    console.log(e)
-                }
-
             }
         },
         isGendered(type) {

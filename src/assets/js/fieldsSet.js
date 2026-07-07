@@ -88,16 +88,7 @@ const initFielsSetdData = () => {
                 this.indicatorsIds.forEach(id => {
                     const instanceId = `${id}_${instanceNumber}`
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
-                    const showField = show
-                    Alpine.$data(fieldEl).updateShow(showField)
-
-                    this.indicatorsStore.updateIndicatorResultNa(instanceId, !show, !show)
-
-                    // Update validation
-                    const { isValid, isFieldValid } = this.indicatorsStore.validateField(instanceId)
-                    this.indicatorsStore.indicators[instanceId].isValid = isValid
-                    this.indicatorsStore.indicators[instanceId].isFieldValid = isFieldValid
-                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id, isValid: isFieldValid })
+                    Alpine.$data(fieldEl).updateNotApplicable(!show, true)
                 })
             })
         }
