@@ -255,7 +255,7 @@ const initFieldData = () => {
                 }
             } else if (this.isGroupIndicator || this.indicatorsStore.isGendered(type)) {
                 value = current
-                if (suffix2 == '') {
+                if (suffix2 == '' && suffix != '') {
                     value[suffix] = input
                     if (this.indicatorsStore.isNumeric(type)) {
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
@@ -263,7 +263,7 @@ const initFieldData = () => {
                             value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
                         }
                     }
-                } else {
+                } else if (suffix2 != '' && suffix != '') {
                     value[suffix][suffix2] = input
                     if (this.indicatorsStore.isNumeric(this.type)) {
                         value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix] || 0) ?? 0), 0)
@@ -275,6 +275,8 @@ const initFieldData = () => {
                             value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
                         }
                     }
+                } else {
+                    value = this.loadInitialValue(input)
                 }
             } else {
                 value = input
