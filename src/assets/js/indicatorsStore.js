@@ -379,7 +379,9 @@ const initIndicatorsStore = () => {
                     if (indicator.formula.includes("set")) {
                         instanceId = indicator.id
                     }
-                    const value = this.evaluateExpression(indicator.formula, instanceId, indicator.code)
+                    let value = this.evaluateExpression(indicator.formula, instanceId, indicator.code)
+                    let fieldEl = document.querySelector(`#field_${instanceId}`);
+
                     if (value != null) {
                         if (value == '__copy__') {
                             this.indicators[instanceId].value = this.indicators[instanceId].value
@@ -391,24 +393,18 @@ const initIndicatorsStore = () => {
                             }
                         } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
                             if (value === true) {
-                                this.indicators[instanceId].value = 'True'
+                                value = 'True'
                             } else if (value === false) {
-                                this.indicators[instanceId].value = 'False'
+                                value = 'False'
                             }
                         } else if (indicator.data_type == this.fieldTypes.DECIMAL) {
-                            this.indicators[instanceId].value = String((Math.round(value * 100) / 100).toFixed(2))
+                            value = String((Math.round(value * 100) / 100).toFixed(2))
                         } else {
-                            this.indicators[instanceId].value = String(value)
+                            value = String(value)
                         }
                     }
 
-                    // Update validation
-                    const { isValid, isFieldValid } = this.validateField(instanceId)
-                    this.indicators[instanceId].isValid = isValid
-                    this.indicators[instanceId].isFieldValid = isFieldValid
-                    let fieldEl = document.querySelector(`#field_${instanceId}`);
-                    Alpine.$data(fieldEl).updateErrors(isFieldValid)
-                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+                    Alpine.$data(fieldEl).update(value)
 
                     updated = true
                 }
