@@ -71,10 +71,9 @@ const initFieldData = () => {
                 this.placeholder = this.loadInitialValue(null)
             }
             this.required = indicator.required
-            if (indicator.is_direct_indicator) {
-                this.condition = indicator.condition
-                this.validation = indicator.validation
-            } else {
+            this.condition = indicator.condition
+            this.validation = indicator.validation
+            if (!indicator.is_direct_indicator) {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
@@ -216,12 +215,12 @@ const initFieldData = () => {
                 this.state.isValid = isValid
                 this.state.isFieldValid = isFieldValid
                 if (showErrors) {
-                if (suffix == '') {
-                    this.updateErrors(isFieldValid)
-                } else if (suffix2 == '') {
-                    this.updateErrors(isFieldValid || isValid[suffix])
-                } else {
-                    this.updateErrors(isFieldValid || isValid[suffix][suffix2])
+                    if (suffix == '') {
+                        this.updateErrors(isFieldValid)
+                    } else if (suffix2 == '') {
+                        this.updateErrors(isFieldValid || isValid[suffix])
+                    } else {
+                        this.updateErrors(isFieldValid || isValid[suffix][suffix2])
                     }
                 }
                 this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
@@ -288,13 +287,13 @@ const initFieldData = () => {
                 this.updateShow(!checked, "", "", showErrors)
             }
             if (checked) {
-            if (this.indicatorsStore.isMultiAnswer(this.type)) {
+                if (this.indicatorsStore.isMultiAnswer(this.type)) {
                     this.update([], "", "", showErrors)
-            } else if (this.indicatorsStore.isGendered(this.type)) {
+                } else if (this.indicatorsStore.isGendered(this.type)) {
                     this.update(0, "women", "", showErrors)
                     this.update(0, "men", "", showErrors)
                     this.update(0, "nonBinary", "", showErrors)
-            } else {
+                } else {
                     this.update("", "", "", showErrors)
                 }
             }
@@ -302,7 +301,6 @@ const initFieldData = () => {
         updateErrors(isFieldValid) {
             if (isFieldValid) {
                 this.state.hasErrors = false
-                // this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
             } else {
                 this.state.hasErrors = true
                 if (this.msg) {

@@ -7,6 +7,9 @@ const initIndicatorsStore = () => {
         indicatorDataIndexByCode: {},
         indicatorIdByCode: {},
         indicatorsSets: [],
+        updateQueueCodes: [],
+        updateQueue: {},
+        runningUpdate: false,
         fieldTypes: {
             STRING: "S",
             TEXT: "T",
@@ -327,19 +330,14 @@ const initIndicatorsStore = () => {
             return instancesKeys.reduce((acc, k) => acc + Number(this.indicators[k].value), 0)
         },
         updateIndicatorDependencies(instanceId) {
-            const instanceIdTokens = instanceId.split('_')
-            const id = instanceIdTokens[0]
-            const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
-            const indicator = this.getIndicatorDataById(id)
-            if (indicator && indicator.dependant_indicators) {
-                for (dependantIndicatorCode of indicator.dependant_indicators) {
-                    this.updateDependantIndicator(instanceNumber, dependantIndicatorCode, indicator.code)
-                }
+            if (!this.runningUpdate) {
+                this.recursiveSearch(instanceId)
+                this.sortQueue()
+                this.runQueueUpdate()
             }
         },
         updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
             const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
-            let updated = false
             if (indicator) {
                 let instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
@@ -364,13 +362,11 @@ const initIndicatorsStore = () => {
 
                     // Update validation
                     if (show) {
-                    const { isValid, isFieldValid } = this.validateField(instanceId)
-                    this.indicators[instanceId].isValid = isValid
-                    this.indicators[instanceId].isFieldValid = isFieldValid
-                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+                        const { isValid, isFieldValid } = this.validateField(instanceId)
+                        this.indicators[instanceId].isValid = isValid
+                        this.indicators[instanceId].isFieldValid = isFieldValid
+                        Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
                     }
-
-                    updated = true
                 }
                 // Check if formula is dependant
                 if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
@@ -404,8 +400,6 @@ const initIndicatorsStore = () => {
                     }
 
                     Alpine.$data(fieldEl).update(value)
-
-                    updated = true
                 }
                 if (indicator.validation.includes(code)) {
                     if (indicator.is_group_indicator) {
@@ -417,11 +411,6 @@ const initIndicatorsStore = () => {
                             Alpine.$data(fieldEl).updateErrors(isFieldValid)
                         }
                     }
-
-                    updated = true
-                }
-                if (updated) {
-                    this.updateIndicatorDependencies(instanceId)
                 }
             } else {
                 const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
@@ -539,7 +528,80 @@ const initIndicatorsStore = () => {
             } catch {
                 return null
             }
-        }
+        },
+        // Recursevly search for indicator dependencies to create a queue of indicators to be updated.
+        recursiveSearch(instanceId) {
+            const instanceIdTokens = instanceId.split('_')
+            const id = instanceIdTokens[0]
+            const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
+            const indicator = this.getIndicatorDataById(id)
+            if (indicator && indicator.dependant_indicators) {
+                for (dependantIndicatorCode of indicator.dependant_indicators) {
+                    const dependentIndicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+                    this.addToQueue(instanceNumber, dependantIndicatorCode, indicator.code, dependentIndicator?.dependant_indicators || [])
+                    const dependantIndicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+                    // Dependent indicators sets will return undefined and they don't have dependencies
+                    if (dependantIndicator != undefined && dependantIndicator.dependant_indicators) {
+                        const dependantInstanceId = instanceNumber == -1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceNumber}`
+                        this.recursiveSearch(dependantInstanceId)
+                    }
+                }
+            }
+        },
+        addToQueue(instanceNumber, code, parentCode, dependantIndicatorsCodes) {
+            if (!this.updateQueueCodes.includes(code)) {
+                this.updateQueueCodes.push(code)
+                this.updateQueue[code] = { instanceNumber, code, parentCode, dependantIndicatorsCodes }
+            }
+        },
+        // Sort the queue by puting last the indicators that depend on others
+        sortQueue() {
+            this.updateQueueCodes.sort((a, b) => {
+                if ( // No dependencies
+                    this.updateQueue[a].dependantIndicatorsCodes.length == 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length == 0
+                ) {
+                    return 0
+                } else if ( // a has dependencies, b doesn't --> first update a
+                    this.updateQueue[a].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length == 0
+                ) {
+                    return -1
+                } else if ( // b has dependencies, a doesn't --> first update b
+                    this.updateQueue[a].dependantIndicatorsCodes.length == 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length > 0
+                ) {
+                    return 1
+                } else if ( // both have dependencies, b depends on a --> first update a
+                    this.updateQueue[a].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[a].dependantIndicatorsCodes.includes(b)
+                ) {
+                    return -1
+                } else if ( // both have dependencies, a depends on b --> first update b
+                    this.updateQueue[a].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.includes(a)
+                ) {
+                    return 1
+                } else { // both have dependencies but don't depend on each other
+                    return 0
+                }
+            })
+        },
+        runQueueUpdate() {
+            this.runningUpdate = true
+            for (code of this.updateQueueCodes) {
+                this.updateDependantIndicator(
+                    this.updateQueue[code].instanceNumber,
+                    this.updateQueue[code].code,
+                    this.updateQueue[code].parentCode
+                )
+            }
+            this.updateQueueCodes = []
+            this.updateQueue = {}
+            this.runningUpdate = false
+        },
     })
 
 
