@@ -357,19 +357,18 @@ const initIndicatorsStore = () => {
                             fieldEl = document.querySelector(`#field_${instanceId}`);
                         }
                     }
-                    const show = this.isVisible(instanceId, indicator.condition)
-                    Alpine.$data(fieldEl).updateShow(show)
 
+                    const show = this.isVisible(instanceId, indicator.condition)
                     // Set NA of direct indicator 
-                    if (indicator.is_direct_indicator && !show) {
-                        Alpine.$data(fieldEl).updateNotApplicable(true, true)
-                    }
+                    Alpine.$data(fieldEl).updateNotApplicable(!show, true)
 
                     // Update validation
+                    if (show) {
                     const { isValid, isFieldValid } = this.validateField(instanceId)
                     this.indicators[instanceId].isValid = isValid
                     this.indicators[instanceId].isFieldValid = isFieldValid
                     Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+                    }
 
                     updated = true
                 }

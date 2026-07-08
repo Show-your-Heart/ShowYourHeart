@@ -207,7 +207,7 @@ const initFieldData = () => {
             }
             return value
         },
-        update(newValue, suffix = "", suffix2 = "") {
+        update(newValue, suffix = "", suffix2 = "", showErrors = true) {
             try {
                 this.state = this.indicatorsStore['indicators'][this.instanceId]
                 this.state.value = this.updateValue(newValue, this.state.value, this.type, suffix, suffix2)
@@ -215,12 +215,14 @@ const initFieldData = () => {
                 const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.instanceId, suffix, suffix2, this.isGroupIndicator)
                 this.state.isValid = isValid
                 this.state.isFieldValid = isFieldValid
+                if (showErrors) {
                 if (suffix == '') {
                     this.updateErrors(isFieldValid)
                 } else if (suffix2 == '') {
                     this.updateErrors(isFieldValid || isValid[suffix])
                 } else {
                     this.updateErrors(isFieldValid || isValid[suffix][suffix2])
+                    }
                 }
                 this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
             } catch (e) {
@@ -280,19 +282,21 @@ const initFieldData = () => {
             }
             return value
         },
-        updateNotApplicable(checked, hide = false) {
+        updateNotApplicable(checked, hide = false, showErrors = true) {
             this.state.notApplicable = checked
             if (hide) {
-                this.updateShow(!checked)
+                this.updateShow(!checked, "", "", showErrors)
             }
+            if (checked) {
             if (this.indicatorsStore.isMultiAnswer(this.type)) {
-                this.update([])
+                    this.update([], "", "", showErrors)
             } else if (this.indicatorsStore.isGendered(this.type)) {
-                this.update(0, "women")
-                this.update(0, "men")
-                this.update(0, "nonBinary")
+                    this.update(0, "women", "", showErrors)
+                    this.update(0, "men", "", showErrors)
+                    this.update(0, "nonBinary", "", showErrors)
             } else {
-                this.update("")
+                    this.update("", "", "", showErrors)
+                }
             }
         },
         updateErrors(isFieldValid) {

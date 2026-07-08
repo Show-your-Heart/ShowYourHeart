@@ -88,7 +88,7 @@ const initFielsSetdData = () => {
                 this.indicatorsIds.forEach(id => {
                     const instanceId = `${id}_${instanceNumber}`
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
-                    Alpine.$data(fieldEl).updateNotApplicable(!show, true)
+                    Alpine.$data(fieldEl).updateNotApplicable(!show, true, false)
                 })
             })
         }
