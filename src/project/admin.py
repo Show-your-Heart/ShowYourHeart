@@ -37,7 +37,11 @@ class ModelAdminMixin(object):
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
-        fields = tuple(set(tuple(fields) + self.get_base_readonly_fields()))
+        # Django auth tables does not contain the base_readonly_fields
+        if hasattr(self.model, "created_at"):
+            fields = tuple(set(tuple(fields) + self.get_base_readonly_fields()))
+        else:
+            fields = tuple(fields)
         if not request.user.is_superuser:
             return tuple(set(tuple(fields) + self.get_superuser_fields()))
         return fields
