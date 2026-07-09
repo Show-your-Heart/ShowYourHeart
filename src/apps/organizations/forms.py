@@ -14,6 +14,7 @@ from apps.settings.models import LegalStructure
 from apps.users.models import User, UserProfile
 from apps.users.services import send_registration_mail
 
+from .helpers import get_coordinates_from_address
 from .models import Organization, Project
 
 
@@ -198,6 +199,13 @@ class OrganizationSignUpForm(forms.ModelForm):
                 "organization": organization,
             },
         )
+
+        # Automatically add the organization to the method's networks
+        for method in self.cleaned_data["methods"]:
+            for network in method.networks.all():
+                if network not in organization.networks.all():
+                    organization.networks.add(network)
+
         if commit:
             organization.save()
             # save(commit=False) used before does not save the many to
