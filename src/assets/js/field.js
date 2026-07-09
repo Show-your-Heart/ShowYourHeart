@@ -28,7 +28,7 @@ const initFieldData = () => {
         state: {},
         indicatorsStore: Alpine.store('indicators'),
         init() {
-            this.initIndicator(code, instanceNumber)
+            document.addEventListener('indicators-store:init', this.initIndicator(code, instanceNumber))
         },
         initIndicator(code, instanceNumber) {
             // Init field data
@@ -71,10 +71,9 @@ const initFieldData = () => {
                 this.placeholder = this.loadInitialValue(null)
             }
             this.required = indicator.required
-            if (indicator.is_direct_indicator) {
-                this.condition = indicator.condition
-                this.validation = indicator.validation
-            } else {
+            this.condition = indicator.condition
+            this.validation = indicator.validation
+            if (!indicator.is_direct_indicator) {
                 this.formula = indicator.formula
             }
             this.msg = indicator.message
@@ -150,6 +149,9 @@ const initFieldData = () => {
                     value[item.suffix] = initialValue[item.suffix]
                     if (this.indicatorsStore.isNumeric(this.type)) {
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
+                        if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
                     }
                 })
             } else {
@@ -170,13 +172,22 @@ const initFieldData = () => {
                     })
                     if (this.indicatorsStore.isNumeric(this.type)) {
                         value[item.suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + Number(initialValue[item.suffix][curr.suffix] ?? 0), 0)
+                        if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value[item.suffix]['total'] = (Math.round(value[item.suffix]['total'] * 100) / 100).toFixed(2)
+                        }
                     }
                 })
                 this.group2Items.forEach(group2Item => {
                     value[group2Item.suffix] = {}
                     value[group2Item.suffix]['total'] = this.groupItems.reduce((acc, curr) => acc + Number(initialValue[curr.suffix][group2Item.suffix] ?? 0), 0)
+                    if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                        value[group2Item.suffix]['total'] = (Math.round(value[group2Item.suffix]['total'] * 100) / 100).toFixed(2)
+                    }
                 })
                 value['total'] = this.groupItems.reduce((acc, curr) => acc + Number(value[curr.suffix].total), 0)
+                if (this.type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                    value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                }
             } else {
                 this.groupItems.forEach(item => {
                     value[item.suffix] = {}
@@ -195,7 +206,7 @@ const initFieldData = () => {
             }
             return value
         },
-        update(newValue, suffix = "", suffix2 = "") {
+        update(newValue, suffix = "", suffix2 = "", showErrors = true) {
             try {
                 this.state = this.indicatorsStore['indicators'][this.instanceId]
                 this.state.value = this.updateValue(newValue, this.state.value, this.type, suffix, suffix2)
@@ -203,12 +214,14 @@ const initFieldData = () => {
                 const { isValid, isFieldValid } = this.indicatorsStore.validateField(this.instanceId, suffix, suffix2, this.isGroupIndicator)
                 this.state.isValid = isValid
                 this.state.isFieldValid = isFieldValid
-                if (suffix == '') {
-                    this.updateErrors(isFieldValid)
-                } else if (suffix2 == '') {
-                    this.updateErrors(isFieldValid || isValid[suffix])
-                } else {
-                    this.updateErrors(isFieldValid || isValid[suffix][suffix2])
+                if (showErrors) {
+                    if (suffix == '') {
+                        this.updateErrors(isFieldValid)
+                    } else if (suffix2 == '') {
+                        this.updateErrors(isFieldValid || isValid[suffix])
+                    } else {
+                        this.updateErrors(isFieldValid || isValid[suffix][suffix2])
+                    }
                 }
                 this.$dispatch('indicator-valid', { id: this.id, isValid: isFieldValid })
             } catch (e) {
@@ -242,41 +255,54 @@ const initFieldData = () => {
                 }
             } else if (this.isGroupIndicator || this.indicatorsStore.isGendered(type)) {
                 value = current
-                if (suffix2 == '') {
+                if (suffix2 == '' && suffix != '') {
                     value[suffix] = input
                     if (this.indicatorsStore.isNumeric(type)) {
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix]) || 0), 0)
+                        if (type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
                     }
-                } else {
+                } else if (suffix2 != '' && suffix != '') {
                     value[suffix][suffix2] = input
                     if (this.indicatorsStore.isNumeric(this.type)) {
-                        value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix]) ?? 0), 0)
-                        value[suffix2]['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix][suffix2]) ?? 0), 0)
+                        value[suffix]['total'] = this.group2Items.reduce((acc, curr) => acc + (Number(value[suffix][curr.suffix] || 0) ?? 0), 0)
+                        value[suffix2]['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix][suffix2] || 0) ?? 0), 0)
                         value['total'] = this.groupItems.reduce((acc, curr) => acc + (Number(value[curr.suffix].total || 0) ?? 0), 0)
+                        if (type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value[suffix]['total'] = (Math.round(value[suffix]['total'] * 100) / 100).toFixed(2)
+                            value[suffix2]['total'] = (Math.round(value[suffix2]['total'] * 100) / 100).toFixed(2)
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
                     }
+                } else {
+                    value = this.loadInitialValue(input)
                 }
             } else {
                 value = input
             }
             return value
         },
-        updateNotApplicable(checked) {
+        updateNotApplicable(checked, hide = false, showErrors = true) {
             this.state.notApplicable = checked
-            this.indicatorsStore.updateIndicatorResultNa(this.instanceId, this.state.notApplicable)
-            if (this.indicatorsStore.isMultiAnswer(this.type)) {
-                this.update([])
-            } else if (this.indicatorsStore.isGendered(this.type)) {
-                this.update(0, "women")
-                this.update(0, "men")
-                this.update(0, "nonBinary")
-            } else {
-                this.update("")
+            if (hide) {
+                this.updateShow(!checked, "", "", showErrors)
+            }
+            if (checked) {
+                if (this.indicatorsStore.isMultiAnswer(this.type)) {
+                    this.update([], "", "", showErrors)
+                } else if (this.indicatorsStore.isGendered(this.type)) {
+                    this.update(0, "women", "", showErrors)
+                    this.update(0, "men", "", showErrors)
+                    this.update(0, "nonBinary", "", showErrors)
+                } else {
+                    this.update("", "", "", showErrors)
+                }
             }
         },
         updateErrors(isFieldValid) {
             if (isFieldValid) {
                 this.state.hasErrors = false
-                this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
             } else {
                 this.state.hasErrors = true
                 if (this.msg) {
@@ -287,6 +313,8 @@ const initFieldData = () => {
                     this.state.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
                 }
             }
+            this.indicatorsStore.updateIndicatorDependencies(this.instanceId)
+
         },
         updateShow(show) {
             // Only if it has changed
@@ -306,7 +334,6 @@ const initFieldData = () => {
                     }
                 }
             }
-            // console.log("Show?", this.code, this.state.show)
         },
         isOptionSelected(optionId) {
             return this.state.value.id == optionId

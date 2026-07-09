@@ -9,7 +9,7 @@ from .views import (
     MethodPreviewView,
     create_invitation_action,
     delete_invitation,
-    import_csv2,
+    import_csv,
     invitation_sent_view,
     invitations_sent_view,
     load_ext_surveys,
@@ -55,9 +55,9 @@ urlpatterns = [
     path("send-invitations/<id>", invitations_sent_view, name="send_invitations"),
     path("send-invitation/<id>", invitation_sent_view, name="send_invitation"),
     path(
-        "import-csv2/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/",
-        import_csv2,
-        name="import_csv2",
+        "import-csv/<uuid:organization_id>/<uuid:method_id>/<uuid:campaign_id>/",
+        import_csv,
+        name="import_csv",
     ),
     path("load_ext_surveys/", load_ext_surveys, name="load_ext_surveys"),
     # Do not translate the methods url because is used on the html templates

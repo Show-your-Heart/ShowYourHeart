@@ -7,6 +7,9 @@ const initIndicatorsStore = () => {
         indicatorDataIndexByCode: {},
         indicatorIdByCode: {},
         indicatorsSets: [],
+        updateQueueCodes: [],
+        updateQueue: {},
+        runningUpdate: false,
         fieldTypes: {
             STRING: "S",
             TEXT: "T",
@@ -27,19 +30,49 @@ const initIndicatorsStore = () => {
             let indicatorsInSets = []
             this.indicatorsSets.forEach(s => indicatorsInSets = [...indicatorsInSets, ...s.indicators_ids])
             indicators.forEach(i => {
-                const instanceId = indicatorsInSets.findIndex(iIS => iIS == i.id) != -1 ? `${i.id}_1` : i.id
-                this.indicators[instanceId] = {
-                    value: '',
-                    show: false,
-                    notApplicable: false,
-                    isValid: false,
-                    isFieldValid: false,
-                    hasErrors: false,
-                    error: '',
+                // If indicator belongs to set
+                if (indicatorsInSets.findIndex(iIS => iIS == i.id) != -1) {
+                    // Find all instances
+                    let instancesIds = Object.keys(indicatorResults).filter(instanceId => instanceId.includes(i.id))
+                    if (instancesIds.length != 0) {
+                        instancesIds.forEach(instanceId => this.indicators[instanceId] = {
+                            value: '',
+                            show: false,
+                            notApplicable: false,
+                            isValid: false,
+                            isFieldValid: false,
+                            hasErrors: false,
+                            error: '',
+                        })
+                    } else {
+                        // Or else, if no set indicator results have been saved yet, create empty entry for instance 1
+                        this.indicators[`${i.id}_1`] = {
+                            value: '',
+                            show: false,
+                            notApplicable: false,
+                            isValid: false,
+                            isFieldValid: false,
+                            hasErrors: false,
+                            error: '',
+                        }
+                    }
+                } else {
+                    this.indicators[i.id] = {
+                        value: '',
+                        show: false,
+                        notApplicable: false,
+                        isValid: false,
+                        isFieldValid: false,
+                        hasErrors: false,
+                        error: '',
+                    }
                 }
             })
 
             this.storeMaps()
+
+            const initEvent = new Event('indicators-store:init')
+            document.dispatchEvent(initEvent)
         },
         parseExpression(expr, instanceId, val) {
             const tokens = expr.split(" ")
@@ -76,7 +109,7 @@ const initIndicatorsStore = () => {
                         value = '&&'
                     } else if (token == 'OR' || token == 'or') {
                         value = '||'
-                    } else if (token == 'true' || token == 'false') {
+                    } else if (token == 'true' || token == 'false' || token == 'null') {
                         value = token
                     } else {
                         // Reference to other indicator
@@ -128,6 +161,7 @@ const initIndicatorsStore = () => {
 
             let fieldEl = null
             let fieldData = null
+            // If errors have to be display in a table, get the element for later manipulation
             if (setGroupItems) {
                 fieldEl = document.querySelector(`#field_${instanceId}`)
                 fieldData = Alpine.$data(fieldEl)
@@ -296,56 +330,58 @@ const initIndicatorsStore = () => {
             return instancesKeys.reduce((acc, k) => acc + Number(this.indicators[k].value), 0)
         },
         updateIndicatorDependencies(instanceId) {
-            const instanceIdTokens = instanceId.split('_')
-            const id = instanceIdTokens[0]
-            const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
-            const indicator = this.getIndicatorDataById(id)
-            if (indicator && indicator.dependant_indicators) {
-                for (dependantIndicatorCode of indicator.dependant_indicators) {
-                    this.updateDependantIndicator(instanceNumber, dependantIndicatorCode, indicator.code)
-                }
+            if (!this.runningUpdate) {
+                this.recursiveSearch(instanceId)
+                this.sortQueue()
+                this.runQueueUpdate()
             }
         },
-        updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
-            const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+        updateDependantIndicator(instanceNumber, code, parentCodes) {
+            const indicator = this.getIndicatorDataByCode(code)
             if (indicator) {
                 let instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
-                if (indicator.condition.includes(code)) {
+                if (parentCodes.some(parentCode => indicator.condition.includes(parentCode))) {
                     let fieldEl = document.querySelector(`#field_${instanceId}`);
                     // If no element found check set instance
                     if (fieldEl == null) {
                         instanceId = instanceId + "_1"
                         fieldEl = document.querySelector(`#field_${instanceId}`);
+                        // If no element found still, this dependency comes from a set indicator but its not a set indicator
+                        if (fieldEl == null) {
+                            instanceId = instanceId.split("_")[0]
+                            fieldEl = document.querySelector(`#field_${instanceId}`);
+                        }
                     }
-                    const show = this.isVisible(instanceId, indicator.condition)
-                    Alpine.$data(fieldEl).updateShow(show)
 
-                    // Hide direct indicator and set NA 
-                    if (indicator.is_direct_indicator && !show) {
-                        this.updateIndicatorResultNa(instanceId, true, true)
-                    }
+                    const show = this.isVisible(instanceId, indicator.condition)
+                    // Set NA of direct indicator 
+                    Alpine.$data(fieldEl).updateNotApplicable(!show, true)
 
                     // Update validation
-                    const { isValid, isFieldValid } = this.validateField(instanceId)
-                    this.indicators[instanceId].isValid = isValid
-                    this.indicators[instanceId].isFieldValid = isFieldValid
-                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
-
+                    if (show) {
+                        const { isValid, isFieldValid } = this.validateField(instanceId)
+                        this.indicators[instanceId].isValid = isValid
+                        this.indicators[instanceId].isFieldValid = isFieldValid
+                        Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+                    }
                 }
                 // Check if formula is dependant
-                if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
+                if (!indicator.is_direct_indicator && parentCodes.some(parentCode => indicator.formula.includes(parentCode))) {
                     // If calculating set total, remove instance number
                     if (indicator.formula.includes("set")) {
                         instanceId = indicator.id
                     }
-                    const value = this.evaluateExpression(indicator.formula, instanceId, indicator.code)
+                    let value = this.evaluateExpression(indicator.formula, instanceId, indicator.code)
+                    let fieldEl = document.querySelector(`#field_${instanceId}`);
+
                     if (value != null) {
                         if (value == '__copy__') {
                             this.indicators[instanceId].value = this.indicators[instanceId].value
-                            const indicatorToCopy = this.getIndicatorDataByCode(code)
+                            const parentCode = parentCodes.find(c => indicator.formula.includes(c))
+                            const indicatorToCopy = this.getIndicatorDataByCode(parentCode)
                             // If the field to copy has options copy them
                             if (this.hasOptions(indicatorToCopy.data_type)) {
                                 const fieldEl = document.getElementById(`question_${indicator.id}`)
@@ -353,79 +389,38 @@ const initIndicatorsStore = () => {
                             }
                         } else if (indicator.data_type == this.fieldTypes.BOOLEAN) {
                             if (value === true) {
-                                this.indicators[instanceId].value = 'True'
+                                value = 'True'
                             } else if (value === false) {
-                                this.indicators[instanceId].value = 'False'
+                                value = 'False'
                             }
                         } else if (indicator.data_type == this.fieldTypes.DECIMAL) {
-                            this.indicators[instanceId].value = String((Math.round(value * 100) / 100).toFixed(2))
+                            value = String((Math.round(value * 100) / 100).toFixed(2))
                         } else {
-                            this.indicators[instanceId].value = String(value)
+                            value = String(value)
                         }
                     }
 
-                    // Update validation
-                    const { isValid, isFieldValid } = this.validateField(instanceId)
-                    this.indicators[instanceId].isValid = isValid
-                    this.indicators[instanceId].isFieldValid = isFieldValid
-                    let fieldEl = document.querySelector(`#field_${instanceId}`);
-                    Alpine.$data(fieldEl).updateErrors(isFieldValid)
-                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id: indicator.id, isValid: isFieldValid })
+                    Alpine.$data(fieldEl).update(value)
                 }
-                if (indicator.validation.includes(code)) {
+                if (parentCodes.some(parentCode => indicator.validation.includes(parentCode))) {
                     if (indicator.is_group_indicator) {
                         this.validateField(instanceId, '', '', false, true)
                     } else {
-                        this.validateField(instanceId)
+                        const { isValid, isFieldValid } = this.validateField(instanceId)
+                        if (!indicator.is_direct_indicator) {
+                            let fieldEl = document.querySelector(`#field_${instanceId}`);
+                            Alpine.$data(fieldEl).updateErrors(isFieldValid)
+                        }
                     }
                 }
             } else {
-                const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
+                const indicatorsSet = this.indicatorsSets.find(s => s.code == code)
                 // Update conditional set
-                if (indicatorsSet && indicatorsSet.condition.includes(code)) {
+                if (indicatorsSet && parentCodes.some(parentCode => indicatorsSet.condition.includes(parentCode))) {
                     const setEl = document.querySelector(`#set_${indicatorsSet.id}`);
                     const show = this.isVisible("", indicatorsSet.condition)
                     Alpine.$data(setEl).updateShow(show)
                 }
-            }
-        },
-        updateIndicatorResultNa(instanceId, value, hide = false) {
-            try {
-                this.indicators[instanceId].notApplicable = value
-
-                if (hide) {
-                    const fieldEl = document.querySelector(`#field_${instanceId}`);
-                    Alpine.$data(fieldEl).updateShow(!value)
-                }
-
-                const instanceIdTokens = instanceId.split('_')
-                const id = instanceIdTokens[0]
-                const indicator = this.getIndicatorDataById(id)
-
-                if (indicator.dependant_indicators) {
-                    for (var code of indicator.dependant_indicators) {
-                        const dependantIndicator = this.getIndicatorDataByCode(code)
-                        // Make sure second subtoken is a number and not 'set', 'total' or similar
-                        const instanceId = instanceIdTokens.length == 2 && !(
-                            dependantIndicator.condition.includes('_set') || dependantIndicator.condition.includes('_total') ||
-                            dependantIndicator.formula.includes('_set') || dependantIndicator.formula.includes('_total')
-                        ) ? `${dependantIndicator.id}_${instanceIdTokens[1]}` : dependantIndicator.id
-                        this.updateIndicatorResultNa(instanceId, value, true)
-                    }
-                }
-            } catch (e) {
-                // Check if it belongs to a set
-                if (this.indicators[`${instanceId}_1`] != undefined) {
-                    this.indicators[`${instanceId}_1`].notApplicable = value
-
-                    if (hide) {
-                        this.indicators[`${instanceId}_1`].show = !value
-                    }
-                } else if (e instanceof TypeError) {
-                    console.log(`Dependency ${code} of indicator ${this.indicators[instanceId].code} not found in the current method`)
-                    console.log(e)
-                }
-
             }
         },
         isGendered(type) {
@@ -534,7 +529,85 @@ const initIndicatorsStore = () => {
             } catch {
                 return null
             }
-        }
+        },
+        // Recursevly search for indicator dependencies to create a queue of indicators to be updated.
+        recursiveSearch(instanceId) {
+            const instanceIdTokens = instanceId.split('_')
+            const id = instanceIdTokens[0]
+            const instanceNumber = instanceIdTokens.length == 2 ? instanceIdTokens[1] : -1
+            const indicator = this.getIndicatorDataById(id)
+            if (indicator && indicator.dependant_indicators) {
+                for (dependantIndicatorCode of indicator.dependant_indicators) {
+                    const dependentIndicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+                    this.addToQueue(instanceNumber, dependantIndicatorCode, indicator.code, dependentIndicator?.dependant_indicators || [])
+                    const dependantIndicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+                    // Dependent indicators sets will return undefined and they don't have dependencies
+                    if (dependantIndicator != undefined && dependantIndicator.dependant_indicators) {
+                        const dependantInstanceId = instanceNumber == -1 ? dependantIndicator.id : `${dependantIndicator.id}_${instanceNumber}`
+                        this.recursiveSearch(dependantInstanceId)
+                    }
+                }
+            }
+        },
+        addToQueue(instanceNumber, code, parentCode, dependantIndicatorsCodes) {
+            if (!this.updateQueueCodes.includes(code)) {
+                this.updateQueueCodes.push(code)
+                this.updateQueue[code] = { instanceNumber, code, parentCodes: [parentCode], dependantIndicatorsCodes: [...dependantIndicatorsCodes] }
+            } else {
+                // Check if new parent node has to be added
+                if (!this.updateQueue[code].parentCodes.includes(parentCode)) {
+                    this.updateQueue[code].parentCodes.push(parentCode)
+                }
+            }
+        },
+        // Sort the queue by puting last the indicators that depend on others
+        sortQueue() {
+            this.updateQueueCodes.sort((a, b) => {
+                if ( // No dependencies
+                    this.updateQueue[a].dependantIndicatorsCodes.length == 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length == 0
+                ) {
+                    return 0
+                } else if ( // a has dependencies, b doesn't --> first update a
+                    this.updateQueue[a].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length == 0
+                ) {
+                    return -1
+                } else if ( // b has dependencies, a doesn't --> first update b
+                    this.updateQueue[a].dependantIndicatorsCodes.length == 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length > 0
+                ) {
+                    return 1
+                } else if ( // both have dependencies, b depends on a --> first update a
+                    this.updateQueue[a].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[a].dependantIndicatorsCodes.includes(b)
+                ) {
+                    return -1
+                } else if ( // both have dependencies, a depends on b --> first update b
+                    this.updateQueue[a].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.length > 0 &&
+                    this.updateQueue[b].dependantIndicatorsCodes.includes(a)
+                ) {
+                    return 1
+                } else { // both have dependencies but don't depend on each other
+                    return 0
+                }
+            })
+        },
+        runQueueUpdate() {
+            this.runningUpdate = true
+            for (code of this.updateQueueCodes) {
+                this.updateDependantIndicator(
+                    this.updateQueue[code].instanceNumber,
+                    this.updateQueue[code].code,
+                    this.updateQueue[code].parentCodes
+                )
+            }
+            this.updateQueueCodes = []
+            this.updateQueue = {}
+            this.runningUpdate = false
+        },
     })
 
 

@@ -79,6 +79,10 @@ class HomeView(TemplateView):
                     get_survey_stats(survey, method, method.campaign)
                 )
 
+        self.request.user.is_syh_admin = self.request.user.groups.filter(
+            name__in=["Governance Admins", "Network Admins"]
+        ).exists()
+
         context.update(
             {
                 "user": self.request.user,

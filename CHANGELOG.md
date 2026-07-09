@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-07-09
+
+### 🚀 Features
+
+- Add favicon
+- Add support for null operator in expressions
+- Put indicators set description inside the information button to match fields UI
+- Add admin panel button in header
+
+### 🐛 Bug Fixes
+
+- Round totals of type decimal in tables
+- Translate indicators set add button
+- Count null table cell as 0 in totals calculation
+- Update dependent indirect field validation errors
+- Add animated transition in group field error display to avoid  ignored click on "fill with zeros" button in some cases
+- Change sets title styles to match indicators styles
+- Hide deep dependent sets
+- Update dependent indicators both when field is valid and invalid
+- When a set in the survey had more than one isntance all sets where set to have the same number of instances
+- Init fields after indicators store has finished initializing
+- Properly initialize indicators in sets inside the indicators store
+- Update field validation when setting NA
+- Display networks data only, show indicators, hide surveys from other networks and fix users filer
+- Filter admin home surveys and registration requests to display correct data
+- Make survey inert (readonly) after submission, closes #494
+- Prevent implicit submission of form on enter key-press
+- Align text start in method fill sidebar menu
+- Don't set NA/hide dependent indicators when an indicator is set to NA/hidden
+- Csv import and display error messages
+- Zip codes not appearing for network admins (#507)
+- Update dependencies recursively and reuse updateNotApplicable function of fields to avoid errors with stored data when the field has been checked and unchecked as NA
+- Allow the use of conditional expressions containing references to sets in indicators that doesn't belong to a set
+- Set opacity for readonly indirect indicators of type boolean and radio button
+- Properly update indirect indicators after evaluating forumla reusing update function from field
+- Allow to control the display of field errors when updating NA to avoid initial errors when dependencies are displayed after editing a field
+- Clear lists, tables and gendered fields when set to NA
+- Add multiple parent nodes to update indicator properly
+
+### 🚜 Refactor
+
+- Duplicate updateShow call, remove hide param to avoid it
+- Implement queue strategy to avoid duplicated calculations in dependent indicators
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump tar from 7.5.11 to 7.5.19 (#511)
+
 ## [0.2.0] - 2026-06-08
 
 ### 🚀 Features
@@ -29,6 +77,10 @@ All notable changes to this project will be documented in this file.
 - Assure well-formed instanceId when updating dependent indicators NA result
 - Properly store indicator results adding support for indicators sets and fix problem with tables in survey card stats function
 - When saving the survey do not redirect to the success message
+
+### ⚙️ Miscellaneous Tasks
+
+- Update changelog and readme
 
 ## [0.1.0] - 2026-05-12
 

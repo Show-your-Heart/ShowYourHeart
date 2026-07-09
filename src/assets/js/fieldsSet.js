@@ -31,7 +31,7 @@ const initFielsSetdData = () => {
                 if (id == firstIndicatorId && instanceNumber > this.idsCounter) {
                     this.idsCounter = instanceNumber
                 }
-                if (instanceNumber !== undefined && !this.instances.includes(Number(instanceNumber))) {
+                if (instanceNumber !== undefined && !this.instances.includes(Number(instanceNumber)) && this.indicatorsIds.includes(id)) {
                     this.instances.push(Number(instanceNumber))
                     this.totalInstances++
                 }
@@ -77,7 +77,6 @@ const initFielsSetdData = () => {
             }
         },
         updateShow(show) {
-            console.log("update set show", show, this.show)
             // Only if it has changed
             if (this.show != show) {
                 this.show = show
@@ -89,16 +88,7 @@ const initFielsSetdData = () => {
                 this.indicatorsIds.forEach(id => {
                     const instanceId = `${id}_${instanceNumber}`
                     const fieldEl = document.querySelector(`#field_${instanceId}`);
-                    const showField = show
-                    Alpine.$data(fieldEl).updateShow(showField)
-
-                    this.indicatorsStore.updateIndicatorResultNa(instanceId, !show, !show)
-
-                    // Update validation
-                    const { isValid, isFieldValid } = this.indicatorsStore.validateField(instanceId)
-                    this.indicatorsStore.indicators[instanceId].isValid = isValid
-                    this.indicatorsStore.indicators[instanceId].isFieldValid = isFieldValid
-                    Alpine.$data(fieldEl).$dispatch('indicator-valid', { id, isValid: isFieldValid })
+                    Alpine.$data(fieldEl).updateNotApplicable(!show, true, false)
                 })
             })
         }

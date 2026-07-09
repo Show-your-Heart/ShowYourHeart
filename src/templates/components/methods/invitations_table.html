@@ -19,11 +19,16 @@
                 <c-methods.invitation-row :invitation="invitation"> </c-methods.invitation-row >
             </tr>
         {% empty %}
-            <tr id="empty-row">
+             <tr id="empty-row">
                 <td colspan="6" class="border border-gray-300 px-4 py-4 text-center text-gray-500">
                     {% translate "No invitations found." %}
                 </td>
             </tr>
         {% endfor %}
+     
+        <tr id="imported-rows">
+            <c-methods.invitations-imported-rows :invitationsImported="invitationsImported"> </c-methods.invitations-imported-rows>
+        </tr> 
+      
     </tbody>
 </table>

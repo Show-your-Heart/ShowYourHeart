@@ -6,31 +6,44 @@ from .models import IndicatorResult, Invitation, Method, Section
 
 
 class ParseExternalInvitations:
+    HEADER_NAME = "name"
+    HEADER_EMAIL = "email"
+
     def parse_csv(self, csv_reader, id):
         error_messages = []
+        invitations = []
         # Check the headers of the first row
         headers = next(csv_reader)
         if headers[0].lower() == "name" and headers[1].lower() == "email":
             for row in csv_reader:
                 if row[1]:
                     if self.is_valid_email(row[1]):
-                        Invitation.objects.update_or_create(
+                        added_invitation = Invitation.objects.update_or_create(
                             email=row[1],
                             external_survey_invitation_id=id,
                             defaults={
                                 "name": row[0],
                             },
                         )
+                        # update_or_create returns true if it's a new element
+                        if added_invitation[1]:
+                            invitations.append(added_invitation[0])
+
                     else:
                         error_messages.append(_(f"The email {row[1]} is not valid"))
                 else:
                     error_messages.append(_(f"The email for {row[0]} is empty"))
         else:
             error_messages.append(
-                _("The csv file must contain the headers 'name' and 'email'")
+                # Translators: The symbol '{}' refer to the specific CSV column headers
+                # and should remain in English.
+                _("The csv file must contain the headers '{}' and '{}'").format(
+                    ParseExternalInvitations.HEADER_NAME,
+                    ParseExternalInvitations.HEADER_EMAIL,
+                )
             )
 
-        return error_messages
+        return {"error_messages": error_messages, "invitations": invitations}
 
     def is_valid_email(self, email):
         regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b"

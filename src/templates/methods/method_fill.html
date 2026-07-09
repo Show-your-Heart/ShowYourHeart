@@ -57,7 +57,9 @@
             id="tab-{{ section.id }}" :class="getBtnClass('{{section.id}}')"
             data-tabs-target="#section-{{ section.id }}" type="button" role="tab" aria-controls="{{ section.title|escapejs }}"
             aria-selected="false" x-data @click="$store.survey.setSection('{{section.id}}')"  x-cloak >
-            {{ section.title|escapejs }}
+            <span class="text-start">
+              {{ section.title|escapejs }}
+            </span>
             <c-icon x-show="showCurrent('{{section.id}}')" name="arrow-right"
               class="w-6 h-6 inline text-blue-600"></c-icon>
             <c-icon x-show="showCheck('{{section.id}}')" name="check" class="w-6 h-6 inline text-green-800"></c-icon>
@@ -72,7 +74,7 @@
 
   <div class="flex flex-col gap-4 items-center max-w-[900px] mx-auto">
     <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}"
-    {% block form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6">
+    {% block form_action %}{% endblock %} class="w-full space-y-4 md:space-y-6" {% if readonly %} inert="true" {% endif %}>
       {% csrf_token %}
       <input type="text" class="hidden" name="campaign_id" value="{{campaign_id}}">
 
@@ -81,6 +83,9 @@
         <c-methods.section :section="section" :items="items"></c-methods.section>
         {% endfor %}
       </div>
+
+      <!-- Prevent implicit submission of the form -->
+      <button type="submit" disabled style="display: none" aria-hidden="true"></button>
 
       {% if not readonly %}
       <div class="flex gap-4 space-between min-w-[60%]">
