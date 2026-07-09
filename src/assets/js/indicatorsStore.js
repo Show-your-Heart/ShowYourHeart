@@ -336,14 +336,14 @@ const initIndicatorsStore = () => {
                 this.runQueueUpdate()
             }
         },
-        updateDependantIndicator(instanceNumber, dependantIndicatorCode, code) {
-            const indicator = this.getIndicatorDataByCode(dependantIndicatorCode)
+        updateDependantIndicator(instanceNumber, code, parentCodes) {
+            const indicator = this.getIndicatorDataByCode(code)
             if (indicator) {
                 let instanceId = instanceNumber == -1 ? indicator.id : `${indicator.id}_${instanceNumber}`
 
                 // Check which expressions are dependent of this indicator
                 // Check if condition is dependant
-                if (indicator.condition.includes(code)) {
+                if (parentCodes.some(parentCode => indicator.condition.includes(parentCode))) {
                     let fieldEl = document.querySelector(`#field_${instanceId}`);
                     // If no element found check set instance
                     if (fieldEl == null) {
@@ -369,7 +369,7 @@ const initIndicatorsStore = () => {
                     }
                 }
                 // Check if formula is dependant
-                if (!indicator.is_direct_indicator && indicator.formula.includes(code)) {
+                if (!indicator.is_direct_indicator && parentCodes.some(parentCode => indicator.formula.includes(parentCode))) {
                     // If calculating set total, remove instance number
                     if (indicator.formula.includes("set")) {
                         instanceId = indicator.id
@@ -380,7 +380,8 @@ const initIndicatorsStore = () => {
                     if (value != null) {
                         if (value == '__copy__') {
                             this.indicators[instanceId].value = this.indicators[instanceId].value
-                            const indicatorToCopy = this.getIndicatorDataByCode(code)
+                            const parentCode = parentCodes.find(c => indicator.formula.includes(c))
+                            const indicatorToCopy = this.getIndicatorDataByCode(parentCode)
                             // If the field to copy has options copy them
                             if (this.hasOptions(indicatorToCopy.data_type)) {
                                 const fieldEl = document.getElementById(`question_${indicator.id}`)
@@ -401,7 +402,7 @@ const initIndicatorsStore = () => {
 
                     Alpine.$data(fieldEl).update(value)
                 }
-                if (indicator.validation.includes(code)) {
+                if (parentCodes.some(parentCode => indicator.validation.includes(parentCode))) {
                     if (indicator.is_group_indicator) {
                         this.validateField(instanceId, '', '', false, true)
                     } else {
@@ -413,9 +414,9 @@ const initIndicatorsStore = () => {
                     }
                 }
             } else {
-                const indicatorsSet = this.indicatorsSets.find(s => s.code == dependantIndicatorCode)
+                const indicatorsSet = this.indicatorsSets.find(s => s.code == code)
                 // Update conditional set
-                if (indicatorsSet && indicatorsSet.condition.includes(code)) {
+                if (indicatorsSet && parentCodes.some(parentCode => indicatorsSet.condition.includes(parentCode))) {
                     const setEl = document.querySelector(`#set_${indicatorsSet.id}`);
                     const show = this.isVisible("", indicatorsSet.condition)
                     Alpine.$data(setEl).updateShow(show)
@@ -551,7 +552,12 @@ const initIndicatorsStore = () => {
         addToQueue(instanceNumber, code, parentCode, dependantIndicatorsCodes) {
             if (!this.updateQueueCodes.includes(code)) {
                 this.updateQueueCodes.push(code)
-                this.updateQueue[code] = { instanceNumber, code, parentCode, dependantIndicatorsCodes }
+                this.updateQueue[code] = { instanceNumber, code, parentCodes: [parentCode], dependantIndicatorsCodes: [...dependantIndicatorsCodes] }
+            } else {
+                // Check if new parent node has to be added
+                if (!this.updateQueue[code].parentCodes.includes(parentCode)) {
+                    this.updateQueue[code].parentCodes.push(parentCode)
+                }
             }
         },
         // Sort the queue by puting last the indicators that depend on others
@@ -595,7 +601,7 @@ const initIndicatorsStore = () => {
                 this.updateDependantIndicator(
                     this.updateQueue[code].instanceNumber,
                     this.updateQueue[code].code,
-                    this.updateQueue[code].parentCode
+                    this.updateQueue[code].parentCodes
                 )
             }
             this.updateQueueCodes = []
