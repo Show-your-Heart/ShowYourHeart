@@ -206,6 +206,25 @@ class OrganizationSignUpForm(forms.ModelForm):
                 if network not in organization.networks.all():
                     organization.networks.add(network)
 
+        full_address = ", ".join(
+            filter(
+                None,
+                [
+                    self.cleaned_data["address"],
+                    str(self.cleaned_data["city"]),
+                    str(self.cleaned_data["region1"]),
+                    str(self.cleaned_data["zip_code"]),
+                ],
+            )
+        )
+
+        coords = get_coordinates_from_address(full_address)
+
+        if coords:
+            lat, lng = coords
+            organization.latitude = lat
+            organization.longitude = lng
+
         if commit:
             organization.save()
             # save(commit=False) used before does not save the many to
