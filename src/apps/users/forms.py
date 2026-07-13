@@ -1,5 +1,4 @@
 from django import forms
-from django.conf import settings
 from django.contrib.auth.forms import (
     AuthenticationForm as BaseAuthenticationForm,
 )
@@ -22,7 +21,6 @@ from django.utils.translation import gettext_lazy as _
 from extra_settings.models import Setting
 
 from apps.users.models import User
-from project.helpers import absolute_url
 from project.post_office import send
 from project.utils.smtp_utils import get_smtp_for_user
 
