@@ -155,14 +155,16 @@ class PasswordResetForm(BasePasswordResetForm):
         to_email,
         html_email_template_name=None,
     ):
-        password_reset_url = absolute_url(
-            reverse(
-                "registration:password_reset_confirm",
-                kwargs={
-                    "uidb64": context["uid"],
-                    "token": context["token"],
-                },
-            )
+        protocol = context["protocol"]
+        domain = context["domain"]
+        site_absolute_url = f"{protocol}://{domain}"
+
+        password_reset_url = site_absolute_url + reverse(
+            "registration:password_reset_confirm",
+            kwargs={
+                "uidb64": context["uid"],
+                "token": context["token"],
+            },
         )
         smtp = get_smtp_for_user(user=context["user"])
         context = {
@@ -177,13 +179,11 @@ class PasswordResetForm(BasePasswordResetForm):
             ),
             "time": str(formats.time_format(timezone.localtime(timezone.now()).time())),
             "user_email": context["email"],
-            "absolute_url": settings.ABSOLUTE_URL,
+            "absolute_url": site_absolute_url,
             "password_reset_url": password_reset_url,
         }
         send(
-            recipients=[
-                to_email,
-            ],
+            recipients=[to_email],
             template="password_reset",
             context=context,
             smtp=smtp,
