@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 13:29+0200\n"
+"POT-Creation-Date: 2026-07-14 16:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,78 +18,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/admin.py:89 project/admin.py:145
+#: project/admin.py:90 project/admin.py:146
 msgid "Add/Edit"
 msgstr ""
 
-#: project/admin.py:95 project/admin.py:151
+#: project/admin.py:96 project/admin.py:152
 msgid "Actions"
-msgstr ""
-
-#: project/admin.py:119
-msgctxt "logentry_admin:action_type"
-msgid "Addition"
 msgstr ""
 
 #: project/admin.py:120
 msgctxt "logentry_admin:action_type"
-msgid "Deletion"
+msgid "Addition"
 msgstr ""
 
 #: project/admin.py:121
 msgctxt "logentry_admin:action_type"
+msgid "Deletion"
+msgstr ""
+
+#: project/admin.py:122
+msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr ""
 
-#: project/admin.py:175 project/admin.py:315
+#: project/admin.py:176 project/admin.py:316
 msgid "action"
 msgstr ""
 
-#: project/admin.py:188
+#: project/admin.py:189
 msgid "staff user"
 msgstr ""
 
-#: project/admin.py:214
+#: project/admin.py:215
 msgid "Metadata"
 msgstr ""
 
-#: project/admin.py:225
+#: project/admin.py:226
 msgid "Details"
 msgstr ""
 
-#: project/admin.py:284
+#: project/admin.py:285
 msgid "object"
 msgstr ""
 
-#: project/admin.py:301
+#: project/admin.py:302
 msgid "user"
 msgstr ""
 
-#: project/admin.py:321
+#: project/admin.py:322
 msgid "change message"
 msgstr ""
 
-#: project/admin.py:402
+#: project/admin.py:403
 msgid "Organizations management"
 msgstr ""
 
-#: project/admin.py:441
+#: project/admin.py:442
 msgid "Methods management"
 msgstr ""
 
-#: project/admin.py:452
+#: project/admin.py:453
 msgid "Features"
 msgstr ""
 
-#: project/admin.py:458
+#: project/admin.py:459
 msgid "Registration Requests"
 msgstr ""
 
-#: project/admin.py:463
+#: project/admin.py:464
 msgid "Review Balances"
 msgstr ""
 
-#: project/admin.py:511
+#: project/admin.py:512
 msgid "Settings"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Profile details"
 msgstr ""
 
-#: project/tests/test_selenium.py:61 project/views.py:100
+#: project/tests/test_selenium.py:61 project/views.py:104
 msgid "Registry updated"
 msgstr ""
 
@@ -208,18 +208,18 @@ msgstr ""
 msgid "organizations/"
 msgstr ""
 
-#: project/views.py:99
+#: project/views.py:103
 msgid "Back"
 msgstr ""
 
-#: project/views.py:101
+#: project/views.py:105
 msgid "Registry successfully updated"
 msgstr ""
 
-#: project/views.py:102
+#: project/views.py:106
 msgid "Done!"
 msgstr ""
 
-#: project/views.py:103
+#: project/views.py:107
 msgid "The registry was updated correctly."
 msgstr ""
