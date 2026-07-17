@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-02 11:45+0200\n"
+"POT-Creation-Date: 2026-07-15 11:33+0200\n"
 "PO-Revision-Date: 2026-05-05 13:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -938,7 +938,7 @@ msgstr ""
 
 #: templates/admin/import_export/import_form.html:21
 #: templates/admin/methods/method_fill.html:79
-#: templates/methods/method_fill.html:93
+#: templates/methods/method_fill.html:98
 #: templates/registration/password_change_form.html:17
 #: templates/registration/password_reset_confirm.html:19
 #: templates/registration/password_reset_form.html:17
@@ -969,7 +969,7 @@ msgid "Preview"
 msgstr "Previsualització"
 
 #: templates/admin/methods/method_fill.html:76 templates/base_form.html:47
-#: templates/methods/method_fill.html:90 templates/profile/details.html:46
+#: templates/methods/method_fill.html:95 templates/profile/details.html:46
 #: templates/registration/signup.html:26
 msgid "Save"
 msgstr "Guardar"
@@ -1071,7 +1071,7 @@ msgid "Edit balance"
 msgstr "Editar balanços"
 
 #: templates/admin/methods/survey_review.html:192
-#: templates/methods/method_fill.html:107
+#: templates/methods/method_fill.html:112
 msgid "Balance errors"
 msgstr "Errors del balanç"
 
@@ -1300,6 +1300,12 @@ msgstr "Importar"
 #: templates/components/admin/button_import_export.html:19
 msgid "Export"
 msgstr "Exportar"
+
+#: templates/components/card/indicators_set.html:33
+#, fuzzy
+#| msgid "Address"
+msgid "Add"
+msgstr "Adreça"
 
 #: templates/components/card/survey_stats.html:13
 #, python-format
@@ -1536,7 +1542,7 @@ msgstr ""
 msgid "Campaigns"
 msgstr "Campanya"
 
-#: templates/info/documents.html:30
+#: templates/info/documents.html:27
 msgid "Stamps"
 msgstr "Segells"
 
@@ -1638,6 +1644,14 @@ msgstr "Importar CSV"
 #: templates/methods/external_surveys_view.html:83
 msgid "Upload CSV"
 msgstr "Puja CSV"
+
+#: templates/methods/external_surveys_view.html:86
+msgid ""
+"The csv file must contain the headers \"%(header_name)s\" and "
+"\"%(header_email)s\""
+msgstr ""
+"El fitxer csv ha de contenir les capçaleres \"%(header_name)s\" i "
+"\"%(header_email)s\""
 
 #: templates/methods/fill_success.html:6
 #: templates/organizations/signup_success.html:6

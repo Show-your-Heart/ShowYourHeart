@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 14:40+0200\n"
+"POT-Creation-Date: 2026-07-14 16:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/users/admin.py:71
+#: apps/users/admin.py:72
 msgid "Authentication"
 msgstr ""
 
-#: apps/users/admin.py:82
+#: apps/users/admin.py:83
 msgid "Personal details"
 msgstr ""
 
-#: apps/users/admin.py:86
+#: apps/users/admin.py:87
 msgid "Permissions and authorizations"
 msgstr ""
 
-#: apps/users/admin.py:100
+#: apps/users/admin.py:101
 msgid "Log"
 msgstr ""
 
-#: apps/users/admin.py:124
+#: apps/users/admin.py:125
 msgid "Organisation"
 msgstr ""
 
-#: apps/users/admin.py:128
+#: apps/users/admin.py:129
 msgid "User roles information"
 msgstr ""
 
-#: apps/users/admin.py:136
+#: apps/users/admin.py:137
 msgid "Actions"
 msgstr ""
 
-#: apps/users/admin.py:141
+#: apps/users/admin.py:142
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 
-#: apps/users/admin.py:147
+#: apps/users/admin.py:148
 msgid "Send email to the user to set the password"
 msgstr ""
 
@@ -115,44 +115,44 @@ msgid ""
 "SUPERUSER_PASSWORD environment variables to enable it."
 msgstr ""
 
-#: apps/users/models.py:23
+#: apps/users/models.py:22
 msgid "Users must have an email address"
 msgstr ""
 
-#: apps/users/models.py:41
+#: apps/users/models.py:40
 msgid "Superusers must have a password"
 msgstr ""
 
-#: apps/users/models.py:59
+#: apps/users/models.py:58
 msgid "telephone"
 msgstr ""
 
-#: apps/users/models.py:81 apps/users/models.py:109
+#: apps/users/models.py:80 apps/users/models.py:108
 msgid "name"
 msgstr ""
 
-#: apps/users/models.py:83
+#: apps/users/models.py:82
 msgid "surname"
 msgstr ""
 
-#: apps/users/models.py:89
+#: apps/users/models.py:88
 msgid "email address"
 msgstr ""
 
-#: apps/users/models.py:118
+#: apps/users/models.py:117
 msgid "user"
 msgstr ""
 
-#: apps/users/models.py:119
+#: apps/users/models.py:118
 msgid "users"
 msgstr ""
 
-#: apps/users/signals.py:102
+#: apps/users/signals.py:108
 #, python-brace-format
 msgid "Group {name} created."
 msgstr ""
 
-#: apps/users/signals.py:105
+#: apps/users/signals.py:111
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr ""
