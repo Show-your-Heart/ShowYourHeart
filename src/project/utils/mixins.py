@@ -12,25 +12,25 @@ class NetworkFilterMixin:
         ):
             return qs
 
-        user_networks = request.user.profile.organization.networks.all()
-        if not user_networks:
+        user_network = request.user.profile.organization.network_managed
+        if not user_network:
             return qs.none()
 
         # Used in: organizations
         if hasattr(qs.model, "networks"):
-            return qs.filter(networks__in=user_networks)
+            return qs.filter(networks=user_network)
 
         # Used in: surveys
         if hasattr(qs.model, "method"):
-            return qs.filter(method__networks__in=user_networks)
+            return qs.filter(method__networks=user_network)
 
         # Used in: indicators
         if hasattr(qs.model, "methods"):
-            return qs.filter(methods__networks__in=user_networks)
+            return qs.filter(methods__networks=user_network)
 
         # Used in: users
         if hasattr(qs.model, "profile"):
-            return qs.filter(profile__organization__networks__in=user_networks)
+            return qs.filter(profile__organization__networks=user_network)
 
         return qs.none()
 

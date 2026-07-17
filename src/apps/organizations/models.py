@@ -71,6 +71,14 @@ class Organization(BaseModel):
         related_name="organization_sectors",
         blank=True,
     )
+    network_managed = models.ForeignKey(
+        "settings.Network",
+        verbose_name=_("Network managed"),
+        on_delete=models.PROTECT,
+        related_name="network_managed",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.name
