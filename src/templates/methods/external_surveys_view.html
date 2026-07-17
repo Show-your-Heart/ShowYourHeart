@@ -79,9 +79,16 @@
 
                         <!-- Text input placeholder expected by fileInputUpdatePath on Django unfold -->
                         <input type="text" readonly value="" style="display: none;" />
-                        <c-button type="submit" data-modal-hide="import-csv-modal" class="mt-6" >
-                            {% translate 'Upload CSV' %}
-                        </c-button>
+                     
+                        <div class="mt-6 flex">
+                            <c-button type="submit" data-modal-hide="import-csv-modal" >
+                                {% translate 'Upload CSV' %}
+                            </c-button>
+                            <c-icon name="info-circle" class="rounded-full text-white bg-pink-600 m-4"></c-icon>
+                            <span class="mt-4">
+                                {% blocktranslate with header_name="name" header_email="email" %}The csv file must contain the headers "{{ header_name }}" and "{{ header_email }}"{% endblocktranslate %}
+                            </span>
+                        </div>
                     </form>
                 </c-modals.base-modal>
             {% endif %}

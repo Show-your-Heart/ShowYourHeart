@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-02 11:45+0200\n"
+"POT-Creation-Date: 2026-07-15 11:33+0200\n"
 "PO-Revision-Date: 2026-04-27 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -942,7 +942,7 @@ msgstr "Aplikazioa mantentzen ari da, saiatu minutu gutxi barru."
 
 #: templates/admin/import_export/import_form.html:21
 #: templates/admin/methods/method_fill.html:79
-#: templates/methods/method_fill.html:93
+#: templates/methods/method_fill.html:98
 #: templates/registration/password_change_form.html:17
 #: templates/registration/password_reset_confirm.html:19
 #: templates/registration/password_reset_form.html:17
@@ -973,7 +973,7 @@ msgid "Preview"
 msgstr "Aurrebista"
 
 #: templates/admin/methods/method_fill.html:76 templates/base_form.html:47
-#: templates/methods/method_fill.html:90 templates/profile/details.html:46
+#: templates/methods/method_fill.html:95 templates/profile/details.html:46
 #: templates/registration/signup.html:26
 msgid "Save"
 msgstr "Gorde"
@@ -1074,7 +1074,7 @@ msgid "Edit balance"
 msgstr "Auditoretza editatu"
 
 #: templates/admin/methods/survey_review.html:192
-#: templates/methods/method_fill.html:107
+#: templates/methods/method_fill.html:112
 msgid "Balance errors"
 msgstr "Auditoretzaren akatsak"
 
@@ -1302,6 +1302,12 @@ msgstr "Inportatzea"
 #: templates/components/admin/button_import_export.html:19
 msgid "Export"
 msgstr "Esportatu"
+
+#: templates/components/card/indicators_set.html:33
+#, fuzzy
+#| msgid "Address"
+msgid "Add"
+msgstr "Helbidea"
 
 #: templates/components/card/survey_stats.html:13
 #, python-format
@@ -1533,7 +1539,7 @@ msgstr ""
 msgid "Campaigns"
 msgstr "Kanpainak"
 
-#: templates/info/documents.html:30
+#: templates/info/documents.html:27
 msgid "Stamps"
 msgstr "Sigiluak"
 
@@ -1589,6 +1595,13 @@ msgstr "Inportatzea CSV"
 
 #: templates/methods/external_surveys_view.html:83
 msgid "Upload CSV"
+msgstr ""
+
+#: templates/methods/external_surveys_view.html:86
+#, python-format
+msgid ""
+"The csv file must contain the headers \"%(header_name)s\" and "
+"\"%(header_email)s\""
 msgstr ""
 
 #: templates/methods/fill_success.html:6
