@@ -131,6 +131,12 @@ class OrganizationAdmin(NetworkFilterMixin, ImportExportModelAdmin):
         readonly_fields = super().get_readonly_fields(request, obj)
         if self.is_legal_structure_readonly(obj):
             readonly_fields += ("legal_structure",)
+        if (
+            not request.user.is_superuser
+            and not request.user.groups.filter(name__in=["Governance Admins"]).exists()
+        ):
+            readonly_fields += ("network_managed",)
+
         return readonly_fields
 
     def is_legal_structure_readonly(self, obj):
