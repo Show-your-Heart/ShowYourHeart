@@ -308,7 +308,7 @@ const initFieldData = () => {
                 if (this.msg) {
                     this.state.error = this.msg
                 } else if (this.validation == "") {
-                    this.state.error = "Required field."
+                    this.state.error = gettext("Required field.")
                 } else {
                     this.state.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
                 }

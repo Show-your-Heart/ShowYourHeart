@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:24+0200\n"
+"POT-Creation-Date: 2026-07-17 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -935,7 +935,7 @@ msgstr ""
 
 #: templates/admin/import_export/import_form.html:21
 #: templates/admin/methods/method_fill.html:79
-#: templates/methods/method_fill.html:98
+#: templates/methods/method_fill.html:99
 #: templates/registration/password_change_form.html:17
 #: templates/registration/password_reset_confirm.html:19
 #: templates/registration/password_reset_form.html:17
@@ -966,7 +966,7 @@ msgid "Preview"
 msgstr "Voorbeeld"
 
 #: templates/admin/methods/method_fill.html:76 templates/base_form.html:47
-#: templates/methods/method_fill.html:95 templates/profile/details.html:46
+#: templates/methods/method_fill.html:96 templates/profile/details.html:46
 #: templates/registration/signup.html:26
 msgid "Save"
 msgstr "Opslaan"
@@ -1067,7 +1067,7 @@ msgid "Edit balance"
 msgstr ""
 
 #: templates/admin/methods/survey_review.html:192
-#: templates/methods/method_fill.html:112
+#: templates/methods/method_fill.html:113
 msgid "Balance errors"
 msgstr ""
 

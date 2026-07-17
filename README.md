@@ -200,6 +200,12 @@ Run this command in the docker container:
 
     python manage.py makemessages --all
 
+If you need to translate a message inside a javascript file, use this command instead:
+    
+    python manage.py makemessages --domain=djangojs --extension=js  --all
+
+You need to run the command for all the locales
+
 After updating the po files execute the following command to compile the mo
     django-admin compilemessages
 
