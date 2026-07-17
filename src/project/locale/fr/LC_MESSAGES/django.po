@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:24+0200\n"
+"POT-Creation-Date: 2026-07-17 09:44+0200\n"
 "PO-Revision-Date: 2026-03-24 14:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -205,15 +205,15 @@ msgstr "Changement de mot de passe"
 msgid "Mail validation"
 msgstr "Validation du mail"
 
-#: project/urls.py:34
+#: project/urls.py:36
 msgid "registration/"
 msgstr "registre/"
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "settings/"
 msgstr "configuration/"
 
-#: project/urls.py:41
+#: project/urls.py:43
 msgid "organizations/"
 msgstr "organisations/"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:24+0200\n"
+"POT-Creation-Date: 2026-07-17 09:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,15 +196,15 @@ msgstr ""
 msgid "Mail validation"
 msgstr ""
 
-#: project/urls.py:34
+#: project/urls.py:36
 msgid "registration/"
 msgstr ""
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "settings/"
 msgstr ""
 
-#: project/urls.py:41
+#: project/urls.py:43
 msgid "organizations/"
 msgstr ""
 

@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
+from django.views.i18n import JavaScriptCatalog
 
 from project.admin import gov_admin_site
 from project.views import HomeView, RootRedirectView
@@ -30,6 +31,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("", HomeView.as_view(), name="home"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
     path("superadmin/", admin.site.urls),

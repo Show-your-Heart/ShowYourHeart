@@ -143,6 +143,10 @@ const initSurveyStore = () => {
             if (e.target.value === "submit") {
                 if (!this.validateSurvey()) {
                     e.preventDefault()
+                } else {
+                    if (!confirm(gettext('Are you sure you want to close the method? It is recomended to check all the Balance sections'))) {
+                        e.preventDefault();
+                    }
                 }
             }
         },
