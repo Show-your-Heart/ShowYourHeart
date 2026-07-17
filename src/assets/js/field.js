@@ -310,7 +310,7 @@ const initFieldData = () => {
                 } else if (this.validation == "") {
                     this.state.error = gettext("Required field.")
                 } else {
-                    this.state.error = `Value it's incorrect, has to meet condition: '${this.validation}'`
+                    this.state.error = gettext('Value it\'s incorrect, has to meet condition: ') + this.validation;
                 }
             }
             this.indicatorsStore.updateIndicatorDependencies(this.instanceId)

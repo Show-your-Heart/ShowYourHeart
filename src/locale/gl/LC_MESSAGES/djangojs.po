@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 17:40+0200\n"
+"POT-Creation-Date: 2026-07-17 10:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,10 +20,21 @@ msgstr ""
 
 #: assets/js/field.js:311
 msgid "Required field."
-msgstr ""
+msgstr "Campo obrigatorio"
+
+#: assets/js/field.js:313
+msgid "Value it's incorrect, has to meet condition: "
+msgstr "O valor non é correcto, ten que cumprir a condición: "
+
+#: assets/js/indicatorsStore.js:125
+#, javascript-format
+msgid "Missing value, please fill question %s before."
+msgstr "Faltan datos. Por favor, enche a pregunta %s antes"
 
 #: assets/js/surveyStore.js:147
 msgid ""
 "Are you sure you want to close the method? It is recomended to check all the "
 "Balance sections"
 msgstr ""
+"Estás seguro/a de querer pechar o Balance?Recomendamos previamente repasar o "
+"conxunto dos apartados do Balance."

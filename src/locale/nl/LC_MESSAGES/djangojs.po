@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 17:40+0200\n"
+"POT-Creation-Date: 2026-07-17 10:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,15 @@ msgstr ""
 
 #: assets/js/field.js:311
 msgid "Required field."
+msgstr ""
+
+#: assets/js/field.js:313
+msgid "Value it's incorrect, has to meet condition: "
+msgstr ""
+
+#: assets/js/indicatorsStore.js:125
+#, javascript-format
+msgid "Missing value, please fill question %s before."
 msgstr ""
 
 #: assets/js/surveyStore.js:147
