@@ -701,10 +701,8 @@ msgid "latitude"
 msgstr "latitud"
 
 #: apps/organizations/models.py:76
-#, fuzzy
-#| msgid "Network"
 msgid "Network managed"
-msgstr "Xarxa"
+msgstr ""
 
 #: apps/organizations/models.py:143
 msgid "Community action"

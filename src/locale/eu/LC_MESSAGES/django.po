@@ -706,10 +706,8 @@ msgid "latitude"
 msgstr "latitudea"
 
 #: apps/organizations/models.py:76
-#, fuzzy
-#| msgid "Network"
 msgid "Network managed"
-msgstr "Sarea"
+msgstr ""
 
 #: apps/organizations/models.py:143
 msgid "Community action"
