@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 11:33+0200\n"
+"POT-Creation-Date: 2026-07-17 09:33+0200\n"
 "PO-Revision-Date: 2026-04-27 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -77,8 +77,8 @@ msgstr "Gonbidapenak luzatu"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
 #: apps/methods/models.py:495 apps/methods/models.py:628
-#: apps/methods/models.py:676 apps/organizations/forms.py:27
-#: apps/organizations/forms.py:43 apps/organizations/forms.py:245
+#: apps/methods/models.py:676 apps/organizations/forms.py:28
+#: apps/organizations/forms.py:44 apps/organizations/forms.py:272
 #: templates/admin/methods/survey_review.html:35
 #: templates/admin/methods/survey_review.html:120
 #: templates/admin/organizations/registration_requests.html:38
@@ -103,14 +103,14 @@ msgstr ""
 
 #: apps/methods/models.py:19 apps/methods/models.py:149
 #: apps/methods/models.py:428 apps/organizations/models.py:29
-#: apps/organizations/models.py:163 apps/settings/models.py:10
+#: apps/organizations/models.py:177 apps/settings/models.py:10
 #: apps/settings/models.py:21 apps/settings/models.py:38
 msgid "name"
 msgstr "izena"
 
 #: apps/methods/models.py:20 apps/methods/models.py:150
 #: apps/methods/models.py:339 apps/methods/models.py:429
-#: apps/organizations/models.py:30 apps/organizations/models.py:164
+#: apps/organizations/models.py:30 apps/organizations/models.py:178
 msgid "description"
 msgstr "deskribapena"
 
@@ -385,8 +385,8 @@ msgstr "Kanpoko galdetegiak"
 msgid "Version"
 msgstr "Bertsio"
 
-#: apps/methods/models.py:462 apps/organizations/forms.py:79
-#: apps/organizations/forms.py:287
+#: apps/methods/models.py:462 apps/organizations/forms.py:80
+#: apps/organizations/forms.py:314
 msgid "Region1"
 msgstr "Lurraldea1"
 
@@ -407,17 +407,17 @@ msgid "Active"
 msgstr "Aktiboa"
 
 #: apps/methods/models.py:503 apps/organizations/models.py:60
-#: apps/organizations/models.py:202
+#: apps/organizations/models.py:216
 msgid "Methods"
 msgstr "Metodos"
 
 #: apps/methods/models.py:507 apps/methods/models.py:567
-#: apps/organizations/forms.py:400 apps/organizations/models.py:206
+#: apps/organizations/forms.py:427 apps/organizations/models.py:220
 #: templates/admin/methods/survey_review.html:133
 msgid "Start date"
 msgstr "Hasiera data"
 
-#: apps/methods/models.py:508 apps/organizations/models.py:207
+#: apps/methods/models.py:508 apps/organizations/models.py:221
 #: templates/admin/methods/survey_review.html:144
 msgid "End date"
 msgstr "Amaiera data"
@@ -490,8 +490,8 @@ msgstr "Izenburua"
 msgid "Display section title?"
 msgstr ""
 
-#: apps/methods/models.py:716 apps/organizations/forms.py:32
-#: apps/organizations/forms.py:250
+#: apps/methods/models.py:716 apps/organizations/forms.py:33
+#: apps/organizations/forms.py:277
 msgid "Description"
 msgstr "Deskribapena"
 
@@ -556,136 +556,136 @@ msgstr ""
 msgid "An email to all the involved contacts has been sent."
 msgstr "Inplikatutako kontaktu guztiei mezu elektroniko bat bidali izan zaie."
 
-#: apps/organizations/forms.py:22
+#: apps/organizations/forms.py:23
 msgid "Invalid signup, check that you don't have an account."
 msgstr "Eregistroa ez da zuzena, baieztatu kontua ez duzula."
 
-#: apps/organizations/forms.py:26 apps/organizations/forms.py:244
+#: apps/organizations/forms.py:27 apps/organizations/forms.py:271
 msgid "Organisation name"
 msgstr "Antolakundearen izena"
 
-#: apps/organizations/forms.py:30 apps/organizations/forms.py:248
+#: apps/organizations/forms.py:31 apps/organizations/forms.py:275
 msgid "Organisation description"
 msgstr "Antolakundearen deskribapena"
 
-#: apps/organizations/forms.py:36 apps/organizations/forms.py:38
-#: apps/organizations/forms.py:254 apps/organizations/forms.py:256
+#: apps/organizations/forms.py:37 apps/organizations/forms.py:39
+#: apps/organizations/forms.py:281 apps/organizations/forms.py:283
 #: templates/admin/organizations/registration_requests.html:33
 msgid "VAT Number"
 msgstr "IFK zenbakia"
 
-#: apps/organizations/forms.py:42 apps/organizations/forms.py:260
-#: apps/organizations/forms.py:424
+#: apps/organizations/forms.py:43 apps/organizations/forms.py:287
+#: apps/organizations/forms.py:451
 msgid "Name of the contact person"
 msgstr "Kontakturako pertsonaren izena"
 
-#: apps/organizations/forms.py:46 apps/organizations/forms.py:267
-#: apps/organizations/forms.py:430
+#: apps/organizations/forms.py:47 apps/organizations/forms.py:294
+#: apps/organizations/forms.py:457
 msgid "Phone number of the contact person"
 msgstr "Kontakturako pertsonaren telefono zenbakia"
 
-#: apps/organizations/forms.py:48
+#: apps/organizations/forms.py:49
 msgid "Phone number"
 msgstr "Telefono zenbakia"
 
-#: apps/organizations/forms.py:52 apps/organizations/forms.py:263
-#: apps/organizations/forms.py:436
+#: apps/organizations/forms.py:53 apps/organizations/forms.py:290
+#: apps/organizations/forms.py:463
 msgid "Email address of the contact person"
 msgstr "Kontakturako pertsonaren helbide elektronikoa"
 
-#: apps/organizations/forms.py:56
+#: apps/organizations/forms.py:57
 #: templates/components/methods/invitations_table.html:9 templates/home.html:21
 msgid "Email"
 msgstr "Posta elektronikoa"
 
-#: apps/organizations/forms.py:62 apps/organizations/forms.py:63
-#: apps/organizations/forms.py:270 apps/organizations/forms.py:271
+#: apps/organizations/forms.py:63 apps/organizations/forms.py:64
+#: apps/organizations/forms.py:297 apps/organizations/forms.py:298
 msgid "Website"
 msgstr "Web gunea"
 
-#: apps/organizations/forms.py:67 apps/organizations/forms.py:275
+#: apps/organizations/forms.py:68 apps/organizations/forms.py:302
 msgid "Country"
 msgstr "Herrialdea"
 
-#: apps/organizations/forms.py:92 apps/organizations/forms.py:300
+#: apps/organizations/forms.py:93 apps/organizations/forms.py:327
 #: templates/admin/organizations/registration_requests.html:48
 msgid "City"
 msgstr "Hiria"
 
-#: apps/organizations/forms.py:105 apps/organizations/forms.py:106
-#: apps/organizations/forms.py:313 apps/organizations/forms.py:314
+#: apps/organizations/forms.py:106 apps/organizations/forms.py:107
+#: apps/organizations/forms.py:340 apps/organizations/forms.py:341
 msgid "Address"
 msgstr "Helbidea"
 
-#: apps/organizations/forms.py:109 apps/organizations/forms.py:317
+#: apps/organizations/forms.py:110 apps/organizations/forms.py:344
 msgid "Zip Code"
 msgstr "Posta Kodea"
 
-#: apps/organizations/forms.py:112 apps/organizations/forms.py:320
+#: apps/organizations/forms.py:113 apps/organizations/forms.py:347
 msgid "Legal entity type"
 msgstr "Izaera juridiko mota"
 
-#: apps/organizations/forms.py:125
+#: apps/organizations/forms.py:126
 msgid "Method of impact mesurement"
 msgstr "Inpaktua neurtzeko metodoa"
 
-#: apps/organizations/forms.py:135 apps/organizations/forms.py:324
+#: apps/organizations/forms.py:136 apps/organizations/forms.py:351
 #: apps/organizations/models.py:66
 msgid "Allow infographics to be public"
 msgstr "Infografiak argitaratzea onartu"
 
-#: apps/organizations/forms.py:176
+#: apps/organizations/forms.py:177
 msgid "I have read and accept the {}"
 msgstr "Irakurri dut eta {} onartzen dut"
 
 # He traducido proyecto como "egitasmo" en el sentido de "algo que se quiere hacer" por no poner "proiektua" pero serían practicamente sinónimos
-#: apps/organizations/forms.py:388 apps/organizations/forms.py:390
+#: apps/organizations/forms.py:415 apps/organizations/forms.py:417
 msgid "Project name"
 msgstr "Egitasmoaren izena"
 
-#: apps/organizations/forms.py:394 apps/organizations/forms.py:396
+#: apps/organizations/forms.py:421 apps/organizations/forms.py:423
 msgid "Brief description"
 msgstr "Deskribapen laburra"
 
-#: apps/organizations/forms.py:401
+#: apps/organizations/forms.py:428
 msgid "If there is no start date, put first january"
 msgstr ""
 
-#: apps/organizations/forms.py:408
+#: apps/organizations/forms.py:435
 msgid "Main action scope"
 msgstr "Jarduera-eremu nagusia"
 
-#: apps/organizations/forms.py:413
+#: apps/organizations/forms.py:440
 msgid "Secondary action scope"
 msgstr "Bigarren mailako jarduera-eremua"
 
-#: apps/organizations/forms.py:426
+#: apps/organizations/forms.py:453
 msgid "Contact name"
 msgstr "Kontaktuaren izena"
 
-#: apps/organizations/forms.py:432
+#: apps/organizations/forms.py:459
 msgid "Contact phone number"
 msgstr "Kontaktuaren telefono zenbakia"
 
-#: apps/organizations/forms.py:438
+#: apps/organizations/forms.py:465
 msgid "Contact email"
 msgstr "Kontakturako helbide elektronikoa"
 
-#: apps/organizations/forms.py:442 apps/organizations/models.py:209
+#: apps/organizations/forms.py:469 apps/organizations/models.py:223
 msgid "I want to make the results public"
 msgstr "Emaitza argitaratu nahi dut"
 
-#: apps/organizations/forms.py:445 apps/organizations/models.py:212
+#: apps/organizations/forms.py:472 apps/organizations/models.py:226
 msgid "Authorise the use of my data for inclusion in the final report"
 msgstr ""
 "Behin betiko dokumentuan sartu ahal izateko nire datuen erabilera onartzen "
 "dut"
 
-#: apps/organizations/forms.py:489
+#: apps/organizations/forms.py:516
 msgid "Choose Existing Project"
 msgstr "Existitzen den egitasmoa aukeratu"
 
-#: apps/organizations/models.py:32 apps/organizations/models.py:162
+#: apps/organizations/models.py:32 apps/organizations/models.py:176
 msgid "vat number"
 msgstr "ifk zenbakia"
 
@@ -705,131 +705,135 @@ msgstr "longitudea"
 msgid "latitude"
 msgstr "latitudea"
 
-#: apps/organizations/models.py:129
+#: apps/organizations/models.py:76
+msgid "Network managed"
+msgstr ""
+
+#: apps/organizations/models.py:143
 msgid "Community action"
 msgstr "Gizarte-ekintza"
 
-#: apps/organizations/models.py:130
+#: apps/organizations/models.py:144
 msgid "Social cohesion"
 msgstr "Gizarte-kohesioa"
 
-#: apps/organizations/models.py:131
+#: apps/organizations/models.py:145
 msgid "Culture"
 msgstr "Kultura"
 
-#: apps/organizations/models.py:132
+#: apps/organizations/models.py:146
 msgid "Sports"
 msgstr "Kirolak"
 
-#: apps/organizations/models.py:133
+#: apps/organizations/models.py:147
 msgid "Childhood"
 msgstr "Haurtzaroa"
 
-#: apps/organizations/models.py:134
+#: apps/organizations/models.py:148
 msgid "Youth"
 msgstr "Gazteak"
 
-#: apps/organizations/models.py:135
+#: apps/organizations/models.py:149
 msgid "Elderly"
 msgstr "Adinduak"
 
-#: apps/organizations/models.py:136
+#: apps/organizations/models.py:150
 msgid "Women - Feminism"
 msgstr "Emakume-Feminismoa"
 
-#: apps/organizations/models.py:137
+#: apps/organizations/models.py:151
 msgid "LGTBI"
 msgstr "LGTBI"
 
-#: apps/organizations/models.py:138
+#: apps/organizations/models.py:152
 msgid "Health"
 msgstr "Osasungintza"
 
-#: apps/organizations/models.py:139
+#: apps/organizations/models.py:153
 msgid "Interculturality"
 msgstr "Kulturartekotasuna"
 
-#: apps/organizations/models.py:140
+#: apps/organizations/models.py:154
 msgid "Funcional diversity"
 msgstr "Dibertsitate funtzional"
 
-#: apps/organizations/models.py:141
+#: apps/organizations/models.py:155
 msgid "Environmental sustainability"
 msgstr "Ingurumen jasangarritasuna"
 
-#: apps/organizations/models.py:142
+#: apps/organizations/models.py:156
 msgid "Social and solidarity economy"
 msgstr "Ekonomia Soziala eta Solidarioa"
 
-#: apps/organizations/models.py:143
+#: apps/organizations/models.py:157
 msgid "Commerce"
 msgstr "Merkataritza"
 
-#: apps/organizations/models.py:144
+#: apps/organizations/models.py:158
 msgid "Urban planning"
 msgstr "Hirigintza"
 
-#: apps/organizations/models.py:145
+#: apps/organizations/models.py:159
 msgid "International cooperation"
 msgstr "Nazioarteko lankidetza"
 
-#: apps/organizations/models.py:146
+#: apps/organizations/models.py:160
 msgid "Leisure education and educational services"
 msgstr "Aisialdia eta hezkuntza zerbitzuak"
 
-#: apps/organizations/models.py:147
+#: apps/organizations/models.py:161
 msgid "Research and new technologies"
 msgstr "Ikerketa eta teknotogia berriak"
 
-#: apps/organizations/models.py:148
+#: apps/organizations/models.py:162
 msgid "Networks and support for entities"
 msgstr "Networks and support for entities"
 
-#: apps/organizations/models.py:149
+#: apps/organizations/models.py:163
 msgid "Other"
 msgstr "Besteak"
 
-#: apps/organizations/models.py:152
+#: apps/organizations/models.py:166
 msgid "Neighborhood"
 msgstr "Auzoak"
 
-#: apps/organizations/models.py:153
+#: apps/organizations/models.py:167
 msgid "District"
 msgstr "Barrutia"
 
-#: apps/organizations/models.py:154
+#: apps/organizations/models.py:168
 msgid "City/Municipality"
 msgstr "Hiria/udalerria"
 
-#: apps/organizations/models.py:155
+#: apps/organizations/models.py:169
 msgid "County"
 msgstr "Eskualdea"
 
-#: apps/organizations/models.py:165
+#: apps/organizations/models.py:179
 msgid "contact person"
 msgstr "kontakturako pertsona"
 
-#: apps/organizations/models.py:166
+#: apps/organizations/models.py:180
 msgid "contact email"
 msgstr "kontakturako helbide elektronikoa"
 
-#: apps/organizations/models.py:168
+#: apps/organizations/models.py:182
 msgid "contact telephone"
 msgstr "kontakturako telefonoa\""
 
-#: apps/organizations/models.py:177
+#: apps/organizations/models.py:191
 msgid "main scope of action"
 msgstr "jarduera-eremu nagusia"
 
-#: apps/organizations/models.py:183
+#: apps/organizations/models.py:197
 msgid "secondary fields of action"
 msgstr "bigarren mailako jarduera-eremua"
 
-#: apps/organizations/models.py:189
+#: apps/organizations/models.py:203
 msgid "Main legal entity type"
 msgstr "Izaera juridiko nagusia"
 
-#: apps/organizations/models.py:195
+#: apps/organizations/models.py:209
 msgid "Secondary legal entity type"
 msgstr "Bigarren mailako izaera juridikoa"
 
@@ -1304,10 +1308,8 @@ msgid "Export"
 msgstr "Esportatu"
 
 #: templates/components/card/indicators_set.html:33
-#, fuzzy
-#| msgid "Address"
 msgid "Add"
-msgstr "Helbidea"
+msgstr ""
 
 #: templates/components/card/survey_stats.html:13
 #, python-format
@@ -1593,11 +1595,11 @@ msgstr "Galdetegiak bidali"
 msgid "Import CSV"
 msgstr "Inportatzea CSV"
 
-#: templates/methods/external_surveys_view.html:83
+#: templates/methods/external_surveys_view.html:85
 msgid "Upload CSV"
 msgstr ""
 
-#: templates/methods/external_surveys_view.html:86
+#: templates/methods/external_surveys_view.html:89
 #, python-format
 msgid ""
 "The csv file must contain the headers \"%(header_name)s\" and "

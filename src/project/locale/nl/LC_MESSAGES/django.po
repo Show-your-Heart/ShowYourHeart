@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-14 16:09+0200\n"
+"POT-Creation-Date: 2026-07-17 09:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,78 +18,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/admin.py:90 project/admin.py:146
+#: project/admin.py:94 project/admin.py:150
 msgid "Add/Edit"
 msgstr ""
 
-#: project/admin.py:96 project/admin.py:152
+#: project/admin.py:100 project/admin.py:156
 msgid "Actions"
 msgstr ""
 
-#: project/admin.py:120
+#: project/admin.py:124
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr ""
 
-#: project/admin.py:121
+#: project/admin.py:125
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr ""
 
-#: project/admin.py:122
+#: project/admin.py:126
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr ""
 
-#: project/admin.py:176 project/admin.py:316
+#: project/admin.py:180 project/admin.py:320
 msgid "action"
 msgstr ""
 
-#: project/admin.py:189
+#: project/admin.py:193
 msgid "staff user"
 msgstr ""
 
-#: project/admin.py:215
+#: project/admin.py:219
 msgid "Metadata"
 msgstr ""
 
-#: project/admin.py:226
+#: project/admin.py:230
 msgid "Details"
 msgstr ""
 
-#: project/admin.py:285
+#: project/admin.py:289
 msgid "object"
 msgstr ""
 
-#: project/admin.py:302
+#: project/admin.py:306
 msgid "user"
 msgstr ""
 
-#: project/admin.py:322
+#: project/admin.py:326
 msgid "change message"
 msgstr ""
 
-#: project/admin.py:403
+#: project/admin.py:407
 msgid "Organizations management"
 msgstr ""
 
-#: project/admin.py:442
+#: project/admin.py:446
 msgid "Methods management"
 msgstr ""
 
-#: project/admin.py:453
+#: project/admin.py:457
 msgid "Features"
 msgstr ""
 
-#: project/admin.py:459
+#: project/admin.py:463
 msgid "Registration Requests"
 msgstr ""
 
-#: project/admin.py:464
+#: project/admin.py:468
 msgid "Review Balances"
 msgstr ""
 
-#: project/admin.py:512
+#: project/admin.py:516
 msgid "Settings"
 msgstr ""
 
