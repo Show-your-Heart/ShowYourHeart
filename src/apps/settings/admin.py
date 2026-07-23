@@ -67,4 +67,12 @@ class SectorAdmin(ModelAdmin, TabbedTranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=SMTPServer)
 class SMTPServerAdmin(NetworkFilterMixin, ModelAdmin):
-    list_display = ("network", "host", "port", "protocol", "username", "password")
+    list_display = (
+        "network",
+        "from_email",
+        "host",
+        "port",
+        "protocol",
+        "username",
+        "password",
+    )
