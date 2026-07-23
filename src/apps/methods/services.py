@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from project.post_office import send
-from project.utils.smtp_utils import get_smtp_for_user
+from project.utils.smtp_utils import get_from_email, get_smtp_for_user
 
 from .models import Survey
 
@@ -19,8 +19,10 @@ def send_invitation(request, invitation):
     }
 
     smtp = get_smtp_for_user(user=request.user)
+    from_email = get_from_email(user=request.user)
 
     send(
+        sender=from_email,
         recipients=[invitation.email],
         template="external_survey_invitation",
         context=context,
@@ -36,7 +38,9 @@ def send_survey_reminder_email(request):
             user_emails.append(survey.user.email)
 
     smtp = get_smtp_for_user(user=request.user)
+    from_email = get_from_email(user=request.user)
     send(
+        sender=from_email,
         bcc=user_emails,
         template="survey_reminder",
         smtp=smtp,
@@ -48,7 +52,9 @@ def send_user_survey_reminder_email(request, survey_id):
     context = {"user_name": survey.user.name, "survey": survey.method.name}
 
     smtp = get_smtp_for_user(user=request.user)
+    from_email = get_from_email(user=request.user)
     send(
+        sender=from_email,
         recipients=[survey.user.email],
         template="user_survey_reminder",
         context=context,
@@ -68,7 +74,9 @@ def send_survey_status_update_email(request, survey_id, survey_status):
         context = {"user_name": survey.user.name, "method_name": survey.method.name}
 
         smtp = get_smtp_for_user(user=request.user)
+        from_email = get_from_email(user=request.user)
         return send(
+            sender=from_email,
             recipients=[survey.user.email],
             template=template,
             context=context,
