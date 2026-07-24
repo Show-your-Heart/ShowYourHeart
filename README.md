@@ -360,6 +360,31 @@ development.
 
 Alternatively, you can also use the Django built-in `createsuperuser` command.
 
+## Signals
+
+### Sites & Multi-domain configuration
+
+This project uses Django's **django.contrib.sites** framework to serve the app from multiple domains, routed by nginx to this same app. This is what makes things like password reset emails use the correct domain automatically.
+
+Each environment needs a matching Site record for every domain it serves, or Django raises Site.DoesNotExist. To avoid manual setup, sites are registered automatically via a post_migrate signal (apps/settings/signals.py), which reads EXPECTED_SITES and creates/updates Site records on every migrate.
+
+Set EXPECTED_SITES env var, as a JSON list of [domain, name] pairs, and manage through Ansible. Domain must match the Host (for dev environment, localhost:1601). Add new domains to the relevant host_vars file and they'll be created on the next migrate.
+
+```yaml
+expected_sites:
+  - ["aaa.org", "AAA"]
+  - ["bbb.org", "BBB"]
+  - ["ccc.org", "CCC"]
+```
+
+You can also add domains via django admin Site model directly to the database.
+
+If you're not running Ansible locally, add the variable manually to your local settings.py file, e.g.:
+
+```python
+EXPECTED_SITES=[("localhost:1601", "Local")]
+```
+
 ## Versions
 
 ### Auto-generate CHANGELOG
