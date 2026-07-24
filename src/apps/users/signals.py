@@ -63,7 +63,7 @@ def update_user_groups(sender, **kwargs):
 
     # Network Admins (mostly read-only)
     permissions_network = {
-        "organizations": get_permission_codenames("organization", "v")
+        "organizations": get_permission_codenames("organization", "vac")
         + get_permission_codenames("project", "v"),
         "methods": get_permission_codenames("method", "v")
         + get_permission_codenames("section", "v")
@@ -75,7 +75,7 @@ def update_user_groups(sender, **kwargs):
         + get_permission_codenames("groupitem", "v")
         + get_permission_codenames("topic", "v")
         + get_permission_codenames("externalsurveyinvitation", "v"),
-        "users": get_permission_codenames("user", "v"),
+        "users": get_permission_codenames("user", "vc"),
         "geodata": get_permission_codenames("region1", "v")
         + get_permission_codenames("city", "v")
         + get_permission_codenames("country", "v")
