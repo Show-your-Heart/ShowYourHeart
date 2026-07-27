@@ -2,6 +2,7 @@ import re
 
 from django.apps import apps
 from django.core.mail import EmailMessage, get_connection
+from django.db.backends.utils import logger
 from django.template import Context, Template
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
@@ -54,6 +55,7 @@ def send(
             password=smtp.password,
             use_tls=(smtp.protocol == "TLS"),
             use_ssl=(smtp.protocol == "SSL"),
+            timeout=5,
         )
 
         subject = Template(translated_template[0].subject).render(Context(context))
@@ -69,7 +71,13 @@ def send(
             headers=headers,
             connection=connection,
         )
-        return email.send()
+        try:
+            return email.send()
+        except Exception:
+            logger.exception(
+                "Network SMTP send failed for host=%s, falling back to Post Office",
+                smtp.host,
+            )
 
     # Otherwise use Post Office as before
     return base_mail.send(
@@ -77,7 +85,6 @@ def send(
         sender=sender,
         template=template,
         context=context,
-        subject=subject,
         message=message,
         html_message=html_message,
         scheduled_time=scheduled_time,
