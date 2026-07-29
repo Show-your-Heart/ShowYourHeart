@@ -40,11 +40,11 @@
                         <td class="px-4 py-3 text-gray-700">
                         {% if survey %}
                             <div class="flex items-center justify-center">
-                                <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}" target="_blank">
+                                <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}&language={{language}}" target="_blank">
                                     <c-icon name="download" class="text-blue-600"></c-icon>
                                 </a>
                                 {% if row.has_evaluated %}
-                                <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}&method={{ survey.method.id }}" target="_blank">
+                                <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}&method={{ survey.method.id }}&language={{language}}" target="_blank">
                                     <c-icon name="pdf" class="text-blue-600"></c-icon>
                                 </a>
                                 {% endif %}
