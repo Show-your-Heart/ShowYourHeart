@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-08-06
+
+### 🚀 Features
+
+- Automatically add network on organization creation (#516)
+- Add info text on external surveys csv import (#522)
+- Add network managed field to Organizations (#520)
+- Add a confirmation message before submitting the survey (#521)
+- Display field managed_by on Networks (#524)
+- Add smtp from_email helper function
+- Add field from_email
+- Define from_email field when sending emails
+- Add timeout and error check when sending email
+- Sites & Multi-domain configuration
+
+### 🐛 Bug Fixes
+
+- Allow to edit group auth permissions on superadmin (#515)
+- Update network permissions (#528)
+
+### ⚙️ Miscellaneous Tasks
+
+- Update CHANGELOG
+- Update translations
+
 ## [0.3.0] - 2026-07-09
 
 ### 🚀 Features
