@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:44+0200\n"
+"POT-Creation-Date: 2026-08-06 09:58+0200\n"
 "PO-Revision-Date: 2026-04-27 14:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -134,7 +134,7 @@ msgstr "Holandés"
 msgid "French"
 msgstr "Francés"
 
-#: project/settings.py:380
+#: project/settings.py:381
 msgid ""
 "This name will be used for the HTML title of the public app, logo alt text "
 "and other places."
@@ -142,7 +142,7 @@ msgstr ""
 "Este nombre se utilizará en el título HTML de la aplicación pública, en el "
 "texto alternativo del logotipo y en otros lugares."
 
-#: project/settings.py:389
+#: project/settings.py:390
 msgid ""
 "Logo image that will be used to customize the public app, e-mail templates "
 "and other."
@@ -150,11 +150,11 @@ msgstr ""
 "Imagen del logotipo que se utilizará para personalizar la aplicación "
 "pública, las plantillas de correo electrónico y otros elementos."
 
-#: project/settings.py:396
+#: project/settings.py:397
 msgid "Dynamic settings"
 msgstr "Configuración dinámica"
 
-#: project/settings.py:483
+#: project/settings.py:484
 msgid ""
 "Access to: configuration and customization settings, the log of emails sent "
 "by the system, email templates, users management. Gives permission to edit "
@@ -165,7 +165,7 @@ msgstr ""
 "gestión de usuarios. Otorga permiso para editar los campos «Es personal», "
 "«Está activo» y «Grupos»."
 
-#: project/settings.py:491
+#: project/settings.py:492
 msgid "Access to: all basic models read-only mode."
 msgstr "Acceso a: todos los modelos básicos en modo de solo lectura."
 

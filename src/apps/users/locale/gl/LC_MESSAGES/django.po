@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 17:15+0200\n"
+"POT-Creation-Date: 2026-08-06 09:58+0200\n"
 "PO-Revision-Date: 2026-04-27 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -57,40 +57,40 @@ msgstr ""
 msgid "Send email to the user to set the password"
 msgstr "Enviar correo electrónico á usuaria para establecer o contrasinal"
 
-#: apps/users/forms.py:32 apps/users/forms.py:68 apps/users/forms.py:117
-#: apps/users/forms.py:138
+#: apps/users/forms.py:30 apps/users/forms.py:66 apps/users/forms.py:115
+#: apps/users/forms.py:136
 msgid "Email"
 msgstr "Correo-e"
 
-#: apps/users/forms.py:37 apps/users/forms.py:71 apps/users/forms.py:122
-#: apps/users/forms.py:144
+#: apps/users/forms.py:35 apps/users/forms.py:69 apps/users/forms.py:120
+#: apps/users/forms.py:142
 msgid "Email address"
 msgstr "Correo electrónico"
 
-#: apps/users/forms.py:42 apps/users/forms.py:43 apps/users/forms.py:60
-#: apps/users/forms.py:61
+#: apps/users/forms.py:40 apps/users/forms.py:41 apps/users/forms.py:58
+#: apps/users/forms.py:59
 msgid "Password"
 msgstr "Contasinal"
 
-#: apps/users/forms.py:46
+#: apps/users/forms.py:44
 msgid "Remember me"
 msgstr "Lémbrame"
 
-#: apps/users/forms.py:52 apps/users/forms.py:53 apps/users/forms.py:109
-#: apps/users/forms.py:110
+#: apps/users/forms.py:50 apps/users/forms.py:51 apps/users/forms.py:107
+#: apps/users/forms.py:108
 msgid "Name"
 msgstr "Nome"
 
-#: apps/users/forms.py:56 apps/users/forms.py:57 apps/users/forms.py:113
-#: apps/users/forms.py:114
+#: apps/users/forms.py:54 apps/users/forms.py:55 apps/users/forms.py:111
+#: apps/users/forms.py:112
 msgid "Surnames"
 msgstr "Apelidos"
 
-#: apps/users/forms.py:64 apps/users/forms.py:65
+#: apps/users/forms.py:62 apps/users/forms.py:63
 msgid "Password confirmation"
 msgstr "Confirmar contrasinal"
 
-#: apps/users/forms.py:91
+#: apps/users/forms.py:89
 msgid "I have read and agree with the {}"
 msgstr "Lin e acepto"
 

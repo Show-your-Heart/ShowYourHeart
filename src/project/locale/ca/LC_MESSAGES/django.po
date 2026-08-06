@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:44+0200\n"
+"POT-Creation-Date: 2026-08-06 09:58+0200\n"
 "PO-Revision-Date: 2026-05-05 13:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -134,7 +134,7 @@ msgstr "Holandès"
 msgid "French"
 msgstr "Francès"
 
-#: project/settings.py:380
+#: project/settings.py:381
 msgid ""
 "This name will be used for the HTML title of the public app, logo alt text "
 "and other places."
@@ -142,7 +142,7 @@ msgstr ""
 "Aquest nom s'utilitzarà per al títol HTML de l'aplicació pública, el text "
 "alternatiu del logotip i altres llocs."
 
-#: project/settings.py:389
+#: project/settings.py:390
 msgid ""
 "Logo image that will be used to customize the public app, e-mail templates "
 "and other."
@@ -150,11 +150,11 @@ msgstr ""
 "Imatge del logotip que s'utilitzarà per personalitzar l'aplicació pública, "
 "les plantilles de correu electrònic i altres elements."
 
-#: project/settings.py:396
+#: project/settings.py:397
 msgid "Dynamic settings"
 msgstr "Configuració dinàmica"
 
-#: project/settings.py:483
+#: project/settings.py:484
 msgid ""
 "Access to: configuration and customization settings, the log of emails sent "
 "by the system, email templates, users management. Gives permission to edit "
@@ -165,7 +165,7 @@ msgstr ""
 "d'usuaris. Dóna permís per editar els camps \"És personal\", \"És actiu\" i "
 "\"Grups\"."
 
-#: project/settings.py:491
+#: project/settings.py:492
 msgid "Access to: all basic models read-only mode."
 msgstr "Accés a: tots els models bàsics en mode de només lectura."
 

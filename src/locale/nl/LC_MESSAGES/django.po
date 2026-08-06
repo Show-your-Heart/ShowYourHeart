@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:48+0200\n"
+"POT-Creation-Date: 2026-08-06 09:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -854,22 +854,28 @@ msgid "Network"
 msgstr ""
 
 #: apps/settings/models.py:56
+#, fuzzy
+#| msgid "contact email"
+msgid "From email"
+msgstr "contact-e-mailadres"
+
+#: apps/settings/models.py:57
 msgid "Host"
 msgstr ""
 
-#: apps/settings/models.py:57
+#: apps/settings/models.py:58
 msgid "Port"
 msgstr ""
 
-#: apps/settings/models.py:58
+#: apps/settings/models.py:59
 msgid "Username"
 msgstr ""
 
-#: apps/settings/models.py:59
+#: apps/settings/models.py:60
 msgid "Password"
 msgstr ""
 
-#: apps/settings/models.py:60
+#: apps/settings/models.py:61
 msgid "Protocol"
 msgstr ""
 
