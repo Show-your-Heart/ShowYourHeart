@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 13:29+0200\n"
+"POT-Creation-Date: 2026-07-17 09:44+0200\n"
 "PO-Revision-Date: 2026-05-05 13:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,78 +19,78 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.9\n"
 
-#: project/admin.py:89 project/admin.py:145
+#: project/admin.py:94 project/admin.py:150
 msgid "Add/Edit"
 msgstr "Afegir/Editar"
 
-#: project/admin.py:95 project/admin.py:151
+#: project/admin.py:100 project/admin.py:156
 msgid "Actions"
 msgstr "Accions"
 
-#: project/admin.py:119
+#: project/admin.py:124
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr "Afegir"
 
-#: project/admin.py:120
+#: project/admin.py:125
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr "Suprimir"
 
-#: project/admin.py:121
+#: project/admin.py:126
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr "Canviar"
 
-#: project/admin.py:175 project/admin.py:315
+#: project/admin.py:180 project/admin.py:320
 msgid "action"
 msgstr "acció"
 
-#: project/admin.py:188
+#: project/admin.py:193
 msgid "staff user"
 msgstr "usuari de treball"
 
-#: project/admin.py:214
+#: project/admin.py:219
 msgid "Metadata"
 msgstr "Metadata"
 
-#: project/admin.py:225
+#: project/admin.py:230
 msgid "Details"
 msgstr "Detalls"
 
-#: project/admin.py:284
+#: project/admin.py:289
 msgid "object"
 msgstr "objecte"
 
-#: project/admin.py:301
+#: project/admin.py:306
 msgid "user"
 msgstr "usuari"
 
-#: project/admin.py:321
+#: project/admin.py:326
 msgid "change message"
 msgstr "canviar missatge"
 
-#: project/admin.py:402
+#: project/admin.py:407
 msgid "Organizations management"
 msgstr "Gestió d'organitzacions"
 
-#: project/admin.py:441
+#: project/admin.py:446
 msgid "Methods management"
 msgstr "Gestió de mètodes"
 
-#: project/admin.py:452
+#: project/admin.py:457
 msgid "Features"
 msgstr "Funcions"
 
-#: project/admin.py:458
+#: project/admin.py:463
 msgid "Registration Requests"
 msgstr "Demandes d'alta"
 
-#: project/admin.py:463
+#: project/admin.py:468
 msgid "Review Balances"
 msgstr "Revisar balanços"
 
-#: project/admin.py:511
+#: project/admin.py:516
 msgid "Settings"
 msgstr "Configuració"
 
@@ -193,7 +193,7 @@ msgstr "Crear compte"
 msgid "Profile details"
 msgstr "Detalls del perfil"
 
-#: project/tests/test_selenium.py:61 project/views.py:100
+#: project/tests/test_selenium.py:61 project/views.py:104
 msgid "Registry updated"
 msgstr "Registre actualitzat"
 
@@ -205,30 +205,30 @@ msgstr "Canvi de contrasenya"
 msgid "Mail validation"
 msgstr "Validació del mail"
 
-#: project/urls.py:34
+#: project/urls.py:36
 msgid "registration/"
 msgstr "registre/"
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "settings/"
 msgstr "configuració/"
 
-#: project/urls.py:41
+#: project/urls.py:43
 msgid "organizations/"
 msgstr "organitzacions/"
 
-#: project/views.py:99
+#: project/views.py:103
 msgid "Back"
 msgstr "Enrere"
 
-#: project/views.py:101
+#: project/views.py:105
 msgid "Registry successfully updated"
 msgstr "Registre actualitzat amb èxit"
 
-#: project/views.py:102
+#: project/views.py:106
 msgid "Done!"
 msgstr "Fet!"
 
-#: project/views.py:103
+#: project/views.py:107
 msgid "The registry was updated correctly."
 msgstr "El registre ha sigut actualitzat correctament."

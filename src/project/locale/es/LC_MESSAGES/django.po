@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 13:29+0200\n"
+"POT-Creation-Date: 2026-07-17 09:44+0200\n"
 "PO-Revision-Date: 2026-04-27 14:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,78 +19,78 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.9\n"
 
-#: project/admin.py:89 project/admin.py:145
+#: project/admin.py:94 project/admin.py:150
 msgid "Add/Edit"
 msgstr "Añadir/Editar"
 
-#: project/admin.py:95 project/admin.py:151
+#: project/admin.py:100 project/admin.py:156
 msgid "Actions"
 msgstr "Acciones"
 
-#: project/admin.py:119
+#: project/admin.py:124
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr "Añadir"
 
-#: project/admin.py:120
+#: project/admin.py:125
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr "Eliminación"
 
-#: project/admin.py:121
+#: project/admin.py:126
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr "Cambiar"
 
-#: project/admin.py:175 project/admin.py:315
+#: project/admin.py:180 project/admin.py:320
 msgid "action"
 msgstr "acción"
 
-#: project/admin.py:188
+#: project/admin.py:193
 msgid "staff user"
 msgstr "usuario del personal"
 
-#: project/admin.py:214
+#: project/admin.py:219
 msgid "Metadata"
 msgstr "Metadatos"
 
-#: project/admin.py:225
+#: project/admin.py:230
 msgid "Details"
 msgstr "Detalles"
 
-#: project/admin.py:284
+#: project/admin.py:289
 msgid "object"
 msgstr "objeto"
 
-#: project/admin.py:301
+#: project/admin.py:306
 msgid "user"
 msgstr "usuario"
 
-#: project/admin.py:321
+#: project/admin.py:326
 msgid "change message"
 msgstr "cambiar mensaje"
 
-#: project/admin.py:402
+#: project/admin.py:407
 msgid "Organizations management"
 msgstr "Gestión de organizaciones"
 
-#: project/admin.py:441
+#: project/admin.py:446
 msgid "Methods management"
 msgstr "Gestión de métodos"
 
-#: project/admin.py:452
+#: project/admin.py:457
 msgid "Features"
 msgstr "Características"
 
-#: project/admin.py:458
+#: project/admin.py:463
 msgid "Registration Requests"
 msgstr "Solicitudes de inscripción"
 
-#: project/admin.py:463
+#: project/admin.py:468
 msgid "Review Balances"
 msgstr "Revisar Balances"
 
-#: project/admin.py:511
+#: project/admin.py:516
 msgid "Settings"
 msgstr "Configuración"
 
@@ -193,7 +193,7 @@ msgstr "Crear una cuenta"
 msgid "Profile details"
 msgstr "Detalles del perfil"
 
-#: project/tests/test_selenium.py:61 project/views.py:100
+#: project/tests/test_selenium.py:61 project/views.py:104
 msgid "Registry updated"
 msgstr "Registro actualizado"
 
@@ -205,30 +205,30 @@ msgstr "Cambio de contraseña"
 msgid "Mail validation"
 msgstr "Validación del correo electrónico"
 
-#: project/urls.py:34
+#: project/urls.py:36
 msgid "registration/"
 msgstr "inscripcion/"
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "settings/"
 msgstr "ajustes/"
 
-#: project/urls.py:41
+#: project/urls.py:43
 msgid "organizations/"
 msgstr "organizaciones/"
 
-#: project/views.py:99
+#: project/views.py:103
 msgid "Back"
 msgstr "Atrás"
 
-#: project/views.py:101
+#: project/views.py:105
 msgid "Registry successfully updated"
 msgstr "El registro se ha actualizado correctamente"
 
-#: project/views.py:102
+#: project/views.py:106
 msgid "Done!"
 msgstr "¡Hecho!"
 
-#: project/views.py:103
+#: project/views.py:107
 msgid "The registry was updated correctly."
 msgstr "El registro se ha actualizado correctamente."

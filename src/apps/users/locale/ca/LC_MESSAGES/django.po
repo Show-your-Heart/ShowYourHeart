@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 14:40+0200\n"
+"POT-Creation-Date: 2026-07-13 17:15+0200\n"
 "PO-Revision-Date: 2026-05-05 13:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,41 +19,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.9\n"
 
-#: apps/users/admin.py:71
+#: apps/users/admin.py:72
 msgid "Authentication"
 msgstr "Autenticació"
 
-#: apps/users/admin.py:82
+#: apps/users/admin.py:83
 msgid "Personal details"
 msgstr "Details personals"
 
-#: apps/users/admin.py:86
+#: apps/users/admin.py:87
 msgid "Permissions and authorizations"
 msgstr "Permisos i autoritzacions"
 
-#: apps/users/admin.py:100
+#: apps/users/admin.py:101
 msgid "Log"
 msgstr "Registres"
 
-#: apps/users/admin.py:124
+#: apps/users/admin.py:125
 msgid "Organisation"
 msgstr "Organització"
 
-#: apps/users/admin.py:128
+#: apps/users/admin.py:129
 msgid "User roles information"
 msgstr "Informació dels rols d'usuaris"
 
-#: apps/users/admin.py:136
+#: apps/users/admin.py:137
 msgid "Actions"
 msgstr "Accions"
 
-#: apps/users/admin.py:141
+#: apps/users/admin.py:142
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 "Esteu segur que voleu enviar un correu electrònic a l'usuari per establir la "
 "contrasenya?"
 
-#: apps/users/admin.py:147
+#: apps/users/admin.py:148
 msgid "Send email to the user to set the password"
 msgstr "Enviar correu electrònic a l'usuari per establir la contrasenya"
 
@@ -120,44 +120,44 @@ msgstr ""
 "S'està ometent la creació inicial del superusuari. Definiu les variables "
 "d'entorn SUPERUSER_EMAIL i SUPERUSER_PASSWORD per habilitar-ho."
 
-#: apps/users/models.py:23
+#: apps/users/models.py:22
 msgid "Users must have an email address"
 msgstr "Els usuaris han de tenir una adreça de correu electrònic"
 
-#: apps/users/models.py:41
+#: apps/users/models.py:40
 msgid "Superusers must have a password"
 msgstr "Els superusuaris han de tenir una contrasenya"
 
-#: apps/users/models.py:59
+#: apps/users/models.py:58
 msgid "telephone"
 msgstr "telèfon"
 
-#: apps/users/models.py:81 apps/users/models.py:109
+#: apps/users/models.py:80 apps/users/models.py:108
 msgid "name"
 msgstr "nom"
 
-#: apps/users/models.py:83
+#: apps/users/models.py:82
 msgid "surname"
 msgstr "cognoms"
 
-#: apps/users/models.py:89
+#: apps/users/models.py:88
 msgid "email address"
 msgstr "correu electrònic"
 
-#: apps/users/models.py:118
+#: apps/users/models.py:117
 msgid "user"
 msgstr "usuari"
 
-#: apps/users/models.py:119
+#: apps/users/models.py:118
 msgid "users"
 msgstr "usuaris"
 
-#: apps/users/signals.py:102
+#: apps/users/signals.py:108
 #, python-brace-format
 msgid "Group {name} created."
 msgstr "Grup {name} creat."
 
-#: apps/users/signals.py:105
+#: apps/users/signals.py:111
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr "Grup  {name} ja existeix, permisos actualitzats."

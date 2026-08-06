@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 13:29+0200\n"
+"POT-Creation-Date: 2026-07-17 09:44+0200\n"
 "PO-Revision-Date: 2026-04-07 16:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,78 +19,78 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.9\n"
 
-#: project/admin.py:89 project/admin.py:145
+#: project/admin.py:94 project/admin.py:150
 msgid "Add/Edit"
 msgstr "Gehitu/Editatu"
 
-#: project/admin.py:95 project/admin.py:151
+#: project/admin.py:100 project/admin.py:156
 msgid "Actions"
 msgstr "Ekintzak"
 
-#: project/admin.py:119
+#: project/admin.py:124
 msgctxt "logentry_admin:action_type"
 msgid "Addition"
 msgstr "Gehitze"
 
-#: project/admin.py:120
+#: project/admin.py:125
 msgctxt "logentry_admin:action_type"
 msgid "Deletion"
 msgstr "Ezabatze"
 
-#: project/admin.py:121
+#: project/admin.py:126
 msgctxt "logentry_admin:action_type"
 msgid "Change"
 msgstr "Aldaketa"
 
-#: project/admin.py:175 project/admin.py:315
+#: project/admin.py:180 project/admin.py:320
 msgid "action"
 msgstr "ekintza"
 
-#: project/admin.py:188
+#: project/admin.py:193
 msgid "staff user"
 msgstr "taldearen erabiltzailea"
 
-#: project/admin.py:214
+#: project/admin.py:219
 msgid "Metadata"
 msgstr "Metadatuak"
 
-#: project/admin.py:225
+#: project/admin.py:230
 msgid "Details"
 msgstr "Detaileak"
 
-#: project/admin.py:284
+#: project/admin.py:289
 msgid "object"
 msgstr "objektua"
 
-#: project/admin.py:301
+#: project/admin.py:306
 msgid "user"
 msgstr "erabiltzailea"
 
-#: project/admin.py:321
+#: project/admin.py:326
 msgid "change message"
 msgstr "mezua aldatu"
 
-#: project/admin.py:402
+#: project/admin.py:407
 msgid "Organizations management"
 msgstr "Kudeaketa-antolakundeak"
 
-#: project/admin.py:441
+#: project/admin.py:446
 msgid "Methods management"
 msgstr "Metodoen kudeaketa"
 
-#: project/admin.py:452
+#: project/admin.py:457
 msgid "Features"
 msgstr "Ezaugarriak"
 
-#: project/admin.py:458
+#: project/admin.py:463
 msgid "Registration Requests"
 msgstr "Erregistro-eskaerak"
 
-#: project/admin.py:463
+#: project/admin.py:468
 msgid "Review Balances"
 msgstr "Auditoretzak berrikusi"
 
-#: project/admin.py:511
+#: project/admin.py:516
 msgid "Settings"
 msgstr "Konfigurazioa"
 
@@ -195,7 +195,7 @@ msgstr "Kontua sortu"
 msgid "Profile details"
 msgstr "Profilaren detaileak"
 
-#: project/tests/test_selenium.py:61 project/views.py:100
+#: project/tests/test_selenium.py:61 project/views.py:104
 msgid "Registry updated"
 msgstr "Erregistro eguneratua"
 
@@ -207,30 +207,30 @@ msgstr "Pasahitza aldatu"
 msgid "Mail validation"
 msgstr "Posta elektronikoaren balidatzea"
 
-#: project/urls.py:34
+#: project/urls.py:36
 msgid "registration/"
 msgstr "erregistratzea/"
 
-#: project/urls.py:39
+#: project/urls.py:41
 msgid "settings/"
 msgstr "ezarpenak/"
 
-#: project/urls.py:41
+#: project/urls.py:43
 msgid "organizations/"
 msgstr "antolakundeak/"
 
-#: project/views.py:99
+#: project/views.py:103
 msgid "Back"
 msgstr "Atzera"
 
-#: project/views.py:101
+#: project/views.py:105
 msgid "Registry successfully updated"
 msgstr "Erregistroa behar bezala eguneratuta"
 
-#: project/views.py:102
+#: project/views.py:106
 msgid "Done!"
 msgstr "Prest!"
 
-#: project/views.py:103
+#: project/views.py:107
 msgid "The registry was updated correctly."
 msgstr "Erregistroa behar bezala eguneratu egin zen."

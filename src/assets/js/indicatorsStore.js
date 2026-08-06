@@ -121,8 +121,12 @@ const initIndicatorsStore = () => {
                     }
                     if (value == undefined) {
                         this.indicators[instanceId].hasErrors = true
-                        this.indicators[instanceId].error = `Missing value, please fill question ${token} before.`
-                        console.log(`Missing value, please fill question ${token} before.`)
+
+                        let errorMessage = gettext('Missing value, please fill question %s before.')
+                        errorMessage = interpolate(errorMessage, [token])
+
+                        this.indicators[instanceId].error = errorMessage
+                        console.log(errorMessage)
                         return "false"
                     }
                     loadedTokens.push(value)

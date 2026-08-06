@@ -53,6 +53,7 @@ class SMTPServer(BaseModel):
         related_name="smtp_server",
         verbose_name=_("Network"),
     )
+    from_email = models.EmailField(_("From email"), max_length=255, default="")
     host = models.CharField(_("Host"), max_length=255)
     port = models.PositiveIntegerField(_("Port"))
     username = models.CharField(_("Username"), max_length=255)

@@ -71,6 +71,14 @@ class Organization(BaseModel):
         related_name="organization_sectors",
         blank=True,
     )
+    network_managed = models.ForeignKey(
+        "settings.Network",
+        verbose_name=_("Network managed"),
+        on_delete=models.PROTECT,
+        related_name="network_managed",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.name
@@ -84,6 +92,12 @@ class Organization(BaseModel):
             profile = UserProfile.objects.filter(organization=self).first()
             if profile and not profile.user.email_verified and sender_user:
                 send_welcome_mail(profile.user, sender_user=sender_user)
+
+        # Automatically add the organization to the method's networks
+        for method in self.methods.all():
+            for network in method.networks.all():
+                if network not in self.networks.all():
+                    self.networks.add(network)
 
         full_address = ", ".join(
             filter(

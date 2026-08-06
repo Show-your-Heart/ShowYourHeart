@@ -1,6 +1,7 @@
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin
 
+from apps.organizations.models import Organization
 from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 from project.utils.mixins import NetworkFilterMixin
@@ -33,6 +34,7 @@ class NetworkAdmin(ModelAdmin):
     list_display = ("name", "parent_network")
     filter_horizontal = ("organizations", "methods", "campaigns")
     autocomplete_fields = ["parent_network"]
+    readonly_fields = ("managed_by",)
 
     def get_fieldsets(self, request, obj=None):
         return self.build_fieldsets(
@@ -42,9 +44,17 @@ class NetworkAdmin(ModelAdmin):
                 "organizations",
                 "campaigns",
                 "methods",
+                "managed_by",
             ],
             translatable_fields=None,
         )
+
+    def managed_by(self, obj):
+        organizations = Organization.objects.filter(network_managed__id=obj.id)
+        if organizations:
+            return ", ".join([n.name for n in organizations.all()])
+        else:
+            return "-"
 
 
 # Add superadmin views with default Unfold templates
@@ -67,4 +77,12 @@ class SectorAdmin(ModelAdmin, TabbedTranslationAdmin):
 # Add admin views with custom templates
 @gov_admin_register(gov_admin_site, model=SMTPServer)
 class SMTPServerAdmin(NetworkFilterMixin, ModelAdmin):
-    list_display = ("network", "host", "port", "protocol", "username", "password")
+    list_display = (
+        "network",
+        "from_email",
+        "host",
+        "port",
+        "protocol",
+        "username",
+        "password",
+    )

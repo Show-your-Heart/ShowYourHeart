@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 14:40+0200\n"
+"POT-Creation-Date: 2026-07-13 17:15+0200\n"
 "PO-Revision-Date: 2026-04-27 16:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,41 +19,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.9\n"
 
-#: apps/users/admin.py:71
+#: apps/users/admin.py:72
 msgid "Authentication"
 msgstr "Autentifikazioa"
 
-#: apps/users/admin.py:82
+#: apps/users/admin.py:83
 msgid "Personal details"
 msgstr "Detaile pertsonalak"
 
-#: apps/users/admin.py:86
+#: apps/users/admin.py:87
 msgid "Permissions and authorizations"
 msgstr "Baimenak eta autorizazioak"
 
-#: apps/users/admin.py:100
+#: apps/users/admin.py:101
 msgid "Log"
 msgstr "Erregistroa"
 
-#: apps/users/admin.py:124
+#: apps/users/admin.py:125
 msgid "Organisation"
 msgstr ""
 
-#: apps/users/admin.py:128
+#: apps/users/admin.py:129
 msgid "User roles information"
 msgstr "Erabiltzailearen rol-informazioa"
 
-#: apps/users/admin.py:136
+#: apps/users/admin.py:137
 msgid "Actions"
 msgstr "Ekintzak"
 
-#: apps/users/admin.py:141
+#: apps/users/admin.py:142
 msgid "Are you sure you want to send an email to the user to set the password?"
 msgstr ""
 "Ziur al zaude pasahitza ezartzeko erabiltzaileari posta elektroniko bat "
 "bidali nahi diozula?"
 
-#: apps/users/admin.py:147
+#: apps/users/admin.py:148
 msgid "Send email to the user to set the password"
 msgstr "Bidali erabiltzaileari pasahitza ezartzeko posta elektronikoa"
 
@@ -120,44 +120,44 @@ msgstr ""
 "Supererabiltzailearen hasierako sorkuntza ez da egiten. Ezarri "
 "SUPERUSER_EMAIL eta SUPERUSER_PASSWORD ingurunean aldagaiak ahalbidetzeko."
 
-#: apps/users/models.py:23
+#: apps/users/models.py:22
 msgid "Users must have an email address"
 msgstr "Erabiltzaileek posta elektroniko bat izan behar dute"
 
-#: apps/users/models.py:41
+#: apps/users/models.py:40
 msgid "Superusers must have a password"
 msgstr "Erabiltzaileek pasahitza izan behar dute"
 
-#: apps/users/models.py:59
+#: apps/users/models.py:58
 msgid "telephone"
 msgstr "telefonoa"
 
-#: apps/users/models.py:81 apps/users/models.py:109
+#: apps/users/models.py:80 apps/users/models.py:108
 msgid "name"
 msgstr "izena"
 
-#: apps/users/models.py:83
+#: apps/users/models.py:82
 msgid "surname"
 msgstr "abizena"
 
-#: apps/users/models.py:89
+#: apps/users/models.py:88
 msgid "email address"
 msgstr "helbide elektronikoa"
 
-#: apps/users/models.py:118
+#: apps/users/models.py:117
 msgid "user"
 msgstr "erabiltzailea"
 
-#: apps/users/models.py:119
+#: apps/users/models.py:118
 msgid "users"
 msgstr "erabiltzaileak"
 
-#: apps/users/signals.py:102
+#: apps/users/signals.py:108
 #, python-brace-format
 msgid "Group {name} created."
 msgstr "Taldea {name} sorturik."
 
-#: apps/users/signals.py:105
+#: apps/users/signals.py:111
 #, python-brace-format
 msgid "Group {name} already exist, permissions updated."
 msgstr "Taldea {name} existitzen da jada, baimena eguneratua."
