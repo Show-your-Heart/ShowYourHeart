@@ -1,4 +1,3 @@
-from django.utils.translation import get_language
 from django.views.generic import TemplateView
 
 from apps.methods.models import Campaign, Survey
@@ -52,7 +51,6 @@ class DocumentsView(TemplateView):
             table_rows.append(row)
 
         context["table_rows"] = table_rows
-        context["language"] = get_language()
         return context
 
 

@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import path, reverse
 from django.utils import timezone
 from django.utils.html import escapejs, format_html
-from django.utils.translation import get_language
 from django.utils.translation import gettext as _
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
@@ -667,7 +666,7 @@ class SurveyAdmin(ModelAdmin):
             render(
                 request,
                 "components/methods/survey_review_row.html",
-                {"survey": survey, "status": status, "laguage": get_language()},
+                {"survey": survey, "status": status},
             ),
             headers={
                 "HX-Trigger": "{ "
