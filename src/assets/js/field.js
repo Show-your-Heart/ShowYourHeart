@@ -253,7 +253,20 @@ const initFieldData = () => {
                         this.checkedOptions[optionIndex] = true
                     }
                 }
-            } else if (this.isGroupIndicator || this.indicatorsStore.isGendered(type)) {
+            } else if (this.indicatorsStore.isGendered(type)) {
+                value = current
+                if (suffix2 == '' && suffix != '') {
+                    value[suffix] = input
+                    if (this.indicatorsStore.isNumeric(type)) {
+                        value['total'] = Number(value.women) + Number(value.men) + Number(value.nonBinary) || 0
+                        if (type == this.indicatorsStore.fieldTypes.DECIMAL) {
+                            value['total'] = (Math.round(value['total'] * 100) / 100).toFixed(2)
+                        }
+                    }
+                } else {
+                    value = this.loadInitialValue(input)
+                }
+            } else if (this.isGroupIndicator) {
                 value = current
                 if (suffix2 == '' && suffix != '') {
                     value[suffix] = input
