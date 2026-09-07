@@ -1,5 +1,7 @@
 {% load i18n  %}
 
+{% get_current_language as LANG %}
+
 <tr id="survey-{{ survey.id }}" status={{status}}
     class="block border border-base-200 mb-3 relative rounded-default shadow-xs lg:table-row lg:border-none lg:mb-0 lg:rounded-none lg:shadow-none">
     <c-table.data class="action-checkbox">
@@ -11,7 +13,7 @@
 
     <c-table.data class="field-download">
         <c-button class="!p-0 bg-transparent flex justify-center hover:!bg-transparent border-none">
-            <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ survey.campaign.id }}&method={{ survey.method.id }}&organization={{ survey.organization.id }}" target="_blank">
+            <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ survey.campaign.id }}&method={{ survey.method.id }}&organization={{ survey.organization.id }}&language={{LANG}}" target="_blank">
                 <c-icon name="download" class="text-blue-600"></c-icon>
             </a>
         </c-button>
