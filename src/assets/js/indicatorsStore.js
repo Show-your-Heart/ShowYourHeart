@@ -314,7 +314,7 @@ const initIndicatorsStore = () => {
         loadTotalIndicatorResult(instanceId, subtokens) {
             let result = null
             if (subtokens.length == 2) {
-                // List or table total
+                // Gendered, list or table total
                 result = this.indicators[instanceId].value.total
             } else if (subtokens.length == 3) {
                 // Table row or column total
