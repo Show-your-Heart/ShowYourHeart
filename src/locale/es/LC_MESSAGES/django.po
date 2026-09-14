@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 09:48+0200\n"
+"POT-Creation-Date: 2026-09-14 13:24+0200\n"
 "PO-Revision-Date: 2026-05-05 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -79,8 +79,8 @@ msgstr "Mandar invitaciones"
 #: apps/methods/models.py:495 apps/methods/models.py:628
 #: apps/methods/models.py:676 apps/organizations/forms.py:28
 #: apps/organizations/forms.py:44 apps/organizations/forms.py:272
-#: templates/admin/methods/survey_review.html:35
-#: templates/admin/methods/survey_review.html:120
+#: templates/admin/methods/survey_review.html:40
+#: templates/admin/methods/survey_review.html:125
 #: templates/admin/organizations/registration_requests.html:38
 #: templates/components/methods/invitations_table.html:8
 msgid "Name"
@@ -341,7 +341,7 @@ msgstr "nombre del elemento"
 msgid "Organisation"
 msgstr "Organización"
 
-#: apps/methods/models.py:419 templates/admin/methods/survey_review.html:123
+#: apps/methods/models.py:419 templates/admin/methods/survey_review.html:128
 msgid "Project"
 msgstr "Proyecto"
 
@@ -358,7 +358,7 @@ msgid "Professional"
 msgstr "Profesional"
 
 #: apps/methods/models.py:425
-#: templates/components/methods/survey_review_row.html:126
+#: templates/components/methods/survey_review_row.html:128
 msgid "Associative"
 msgstr "Asociativo"
 
@@ -378,7 +378,7 @@ msgstr "¿A qué entidad se aplica este método?"
 msgid "Sectors"
 msgstr "Sectores"
 
-#: apps/methods/models.py:455 templates/admin/methods/survey_review.html:129
+#: apps/methods/models.py:455 templates/admin/methods/survey_review.html:134
 msgid "External surveys"
 msgstr "Cuestionarios Externos"
 
@@ -414,12 +414,12 @@ msgstr "Métodos"
 
 #: apps/methods/models.py:507 apps/methods/models.py:567
 #: apps/organizations/forms.py:427 apps/organizations/models.py:220
-#: templates/admin/methods/survey_review.html:133
+#: templates/admin/methods/survey_review.html:138
 msgid "Start date"
 msgstr "Fecha de inicio"
 
 #: apps/methods/models.py:508 apps/organizations/models.py:221
-#: templates/admin/methods/survey_review.html:144
+#: templates/admin/methods/survey_review.html:149
 msgid "End date"
 msgstr "Fecha de finalización"
 
@@ -866,22 +866,28 @@ msgid "Network"
 msgstr "Red"
 
 #: apps/settings/models.py:56
+#, fuzzy
+#| msgid "Contact email"
+msgid "From email"
+msgstr "Correo electrónico de contacto"
+
+#: apps/settings/models.py:57
 msgid "Host"
 msgstr "Anfitrión"
 
-#: apps/settings/models.py:57
+#: apps/settings/models.py:58
 msgid "Port"
 msgstr "Puerto"
 
-#: apps/settings/models.py:58
+#: apps/settings/models.py:59
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: apps/settings/models.py:59
+#: apps/settings/models.py:60
 msgid "Password"
 msgstr "Contraseña"
 
-#: apps/settings/models.py:60
+#: apps/settings/models.py:61
 msgid "Protocol"
 msgstr "Protocolo"
 
@@ -1003,102 +1009,108 @@ msgstr "Ver"
 msgid "View on site"
 msgstr "Ver en el sitio web"
 
-#: templates/admin/methods/survey_review.html:14
+#: templates/admin/methods/survey_review.html:16
 msgid "Balance review"
 msgstr "Revisión del saldo"
 
-#: templates/admin/methods/survey_review.html:16
+#: templates/admin/methods/survey_review.html:18
 msgid "Simple balance"
 msgstr "Balance simple"
 
-#: templates/admin/methods/survey_review.html:26
+#: templates/admin/methods/survey_review.html:23
+#, fuzzy
+#| msgid "Go to balance"
+msgid "Download balances"
+msgstr "Ir al balance"
+
+#: templates/admin/methods/survey_review.html:31
 msgid "Filter by"
 msgstr "Filtrar por"
 
-#: templates/admin/methods/survey_review.html:27
+#: templates/admin/methods/survey_review.html:32
 msgid "Campaign"
 msgstr "Campaña"
 
-#: templates/admin/methods/survey_review.html:28
+#: templates/admin/methods/survey_review.html:33
 msgid "Region"
 msgstr "Región"
 
-#: templates/admin/methods/survey_review.html:29
+#: templates/admin/methods/survey_review.html:34
 msgid "Method"
 msgstr "Método"
 
-#: templates/admin/methods/survey_review.html:30
-#: templates/admin/methods/survey_review.html:111
+#: templates/admin/methods/survey_review.html:35
+#: templates/admin/methods/survey_review.html:116
 #: templates/components/methods/invitations_table.html:11
 msgid "Status"
 msgstr "Estado"
 
-#: templates/admin/methods/survey_review.html:31
+#: templates/admin/methods/survey_review.html:36
 msgid "Unit of analysis"
 msgstr "Unidad de análisis"
 
-#: templates/admin/methods/survey_review.html:34
-#: templates/admin/methods/survey_review.html:117 templates/home.html:20
+#: templates/admin/methods/survey_review.html:39
+#: templates/admin/methods/survey_review.html:122 templates/home.html:20
 msgid "NIF"
 msgstr "NIF"
 
-#: templates/admin/methods/survey_review.html:37
+#: templates/admin/methods/survey_review.html:42
 msgid "Filter"
 msgstr "Filtro"
 
-#: templates/admin/methods/survey_review.html:59
+#: templates/admin/methods/survey_review.html:64
 msgid "Send email to all with open balances"
 msgstr ""
 "Enviar un correo electrónico a todos los que tengan balances pendientes"
 
-#: templates/admin/methods/survey_review.html:71
+#: templates/admin/methods/survey_review.html:76
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/admin/methods/survey_review.html:75
+#: templates/admin/methods/survey_review.html:80
 msgid "Page"
 msgstr "Página"
 
-#: templates/admin/methods/survey_review.html:82
+#: templates/admin/methods/survey_review.html:87
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/admin/methods/survey_review.html:98
+#: templates/admin/methods/survey_review.html:103
 #: templates/admin/organizations/registration_requests.html:28
 msgid "Select all rows"
 msgstr "Seleccionar todas las filas"
 
-#: templates/admin/methods/survey_review.html:114
+#: templates/admin/methods/survey_review.html:119
 msgid "Answers"
 msgstr "Respuestas"
 
-#: templates/admin/methods/survey_review.html:126
+#: templates/admin/methods/survey_review.html:131
 #: templates/components/navbar.html:34 templates/info/contact.html:8
 msgid "Contact"
 msgstr "Contacto"
 
-#: templates/admin/methods/survey_review.html:174
+#: templates/admin/methods/survey_review.html:179
 msgid "Edit balance"
 msgstr "Editar balance"
 
-#: templates/admin/methods/survey_review.html:192
+#: templates/admin/methods/survey_review.html:197
 #: templates/methods/method_fill.html:113
 msgid "Balance errors"
 msgstr "Errores del balance"
 
-#: templates/admin/methods/survey_review.html:229
+#: templates/admin/methods/survey_review.html:234
 msgid "Email sending confirmation"
 msgstr "Confirmación de envío de correo electrónico"
 
-#: templates/admin/methods/survey_review.html:233
+#: templates/admin/methods/survey_review.html:238
 msgid "You are going to send an email to"
 msgstr "Vas a enviar un correo electrónico a"
 
-#: templates/admin/methods/survey_review.html:233
+#: templates/admin/methods/survey_review.html:238
 msgid "are you sure?"
 msgstr "¿estás seguro?"
 
-#: templates/admin/methods/survey_review.html:237
+#: templates/admin/methods/survey_review.html:242
 msgid ""
 "You are going to send an email to all the organisations who have an open "
 "method, are you sure?"
@@ -1106,13 +1118,13 @@ msgstr ""
 "Vas a enviar un correo electrónico a todas las organizaciones que tienen un "
 "método abierto ¿Estás seguro?"
 
-#: templates/admin/methods/survey_review.html:242
-#: templates/admin/methods/survey_review.html:246
+#: templates/admin/methods/survey_review.html:247
+#: templates/admin/methods/survey_review.html:251
 #: templates/helpers/delete_submit_line.html:9
 msgid "Yes, I am sure"
 msgstr "Sí, estoy seguro"
 
-#: templates/admin/methods/survey_review.html:250
+#: templates/admin/methods/survey_review.html:255
 msgid "No, cancel"
 msgstr "No, cancelar"
 
@@ -1473,15 +1485,15 @@ msgstr "Enviar"
 msgid "No invitations found."
 msgstr "No se han encontrado invitaciones."
 
-#: templates/components/methods/survey_review_row.html:121
+#: templates/components/methods/survey_review_row.html:123
 msgid "Labor"
 msgstr "Laboral"
 
-#: templates/components/methods/survey_review_row.html:122
+#: templates/components/methods/survey_review_row.html:124
 msgid "Pro"
 msgstr "Profesional"
 
-#: templates/components/methods/survey_review_row.html:125
+#: templates/components/methods/survey_review_row.html:127
 msgid "Volunteer"
 msgstr "Voluntario"
 
@@ -1494,7 +1506,7 @@ msgstr "¿Qué es el Balance social?"
 msgid "Good Practices"
 msgstr "Buenas prácticas"
 
-#: templates/components/navbar.html:24 templates/info/documents.html:8
+#: templates/components/navbar.html:24 templates/info/documents.html:10
 msgid "Documents"
 msgstr "Documentos"
 
@@ -1547,11 +1559,11 @@ msgstr ""
 "Red de Redes a través del siguiente correo electrónico "
 "ensenaelcorazon@reas.red"
 
-#: templates/info/documents.html:17
+#: templates/info/documents.html:19
 msgid "Campaigns"
 msgstr "Campañas"
 
-#: templates/info/documents.html:27
+#: templates/info/documents.html:29
 msgid "Stamps"
 msgstr "Sellos"
 
