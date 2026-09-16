@@ -62,3 +62,15 @@ class SMTPServer(BaseModel):
 
     def __str__(self):
         return f"{self.network.name} SMTP"
+
+
+class SVGStamp(BaseModel):
+    name = models.CharField(_("Name"))
+    network = models.OneToOneField(
+        "settings.Network",
+        on_delete=models.CASCADE,
+        related_name="svg_stamp",
+        verbose_name=_("Network"),
+    )
+    campaign = models.ForeignKey("methods.campaign", on_delete=models.PROTECT)
+    svg = models.FileField(upload_to="stamps/", null=True, blank=True)

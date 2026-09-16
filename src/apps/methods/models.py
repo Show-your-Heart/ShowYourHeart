@@ -521,6 +521,9 @@ class Campaign(BaseModel):
             )
         super().delete(*args, **kwargs)
 
+    class Meta:
+        ordering = ["year"]
+
 
 class Survey(BaseModel):
     class Status(models.IntegerChoices):
