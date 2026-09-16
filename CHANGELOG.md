@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2026-09-14
+
+### 🚀 Features
+
+- Add download all balances button (#539)
+- Order documents view by year (#544)
+
+### 🐛 Bug Fixes
+
+- Download data in the app selected language (#530)
+- Add gendered numeric fields total calculation (#540)
+- Ignore not applicable indicators in calculations (#545)
+- Make method filter mandatory to download all surveys (#547)
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump django from 5.2.14 to 5.2.15 (#535)
+- Bump cryptography from 48.0.1 to 50.0.0 (#536)
+- Bump django from 5.2.15 to 5.2.16 (#541)
+- Bump sqlparse from 0.5.5 to 0.6.0 (#542)
+- Bump tablib from 3.9.0 to 3.10.0 (#543)
+- Update translations
+
 ## [0.4.0] - 2026-08-06
 
 ### 🚀 Features
@@ -21,11 +44,6 @@ All notable changes to this project will be documented in this file.
 
 - Allow to edit group auth permissions on superadmin (#515)
 - Update network permissions (#528)
-
-### ⚙️ Miscellaneous Tasks
-
-- Update CHANGELOG
-- Update translations
 
 ## [0.3.0] - 2026-07-09
 
@@ -74,6 +92,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump tar from 7.5.11 to 7.5.19 (#511)
+- Update CHANGELOG
 
 ## [0.2.0] - 2026-06-08
 

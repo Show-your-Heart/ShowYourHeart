@@ -128,14 +128,27 @@ def get_survey_stats(survey, method, campaign):
                         (
                             ii
                             for ii in indicator_results
-                            if i.code == ii.indicator.code and not ii.is_total
+                            if i.code == ii.indicator.code
+                            and not ii.is_total
+                            and not ii.not_applicable
                         ),
                         None,
                     )
-                    if indicator_result and (
-                        indicator_result.value or indicator_result.not_applicable
-                    ):
+                    na_indicator = next(
+                        (
+                            ii
+                            for ii in indicator_results
+                            if i.code == ii.indicator.code
+                            and not ii.is_total
+                            and ii.not_applicable
+                        ),
+                        None,
+                    )
+                    if indicator_result and indicator_result.value:
                         answered_indicators += 1
+                    if na_indicator:
+                        total_indicators -= 1
+                        total_section_indicators -= 1
 
                 total_answered__indicators += answered_indicators
 

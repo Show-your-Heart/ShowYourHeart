@@ -26,9 +26,11 @@ class DocumentsView(TemplateView):
         survey_names = sorted({s.method.name for s in surveys})
         context["survey_names"] = survey_names
 
-        campaigns = Campaign.objects.filter(
-            survey__organization=organization
-        ).distinct()
+        campaigns = (
+            Campaign.objects.filter(survey__organization=organization)
+            .distinct()
+            .order_by("year")
+        )
 
         table_rows = []
         for campaign in campaigns:
