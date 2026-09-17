@@ -6,6 +6,7 @@ from apps.organizations.views import (
     CreateOrganizationView,
     UpdateOrganizationView,
     create_project_action,
+    download_stamp,
     load_city,
     load_methods,
     load_region1,
@@ -30,5 +31,10 @@ urlpatterns = [
         _("<uuid:organization_id>/project/"),
         create_project_action,
         name="create_project",
+    ),
+    path(
+        "download-stamp/<uuid:organization_id>/<organization_vat>/<uuid:campaign_id>/<uuid:method_id>",
+        download_stamp,
+        name="download_stamp",
     ),
 ]

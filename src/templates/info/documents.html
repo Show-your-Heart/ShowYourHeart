@@ -25,9 +25,6 @@
                         </th>
                         {% endfor %}
 
-                        <th class="px-4 py-3 font-semibold text-white">
-                            <p class="flex justify-center items-center">{% translate "Stamps" %}</p>
-                        </th>
                     </tr>
                 </thead>
 
@@ -38,32 +35,35 @@
                             <p class="flex justify-center items-center">{{ row.campaign.name }}</p>
                         </td>
 
-                    {% for survey in row.cells %}
-                        <td class="px-4 py-3 text-gray-700">
-                        {% if survey %}
-                            <div class="flex items-center justify-center">
-                                <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}&language={{LANG}}" target="_blank">
-                                    <c-icon name="download" class="text-blue-600"></c-icon>
-                                </a>
-                                {% if row.has_evaluated %}
-                                <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}&method={{ survey.method.id }}&language={{LANG}}" target="_blank">
-                                    <c-icon name="pdf" class="text-blue-600"></c-icon>
-                                </a>
+                        {% for survey in row.cells %}
+                            <td class="px-4 py-3 text-gray-700">
+                                {% if survey %}
+                                    <div class="flex items-center justify-center">
+                                        <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}&language={{LANG}}" target="_blank">
+                                            <c-icon name="download" class="text-blue-600"></c-icon>
+                                        </a>
+                                        {% if row.has_evaluated %}
+                                        <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}&method={{ survey.method.id }}&language={{LANG}}" target="_blank">
+                                            <c-icon name="pdf" class="text-blue-600"></c-icon>
+                                        </a>
+                                        {% comment %} hx-ext="htmx-download" is used to allow htmx to download and display the notification message {% endcomment %}
+                                        {% comment %} if it's no added the file won't download {% endcomment %}
+                                        <button
+                                            hx-ext="htmx-download"
+                                            hx-get="{% url 'organizations:download_stamp' organization.id organization.vat_number row.campaign.id survey.method.id %}"
+                                            hx-swap="none"
+                                            class="cursor-pointer"
+                                        >
+                                            <c-icon name="stamp" class="text-blue-600 inline"></c-icon>
+                                        </button>
+                                      
+                                        {% endif %}
+                                    </div>
+                                {% else %}
+                                    <p class="flex justify-center items-center">-</p>
                                 {% endif %}
-                            </div>
-                        {% else %}
-                            <p class="flex justify-center items-center">-</p>
-                        {% endif %}
-                        </td>
-                    {% endfor %}
-
-                        <td class="px-4 py-3">
-                        {% if row.has_validated %}
-                            <p class="flex justify-center items-center">Stamp WIP</p>
-                        {% else %}
-                            <p class="flex justify-center items-center">-</p>
-                        {% endif %}   
-                        </td>
+                            </td>
+                        {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -72,3 +72,6 @@
         </div>
     </div>
 </c-default-layout>
+
+
+<script defer src="/assets/js/htmx-download.js"></script>
