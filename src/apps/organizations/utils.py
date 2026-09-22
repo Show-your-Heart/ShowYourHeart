@@ -16,11 +16,11 @@ def svg_to_png(svg_bytes: bytes, png_name):
 def get_png_stamp(vat_number, svg_network_stamp):
     # NOTE: the png won't have the policy configured on the svg
     # in order to have it, the policy must be installed on the docker container
-    nif_placeholder = "entity-vat"
+    vat_placeholder = "entity-vat"
 
     # Parse svg to get the entity-vat node
     tree = etree.parse(svg_network_stamp)
-    node = tree.xpath(f'//*[@id="{nif_placeholder}"]')
+    node = tree.xpath(f'//*[@id="{vat_placeholder}"]')
 
     if not node:
         raise Exception("node does not exist")
