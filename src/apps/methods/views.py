@@ -16,6 +16,7 @@ from unfold.views import UnfoldModelAdminViewMixin
 from apps.geodata.models import Region1
 from apps.methods.forms import InvitationCreationForm
 from apps.methods.mixins import MethodFillMixin
+from apps.settings.models import Network
 from project.utils.mixins import NetworkFilterMixin
 
 from .helpers import (
@@ -305,6 +306,9 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         unit_of_analysis = []
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
+        networks = []
+        for net in Network.objects.all():
+            networks.append({"id": net.id, "name": net.name})
 
         campaigns = Campaign.objects.filter(status=True)
         for c in campaigns:
@@ -320,6 +324,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         context["campaigns"] = campaigns
         context["regions"] = Region1.objects.all()
         context["methods"] = methods
+        context["networks"] = networks
         context["unitanalysis"] = unit_of_analysis
         context["status"] = all_status
 
@@ -329,6 +334,7 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         context["campaign_filter"] = self.request.GET.get("campaign") or ""
         context["region1_filter"] = self.request.GET.get("region1") or ""
         context["method_filter"] = self.request.GET.get("method") or ""
+        context["network_filter"] = self.request.GET.get("network") or ""
         context["status_filter"] = self.request.GET.get("status") or ""
         context["unit_analysis_filter"] = self.request.GET.get("unitanalysis") or ""
 
