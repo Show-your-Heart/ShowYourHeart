@@ -172,7 +172,9 @@ class RegistrationRequestView(
             organizations = organizations.filter(name__contains=query_filter)
             context["query_filter"] = query_filter
 
-        organizations = self.filter_queryset_by_network(self.request, organizations)
+        organizations = self.filter_queryset_by_network(
+            self.request, organizations
+        ).order_by(self.get_request_order())
 
         context["organizations"] = organizations
         return context
