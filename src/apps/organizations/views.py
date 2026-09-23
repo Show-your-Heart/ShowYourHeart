@@ -15,10 +15,12 @@ from apps.organizations.forms import (
     OrganizationSignUpForm,
     OrganizationUpdateForm,
 )
+from apps.settings.models import Network, SVGStamp
 from project.utils.mixins import NetworkFilterMixin
 
 from .helpers import filter_methods_by_legal_structure, get_methods_for_region1
 from .models import Organization, Project
+from .utils import get_png_stamp
 
 
 @method_decorator(login_not_required, name="dispatch")
@@ -177,8 +179,32 @@ class RegistrationRequestView(
         context["organizations"] = organizations
         return context
 
-    def get_request_order(self):
-        order = self.request.GET.get("o")
-        if not order:
-            order = "-created_at"
-        return order
+
+def download_stamp(request, organization_id, organization_vat, campaign_id, method_id):
+    networks = Network.objects.filter(
+        organizations__id__contains=organization_id,
+        methods__id__contains=method_id,
+    )
+    for network in networks:
+        svg_network_stamp = SVGStamp.objects.filter(
+            network=network, campaign_id=campaign_id
+        )
+        if svg_network_stamp:
+            png_bytes = get_png_stamp(organization_vat, svg_network_stamp.first().svg)
+
+            response = HttpResponse(png_bytes, content_type="image/png")
+            response["Content-Disposition"] = (
+                f'attachment; filename="{organization_vat}.png"'
+            )
+            return response
+
+    msg = _("The stamp has not been configured. Please notify your network.")
+    return HttpResponse(
+        "",
+        headers={
+            "HX-Trigger": "{ "
+            + '"notification": { "type": "error", "text": "'
+            + msg
+            + '" } }',
+        },
+    )
