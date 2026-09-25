@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 {% get_current_language as LANG %}
 
@@ -42,7 +42,7 @@
                                         <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{ row.campaign.id }}&method={{ survey.method.id }}&organization={{ organization.id }}&language={{LANG}}" target="_blank">
                                             <c-icon name="download" class="text-blue-600"></c-icon>
                                         </a>
-                                        {% if row.has_evaluated %}
+                                        {% if survey.evaluated_date %}
                                         <a href="https://show-your-heart-data.devs.coop/sub/syhrespuestas?organization={{ organization.id }}&campaign={{ row.campaign.id }}&method={{ survey.method.id }}&language={{LANG}}" target="_blank">
                                             <c-icon name="pdf" class="text-blue-600"></c-icon>
                                         </a>
@@ -73,5 +73,4 @@
     </div>
 </c-default-layout>
 
-
-<script defer src="/assets/js/htmx-download.js"></script>
+<script defer src="{% static 'js/htmx-download.js' %}"></script>
