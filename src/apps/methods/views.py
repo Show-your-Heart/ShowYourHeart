@@ -307,7 +307,10 @@ class BalanceReviewView(UnfoldModelAdminViewMixin, ListView, NetworkFilterMixin)
         for ua in Method.UnitAnalysis:
             unit_of_analysis.append({"id": ua.value, "name": ua.label})
         networks = []
-        for net in Network.objects.all():
+        filtered_networks = self.filter_queryset_by_network(
+            self.request, Network.objects.all()
+        )
+        for net in filtered_networks:
             networks.append({"id": net.id, "name": net.name})
 
         campaigns = Campaign.objects.filter(status=True)
