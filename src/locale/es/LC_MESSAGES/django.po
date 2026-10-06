@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-14 13:24+0200\n"
+"POT-Creation-Date: 2026-10-06 12:38+0200\n"
 "PO-Revision-Date: 2026-05-05 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,7 +47,7 @@ msgstr "código postal"
 msgid "Balance successfuly updated."
 msgstr "Balance correctamente actualizado."
 
-#: apps/methods/admin.py:648 apps/methods/views.py:441
+#: apps/methods/admin.py:648 apps/methods/views.py:445
 msgid "An email to the contact has been sent."
 msgstr "Se ha enviado un correo electrónico al contacto."
 
@@ -76,18 +76,18 @@ msgid "Send invitations"
 msgstr "Mandar invitaciones"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
-#: apps/methods/models.py:495 apps/methods/models.py:628
-#: apps/methods/models.py:676 apps/organizations/forms.py:28
+#: apps/methods/models.py:495 apps/methods/models.py:631
+#: apps/methods/models.py:679 apps/organizations/forms.py:28
 #: apps/organizations/forms.py:44 apps/organizations/forms.py:272
-#: templates/admin/methods/survey_review.html:40
+#: apps/settings/models.py:68 templates/admin/methods/survey_review.html:40
 #: templates/admin/methods/survey_review.html:125
-#: templates/admin/organizations/registration_requests.html:38
+#: templates/admin/organizations/registration_requests.html:44
 #: templates/components/methods/invitations_table.html:8
 msgid "Name"
 msgstr "Nombre"
 
 #: apps/methods/forms.py:158 apps/methods/forms.py:159
-#: apps/methods/models.py:677
+#: apps/methods/models.py:680
 msgid "Surnames"
 msgstr "Apellidos"
 
@@ -412,7 +412,7 @@ msgstr "Activo"
 msgid "Methods"
 msgstr "Métodos"
 
-#: apps/methods/models.py:507 apps/methods/models.py:567
+#: apps/methods/models.py:507 apps/methods/models.py:570
 #: apps/organizations/forms.py:427 apps/organizations/models.py:220
 #: templates/admin/methods/survey_review.html:138
 msgid "Start date"
@@ -427,76 +427,76 @@ msgstr "Fecha de finalización"
 msgid "This campaign has already been used and cannot be deleted."
 msgstr "Esta campaña ya se ha utilizado y no se puede eliminar."
 
-#: apps/methods/models.py:529
+#: apps/methods/models.py:532
 msgid "Open"
 msgstr "Abierto"
 
-#: apps/methods/models.py:533
+#: apps/methods/models.py:536
 msgid "Closed"
 msgstr "Cerrado"
 
-#: apps/methods/models.py:537
+#: apps/methods/models.py:540
 msgid "Tech validated"
 msgstr "Validado técnico"
 
-#: apps/methods/models.py:541
+#: apps/methods/models.py:544
 msgid "Quality checked"
 msgstr "Validado criterio"
 
-#: apps/methods/models.py:548
+#: apps/methods/models.py:551
 msgid "Token"
 msgstr "Ficha"
 
-#: apps/methods/models.py:568
+#: apps/methods/models.py:571
 msgid "Closed date"
 msgstr "Fecha de cierre"
 
-#: apps/methods/models.py:569
+#: apps/methods/models.py:572
 msgid "Modified date"
 msgstr "Fecha de modificación"
 
-#: apps/methods/models.py:570
+#: apps/methods/models.py:573
 msgid "Validated date"
 msgstr "Fecha de validación"
 
-#: apps/methods/models.py:571
+#: apps/methods/models.py:574
 msgid "Evaluated date"
 msgstr "Fecha de evaluación"
 
-#: apps/methods/models.py:610
+#: apps/methods/models.py:613
 msgid "Is total?"
 msgstr "¿Es el total?"
 
-#: apps/methods/models.py:612
+#: apps/methods/models.py:615
 msgid "Set instance number"
 msgstr "Establecer número de instancia"
 
-#: apps/methods/models.py:616
+#: apps/methods/models.py:619
 msgid "not applicable"
 msgstr "no aplicable"
 
-#: apps/methods/models.py:679
+#: apps/methods/models.py:682
 msgid "email address"
 msgstr "dirección de correo electrónico"
 
-#: apps/methods/models.py:688
+#: apps/methods/models.py:691
 msgid "Send date"
 msgstr "Fecha de envío"
 
-#: apps/methods/models.py:711
+#: apps/methods/models.py:714
 msgid "Title"
 msgstr "Titulo"
 
-#: apps/methods/models.py:713
+#: apps/methods/models.py:716
 msgid "Display section title?"
 msgstr "¿Mostrar título de sección?"
 
-#: apps/methods/models.py:716 apps/organizations/forms.py:33
+#: apps/methods/models.py:719 apps/organizations/forms.py:33
 #: apps/organizations/forms.py:277
 msgid "Description"
 msgstr "Descripción"
 
-#: apps/methods/models.py:720
+#: apps/methods/models.py:723
 msgid "order"
 msgstr "orden"
 
@@ -547,13 +547,13 @@ msgstr "El CSV ha sido importado correctamente."
 msgid "There is no CSV file selected to import."
 msgstr ""
 
-#: apps/methods/views.py:419
+#: apps/methods/views.py:423
 msgid "Error creating contact. Contact your network admin."
 msgstr ""
 "Se ha producido un error al crear el contacto. Ponte en contacto con el "
 "administrador de la red."
 
-#: apps/methods/views.py:432
+#: apps/methods/views.py:436
 msgid "An email to all the involved contacts has been sent."
 msgstr "Se ha enviado un correo electrónico a todos los contactos implicados."
 
@@ -571,7 +571,7 @@ msgstr "Descripción de la organización"
 
 #: apps/organizations/forms.py:37 apps/organizations/forms.py:39
 #: apps/organizations/forms.py:281 apps/organizations/forms.py:283
-#: templates/admin/organizations/registration_requests.html:33
+#: templates/admin/organizations/registration_requests.html:34
 msgid "VAT Number"
 msgstr "Numero de CIF"
 
@@ -609,7 +609,7 @@ msgid "Country"
 msgstr "País"
 
 #: apps/organizations/forms.py:93 apps/organizations/forms.py:327
-#: templates/admin/organizations/registration_requests.html:48
+#: templates/admin/organizations/registration_requests.html:50
 msgid "City"
 msgstr "Ciudad"
 
@@ -835,41 +835,43 @@ msgstr "Forma jurídica principal"
 msgid "Secondary legal entity type"
 msgstr "Forma jurídica secundaria"
 
-#: apps/organizations/urls.py:18
+#: apps/organizations/urls.py:19
 msgid "sign-up/"
 msgstr "registrarse"
 
-#: apps/organizations/urls.py:20
+#: apps/organizations/urls.py:21
 msgid "sign-up/success"
 msgstr "registrarse/exito"
 
-#: apps/organizations/urls.py:28
+#: apps/organizations/urls.py:29
 msgid "update/<pk>"
 msgstr "actualizar/<pk>"
 
-#: apps/organizations/urls.py:30
+#: apps/organizations/urls.py:31
 msgid "<uuid:organization_id>/project/"
 msgstr "<uuid:organization_id>/proyecto/"
 
-#: apps/organizations/views.py:137
+#: apps/organizations/views.py:139
 msgid "Error creating project. Contact your network admin."
 msgstr ""
 "Se ha producido un error al crear el proyecto. Ponte en contacto con el "
 "administrador de la red."
 
+#: apps/organizations/views.py:201
+msgid "The stamp has not been configured. Please notify your network."
+msgstr ""
+
 #: apps/settings/models.py:25
 msgid "network type"
 msgstr "tipo de red"
 
-#: apps/settings/models.py:54
+#: apps/settings/models.py:54 apps/settings/models.py:73
 msgid "Network"
 msgstr "Red"
 
 #: apps/settings/models.py:56
-#, fuzzy
-#| msgid "Contact email"
 msgid "From email"
-msgstr "Correo electrónico de contacto"
+msgstr ""
 
 #: apps/settings/models.py:57
 msgid "Host"
@@ -1018,10 +1020,8 @@ msgid "Simple balance"
 msgstr "Balance simple"
 
 #: templates/admin/methods/survey_review.html:23
-#, fuzzy
-#| msgid "Go to balance"
 msgid "Download balances"
-msgstr "Ir al balance"
+msgstr "Descargar el balance"
 
 #: templates/admin/methods/survey_review.html:31
 msgid "Filter by"
@@ -1076,7 +1076,7 @@ msgid "Next"
 msgstr "Siguiente"
 
 #: templates/admin/methods/survey_review.html:103
-#: templates/admin/organizations/registration_requests.html:28
+#: templates/admin/organizations/registration_requests.html:29
 msgid "Select all rows"
 msgstr "Seleccionar todas las filas"
 
@@ -1128,23 +1128,23 @@ msgstr "Sí, estoy seguro"
 msgid "No, cancel"
 msgstr "No, cancelar"
 
-#: templates/admin/organizations/registration_requests.html:4
+#: templates/admin/organizations/registration_requests.html:5
 msgid "Features"
 msgstr "Características"
 
-#: templates/admin/organizations/registration_requests.html:6
+#: templates/admin/organizations/registration_requests.html:7
 msgid "Register requests"
 msgstr "Registrar solicitudes"
 
-#: templates/admin/organizations/registration_requests.html:18
+#: templates/admin/organizations/registration_requests.html:19
 msgid "Type to search"
 msgstr "Escriba para buscar"
 
-#: templates/admin/organizations/registration_requests.html:43
+#: templates/admin/organizations/registration_requests.html:47
 msgid "Requested methods"
 msgstr "Métodos solicitados"
 
-#: templates/admin/organizations/registration_requests.html:53
+#: templates/admin/organizations/registration_requests.html:54
 msgid "Aplication date"
 msgstr "Fecha de solicitud"
 
@@ -1527,7 +1527,7 @@ msgid "Organisation logo"
 msgstr "Logo de la organización"
 
 #: templates/home.html:29
-msgid "Modificar datos entidad"
+msgid "Update entity data"
 msgstr "Modificar datos entidad"
 
 #: templates/home.html:38
@@ -1562,10 +1562,6 @@ msgstr ""
 #: templates/info/documents.html:19
 msgid "Campaigns"
 msgstr "Campañas"
-
-#: templates/info/documents.html:29
-msgid "Stamps"
-msgstr "Sellos"
 
 #: templates/info/good_practices.html:11
 msgid ""
@@ -1850,6 +1846,3 @@ msgstr ""
 #: templates/registration/user_validation_confirm.html:6
 msgid "New password"
 msgstr "Nueva contraseña"
-
-#~ msgid "Infographics"
-#~ msgstr "Infografías"
