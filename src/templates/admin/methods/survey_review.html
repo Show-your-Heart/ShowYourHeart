@@ -16,8 +16,8 @@
     <h1 class="mb-2 text-black font-bold text-2xl">{% trans 'Balance review'%}</h1>
     <div class="mb-4 flex justify-between items-center">
         <h2 class="text-black text-lg">{% trans 'Simple balance'%}</h2>
-        {% if campaign_filter != '' and method_filter != '' %}
-        <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{campaign_filter}}&method={{method_filter}}&language={{LANG}}">
+        {% if campaign_filter != '' and method_filter != '' and network_filter != '' %}
+        <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{campaign_filter}}&method={{method_filter}}&network={{network_filter}}&language={{LANG}}">
             <c-button class="flex justify-center items-center gap-2 max-w-[300px]" variant="outlined">
                 <c-icon name="download"></c-icon>
                 {% trans 'Download balances' %}
@@ -32,6 +32,7 @@
             <c-forms.dropdown class="grow" id="filter-campaign" name="campaign" label="{% trans 'Campaign' %}" :options="campaigns" :showLabel="True" :optionSelected="campaign_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-region" name="region1" label="{% trans 'Region' %}" :options="regions" :showLabel="True" :optionSelected="region1_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-method" name="method" label="{% trans 'Method' %}" :options="methods" :showLabel="True" :optionSelected="method_filter"></c-forms.dropdown>
+            <c-forms.dropdown class="grow" id="filter-network" name="network" label="{% trans 'Network' %}" :options="networks" :showLabel="True" :optionSelected="network_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-status" name="status" label="{% trans 'Status' %}" :options="status" :showLabel="True" :optionSelected="status_filter"></c-forms.dropdown>
             <c-forms.dropdown class="grow" id="filter-unitanalysis" name="unitanalysis" label="{% trans 'Unit of analysis' %}" :options="unitanalysis" :showLabel="True" :optionSelected="unit_analysis_filter"></c-forms.dropdown>
         </div>
