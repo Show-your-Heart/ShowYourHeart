@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2026-10-23
+
+### 🚀 Features
+
+- Order registration requests (#552)
+- Download stamp (#551)
+
+### 🐛 Bug Fixes
+
+- Download stamp (#555)
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+- Bump geopy from 2.4.1 to 2.5.0 (#556)
+- Bump werkzeug from 3.1.6 to 3.1.9 (#557)
+- Bump source-map-js from 1.2.1 to 1.2.2 (#559)
+- Bump urllib3 from 2.7.0 to 2.8.0 (#558)
+
 ## [0.5.0] - 2026-09-14
 
 ### 🚀 Features
@@ -24,6 +43,8 @@ All notable changes to this project will be documented in this file.
 - Bump sqlparse from 0.5.5 to 0.6.0 (#542)
 - Bump tablib from 3.9.0 to 3.10.0 (#543)
 - Update translations
+- Update changelog
+- Ignore changelog commits
 
 ## [0.4.0] - 2026-08-06
 
