@@ -179,6 +179,12 @@ class RegistrationRequestView(
         context["organizations"] = organizations
         return context
 
+    def get_request_order(self):
+        order = self.request.GET.get("o")
+        if not order:
+            order = "-created_at"
+        return order
+
 
 def download_stamp(request, organization_id, organization_vat, campaign_id, method_id):
     networks = Network.objects.filter(
