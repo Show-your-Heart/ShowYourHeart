@@ -84,6 +84,7 @@ RUN poetry install --no-root
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends -y \
   gettext curl \
+  libcairo2 \
   # Install nvm to use it to install npm:
   && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
   && export NVM_DIR="$HOME/.nvm" \

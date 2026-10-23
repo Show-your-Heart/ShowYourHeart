@@ -379,10 +379,10 @@ expected_sites:
 
 You can also add domains via django admin Site model directly to the database.
 
-If you're not running Ansible locally, add the variable manually to your local settings.py file, e.g.:
+If you're not running Ansible locally, add the variable manually executing the following command:
 
-```python
-EXPECTED_SITES=[("localhost:1601", "Local")]
+```bash
+python manage.py shell -c "from django.contrib.sites.models import Site; Site.objects.get_or_create(domain='localhost:1601', defaults={'name': 'Local'})"
 ```
 
 ## Versions

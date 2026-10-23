@@ -6,7 +6,7 @@ from project.admin import ModelAdmin, gov_admin_site
 from project.decorators import gov_admin_register, register_with_default_templates
 from project.utils.mixins import NetworkFilterMixin
 
-from .models import LegalStructure, Network, Sector, SMTPServer
+from .models import LegalStructure, Network, Sector, SMTPServer, SVGStamp
 
 
 # Add superadmin views with default Unfold templates
@@ -85,4 +85,17 @@ class SMTPServerAdmin(NetworkFilterMixin, ModelAdmin):
         "protocol",
         "username",
         "password",
+    )
+
+
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=SVGStamp)
+# Add admin views with custom templates
+@gov_admin_register(gov_admin_site, model=SVGStamp)
+class SVGStampAdmin(NetworkFilterMixin, ModelAdmin):
+    list_display = (
+        "name",
+        "network",
+        "campaign",
+        "svg",
     )

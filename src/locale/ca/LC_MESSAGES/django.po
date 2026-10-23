@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-14 13:24+0200\n"
+"POT-Creation-Date: 2026-10-06 12:38+0200\n"
 "PO-Revision-Date: 2026-05-05 13:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,7 +47,7 @@ msgstr "codis postals"
 msgid "Balance successfuly updated."
 msgstr "Balanç actualitzat amb èxit."
 
-#: apps/methods/admin.py:648 apps/methods/views.py:441
+#: apps/methods/admin.py:648 apps/methods/views.py:445
 msgid "An email to the contact has been sent."
 msgstr "S'ha enviat un mail al contacte."
 
@@ -76,18 +76,18 @@ msgid "Send invitations"
 msgstr "Enviar invitacions"
 
 #: apps/methods/forms.py:154 apps/methods/forms.py:155
-#: apps/methods/models.py:495 apps/methods/models.py:628
-#: apps/methods/models.py:676 apps/organizations/forms.py:28
+#: apps/methods/models.py:495 apps/methods/models.py:631
+#: apps/methods/models.py:679 apps/organizations/forms.py:28
 #: apps/organizations/forms.py:44 apps/organizations/forms.py:272
-#: templates/admin/methods/survey_review.html:40
+#: apps/settings/models.py:68 templates/admin/methods/survey_review.html:40
 #: templates/admin/methods/survey_review.html:125
-#: templates/admin/organizations/registration_requests.html:38
+#: templates/admin/organizations/registration_requests.html:44
 #: templates/components/methods/invitations_table.html:8
 msgid "Name"
 msgstr "Nom"
 
 #: apps/methods/forms.py:158 apps/methods/forms.py:159
-#: apps/methods/models.py:677
+#: apps/methods/models.py:680
 msgid "Surnames"
 msgstr "Cognom"
 
@@ -411,7 +411,7 @@ msgstr "Actiu"
 msgid "Methods"
 msgstr "Mètodes"
 
-#: apps/methods/models.py:507 apps/methods/models.py:567
+#: apps/methods/models.py:507 apps/methods/models.py:570
 #: apps/organizations/forms.py:427 apps/organizations/models.py:220
 #: templates/admin/methods/survey_review.html:138
 msgid "Start date"
@@ -426,76 +426,76 @@ msgstr "Data de finalització"
 msgid "This campaign has already been used and cannot be deleted."
 msgstr "Aquest campanya ja s'ha utilitzat i no pot ser suprimida."
 
-#: apps/methods/models.py:529
+#: apps/methods/models.py:532
 msgid "Open"
 msgstr "Obert"
 
-#: apps/methods/models.py:533
+#: apps/methods/models.py:536
 msgid "Closed"
 msgstr "Tancat"
 
-#: apps/methods/models.py:537
+#: apps/methods/models.py:540
 msgid "Tech validated"
 msgstr "Validat tècnic"
 
-#: apps/methods/models.py:541
+#: apps/methods/models.py:544
 msgid "Quality checked"
 msgstr "Validat criteri"
 
-#: apps/methods/models.py:548
+#: apps/methods/models.py:551
 msgid "Token"
 msgstr "Testimoni"
 
-#: apps/methods/models.py:568
+#: apps/methods/models.py:571
 msgid "Closed date"
 msgstr "Data de tancament"
 
-#: apps/methods/models.py:569
+#: apps/methods/models.py:572
 msgid "Modified date"
 msgstr "Data de modificació"
 
-#: apps/methods/models.py:570
+#: apps/methods/models.py:573
 msgid "Validated date"
 msgstr "Data de validació"
 
-#: apps/methods/models.py:571
+#: apps/methods/models.py:574
 msgid "Evaluated date"
 msgstr "Data d'avaluació"
 
-#: apps/methods/models.py:610
+#: apps/methods/models.py:613
 msgid "Is total?"
 msgstr "És un total?"
 
-#: apps/methods/models.py:612
+#: apps/methods/models.py:615
 msgid "Set instance number"
 msgstr "Estableix el número d'instància"
 
-#: apps/methods/models.py:616
+#: apps/methods/models.py:619
 msgid "not applicable"
 msgstr "no aplicable"
 
-#: apps/methods/models.py:679
+#: apps/methods/models.py:682
 msgid "email address"
 msgstr "adreça de correu electrònic"
 
-#: apps/methods/models.py:688
+#: apps/methods/models.py:691
 msgid "Send date"
 msgstr "Data d'enviament"
 
-#: apps/methods/models.py:711
+#: apps/methods/models.py:714
 msgid "Title"
 msgstr "Títol"
 
-#: apps/methods/models.py:713
+#: apps/methods/models.py:716
 msgid "Display section title?"
 msgstr ""
 
-#: apps/methods/models.py:716 apps/organizations/forms.py:33
+#: apps/methods/models.py:719 apps/organizations/forms.py:33
 #: apps/organizations/forms.py:277
 msgid "Description"
 msgstr "Descripció"
 
-#: apps/methods/models.py:720
+#: apps/methods/models.py:723
 msgid "order"
 msgstr "ordre"
 
@@ -546,11 +546,11 @@ msgstr "El CSV s'ha importat correctament."
 msgid "There is no CSV file selected to import."
 msgstr "No hi ha cap fitxer CSV seleccionat per importar."
 
-#: apps/methods/views.py:419
+#: apps/methods/views.py:423
 msgid "Error creating contact. Contact your network admin."
 msgstr "Error creant el contacte. Contacti amb el seu administrador de xarxa."
 
-#: apps/methods/views.py:432
+#: apps/methods/views.py:436
 msgid "An email to all the involved contacts has been sent."
 msgstr "S'ha enviat un mail a tots els contactes seleccionats."
 
@@ -568,7 +568,7 @@ msgstr "Descripció de l'organització"
 
 #: apps/organizations/forms.py:37 apps/organizations/forms.py:39
 #: apps/organizations/forms.py:281 apps/organizations/forms.py:283
-#: templates/admin/organizations/registration_requests.html:33
+#: templates/admin/organizations/registration_requests.html:34
 msgid "VAT Number"
 msgstr "Número CIF"
 
@@ -606,7 +606,7 @@ msgid "Country"
 msgstr "País"
 
 #: apps/organizations/forms.py:93 apps/organizations/forms.py:327
-#: templates/admin/organizations/registration_requests.html:48
+#: templates/admin/organizations/registration_requests.html:50
 msgid "City"
 msgstr "Ciutat"
 
@@ -832,39 +832,41 @@ msgstr "Forma jurídica principal"
 msgid "Secondary legal entity type"
 msgstr "Forma jurídica secundària"
 
-#: apps/organizations/urls.py:18
+#: apps/organizations/urls.py:19
 msgid "sign-up/"
 msgstr "registre"
 
-#: apps/organizations/urls.py:20
+#: apps/organizations/urls.py:21
 msgid "sign-up/success"
 msgstr "registre/correctament"
 
-#: apps/organizations/urls.py:28
+#: apps/organizations/urls.py:29
 msgid "update/<pk>"
 msgstr "actualitzat/<pk>"
 
-#: apps/organizations/urls.py:30
+#: apps/organizations/urls.py:31
 msgid "<uuid:organization_id>/project/"
 msgstr "<uuid:organization_id>/projecte/"
 
-#: apps/organizations/views.py:137
+#: apps/organizations/views.py:139
 msgid "Error creating project. Contact your network admin."
 msgstr "Error creant projecte. Contacti el seu administrador de xarxa."
+
+#: apps/organizations/views.py:201
+msgid "The stamp has not been configured. Please notify your network."
+msgstr ""
 
 #: apps/settings/models.py:25
 msgid "network type"
 msgstr "tipus de xarxa"
 
-#: apps/settings/models.py:54
+#: apps/settings/models.py:54 apps/settings/models.py:73
 msgid "Network"
 msgstr "Xarxa"
 
 #: apps/settings/models.py:56
-#, fuzzy
-#| msgid "Contact email"
 msgid "From email"
-msgstr "Email de la persona de referència del projecte"
+msgstr ""
 
 #: apps/settings/models.py:57
 msgid "Host"
@@ -1012,10 +1014,8 @@ msgid "Simple balance"
 msgstr "Balanç bàsic"
 
 #: templates/admin/methods/survey_review.html:23
-#, fuzzy
-#| msgid "Go to balance"
 msgid "Download balances"
-msgstr "Anar al balanç"
+msgstr ""
 
 #: templates/admin/methods/survey_review.html:31
 msgid "Filter by"
@@ -1069,7 +1069,7 @@ msgid "Next"
 msgstr "Següent"
 
 #: templates/admin/methods/survey_review.html:103
-#: templates/admin/organizations/registration_requests.html:28
+#: templates/admin/organizations/registration_requests.html:29
 msgid "Select all rows"
 msgstr "Seleccionar totes les files"
 
@@ -1121,23 +1121,23 @@ msgstr "Si, estic segur"
 msgid "No, cancel"
 msgstr "No, cancel·la"
 
-#: templates/admin/organizations/registration_requests.html:4
+#: templates/admin/organizations/registration_requests.html:5
 msgid "Features"
 msgstr "Funcions"
 
-#: templates/admin/organizations/registration_requests.html:6
+#: templates/admin/organizations/registration_requests.html:7
 msgid "Register requests"
 msgstr "Sol·licituds de registre"
 
-#: templates/admin/organizations/registration_requests.html:18
+#: templates/admin/organizations/registration_requests.html:19
 msgid "Type to search"
 msgstr "Escriu per cercar"
 
-#: templates/admin/organizations/registration_requests.html:43
+#: templates/admin/organizations/registration_requests.html:47
 msgid "Requested methods"
 msgstr "Mètodes sol·licitats"
 
-#: templates/admin/organizations/registration_requests.html:53
+#: templates/admin/organizations/registration_requests.html:54
 msgid "Aplication date"
 msgstr "Data de registre"
 
@@ -1519,7 +1519,7 @@ msgid "Organisation logo"
 msgstr "Logo de l'organització"
 
 #: templates/home.html:29
-msgid "Modificar datos entidad"
+msgid "Update entity data"
 msgstr "Modificar dades de l’entitat"
 
 #: templates/home.html:38
@@ -1555,10 +1555,6 @@ msgstr ""
 #: templates/info/documents.html:19
 msgid "Campaigns"
 msgstr "Campanya"
-
-#: templates/info/documents.html:29
-msgid "Stamps"
-msgstr "Segells"
 
 #: templates/info/good_practices.html:11
 msgid ""
