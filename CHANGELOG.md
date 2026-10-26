@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2026-10-23
+
+### 🐛 Bug Fixes
+
+- Restore missing method
+
 ## [0.6.0] - 2026-10-23
 
 ### 🚀 Features
@@ -20,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - Bump werkzeug from 3.1.6 to 3.1.9 (#557)
 - Bump source-map-js from 1.2.1 to 1.2.2 (#559)
 - Bump urllib3 from 2.7.0 to 2.8.0 (#558)
+- Update changelog
 
 ## [0.5.0] - 2026-09-14
 
