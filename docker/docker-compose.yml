@@ -34,7 +34,7 @@ services:
       - "127.0.0.1:1601:8000"
     volumes:
       - ../src:/srv/src
-      - ../media:/srv/media
+      - /home/django/media:/srv/media 
     depends_on:
       showyourheart-db:
         condition: service_healthy
