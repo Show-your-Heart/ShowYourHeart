@@ -2,11 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.2] - 2026-11-10
+
+### 🐛 Bug Fixes
+
+- Move media location
+- Language parameter
+- Restore language parameter partialy
+
 ## [0.6.1] - 2026-10-23
 
 ### 🐛 Bug Fixes
 
 - Restore missing method
+
+### ⚙️ Miscellaneous Tasks
+
+- Update changelog
 
 ## [0.6.0] - 2026-10-23
 
