@@ -17,7 +17,7 @@
     <div class="mb-4 flex justify-between items-center">
         <h2 class="text-black text-lg">{% trans 'Simple balance'%}</h2>
         {% if campaign_filter != '' and method_filter != '' %}
-        <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{campaign_filter}}&method={{method_filter}}&lang={{LANG}}">
+        <a href="https://show-your-heart-data.devs.coop/apidata/export-answers?campaign={{campaign_filter}}&method={{method_filter}}&language={{LANG}}">
             <c-button class="flex justify-center items-center gap-2 max-w-[300px]" variant="outlined">
                 <c-icon name="download"></c-icon>
                 {% trans 'Download balances' %}
